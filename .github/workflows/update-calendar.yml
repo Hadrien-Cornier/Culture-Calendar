@@ -1,0 +1,47 @@
+name: Update Culture Calendar
+
+on:
+  schedule:
+    # Run every Saturday at 9 PM UTC (4 PM CST / 3 PM CDT in Austin)
+    - cron: '0 21 * * 6'
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  update-calendar:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run calendar update
+      env:
+        PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+      run: |
+        python update_website_data.py
+        
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+    - name: Commit and push changes
+      run: |
+        git add docs/data.json docs/calendars/
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "🤖 Update calendar data - $(date -u +%Y-%m-%d)"
+          git push
+        fi

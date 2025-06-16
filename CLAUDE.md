@@ -133,3 +133,24 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 - Responsive design for mobile and desktop
 - Accessible interface with clear typography
 - Fast loading with minimal dependencies
+
+### GitHub Pages Setup Instructions
+
+1. **Enable GitHub Pages:**
+   - Go to repository Settings > Pages
+   - Set Source to "Deploy from a branch"
+   - Select "main" branch and "/docs" folder
+   - Save settings
+
+2. **Configure Secrets:**
+   - Go to repository Settings > Secrets and variables > Actions
+   - Add `PERPLEXITY_API_KEY` secret with your API key
+
+3. **Manual Workflow Trigger:**
+   - Go to Actions tab
+   - Select "Update Culture Calendar" workflow
+   - Click "Run workflow" to test
+
+4. **View Website:**
+   - Website will be available at: `https://[username].github.io/Culture-Calendar/`
+   - Updates automatically every Saturday at 9 PM UTC

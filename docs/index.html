@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culture Calendar - Austin Film Society Events</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎬 Culture Calendar</h1>
+            <p class="subtitle">Curated Austin Film Society Events</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Disclaimer Section -->
+        <section class="disclaimer">
+            <p><strong>Note:</strong> Ratings reflect personal preferences and are not official AFS ratings. 
+            Only includes screenings outside of work hours (9am-6pm weekdays). 
+            All events sourced from <a href="https://www.austinfilm.org" target="_blank">Austin Film Society</a>.</p>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <h2>📅 Download Calendar</h2>
+            <div class="filter-controls">
+                <label for="rating-slider">Minimum Rating: <span id="rating-value">1</span>/10</label>
+                <input type="range" id="rating-slider" min="1" max="10" value="1" class="slider">
+                <button id="download-btn" class="download-button">Download Calendar (.ics)</button>
+            </div>
+        </section>
+
+        <!-- Movies List Section -->
+        <section class="movies-section">
+            <h2>🎭 Upcoming Movies</h2>
+            <div id="loading" class="loading">Loading movie data...</div>
+            <div id="movies-list" class="movies-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Built with ❤️ for Austin film lovers | Data updated weekly</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
