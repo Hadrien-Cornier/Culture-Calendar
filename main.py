@@ -11,7 +11,7 @@ from src.scraper import AFSScraper
 from src.processor import EventProcessor
 from src.calendar_generator import CalendarGenerator
 
-def main(debug=False):
+def main(debug=False, limit=None):
     print(f"Culture Calendar - Starting at {datetime.now()}")
     
     try:
@@ -38,6 +38,10 @@ def main(debug=False):
             # In debug mode, only process the first event
             events = events[:1]
             print(f"DEBUG MODE: Processing only first event")
+        elif limit:
+            # Limit number of events to process
+            events = events[:limit]
+            print(f"LIMIT MODE: Processing first {limit} events")
         enriched_events = processor.process_events(events)
         print(f"Processed {len(enriched_events)} events")
         
@@ -52,6 +56,13 @@ def main(debug=False):
         sys.exit(1)
 
 if __name__ == "__main__":
-    # Check for debug mode
+    # Check for debug mode and limit
     debug_mode = len(sys.argv) > 1 and sys.argv[1] == '--debug'
-    main(debug=debug_mode)
+    limit = None
+    
+    # Check for limit parameter like --limit=10
+    for arg in sys.argv[1:]:
+        if arg.startswith('--limit='):
+            limit = int(arg.split('=')[1])
+    
+    main(debug=debug_mode, limit=limit)

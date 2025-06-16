@@ -77,3 +77,59 @@ Generated ICS files are named `afs_calendar_YYYYMMDD_HHMM.ics` and include:
 - Comprehensive descriptions with AI summaries and rating explanations
 - Special screening indicators (✨)
 - Direct links to original event pages
+
+## Phase 2: Website Project
+
+### Overview
+A simple GitHub Pages website to make the Austin Film Society calendar accessible to the public. The site will provide downloadable .ics calendar files with rating-based filtering and display curated movie recommendations.
+
+### Website Requirements
+
+**Structure & Hosting:**
+- Host on GitHub Pages using `docs/` folder structure in same repository
+- Single-page website with clean, minimal design
+- Mobile-responsive layout
+
+**Content Display:**
+- Date-organized list view of upcoming events (next 30 days)
+- Movie cards with clear rating display (⭐X/10 format)
+- Expandable descriptions (click to show full French cinéaste analysis)
+- Movies sorted by highest rating first
+- Filter out work-hour events (9am-6pm weekdays)
+
+**Interactive Features:**
+- Rating filter slider (1-10 range) for calendar downloads
+- Generate filtered .ics files based on user's minimum rating selection
+- Download button for filtered calendar files
+
+**Disclaimers:**
+- Personal disclaimer that ratings reflect individual preferences
+- Clear attribution to Austin Film Society as source
+- Statement about excluding work-hour screenings
+
+**Automated Updates:**
+- GitHub Actions workflow running Saturday/Sunday evenings
+- Weekly refresh to maintain rolling 30-day window
+- Generate fresh JSON data file for website consumption
+- Update .ics calendar files
+
+### Technical Implementation
+
+**Data Pipeline:**
+1. Weekly GitHub Action triggers scraper
+2. Generate JSON file with: movie titles, ratings, dates, descriptions, URLs
+3. Create base calendar file and filtered versions
+4. Deploy updated data to GitHub Pages
+
+**Website Files:**
+- `docs/index.html` - Main single-page application
+- `docs/style.css` - Styling and responsive design
+- `docs/script.js` - Interactive features and filtering
+- `docs/data.json` - Movie data for display
+- `docs/calendars/` - Directory for .ics download files
+
+**Key Features:**
+- Client-side filtering and calendar generation
+- Responsive design for mobile and desktop
+- Accessible interface with clear typography
+- Fast loading with minimal dependencies

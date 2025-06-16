@@ -21,8 +21,10 @@ class EventProcessor:
     def process_events(self, events: List[Dict]) -> List[Dict]:
         """Process and enrich all events"""
         enriched_events = []
+        total_events = len(events)
+        processed_count = 0
         
-        for event in events:
+        for i, event in enumerate(events, 1):
             try:
                 # Only process screenings for now
                 if event.get('type') != 'screening':
@@ -33,7 +35,8 @@ class EventProcessor:
                     print(f"Skipping {event['title']} - during work hours")
                     continue
                 
-                print(f"Processing: {event['title']}")
+                processed_count += 1
+                print(f"Processing ({processed_count}): {event['title']}")
                 
                 # Get movie rating from AI (with caching)
                 movie_title = event['title'].upper().strip()
@@ -95,35 +98,13 @@ class EventProcessor:
             }
             
             prompt = f"""
-            Analyze "{movie_title}" with the intellectual rigor of a French cinéaste and the cultural depth of an ENS literary scholar. Format as a well-structured, easily readable multi-line description using emojis and clear sections:
+            Analyze "{movie_title}" with the intellectual rigor of a French cinéaste. Provide a concise, well-structured analysis with the following sections:
 
-            ★ Rating: [X/10] - reflecting artistic merit, cultural significance, and intellectual depth, with preference for auteur cinema and controversial/polarizing works that reward contemplation.
-
-            🎬 Synopsis: Brief thematic overview highlighting the film's philosophical core
-
-            👤 Director: Biography emphasizing their cinematic philosophy and position in film history, plus notable filmography
-
-            🎭 Cast & Performance: Principal actors and quality of their performances within the director's vision
-
-            🎨 Central Themes: Philosophical underpinnings and intellectual concepts explored
-
-            🎯 Iconic Scene: Most celebrated moment and its cultural/artistic significance
-
-            👁️ First Viewing Notes: Essential elements to observe and appreciate
-
-            📹 Cinematography: Visual language, technical innovation, and aesthetic choices
-
-            🎵 Score: Musical composition and its narrative/emotional function
-
-            🎪 Acting Quality: Directorial choices and performance evaluation
-
-            📰 Critical Reception: Historical and contemporary critical assessment
-
-            🏛️ Cultural Legacy: Canonical status and influence on cinema history
-
-            🔥 Controversial Elements: Polarizing aspects, subversive qualities, or challenging content
-
-            📚 Intellectual Depth: Interpretive richness and scholarly value
+            ★ Rating: [X/10] (Integer Only) - Reflecting artistic merit and cultural significance.
+            🎬 Synopsis: A brief thematic overview.
+            👤 Director: A short bio and their cinematic philosophy.
+            🎨 Central Themes: The main intellectual concepts explored.
+            🏛️ Cultural Legacy: The film's influence and status.
             """
             
             data = {
@@ -131,7 +112,7 @@ class EventProcessor:
                 'messages': [
                     {'role': 'user', 'content': prompt}
                 ],
-                'max_tokens': 4000
+                'max_tokens': 1000
             }
             
             response = requests.post(
@@ -177,12 +158,12 @@ class EventProcessor:
             
             return {
                 'score': max(1, min(10, score)),  # Clamp to 1-10
-                'summary': summary[:4000]  # Increased limit for detailed French cinéaste analysis
+                'summary': summary[:2000]  # Limit for conciseness
             }
             
         except Exception as e:
             print(f"Error parsing AI response: {e}")
-            return {'score': 5, 'summary': content[:4000]}
+            return {'score': 5, 'summary': content[:2000]}
     
     def _calculate_preference_score(self, event: Dict, ai_rating: Dict) -> int:
         """Calculate preference score based on user preferences"""
