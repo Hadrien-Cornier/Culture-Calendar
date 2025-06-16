@@ -1,0 +1,5 @@
+.env
+.cursor
+venv/
+*.ics
+*.pyc
