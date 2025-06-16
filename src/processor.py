@@ -16,6 +16,7 @@ class EventProcessor:
     def __init__(self):
         self.perplexity_api_key = os.getenv('PERPLEXITY_API_KEY')
         self.preferences = self._load_preferences()
+        self.movie_cache = {}  # Cache AI ratings to avoid reprocessing
     
     def process_events(self, events: List[Dict]) -> List[Dict]:
         """Process and enrich all events"""
@@ -27,10 +28,21 @@ class EventProcessor:
                 if event.get('type') != 'screening':
                     continue
                 
+                # Skip work hours (9am-6pm) on weekdays
+                if self._is_during_work_hours(event):
+                    print(f"Skipping {event['title']} - during work hours")
+                    continue
+                
                 print(f"Processing: {event['title']}")
                 
-                # Get movie rating from AI
-                ai_rating = self._get_ai_rating(event['title'])
+                # Get movie rating from AI (with caching)
+                movie_title = event['title'].upper().strip()
+                if movie_title in self.movie_cache:
+                    print(f"  Using cached rating for {movie_title}")
+                    ai_rating = self.movie_cache[movie_title]
+                else:
+                    ai_rating = self._get_ai_rating(event['title'])
+                    self.movie_cache[movie_title] = ai_rating
                 
                 # Calculate personal preference score
                 preference_score = self._calculate_preference_score(event, ai_rating)
@@ -83,9 +95,35 @@ class EventProcessor:
             }
             
             prompt = f"""
-            Rate the movie "{movie_title}" on a scale of 1-10 and provide a brief summary.
-            Consider critical reception, cultural significance, and general appeal.
-            Format your response as: RATING: X/10 - Brief summary here
+            Analyze "{movie_title}" with the intellectual rigor of a French cinéaste and the cultural depth of an ENS literary scholar. Format as a well-structured, easily readable multi-line description using emojis and clear sections:
+
+            ★ Rating: [X/10] - reflecting artistic merit, cultural significance, and intellectual depth, with preference for auteur cinema and controversial/polarizing works that reward contemplation.
+
+            🎬 Synopsis: Brief thematic overview highlighting the film's philosophical core
+
+            👤 Director: Biography emphasizing their cinematic philosophy and position in film history, plus notable filmography
+
+            🎭 Cast & Performance: Principal actors and quality of their performances within the director's vision
+
+            🎨 Central Themes: Philosophical underpinnings and intellectual concepts explored
+
+            🎯 Iconic Scene: Most celebrated moment and its cultural/artistic significance
+
+            👁️ First Viewing Notes: Essential elements to observe and appreciate
+
+            📹 Cinematography: Visual language, technical innovation, and aesthetic choices
+
+            🎵 Score: Musical composition and its narrative/emotional function
+
+            🎪 Acting Quality: Directorial choices and performance evaluation
+
+            📰 Critical Reception: Historical and contemporary critical assessment
+
+            🏛️ Cultural Legacy: Canonical status and influence on cinema history
+
+            🔥 Controversial Elements: Polarizing aspects, subversive qualities, or challenging content
+
+            📚 Intellectual Depth: Interpretive richness and scholarly value
             """
             
             data = {
@@ -93,7 +131,7 @@ class EventProcessor:
                 'messages': [
                     {'role': 'user', 'content': prompt}
                 ],
-                'max_tokens': 200
+                'max_tokens': 4000
             }
             
             response = requests.post(
@@ -118,34 +156,33 @@ class EventProcessor:
     def _parse_ai_response(self, content: str) -> Dict:
         """Parse AI response to extract rating and summary"""
         try:
-            # Look for rating pattern like "RATING: 8/10"
             import re
-            rating_match = re.search(r'RATING:\s*(\d+)/10', content, re.IGNORECASE)
+            # Look for rating pattern like "★ Rating: 8/10" or "[8/10]"
+            rating_patterns = [
+                r'★\s*Rating:\s*(\d+)/10',
+                r'\[(\d+)/10\]',
+                r'RATING:\s*(\d+)/10',
+                r'(\d+)/10'
+            ]
             
-            if rating_match:
-                score = int(rating_match.group(1))
-                # Extract summary (everything after the rating)
-                summary = content[rating_match.end():].strip()
-                if summary.startswith('-'):
-                    summary = summary[1:].strip()
-            else:
-                # Fallback: look for any number/10 pattern
-                fallback_match = re.search(r'(\d+)/10', content)
-                if fallback_match:
-                    score = int(fallback_match.group(1))
-                    summary = content.strip()
-                else:
-                    score = 5
-                    summary = content.strip()
+            score = 5  # Default score
+            for pattern in rating_patterns:
+                rating_match = re.search(pattern, content, re.IGNORECASE)
+                if rating_match:
+                    score = int(rating_match.group(1))
+                    break
+            
+            # Use the full content as summary for the French cinéaste style
+            summary = content.strip()
             
             return {
                 'score': max(1, min(10, score)),  # Clamp to 1-10
-                'summary': summary[:200]  # Limit summary length
+                'summary': summary[:4000]  # Increased limit for detailed French cinéaste analysis
             }
             
         except Exception as e:
             print(f"Error parsing AI response: {e}")
-            return {'score': 5, 'summary': content[:200]}
+            return {'score': 5, 'summary': content[:4000]}
     
     def _calculate_preference_score(self, event: Dict, ai_rating: Dict) -> int:
         """Calculate preference score based on user preferences"""
@@ -202,3 +239,49 @@ class EventProcessor:
             explanation_parts.append(f"Summary: {summary}")
         
         return " | ".join(explanation_parts)
+    
+    def _is_during_work_hours(self, event: Dict) -> bool:
+        """Check if event is during work hours (9am-6pm weekdays)"""
+        try:
+            # Parse date
+            date_str = event.get('date')
+            if not date_str:
+                return False
+            
+            event_date = datetime.strptime(date_str, '%Y-%m-%d')
+            
+            # Skip weekends (Saturday=5, Sunday=6)
+            if event_date.weekday() >= 5:
+                return False
+            
+            # Parse time
+            time_str = event.get('time', '').strip()
+            if not time_str:
+                return False
+            
+            # Extract hour from time string like "2:30 PM"
+            import re
+            time_match = re.search(r'(\d{1,2}):(\d{2})\s*([AP]M)', time_str.upper())
+            if not time_match:
+                return False
+            
+            hour, minute, ampm = time_match.groups()
+            hour = int(hour)
+            minute = int(minute)
+            
+            # Convert to 24-hour format
+            if ampm == 'PM' and hour != 12:
+                hour += 12
+            elif ampm == 'AM' and hour == 12:
+                hour = 0
+            
+            # Check if between 9am (9) and 6pm (18)
+            event_time_minutes = hour * 60 + minute
+            work_start = 9 * 60  # 9:00 AM
+            work_end = 18 * 60   # 6:00 PM
+            
+            return work_start <= event_time_minutes <= work_end
+            
+        except Exception as e:
+            print(f"Error checking work hours for {event.get('title', 'Unknown')}: {e}")
+            return False

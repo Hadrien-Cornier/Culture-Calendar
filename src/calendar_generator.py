@@ -2,7 +2,7 @@
 ICS calendar file generator
 """
 
-from icalendar import Calendar, Event
+from icalendar import Calendar, Event, Timezone
 from datetime import datetime, timedelta
 from typing import List, Dict
 import pytz
@@ -22,6 +22,9 @@ class CalendarGenerator:
         cal.add('method', 'PUBLISH')
         cal.add('x-wr-calname', 'Austin Film Society Events')
         cal.add('x-wr-caldesc', 'Curated film screenings from Austin Film Society')
+        
+        # Add timezone component
+        cal.add_component(self._create_timezone())
         
         for event_data in events:
             try:
@@ -87,14 +90,18 @@ class CalendarGenerator:
     
     def _generate_uid(self, event_data: Dict) -> str:
         """Generate unique identifier for event"""
-        # Use URL if available, otherwise create from title and date
+        # Create unique UID based on URL + date + time to handle multiple showings
         if event_data.get('url'):
-            return f"{event_data['url']}@culturecalendar.local"
+            base_uid = event_data['url']
         else:
             title_clean = ''.join(c for c in event_data['title'] if c.isalnum())
-            date_str = event_data.get('date', 'nodate')
-            time_str = event_data.get('time', 'notime').replace(':', '').replace(' ', '')
-            return f"{title_clean}-{date_str}-{time_str}@culturecalendar.local"
+            base_uid = f"event-{title_clean}"
+        
+        # Add date and time to make each showing unique
+        date_str = event_data.get('date', 'nodate')
+        time_str = event_data.get('time', 'notime').replace(':', '').replace(' ', '')
+        
+        return f"{base_uid}-{date_str}-{time_str}@culturecalendar.local"
     
     def _parse_datetime(self, event_data: Dict) -> datetime:
         """Parse date and time into datetime object"""
@@ -153,7 +160,7 @@ class CalendarGenerator:
         """Build event description with rating and details"""
         description_parts = []
         
-        # Rating explanation
+        # Rating explanation (this already includes AI summary)
         rating_explanation = event_data.get('rating_explanation', '')
         if rating_explanation:
             description_parts.append(f"🎬 {rating_explanation}")
@@ -162,19 +169,10 @@ class CalendarGenerator:
         if event_data.get('is_special_screening'):
             description_parts.append("✨ Special Screening")
         
-        # AI summary if available
-        ai_rating = event_data.get('ai_rating', {})
-        summary = ai_rating.get('summary', '').strip()
-        if summary and len(summary) > 10:
-            description_parts.append(f"📝 {summary}")
-        
-        # Event details from page
+        # Event details from page (avoid duplication with AI summary)
         page_description = event_data.get('description', '').strip()
         if page_description and len(page_description) > 10:
-            # Truncate if too long
-            if len(page_description) > 300:
-                page_description = page_description[:300] + "..."
-            description_parts.append(f"Details: {page_description}")
+            description_parts.append(f"Event Details: {page_description}")
         
         # Event URL
         if event_data.get('url'):
@@ -184,4 +182,32 @@ class CalendarGenerator:
         description_parts.append("📍 Austin Film Society Cinema")
         description_parts.append("🎟️ Tickets: https://www.austinfilm.org/")
         
-        return "\\n\\n".join(description_parts)
+        return "\n\n".join(description_parts)
+    
+    def _create_timezone(self) -> Timezone:
+        """Create VTIMEZONE component for America/Chicago"""
+        from icalendar import TimezoneStandard, TimezoneDaylight
+        
+        tz = Timezone()
+        tz.add('tzid', 'America/Chicago')
+        
+        # Standard time (CST) - First Sunday in November
+        standard = TimezoneStandard()
+        standard.add('dtstart', datetime(1970, 11, 1, 2, 0, 0))
+        standard.add('rrule', {'freq': 'yearly', 'bymonth': 11, 'byday': '1su'})
+        standard.add('tzoffsetfrom', timedelta(hours=-5))
+        standard.add('tzoffsetto', timedelta(hours=-6))
+        standard.add('tzname', 'CST')
+        
+        # Daylight time (CDT) - Second Sunday in March
+        daylight = TimezoneDaylight()
+        daylight.add('dtstart', datetime(1970, 3, 8, 2, 0, 0))
+        daylight.add('rrule', {'freq': 'yearly', 'bymonth': 3, 'byday': '2su'})
+        daylight.add('tzoffsetfrom', timedelta(hours=-6))
+        daylight.add('tzoffsetto', timedelta(hours=-5))
+        daylight.add('tzname', 'CDT')
+        
+        tz.add_component(standard)
+        tz.add_component(daylight)
+        
+        return tz

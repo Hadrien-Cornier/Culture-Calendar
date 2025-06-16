@@ -11,7 +11,7 @@ from src.scraper import AFSScraper
 from src.processor import EventProcessor
 from src.calendar_generator import CalendarGenerator
 
-def main():
+def main(debug=False):
     print(f"Culture Calendar - Starting at {datetime.now()}")
     
     try:
@@ -34,6 +34,10 @@ def main():
         
         # Process and enrich events
         print("Processing and enriching events...")
+        if debug:
+            # In debug mode, only process the first event
+            events = events[:1]
+            print(f"DEBUG MODE: Processing only first event")
         enriched_events = processor.process_events(events)
         print(f"Processed {len(enriched_events)} events")
         
@@ -48,4 +52,6 @@ def main():
         sys.exit(1)
 
 if __name__ == "__main__":
-    main()
+    # Check for debug mode
+    debug_mode = len(sys.argv) > 1 and sys.argv[1] == '--debug'
+    main(debug=debug_mode)
