@@ -303,26 +303,26 @@ main {
     border: 1px solid #dee2e6;
 }
 
-.cult-classic-badge {
-    background: linear-gradient(135deg, #6f42c1, #5a2d91);
+.country-badge {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
     color: white;
     padding: 0.25rem 0.6rem;
     border-radius: 15px;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 600;
 }
 
-.french-movie-badge {
-    background: linear-gradient(135deg, #0055a4, #ef4135);
+.year-badge {
+    background: linear-gradient(135deg, #6c757d, #495057);
     color: white;
     padding: 0.25rem 0.6rem;
     border-radius: 15px;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 600;
 }
 
-.genre-badge {
-    background: linear-gradient(135deg, #17a2b8, #138496);
+.language-badge {
+    background: linear-gradient(135deg, #fd7e14, #e55100);
     color: white;
     padding: 0.25rem 0.6rem;
     border-radius: 15px;

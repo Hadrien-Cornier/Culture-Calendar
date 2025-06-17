@@ -93,11 +93,11 @@ async function loadMoviesData() {
     }
 }
 
-// Setup genre filter buttons
+// Setup country filter buttons
 function setupGenreFilters() {
-    const genres = [...new Set(moviesData
-        .map(movie => movie.genre)
-        .filter(genre => genre)
+    const countries = [...new Set(moviesData
+        .map(movie => movie.country)
+        .filter(country => country)
     )].sort();
     
     const genreButtonsContainer = document.getElementById('genre-buttons');
@@ -105,16 +105,16 @@ function setupGenreFilters() {
     // Add "All" button
     const allButton = document.createElement('button');
     allButton.className = 'genre-filter-btn active';
-    allButton.textContent = 'All';
+    allButton.textContent = 'All Countries';
     allButton.onclick = () => toggleGenreFilter('all');
     genreButtonsContainer.appendChild(allButton);
     
-    // Add genre-specific buttons
-    genres.forEach(genre => {
+    // Add country-specific buttons
+    countries.forEach(country => {
         const button = document.createElement('button');
         button.className = 'genre-filter-btn';
-        button.textContent = genre;
-        button.onclick = () => toggleGenreFilter(genre);
+        button.textContent = country;
+        button.onclick = () => toggleGenreFilter(country);
         genreButtonsContainer.appendChild(button);
     });
 }
@@ -160,8 +160,8 @@ function updateFilteredMovies() {
         // Rating filter
         if (movie.rating < minRating) return false;
         
-        // Genre filter
-        if (selectedGenres.size > 0 && !selectedGenres.has(movie.genre)) {
+        // Country filter
+        if (selectedGenres.size > 0 && !selectedGenres.has(movie.country)) {
             return false;
         }
         
@@ -228,9 +228,9 @@ function createMovieCard(movie) {
                 <div class="movie-badges">
                     ${movie.duration ? `<span class="movie-meta-badge">⏱️ ${movie.duration}</span>` : ''}
                     ${movie.director ? `<span class="movie-meta-badge">🎬 ${movie.director}</span>` : ''}
-                    ${movie.isCultClassic ? '<span class="cult-classic-badge">🎭 Cult Classic</span>' : ''}
-                    ${movie.isFrench ? '<span class="french-movie-badge">🇫🇷 French</span>' : ''}
-                    ${movie.genre ? `<span class="genre-badge">${movie.genre}</span>` : ''}
+                    ${movie.country ? `<span class="country-badge">${movie.country}</span>` : ''}
+                    ${movie.year ? `<span class="year-badge">${movie.year}</span>` : ''}
+                    ${movie.language && movie.language !== 'English' ? `<span class="language-badge">${movie.language}</span>` : ''}
                 </div>
                 <div class="screenings-container">
                     ${screeningTags}

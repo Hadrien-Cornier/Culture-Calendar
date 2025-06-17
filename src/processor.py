@@ -105,9 +105,6 @@ class EventProcessor:
             👤 Director: A short bio and their cinematic philosophy.
             🎨 Central Themes: The main intellectual concepts explored.
             🏛️ Cultural Legacy: The film's influence and status.
-            🎭 Cult Status: [YES/NO] - Is this considered a cult classic?
-            🇫🇷 Language: [FRENCH/OTHER] - Is this primarily a French-language film?
-            🎪 Genre: [Primary genre like Drama, Horror, Comedy, etc.]
             """
             
             data = {
@@ -156,38 +153,17 @@ class EventProcessor:
                     score = round(float(rating_match.group(1)))
                     break
             
-            # Extract cult status
-            is_cult_classic = False
-            cult_match = re.search(r'🎭\s*Cult Status:\s*\[?(YES|NO)\]?', content, re.IGNORECASE)
-            if cult_match and cult_match.group(1).upper() == 'YES':
-                is_cult_classic = True
-            
-            # Extract language
-            is_french = False
-            lang_match = re.search(r'🇫🇷\s*Language:\s*\[?(FRENCH|OTHER)\]?', content, re.IGNORECASE)
-            if lang_match and lang_match.group(1).upper() == 'FRENCH':
-                is_french = True
-            
-            # Extract genre
-            genre = None
-            genre_match = re.search(r'🎪\s*Genre:\s*\[?([^\]]+)\]?', content, re.IGNORECASE)
-            if genre_match:
-                genre = genre_match.group(1).strip()
-            
             # Use the full content as summary for the French cinéaste style
             summary = content.strip()
             
             return {
                 'score': max(1, min(10, score)),  # Clamp to 1-10
-                'summary': summary,  # Keep full summary
-                'is_cult_classic': is_cult_classic,
-                'is_french': is_french,
-                'genre': genre
+                'summary': summary  # Keep full summary
             }
             
         except Exception as e:
             print(f"Error parsing AI response: {e}")
-            return {'score': 5, 'summary': content[:2000], 'is_cult_classic': False, 'is_french': False, 'genre': None}
+            return {'score': 5, 'summary': content[:2000]}
     
     def _calculate_preference_score(self, event: Dict, ai_rating: Dict) -> int:
         """Calculate preference score based on user preferences"""
@@ -218,10 +194,7 @@ class EventProcessor:
         # Apply preference boost (max +3 points)
         boost = min(3, preference_score // 2)
         
-        # Apply French movie bonus (+2 points)
-        french_bonus = 2 if ai_rating.get('is_french', False) else 0
-        
-        final_rating = min(10, base_rating + boost + french_bonus)
+        final_rating = min(10, base_rating + boost)
         
         return final_rating
     
@@ -237,10 +210,6 @@ class EventProcessor:
         if preference_score > 0:
             boost = min(3, preference_score // 2)
             explanation_parts.append(f"Personal preference boost: +{boost}")
-        
-        # French movie bonus
-        if ai_rating.get('is_french', False):
-            explanation_parts.append("🇫🇷 French film bonus: +2")
         
         # Special screening bonus
         if event.get('is_special_screening'):

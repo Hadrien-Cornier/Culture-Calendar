@@ -190,13 +190,16 @@ class AFSScraper:
                 'is_special_screening': is_special,
                 'duration': metadata.get('duration'),
                 'director': metadata.get('director'),
+                'country': metadata.get('country'),
+                'year': metadata.get('year'),
+                'language': metadata.get('language'),
                 'is_movie': is_movie,
                 'full_html': str(soup)
             }
             
         except requests.RequestException as e:
             print(f"Failed to fetch event details from {event_url}: {e}")
-            return {'description': '', 'is_special_screening': False, 'duration': None, 'director': None, 'is_movie': False}
+            return {'description': '', 'is_special_screening': False, 'duration': None, 'director': None, 'country': None, 'year': None, 'language': None, 'is_movie': False}
     
     def _detect_special_screening(self, soup: BeautifulSoup, description: str) -> bool:
         """Detect if this is a special screening (Q&A, 35mm, etc.)"""
@@ -223,57 +226,55 @@ class AFSScraper:
         return False
     
     def _extract_movie_metadata(self, soup: BeautifulSoup, description: str) -> Dict:
-        """Extract movie metadata like duration and director from the page"""
+        """Extract movie metadata from the structured AFS format"""
         metadata = {}
         
         # Get all text content from the page
         full_text = soup.get_text()
         
-        # Extract duration (look for patterns like "90 min", "2 hours", "120 minutes")
-        duration_patterns = [
-            r'(\d+)\s*min(?:utes?)?',
-            r'(\d+)\s*hr(?:s?)',
-            r'(\d+)\s*hour(?:s?)',
-            r'(\d+)\s*h\s*(\d+)\s*m',  # e.g., "2h 30m"
-            r'Runtime:\s*(\d+)\s*min',
-            r'Duration:\s*(\d+)\s*min'
-        ]
+        # Extract director (look for "Directed by" pattern)
+        director_match = re.search(r'Directed by\s+([^\n]+)', full_text, re.IGNORECASE)
+        if director_match:
+            metadata['director'] = director_match.group(1).strip()
         
-        for pattern in duration_patterns:
-            match = re.search(pattern, full_text, re.IGNORECASE)
-            if match:
-                if len(match.groups()) == 2:  # For "2h 30m" format
-                    hours, minutes = match.groups()
-                    total_minutes = int(hours) * 60 + int(minutes)
-                    metadata['duration'] = f"{total_minutes} min"
+        # Find the metadata line pattern: "Country, Year, Duration, Format[, Language info]"
+        # Look for lines that match: Word(s), 4-digit year, duration
+        metadata_pattern = r'([^,\n]+),\s*(\d{4}),\s*([^,\n]+)(?:,\s*[^,\n]*)?(?:,\s*In\s+([^,\n]+)\s+with[^,\n]*)?'
+        metadata_match = re.search(metadata_pattern, full_text)
+        
+        if metadata_match:
+            country = metadata_match.group(1).strip()
+            year = metadata_match.group(2).strip()
+            duration_raw = metadata_match.group(3).strip()
+            language_line = metadata_match.group(4) if len(metadata_match.groups()) >= 4 else None
+            
+            # Store country and year
+            metadata['country'] = country
+            metadata['year'] = int(year)
+            
+            # Parse duration (e.g., "1h 7min" -> "67 min")
+            duration_match = re.search(r'(\d+)h?\s*(\d*)m?i?n?', duration_raw)
+            if duration_match:
+                hours = int(duration_match.group(1)) if duration_match.group(1) else 0
+                minutes = int(duration_match.group(2)) if duration_match.group(2) else 0
+                
+                if 'h' in duration_raw:  # Format like "1h 7min"
+                    total_minutes = hours * 60 + minutes
+                else:  # Format like "90min"
+                    total_minutes = hours  # hours is actually minutes in this case
+                
+                metadata['duration'] = f"{total_minutes} min"
+            
+            # Extract language from "In [Language] with" pattern
+            if language_line:
+                # Extract the language name after "In "
+                metadata['language'] = language_line.strip()
+            else:
+                # No explicit language - assume English for US/UK, leave empty for others
+                if country.upper() in ['USA', 'US', 'UK', 'UNITED STATES', 'UNITED KINGDOM']:
+                    metadata['language'] = 'English'
                 else:
-                    duration = match.group(1)
-                    if 'hr' in match.group(0).lower() or 'hour' in match.group(0).lower():
-                        # Convert hours to minutes
-                        total_minutes = int(duration) * 60
-                        metadata['duration'] = f"{total_minutes} min"
-                    else:
-                        metadata['duration'] = f"{duration} min"
-                break
-        
-        # Extract director (look for patterns like "Directed by", "Director:", "A film by")
-        director_patterns = [
-            r'Directed by\s+([^.\n]+)',
-            r'Director:\s*([^.\n]+)',
-            r'A film by\s+([^.\n]+)',
-            r'Dir\.?\s*:\s*([^.\n]+)',
-            r'Filmmaker:\s*([^.\n]+)'
-        ]
-        
-        for pattern in director_patterns:
-            match = re.search(pattern, full_text, re.IGNORECASE)
-            if match:
-                director = match.group(1).strip()
-                # Clean up director name (remove extra text)
-                director = re.sub(r'\s+', ' ', director)
-                if len(director) < 100:  # Reasonable length check
-                    metadata['director'] = director
-                break
+                    metadata['language'] = None  # Let frontend handle display
         
         return metadata
     

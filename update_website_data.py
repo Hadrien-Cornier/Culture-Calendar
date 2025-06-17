@@ -185,9 +185,9 @@ def generate_website_data(events):
                 'isMovie': event.get('is_movie', True),  # From scraper detection
                 'duration': event.get('duration'),
                 'director': event.get('director'),
-                'isCultClassic': ai_rating.get('is_cult_classic', False),
-                'isFrench': ai_rating.get('is_french', False),
-                'genre': ai_rating.get('genre'),
+                'country': event.get('country'),
+                'year': event.get('year'),
+                'language': event.get('language'),
                 'screenings': []
             }
         
