@@ -51,13 +51,25 @@ function switchToListView() {
 
 // Switch to calendar view
 function switchToCalendarView() {
-    listView.style.display = 'none';
-    calendarView.style.display = 'block';
-    listViewBtn.classList.remove('active');
-    calendarViewBtn.classList.add('active');
+    console.log('Switching to calendar view...'); // Debug log
     
-    if (moviesData.length > 0) {
-        renderCalendar();
+    try {
+        listView.style.display = 'none';
+        calendarView.style.display = 'block';
+        listViewBtn.classList.remove('active');
+        calendarViewBtn.classList.add('active');
+        
+        console.log('Movies data length:', moviesData.length); // Debug log
+        
+        if (moviesData && moviesData.length > 0) {
+            renderCalendar();
+        } else {
+            console.log('No movies data available for calendar');
+            calendarContainer.innerHTML = '<div class="loading">Loading calendar data...</div>';
+        }
+    } catch (error) {
+        console.error('Error switching to calendar view:', error);
+        calendarContainer.innerHTML = '<div class="loading">Error loading calendar</div>';
     }
 }
 
@@ -182,6 +194,14 @@ function toggleDescription(movieId) {
 
 // Render calendar view
 function renderCalendar() {
+    console.log('Rendering calendar...'); // Debug log
+    
+    if (!moviesData || moviesData.length === 0) {
+        console.log('No movies data available for calendar');
+        calendarContainer.innerHTML = '<p>No movie data available</p>';
+        return;
+    }
+    
     const today = new Date();
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
@@ -189,15 +209,21 @@ function renderCalendar() {
     // Get all screenings from movies data
     const allScreenings = [];
     moviesData.forEach(movie => {
-        movie.screenings.forEach(screening => {
-            allScreenings.push({
-                ...screening,
-                title: movie.title,
-                rating: movie.rating,
-                id: movie.id
+        if (movie.screenings && Array.isArray(movie.screenings)) {
+            movie.screenings.forEach(screening => {
+                allScreenings.push({
+                    date: screening.date,
+                    time: screening.time,
+                    url: screening.url,
+                    title: movie.title,
+                    rating: movie.rating,
+                    id: movie.id
+                });
             });
-        });
+        }
     });
+    
+    console.log(`Found ${allScreenings.length} total screenings`); // Debug log
     
     // Create calendar header
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -217,20 +243,17 @@ function renderCalendar() {
             <div class="calendar-day-header">Sat</div>
     `;
     
-    // Get first day of month and number of days
+    // Get first day of month
     const firstDay = new Date(currentYear, currentMonth, 1);
-    const lastDay = new Date(currentYear, currentMonth + 1, 0);
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());
     
-    // Generate calendar days
+    // Generate calendar days (6 weeks = 42 days)
     for (let i = 0; i < 42; i++) {
-        const currentDate = new Date(startDate);
-        currentDate.setDate(startDate.getDate() + i);
-        
-        const dateStr = currentDate.toISOString().split('T')[0];
+        const currentDate = new Date(startDate.getTime() + (i * 24 * 60 * 60 * 1000));
+        const dateStr = formatDateForComparison(currentDate);
         const isCurrentMonth = currentDate.getMonth() === currentMonth;
-        const isToday = dateStr === today.toISOString().split('T')[0];
+        const isToday = dateStr === formatDateForComparison(today);
         
         // Find screenings for this date
         const dayScreenings = allScreenings.filter(s => s.date === dateStr);
@@ -243,9 +266,16 @@ function renderCalendar() {
         dayScreenings.forEach(screening => {
             const ratingClass = screening.rating >= 8 ? 'high-rating' : 
                               screening.rating >= 6 ? 'medium-rating' : 'low-rating';
+            
+            // Truncate long movie titles for calendar display
+            const displayTitle = screening.title.length > 15 ? 
+                screening.title.substring(0, 12) + '...' : screening.title;
+            
             eventsHTML += `
-                <div class="calendar-event ${ratingClass}" title="${screening.title} - ${screening.time}">
-                    ⭐${screening.rating} ${screening.title}
+                <div class="calendar-event ${ratingClass}" 
+                     title="${escapeHtml(screening.title)} - ${screening.time} - Rating: ${screening.rating}/10"
+                     onclick="window.open('${screening.url}', '_blank')">
+                    ⭐${screening.rating} ${escapeHtml(displayTitle)}
                 </div>
             `;
         });
@@ -259,7 +289,22 @@ function renderCalendar() {
     }
     
     calendarHTML += '</div>';
-    calendarContainer.innerHTML = calendarHTML;
+    
+    try {
+        calendarContainer.innerHTML = calendarHTML;
+        console.log('Calendar rendered successfully');
+    } catch (error) {
+        console.error('Error setting calendar HTML:', error);
+        calendarContainer.innerHTML = '<p>Error rendering calendar</p>';
+    }
+}
+
+// Helper function to format date for comparison (YYYY-MM-DD)
+function formatDateForComparison(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 // Download filtered calendar

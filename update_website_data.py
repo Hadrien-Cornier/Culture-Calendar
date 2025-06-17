@@ -196,12 +196,9 @@ def main():
         filtered_events = filter_work_hours(upcoming_events)
         print(f"After filtering work hours: {len(filtered_events)} events")
         
-        # Process and enrich events (limit to avoid API overuse)
+        # Process and enrich events
         print("Processing and enriching events...")
-        max_events = min(20, len(filtered_events))  # Limit to 20 events to avoid API costs
-        events_to_process = filtered_events[:max_events]
-        
-        enriched_events = processor.process_events(events_to_process)
+        enriched_events = processor.process_events(filtered_events)
         print(f"Processed {len(enriched_events)} events")
         
         # Generate website JSON data

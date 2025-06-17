@@ -136,23 +136,33 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 
 ### Phase 2.1: Website Enhancements
 
-**Additional Requirements:**
+**Completed Features:**
 
-1. **Markdown Rendering Fix:**
+1. **Markdown Rendering Fix:** ✅
    - Remove hashtag symbols and other markdown syntax from descriptions
    - Properly render markdown formatting (bold, headers, etc.) as HTML
    - Clean display of French cinéaste analyses
 
-2. **Calendar View:**
+2. **Calendar View:** ✅
    - Add calendar widget/view to display events by date
    - Toggle between list view and calendar view
    - Visual calendar grid showing movie screenings
+   - Click events to open AFS screening pages
+   - Color-coded by rating (green=8+, yellow=6-7, gray=<6)
+   - Chrome compatibility with improved date handling
 
-3. **Movie Aggregation:**
+3. **Movie Aggregation:** ✅
    - Group multiple screenings of same movie into single card
    - Display multiple date/time tags for each movie
    - Show all screening times and dates for each unique film
    - Reduce redundancy in movie list display
+
+**Technical Improvements:**
+- Robust error handling for calendar rendering
+- Debug logging for troubleshooting
+- Improved date formatting for cross-browser compatibility
+- Responsive design for mobile calendar view
+- Clickable calendar events linking to AFS pages
 
 ### GitHub Pages Setup Instructions
 
@@ -188,5 +198,6 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 - The workflow now includes proper `permissions: contents: write` and uses `GITHUB_TOKEN`
 
 **API Rate Limiting:**
-- The script processes max 20 events to avoid Perplexity API overuse
-- Increase the `max_events` limit in `update_website_data.py` if needed
+- The script processes all filtered events (no artificial limit)
+- Built-in 1-second delay between API calls to respect rate limits
+- Movie ratings are cached to avoid reprocessing the same films
