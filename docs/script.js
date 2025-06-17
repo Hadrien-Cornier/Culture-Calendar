@@ -8,6 +8,11 @@ const ratingValue = document.getElementById('rating-value');
 const downloadBtn = document.getElementById('download-btn');
 const moviesList = document.getElementById('movies-list');
 const loadingElement = document.getElementById('loading');
+const listViewBtn = document.getElementById('list-view-btn');
+const calendarViewBtn = document.getElementById('calendar-view-btn');
+const listView = document.getElementById('list-view');
+const calendarView = document.getElementById('calendar-view');
+const calendarContainer = document.getElementById('calendar-container');
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
@@ -26,6 +31,34 @@ function setupEventListeners() {
         const minRating = parseInt(ratingSlider.value);
         downloadFilteredCalendar(minRating);
     });
+
+    listViewBtn.addEventListener('click', function() {
+        switchToListView();
+    });
+
+    calendarViewBtn.addEventListener('click', function() {
+        switchToCalendarView();
+    });
+}
+
+// Switch to list view
+function switchToListView() {
+    listView.style.display = 'block';
+    calendarView.style.display = 'none';
+    listViewBtn.classList.add('active');
+    calendarViewBtn.classList.remove('active');
+}
+
+// Switch to calendar view
+function switchToCalendarView() {
+    listView.style.display = 'none';
+    calendarView.style.display = 'block';
+    listViewBtn.classList.remove('active');
+    calendarViewBtn.classList.add('active');
+    
+    if (moviesData.length > 0) {
+        renderCalendar();
+    }
 }
 
 // Load movies data from JSON file
@@ -85,8 +118,17 @@ function renderMovies() {
 
 // Create HTML for a movie card
 function createMovieCard(movie) {
-    const shortDescription = truncateText(movie.description, 200);
-    const needsExpansion = movie.description.length > shortDescription.length;
+    const shortDescription = truncateText(stripHtmlTags(movie.description), 200);
+    const needsExpansion = stripHtmlTags(movie.description).length > shortDescription.length;
+    
+    // Create screening tags
+    const screeningTags = movie.screenings.map(screening => {
+        const formattedDate = formatDate(screening.date);
+        const formattedTime = screening.time;
+        return `<a href="${screening.url}" target="_blank" class="screening-tag">
+            📅 ${formattedDate} • 🕐 ${formattedTime}
+        </a>`;
+    }).join('');
     
     return `
         <div class="movie-card">
@@ -96,9 +138,10 @@ function createMovieCard(movie) {
             </div>
             
             <div class="movie-info">
-                <span class="movie-date">📅 ${formatDate(movie.date)}</span>
-                <span class="movie-time">🕐 ${movie.time}</span>
-                ${movie.isSpecialScreening ? '<span class="special-screening">✨ Special Screening</span>' : ''}
+                <div class="screenings-container">
+                    ${screeningTags}
+                    ${movie.isSpecialScreening ? '<span class="special-screening-indicator">✨ Special</span>' : ''}
+                </div>
             </div>
             
             <div class="movie-description">
@@ -106,7 +149,7 @@ function createMovieCard(movie) {
                     ${formatDescription(shortDescription)}
                 </div>
                 <div class="description-full" id="full-${movie.id}">
-                    ${formatDescription(movie.description)}
+                    ${movie.description}
                 </div>
                 ${needsExpansion ? `
                     <button class="expand-button" data-movie-id="${movie.id}">
@@ -137,6 +180,88 @@ function toggleDescription(movieId) {
     }
 }
 
+// Render calendar view
+function renderCalendar() {
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+    
+    // Get all screenings from movies data
+    const allScreenings = [];
+    moviesData.forEach(movie => {
+        movie.screenings.forEach(screening => {
+            allScreenings.push({
+                ...screening,
+                title: movie.title,
+                rating: movie.rating,
+                id: movie.id
+            });
+        });
+    });
+    
+    // Create calendar header
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    let calendarHTML = `
+        <div class="calendar-header">
+            ${monthNames[currentMonth]} ${currentYear}
+        </div>
+        <div class="calendar-grid">
+            <div class="calendar-day-header">Sun</div>
+            <div class="calendar-day-header">Mon</div>
+            <div class="calendar-day-header">Tue</div>
+            <div class="calendar-day-header">Wed</div>
+            <div class="calendar-day-header">Thu</div>
+            <div class="calendar-day-header">Fri</div>
+            <div class="calendar-day-header">Sat</div>
+    `;
+    
+    // Get first day of month and number of days
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+    const startDate = new Date(firstDay);
+    startDate.setDate(startDate.getDate() - firstDay.getDay());
+    
+    // Generate calendar days
+    for (let i = 0; i < 42; i++) {
+        const currentDate = new Date(startDate);
+        currentDate.setDate(startDate.getDate() + i);
+        
+        const dateStr = currentDate.toISOString().split('T')[0];
+        const isCurrentMonth = currentDate.getMonth() === currentMonth;
+        const isToday = dateStr === today.toISOString().split('T')[0];
+        
+        // Find screenings for this date
+        const dayScreenings = allScreenings.filter(s => s.date === dateStr);
+        
+        let dayClass = 'calendar-day';
+        if (!isCurrentMonth) dayClass += ' other-month';
+        if (isToday) dayClass += ' today';
+        
+        let eventsHTML = '';
+        dayScreenings.forEach(screening => {
+            const ratingClass = screening.rating >= 8 ? 'high-rating' : 
+                              screening.rating >= 6 ? 'medium-rating' : 'low-rating';
+            eventsHTML += `
+                <div class="calendar-event ${ratingClass}" title="${screening.title} - ${screening.time}">
+                    ⭐${screening.rating} ${screening.title}
+                </div>
+            `;
+        });
+        
+        calendarHTML += `
+            <div class="${dayClass}">
+                <div class="calendar-date">${currentDate.getDate()}</div>
+                <div class="calendar-events">${eventsHTML}</div>
+            </div>
+        `;
+    }
+    
+    calendarHTML += '</div>';
+    calendarContainer.innerHTML = calendarHTML;
+}
+
 // Download filtered calendar
 function downloadFilteredCalendar(minRating) {
     const filteredMovies = moviesData.filter(movie => movie.rating >= minRating);
@@ -146,8 +271,24 @@ function downloadFilteredCalendar(minRating) {
         return;
     }
     
+    // Convert aggregated movies back to individual screenings for ICS
+    const screenings = [];
+    filteredMovies.forEach(movie => {
+        movie.screenings.forEach(screening => {
+            screenings.push({
+                title: movie.title,
+                date: screening.date,
+                time: screening.time,
+                description: movie.description,
+                rating: movie.rating,
+                url: screening.url,
+                id: `${movie.id}-${screening.date}-${screening.time.replace(/[^0-9]/g, '')}`
+            });
+        });
+    });
+    
     // Generate calendar content
-    const icsContent = generateICSContent(filteredMovies);
+    const icsContent = generateICSContent(screenings);
     
     // Create and trigger download
     const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
@@ -212,8 +353,14 @@ function truncateText(text, maxLength) {
 }
 
 function formatDescription(text) {
-    // Convert line breaks to HTML and handle basic formatting
+    // For plain text, convert line breaks to HTML and handle basic formatting
     return text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+}
+
+function stripHtmlTags(html) {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
 }
 
 function formatDescriptionForICS(text) {

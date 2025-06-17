@@ -32,11 +32,26 @@
             </div>
         </section>
 
+        <!-- View Toggle Section -->
+        <section class="view-toggle-section">
+            <div class="toggle-buttons">
+                <button id="list-view-btn" class="view-button active">📝 List View</button>
+                <button id="calendar-view-btn" class="view-button">📅 Calendar View</button>
+            </div>
+        </section>
+
         <!-- Movies List Section -->
-        <section class="movies-section">
+        <section class="movies-section" id="list-view">
             <h2>🎭 Upcoming Movies</h2>
             <div id="loading" class="loading">Loading movie data...</div>
             <div id="movies-list" class="movies-list"></div>
+        </section>
+
+        <!-- Calendar View Section -->
+        <section class="calendar-section" id="calendar-view" style="display: none;">
+            <h2>📅 Calendar View</h2>
+            <div id="calendar-loading" class="loading" style="display: none;">Loading calendar...</div>
+            <div id="calendar-container" class="calendar-container"></div>
         </section>
     </main>
 

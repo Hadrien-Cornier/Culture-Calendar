@@ -134,6 +134,26 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 - Accessible interface with clear typography
 - Fast loading with minimal dependencies
 
+### Phase 2.1: Website Enhancements
+
+**Additional Requirements:**
+
+1. **Markdown Rendering Fix:**
+   - Remove hashtag symbols and other markdown syntax from descriptions
+   - Properly render markdown formatting (bold, headers, etc.) as HTML
+   - Clean display of French cinéaste analyses
+
+2. **Calendar View:**
+   - Add calendar widget/view to display events by date
+   - Toggle between list view and calendar view
+   - Visual calendar grid showing movie screenings
+
+3. **Movie Aggregation:**
+   - Group multiple screenings of same movie into single card
+   - Display multiple date/time tags for each movie
+   - Show all screening times and dates for each unique film
+   - Reduce redundancy in movie list display
+
 ### GitHub Pages Setup Instructions
 
 1. **Enable GitHub Pages:**

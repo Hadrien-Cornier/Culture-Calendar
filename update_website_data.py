@@ -78,29 +78,68 @@ def filter_upcoming_events(events, days_ahead=30):
     
     return filtered_events
 
+def clean_markdown_text(text):
+    """Clean markdown syntax from text for better display"""
+    import re
+    
+    # Remove hashtag headers but keep the text
+    text = re.sub(r'^#{1,6}\s*', '', text, flags=re.MULTILINE)
+    
+    # Convert **bold** to HTML
+    text = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', text)
+    
+    # Convert *italic* to HTML
+    text = re.sub(r'\*(.*?)\*', r'<em>\1</em>', text)
+    
+    # Convert line breaks to proper HTML
+    text = text.replace('\n\n', '</p><p>').replace('\n', '<br>')
+    
+    # Wrap in paragraph tags if not already wrapped
+    if not text.startswith('<p>'):
+        text = f'<p>{text}</p>'
+    
+    return text
+
 def generate_website_data(events):
-    """Generate JSON data for the website"""
-    website_data = []
+    """Generate JSON data for the website with movie aggregation"""
+    # Group events by movie title
+    movies_dict = {}
     
     for event in events:
-        # Create a unique ID for each event
-        event_id = f"{event['title'].lower().replace(' ', '-')}-{event['date']}-{event.get('time', '').replace(':', '').replace(' ', '')}"
+        title = event['title']
         
-        website_event = {
-            'id': event_id,
-            'title': event['title'],
-            'rating': event.get('final_rating', 5),
+        if title not in movies_dict:
+            # Create new movie entry
+            movies_dict[title] = {
+                'title': title,
+                'rating': event.get('final_rating', 5),
+                'description': clean_markdown_text(event.get('ai_rating', {}).get('summary', 'No description available')),
+                'url': event.get('url', ''),
+                'isSpecialScreening': event.get('is_special_screening', False),
+                'screenings': []
+            }
+        
+        # Add screening info
+        screening = {
             'date': event['date'],
             'time': event.get('time', 'TBD'),
-            'description': event.get('ai_rating', {}).get('summary', 'No description available'),
-            'url': event.get('url', ''),
-            'isSpecialScreening': event.get('is_special_screening', False)
+            'url': event.get('url', '')
         }
-        
-        website_data.append(website_event)
+        movies_dict[title]['screenings'].append(screening)
     
-    # Sort by rating (highest first), then by date
-    website_data.sort(key=lambda x: (-x['rating'], x['date']))
+    # Convert to list and add unique IDs
+    website_data = []
+    for title, movie_data in movies_dict.items():
+        movie_id = title.lower().replace(' ', '-').replace("'", '').replace('"', '')
+        movie_data['id'] = movie_id
+        
+        # Sort screenings by date and time
+        movie_data['screenings'].sort(key=lambda x: (x['date'], x['time']))
+        
+        website_data.append(movie_data)
+    
+    # Sort by rating (highest first), then by title
+    website_data.sort(key=lambda x: (-x['rating'], x['title']))
     
     return website_data
 
