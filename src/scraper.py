@@ -179,6 +179,9 @@ class AFSScraper:
             # Extract movie metadata (duration and director)
             metadata = self._extract_movie_metadata(soup, description)
             
+            # Detect if this is actually a movie using the page structure
+            is_movie = self._detect_movie_format(soup)
+            
             # Add small delay to be respectful
             time.sleep(0.5)
             
@@ -187,12 +190,13 @@ class AFSScraper:
                 'is_special_screening': is_special,
                 'duration': metadata.get('duration'),
                 'director': metadata.get('director'),
+                'is_movie': is_movie,
                 'full_html': str(soup)
             }
             
         except requests.RequestException as e:
             print(f"Failed to fetch event details from {event_url}: {e}")
-            return {'description': '', 'is_special_screening': False, 'duration': None, 'director': None}
+            return {'description': '', 'is_special_screening': False, 'duration': None, 'director': None, 'is_movie': False}
     
     def _detect_special_screening(self, soup: BeautifulSoup, description: str) -> bool:
         """Detect if this is a special screening (Q&A, 35mm, etc.)"""
@@ -272,3 +276,32 @@ class AFSScraper:
                 break
         
         return metadata
+    
+    def _detect_movie_format(self, soup: BeautifulSoup) -> bool:
+        """Detect if this is a movie based on the consistent AFS movie page format"""
+        try:
+            # Get all text content from the page
+            full_text = soup.get_text()
+            
+            # Look for the movie format pattern:
+            # MOVIE TITLE
+            # Directed by [Director Name]
+            # Country, Year, Duration, Format
+            
+            # Check for "Directed by" - this is the most reliable indicator
+            directed_by_pattern = r'Directed by\s+([^.\n]+)'
+            if not re.search(directed_by_pattern, full_text, re.IGNORECASE):
+                return False
+            
+            # Check for the country/year/duration pattern
+            # Examples: "USA, 1985, 1h 31min, DCP" or "France, 1985, 1h 7min, DCP"
+            country_year_pattern = r'[A-Z]{2,}[^,]*,\s*\d{4},\s*\d+h?\s*\d*m?i?n'
+            if not re.search(country_year_pattern, full_text):
+                return False
+            
+            print(f"✓ Detected movie format in page")
+            return True
+            
+        except Exception as e:
+            print(f"Error detecting movie format: {e}")
+            return False

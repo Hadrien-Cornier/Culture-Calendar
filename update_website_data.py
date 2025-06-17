@@ -134,7 +134,8 @@ def is_movie_event(title, description=""):
         'film festival', 'festival', 'symposium', 'conference', 'workshop',
         'discussion', 'panel', 'conversation', 'talk', 'seminar', 'masterclass',
         'awards', 'ceremony', 'gala', 'fundraiser', 'benefit', 'market',
-        'networking', 'party', 'reception', 'opening night', 'closing night'
+        'networking', 'party', 'reception', 'opening night', 'closing night',
+        'black auteur', 'pan african', 'auteur festival', 'series'
     ]
     
     title_lower = title.lower()
@@ -143,14 +144,14 @@ def is_movie_event(title, description=""):
     # Check if title contains non-movie indicators
     for indicator in non_movie_indicators:
         if indicator in title_lower:
+            print(f"Filtering out non-movie: '{title}' (contains '{indicator}')")
             return False
     
-    # Special cases - things that sound like movies but aren't
-    if any(phrase in title_lower for phrase in [
-        'film festival', 'fest ', 'festival', 'series premiere',
-        'season premiere', 'season finale'
-    ]):
-        return False
+    # Additional checks in description
+    for indicator in non_movie_indicators:
+        if indicator in desc_lower:
+            print(f"Filtering out non-movie: '{title}' (description contains '{indicator}')")
+            return False
     
     # If it contains "premiere" but also "world premiere" or "us premiere", it's likely a movie
     if 'premiere' in title_lower and any(phrase in title_lower for phrase in [
@@ -162,8 +163,9 @@ def is_movie_event(title, description=""):
 
 def generate_website_data(events):
     """Generate JSON data for the website with movie aggregation"""
-    # Filter out non-movie events first
-    movie_events = [event for event in events if is_movie_event(event['title'], event.get('description', ''))]
+    # Filter out non-movie events using the scraper's detection
+    movie_events = [event for event in events if event.get('is_movie', True)]
+    print(f"Filtered to {len(movie_events)} movie events from {len(events)} total events")
     
     # Group events by movie title
     movies_dict = {}
@@ -180,6 +182,7 @@ def generate_website_data(events):
                 'description': clean_markdown_text(ai_rating.get('summary', 'No description available')),
                 'url': event.get('url', ''),
                 'isSpecialScreening': event.get('is_special_screening', False),
+                'isMovie': event.get('is_movie', True),  # From scraper detection
                 'duration': event.get('duration'),
                 'director': event.get('director'),
                 'isCultClassic': ai_rating.get('is_cult_classic', False),

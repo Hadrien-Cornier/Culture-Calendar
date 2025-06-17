@@ -2,4 +2,5 @@
 .cursor
 venv/
 *.ics
+!docs/calendars/*.ics
 *.pyc
