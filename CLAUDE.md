@@ -162,15 +162,31 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
    - Select "main" branch and "/docs" folder
    - Save settings
 
-2. **Configure Secrets:**
+2. **Configure Repository Permissions:**
+   - Go to repository Settings > Actions > General
+   - Under "Workflow permissions", select "Read and write permissions"
+   - Check "Allow GitHub Actions to create and approve pull requests"
+   - Save settings
+
+3. **Configure Secrets:**
    - Go to repository Settings > Secrets and variables > Actions
    - Add `PERPLEXITY_API_KEY` secret with your API key
 
-3. **Manual Workflow Trigger:**
+4. **Manual Workflow Trigger:**
    - Go to Actions tab
    - Select "Update Culture Calendar" workflow
    - Click "Run workflow" to test
 
-4. **View Website:**
+5. **View Website:**
    - Website will be available at: `https://[username].github.io/Culture-Calendar/`
    - Updates automatically every Saturday at 9 PM UTC
+
+### Troubleshooting GitHub Actions
+
+**Permission Denied Error (403):**
+- Ensure "Read and write permissions" is enabled in Settings > Actions > General
+- The workflow now includes proper `permissions: contents: write` and uses `GITHUB_TOKEN`
+
+**API Rate Limiting:**
+- The script processes max 20 events to avoid Perplexity API overuse
+- Increase the `max_events` limit in `update_website_data.py` if needed

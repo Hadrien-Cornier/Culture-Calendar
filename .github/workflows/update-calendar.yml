@@ -7,6 +7,9 @@ on:
   # Allow manual triggering
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   update-calendar:
     runs-on: ubuntu-latest
@@ -37,11 +40,13 @@ jobs:
         git config --local user.name "GitHub Action"
         
     - name: Commit and push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git add docs/data.json docs/calendars/
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
           git commit -m "🤖 Update calendar data - $(date -u +%Y-%m-%d)"
-          git push
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
         fi
