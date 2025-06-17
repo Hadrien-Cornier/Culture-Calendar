@@ -1,101 +1,217 @@
-# Culture Calendar - Phase 1
+# 🎬 Culture Calendar
 
-An automated system to aggregate, enrich, and consolidate cultural events from Austin Film Society into a personalized ICS calendar file.
+An automated system that transforms Austin Film Society events into a curated, intelligent calendar experience. Features AI-powered film analysis, personalized ratings, and a beautiful web interface with downloadable calendars.
 
-## Features
+## 🌟 Features
 
+### 🤖 Smart Event Processing
 - **Automated Web Scraping**: Fetches events from Austin Film Society calendar
-- **AI-Powered Ratings**: Uses Perplexity AI to research and rate films
-- **Personal Preferences**: Customizable scoring based on your preferences
-- **Special Screening Detection**: Identifies Q&As, 35mm prints, and other special events  
-- **ICS Calendar Generation**: Creates importable calendar files for Google Calendar
-- **Scheduling**: Optional automated runs via cron or built-in scheduler
+- **AI-Powered Analysis**: French cinéaste-style film reviews using Perplexity AI
+- **Personal Preference Scoring**: Customizable ratings based on your taste
+- **Special Screening Detection**: Identifies Q&As, 35mm prints, and rare screenings
+- **Work Hours Filtering**: Automatically excludes 9am-6pm weekday events
 
-## Setup
+### 🌐 Modern Web Interface
+- **GitHub Pages Website**: Beautiful, responsive single-page application
+- **Dual View Modes**: Toggle between list and calendar views
+- **Movie Aggregation**: Multiple showtimes grouped under single movie cards
+- **Interactive Calendar**: Visual month view with color-coded ratings
+- **Rating Filter**: Download custom calendars filtered by minimum rating (1-10)
+- **Mobile Responsive**: Works perfectly on all devices
 
-1. **Install Dependencies**
+### ⚡ Automated Updates
+- **Weekly Refresh**: Every Saturday evening (upcoming month)
+- **Monthly Refresh**: 1st of each month (complete coverage)
+- **GitHub Actions**: Fully automated via CI/CD
+- **No Maintenance Required**: Set it and forget it
+
+## 🚀 Quick Start
+
+### 🌐 Use the Live Website
+Visit **[your-username.github.io/Culture-Calendar](https://your-username.github.io/Culture-Calendar)** to:
+- Browse AI-rated Austin Film Society movies
+- Toggle between list and calendar views  
+- Download filtered .ics calendar files
+- View detailed French cinéaste film analyses
+
+### 🔧 Setup Your Own Instance
+
+1. **Fork & Clone**
+   ```bash
+   git clone https://github.com/your-username/Culture-Calendar.git
+   cd Culture-Calendar
+   ```
+
+2. **Install Dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-2. **Configure API Keys**
+3. **Configure Environment**
    ```bash
    cp .env.example .env
-   # Edit .env and add your API keys:
+   # Edit .env and add:
    # PERPLEXITY_API_KEY=your_key_here
-   # FIRECRAWL_API_KEY=your_key_here (optional for Phase 1)
    ```
 
-3. **Customize Preferences**
-   Edit `preferences.txt` to include directors, genres, and keywords you're interested in.
+4. **Customize Preferences**
+   Edit `preferences.txt` with your favorite directors, genres, and keywords.
 
-## Usage
+5. **Enable GitHub Pages & Actions**
+   - Go to repository Settings > Pages
+   - Set source to "main branch /docs folder"
+   - Go to Settings > Actions > General  
+   - Enable "Read and write permissions"
+   - Add `PERPLEXITY_API_KEY` to repository secrets
 
-### Manual Run
+## 🎯 Usage
+
+### 🌐 Web Interface
+The GitHub Pages website provides the easiest way to use Culture Calendar:
+
+- **📝 List View**: Browse movies sorted by rating with expandable reviews
+- **📅 Calendar View**: Visual monthly calendar with color-coded events  
+- **🎚️ Rating Filter**: Adjust slider to filter movies by minimum rating
+- **⬇️ Download**: Generate custom .ics files for Google Calendar
+
+### 🔧 Manual Local Run
 ```bash
+# Activate virtual environment
+source venv/bin/activate
+
+# Generate calendar data
 python main.py
+
+# Update website data  
+python update_website_data.py
 ```
 
-This will:
-- Scrape the AFS calendar
-- Process and rate events based on AI analysis and your preferences  
-- Generate an ICS file named `afs_calendar_YYYYMMDD_HHMM.ics`
+### 📅 Import to Google Calendar
+1. Download .ics file from website or use pre-filtered versions
+2. Open Google Calendar
+3. Click "+" next to "Other calendars" → Import
+4. Upload the .ics file
 
-### Scheduled Runs
-```bash
-python scheduler.py
-```
+### ⚡ Automated Updates
+Once set up, the system runs automatically:
+- **Weekly**: Saturdays at 9 PM UTC (fresh data)
+- **Monthly**: 1st of month at 6 AM UTC (full refresh)
+- **Manual**: Trigger workflows anytime via GitHub Actions
 
-Runs the calendar generator:
-- Daily at 9:00 AM
-- Wednesday evenings at 6:00 PM
-
-### Import to Google Calendar
-1. Open Google Calendar
-2. Click the "+" next to "Other calendars"
-3. Select "Import"
-4. Upload the generated `.ics` file
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 Culture-Calendar/
-├── main.py                 # Main application entry point
-├── scheduler.py            # Automated scheduling
-├── requirements.txt        # Python dependencies
-├── preferences.txt         # Personal preferences for rating
-├── .env.example           # Environment variables template
-└── src/
-    ├── scraper.py         # Web scraping logic
-    ├── processor.py       # Event enrichment and rating
-    └── calendar_generator.py # ICS file generation
+├── 🌐 Website Files
+│   └── docs/
+│       ├── index.html              # Main website
+│       ├── style.css               # Responsive design  
+│       ├── script.js               # Interactive features
+│       ├── data.json               # Movie data (auto-generated)
+│       └── calendars/              # Pre-filtered .ics files
+│
+├── 🤖 Automation
+│   ├── .github/workflows/
+│   │   ├── update-calendar.yml     # Weekly updates
+│   │   └── monthly-calendar-update.yml # Monthly updates
+│   ├── update_website_data.py      # Website data generator
+│   └── main.py                     # CLI calendar generator
+│
+├── 🔧 Core Logic  
+│   └── src/
+│       ├── scraper.py              # AFS web scraping
+│       ├── processor.py            # AI analysis & rating
+│       └── calendar_generator.py   # ICS file creation
+│
+└── ⚙️ Configuration
+    ├── preferences.txt             # Personal taste preferences
+    ├── requirements.txt            # Python dependencies
+    ├── .env.example               # Environment template
+    └── CLAUDE.md                  # AI assistant instructions
 ```
 
-## Rating System
+## 🎯 Rating System
 
-Events are rated on a 1-10 scale using:
+Movies are intelligently rated on a 1-10 scale using:
 
-- **AI Base Rating**: Perplexity AI research on the film
-- **Preference Boost**: +2 points per matching keyword/director
-- **Special Screening Bonus**: +3 points for Q&As, special prints, etc.
+- **🤖 AI Analysis**: French cinéaste-style research via Perplexity AI
+- **❤️ Personal Preferences**: +2 points per matching director/genre/keyword  
+- **✨ Special Screenings**: +3 points for Q&As, 35mm prints, rare formats
+- **⏰ Accessibility**: Automatic filtering of work-hour screenings
 
-## Example Output
+### 📊 Rating Categories
+- **🟢 8-10**: Masterpieces and must-sees
+- **🟡 6-7**: Solid films worth considering  
+- **⚫ 1-5**: Lower priority or niche appeal
+
+## 🎬 Sample Analysis
 
 ```
-⭐8/10 - RAN 4K
-📍 Austin Film Society Cinema
-🎬 AI Rating: 7/10 | Personal preference boost: +1 | ✨ Special screening
-📝 Akira Kurosawa's epic masterpiece, widely considered one of the greatest films...
+⭐9/10 - NIGHT OF THE LIVING DEAD
+
+Rating: 9/10 - Reflecting its artistic merit, cultural significance, and 
+intellectual depth, "Night of the Living Dead" is a seminal work that 
+rewards contemplation.
+
+🎬 Synopsis: A study in fear, isolation, and the breakdown of societal 
+norms, following seven people trapped in a farmhouse besieged by 
+reanimated corpses.
+
+👤 Director: George A. Romero - pioneering filmmaker known for his 
+innovative approach to horror cinema and social commentary.
+
+📅 Screenings:
+• Jun 18 • 8:45 PM
+• Jun 23 • 7:00 PM
 ```
 
-## Troubleshooting
+## 🔧 Troubleshooting
 
-- **No events found**: Check if AFS website structure has changed
-- **API errors**: Verify your Perplexity API key in `.env`
-- **Import issues**: Ensure the `.ics` file was generated successfully
+### Common Issues
+- **Website not loading**: Check GitHub Pages is enabled in repository settings
+- **No calendar data**: Verify GitHub Actions have repository write permissions  
+- **API errors**: Ensure `PERPLEXITY_API_KEY` is added to repository secrets
+- **Missing events**: AFS website structure may have changed (check scraper.py)
 
-## Roadmap
+### GitHub Actions Issues
+- **403 Permission Error**: Enable "Read and write permissions" in Settings > Actions
+- **Workflow not running**: Check cron schedule and repository activity requirements
+- **API rate limiting**: Built-in delays handle this automatically
 
-- **Phase 2**: Add more event sources (bookstores, music venues)
-- **Phase 3**: Direct Google Calendar API integration  
-- **Phase 4**: Web interface for management and configuration
+### Debug Mode
+```bash
+# Test locally with debug output
+source venv/bin/activate  
+python main.py --debug
+```
+
+## 🗺️ Roadmap
+
+### 📋 Completed Features
+- ✅ **Phase 1**: Austin Film Society integration
+- ✅ **Phase 2**: GitHub Pages website with calendar view
+- ✅ **Phase 2.1**: Enhanced UI with movie aggregation and markdown rendering
+
+### 🔮 Future Enhancements
+- **📚 Phase 3**: Additional venues (bookstores, music venues, galleries)
+- **🔗 Phase 4**: Direct Google Calendar API integration  
+- **🎨 Phase 5**: Enhanced UI with advanced filtering and recommendations
+- **📱 Phase 6**: Mobile app or PWA version
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Austin Film Society](https://www.austinfilm.org/) for providing amazing cultural programming
+- [Perplexity AI](https://www.perplexity.ai/) for intelligent film analysis
+- Built with ❤️ for Austin film lovers
