@@ -391,10 +391,21 @@ function formatDateForComparison(date) {
 
 // Download filtered calendar
 function downloadFilteredCalendar(minRating) {
-    const filteredMovies = moviesData.filter(movie => movie.rating >= minRating);
+    // Apply both rating and country filters (same as UI filters)
+    const filteredMovies = moviesData.filter(movie => {
+        // Rating filter
+        if (movie.rating < minRating) return false;
+        
+        // Country filter
+        if (selectedGenres.size > 0 && !selectedGenres.has(movie.country)) {
+            return false;
+        }
+        
+        return true;
+    });
     
     if (filteredMovies.length === 0) {
-        alert('No movies match the selected rating criteria.');
+        alert('No movies match the selected filters.');
         return;
     }
     
@@ -421,7 +432,11 @@ function downloadFilteredCalendar(minRating) {
     const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `culture-calendar-${minRating}plus-${getCurrentDateString()}.ics`;
+    
+    // Generate filename with filters
+    const countryFilter = selectedGenres.size > 0 ? `-${[...selectedGenres].join('-')}` : '';
+    link.download = `culture-calendar-${minRating}plus${countryFilter}-${getCurrentDateString()}.ics`;
+    
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -440,6 +455,23 @@ function generateICSContent(movies) {
         'METHOD:PUBLISH',
         'X-WR-CALDESC:Curated film screenings from Austin Film Society',
         'X-WR-CALNAME:Culture Calendar - Austin Film Society',
+        'BEGIN:VTIMEZONE',
+        'TZID:America/Chicago',
+        'BEGIN:STANDARD',
+        'DTSTART:20071104T020000',
+        'RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU',
+        'TZNAME:CST',
+        'TZOFFSETFROM:-0500',
+        'TZOFFSETTO:-0600',
+        'END:STANDARD',
+        'BEGIN:DAYLIGHT',
+        'DTSTART:20070311T020000',
+        'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU',
+        'TZNAME:CDT',
+        'TZOFFSETFROM:-0600',
+        'TZOFFSETTO:-0500',
+        'END:DAYLIGHT',
+        'END:VTIMEZONE',
         ''
     ].join('\r\n');
     
@@ -451,8 +483,8 @@ function generateICSContent(movies) {
             'BEGIN:VEVENT',
             `UID:${movie.id}@culturecalendar.local`,
             `DTSTAMP:${timestamp}`,
-            `DTSTART:${startDateTime}`,
-            `DTEND:${endDateTime}`,
+            `DTSTART;${startDateTime}`,
+            `DTEND;${endDateTime}`,
             `SUMMARY:⭐${movie.rating}/10 - ${movie.title}`,
             `DESCRIPTION:${formatDescriptionForICS(movie.description)}`,
             `LOCATION:Austin Film Society Cinema, 6226 Middle Fiskville Rd, Austin, TX 78752`,
@@ -524,9 +556,15 @@ function formatDateTimeForICS(dateStr, timeStr, hoursToAdd = 0) {
         date.setHours(hours + hoursToAdd, minutes, 0, 0);
     }
     
-    // Convert to Austin timezone (UTC-6 or UTC-5)
-    const utcDate = new Date(date.getTime() + (6 * 60 * 60 * 1000)); // Assume CST
-    return utcDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    // Format for Austin timezone using TZID=America/Chicago
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `TZID=America/Chicago:${year}${month}${day}T${hours}${minutes}${seconds}`;
 }
 
 function getCurrentDateString() {
