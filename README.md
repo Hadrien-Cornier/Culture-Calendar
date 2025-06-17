@@ -5,8 +5,10 @@ An automated system that transforms Austin Film Society events into a curated, i
 ## 🌟 Features
 
 ### 🤖 Smart Event Processing
+- **Structure-Based Movie Detection**: Identifies real movies vs festivals using AFS page format
 - **Automated Web Scraping**: Fetches events from Austin Film Society calendar
 - **AI-Powered Analysis**: French cinéaste-style film reviews using Perplexity AI
+- **Clean Metadata Extraction**: Country, year, duration, language from structured format
 - **Personal Preference Scoring**: Customizable ratings based on your taste
 - **Special Screening Detection**: Identifies Q&As, 35mm prints, and rare screenings
 - **Work Hours Filtering**: Automatically excludes 9am-6pm weekday events
@@ -15,7 +17,9 @@ An automated system that transforms Austin Film Society events into a curated, i
 - **GitHub Pages Website**: Beautiful, responsive single-page application
 - **Dual View Modes**: Toggle between list and calendar views
 - **Movie Aggregation**: Multiple showtimes grouped under single movie cards
+- **Rich Movie Cards**: Duration, director, country, year, and language badges
 - **Interactive Calendar**: Visual month view with color-coded ratings
+- **Country Filtering**: Filter movies by country of origin
 - **Rating Filter**: Download custom calendars filtered by minimum rating (1-10)
 - **Mobile Responsive**: Works perfectly on all devices
 
@@ -137,6 +141,7 @@ Movies are intelligently rated on a 1-10 scale using:
 - **🤖 AI Analysis**: French cinéaste-style research via Perplexity AI
 - **❤️ Personal Preferences**: +2 points per matching director/genre/keyword  
 - **✨ Special Screenings**: +3 points for Q&As, 35mm prints, rare formats
+- **🎬 Smart Filtering**: Only actual movies (no festivals or events)
 - **⏰ Accessibility**: Automatic filtering of work-hour screenings
 
 ### 📊 Rating Categories

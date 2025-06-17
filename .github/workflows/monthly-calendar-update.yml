@@ -1,9 +1,9 @@
 name: Monthly Culture Calendar Update
 
 on:
-  schedule:
+  # schedule:
     # Run on the 1st of every month at 6 AM UTC (1 AM CST / 12 AM CDT in Austin)
-    - cron: '0 6 1 * *'
+    # - cron: '0 6 1 * *'
   # Allow manual triggering for monthly updates
   workflow_dispatch:
 
