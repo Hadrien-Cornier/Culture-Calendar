@@ -32,7 +32,7 @@ An automated system that transforms Austin Film Society events into a curated, i
 ## 🚀 Quick Start
 
 ### 🌐 Use the Live Website
-Visit **[your-username.github.io/Culture-Calendar](https://your-username.github.io/Culture-Calendar)** to:
+Visit **[hadrien-cornier.github.io/Culture-Calendar](https://hadrien-cornier.github.io/Culture-Calendar)** to:
 - Browse AI-rated Austin Film Society movies
 - Toggle between list and calendar views  
 - Download filtered .ics calendar files
