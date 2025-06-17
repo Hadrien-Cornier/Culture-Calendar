@@ -24,11 +24,17 @@
 
         <!-- Filter Section -->
         <section class="filter-section">
-            <h2>📅 Download Calendar</h2>
+            <h2>📅 Download Calendar & Filters</h2>
             <div class="filter-controls">
                 <label for="rating-slider">Minimum Rating: <span id="rating-value">1</span>/10</label>
                 <input type="range" id="rating-slider" min="1" max="10" value="1" class="slider">
                 <button id="download-btn" class="download-button">Download Calendar (.ics)</button>
+            </div>
+            <div class="genre-filters" id="genre-filters">
+                <h3>🎭 Filter by Genre</h3>
+                <div class="genre-buttons" id="genre-buttons">
+                    <!-- Genre filter buttons will be populated by JavaScript -->
+                </div>
             </div>
         </section>
 

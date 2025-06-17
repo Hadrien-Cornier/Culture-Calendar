@@ -214,3 +214,27 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 - Collects events from 1st of current month through end of next month
 - Filters out work-hour screenings (9am-6pm weekdays)
 - Provides comprehensive data for calendar view display
+
+## Recent Website Improvements (Completed)
+
+### Critical Fixes:
+1. ✅ **Duplicate Events** - Fixed deduplication logic in `update_website_data.py` to merge screenings by movie title
+2. ✅ **Rating Extraction Bug** - Fixed decimal rating parsing (3.6/10 now correctly rounds to 4, not 6)
+3. ✅ **Truncated Descriptions** - Increased API token limit and removed truncation for complete evaluations
+4. ✅ **Movie Re-evaluation** - Successfully re-ran with all fixes applied
+
+### New Features Added:
+1. ✅ **Movie Metadata** - Added duration and director info scraped from AFS event pages
+2. ✅ **Event Filtering** - Automatically filter out non-movie events (festivals, discussions)
+3. ✅ **Chrome Calendar Fix** - Fixed calendar width display issues in Chrome browser
+4. ✅ **Cult Classic Detection** - AI-powered cult classic detection with purple badges
+5. ✅ **French Movie Features** - French flag badges + 2 rating boost (capped at 10)
+6. ✅ **Genre Classification** - AI-powered genre detection and display
+7. ✅ **Genre Filtering** - Interactive genre toggle filters in website UI
+
+### Enhanced Movie Cards Now Include:
+- Duration and director information
+- Cult classic badges (🎭)
+- French movie flags (🇫🇷) with rating boost
+- Genre classification and filtering
+- Improved Chrome compatibility

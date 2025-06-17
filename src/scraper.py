@@ -176,18 +176,23 @@ class AFSScraper:
             # Check for special screening indicators
             is_special = self._detect_special_screening(soup, description)
             
+            # Extract movie metadata (duration and director)
+            metadata = self._extract_movie_metadata(soup, description)
+            
             # Add small delay to be respectful
             time.sleep(0.5)
             
             return {
                 'description': description,
                 'is_special_screening': is_special,
+                'duration': metadata.get('duration'),
+                'director': metadata.get('director'),
                 'full_html': str(soup)
             }
             
         except requests.RequestException as e:
             print(f"Failed to fetch event details from {event_url}: {e}")
-            return {'description': '', 'is_special_screening': False}
+            return {'description': '', 'is_special_screening': False, 'duration': None, 'director': None}
     
     def _detect_special_screening(self, soup: BeautifulSoup, description: str) -> bool:
         """Detect if this is a special screening (Q&A, 35mm, etc.)"""
@@ -212,3 +217,58 @@ class AFSScraper:
                 return True
         
         return False
+    
+    def _extract_movie_metadata(self, soup: BeautifulSoup, description: str) -> Dict:
+        """Extract movie metadata like duration and director from the page"""
+        metadata = {}
+        
+        # Get all text content from the page
+        full_text = soup.get_text()
+        
+        # Extract duration (look for patterns like "90 min", "2 hours", "120 minutes")
+        duration_patterns = [
+            r'(\d+)\s*min(?:utes?)?',
+            r'(\d+)\s*hr(?:s?)',
+            r'(\d+)\s*hour(?:s?)',
+            r'(\d+)\s*h\s*(\d+)\s*m',  # e.g., "2h 30m"
+            r'Runtime:\s*(\d+)\s*min',
+            r'Duration:\s*(\d+)\s*min'
+        ]
+        
+        for pattern in duration_patterns:
+            match = re.search(pattern, full_text, re.IGNORECASE)
+            if match:
+                if len(match.groups()) == 2:  # For "2h 30m" format
+                    hours, minutes = match.groups()
+                    total_minutes = int(hours) * 60 + int(minutes)
+                    metadata['duration'] = f"{total_minutes} min"
+                else:
+                    duration = match.group(1)
+                    if 'hr' in match.group(0).lower() or 'hour' in match.group(0).lower():
+                        # Convert hours to minutes
+                        total_minutes = int(duration) * 60
+                        metadata['duration'] = f"{total_minutes} min"
+                    else:
+                        metadata['duration'] = f"{duration} min"
+                break
+        
+        # Extract director (look for patterns like "Directed by", "Director:", "A film by")
+        director_patterns = [
+            r'Directed by\s+([^.\n]+)',
+            r'Director:\s*([^.\n]+)',
+            r'A film by\s+([^.\n]+)',
+            r'Dir\.?\s*:\s*([^.\n]+)',
+            r'Filmmaker:\s*([^.\n]+)'
+        ]
+        
+        for pattern in director_patterns:
+            match = re.search(pattern, full_text, re.IGNORECASE)
+            if match:
+                director = match.group(1).strip()
+                # Clean up director name (remove extra text)
+                director = re.sub(r'\s+', ' ', director)
+                if len(director) < 100:  # Reasonable length check
+                    metadata['director'] = director
+                break
+        
+        return metadata

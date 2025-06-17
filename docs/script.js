@@ -1,6 +1,7 @@
 // Global variables
 let moviesData = [];
 let filteredMovies = [];
+let selectedGenres = new Set();
 
 // DOM elements
 const ratingSlider = document.getElementById('rating-slider');
@@ -82,6 +83,7 @@ async function loadMoviesData() {
         }
         
         moviesData = await response.json();
+        setupGenreFilters();
         updateFilteredMovies();
         renderMovies();
         hideLoading();
@@ -91,10 +93,81 @@ async function loadMoviesData() {
     }
 }
 
-// Update filtered movies based on current rating
+// Setup genre filter buttons
+function setupGenreFilters() {
+    const genres = [...new Set(moviesData
+        .map(movie => movie.genre)
+        .filter(genre => genre)
+    )].sort();
+    
+    const genreButtonsContainer = document.getElementById('genre-buttons');
+    
+    // Add "All" button
+    const allButton = document.createElement('button');
+    allButton.className = 'genre-filter-btn active';
+    allButton.textContent = 'All';
+    allButton.onclick = () => toggleGenreFilter('all');
+    genreButtonsContainer.appendChild(allButton);
+    
+    // Add genre-specific buttons
+    genres.forEach(genre => {
+        const button = document.createElement('button');
+        button.className = 'genre-filter-btn';
+        button.textContent = genre;
+        button.onclick = () => toggleGenreFilter(genre);
+        genreButtonsContainer.appendChild(button);
+    });
+}
+
+// Toggle genre filter
+function toggleGenreFilter(genre) {
+    if (genre === 'all') {
+        selectedGenres.clear();
+        document.querySelectorAll('.genre-filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector('.genre-filter-btn').classList.add('active'); // "All" button
+    } else {
+        // Remove "All" selection
+        document.querySelector('.genre-filter-btn').classList.remove('active');
+        
+        const button = [...document.querySelectorAll('.genre-filter-btn')]
+            .find(btn => btn.textContent === genre);
+        
+        if (selectedGenres.has(genre)) {
+            selectedGenres.delete(genre);
+            button.classList.remove('active');
+        } else {
+            selectedGenres.add(genre);
+            button.classList.add('active');
+        }
+        
+        // If no genres selected, activate "All"
+        if (selectedGenres.size === 0) {
+            document.querySelector('.genre-filter-btn').classList.add('active');
+        }
+    }
+    
+    updateFilteredMovies();
+    renderMovies();
+}
+
+// Update filtered movies based on current rating and genre filters
 function updateFilteredMovies() {
     const minRating = parseInt(ratingSlider.value);
-    filteredMovies = moviesData.filter(movie => movie.rating >= minRating);
+    
+    filteredMovies = moviesData.filter(movie => {
+        // Rating filter
+        if (movie.rating < minRating) return false;
+        
+        // Genre filter
+        if (selectedGenres.size > 0 && !selectedGenres.has(movie.genre)) {
+            return false;
+        }
+        
+        return true;
+    });
+    
     updateDownloadButton();
 }
 
@@ -112,12 +185,14 @@ function updateDownloadButton() {
 
 // Render movies list
 function renderMovies() {
-    if (moviesData.length === 0) {
-        moviesList.innerHTML = '<p class="no-movies">No upcoming movies found.</p>';
+    const moviesToRender = filteredMovies.length > 0 ? filteredMovies : moviesData;
+    
+    if (moviesToRender.length === 0) {
+        moviesList.innerHTML = '<p class="no-movies">No movies match the current filters.</p>';
         return;
     }
 
-    moviesList.innerHTML = moviesData.map(movie => createMovieCard(movie)).join('');
+    moviesList.innerHTML = moviesToRender.map(movie => createMovieCard(movie)).join('');
     
     // Add event listeners for expand buttons
     document.querySelectorAll('.expand-button').forEach(button => {
@@ -150,6 +225,13 @@ function createMovieCard(movie) {
             </div>
             
             <div class="movie-info">
+                <div class="movie-badges">
+                    ${movie.duration ? `<span class="movie-meta-badge">⏱️ ${movie.duration}</span>` : ''}
+                    ${movie.director ? `<span class="movie-meta-badge">🎬 ${movie.director}</span>` : ''}
+                    ${movie.isCultClassic ? '<span class="cult-classic-badge">🎭 Cult Classic</span>' : ''}
+                    ${movie.isFrench ? '<span class="french-movie-badge">🇫🇷 French</span>' : ''}
+                    ${movie.genre ? `<span class="genre-badge">${movie.genre}</span>` : ''}
+                </div>
                 <div class="screenings-container">
                     ${screeningTags}
                     ${movie.isSpecialScreening ? '<span class="special-screening-indicator">✨ Special</span>' : ''}

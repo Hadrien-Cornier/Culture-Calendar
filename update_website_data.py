@@ -127,32 +127,85 @@ def clean_markdown_text(text):
     
     return text
 
+def is_movie_event(title, description=""):
+    """Determine if an event is a movie screening vs festival/discussion/other event"""
+    # Non-movie event indicators
+    non_movie_indicators = [
+        'film festival', 'festival', 'symposium', 'conference', 'workshop',
+        'discussion', 'panel', 'conversation', 'talk', 'seminar', 'masterclass',
+        'awards', 'ceremony', 'gala', 'fundraiser', 'benefit', 'market',
+        'networking', 'party', 'reception', 'opening night', 'closing night'
+    ]
+    
+    title_lower = title.lower()
+    desc_lower = description.lower()
+    
+    # Check if title contains non-movie indicators
+    for indicator in non_movie_indicators:
+        if indicator in title_lower:
+            return False
+    
+    # Special cases - things that sound like movies but aren't
+    if any(phrase in title_lower for phrase in [
+        'film festival', 'fest ', 'festival', 'series premiere',
+        'season premiere', 'season finale'
+    ]):
+        return False
+    
+    # If it contains "premiere" but also "world premiere" or "us premiere", it's likely a movie
+    if 'premiere' in title_lower and any(phrase in title_lower for phrase in [
+        'world premiere', 'us premiere', 'american premiere', 'texas premiere'
+    ]):
+        return True
+    
+    return True
+
 def generate_website_data(events):
     """Generate JSON data for the website with movie aggregation"""
+    # Filter out non-movie events first
+    movie_events = [event for event in events if is_movie_event(event['title'], event.get('description', ''))]
+    
     # Group events by movie title
     movies_dict = {}
     
-    for event in events:
+    for event in movie_events:
         title = event['title']
         
         if title not in movies_dict:
             # Create new movie entry
+            ai_rating = event.get('ai_rating', {})
             movies_dict[title] = {
                 'title': title,
                 'rating': event.get('final_rating', 5),
-                'description': clean_markdown_text(event.get('ai_rating', {}).get('summary', 'No description available')),
+                'description': clean_markdown_text(ai_rating.get('summary', 'No description available')),
                 'url': event.get('url', ''),
                 'isSpecialScreening': event.get('is_special_screening', False),
+                'duration': event.get('duration'),
+                'director': event.get('director'),
+                'isCultClassic': ai_rating.get('is_cult_classic', False),
+                'isFrench': ai_rating.get('is_french', False),
+                'genre': ai_rating.get('genre'),
                 'screenings': []
             }
         
-        # Add screening info
+        # Add screening info (avoid duplicates)
         screening = {
             'date': event['date'],
             'time': event.get('time', 'TBD'),
             'url': event.get('url', '')
         }
-        movies_dict[title]['screenings'].append(screening)
+        
+        # Check if this exact screening already exists
+        existing_screenings = movies_dict[title]['screenings']
+        screening_exists = any(
+            s['date'] == screening['date'] and 
+            s['time'] == screening['time'] and 
+            s['url'] == screening['url']
+            for s in existing_screenings
+        )
+        
+        if not screening_exists:
+            movies_dict[title]['screenings'].append(screening)
     
     # Convert to list and add unique IDs
     website_data = []
