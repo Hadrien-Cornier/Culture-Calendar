@@ -62,16 +62,43 @@ def filter_work_hours(events):
     
     return filtered_events
 
-def filter_upcoming_events(events, days_ahead=30):
-    """Filter events to only include those in the next N days"""
+def filter_upcoming_events(events, mode='month'):
+    """Filter events based on mode: 'month' for upcoming month, or number of days"""
     today = datetime.now().date()
-    cutoff_date = today + timedelta(days=days_ahead)
+    
+    if mode == 'month':
+        # Get events for the current month and next month
+        current_month_start = today.replace(day=1)
+        
+        # Calculate next month
+        if today.month == 12:
+            next_month = today.replace(year=today.year + 1, month=1, day=1)
+        else:
+            next_month = today.replace(month=today.month + 1, day=1)
+        
+        # End of next month
+        if next_month.month == 12:
+            end_of_next_month = next_month.replace(year=next_month.year + 1, month=1, day=1) - timedelta(days=1)
+        else:
+            end_of_next_month = next_month.replace(month=next_month.month + 1, day=1) - timedelta(days=1)
+        
+        start_date = current_month_start
+        end_date = end_of_next_month
+        
+        print(f"Filtering events from {start_date} to {end_date} (upcoming month)")
+    else:
+        # Legacy mode: use days_ahead
+        days_ahead = mode if isinstance(mode, int) else 30
+        start_date = today
+        end_date = today + timedelta(days=days_ahead)
+        
+        print(f"Filtering events from {start_date} to {end_date} ({days_ahead} days)")
     
     filtered_events = []
     for event in events:
         try:
             event_date = datetime.strptime(event['date'], '%Y-%m-%d').date()
-            if today <= event_date <= cutoff_date:
+            if start_date <= event_date <= end_date:
                 filtered_events.append(event)
         except (ValueError, KeyError):
             continue
@@ -188,8 +215,8 @@ def main():
         
         print(f"Processing {len(screening_events)} screening events")
         
-        # Filter to upcoming events only (next 30 days)
-        upcoming_events = filter_upcoming_events(screening_events, days_ahead=30)
+        # Filter to upcoming events (current month + next month)
+        upcoming_events = filter_upcoming_events(screening_events, mode='month')
         print(f"Found {len(upcoming_events)} upcoming events")
         
         # Filter out work-hour events

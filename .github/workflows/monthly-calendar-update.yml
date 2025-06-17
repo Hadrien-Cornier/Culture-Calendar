@@ -1,17 +1,17 @@
-name: Weekly Culture Calendar Update
+name: Monthly Culture Calendar Update
 
 on:
   schedule:
-    # Run every Saturday at 9 PM UTC (4 PM CST / 3 PM CDT in Austin)
-    - cron: '0 21 * * 6'
-  # Allow manual triggering
+    # Run on the 1st of every month at 6 AM UTC (1 AM CST / 12 AM CDT in Austin)
+    - cron: '0 6 1 * *'
+  # Allow manual triggering for monthly updates
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  weekly-update:
+  monthly-update:
     runs-on: ubuntu-latest
     
     steps:
@@ -28,17 +28,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Run weekly calendar update
+    - name: Run monthly calendar update
       env:
         PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
       run: |
-        echo "📅 Running weekly update - collecting upcoming month of events"
+        echo "🗓️ Running monthly update - collecting full upcoming month of events"
         python update_website_data.py
         
     - name: Configure Git
       run: |
         git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action - Weekly Update"
+        git config --local user.name "GitHub Action - Monthly Update"
         
     - name: Commit and push changes
       env:
@@ -48,6 +48,6 @@ jobs:
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
-          git commit -m "📅 Weekly calendar update - $(date -u +%Y-%m-%d)"
+          git commit -m "🗓️ Monthly calendar update - $(date -u +%B\ %Y)"
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
         fi

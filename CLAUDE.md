@@ -108,10 +108,10 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 - Statement about excluding work-hour screenings
 
 **Automated Updates:**
-- GitHub Actions workflow running Saturday/Sunday evenings
-- Weekly refresh to maintain rolling 30-day window
+- **Weekly Updates**: Every Saturday at 9 PM UTC (collects upcoming month)
+- **Monthly Updates**: 1st of each month at 6 AM UTC (full month refresh)
 - Generate fresh JSON data file for website consumption
-- Update .ics calendar files
+- Update .ics calendar files for all rating thresholds
 
 ### Technical Implementation
 
@@ -182,14 +182,17 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
    - Go to repository Settings > Secrets and variables > Actions
    - Add `PERPLEXITY_API_KEY` secret with your API key
 
-4. **Manual Workflow Trigger:**
+4. **Manual Workflow Triggers:**
    - Go to Actions tab
-   - Select "Update Culture Calendar" workflow
-   - Click "Run workflow" to test
+   - **Weekly Update**: "Weekly Culture Calendar Update" (upcoming month)
+   - **Monthly Update**: "Monthly Culture Calendar Update" (full refresh)
+   - Click "Run workflow" to test either one
 
 5. **View Website:**
    - Website will be available at: `https://[username].github.io/Culture-Calendar/`
-   - Updates automatically every Saturday at 9 PM UTC
+   - Updates automatically:
+     - **Weekly**: Every Saturday at 9 PM UTC
+     - **Monthly**: 1st of each month at 6 AM UTC
 
 ### Troubleshooting GitHub Actions
 
@@ -201,3 +204,13 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 - The script processes all filtered events (no artificial limit)
 - Built-in 1-second delay between API calls to respect rate limits
 - Movie ratings are cached to avoid reprocessing the same films
+
+**Update Frequency:**
+- **Weekly**: Maintains fresh data for immediate upcoming events
+- **Monthly**: Ensures complete coverage when AFS releases new month's schedule
+- Both workflows collect events for "current month + next month" to fill calendar view
+
+**Data Collection Range:**
+- Collects events from 1st of current month through end of next month
+- Filters out work-hour screenings (9am-6pm weekdays)
+- Provides comprehensive data for calendar view display
