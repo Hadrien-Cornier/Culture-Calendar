@@ -225,7 +225,7 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 
 ### New Features Added:
 1. ✅ **Movie Metadata** - Added duration and director info scraped from AFS event pages
-2. ✅ **Event Filtering** - Automatically filter out non-movie events (festivals, discussions)
+2. ✅ **Smart Event Filtering** - Structure-based detection of movies vs festivals/events using AFS page format
 3. ✅ **Chrome Calendar Fix** - Fixed calendar width display issues in Chrome browser
 4. ✅ **Cult Classic Detection** - AI-powered cult classic detection with purple badges
 5. ✅ **French Movie Features** - French flag badges + 2 rating boost (capped at 10)
@@ -238,3 +238,12 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 - French movie flags (🇫🇷) with rating boost
 - Genre classification and filtering
 - Improved Chrome compatibility
+- Explicit `isMovie` field for accurate filtering
+
+### Smart Movie Detection System:
+The system now uses **structure-based detection** instead of keyword matching:
+- Detects movies by looking for "Directed by [Name]" pattern
+- Validates with "Country, Year, Duration, Format" pattern
+- Much more reliable than keyword filtering
+- Prevents false filtering of movies with words like "festival" in title
+- Adds explicit `isMovie: true/false` field to data schema
