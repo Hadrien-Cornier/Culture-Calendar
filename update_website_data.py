@@ -272,26 +272,26 @@ def main(test_week=False):
         
         # Get detailed information for each screening event
         print("Fetching event details...")
-        screening_events = []
+        detailed_events = []
         for event in events:
-            if event.get('type') == 'screening':
+            if event.get('type') in ['screening', 'concert', 'book_club']:
                 try:
                     details = scraper.get_event_details(event)
                     event.update(details)
-                    screening_events.append(event)
+                    detailed_events.append(event)
                 except Exception as e:
                     print(f"Error getting details for {event.get('title', 'Unknown')}: {e}")
-        
-        print(f"Processing {len(screening_events)} screening events")
+
+        print(f"Processing {len(detailed_events)} events")
         
         # Filter to upcoming events
         if test_week:
             # For testing, use all events from current week
-            upcoming_events = screening_events
+            upcoming_events = detailed_events
             print(f"Using all {len(upcoming_events)} events for test week")
         else:
             # Filter to upcoming events (current month + next month)
-            upcoming_events = filter_upcoming_events(screening_events, mode='month')
+            upcoming_events = filter_upcoming_events(detailed_events, mode='month')
             print(f"Found {len(upcoming_events)} upcoming events")
         
         # Filter out work-hour events
