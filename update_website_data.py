@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Website data updater for Culture Calendar
-Generates JSON data and calendar files for the GitHub Pages website
+Generates JSON data for the GitHub Pages website
 Supports multiple venues: AFS, Hyperreal Film Club, and others
 """
 
@@ -11,7 +11,6 @@ import sys
 from datetime import datetime, timedelta
 from src.scraper import MultiVenueScraper
 from src.processor import EventProcessor
-from src.calendar_generator import CalendarGenerator
 
 def save_update_info(info: dict, path: str = 'docs/source_update_times.json') -> None:
     """Save per-source last update times to JSON"""
@@ -239,23 +238,6 @@ def generate_website_data(events):
     
     return website_data
 
-def generate_calendar_files(events, output_dir):
-    """Generate various filtered calendar files"""
-    os.makedirs(output_dir, exist_ok=True)
-    
-    calendar_gen = CalendarGenerator()
-    
-    # Generate calendars for different rating thresholds
-    rating_thresholds = [1, 5, 6, 7, 8, 9, 10]
-    
-    for min_rating in rating_thresholds:
-        filtered_events = [e for e in events if e.get('final_rating', 5) >= min_rating]
-        
-        if filtered_events:
-            filename = f"culture-calendar-{min_rating}plus.ics"
-            filepath = os.path.join(output_dir, filename)
-            calendar_gen.generate_ics(filtered_events, filepath)
-            print(f"Generated {filename} with {len(filtered_events)} events")
 
 def main(test_week=False):
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
@@ -312,11 +294,6 @@ def main(test_week=False):
             json.dump(website_data, f, indent=2)
         
         print(f"Generated docs/data.json with {len(website_data)} movies")
-        
-        # Generate calendar files
-        print("Generating calendar files...")
-        generate_calendar_files(enriched_events, 'docs/calendars')
-
         # Save per-source update timestamps
         save_update_info(scraper.last_updated)
 

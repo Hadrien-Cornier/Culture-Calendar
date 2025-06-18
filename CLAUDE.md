@@ -149,7 +149,7 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 - `docs/style.css` - Styling and responsive design
 - `docs/script.js` - Interactive features and filtering
 - `docs/data.json` - Movie data for display
-- `docs/calendars/` - Directory for .ics download files
+- `.ics` files generated dynamically on the client
 
 **Key Features:**
 - Client-side filtering and calendar generation
