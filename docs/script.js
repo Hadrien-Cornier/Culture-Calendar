@@ -172,7 +172,12 @@ function setupVenueFilters() {
         .filter(venue => venue)
     )].sort();
     
+    console.log('Found venues:', venues); // Debug log
+    
     const venueButtonsContainer = document.getElementById('venue-buttons');
+    
+    // Clear existing buttons
+    venueButtonsContainer.innerHTML = '';
     
     // Add "All" button
     const allButton = document.createElement('button');
@@ -188,6 +193,7 @@ function setupVenueFilters() {
         button.textContent = getVenueName(venue);
         button.onclick = () => toggleVenueFilter(venue);
         venueButtonsContainer.appendChild(button);
+        console.log('Added venue button:', venue, getVenueName(venue)); // Debug log
     });
 }
 
@@ -252,6 +258,9 @@ function toggleGenreFilter(genre) {
 
 // Toggle venue filter
 function toggleVenueFilter(venue) {
+    console.log('Toggling venue filter:', venue); // Debug log
+    console.log('Selected venues before:', [...selectedVenues]); // Debug log
+    
     if (venue === 'all') {
         selectedVenues.clear();
         document.querySelectorAll('.venue-filter-btn').forEach(btn => {
@@ -265,12 +274,14 @@ function toggleVenueFilter(venue) {
         const button = [...document.querySelectorAll('.venue-filter-btn')]
             .find(btn => btn.textContent === getVenueName(venue));
         
+        console.log('Found button:', button?.textContent); // Debug log
+        
         if (selectedVenues.has(venue)) {
             selectedVenues.delete(venue);
-            button.classList.remove('active');
+            if (button) button.classList.remove('active');
         } else {
             selectedVenues.add(venue);
-            button.classList.add('active');
+            if (button) button.classList.add('active');
         }
         
         // If no venues selected, activate "All"
@@ -278,6 +289,8 @@ function toggleVenueFilter(venue) {
             document.querySelector('.venue-filter-btn').classList.add('active');
         }
     }
+    
+    console.log('Selected venues after:', [...selectedVenues]); // Debug log
     
     updateFilteredMovies();
     renderMovies();
