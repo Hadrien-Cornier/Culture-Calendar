@@ -11,6 +11,8 @@ import time
 import json
 import os
 
+import asyncio
+from pyppeteer import launch
 class AFSScraper:
     def __init__(self):
         self.base_url = "https://www.austinfilm.org"
@@ -655,46 +657,95 @@ class AlienatedMajestyBooksScraper:
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         })
     
+    def _get_rendered_html(self, url: str) -> Optional[str]:
+        """Fetch page content using headless Chrome"""
+        async def fetch():
+            browser = await launch(headless=True, args=['--no-sandbox'])
+            page = await browser.newPage()
+            await page.goto(url, {'waitUntil': 'networkidle2'})
+            content = await page.content()
+            await browser.close()
+            return content
+
+        try:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            html = loop.run_until_complete(fetch())
+            return html
+        except Exception as e:
+            print(f"Pyppeteer failed: {e}")
+            return None
+        finally:
+            try:
+                loop.close()
+            except Exception:
+                pass
+
+    def _parse_book_club_html(self, html: str) -> List[Dict]:
+        """Parse rendered HTML for book club events"""
+        soup = BeautifulSoup(html, 'html.parser')
+        events = []
+
+        text_lines = [line.strip() for line in soup.get_text('\n').split('\n') if line.strip()]
+        current = None
+        for line in text_lines:
+            lower = line.lower()
+            if 'book club' in lower and not line.startswith('http'):
+                if current:
+                    events.append(current)
+                current = {
+                    'title': line,
+                    'book': '',
+                    'author': '',
+                    'dates': [],
+                    'times': ['7:00 PM'],
+                    'venue_name': 'Alienated Majesty Books',
+                    'series': 'Book Club',
+                    'description': line,
+                }
+            elif current and 'by' in lower and not current['author']:
+                parts = line.split('by', 1)
+                if len(parts) == 2:
+                    book = parts[0].strip(' "')
+                    author = parts[1].strip()
+                    current['book'] = book
+                    current['author'] = author
+            elif current:
+                date_match = re.search(r'(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+(\d{4})?', line)
+                if date_match:
+                    month = date_match.group(1)
+                    day = re.search(r'\d{1,2}', line).group(0)
+                    year = date_match.group(2) or str(datetime.now().year)
+                    try:
+                        dt = datetime.strptime(f"{month} {day} {year}", "%B %d %Y")
+                        current['dates'].append(dt.strftime("%Y-%m-%d"))
+                    except Exception:
+                        pass
+
+        if current:
+            events.append(current)
+
+        return [e for e in events if e['dates']]
+
     def _scrape_book_club_page(self):
         """Scrape the book club page for current events"""
-        try:
-            response = self.session.get(f"{self.base_url}/book-clubs", timeout=10)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.content, 'html.parser')
-            
-            book_clubs = []
-            
-            # Look for book club event information
-            # Since the site uses JavaScript, try to find any static content or fallback
-            event_containers = soup.find_all(['div', 'section', 'article'], class_=lambda x: x and any(keyword in x.lower() for keyword in ['event', 'book', 'club', 'calendar']))
-            
-            # Also check for any text that mentions books, dates, or events
-            page_text = soup.get_text()
-            
-            # If we can't scrape dynamic content, return a sensible default
-            if not event_containers and not any(keyword in page_text.lower() for keyword in ['book club', 'discussion', 'meeting']):
-                print("Warning: No book club events found on Alienated Majesty Books website")
+        url = f"{self.base_url}/book-clubs"
+        html = self._get_rendered_html(url)
+        if not html:
+            print("Falling back to requests scraping")
+            try:
+                response = self.session.get(url, timeout=10)
+                response.raise_for_status()
+                html = response.text
+            except Exception as e:
+                print(f"Error fetching fallback HTML: {e}")
                 return self._get_fallback_book_club_data()
-            
-            # Try to parse any found content
-            # This would need to be customized based on the actual HTML structure
-            for container in event_containers:
-                text = container.get_text().strip()
-                if any(keyword in text.lower() for keyword in ['book club', 'discussion']):
-                    # Extract event details if possible
-                    # This is a placeholder for actual parsing logic
-                    pass
-            
-            # If no events were parsed, use fallback
-            if not book_clubs:
-                print("Using fallback data for Alienated Majesty Books")
-                return self._get_fallback_book_club_data()
-            
-            return book_clubs
-            
-        except Exception as e:
-            print(f"Error scraping Alienated Majesty Books: {e}")
+
+        events = self._parse_book_club_html(html)
+        if not events:
+            print("Using fallback data for Alienated Majesty Books")
             return self._get_fallback_book_club_data()
+        return events
     
     def _get_fallback_book_club_data(self):
         """Return fallback book club data when scraping fails"""
