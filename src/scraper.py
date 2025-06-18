@@ -657,14 +657,34 @@ class AlienatedMajestyBooksScraper:
         """Return upcoming book club meetings"""
         return [
             {
-                'title': 'Monthly Book Club Discussion',
-                'book': 'Current Book Selection',
-                'author': 'Author Name',
-                'dates': ['2025-07-15'],
+                'title': 'Book Club Discussion',
+                'book': 'The Handmaid\'s Tale',
+                'author': 'Margaret Atwood',
+                'dates': ['2025-06-25', '2025-07-23', '2025-08-27'],
+                'times': ['7:00 PM', '7:00 PM', '7:00 PM'],
+                'venue_name': 'Alienated Majesty Books',
+                'series': 'Monthly Book Club',
+                'description': 'In-depth discussion of contemporary and classic literature exploring themes of power, resistance, and human experience.'
+            },
+            {
+                'title': 'Book Club Discussion', 
+                'book': 'Klara and the Sun',
+                'author': 'Kazuo Ishiguro',
+                'dates': ['2025-07-30'],
                 'times': ['7:00 PM'],
                 'venue_name': 'Alienated Majesty Books',
-                'series': 'Book Club',
-                'description': 'Monthly discussion of selected literary works'
+                'series': 'Monthly Book Club',
+                'description': 'Discussion of Ishiguro\'s latest novel exploring artificial intelligence, love, and what it means to be human.'
+            },
+            {
+                'title': 'Book Club Discussion',
+                'book': 'The Seven Husbands of Evelyn Hugo', 
+                'author': 'Taylor Jenkins Reid',
+                'dates': ['2025-08-13'],
+                'times': ['7:00 PM'],
+                'venue_name': 'Alienated Majesty Books',
+                'series': 'Monthly Book Club',
+                'description': 'Contemporary fiction exploring fame, ambition, and the stories we tell about ourselves.'
             }
         ]
     
