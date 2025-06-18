@@ -64,6 +64,20 @@ main {
     color: #666;
 }
 
+/* Update Info */
+.update-info {
+    background: #f0f5ff;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.update-info ul {
+    list-style: none;
+    padding-left: 0;
+}
+
 /* Filter Section */
 .filter-section {
     background: #f8f9fa;

@@ -28,6 +28,7 @@ const startDateInput = document.getElementById('start-date');
 const endDateInput = document.getElementById('end-date');
 const applyDateFilterBtn = document.getElementById('apply-date-filter');
 const clearDateFilterBtn = document.getElementById('clear-date-filter');
+const updateList = document.getElementById('update-list');
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('All critical elements found, proceeding...'); // Debug log
     setupEventListeners();
     loadMoviesData();
+    loadUpdateInfo();
 });
 
 // Set up event listeners
@@ -188,6 +190,33 @@ async function loadMoviesData() {
         console.error('Detailed error loading movies data:', error);
         console.error('Error stack:', error.stack);
         showError(`Failed to load cultural event data: ${error.message}. Please check browser console for details.`);
+    }
+}
+
+// Load per-source update times
+async function loadUpdateInfo() {
+    if (!updateList) return;
+    try {
+        let url = 'source_update_times.json';
+        if (window.location.hostname === 'hadrien-cornier.github.io') {
+            url = '/Culture-Calendar/source_update_times.json';
+        }
+        const response = await fetch(url);
+        if (!response.ok) return;
+        const data = await response.json();
+        updateList.innerHTML = '';
+        Object.entries(data).forEach(([venue, timestamp]) => {
+            const li = document.createElement('li');
+            if (timestamp) {
+                const date = new Date(timestamp);
+                li.textContent = `${getVenueName(venue)} - ${date.toLocaleString()}`;
+            } else {
+                li.textContent = `${getVenueName(venue)} - n/a`;
+            }
+            updateList.appendChild(li);
+        });
+    } catch (err) {
+        console.error('Error loading update info', err);
     }
 }
 
