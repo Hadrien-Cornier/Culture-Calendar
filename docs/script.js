@@ -779,7 +779,11 @@ function getVenueName(venue) {
         'AFS': '🎬 AFS',
         'Hyperreal': '🎭 Hyperreal',
         'Paramount': '🎪 Paramount',
-        'Symphony': '🎼 Symphony'
+        'Symphony': '🎼 Symphony',
+        'EarlyMusic': '🎵 Early Music',
+        'LaFollia': '🎻 La Follia',
+        'AlienatedMajesty': '📚 Alienated Majesty',
+        'FirstLight': '📖 First Light'
     };
     return venueNames[venue] || venue;
 }

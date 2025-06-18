@@ -24,11 +24,9 @@ END:DAYLIGHT
 END:VTIMEZONE
 BEGIN:VEVENT
 SUMMARY:20TH CENTURY WOMEN at HYPERREAL FILM CLUB
-DTSTART;TZID=America/Chicago:20250604T193000
-DTEND;TZID=America/Chicago:20250604T213000
-DTSTAMP:20250618T130200Z
+DTSTAMP:20250618T140755Z
 UID:https://hyperrealfilm.club/events/2025/6-4/20th-century-women-movie-sc
- reening-2025-06-04-730 PM@culturecalendar.local
+ reening-nodate-notime@culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p>20th Century Women at Hyperreal Film Club</p
  ><p>★ Rating: 9/10</p><p>"20th Century Women" is a masterful ensemble ch
@@ -89,137 +87,9 @@ URL:https://hyperrealfilm.club/events/2025/6-4/20th-century-women-movie-sc
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:A MAN AND A WOMAN
-DTSTART;TZID=America/Chicago:20250712T133000
-DTEND;TZID=America/Chicago:20250712T153000
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/a-man-and-a-woman/-2025-07-12-130
- PM@culturecalendar.local
-CATEGORIES:Film,Entertainment
-DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"A Man a
- nd a Woman" (1966) is a cinematic masterpiece that exemplifies artistic me
- rit\, technical brilliance\, and aesthetic achievement. Directed by Claude
-  Lelouch\, this film transcends the boundaries of time and culture\, explo
- ring timeless human experiences with profound sensitivity and beauty.</p><
- p><strong>🎬 Synopsis:</strong><br>The narrative is deceptively simple y
- et rich in emotional depth. The story revolves around Jean-Louis (Jean-Lou
- is Trintignant) and Anne (Anouk Aimée)\, two widowed parents who meet by 
- chance at their children's boarding school in Deauville. As they spend mor
- e time together\, they reveal their pasts and their deep-seated emotional 
- scars. Jean-Louis\, a racing driver\, and Anne\, a film actress\, find the
- mselves drawn to each other despite the lingering memories of their deceas
- ed spouses. The film's psychological time scheme\, where memories intrude 
- on their present moments\, adds a layer of complexity to their budding rel
- ationship. The story is a poignant exploration of love\, loss\, and the hu
- man capacity for emotional healing.</p><p><strong>👤 Director:</strong><
- br>Claude Lelouch is a French filmmaker known for his lyrical and introspe
- ctive style. Born in 1937\, Lelouch began his career in the 1960s\, emergi
- ng as a key figure in the French New Wave movement. His films are characte
- rized by their focus on human relationships and the emotional journeys of 
- his characters. In "A Man and a Woman\," Lelouch employs a unique cinemato
- graphic technique\, seamlessly transitioning between full color\, black-an
- d-white\, and sepia-toned shots to reflect the characters' emotional state
- s. This visual innovation not only adds to the film's aesthetic beauty but
-  also underscores the psychological depth of the narrative.</p><p><strong>
- 🎨 Central Themes:</strong><br>The central themes of "A Man and a Woman"
-  are deeply rooted in universal human experiences. The film explores the c
- omplexities of love\, loss\, and memory with remarkable sensitivity. The c
- haracters' emotional journeys are interwoven with themes of beauty\, truth
- \, and growth. Anne's memories of her husband are a poignant reminder of t
- he enduring power of love\, even in the face of loss. Jean-Louis's sinceri
- ty and acceptance of Anne's past serve as a testament to the human capacit
- y for emotional healing. The film also touches on the theme of growth\, as
-  both characters navigate their way through their pasts to find a new sens
- e of purpose and happiness.</p><p><strong>🏛️ Cultural Legacy:</strong
- ><br>"A Man and a Woman" has had a profound impact on cinema\, influencing
-  filmmakers to explore more nuanced and emotionally charged narratives. Th
- e film's technical innovations\, particularly in cinematography\, have set
-  a new standard for visual storytelling. The use of color and black-and-wh
- ite sequences not only adds to the film's aesthetic beauty but also enhanc
- es its emotional impact. The film's success at the 1966 Cannes Film Festiv
- al\, where it won the Palme d'Or\, solidified its place in cinematic histo
- ry. The film's influence can be seen in subsequent romantic dramas that fo
- cus on character development and emotional depth.</p><p>In conclusion\, "A
-  Man and a Woman" is a masterpiece that transcends political boundaries to
-  explore what makes us fundamentally human. Its commitment to artistic exc
- ellence and sensitivity makes it a timeless classic\, continuing to captiv
- ate audiences with its beautiful narrative\, stunning cinematography\, and
-  profound emotional depth.</p>\n\nMore info: https://www.austinfilm.org/sc
- reening/a-man-and-a-woman/\n\n📍 Austin Film Society Cinema\n\n🎟️ T
- ickets: https://www.austinfilm.org/
-LOCATION:Austin Film Society Cinema\, 6226 Middle Fiskville Rd\, Austin\, 
- TX 78752
-URL:https://www.austinfilm.org/screening/a-man-and-a-woman/
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:A MAN AND A WOMAN
-DTSTART;TZID=America/Chicago:20250713T133000
-DTEND;TZID=America/Chicago:20250713T153000
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/a-man-and-a-woman/-2025-07-13-130
- PM@culturecalendar.local
-CATEGORIES:Film,Entertainment
-DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"A Man a
- nd a Woman" (1966) is a cinematic masterpiece that exemplifies artistic me
- rit\, technical brilliance\, and aesthetic achievement. Directed by Claude
-  Lelouch\, this film transcends the boundaries of time and culture\, explo
- ring timeless human experiences with profound sensitivity and beauty.</p><
- p><strong>🎬 Synopsis:</strong><br>The narrative is deceptively simple y
- et rich in emotional depth. The story revolves around Jean-Louis (Jean-Lou
- is Trintignant) and Anne (Anouk Aimée)\, two widowed parents who meet by 
- chance at their children's boarding school in Deauville. As they spend mor
- e time together\, they reveal their pasts and their deep-seated emotional 
- scars. Jean-Louis\, a racing driver\, and Anne\, a film actress\, find the
- mselves drawn to each other despite the lingering memories of their deceas
- ed spouses. The film's psychological time scheme\, where memories intrude 
- on their present moments\, adds a layer of complexity to their budding rel
- ationship. The story is a poignant exploration of love\, loss\, and the hu
- man capacity for emotional healing.</p><p><strong>👤 Director:</strong><
- br>Claude Lelouch is a French filmmaker known for his lyrical and introspe
- ctive style. Born in 1937\, Lelouch began his career in the 1960s\, emergi
- ng as a key figure in the French New Wave movement. His films are characte
- rized by their focus on human relationships and the emotional journeys of 
- his characters. In "A Man and a Woman\," Lelouch employs a unique cinemato
- graphic technique\, seamlessly transitioning between full color\, black-an
- d-white\, and sepia-toned shots to reflect the characters' emotional state
- s. This visual innovation not only adds to the film's aesthetic beauty but
-  also underscores the psychological depth of the narrative.</p><p><strong>
- 🎨 Central Themes:</strong><br>The central themes of "A Man and a Woman"
-  are deeply rooted in universal human experiences. The film explores the c
- omplexities of love\, loss\, and memory with remarkable sensitivity. The c
- haracters' emotional journeys are interwoven with themes of beauty\, truth
- \, and growth. Anne's memories of her husband are a poignant reminder of t
- he enduring power of love\, even in the face of loss. Jean-Louis's sinceri
- ty and acceptance of Anne's past serve as a testament to the human capacit
- y for emotional healing. The film also touches on the theme of growth\, as
-  both characters navigate their way through their pasts to find a new sens
- e of purpose and happiness.</p><p><strong>🏛️ Cultural Legacy:</strong
- ><br>"A Man and a Woman" has had a profound impact on cinema\, influencing
-  filmmakers to explore more nuanced and emotionally charged narratives. Th
- e film's technical innovations\, particularly in cinematography\, have set
-  a new standard for visual storytelling. The use of color and black-and-wh
- ite sequences not only adds to the film's aesthetic beauty but also enhanc
- es its emotional impact. The film's success at the 1966 Cannes Film Festiv
- al\, where it won the Palme d'Or\, solidified its place in cinematic histo
- ry. The film's influence can be seen in subsequent romantic dramas that fo
- cus on character development and emotional depth.</p><p>In conclusion\, "A
-  Man and a Woman" is a masterpiece that transcends political boundaries to
-  explore what makes us fundamentally human. Its commitment to artistic exc
- ellence and sensitivity makes it a timeless classic\, continuing to captiv
- ate audiences with its beautiful narrative\, stunning cinematography\, and
-  profound emotional depth.</p>\n\nMore info: https://www.austinfilm.org/sc
- reening/a-man-and-a-woman/\n\n📍 Austin Film Society Cinema\n\n🎟️ T
- ickets: https://www.austinfilm.org/
-LOCATION:Austin Film Society Cinema\, 6226 Middle Fiskville Rd\, Austin\, 
- TX 78752
-URL:https://www.austinfilm.org/screening/a-man-and-a-woman/
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:A MAN AND A WOMAN
-DTSTART;TZID=America/Chicago:20250714T190000
-DTEND;TZID=America/Chicago:20250714T210000
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/a-man-and-a-woman/-2025-07-14-700
- PM@culturecalendar.local
+DTSTAMP:20250618T140755Z
+UID:https://www.austinfilm.org/screening/a-man-and-a-woman/-nodate-notime@
+ culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"A Man a
  nd a Woman" (1966) is a cinematic masterpiece that exemplifies artistic me
@@ -278,11 +148,9 @@ URL:https://www.austinfilm.org/screening/a-man-and-a-woman/
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:A WOMAN UNDER THE INFLUENCE
-DTSTART;TZID=America/Chicago:20250729T193000
-DTEND;TZID=America/Chicago:20250729T213000
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/a-woman-under-the-influence/-2025
- -07-29-730PM@culturecalendar.local
+DTSTAMP:20250618T140755Z
+UID:https://www.austinfilm.org/screening/a-woman-under-the-influence/-noda
+ te-notime@culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"A Woman
   Under the Influence" is a masterpiece of cinematic art that transcends it
@@ -339,11 +207,9 @@ URL:https://www.austinfilm.org/screening/a-woman-under-the-influence/
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:ALL ABOUT MY MOTHER at HYPERREAL FILM CLUB
-DTSTART;TZID=America/Chicago:20250630T193000
-DTEND;TZID=America/Chicago:20250630T213000
-DTSTAMP:20250618T130200Z
+DTSTAMP:20250618T140755Z
 UID:https://hyperrealfilm.club/events/2025/6-30/all-about-my-mother-movie-
- screening-2025-06-30-730 PM@culturecalendar.local
+ screening-nodate-notime@culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"<strong
  >All About My Mother</strong>" is a cinematic masterpiece that exemplifies
@@ -403,70 +269,9 @@ URL:https://hyperrealfilm.club/events/2025/6-30/all-about-my-mother-movie-
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:FOR A FEW DOLLARS MORE
-DTSTART;TZID=America/Chicago:20250706T133000
-DTEND;TZID=America/Chicago:20250706T153000
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/for-a-few-dollars-more/-2025-07-0
- 6-130PM@culturecalendar.local
-CATEGORIES:Film,Entertainment
-DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"FOR A F
- EW DOLLARS MORE" is a masterpiece that exemplifies artistic merit\, techni
- cal brilliance\, and aesthetic achievement. Sergio Leone's direction maste
- rfully weaves together timeless human experiences\, elevating the Western 
- genre to new heights.</p><p><strong>🎬 Synopsis:</strong><br>The film fo
- llows two bounty killers\, Monco (Clint Eastwood) and Col. Douglas Mortime
- r (Lee Van Cleef)\, who become allies after a brief scuffle. They decide t
- o pool their resources to take down the notorious El Indio (Gian Maria Vol
- ontè)\, a ruthless outlaw responsible for numerous heinous crimes. The na
- rrative is a slow-burning\, intense exploration of their quest for revenge
- \, punctuated by moments of poetic beauty and tragic depth. The story delv
- es into themes of guilt\, remorse\, and the blurred lines between good and
-  evil\, making it a rich tapestry of emotional depth.</p><p><strong>👤 D
- irector:</strong><br>Sergio Leone was an Italian film director renowned fo
- r his innovative and visually stunning approach to cinema. His artistic vi
- sion was deeply rooted in the concept of "spaghetti Westerns\," which he u
- sed to subvert traditional Western narratives. Leone's technique was chara
- cterized by his use of long takes\, close-ups\, and deliberate pacing\, wh
- ich created an atmosphere of tension and suspense. His collaboration with 
- composer Ennio Morricone resulted in haunting soundtracks that perfectly c
- omplemented the on-screen action\, adding an extra layer of emotional impa
- ct to the film.</p><p><strong>🎨 Central Themes:</strong><br>The central
-  themes of "FOR A FEW DOLLARS MORE" revolve around universal human experie
- nces such as love\, loss\, guilt\, and redemption. The character of El Ind
- io\, in particular\, is a complex exploration of a villain who commits atr
- ocities but is driven by a twisted form of love. This dichotomy makes him 
- a tragic figure\, eliciting both sympathy and revulsion from the audience.
-  The film also explores the theme of honor and the code of conduct among o
- utlaws\, highlighting the moral ambiguities of their world. The use of clo
- se-ups and detailed cinematography adds to the emotional intensity\, makin
- g the viewer feel every twitch and bead of sweat from the actors.</p><p><s
- trong>🏛️ Cultural Legacy:</strong><br>"For a Few Dollars More" has ha
- d a profound influence on the Western genre and cinema as a whole. Its tec
- hnical innovations\, such as the use of long takes and close-ups\, have be
- en emulated by many directors. The film's aesthetic beauty\, particularly 
- in its use of lighting and composition\, has set a new standard for visual
-  storytelling. The collaboration between Leone and Morricone has also been
-  highly influential\, with Morricone's score becoming iconic in its own ri
- ght. The film's exploration of timeless human experiences has transcended 
- political boundaries\, making it a work that continues to resonate with au
- diences today.</p><p>In conclusion\, "FOR A FEW DOLLARS MORE" is a cinemat
- ic masterpiece that embodies artistic excellence and sensitivity. Its comm
- itment to exploring universal human experiences\, combined with its techni
- cal brilliance and aesthetic beauty\, makes it a film that will continue t
- o be celebrated for generations to come.</p>\n\nMore info: https://www.aus
- tinfilm.org/screening/for-a-few-dollars-more/\n\n📍 Austin Film Society 
- Cinema\n\n🎟️ Tickets: https://www.austinfilm.org/
-LOCATION:Austin Film Society Cinema\, 6226 Middle Fiskville Rd\, Austin\, 
- TX 78752
-URL:https://www.austinfilm.org/screening/for-a-few-dollars-more/
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:FOR A FEW DOLLARS MORE
-DTSTART;TZID=America/Chicago:20250709T190000
-DTEND;TZID=America/Chicago:20250709T210000
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/for-a-few-dollars-more/-2025-07-0
- 9-700PM@culturecalendar.local
+DTSTAMP:20250618T140755Z
+UID:https://www.austinfilm.org/screening/for-a-few-dollars-more/-nodate-no
+ time@culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"FOR A F
  EW DOLLARS MORE" is a masterpiece that exemplifies artistic merit\, techni
@@ -521,11 +326,9 @@ URL:https://www.austinfilm.org/screening/for-a-few-dollars-more/
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:KILLER OF SHEEP
-DTSTART;TZID=America/Chicago:20250621T165000
-DTEND;TZID=America/Chicago:20250621T185000
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/killer-of-sheep/-2025-06-21-450PM
- @culturecalendar.local
+DTSTAMP:20250618T140755Z
+UID:https://www.austinfilm.org/screening/killer-of-sheep/-nodate-notime@cu
+ lturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p><strong>Killer of Sheep: A Cinematic Masterp
  iece of Human Experience</strong></p><p><strong>Rating: 9/10</strong></p><
@@ -586,86 +389,9 @@ URL:https://www.austinfilm.org/screening/killer-of-sheep/
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:NIGHT OF THE LIVING DEAD
-DTSTART;TZID=America/Chicago:20250618T204500
-DTEND;TZID=America/Chicago:20250618T224500
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/night-of-the-living-dead/-2025-06
- -18-845PM@culturecalendar.local
-CATEGORIES:Film,Entertainment
-DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"Night o
- f the Living Dead" (1968) is a masterpiece that transcends its genre to ex
- plore fundamental human experiences\, making it a timeless classic. Its ar
- tistic merit\, technical brilliance\, and aesthetic achievement are undeni
- able.</p><p><strong>🎬 Synopsis:</strong><br>The film tells the story of
-  seven people trapped in a rural Pennsylvania farmhouse\, besieged by fles
- h-eating reanimated corpses. The narrative is a study in fear and isolatio
- n\, where the claustrophobic setting intensifies the growing tensions amon
- g the survivors. The story is driven by personal conflicts\, particularly 
- the power struggle between Ben and Harry Cooper\, highlighting how interna
- l divisions can be more destructive than external threats. The film's clim
- ax\, where Ben falls victim to friendly fire\, is a poignant commentary on
-  the breakdown of trust and cooperation.</p><p>The character development i
- s minimal but effective\, focusing on the psychological states of the char
- acters rather than their backstories. This approach allows the audience to
-  project their own fears and anxieties onto the characters\, making the ex
- perience more relatable and emotionally deep.</p><p><strong>👤 Director:
- </strong><br>George A. Romero was a visionary director who brought a uniqu
- e perspective to horror cinema. Born in 1940\, Romero was influenced by th
- e French New Wave movement and the works of filmmakers like Jean-Luc Godar
- d and François Truffaut. His artistic vision was characterized by a willi
- ngness to push boundaries and challenge genre expectations. In "Night of t
- he Living Dead\," Romero employed a documentary-style approach\, using han
- dheld cameras and natural lighting to create a sense of realism. This tech
- nique not only added to the film's aesthetic but also underscored the sens
- e of chaos and disorder.</p><p>Romero's cinematic technique was marked by 
- his ability to balance horror with social commentary. He often used his fi
- lms to reflect the anxieties and fears of the time\, but in "Night of the 
- Living Dead\," he focused more on the universal human experience of fear a
- nd survival rather than heavy political messaging.</p><p><strong>🎨 Cent
- ral Themes:</strong><br>The central themes of "Night of the Living Dead" a
- re fear\, isolation\, and the breakdown of human relationships. The film t
- aps into the Cold War paranoia\, reflecting the growing distrust in Americ
- an institutions during the Vietnam War era. However\, these themes are not
-  presented as ideological positions but rather as universal human experien
- ces that transcend political boundaries.</p><p>The film explores the beaut
- y of human resilience in the face of unimaginable horror. The characters' 
- struggles to survive and maintain their humanity in the midst of chaos are
-  deeply moving. The aesthetic concepts of claustrophobia and the use of na
- tural lighting create a sense of realism that immerses the audience in the
-  characters' world.</p><p>Moreover\, the film delves into the truth of hum
- an nature\, revealing that our greatest enemies are often ourselves. The b
- reakdown of cooperation and trust among the group underscores a bleak mess
- age: civilization crumbles not just due to external threats but also becau
- se of internal divisions.</p><p><strong>🏛️ Cultural Legacy:</strong><
- br>"Night of the Living Dead" has had a profound influence on horror cinem
- a. It laid the groundwork for countless successors\, from Romero's own "Da
- wn of the Dead" (1978) to contemporary hits like "The Walking Dead" and "2
- 8 Days Later" (2002). The film's technical innovations\, such as its use o
- f handheld cameras and natural lighting\, have become standard practices i
- n horror filmmaking.</p><p>The film's cultural legacy extends beyond horro
- r\, as it has influenced filmmakers across genres. Its exploration of univ
- ersal human experiences has made it a timeless classic\, appreciated by au
- diences for decades. Despite its initial controversy\, "Night of the Livin
- g Dead" has been recognized as a watershed moment in cinema\, cementing it
- s place in the pantheon of great films.</p><p>In conclusion\, "Night of th
- e Living Dead" is a masterpiece that transcends its genre to explore funda
- mental human experiences. Its artistic merit\, technical brilliance\, and 
- aesthetic achievement make it a film that continues to captivate audiences
-  with its timeless themes of fear\, isolation\, and human resilience.</p>\
- n\nMore info: https://www.austinfilm.org/screening/night-of-the-living-dea
- d/\n\n📍 Austin Film Society Cinema\n\n🎟️ Tickets: https://www.aust
- infilm.org/
-LOCATION:Austin Film Society Cinema\, 6226 Middle Fiskville Rd\, Austin\, 
- TX 78752
-URL:https://www.austinfilm.org/screening/night-of-the-living-dead/
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:NIGHT OF THE LIVING DEAD
-DTSTART;TZID=America/Chicago:20250623T190000
-DTEND;TZID=America/Chicago:20250623T210000
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/night-of-the-living-dead/-2025-06
- -23-700PM@culturecalendar.local
+DTSTAMP:20250618T140755Z
+UID:https://www.austinfilm.org/screening/night-of-the-living-dead/-nodate-
+ notime@culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"Night o
  f the Living Dead" (1968) is a masterpiece that transcends its genre to ex
@@ -736,11 +462,9 @@ URL:https://www.austinfilm.org/screening/night-of-the-living-dead/
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:PAST LIVES at HYPERREAL FILM CLUB
-DTSTART;TZID=America/Chicago:20250611T193000
-DTEND;TZID=America/Chicago:20250611T213000
-DTSTAMP:20250618T130200Z
+DTSTAMP:20250618T140755Z
 UID:https://hyperrealfilm.club/events/2025/6-11/past-lives-movie-screening
- -2025-06-11-730 PM@culturecalendar.local
+ -nodate-notime@culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p><strong>PAST LIVES at HYPERREAL FILM CLUB</s
  trong></p><p><strong>Rating: 9/10</strong></p><p><strong>PAST LIVES</stron
@@ -796,78 +520,9 @@ URL:https://hyperrealfilm.club/events/2025/6-11/past-lives-movie-screening
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:PLAY IT AS IT LAYS
-DTSTART;TZID=America/Chicago:20250715T194500
-DTEND;TZID=America/Chicago:20250715T214500
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/play-it-as-it-lays/-2025-07-15-74
- 5PM@culturecalendar.local
-CATEGORIES:Film,Entertainment
-DESCRIPTION:Event Details: <p><strong>Play It As It Lays</strong> (1972) -
-  A Cinematic Masterpiece of Human Despair</p><p><strong>Rating: 9/10</stro
- ng><br>"Play It As It Lays" is a cinematic masterpiece that excels in arti
- stic merit\, technical brilliance\, and aesthetic achievement. The film's 
- exploration of timeless human experiences\, particularly those of loneline
- ss\, despair\, and the search for meaning\, elevates it above films with h
- eavy political messaging. Director Frank Perry's vision and the performanc
- es of the cast\, particularly Tuesday Weld and Ben Gazzara\, bring depth a
- nd humanity to the narrative\, making it a compelling and emotionally reso
- nant work.</p><p><strong>Synopsis:</strong><br>The film is a poignant and 
- bleak portrayal of Maria Wyeth\, a woman struggling with the futility of h
- er life. Born in a genuine Montana town but now living in the illusory wor
- ld of Los Angeles\, Maria navigates a life devoid of purpose. Her husband 
- is consumed by his ego\, and she is left to confront the emptiness of her 
- existence. The narrative is a slow-burning exploration of Maria's inner tu
- rmoil\, her relationships\, and her desperate attempts to find meaning in 
- a seemingly meaningless world. The film's narrative craft is characterized
-  by its minimalist approach\, which allows the audience to immerse themsel
- ves in Maria's emotional depth.</p><p><strong>Director:</strong><br>Frank 
- Perry was an American film director known for his nuanced and introspectiv
- e approach to storytelling. In "Play It As It Lays\," Perry brings Didion'
- s novel to life with a keen eye for detail and a deep understanding of the
-  human condition. His direction is marked by a sense of detachment\, mirro
- ring the bleakness of Maria's world. This aesthetic choice allows the audi
- ence to experience the film's emotional intensity without being overwhelme
- d by sentimentalism. Perry's technical brilliance is evident in his use of
-  lighting\, camera angles\, and editing\, which collectively create a visu
- ally stunning and emotionally charged film.</p><p><strong>Central Themes:<
- /strong><br>The central themes of "Play It As It Lays" are deeply rooted i
- n universal human experiences. The film explores the themes of <strong>lon
- eliness</strong> and <strong>despair</strong>\, highlighting the pervasive
-  sense of isolation that can accompany modern life. The <strong>search for
-  meaning</strong> is another dominant theme\, as Maria grapples with the f
- utility of her existence and the emptiness of her relationships. The film 
- also touches on <strong>motherhood</strong>\, <strong>society</strong>\, a
- nd <strong>depression</strong>\, serving as a prime case study of women in
-  a society that often neglects their emotional and psychological well-bein
- g. The aesthetic concepts of <strong>beauty</strong> and <strong>truth</st
- rong> are explored through the stark\, minimalist settings and the raw\, u
- nflinching portrayal of human emotions.</p><p><strong>Cultural Legacy:</st
- rong><br>"Play It As It Lays" has had a significant impact on cinematic cu
- lture\, influencing filmmakers to explore more nuanced and introspective n
- arratives. The film's technical innovations\, particularly in its use of l
- ighting and camera angles\, have set a new standard for character-driven d
- ramas. The film's commitment to artistic excellence and sensitivity has ma
- de it a timeless classic\, transcending political boundaries to explore wh
- at makes us fundamentally human. It continues to be studied in film school
- s and appreciated by audiences for its raw emotional power and its unflinc
- hing portrayal of human despair.</p><p>In conclusion\, "Play It As It Lays
- " is a masterpiece of cinematic art that excels in its exploration of time
- less human experiences. Its commitment to artistic excellence and sensitiv
- ity makes it a work that continues to resonate with audiences today\, offe
- ring a profound and haunting portrayal of the human condition.</p>\n\nMore
-  info: https://www.austinfilm.org/screening/play-it-as-it-lays/\n\n📍 Au
- stin Film Society Cinema\n\n🎟️ Tickets: https://www.austinfilm.org/
-LOCATION:Austin Film Society Cinema\, 6226 Middle Fiskville Rd\, Austin\, 
- TX 78752
-URL:https://www.austinfilm.org/screening/play-it-as-it-lays/
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:PLAY IT AS IT LAYS
-DTSTART;TZID=America/Chicago:20250719T181500
-DTEND;TZID=America/Chicago:20250719T201500
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/play-it-as-it-lays/-2025-07-19-61
- 5PM@culturecalendar.local
+DTSTAMP:20250618T140755Z
+UID:https://www.austinfilm.org/screening/play-it-as-it-lays/-nodate-notime
+ @culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p><strong>Play It As It Lays</strong> (1972) -
   A Cinematic Masterpiece of Human Despair</p><p><strong>Rating: 9/10</stro
@@ -930,145 +585,9 @@ URL:https://www.austinfilm.org/screening/play-it-as-it-lays/
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:THE HIDDEN FORTRESS
-DTSTART;TZID=America/Chicago:20250725T181500
-DTEND;TZID=America/Chicago:20250725T201500
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/the-hidden-fortress/-2025-07-25-6
- 15PM@culturecalendar.local
-CATEGORIES:Film,Entertainment
-DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"The Hid
- den Fortress" is a masterclass in cinematic storytelling\, showcasing exce
- ptional artistic merit\, technical brilliance\, and aesthetic achievement.
-  Directed by Akira Kurosawa\, this 1958 film transcends political boundari
- es to explore timeless human experiences\, making it a work of enduring be
- auty and emotional depth.</p><p><strong>🎬 Synopsis:</strong><br>The nar
- rative of "The Hidden Fortress" revolves around the journey of two peasant
- s\, Tahei and Matashichi\, who find themselves embroiled in a rebellion wh
- ile trying to escape a ruined castle. They are eventually conscripted into
-  a group led by General Makabe Rokurota\, who is secretly tasked with esco
- rting Princess Yuki back to her home territory. The film masterfully weave
- s together elements of comedy\, drama\, and action\, highlighting the char
- acters' moral dilemmas and personal growth. The peasants' clownish respons
- es to the brutal violence around them serve as a poignant commentary on th
- e human condition\, evoking a sense of irony and pathos.</p><p><strong>
- 👤 Director:</strong><br>Akira Kurosawa was a visionary director known f
- or his meticulous attention to detail and his ability to balance spectacle
-  with emotional depth. Born in 1910 in Tokyo\, Japan\, Kurosawa began his 
- career as a painter before transitioning to filmmaking. His artistic visio
- n was deeply rooted in Japanese culture and history\, yet he consistently 
- sought to explore universal themes that transcended national boundaries. K
- urosawa's use of the Tohoscope frame allowed for expansive compositions th
- at captured the space between characters\, adding to the film's visual gra
- ndeur. His direction in "The Hidden Fortress" showcases his mastery of cin
- ematic technique\, from the monumental set of the ruined fortress to the i
- ntimate moments of character interaction.</p><p><strong>🎨 Central Theme
- s:</strong><br>The film explores several universal human experiences\, inc
- luding:</p><p>- <strong>Beauty:</strong> The ruined fortress\, with its mo
- numental structure of stone and burned wood\, serves as a backdrop for the
-  characters' journey. The contrast between the beauty of nature and the de
- struction caused by human conflict is a recurring theme.<br>- <strong>Trut
- h:</strong> The peasants' initial honesty and subsequent dishonesty reflec
- t their struggle to find truth in a world filled with deception and violen
- ce.<br>- <strong>Love:</strong> The relationship between the peasants and 
- the princess\, as well as the bond between the peasants themselves\, highl
- ights the power of human connection in the face of adversity.<br>- <strong
- >Loss:</strong> The film's depiction of war and its aftermath underscores 
- the loss of innocence and the decay of traditional values.<br>- <strong>Gr
- owth:</strong> Through their experiences\, the peasants undergo significan
- t personal growth\, learning to navigate complex moral dilemmas and find a
-  sense of purpose.</p><p><strong>🏛️ Cultural Legacy:</strong><br>"The
-  Hidden Fortress" has had a profound impact on cinema\, influencing filmma
- kers across genres. Its use of the Tohoscope frame and its emphasis on cha
- racter development have become benchmarks for cinematic storytelling. The 
- film's narrative structure\, which focuses on the journey of two seemingly
-  minor characters\, has inspired numerous adaptations and reinterpretation
- s. Additionally\, Kurosawa's exploration of universal themes has made "The
-  Hidden Fortress" a timeless classic\, appealing to audiences worldwide fo
- r its sensitivity and artistic excellence.</p><p>In conclusion\, "The Hidd
- en Fortress" is a masterpiece that transcends political boundaries to expl
- ore fundamental human experiences. Its artistic excellence\, technical bri
- lliance\, and aesthetic beauty make it a work that continues to captivate 
- audiences with its timeless themes and emotional depth.</p>\n\nMore info: 
- https://www.austinfilm.org/screening/the-hidden-fortress/\n\n📍 Austin F
- ilm Society Cinema\n\n🎟️ Tickets: https://www.austinfilm.org/
-LOCATION:Austin Film Society Cinema\, 6226 Middle Fiskville Rd\, Austin\, 
- TX 78752
-URL:https://www.austinfilm.org/screening/the-hidden-fortress/
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:THE HIDDEN FORTRESS
-DTSTART;TZID=America/Chicago:20250727T170000
-DTEND;TZID=America/Chicago:20250727T190000
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/the-hidden-fortress/-2025-07-27-5
- 00PM@culturecalendar.local
-CATEGORIES:Film,Entertainment
-DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"The Hid
- den Fortress" is a masterclass in cinematic storytelling\, showcasing exce
- ptional artistic merit\, technical brilliance\, and aesthetic achievement.
-  Directed by Akira Kurosawa\, this 1958 film transcends political boundari
- es to explore timeless human experiences\, making it a work of enduring be
- auty and emotional depth.</p><p><strong>🎬 Synopsis:</strong><br>The nar
- rative of "The Hidden Fortress" revolves around the journey of two peasant
- s\, Tahei and Matashichi\, who find themselves embroiled in a rebellion wh
- ile trying to escape a ruined castle. They are eventually conscripted into
-  a group led by General Makabe Rokurota\, who is secretly tasked with esco
- rting Princess Yuki back to her home territory. The film masterfully weave
- s together elements of comedy\, drama\, and action\, highlighting the char
- acters' moral dilemmas and personal growth. The peasants' clownish respons
- es to the brutal violence around them serve as a poignant commentary on th
- e human condition\, evoking a sense of irony and pathos.</p><p><strong>
- 👤 Director:</strong><br>Akira Kurosawa was a visionary director known f
- or his meticulous attention to detail and his ability to balance spectacle
-  with emotional depth. Born in 1910 in Tokyo\, Japan\, Kurosawa began his 
- career as a painter before transitioning to filmmaking. His artistic visio
- n was deeply rooted in Japanese culture and history\, yet he consistently 
- sought to explore universal themes that transcended national boundaries. K
- urosawa's use of the Tohoscope frame allowed for expansive compositions th
- at captured the space between characters\, adding to the film's visual gra
- ndeur. His direction in "The Hidden Fortress" showcases his mastery of cin
- ematic technique\, from the monumental set of the ruined fortress to the i
- ntimate moments of character interaction.</p><p><strong>🎨 Central Theme
- s:</strong><br>The film explores several universal human experiences\, inc
- luding:</p><p>- <strong>Beauty:</strong> The ruined fortress\, with its mo
- numental structure of stone and burned wood\, serves as a backdrop for the
-  characters' journey. The contrast between the beauty of nature and the de
- struction caused by human conflict is a recurring theme.<br>- <strong>Trut
- h:</strong> The peasants' initial honesty and subsequent dishonesty reflec
- t their struggle to find truth in a world filled with deception and violen
- ce.<br>- <strong>Love:</strong> The relationship between the peasants and 
- the princess\, as well as the bond between the peasants themselves\, highl
- ights the power of human connection in the face of adversity.<br>- <strong
- >Loss:</strong> The film's depiction of war and its aftermath underscores 
- the loss of innocence and the decay of traditional values.<br>- <strong>Gr
- owth:</strong> Through their experiences\, the peasants undergo significan
- t personal growth\, learning to navigate complex moral dilemmas and find a
-  sense of purpose.</p><p><strong>🏛️ Cultural Legacy:</strong><br>"The
-  Hidden Fortress" has had a profound impact on cinema\, influencing filmma
- kers across genres. Its use of the Tohoscope frame and its emphasis on cha
- racter development have become benchmarks for cinematic storytelling. The 
- film's narrative structure\, which focuses on the journey of two seemingly
-  minor characters\, has inspired numerous adaptations and reinterpretation
- s. Additionally\, Kurosawa's exploration of universal themes has made "The
-  Hidden Fortress" a timeless classic\, appealing to audiences worldwide fo
- r its sensitivity and artistic excellence.</p><p>In conclusion\, "The Hidd
- en Fortress" is a masterpiece that transcends political boundaries to expl
- ore fundamental human experiences. Its artistic excellence\, technical bri
- lliance\, and aesthetic beauty make it a work that continues to captivate 
- audiences with its timeless themes and emotional depth.</p>\n\nMore info: 
- https://www.austinfilm.org/screening/the-hidden-fortress/\n\n📍 Austin F
- ilm Society Cinema\n\n🎟️ Tickets: https://www.austinfilm.org/
-LOCATION:Austin Film Society Cinema\, 6226 Middle Fiskville Rd\, Austin\, 
- TX 78752
-URL:https://www.austinfilm.org/screening/the-hidden-fortress/
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:THE HIDDEN FORTRESS
-DTSTART;TZID=America/Chicago:20250729T184500
-DTEND;TZID=America/Chicago:20250729T204500
-DTSTAMP:20250618T130200Z
-UID:https://www.austinfilm.org/screening/the-hidden-fortress/-2025-07-29-6
- 45PM@culturecalendar.local
+DTSTAMP:20250618T140755Z
+UID:https://www.austinfilm.org/screening/the-hidden-fortress/-nodate-notim
+ e@culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p><strong>Rating: 9/10</strong></p><p>"The Hid
  den Fortress" is a masterclass in cinematic storytelling\, showcasing exce
@@ -1131,11 +650,9 @@ URL:https://www.austinfilm.org/screening/the-hidden-fortress/
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:TONGUES UNTIED + PREHEAT FEST at HYPERREAL FILM CLUB
-DTSTART;TZID=America/Chicago:20250620T193000
-DTEND;TZID=America/Chicago:20250620T213000
-DTSTAMP:20250618T130200Z
+DTSTAMP:20250618T140755Z
 UID:https://hyperrealfilm.club/events/2025/6-19/tongues-untied-movie-scree
- ning-2025-06-20-730 PM@culturecalendar.local
+ ning-nodate-notime@culturecalendar.local
 CATEGORIES:Film,Entertainment
 DESCRIPTION:Event Details: <p>"Tongues Untied" Analysis</p><p>★ Rating: 
  9/10</p><p>"Tongues Untied" stands out for its artistic merit\, technical 

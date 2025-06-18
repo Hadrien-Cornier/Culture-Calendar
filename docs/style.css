@@ -405,6 +405,26 @@ main {
     color: white;
 }
 
+.venue-earlymusic {
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    color: white;
+}
+
+.venue-lafollia {
+    background: linear-gradient(135deg, #8b4513, #654321);
+    color: white;
+}
+
+.venue-alienatedmajesty {
+    background: linear-gradient(135deg, #2f4f4f, #1c3333);
+    color: white;
+}
+
+.venue-firstlight {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+}
+
 .screenings-container {
     display: flex;
     flex-wrap: wrap;

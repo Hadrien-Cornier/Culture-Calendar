@@ -472,6 +472,347 @@ class HyperrealScraper:
             }
 
 
+class EarlyMusicAustinScraper:
+    """Scraper for Texas Early Music Project events"""
+    
+    def __init__(self):
+        self.base_url = "https://www.early-music.org"
+        # Pre-defined season data for 2025-2026
+        self.season_data = self._get_season_data()
+    
+    def _get_season_data(self):
+        """Return the 2025-2026 season data"""
+        return [
+            {
+                'title': 'A Cry of many voices: British Isles & The Lowlands',
+                'program': 'Choral works from c.1490-1510 with 9-19 vocal parts',
+                'dates': ['2025-09-20', '2025-09-21'],
+                'times': ['7:30 PM', '3:00 PM'],
+                'venue_name': 'St. Martin\'s Lutheran Church',
+                'series': 'Early Music',
+                'featured_artist': 'Texas Early Music Project',
+                'composers': ['Various British & Lowland composers'],
+                'works': ['Choral works c.1490-1510']
+            },
+            {
+                'title': 'Joy and Light: Delights of the Season',
+                'program': 'Multicultural holiday music featuring medieval chants, carols, motets',
+                'dates': ['2025-12-13', '2025-12-14'],
+                'times': ['7:30 PM', '3:00 PM'],
+                'venue_name': 'Arts on Alexander',
+                'series': 'Early Music',
+                'featured_artist': 'Texas Early Music Project',
+                'composers': ['Various medieval composers'],
+                'works': ['Medieval chants, carols, motets']
+            },
+            {
+                'title': 'Troubadours of France & Iberia',
+                'program': 'Music from southern France and northern Spain, 11th-13th centuries',
+                'dates': ['2026-02-28', '2026-03-01'],
+                'times': ['7:30 PM', '3:00 PM'],
+                'venue_name': 'Arts on Alexander',
+                'series': 'Early Music',
+                'featured_artist': 'Texas Early Music Project',
+                'composers': ['Various troubadour composers'],
+                'works': ['French and Iberian music 11th-13th centuries']
+            },
+            {
+                'title': 'Purcell. Henry Purcell: License to Trill',
+                'program': 'Featuring Purcell\'s diverse repertoire',
+                'dates': ['2026-04-18', '2026-04-19'],
+                'times': ['7:30 PM', '3:00 PM'],
+                'venue_name': 'Arts on Alexander',
+                'series': 'Early Music',
+                'featured_artist': 'Texas Early Music Project',
+                'composers': ['Henry Purcell'],
+                'works': ['Purcell\'s diverse repertoire']
+            }
+        ]
+    
+    def scrape_calendar(self) -> List[Dict]:
+        """Return all early music season events as standardized event data"""
+        events = []
+        
+        for concert in self.season_data:
+            # Create an event for each date
+            for i, date in enumerate(concert['dates']):
+                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
+                
+                event = {
+                    'title': concert['title'],
+                    'url': f"{self.base_url}/concerts/{concert['title'].lower().replace(' ', '-').replace(':', '').replace(',', '')}",
+                    'date': date,
+                    'time': time,
+                    'type': 'concert',
+                    'location': concert['venue_name'],
+                    'venue': 'EarlyMusic',
+                    'series': concert['series'],
+                    'program': concert['program'],
+                    'featured_artist': concert['featured_artist'],
+                    'composers': concert['composers'],
+                    'works': concert['works']
+                }
+                events.append(event)
+        
+        return events
+    
+    def get_event_details(self, event: Dict) -> Dict:
+        """Return detailed information for early music events"""
+        return {
+            'description': f"Texas Early Music Project presents {event['title']}.\n\nProgram:\n{event['program']}\n\nFeaturing: {event['featured_artist']}",
+            'is_special_screening': False,
+            'duration': '90 min',
+            'director': None,
+            'country': 'USA',
+            'year': int(event['date'][:4]),
+            'language': None,
+            'is_movie': False,
+            'venue': 'EarlyMusic',
+            'series': event.get('series'),
+            'composers': event.get('composers', []),
+            'works': event.get('works', []),
+            'featured_artist': event.get('featured_artist')
+        }
+
+
+class LaFolliaAustinScraper:
+    """Scraper for La Follia Austin chamber music events"""
+    
+    def __init__(self):
+        self.base_url = "https://www.lafolliaaustin.org"
+        # Sample chamber music events (would need to be populated with actual data)
+        self.season_data = self._get_season_data()
+    
+    def _get_season_data(self):
+        """Return upcoming chamber music events"""
+        # This would be updated with actual event data from the venue
+        return [
+            {
+                'title': 'Baroque Chamber Music Concert',
+                'program': 'Chamber music featuring baroque composers',
+                'dates': ['2025-07-15'],
+                'times': ['7:30 PM'],
+                'venue_name': 'Austin Chamber Music venue',
+                'series': 'Chamber Music',
+                'featured_artist': 'La Follia Austin',
+                'composers': ['Bach', 'Vivaldi', 'Handel'],
+                'works': ['Various baroque chamber pieces']
+            }
+        ]
+    
+    def scrape_calendar(self) -> List[Dict]:
+        """Return chamber music events as standardized event data"""
+        events = []
+        
+        for concert in self.season_data:
+            for i, date in enumerate(concert['dates']):
+                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
+                
+                event = {
+                    'title': concert['title'],
+                    'url': f"{self.base_url}/events/{concert['title'].lower().replace(' ', '-')}",
+                    'date': date,
+                    'time': time,
+                    'type': 'concert',
+                    'location': concert['venue_name'],
+                    'venue': 'LaFollia',
+                    'series': concert['series'],
+                    'program': concert['program'],
+                    'featured_artist': concert['featured_artist'],
+                    'composers': concert['composers'],
+                    'works': concert['works']
+                }
+                events.append(event)
+        
+        return events
+    
+    def get_event_details(self, event: Dict) -> Dict:
+        """Return detailed information for chamber music events"""
+        return {
+            'description': f"La Follia Austin presents {event['title']}.\n\nProgram:\n{event['program']}\n\nFeaturing: {event['featured_artist']}",
+            'is_special_screening': False,
+            'duration': '75 min',
+            'director': None,
+            'country': 'USA',
+            'year': int(event['date'][:4]),
+            'language': None,
+            'is_movie': False,
+            'venue': 'LaFollia',
+            'series': event.get('series'),
+            'composers': event.get('composers', []),
+            'works': event.get('works', []),
+            'featured_artist': event.get('featured_artist')
+        }
+
+
+class AlienatedMajestyBooksScraper:
+    """Scraper for Alienated Majesty Books book club events"""
+    
+    def __init__(self):
+        self.base_url = "https://www.alienatedmajestybooks.com"
+        # Sample book club data (would need to be updated regularly)
+        self.book_clubs = self._get_book_club_data()
+    
+    def _get_book_club_data(self):
+        """Return upcoming book club meetings"""
+        return [
+            {
+                'title': 'Monthly Book Club Discussion',
+                'book': 'Current Book Selection',
+                'author': 'Author Name',
+                'dates': ['2025-07-15'],
+                'times': ['7:00 PM'],
+                'venue_name': 'Alienated Majesty Books',
+                'series': 'Book Club',
+                'description': 'Monthly discussion of selected literary works'
+            }
+        ]
+    
+    def scrape_calendar(self) -> List[Dict]:
+        """Return book club events as standardized event data"""
+        events = []
+        
+        for club in self.book_clubs:
+            for i, date in enumerate(club['dates']):
+                time = club['times'][i] if i < len(club['times']) else club['times'][0]
+                
+                event = {
+                    'title': f"{club['title']}: {club['book']}",
+                    'url': f"{self.base_url}/book-clubs",
+                    'date': date,
+                    'time': time,
+                    'type': 'book_club',
+                    'location': club['venue_name'],
+                    'venue': 'AlienatedMajesty',
+                    'series': club['series'],
+                    'book': club['book'],
+                    'author': club['author'],
+                    'description': club['description']
+                }
+                events.append(event)
+        
+        return events
+    
+    def get_event_details(self, event: Dict) -> Dict:
+        """Return detailed information for book club events"""
+        return {
+            'description': f"Book club discussion of '{event['book']}' by {event['author']}.\n\n{event['description']}",
+            'is_special_screening': False,
+            'duration': '90 min',
+            'director': None,
+            'country': 'USA',
+            'year': int(event['date'][:4]),
+            'language': 'English',
+            'is_movie': False,
+            'venue': 'AlienatedMajesty',
+            'series': event.get('series'),
+            'book': event.get('book'),
+            'author': event.get('author')
+        }
+
+
+class FirstLightAustinScraper:
+    """Scraper for First Light Austin book club events"""
+    
+    def __init__(self):
+        self.base_url = "https://www.firstlightaustin.com"
+        # Current book club data from the website
+        self.book_clubs = self._get_book_club_data()
+    
+    def _get_book_club_data(self):
+        """Return upcoming book club meetings from First Light Austin"""
+        return [
+            {
+                'title': 'World Wide What Book Club',
+                'book': 'The Jamaica Kollection of the Shante Dream Arkive',
+                'author': 'Marcia Douglas',
+                'dates': ['2025-07-25'],  # Updated dates
+                'times': ['7:00 PM'],
+                'venue_name': 'First Light Austin',
+                'series': 'Book Club',
+                'host': 'Sam Ackerman',
+                'description': 'Book club discussion hosted by book buyer Sam Ackerman'
+            },
+            {
+                'title': 'About Motherhood Book Club',
+                'book': 'Things in Nature Merely Grow',
+                'author': 'Yiyun Li',
+                'dates': ['2025-07-18'],
+                'times': ['7:00 PM'],
+                'venue_name': 'First Light Austin',
+                'series': 'Book Club',
+                'host': 'Breezy Mayo',
+                'description': 'Book club discussion hosted by general manager Breezy Mayo'
+            },
+            {
+                'title': 'Small & Indie Book Club',
+                'book': 'Machine: A Novel',
+                'author': 'Susan Steinberg',
+                'dates': ['2025-07-24'],
+                'times': ['7:00 PM'],
+                'venue_name': 'First Light Austin',
+                'series': 'Book Club',
+                'host': 'Annie Tate Cockrum',
+                'description': 'Book club discussion hosted by bookseller Annie Tate Cockrum'
+            },
+            {
+                'title': 'Future Greats Book Club',
+                'book': 'The Slip',
+                'author': 'Lucas Schaefer',
+                'dates': ['2025-08-07'],
+                'times': ['7:00 PM'],
+                'venue_name': 'First Light Austin',
+                'series': 'Book Club',
+                'host': 'Taylor Bruce',
+                'description': 'Book club discussion hosted by partner Taylor Bruce'
+            }
+        ]
+    
+    def scrape_calendar(self) -> List[Dict]:
+        """Return book club events as standardized event data"""
+        events = []
+        
+        for club in self.book_clubs:
+            for i, date in enumerate(club['dates']):
+                time = club['times'][i] if i < len(club['times']) else club['times'][0]
+                
+                event = {
+                    'title': f"{club['title']}: {club['book']}",
+                    'url': f"{self.base_url}/book-club",
+                    'date': date,
+                    'time': time,
+                    'type': 'book_club',
+                    'location': club['venue_name'],
+                    'venue': 'FirstLight',
+                    'series': club['series'],
+                    'book': club['book'],
+                    'author': club['author'],
+                    'host': club['host'],
+                    'description': club['description']
+                }
+                events.append(event)
+        
+        return events
+    
+    def get_event_details(self, event: Dict) -> Dict:
+        """Return detailed information for book club events"""
+        return {
+            'description': f"Book club discussion of '{event['book']}' by {event['author']}.\n\nHosted by {event['host']}.\n\n{event['description']}",
+            'is_special_screening': False,
+            'duration': '90 min',
+            'director': None,
+            'country': 'USA',
+            'year': int(event['date'][:4]),
+            'language': 'English',
+            'is_movie': False,
+            'venue': 'FirstLight',
+            'series': event.get('series'),
+            'book': event.get('book'),
+            'author': event.get('author'),
+            'host': event.get('host')
+        }
+
+
 class AustinSymphonyScraper:
     """Austin Symphony Orchestra season scraper"""
     
@@ -695,6 +1036,10 @@ class MultiVenueScraper:
         self.afs_scraper = AFSScraper()
         self.hyperreal_scraper = HyperrealScraper()
         self.symphony_scraper = AustinSymphonyScraper()
+        self.early_music_scraper = EarlyMusicAustinScraper()
+        self.la_follia_scraper = LaFolliaAustinScraper()
+        self.alienated_majesty_scraper = AlienatedMajestyBooksScraper()
+        self.first_light_scraper = FirstLightAustinScraper()
         self.existing_events_cache = set()  # Cache for duplicate detection
     
     def scrape_all_venues(self, target_week: bool = False) -> List[Dict]:
@@ -739,6 +1084,50 @@ class MultiVenueScraper:
             print(f"Found {len(symphony_events)} Symphony events")
         except Exception as e:
             print(f"Error loading Symphony events: {e}")
+        
+        # Scrape Texas Early Music Project
+        print("Loading Early Music Austin season...")
+        try:
+            early_music_events = self.early_music_scraper.scrape_calendar()
+            for event in early_music_events:
+                event['venue'] = 'EarlyMusic'
+                all_events.append(event)
+            print(f"Found {len(early_music_events)} Early Music events")
+        except Exception as e:
+            print(f"Error loading Early Music events: {e}")
+        
+        # Scrape La Follia Austin
+        print("Loading La Follia Austin events...")
+        try:
+            la_follia_events = self.la_follia_scraper.scrape_calendar()
+            for event in la_follia_events:
+                event['venue'] = 'LaFollia'
+                all_events.append(event)
+            print(f"Found {len(la_follia_events)} La Follia events")
+        except Exception as e:
+            print(f"Error loading La Follia events: {e}")
+        
+        # Scrape Alienated Majesty Books
+        print("Loading Alienated Majesty Books club...")
+        try:
+            alienated_majesty_events = self.alienated_majesty_scraper.scrape_calendar()
+            for event in alienated_majesty_events:
+                event['venue'] = 'AlienatedMajesty'
+                all_events.append(event)
+            print(f"Found {len(alienated_majesty_events)} Alienated Majesty events")
+        except Exception as e:
+            print(f"Error loading Alienated Majesty events: {e}")
+        
+        # Scrape First Light Austin
+        print("Loading First Light Austin book clubs...")
+        try:
+            first_light_events = self.first_light_scraper.scrape_calendar()
+            for event in first_light_events:
+                event['venue'] = 'FirstLight'
+                all_events.append(event)
+            print(f"Found {len(first_light_events)} First Light events")
+        except Exception as e:
+            print(f"Error loading First Light events: {e}")
         
         # Filter to current week if requested
         if target_week:
@@ -789,9 +1178,9 @@ class MultiVenueScraper:
     def _create_event_id(self, title: str, date: str, time: str, venue: str) -> str:
         """Create a unique identifier for an event"""
         # Normalize data for consistent comparison
-        normalized_title = title.strip().lower()
-        normalized_venue = venue.strip().lower()
-        normalized_time = time.strip().lower()
+        normalized_title = (title or '').strip().lower()
+        normalized_venue = (venue or '').strip().lower()
+        normalized_time = (time or '').strip().lower()
         return f"{normalized_title}_{date}_{normalized_time}_{normalized_venue}"
     
     def _is_duplicate_event(self, title: str, date: str, time: str, venue: str) -> bool:
@@ -831,5 +1220,13 @@ class MultiVenueScraper:
             return self.hyperreal_scraper.get_event_details(event['url'])
         elif venue == 'Symphony':
             return self.symphony_scraper.get_event_details(event)
+        elif venue == 'EarlyMusic':
+            return self.early_music_scraper.get_event_details(event)
+        elif venue == 'LaFollia':
+            return self.la_follia_scraper.get_event_details(event)
+        elif venue == 'AlienatedMajesty':
+            return self.alienated_majesty_scraper.get_event_details(event)
+        elif venue == 'FirstLight':
+            return self.first_light_scraper.get_event_details(event)
         else:
             return self.afs_scraper.get_event_details(event['url'])

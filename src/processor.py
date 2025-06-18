@@ -26,8 +26,8 @@ class EventProcessor:
         
         for i, event in enumerate(events, 1):
             try:
-                # Process screenings and concerts
-                if event.get('type') not in ['screening', 'concert']:
+                # Process screenings, concerts, and book clubs
+                if event.get('type') not in ['screening', 'concert', 'book_club']:
                     continue
                 
                 # Skip work hours (9am-6pm) on weekdays
@@ -46,6 +46,8 @@ class EventProcessor:
                 else:
                     if event.get('type') == 'concert':
                         ai_rating = self._get_classical_rating(event)
+                    elif event.get('type') == 'book_club':
+                        ai_rating = self._get_book_club_rating(event)
                     else:
                         ai_rating = self._get_ai_rating(event['title'])
                     self.movie_cache[event_title] = ai_rating
@@ -205,6 +207,75 @@ class EventProcessor:
                 
         except Exception as e:
             print(f"Error calling Perplexity API for classical music: {e}")
+            return {'score': 5, 'summary': 'Unable to get rating'}
+    
+    def _get_book_club_rating(self, event: Dict) -> Dict:
+        """Get book club discussion rating and analysis from Perplexity API"""
+        if not self.perplexity_api_key:
+            return {'score': 5, 'summary': 'No API key provided'}
+        
+        try:
+            headers = {
+                'Authorization': f'Bearer {self.perplexity_api_key}',
+                'Content-Type': 'application/json'
+            }
+            
+            # Extract key information from the event
+            book_title = event.get('book', '')
+            author = event.get('author', '')
+            host = event.get('host', '')
+            venue = event.get('venue', '')
+            description = event.get('description', '')
+            
+            # Create detailed book description for analysis
+            book_description = f"Book: {book_title} by {author}\nHost: {host}\nVenue: {venue}\nDescription: {description}"
+            
+            prompt = f"""
+            Analyze this book club discussion with the intellectual sophistication of a distinguished literary critic, focusing on artistic excellence, literary merit, and the profound human experiences conveyed through literature. Provide a refined, well-structured analysis with the following sections:
+
+            ★ Rating: [X/10] (Integer Only) - Reflecting literary significance, artistic merit, and the book's contribution to understanding the human condition. Value works that explore timeless themes and universal experiences.
+
+            📚 Literary Overview: A sophisticated analysis of the book's narrative structure, thematic depth, and artistic craftsmanship, focusing on how it illuminates the human experience.
+
+            ✍️ Author & Style: Brief insights into the author's literary vision, writing style, and their place in the literary tradition, emphasizing their contribution to literature.
+
+            🎭 Central Themes: The universal human experiences and philosophical concepts explored through this work - love, identity, mortality, beauty, truth, justice, and other profound themes that connect us across cultures and time.
+
+            📖 Literary Significance: The lasting impact of this work on literature, its innovative techniques, and its place in the canon of important books that expand our understanding of what it means to be human.
+
+            🗣️ Discussion Value: The richness of themes and ideas that make this book particularly rewarding for thoughtful discussion among readers seeking intellectual and emotional engagement.
+
+            Book Club Details:
+            {book_description}
+
+            Evaluate the book's commitment to artistic excellence and emotional truth rather than didactic messaging. Appreciate works that transcend their immediate context to express what makes us fundamentally human through the power of storytelling and literary art.
+            """
+            
+            data = {
+                'model': 'llama-3.1-sonar-small-128k-online',
+                'messages': [
+                    {'role': 'user', 'content': prompt}
+                ],
+                'max_tokens': 2000
+            }
+            
+            response = requests.post(
+                'https://api.perplexity.ai/chat/completions',
+                headers=headers,
+                json=data,
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                content = result['choices'][0]['message']['content']
+                return self._parse_ai_response(content)
+            else:
+                print(f"Perplexity API error: {response.status_code}")
+                return {'score': 5, 'summary': 'API error'}
+                
+        except Exception as e:
+            print(f"Error calling Perplexity API for book club: {e}")
             return {'score': 5, 'summary': 'Unable to get rating'}
     
     def _parse_ai_response(self, content: str) -> Dict:
