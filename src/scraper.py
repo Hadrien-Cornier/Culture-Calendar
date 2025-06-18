@@ -150,8 +150,8 @@ class AFSScraper:
                     if i + 1 < len(lines):
                         time_line += ' ' + lines[i + 1]
                     
-                    # Look for time patterns like "8:00 PM", "3:30 PM", etc.
-                    time_match = re.search(r'(\d{1,2}:\d{2}\s*[AP]M)', time_line, re.IGNORECASE)
+                    # Look for time patterns like "8:00 PM" or "8 PM"
+                    time_match = re.search(r'(\d{1,2}(?::\d{2})?\s*[AP]M)', time_line, re.IGNORECASE)
                     if time_match:
                         return time_match.group(1)
             

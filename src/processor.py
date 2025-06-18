@@ -387,13 +387,13 @@ class EventProcessor:
             
             # Extract hour from time string like "2:30 PM"
             import re
-            time_match = re.search(r'(\d{1,2}):(\d{2})\s*([AP]M)', time_str.upper())
+            time_match = re.search(r'(\d{1,2})(?::(\d{2}))?\s*([AP]M)', time_str.upper())
             if not time_match:
                 return False
-            
-            hour, minute, ampm = time_match.groups()
-            hour = int(hour)
-            minute = int(minute)
+
+            hour = int(time_match.group(1))
+            minute = int(time_match.group(2)) if time_match.group(2) else 0
+            ampm = time_match.group(3)
             
             # Convert to 24-hour format
             if ampm == 'PM' and hour != 12:

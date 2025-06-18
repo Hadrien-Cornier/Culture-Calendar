@@ -119,15 +119,23 @@ class CalendarGenerator:
             if time_str:
                 # Handle formats like "8:00 PM", "3:30 PM"
                 time_str_clean = time_str.replace(' ', '').upper()
-                
+
                 if 'PM' in time_str_clean:
                     time_part = time_str_clean.replace('PM', '')
-                    hour, minute = map(int, time_part.split(':'))
+                    if ':' in time_part:
+                        hour, minute = map(int, time_part.split(':'))
+                    else:
+                        hour = int(time_part)
+                        minute = 0
                     if hour != 12:
                         hour += 12
                 elif 'AM' in time_str_clean:
                     time_part = time_str_clean.replace('AM', '')
-                    hour, minute = map(int, time_part.split(':'))
+                    if ':' in time_part:
+                        hour, minute = map(int, time_part.split(':'))
+                    else:
+                        hour = int(time_part)
+                        minute = 0
                     if hour == 12:
                         hour = 0
                 else:
