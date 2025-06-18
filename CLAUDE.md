@@ -4,13 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Culture Calendar is a Python application that automatically scrapes Austin Film Society events, enriches them with AI-powered ratings and personal preferences, and generates ICS calendar files for import into Google Calendar. The project is currently in Phase 1 (MVP) focusing on AFS integration only.
+Culture Calendar is a comprehensive Python application that automatically scrapes Austin cultural events from multiple venues, enriches them with AI-powered ratings and personal preferences, and provides both ICS calendar files and a live website. The project has expanded beyond Phase 1 to include 7 major Austin cultural venues.
 
 ## Common Commands
 
 ```bash
-# Run the main application
-python main.py
+# Update website data (incremental - new events only)
+source venv/bin/activate && python update_website_data_configurable.py --incremental
+
+# Update website data (full refresh)
+source venv/bin/activate && python update_website_data_configurable.py --full
+
+# Update specific venues only
+source venv/bin/activate && python update_website_data_configurable.py --incremental --venues AFS,Hyperreal
 
 # Install dependencies
 pip install -r requirements.txt
@@ -30,24 +36,41 @@ The project will use GitHub Actions for automated scheduling instead of local cr
 
 ## Architecture
 
-The application follows a pipeline architecture with three main components:
+The application follows a multi-venue pipeline architecture with three main components:
 
-1. **Scraper** (`src/scraper.py`): Web scraping logic for AFS calendar
-   - `AFSScraper.scrape_calendar()` - Fetches main calendar page
-   - `AFSScraper.get_event_details()` - Gets individual event details
-   - Detects special screenings (Q&A, 35mm prints, etc.)
+### 1. **Multi-Venue Scraper** (`src/scraper.py`): 
+Comprehensive web scraping for 7 Austin cultural venues:
 
-2. **Processor** (`src/processor.py`): Event enrichment and rating
-   - Uses Perplexity AI API for movie ratings and summaries
-   - Applies personal preferences from `preferences.txt` (+2 points per match)
-   - Adds special screening bonus (+3 points)
-   - Combines AI rating with preference boosts for final score
+**Film Venues:**
+- `AFSScraper` - Austin Film Society calendar and event details
+- `HyperrealFilmClubScraper` - Hyperreal Film Club events
 
-3. **Calendar Generator** (`src/calendar_generator.py`): ICS file creation
-   - Generates standard ICS format with event details
-   - Includes ratings in event titles (⭐8/10 format)
-   - Adds comprehensive descriptions with ratings explanations
-   - Uses Austin timezone (America/Chicago)
+**Music Venues:**  
+- `ParameterTheaterScraper` - Paramount Theater events
+- `AustinSymphonyOrchestraScraper` - Symphony season data (static)
+- `EarlyMusicAustinScraper` - Early music concerts (static)
+- `LaFolliaAustinScraper` - Chamber music events (static)
+
+**Book Clubs:**
+- `AlienatedMajestyBooksScraper` - Real web scraping with fallback data
+- `FirstLightAustinScraper` - Real web scraping with fallback data
+
+### 2. **AI Processor** (`src/processor.py`): 
+Event enrichment and intelligent rating:
+- **Movie Analysis**: Perplexity AI for cinematic critique and ratings
+- **Concert Analysis**: Classical music analysis for symphony/chamber events  
+- **Book Club Analysis**: Literary criticism for book discussions
+- **Preference Integration**: `preferences.txt` scoring (+2 points per match)
+- **Special Event Bonuses**: +3 points for special screenings
+- **Final Rating Calculation**: AI score + preferences + bonuses
+
+### 3. **Website Generator** (`update_website_data.py`): 
+Modern web application creation:
+- **Event Aggregation**: Groups multiple screenings by movie/event
+- **JSON API**: Generates `docs/data.json` for website consumption
+- **ICS Calendars**: Multiple rating-filtered calendar files
+- **Incremental Updates**: Smart duplicate detection and merging
+- **Venue-Specific Processing**: Handles different event types appropriately
 
 ## Key Configuration Files
 
@@ -247,3 +270,61 @@ The system now uses **structure-based detection** instead of keyword matching:
 - Much more reliable than keyword filtering
 - Prevents false filtering of movies with words like "festival" in title
 - Adds explicit `isMovie: true/false` field to data schema
+
+## Current Multi-Venue Status (Phase 3)
+
+### Completed Venue Integration ✅
+
+**🎬 Film Venues (2/2)**
+1. **Austin Film Society** - Full web scraping with event details
+2. **Hyperreal Film Club** - Complete integration with AI analysis
+
+**🎼 Music Venues (4/4)**  
+1. **Paramount Theater** - Full web scraping and event processing
+2. **Austin Symphony Orchestra** - Season-based static data with concert analysis
+3. **Texas Early Music Project** - Season-based with classical music AI reviews
+4. **La Follia Austin** - Chamber music events with sophisticated analysis
+
+**📚 Book Club Venues (2/2)**
+1. **Alienated Majesty Books** - Real web scraper with intelligent fallbacks
+2. **First Light Austin** - Multiple book clubs with dynamic date parsing
+
+### Live Website Features ✅
+
+**📱 Interactive Web Application**
+- **URL**: https://hadrien-cornier.github.io/Culture-Calendar/
+- **Total Events**: 117 cultural events across 7 venues
+- **List View**: Sortable by rating with expandable descriptions
+- **Calendar View**: Visual month-by-month event calendar
+- **Venue Filtering**: Toggle venues on/off with visual indicators
+- **Rating Filtering**: 1-10 slider for minimum rating threshold
+- **Google Calendar**: One-click export to personal calendars
+- **Download ICS**: Rating-filtered calendar files
+
+**🔧 Technical Infrastructure**
+- **Auto-Updates**: Weekly (Saturdays 9PM UTC) + Monthly (1st 6AM UTC)
+- **GitHub Actions**: Automated scraping and deployment
+- **Error Handling**: Graceful fallbacks for all scrapers
+- **Mobile Responsive**: Works on all device sizes
+- **Fast Loading**: Client-side filtering with minimal dependencies
+
+### Book Club Scraper Architecture
+
+**Dynamic Web Scraping with Fallbacks:**
+
+1. **Real Web Scraping**: Attempts to extract current book information from venue websites
+2. **Intelligent Parsing**: Extracts book titles, authors, dates, and hosts from HTML
+3. **Date Generation**: Automatically creates future dates when scraping fails
+4. **Fallback Data**: Provides sensible defaults with proper venue attribution
+5. **Monthly Auto-Updates**: No manual intervention required
+
+**Alienated Majesty Books Scraper:**
+- Primary: Scrapes `/book-clubs` page for current selections
+- Fallback: Generates monthly discussion dates with TBA book info
+- Handles: JavaScript-heavy sites gracefully
+
+**First Light Austin Scraper:**
+- Primary: Parses 4 different book clubs from `/book-club` page
+- Extracts: "World Wide What", "About Motherhood", "Small & Indie", "Future Greats"
+- Date Parsing: Converts "Friday, June 27th" to proper date format
+- Fallback: Host-specific defaults for each book club series

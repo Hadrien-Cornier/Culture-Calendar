@@ -1,27 +1,28 @@
 # 🎬 Culture Calendar
 
-An automated system that transforms Austin cultural events into a curated, intelligent calendar experience. Features AI-powered film and classical music analysis, personalized ratings, and a beautiful web interface with downloadable calendars covering Austin Film Society, Hyperreal Film Club, and Austin Symphony Orchestra.
+An automated system that transforms Austin cultural events into a curated, intelligent calendar experience. Features AI-powered analysis for films, classical music, and book clubs, with personalized ratings and a beautiful web interface covering **7 major Austin cultural venues**.
 
 ## 🌟 Features
 
 ### 🤖 Smart Event Processing
-- **Structure-Based Movie Detection**: Identifies real movies vs festivals using AFS page format
-- **Multi-Venue Support**: Fetches events from Austin Film Society, Hyperreal Film Club, and Austin Symphony Orchestra
-- **AI-Powered Analysis**: French cinéaste-style film reviews and distinguished music critic classical analysis using Perplexity AI
-- **Clean Metadata Extraction**: Country, year, duration, language from structured format
-- **Personal Preference Scoring**: Customizable ratings based on your taste
-- **Special Screening Detection**: Identifies Q&As, 35mm prints, and rare screenings
+- **7-Venue Integration**: Comprehensive coverage across film, music, and literary venues
+- **AI-Powered Analysis**: French cinéaste film reviews, distinguished music criticism, and sophisticated literary analysis
+- **Multi-Format Support**: Movies, concerts, chamber music, and book club discussions
+- **Dynamic Web Scraping**: Real-time data extraction with intelligent fallbacks
+- **Personal Preference Scoring**: Customizable ratings based on your cultural taste
+- **Special Event Detection**: Q&As, 35mm prints, special screenings, and exclusive performances
 - **Work Hours Filtering**: Automatically excludes 9am-6pm weekday events
 
 ### 🌐 Modern Web Interface
 - **GitHub Pages Website**: Beautiful, responsive single-page application
-- **Multi-Venue Support**: AFS, Hyperreal Film Club, and Austin Symphony events with venue tags
-- **Dual View Modes**: Toggle between list and calendar views
-- **Movie Aggregation**: Multiple showtimes grouped under single movie cards
-- **Rich Movie Cards**: Duration, director, country, year, language, and venue badges
-- **Interactive Calendar**: Visual month view with color-coded ratings and filtering
-- **Country Filtering**: Filter movies by country of origin
-- **Rating Filter**: Download custom calendars filtered by minimum rating (1-10)
+- **7-Venue Coverage**: Film, music, and book club events with distinctive venue tags
+- **Dual View Modes**: Toggle between list and calendar views  
+- **Event Aggregation**: Multiple showtimes/dates grouped under single event cards
+- **Rich Event Cards**: Duration, director/author, country, year, language, and venue badges
+- **Interactive Calendar**: Visual month view with color-coded ratings and venue indicators
+- **Advanced Filtering**: Filter by venue, country, rating, and special events
+- **Google Calendar Export**: One-click integration with personal calendars
+- **Download ICS**: Rating-filtered calendar files for any calendar app
 - **Mobile Responsive**: Works perfectly on all devices
 
 ### ⚡ Automated Updates
@@ -34,10 +35,17 @@ An automated system that transforms Austin cultural events into a curated, intel
 
 ### 🌐 Use the Live Website
 Visit **[hadrien-cornier.github.io/Culture-Calendar](https://hadrien-cornier.github.io/Culture-Calendar)** to:
-- Browse AI-rated films and classical music concerts
-- Toggle between list and calendar views  
-- Download filtered .ics calendar files
-- View detailed French cinéaste film analyses and music critic concert reviews
+- Browse **117+ cultural events** across 7 Austin venues
+- Filter by **venue, rating, country** with real-time updates
+- Switch between **list and calendar views** 
+- Download **custom .ics calendar files** filtered by rating
+- Read **AI-powered cultural analysis** for films, concerts, and books
+- Export events directly to **Google Calendar**
+
+**Current Venues:**
+🎬 **Film**: Austin Film Society, Hyperreal Film Club  
+🎼 **Music**: Paramount Theater, Austin Symphony, Early Music Austin, La Follia  
+📚 **Books**: Alienated Majesty Books, First Light Austin
 
 ### 🔧 Setup Your Own Instance
 
@@ -124,8 +132,8 @@ Culture-Calendar/
 │
 ├── 🔧 Core Logic  
 │   └── src/
-│       ├── scraper.py              # Multi-venue web scraping (AFS, Hyperreal, Symphony)
-│       ├── processor.py            # AI analysis & rating for films and concerts
+│       ├── scraper.py              # 7-venue web scraping with intelligent fallbacks
+│       ├── processor.py            # AI analysis for films, concerts, and book clubs
 │       └── calendar_generator.py   # ICS file creation
 │
 └── ⚙️ Configuration
@@ -137,13 +145,16 @@ Culture-Calendar/
 
 ## 🎯 Rating System
 
-Movies are intelligently rated on a 1-10 scale using:
+All cultural events are intelligently rated on a 1-10 scale using:
 
-- **🤖 AI Analysis**: French cinéaste-style research via Perplexity AI
-- **❤️ Personal Preferences**: +2 points per matching director/genre/keyword  
-- **✨ Special Screenings**: +3 points for Q&As, 35mm prints, rare formats
-- **🎬 Smart Filtering**: Only actual movies (no festivals or events)
-- **⏰ Accessibility**: Automatic filtering of work-hour screenings
+- **🤖 AI Analysis**: 
+  - **Films**: French cinéaste-style critiques focusing on artistic merit
+  - **Music**: Distinguished classical music criticism and performance analysis
+  - **Books**: Sophisticated literary criticism and discussion value assessment
+- **❤️ Personal Preferences**: +2 points per matching director/author/genre/keyword  
+- **✨ Special Events**: +3 points for Q&As, special screenings, exclusive performances
+- **🎯 Smart Classification**: Proper categorization by event type and venue
+- **⏰ Accessibility**: Automatic filtering of work-hour events
 
 ### 📊 Rating Categories
 - **🟢 8-10**: Masterpieces and must-sees
@@ -193,22 +204,28 @@ python main.py --debug
 
 ## 🗺️ Roadmap
 
-### 📋 Completed Features
+### 📋 Completed Features ✅
 - ✅ **Phase 1**: Austin Film Society integration
 - ✅ **Phase 2**: GitHub Pages website with calendar view
 - ✅ **Phase 2.1**: Enhanced UI with movie aggregation and markdown rendering
 - ✅ **Phase 2.2**: Multi-venue support with Hyperreal Film Club integration
 - ✅ **Phase 2.3**: Austin Symphony Orchestra integration with full 2025-2026 season data
+- ✅ **Phase 3**: Complete 7-venue integration
+  - ✅ **Paramount Theatre**: Full web scraping and event processing
+  - ✅ **Early Music Austin**: Season-based classical music events
+  - ✅ **La Follia Austin**: Chamber music concerts with AI analysis
+  - ✅ **Alienated Majesty Books**: Dynamic book club scraping with fallbacks
+  - ✅ **First Light Austin**: Multiple book clubs with intelligent parsing
 
 ### 🔮 Future Enhancements
-- **📚 Phase 3**: Additional venues
-  - **Paramount Theatre**: API investigation needed (endpoint restrictions)
+- **📚 Phase 4**: Additional Austin venues
   - **The ABGB**: Music and film events
-  - **BookPeople**: Author events and film screenings
-  - **Independent galleries**: Art house screenings
-- **🔗 Phase 4**: Direct Google Calendar API integration  
-- **🎨 Phase 5**: Enhanced UI with advanced filtering and recommendations
-- **📱 Phase 6**: Mobile app or PWA version
+  - **BookPeople**: Author events and readings
+  - **Independent galleries**: Art house screenings and exhibitions
+  - **Ballet Austin**: Dance performances
+- **🔗 Phase 5**: Direct Google Calendar API integration  
+- **🎨 Phase 6**: Enhanced recommendations and discovery features
+- **📱 Phase 7**: Mobile app or PWA version
 
 ## 🤝 Contributing
 
@@ -224,8 +241,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
+**🎬 Film Venues:**
 - [Austin Film Society](https://www.austinfilm.org/) for providing amazing film programming
 - [Hyperreal Film Club](https://hyperrealfilm.club/) for curated independent cinema
-- [Austin Symphony Orchestra](https://austinsymphony.org/) for world-class classical music performances
+
+**🎼 Music Venues:**
+- [Paramount Theatre](https://www.austinparamount.com/) for diverse cultural programming
+- [Austin Symphony Orchestra](https://austinsymphony.org/) for world-class classical performances
+- [Texas Early Music Project](https://www.early-music.org/) for authentic historical performances
+- [La Follia Austin](https://www.tickettailor.com/events/lafolliaaustin/) for intimate chamber music
+
+**📚 Literary Venues:**
+- [Alienated Majesty Books](https://www.alienatedmajestybooks.com/) for thoughtful book discussions
+- [First Light Austin](https://www.firstlightaustin.com/) for diverse literary programming
+
+**🤖 Technology:**
 - [Perplexity AI](https://www.perplexity.ai/) for intelligent cultural analysis
 - Built with ❤️ for Austin culture enthusiasts
