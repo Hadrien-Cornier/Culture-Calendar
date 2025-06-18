@@ -239,7 +239,13 @@ def generate_website_data(events):
     return website_data
 
 
-def main(test_week=False):
+def main(test_week: bool = False, full: bool = False):
+    """Generate website data.
+
+    Args:
+        test_week: If True, limit scraping to current week for testing.
+        full: If True, include all events without date filtering.
+    """
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
     
     try:
@@ -266,8 +272,12 @@ def main(test_week=False):
         
         print(f"Processing {len(screening_events)} screening events")
         
-        # Filter to upcoming events
-        if test_week:
+        # Filter to desired time range
+        if full:
+            # No date filtering - include all events
+            upcoming_events = screening_events
+            print(f"Using all {len(upcoming_events)} events for full update")
+        elif test_week:
             # For testing, use all events from current week
             upcoming_events = screening_events
             print(f"Using all {len(upcoming_events)} events for test week")
@@ -304,6 +314,7 @@ def main(test_week=False):
         raise
 
 if __name__ == "__main__":
-    # Check for test week flag
+    # Parse command line flags
     test_week = '--test-week' in sys.argv
-    main(test_week=test_week)
+    full_update = '--full' in sys.argv
+    main(test_week=test_week, full=full_update)

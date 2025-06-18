@@ -32,8 +32,8 @@ jobs:
       env:
         PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
       run: |
-        echo "📅 Running weekly update - collecting upcoming month of events"
-        python update_website_data.py
+        echo "📅 Running weekly update - collecting all events"
+        python update_website_data.py --full
         
     - name: Configure Git
       run: |
