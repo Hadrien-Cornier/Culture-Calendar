@@ -1,13 +1,13 @@
 # 🎬 Culture Calendar
 
-An automated system that transforms Austin Film Society events into a curated, intelligent calendar experience. Features AI-powered film analysis, personalized ratings, and a beautiful web interface with downloadable calendars.
+An automated system that transforms Austin cultural events into a curated, intelligent calendar experience. Features AI-powered film and classical music analysis, personalized ratings, and a beautiful web interface with downloadable calendars covering Austin Film Society, Hyperreal Film Club, and Austin Symphony Orchestra.
 
 ## 🌟 Features
 
 ### 🤖 Smart Event Processing
 - **Structure-Based Movie Detection**: Identifies real movies vs festivals using AFS page format
-- **Automated Web Scraping**: Fetches events from Austin Film Society calendar
-- **AI-Powered Analysis**: French cinéaste-style film reviews using Perplexity AI
+- **Multi-Venue Support**: Fetches events from Austin Film Society, Hyperreal Film Club, and Austin Symphony Orchestra
+- **AI-Powered Analysis**: French cinéaste-style film reviews and distinguished music critic classical analysis using Perplexity AI
 - **Clean Metadata Extraction**: Country, year, duration, language from structured format
 - **Personal Preference Scoring**: Customizable ratings based on your taste
 - **Special Screening Detection**: Identifies Q&As, 35mm prints, and rare screenings
@@ -15,7 +15,7 @@ An automated system that transforms Austin Film Society events into a curated, i
 
 ### 🌐 Modern Web Interface
 - **GitHub Pages Website**: Beautiful, responsive single-page application
-- **Multi-Venue Support**: AFS and Hyperreal Film Club events with venue tags
+- **Multi-Venue Support**: AFS, Hyperreal Film Club, and Austin Symphony events with venue tags
 - **Dual View Modes**: Toggle between list and calendar views
 - **Movie Aggregation**: Multiple showtimes grouped under single movie cards
 - **Rich Movie Cards**: Duration, director, country, year, language, and venue badges
@@ -34,10 +34,10 @@ An automated system that transforms Austin Film Society events into a curated, i
 
 ### 🌐 Use the Live Website
 Visit **[hadrien-cornier.github.io/Culture-Calendar](https://hadrien-cornier.github.io/Culture-Calendar)** to:
-- Browse AI-rated Austin Film Society movies
+- Browse AI-rated films and classical music concerts
 - Toggle between list and calendar views  
 - Download filtered .ics calendar files
-- View detailed French cinéaste film analyses
+- View detailed French cinéaste film analyses and music critic concert reviews
 
 ### 🔧 Setup Your Own Instance
 
@@ -124,8 +124,8 @@ Culture-Calendar/
 │
 ├── 🔧 Core Logic  
 │   └── src/
-│       ├── scraper.py              # AFS web scraping
-│       ├── processor.py            # AI analysis & rating
+│       ├── scraper.py              # Multi-venue web scraping (AFS, Hyperreal, Symphony)
+│       ├── processor.py            # AI analysis & rating for films and concerts
 │       └── calendar_generator.py   # ICS file creation
 │
 └── ⚙️ Configuration
@@ -198,6 +198,7 @@ python main.py --debug
 - ✅ **Phase 2**: GitHub Pages website with calendar view
 - ✅ **Phase 2.1**: Enhanced UI with movie aggregation and markdown rendering
 - ✅ **Phase 2.2**: Multi-venue support with Hyperreal Film Club integration
+- ✅ **Phase 2.3**: Austin Symphony Orchestra integration with full 2025-2026 season data
 
 ### 🔮 Future Enhancements
 - **📚 Phase 3**: Additional venues
@@ -223,6 +224,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- [Austin Film Society](https://www.austinfilm.org/) for providing amazing cultural programming
-- [Perplexity AI](https://www.perplexity.ai/) for intelligent film analysis
-- Built with ❤️ for Austin film lovers
+- [Austin Film Society](https://www.austinfilm.org/) for providing amazing film programming
+- [Hyperreal Film Club](https://hyperrealfilm.club/) for curated independent cinema
+- [Austin Symphony Orchestra](https://austinsymphony.org/) for world-class classical music performances
+- [Perplexity AI](https://www.perplexity.ai/) for intelligent cultural analysis
+- Built with ❤️ for Austin culture enthusiasts

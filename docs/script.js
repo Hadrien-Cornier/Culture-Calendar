@@ -555,7 +555,8 @@ function getVenueName(venue) {
     const venueNames = {
         'AFS': '🎬 AFS',
         'Hyperreal': '🎭 Hyperreal',
-        'Paramount': '🎪 Paramount'
+        'Paramount': '🎪 Paramount',
+        'Symphony': '🎼 Symphony'
     };
     return venueNames[venue] || venue;
 }

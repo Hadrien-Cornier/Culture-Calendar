@@ -26,8 +26,8 @@ class EventProcessor:
         
         for i, event in enumerate(events, 1):
             try:
-                # Only process screenings for now
-                if event.get('type') != 'screening':
+                # Process screenings and concerts
+                if event.get('type') not in ['screening', 'concert']:
                     continue
                 
                 # Skip work hours (9am-6pm) on weekdays
@@ -38,14 +38,17 @@ class EventProcessor:
                 processed_count += 1
                 print(f"Processing ({processed_count}): {event['title']}")
                 
-                # Get movie rating from AI (with caching)
-                movie_title = event['title'].upper().strip()
-                if movie_title in self.movie_cache:
-                    print(f"  Using cached rating for {movie_title}")
-                    ai_rating = self.movie_cache[movie_title]
+                # Get AI rating (with caching)
+                event_title = event['title'].upper().strip()
+                if event_title in self.movie_cache:
+                    print(f"  Using cached rating for {event_title}")
+                    ai_rating = self.movie_cache[event_title]
                 else:
-                    ai_rating = self._get_ai_rating(event['title'])
-                    self.movie_cache[movie_title] = ai_rating
+                    if event.get('type') == 'concert':
+                        ai_rating = self._get_classical_rating(event)
+                    else:
+                        ai_rating = self._get_ai_rating(event['title'])
+                    self.movie_cache[event_title] = ai_rating
                 
                 # Calculate personal preference score
                 preference_score = self._calculate_preference_score(event, ai_rating)
@@ -134,6 +137,74 @@ class EventProcessor:
                 
         except Exception as e:
             print(f"Error calling Perplexity API: {e}")
+            return {'score': 5, 'summary': 'Unable to get rating'}
+    
+    def _get_classical_rating(self, event: Dict) -> Dict:
+        """Get classical music concert rating and analysis from Perplexity API"""
+        if not self.perplexity_api_key:
+            return {'score': 5, 'summary': 'No API key provided'}
+        
+        try:
+            headers = {
+                'Authorization': f'Bearer {self.perplexity_api_key}',
+                'Content-Type': 'application/json'
+            }
+            
+            # Extract key information from the event
+            concert_title = event.get('title', '')
+            program = event.get('program', '')
+            composers = event.get('composers', [])
+            works = event.get('works', [])
+            featured_artist = event.get('featured_artist', '')
+            series = event.get('series', '')
+            
+            # Create detailed concert description for analysis
+            concert_description = f"Concert: {concert_title}\nSeries: {series}\nProgram: {program}\nFeatured Artist: {featured_artist}"
+            
+            prompt = f"""
+            Analyze this classical music concert with the intellectual sophistication of a distinguished music critic, focusing on artistic excellence, aesthetic beauty, and the profound human experiences conveyed through classical music. Provide a refined, well-structured analysis with the following sections:
+
+            ★ Rating: [X/10] (Integer Only) - Reflecting artistic significance, performance quality, and aesthetic achievement. Value works that explore timeless human emotions and universal experiences through musical excellence.
+
+            🎼 Program Overview: A sophisticated analysis of the musical works and their narrative significance, focusing on emotional depth, structural brilliance, and artistic craftsmanship.
+
+            👤 Composers & Artists: Brief insights into the composers' artistic vision and the featured performers' interpretive excellence, emphasizing their contribution to the classical tradition.
+
+            🎨 Musical Themes: The universal human experiences and aesthetic concepts explored through this music - beauty, transcendence, passion, melancholy, triumph, and other profound emotions that connect us across time and culture.
+
+            🏛️ Cultural Significance: The lasting impact of these works on classical music tradition, their technical innovations, and their place in the pantheon of great music.
+
+            Concert Details:
+            {concert_description}
+
+            Evaluate the concert's commitment to artistic excellence and emotional depth rather than contemporary political messaging. Appreciate works that transcend temporal boundaries to express what makes us fundamentally human through the universal language of music.
+            """
+            
+            data = {
+                'model': 'llama-3.1-sonar-small-128k-online',
+                'messages': [
+                    {'role': 'user', 'content': prompt}
+                ],
+                'max_tokens': 2000
+            }
+            
+            response = requests.post(
+                'https://api.perplexity.ai/chat/completions',
+                headers=headers,
+                json=data,
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                content = result['choices'][0]['message']['content']
+                return self._parse_ai_response(content)
+            else:
+                print(f"Perplexity API error: {response.status_code}")
+                return {'score': 5, 'summary': 'API error'}
+                
+        except Exception as e:
+            print(f"Error calling Perplexity API for classical music: {e}")
             return {'score': 5, 'summary': 'Unable to get rating'}
     
     def _parse_ai_response(self, content: str) -> Dict:

@@ -400,6 +400,11 @@ main {
     color: white;
 }
 
+.venue-symphony {
+    background: linear-gradient(135deg, #6f42c1, #5a2b91);
+    color: white;
+}
+
 .screenings-container {
     display: flex;
     flex-wrap: wrap;
