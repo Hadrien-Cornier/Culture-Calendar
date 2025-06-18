@@ -2,3 +2,4 @@
 .cursor
 venv/
 *.pyc
+docs/calendars/

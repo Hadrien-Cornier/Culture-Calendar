@@ -11,7 +11,6 @@ import sys
 from datetime import datetime, timedelta
 from src.scraper import MultiVenueScraper
 from src.processor import EventProcessor
-from src.calendar_generator import CalendarGenerator
 from update_website_data import save_update_info
 
 def filter_work_hours(events):
@@ -170,25 +169,6 @@ def main():
             json.dump(merged_data, f, indent=2, ensure_ascii=False)
         
         print(f"💾 Saved {len(merged_data)} total events to docs/data.json")
-        
-        # Generate calendar files
-        print("📅 Generating calendar files...")
-        calendar_generator = CalendarGenerator()
-        
-        # Generate calendars for different rating thresholds
-        rating_thresholds = [6, 7, 8, 9, 10]
-        for min_rating in rating_thresholds:
-            filename = f'docs/calendars/culture-calendar-{min_rating}plus.ics'
-            events_for_calendar = [event for event in merged_data if event.get('rating', 0) >= min_rating]
-            
-            if events_for_calendar:
-                calendar_generator.generate_ics(events_for_calendar, filename)
-                print(f"📅 Generated {filename} with {len(events_for_calendar)} events")
-            else:
-                # Create empty calendar for consistency
-                calendar_generator.generate_ics([], filename)
-                print(f"📅 Generated empty {filename}")
-
         # Save per-source update timestamps
         save_update_info(scraper.last_updated)
 
