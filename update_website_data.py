@@ -13,6 +13,15 @@ from src.scraper import MultiVenueScraper
 from src.processor import EventProcessor
 from src.calendar_generator import CalendarGenerator
 
+def save_update_info(info: dict, path: str = 'docs/source_update_times.json') -> None:
+    """Save per-source last update times to JSON"""
+    try:
+        with open(path, 'w') as f:
+            json.dump(info, f, indent=2)
+        print(f"Saved update info to {path}")
+    except Exception as e:
+        print(f"Error saving update info: {e}")
+
 def filter_work_hours(events):
     """Filter out events during work hours (9am-6pm weekdays)"""
     filtered_events = []
@@ -307,7 +316,10 @@ def main(test_week=False):
         # Generate calendar files
         print("Generating calendar files...")
         generate_calendar_files(enriched_events, 'docs/calendars')
-        
+
+        # Save per-source update timestamps
+        save_update_info(scraper.last_updated)
+
         print("Website update completed successfully!")
         
     except Exception as e:

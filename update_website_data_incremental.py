@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 from src.scraper import MultiVenueScraper
 from src.processor import EventProcessor
 from src.calendar_generator import CalendarGenerator
+from update_website_data import save_update_info
 
 def filter_work_hours(events):
     """Filter out events during work hours (9am-6pm weekdays)"""
@@ -187,7 +188,10 @@ def main():
                 # Create empty calendar for consistency
                 calendar_generator.generate_ics([], filename)
                 print(f"📅 Generated empty {filename}")
-        
+
+        # Save per-source update timestamps
+        save_update_info(scraper.last_updated)
+
         print("✅ Incremental update completed successfully!")
         print(f"📊 Total events in database: {len(merged_data)}")
         

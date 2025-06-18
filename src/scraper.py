@@ -1217,7 +1217,7 @@ class AustinSymphonyScraper:
 
 class MultiVenueScraper:
     """Unified scraper for all supported venues"""
-    
+
     def __init__(self):
         self.afs_scraper = AFSScraper()
         self.hyperreal_scraper = HyperrealScraper()
@@ -1227,10 +1227,12 @@ class MultiVenueScraper:
         self.alienated_majesty_scraper = AlienatedMajestyBooksScraper()
         self.first_light_scraper = FirstLightAustinScraper()
         self.existing_events_cache = set()  # Cache for duplicate detection
+        self.last_updated = {}
     
     def scrape_all_venues(self, target_week: bool = False) -> List[Dict]:
         """Scrape events from all supported venues"""
         all_events = []
+        self.last_updated = {}
         
         # Scrape AFS
         print("Scraping Austin Film Society...")
@@ -1240,8 +1242,10 @@ class MultiVenueScraper:
                 event['venue'] = 'AFS'
                 all_events.append(event)
             print(f"Found {len(afs_events)} AFS events")
+            self.last_updated['AFS'] = datetime.now().isoformat()
         except Exception as e:
             print(f"Error scraping AFS: {e}")
+            self.last_updated['AFS'] = None
         
         # Scrape Hyperreal
         print("Scraping Hyperreal Film Club...")
@@ -1252,13 +1256,15 @@ class MultiVenueScraper:
                 hyperreal_events = self.hyperreal_scraper.scrape_calendar(current_month)
             else:
                 hyperreal_events = self.hyperreal_scraper.scrape_calendar()
-            
+
             for event in hyperreal_events:
                 event['venue'] = 'Hyperreal'
                 all_events.append(event)
             print(f"Found {len(hyperreal_events)} Hyperreal events")
+            self.last_updated['Hyperreal'] = datetime.now().isoformat()
         except Exception as e:
             print(f"Error scraping Hyperreal: {e}")
+            self.last_updated['Hyperreal'] = None
         
         # Scrape Austin Symphony
         print("Loading Austin Symphony season...")
@@ -1268,8 +1274,10 @@ class MultiVenueScraper:
                 event['venue'] = 'Symphony'
                 all_events.append(event)
             print(f"Found {len(symphony_events)} Symphony events")
+            self.last_updated['Symphony'] = datetime.now().isoformat()
         except Exception as e:
             print(f"Error loading Symphony events: {e}")
+            self.last_updated['Symphony'] = None
         
         # Scrape Texas Early Music Project
         print("Loading Early Music Austin season...")
@@ -1279,8 +1287,10 @@ class MultiVenueScraper:
                 event['venue'] = 'EarlyMusic'
                 all_events.append(event)
             print(f"Found {len(early_music_events)} Early Music events")
+            self.last_updated['EarlyMusic'] = datetime.now().isoformat()
         except Exception as e:
             print(f"Error loading Early Music events: {e}")
+            self.last_updated['EarlyMusic'] = None
         
         # Scrape La Follia Austin
         print("Loading La Follia Austin events...")
@@ -1290,8 +1300,10 @@ class MultiVenueScraper:
                 event['venue'] = 'LaFollia'
                 all_events.append(event)
             print(f"Found {len(la_follia_events)} La Follia events")
+            self.last_updated['LaFollia'] = datetime.now().isoformat()
         except Exception as e:
             print(f"Error loading La Follia events: {e}")
+            self.last_updated['LaFollia'] = None
         
         # Scrape Alienated Majesty Books
         print("Loading Alienated Majesty Books club...")
@@ -1301,8 +1313,10 @@ class MultiVenueScraper:
                 event['venue'] = 'AlienatedMajesty'
                 all_events.append(event)
             print(f"Found {len(alienated_majesty_events)} Alienated Majesty events")
+            self.last_updated['AlienatedMajesty'] = datetime.now().isoformat()
         except Exception as e:
             print(f"Error loading Alienated Majesty events: {e}")
+            self.last_updated['AlienatedMajesty'] = None
         
         # Scrape First Light Austin
         print("Loading First Light Austin book clubs...")
@@ -1312,8 +1326,10 @@ class MultiVenueScraper:
                 event['venue'] = 'FirstLight'
                 all_events.append(event)
             print(f"Found {len(first_light_events)} First Light events")
+            self.last_updated['FirstLight'] = datetime.now().isoformat()
         except Exception as e:
             print(f"Error loading First Light events: {e}")
+            self.last_updated['FirstLight'] = None
         
         # Filter to current week if requested
         if target_week:
