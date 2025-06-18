@@ -2,6 +2,7 @@
 let moviesData = [];
 let filteredMovies = [];
 let selectedGenres = new Set();
+let showSpecialEventsOnly = false;
 
 // DOM elements
 const ratingSlider = document.getElementById('rating-slider');
@@ -14,6 +15,7 @@ const calendarViewBtn = document.getElementById('calendar-view-btn');
 const listView = document.getElementById('list-view');
 const calendarView = document.getElementById('calendar-view');
 const calendarContainer = document.getElementById('calendar-container');
+const specialEventsToggle = document.getElementById('special-events-toggle');
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
@@ -45,6 +47,10 @@ function setupEventListeners() {
 
     calendarViewBtn.addEventListener('click', function() {
         switchToCalendarView();
+    });
+
+    specialEventsToggle.addEventListener('click', function() {
+        toggleSpecialEventsFilter();
     });
 }
 
@@ -125,6 +131,27 @@ function setupGenreFilters() {
     });
 }
 
+// Toggle special events filter
+function toggleSpecialEventsFilter() {
+    showSpecialEventsOnly = !showSpecialEventsOnly;
+    
+    if (showSpecialEventsOnly) {
+        specialEventsToggle.classList.add('active');
+        specialEventsToggle.textContent = 'Show All Movies';
+    } else {
+        specialEventsToggle.classList.remove('active');
+        specialEventsToggle.textContent = 'Show Special Events Only';
+    }
+    
+    updateFilteredMovies();
+    renderMovies();
+    
+    // Re-render calendar if it's currently visible
+    if (calendarView.style.display !== 'none') {
+        renderCalendar();
+    }
+}
+
 // Toggle genre filter
 function toggleGenreFilter(genre) {
     if (genre === 'all') {
@@ -173,6 +200,11 @@ function updateFilteredMovies() {
         
         // Country filter
         if (selectedGenres.size > 0 && !selectedGenres.has(movie.country)) {
+            return false;
+        }
+        
+        // Special events filter
+        if (showSpecialEventsOnly && !movie.isSpecialScreening) {
             return false;
         }
         
@@ -404,13 +436,18 @@ function formatDateForComparison(date) {
 
 // Download filtered calendar
 function downloadFilteredCalendar(minRating) {
-    // Apply both rating and country filters (same as UI filters)
+    // Apply all UI filters (rating, country, and special events)
     const filteredMovies = moviesData.filter(movie => {
         // Rating filter
         if (movie.rating < minRating) return false;
         
         // Country filter
         if (selectedGenres.size > 0 && !selectedGenres.has(movie.country)) {
+            return false;
+        }
+        
+        // Special events filter
+        if (showSpecialEventsOnly && !movie.isSpecialScreening) {
             return false;
         }
         
@@ -448,7 +485,8 @@ function downloadFilteredCalendar(minRating) {
     
     // Generate filename with filters
     const countryFilter = selectedGenres.size > 0 ? `-${[...selectedGenres].join('-')}` : '';
-    link.download = `culture-calendar-${minRating}plus${countryFilter}-${getCurrentDateString()}.ics`;
+    const specialFilter = showSpecialEventsOnly ? '-special' : '';
+    link.download = `culture-calendar-${minRating}plus${countryFilter}${specialFilter}-${getCurrentDateString()}.ics`;
     
     document.body.appendChild(link);
     link.click();

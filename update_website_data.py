@@ -180,7 +180,7 @@ def generate_website_data(events):
             ai_rating = event.get('ai_rating', {})
             movies_dict[title] = {
                 'title': title,
-                'rating': event.get('final_rating', 5),
+                'rating': ai_rating.get('score', 5),  # Use base AI rating for consistency
                 'description': clean_markdown_text(ai_rating.get('summary', 'No description available')),
                 'url': event.get('url', ''),
                 'isSpecialScreening': event.get('is_special_screening', False),
