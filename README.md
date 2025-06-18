@@ -21,7 +21,7 @@ An automated system that transforms Austin cultural events into a curated, intel
 - **Rich Event Cards**: Duration, director/author, country, year, language, and venue badges
 - **Interactive Calendar**: Visual month view with color-coded ratings and venue indicators
 - **Advanced Filtering**: Filter by venue, country, rating, and special events
-- **Google Calendar Export**: One-click integration with personal calendars
+- **ICS Downloads**: Generate calendar files for any app
 - **Download ICS**: Rating-filtered calendar files for any calendar app
 - **Mobile Responsive**: Works perfectly on all devices
 
@@ -40,7 +40,7 @@ Visit **[hadrien-cornier.github.io/Culture-Calendar](https://hadrien-cornier.git
 - Switch between **list and calendar views** 
 - Download **custom .ics calendar files** filtered by rating
 - Read **AI-powered cultural analysis** for films, concerts, and books
-- Export events directly to **Google Calendar**
+- Export events to your calendar via **ICS download**
 
 **Current Venues:**
 🎬 **Film**: Austin Film Society, Hyperreal Film Club  
@@ -158,9 +158,10 @@ All cultural events are intelligently rated on a 1-10 scale using:
 - **⏰ Accessibility**: Automatic filtering of work-hour events
 
 ### 📊 Rating Categories
-- **🟢 8-10**: Masterpieces and must-sees
-- **🟡 6-7**: Solid films worth considering  
-- **⚫ 1-5**: Lower priority or niche appeal
+- **🟢 9-10**: Timeless classics and masterpieces
+- **🟡 7-8**: Strong recommendations with notable merit
+- **⚪ 5-6**: Average quality
+- **⚫ 1-4**: Lower priority or niche appeal
 
 ## 🎬 Sample Analysis
 

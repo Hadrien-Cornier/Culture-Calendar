@@ -13,7 +13,6 @@ let dateRangeEnd = null;
 const ratingSlider = document.getElementById('rating-slider');
 const ratingValue = document.getElementById('rating-value');
 const downloadBtn = document.getElementById('download-btn');
-const googleCalendarBtn = document.getElementById('google-calendar-btn');
 const moviesList = document.getElementById('movies-list');
 const loadingElement = document.getElementById('loading');
 const listViewBtn = document.getElementById('list-view-btn');
@@ -77,10 +76,6 @@ function setupEventListeners() {
 
     specialEventsToggle.addEventListener('click', function() {
         toggleSpecialEventsFilter();
-    });
-
-    googleCalendarBtn.addEventListener('click', function() {
-        addToGoogleCalendar();
     });
 
     prevMonthBtn.addEventListener('click', function() {
@@ -419,8 +414,8 @@ function renderMovies() {
 
     moviesList.innerHTML = moviesToRender.map(movie => createMovieCard(movie)).join('');
     
-    // Add event listeners for expand buttons
-    document.querySelectorAll('.expand-button').forEach(button => {
+    // Add event listeners for description toggle buttons
+    document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', function() {
             const movieId = this.dataset.movieId;
             toggleDescription(movieId);
@@ -439,7 +434,15 @@ function createMovieCard(movie) {
     const description = movie.description || 'No description available';
     const shortDescription = truncateText(stripHtmlTags(description), 200);
     const needsExpansion = stripHtmlTags(description).length > shortDescription.length;
-    
+
+    const finalRating = movie.final_rating ?? movie.rating ?? (movie.ai_rating ? movie.ai_rating.score : null);
+    const aiRating = movie.ai_rating ? movie.ai_rating.score : finalRating;
+    let boostHtml = '';
+    if (finalRating && aiRating && finalRating > aiRating) {
+        const boost = finalRating - aiRating;
+        boostHtml = `<span class="preference-boost">+${boost}</span>`;
+    }
+
     // Create screening tags with safety check
     const screeningTags = (movie.screenings && Array.isArray(movie.screenings)) 
         ? movie.screenings.map(screening => {
@@ -455,7 +458,8 @@ function createMovieCard(movie) {
         <div class="movie-card">
             <div class="movie-header">
                 <h3 class="movie-title">${escapeHtml(movie.title)}</h3>
-                <div class="movie-rating">⭐${movie.rating || 'N/A'}/10</div>
+                <div class="movie-rating">⭐${finalRating || 'N/A'}/10 ${boostHtml}</div>
+                ${needsExpansion ? `<button class="collapse-button toggle-button" data-movie-id="${movie.id || 'unknown'}" style="display:none">Hide</button>` : ''}
             </div>
             
             <div class="movie-info">
@@ -481,7 +485,7 @@ function createMovieCard(movie) {
                     ${formatDescription(description)}
                 </div>
                 ${needsExpansion ? `
-                    <button class="expand-button" data-movie-id="${movie.id || 'unknown'}">
+                    <button class="expand-button toggle-button" data-movie-id="${movie.id || 'unknown'}">
                         Show More
                     </button>
                 ` : ''}
@@ -494,18 +498,32 @@ function createMovieCard(movie) {
 function toggleDescription(movieId) {
     const preview = document.getElementById(`preview-${movieId}`);
     const full = document.getElementById(`full-${movieId}`);
-    const button = document.querySelector(`[data-movie-id="${movieId}"]`);
-    
+    const buttons = document.querySelectorAll(`[data-movie-id="${movieId}"]`);
+
     if (full.classList.contains('expanded')) {
         // Collapse
         full.classList.remove('expanded');
         preview.style.display = 'block';
-        button.textContent = 'Show More';
+        buttons.forEach(btn => {
+            if (btn.classList.contains('collapse-button')) {
+                btn.style.display = 'none';
+                btn.textContent = 'Hide';
+            } else {
+                btn.textContent = 'Show More';
+            }
+        });
     } else {
         // Expand
         full.classList.add('expanded');
         preview.style.display = 'none';
-        button.textContent = 'Show Less';
+        buttons.forEach(btn => {
+            if (btn.classList.contains('collapse-button')) {
+                btn.style.display = 'inline';
+                btn.textContent = 'Hide';
+            } else {
+                btn.textContent = 'Show Less';
+            }
+        });
     }
 }
 
@@ -676,104 +694,6 @@ function formatDateForComparison(date) {
 }
 
 // Add to Google Calendar function
-function addToGoogleCalendar() {
-    console.log('Google Calendar button clicked'); // Debug log
-    
-    const minRating = parseInt(ratingSlider.value);
-    const filteredMovies = getFilteredMoviesForDownload(minRating);
-    
-    console.log('Filtered events for Google Calendar:', filteredMovies.length); // Debug log
-    
-    if (filteredMovies.length === 0) {
-        alert('No events match the selected filters.');
-        return;
-    }
-    
-    // Convert to individual screenings
-    const screenings = [];
-    filteredMovies.forEach(movie => {
-        movie.screenings.forEach(screening => {
-            screenings.push({
-                title: movie.title,
-                date: screening.date,
-                time: screening.time,
-                description: movie.description,
-                rating: movie.rating,
-                url: screening.url,
-                venue: movie.venue
-            });
-        });
-    });
-    
-    console.log('Total screenings:', screenings.length); // Debug log
-    
-    if (screenings.length === 0) {
-        alert('No screenings available for the selected events.');
-        return;
-    }
-    
-    // Create Google Calendar URL for the first event
-    const firstEvent = screenings[0];
-    console.log('First event:', firstEvent); // Debug log
-    
-    try {
-        // Better date parsing - handle different formats
-        let startDate;
-        
-        if (firstEvent.date && firstEvent.time) {
-            // Parse date and time separately for better compatibility
-            const dateStr = firstEvent.date; // YYYY-MM-DD format
-            const timeStr = firstEvent.time; // "7:30 PM" format
-            
-            // Create date from YYYY-MM-DD
-            const [year, month, day] = dateStr.split('-').map(Number);
-            startDate = new Date(year, month - 1, day); // month is 0-indexed
-            
-            // Parse and add time
-            const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
-            if (timeMatch) {
-                let hours = parseInt(timeMatch[1]);
-                const minutes = parseInt(timeMatch[2]);
-                const ampm = timeMatch[3].toUpperCase();
-                
-                if (ampm === 'PM' && hours !== 12) hours += 12;
-                if (ampm === 'AM' && hours === 12) hours = 0;
-                
-                startDate.setHours(hours, minutes, 0, 0);
-            }
-        } else {
-            throw new Error('Missing date or time information');
-        }
-        
-        console.log('Parsed start date:', startDate); // Debug log
-        
-        if (isNaN(startDate.getTime())) {
-            throw new Error('Invalid date/time format');
-        }
-        
-        const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours later
-        
-        const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('⭐' + firstEvent.rating + '/10 - ' + firstEvent.title)}&dates=${formatGoogleCalendarDate(startDate)}/${formatGoogleCalendarDate(endDate)}&details=${encodeURIComponent(stripHtmlTags(firstEvent.description))}&location=${encodeURIComponent('Austin, TX')}&ctz=America/Chicago`;
-        
-        console.log('Google Calendar URL:', googleCalendarUrl); // Debug log
-        
-        // Open Google Calendar in new tab
-        window.open(googleCalendarUrl, '_blank');
-        
-        // If there are multiple events, inform the user
-        if (screenings.length > 1) {
-            alert(`Opening Google Calendar for the first event (${firstEvent.title}). For multiple events, please use the Download Calendar option.`);
-        }
-        
-    } catch (error) {
-        console.error('Error creating Google Calendar event:', error);
-        alert('Error creating Google Calendar event. Please try downloading the calendar file instead.');
-    }
-}
-
-function formatGoogleCalendarDate(date) {
-    return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-}
 
 // Helper function to get filtered movies for download
 function getFilteredMoviesForDownload(minRating) {

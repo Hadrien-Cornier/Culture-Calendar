@@ -329,6 +329,15 @@ main {
     margin-left: 1rem;
 }
 
+.preference-boost {
+    background: linear-gradient(135deg, #fff3e0, #ffcc80);
+    color: #e65100;
+    padding: 0.1rem 0.4rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-left: 0.25rem;
+}
+
 .movie-info {
     margin-bottom: 1rem;
 }
@@ -489,6 +498,20 @@ main {
     font-weight: 600;
     margin-top: 0.5rem;
     padding: 0;
+}
+
+.collapse-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    padding: 0;
+}
+
+.collapse-button:hover {
+    text-decoration: underline;
 }
 
 .expand-button:hover {
@@ -843,23 +866,6 @@ footer {
     flex-wrap: wrap;
 }
 
-.google-calendar-button {
-    background: linear-gradient(135deg, #ea4335, #34a853);
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
-}
-
-.google-calendar-button:hover {
-    background: linear-gradient(135deg, #d33b2c, #2d8f47);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
 
 /* Mobile responsiveness for new elements */
 @media (max-width: 768px) {
@@ -882,7 +888,7 @@ footer {
         flex-direction: column;
     }
     
-    .google-calendar-button, .download-button {
+    .download-button {
         width: 100%;
     }
     

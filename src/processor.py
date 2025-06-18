@@ -119,7 +119,9 @@ class EventProcessor:
             }
             
             prompt = f"""
-            Analyze "{movie_title}" with the intellectual rigor of a French cinéaste, focusing purely on artistic excellence, aesthetic beauty, and universal human experiences. Provide a concise, well-structured analysis with the following sections:
+            Analyze "{movie_title}" with the intellectual rigor of a French cinéaste, focusing purely on artistic excellence, aesthetic beauty, and universal human experiences. Use a strict rating scale where only truly exceptional works receive scores above 8:
+            10 = masterpiece, 9 = outstanding, 8 = excellent, 7 = very good, 6 = good, 5 = average, 4 or below = lesser works.
+            Provide a concise, well-structured analysis with the following sections:
 
             ★ Rating: [X/10] (Integer Only) - Reflecting artistic merit, technical brilliance, and aesthetic achievement. Value films that explore timeless human experiences over those with heavy political messaging.
             🎬 Synopsis: A brief overview focusing on narrative craft, character development, and emotional depth.
@@ -180,7 +182,7 @@ class EventProcessor:
             concert_description = f"Concert: {concert_title}\nSeries: {series}\nProgram: {program}\nFeatured Artist: {featured_artist}"
             
             prompt = f"""
-            Analyze this classical music concert with the intellectual sophistication of a distinguished music critic, focusing on artistic excellence, aesthetic beauty, and the profound human experiences conveyed through classical music. Provide a refined, well-structured analysis with the following sections:
+            Analyze this classical music concert with the intellectual sophistication of a distinguished music critic, focusing on artistic excellence, aesthetic beauty, and the profound human experiences conveyed through classical music. Use a rigorous rating scale (10 = masterpiece, 9 = outstanding, 8 = excellent, 7 = very good, 6 = good, 5 = average, below 5 = weaker). Provide a refined, well-structured analysis with the following sections:
 
             ★ Rating: [X/10] (Integer Only) - Reflecting artistic significance, performance quality, and aesthetic achievement. Value works that explore timeless human emotions and universal experiences through musical excellence.
 
@@ -247,7 +249,7 @@ class EventProcessor:
             book_description = f"Book: {book_title} by {author}\nHost: {host}\nVenue: {venue}\nDescription: {description}"
             
             prompt = f"""
-            Analyze this book club discussion with the intellectual sophistication of a distinguished literary critic, focusing on artistic excellence, literary merit, and the profound human experiences conveyed through literature. Provide a refined, well-structured analysis with the following sections:
+            Analyze this book club discussion with the intellectual sophistication of a distinguished literary critic, focusing on artistic excellence, literary merit, and the profound human experiences conveyed through literature. Use a stringent rating scale (10 = masterpiece, 9 = outstanding, 8 = excellent, 7 = very good, 6 = good, 5 = average, below 5 = weaker). Provide a refined, well-structured analysis with the following sections:
 
             ★ Rating: [X/10] (Integer Only) - Reflecting literary significance, artistic merit, and the book's contribution to understanding the human condition. Value works that explore timeless themes and universal experiences.
 
