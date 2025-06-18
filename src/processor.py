@@ -98,13 +98,15 @@ class EventProcessor:
             }
             
             prompt = f"""
-            Analyze "{movie_title}" with the intellectual rigor of a French cinéaste. Provide a concise, well-structured analysis with the following sections:
+            Analyze "{movie_title}" with the intellectual rigor of a French cinéaste, focusing purely on artistic excellence, aesthetic beauty, and universal human experiences. Provide a concise, well-structured analysis with the following sections:
 
-            ★ Rating: [X/10] (Integer Only) - Reflecting artistic merit and cultural significance.
-            🎬 Synopsis: A brief thematic overview.
-            👤 Director: A short bio and their cinematic philosophy.
-            🎨 Central Themes: The main intellectual concepts explored.
-            🏛️ Cultural Legacy: The film's influence and status.
+            ★ Rating: [X/10] (Integer Only) - Reflecting artistic merit, technical brilliance, and aesthetic achievement. Value films that explore timeless human experiences over those with heavy political messaging.
+            🎬 Synopsis: A brief overview focusing on narrative craft, character development, and emotional depth.
+            👤 Director: A short bio emphasizing their artistic vision and cinematic technique.
+            🎨 Central Themes: The universal human experiences and aesthetic concepts explored, focusing on beauty, truth, love, loss, growth, and other timeless elements.
+            🏛️ Cultural Legacy: The film's artistic influence and technical innovations in cinema.
+
+            Evaluate the film's commitment to artistic excellence and sensitivity rather than ideological positions. Appreciate works that transcend political boundaries to explore what makes us fundamentally human.
             """
             
             data = {

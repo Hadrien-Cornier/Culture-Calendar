@@ -26,6 +26,12 @@ function setupEventListeners() {
     ratingSlider.addEventListener('input', function() {
         ratingValue.textContent = this.value;
         updateFilteredMovies();
+        renderMovies();
+        
+        // Re-render calendar if it's currently visible
+        if (calendarView.style.display !== 'none') {
+            renderCalendar();
+        }
     });
 
     downloadBtn.addEventListener('click', function() {
@@ -150,6 +156,11 @@ function toggleGenreFilter(genre) {
     
     updateFilteredMovies();
     renderMovies();
+    
+    // Re-render calendar if it's currently visible
+    if (calendarView.style.display !== 'none') {
+        renderCalendar();
+    }
 }
 
 // Update filtered movies based on current rating and genre filters
@@ -231,6 +242,7 @@ function createMovieCard(movie) {
                     ${movie.country ? `<span class="country-badge">${movie.country}</span>` : ''}
                     ${movie.year ? `<span class="year-badge">${movie.year}</span>` : ''}
                     ${movie.language && movie.language !== 'English' ? `<span class="language-badge">${movie.language}</span>` : ''}
+                    ${movie.venue ? `<span class="venue-badge venue-${movie.venue.toLowerCase()}">${getVenueName(movie.venue)}</span>` : ''}
                 </div>
                 <div class="screenings-container">
                     ${screeningTags}
@@ -288,9 +300,10 @@ function renderCalendar() {
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
     
-    // Get all screenings from movies data
+    // Get screenings from filtered movies (respects UI filters)
+    const moviesToUse = filteredMovies.length > 0 ? filteredMovies : moviesData;
     const allScreenings = [];
-    moviesData.forEach(movie => {
+    moviesToUse.forEach(movie => {
         if (movie.screenings && Array.isArray(movie.screenings)) {
             movie.screenings.forEach(screening => {
                 allScreenings.push({
@@ -305,7 +318,7 @@ function renderCalendar() {
         }
     });
     
-    console.log(`Found ${allScreenings.length} total screenings`); // Debug log
+    console.log(`Found ${allScreenings.length} screenings after applying filters`); // Debug log
     
     // Create calendar header
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -500,6 +513,15 @@ function generateICSContent(movies) {
 }
 
 // Utility functions
+function getVenueName(venue) {
+    const venueNames = {
+        'AFS': '🎬 AFS',
+        'Hyperreal': '🎭 Hyperreal',
+        'Paramount': '🎪 Paramount'
+    };
+    return venueNames[venue] || venue;
+}
+
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;

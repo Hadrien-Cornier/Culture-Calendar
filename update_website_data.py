@@ -2,12 +2,14 @@
 """
 Website data updater for Culture Calendar
 Generates JSON data and calendar files for the GitHub Pages website
+Supports multiple venues: AFS, Hyperreal Film Club, and others
 """
 
 import os
 import json
+import sys
 from datetime import datetime, timedelta
-from src.scraper import AFSScraper
+from src.scraper import MultiVenueScraper
 from src.processor import EventProcessor
 from src.calendar_generator import CalendarGenerator
 
@@ -162,7 +164,7 @@ def is_movie_event(title, description=""):
     return True
 
 def generate_website_data(events):
-    """Generate JSON data for the website with movie aggregation"""
+    """Generate JSON data for the website with movie aggregation and venue tags"""
     # Filter out non-movie events using the scraper's detection
     movie_events = [event for event in events if event.get('is_movie', True)]
     print(f"Filtered to {len(movie_events)} movie events from {len(events)} total events")
@@ -185,9 +187,10 @@ def generate_website_data(events):
                 'isMovie': event.get('is_movie', True),  # From scraper detection
                 'duration': event.get('duration'),
                 'director': event.get('director'),
-                'country': event.get('country'),
+                'country': event.get('country') if event.get('country') else 'Unknown',
                 'year': event.get('year'),
                 'language': event.get('language'),
+                'venue': event.get('venue', 'AFS'),  # Venue tag
                 'screenings': []
             }
         
@@ -195,7 +198,8 @@ def generate_website_data(events):
         screening = {
             'date': event['date'],
             'time': event.get('time', 'TBD'),
-            'url': event.get('url', '')
+            'url': event.get('url', ''),
+            'venue': event.get('venue', 'AFS')  # Add venue to each screening
         }
         
         # Check if this exact screening already exists
@@ -244,17 +248,17 @@ def generate_calendar_files(events, output_dir):
             calendar_gen.generate_ics(filtered_events, filepath)
             print(f"Generated {filename} with {len(filtered_events)} events")
 
-def main():
+def main(test_week=False):
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
     
     try:
         # Initialize components
-        scraper = AFSScraper()
+        scraper = MultiVenueScraper()
         processor = EventProcessor()
         
-        # Scrape AFS calendar
-        print("Fetching AFS calendar data...")
-        events = scraper.scrape_calendar()
+        # Scrape all venues
+        print("Fetching calendar data from all venues...")
+        events = scraper.scrape_all_venues(target_week=test_week)
         print(f"Found {len(events)} total events")
         
         # Get detailed information for each screening event
@@ -263,7 +267,7 @@ def main():
         for event in events:
             if event.get('type') == 'screening':
                 try:
-                    details = scraper.get_event_details(event['url'])
+                    details = scraper.get_event_details(event)
                     event.update(details)
                     screening_events.append(event)
                 except Exception as e:
@@ -271,9 +275,15 @@ def main():
         
         print(f"Processing {len(screening_events)} screening events")
         
-        # Filter to upcoming events (current month + next month)
-        upcoming_events = filter_upcoming_events(screening_events, mode='month')
-        print(f"Found {len(upcoming_events)} upcoming events")
+        # Filter to upcoming events
+        if test_week:
+            # For testing, use all events from current week
+            upcoming_events = screening_events
+            print(f"Using all {len(upcoming_events)} events for test week")
+        else:
+            # Filter to upcoming events (current month + next month)
+            upcoming_events = filter_upcoming_events(screening_events, mode='month')
+            print(f"Found {len(upcoming_events)} upcoming events")
         
         # Filter out work-hour events
         filtered_events = filter_work_hours(upcoming_events)
@@ -305,4 +315,6 @@ def main():
         raise
 
 if __name__ == "__main__":
-    main()
+    # Check for test week flag
+    test_week = '--test-week' in sys.argv
+    main(test_week=test_week)

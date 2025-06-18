@@ -1,5 +1,5 @@
 """
-Web scraper for Austin Film Society calendar
+Web scraper for Austin Film Society calendar, Hyperreal Film Club, and other venues
 """
 
 import requests
@@ -306,3 +306,239 @@ class AFSScraper:
         except Exception as e:
             print(f"Error detecting movie format: {e}")
             return False
+
+
+class HyperrealScraper:
+    def __init__(self):
+        self.base_url = "https://hyperrealfilm.club"
+        self.calendar_url = f"{self.base_url}/events?view=calendar"
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        })
+    
+    def scrape_calendar(self, target_month: str = None) -> List[Dict]:
+        """Scrape events from Hyperreal Film Club calendar"""
+        try:
+            # If target_month provided, use it (format: MM-YYYY)
+            if target_month:
+                url = f"{self.calendar_url}&month={target_month}"
+            else:
+                # Default to current month
+                now = datetime.now()
+                current_month = now.strftime("%m-%Y")
+                url = f"{self.calendar_url}&month={current_month}"
+            
+            response = self.session.get(url, timeout=30)
+            response.raise_for_status()
+            
+            soup = BeautifulSoup(response.content, 'html.parser')
+            events = self._parse_calendar_events(soup)
+            
+            return events
+            
+        except requests.RequestException as e:
+            print(f"Failed to fetch Hyperreal calendar: {e}")
+            return []
+    
+    def _parse_calendar_events(self, soup: BeautifulSoup) -> List[Dict]:
+        """Parse events from Hyperreal calendar HTML"""
+        events = []
+        
+        # Find all event list items
+        event_items = soup.find_all('li')
+        
+        for item in event_items:
+            event_data = self._extract_event_data(item)
+            if event_data:
+                events.append(event_data)
+        
+        return events
+    
+    def _extract_event_data(self, item) -> Optional[Dict]:
+        """Extract event data from list item"""
+        try:
+            # Look for event link
+            link = item.find('a', href=True)
+            if not link:
+                return None
+            
+            # Get event title
+            title = link.get_text(strip=True)
+            if not title:
+                return None
+            
+            # Get event URL
+            url = link['href']
+            if not url.startswith('http'):
+                url = self.base_url + url
+            
+            # Extract date and time from item text
+            item_text = item.get_text()
+            
+            # Look for date pattern like "Monday, June 3, 2025"
+            date_match = re.search(r'(\w+),\s+(\w+)\s+(\d+),\s+(\d{4})', item_text)
+            if not date_match:
+                return None
+            
+            day_name, month_name, day, year = date_match.groups()
+            event_date = self._parse_date(month_name, day, year)
+            
+            # Look for time pattern like "7:30 PM – 11:00 PM"
+            time_match = re.search(r'(\d+:\d+\s*[AP]M)\s*[–-]\s*(\d+:\d+\s*[AP]M)', item_text)
+            start_time = time_match.group(1) if time_match else "7:30 PM"
+            
+            return {
+                'title': title,
+                'url': url,
+                'date': event_date,
+                'time': start_time,
+                'type': 'screening',
+                'location': 'Hyperreal Film Club',
+                'venue': 'Hyperreal'
+            }
+            
+        except Exception as e:
+            print(f"Error extracting Hyperreal event data: {e}")
+            return None
+    
+    def _parse_date(self, month_name: str, day: str, year: str) -> Optional[str]:
+        """Parse date components into YYYY-MM-DD format"""
+        try:
+            # Map month names to numbers
+            month_map = {
+                'January': 1, 'February': 2, 'March': 3, 'April': 4,
+                'May': 5, 'June': 6, 'July': 7, 'August': 8,
+                'September': 9, 'October': 10, 'November': 11, 'December': 12
+            }
+            
+            month_num = month_map.get(month_name)
+            if not month_num:
+                return None
+            
+            event_date = datetime(int(year), month_num, int(day))
+            return event_date.strftime('%Y-%m-%d')
+            
+        except Exception as e:
+            print(f"Error parsing Hyperreal date: {e}")
+            return None
+    
+    def get_event_details(self, event_url: str) -> Dict:
+        """Get detailed information from Hyperreal event page"""
+        try:
+            response = self.session.get(event_url, timeout=30)
+            response.raise_for_status()
+            
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Extract description
+            description = ""
+            desc_div = soup.find('div', class_='entry-content') or soup.find('div', class_='content')
+            if desc_div:
+                description = desc_div.get_text(strip=True)
+            
+            # Hyperreal events are typically special screenings
+            is_special = True
+            
+            # Default metadata for Hyperreal (often unknown)
+            time.sleep(0.5)  # Be respectful
+            
+            return {
+                'description': description,
+                'is_special_screening': is_special,
+                'duration': None,  # Often unknown
+                'director': None,  # Often unknown  
+                'country': None,   # Often unknown
+                'year': None,      # Often unknown
+                'language': None,  # Often unknown
+                'is_movie': True,  # Assume all Hyperreal events are movies
+                'venue': 'Hyperreal'
+            }
+            
+        except requests.RequestException as e:
+            print(f"Failed to fetch Hyperreal event details from {event_url}: {e}")
+            return {
+                'description': '', 
+                'is_special_screening': True, 
+                'duration': None, 
+                'director': None, 
+                'country': None, 
+                'year': None, 
+                'language': None, 
+                'is_movie': True,
+                'venue': 'Hyperreal'
+            }
+
+
+class MultiVenueScraper:
+    """Unified scraper for all supported venues"""
+    
+    def __init__(self):
+        self.afs_scraper = AFSScraper()
+        self.hyperreal_scraper = HyperrealScraper()
+    
+    def scrape_all_venues(self, target_week: bool = False) -> List[Dict]:
+        """Scrape events from all supported venues"""
+        all_events = []
+        
+        # Scrape AFS
+        print("Scraping Austin Film Society...")
+        try:
+            afs_events = self.afs_scraper.scrape_calendar()
+            for event in afs_events:
+                event['venue'] = 'AFS'
+                all_events.append(event)
+            print(f"Found {len(afs_events)} AFS events")
+        except Exception as e:
+            print(f"Error scraping AFS: {e}")
+        
+        # Scrape Hyperreal
+        print("Scraping Hyperreal Film Club...")
+        try:
+            if target_week:
+                # For testing, just get current month
+                current_month = datetime.now().strftime("%m-%Y")
+                hyperreal_events = self.hyperreal_scraper.scrape_calendar(current_month)
+            else:
+                hyperreal_events = self.hyperreal_scraper.scrape_calendar()
+            
+            for event in hyperreal_events:
+                event['venue'] = 'Hyperreal'
+                all_events.append(event)
+            print(f"Found {len(hyperreal_events)} Hyperreal events")
+        except Exception as e:
+            print(f"Error scraping Hyperreal: {e}")
+        
+        # Filter to current week if requested
+        if target_week:
+            all_events = self._filter_to_current_week(all_events)
+            print(f"Filtered to {len(all_events)} events for current week")
+        
+        return all_events
+    
+    def _filter_to_current_week(self, events: List[Dict]) -> List[Dict]:
+        """Filter events to current week only"""
+        now = datetime.now()
+        # Get start of current week (Monday)
+        start_of_week = now - timedelta(days=now.weekday())
+        end_of_week = start_of_week + timedelta(days=6)
+        
+        filtered_events = []
+        for event in events:
+            try:
+                event_date = datetime.strptime(event['date'], '%Y-%m-%d')
+                if start_of_week <= event_date <= end_of_week:
+                    filtered_events.append(event)
+            except (ValueError, KeyError):
+                continue
+        
+        return filtered_events
+    
+    def get_event_details(self, event: Dict) -> Dict:
+        """Get event details using appropriate scraper based on venue"""
+        venue = event.get('venue', 'AFS')
+        
+        if venue == 'Hyperreal':
+            return self.hyperreal_scraper.get_event_details(event['url'])
+        else:
+            return self.afs_scraper.get_event_details(event['url'])

@@ -330,6 +330,29 @@ main {
     font-weight: 600;
 }
 
+.venue-badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+
+.venue-afs {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+}
+
+.venue-hyperreal {
+    background: linear-gradient(135deg, #e83e8c, #c2185b);
+    color: white;
+}
+
+.venue-paramount {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+}
+
 .screenings-container {
     display: flex;
     flex-wrap: wrap;

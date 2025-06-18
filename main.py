@@ -1,35 +1,35 @@
 #!/usr/bin/env python3
 """
-Culture Calendar - Austin Film Society Event Aggregator
-Phase 1: MVP implementation for AFS calendar to ICS conversion
+Culture Calendar - Multi-Venue Event Aggregator
+Supports AFS, Hyperreal Film Club, and other Austin venues
 """
 
 import sys
 import os
 from datetime import datetime
-from src.scraper import AFSScraper
+from src.scraper import MultiVenueScraper
 from src.processor import EventProcessor
 from src.calendar_generator import CalendarGenerator
 
-def main(debug=False, limit=None):
+def main(debug=False, limit=None, test_week=False):
     print(f"Culture Calendar - Starting at {datetime.now()}")
     
     try:
         # Initialize components
-        scraper = AFSScraper()
+        scraper = MultiVenueScraper()
         processor = EventProcessor()
         calendar_gen = CalendarGenerator()
         
-        # Scrape AFS calendar
-        print("Fetching AFS calendar data...")
-        events = scraper.scrape_calendar()
-        print(f"Found {len(events)} events")
+        # Scrape all venues
+        print("Fetching calendar data from all venues...")
+        events = scraper.scrape_all_venues(target_week=test_week)
+        print(f"Found {len(events)} total events")
         
         # Get detailed information for each event
         print("Fetching event details...")
         for event in events:
             if event.get('type') == 'screening':
-                details = scraper.get_event_details(event['url'])
+                details = scraper.get_event_details(event)
                 event.update(details)
         
         # Process and enrich events
@@ -47,7 +47,8 @@ def main(debug=False, limit=None):
         
         # Generate ICS file
         print("Generating ICS calendar file...")
-        ics_filename = f"afs_calendar_{datetime.now().strftime('%Y%m%d_%H%M')}.ics"
+        suffix = "_test_week" if test_week else ""
+        ics_filename = f"culture_calendar_{datetime.now().strftime('%Y%m%d_%H%M')}{suffix}.ics"
         calendar_gen.generate_ics(enriched_events, ics_filename)
         print(f"Calendar saved as: {ics_filename}")
         
@@ -56,8 +57,9 @@ def main(debug=False, limit=None):
         sys.exit(1)
 
 if __name__ == "__main__":
-    # Check for debug mode and limit
-    debug_mode = len(sys.argv) > 1 and sys.argv[1] == '--debug'
+    # Parse command line arguments
+    debug_mode = '--debug' in sys.argv
+    test_week = '--test-week' in sys.argv
     limit = None
     
     # Check for limit parameter like --limit=10
@@ -65,4 +67,4 @@ if __name__ == "__main__":
         if arg.startswith('--limit='):
             limit = int(arg.split('=')[1])
     
-    main(debug=debug_mode, limit=limit)
+    main(debug=debug_mode, limit=limit, test_week=test_week)
