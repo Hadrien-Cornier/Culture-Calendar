@@ -8,6 +8,8 @@ from datetime import datetime, timedelta
 import re
 from typing import List, Dict, Optional
 import time
+import json
+import os
 
 class AFSScraper:
     def __init__(self):
@@ -693,6 +695,7 @@ class MultiVenueScraper:
         self.afs_scraper = AFSScraper()
         self.hyperreal_scraper = HyperrealScraper()
         self.symphony_scraper = AustinSymphonyScraper()
+        self.existing_events_cache = set()  # Cache for duplicate detection
     
     def scrape_all_venues(self, target_week: bool = False) -> List[Dict]:
         """Scrape events from all supported venues"""
@@ -761,6 +764,64 @@ class MultiVenueScraper:
                 continue
         
         return filtered_events
+    
+    def load_existing_events(self, existing_data_path: str = None) -> None:
+        """Load existing events to cache for duplicate detection"""
+        if not existing_data_path:
+            existing_data_path = "/Users/HCornier/Documents/Github/Culture-Calendar/docs/data.json"
+        
+        try:
+            if os.path.exists(existing_data_path):
+                with open(existing_data_path, 'r', encoding='utf-8') as f:
+                    existing_data = json.load(f)
+                
+                # Create cache of event identifiers
+                for event in existing_data:
+                    if 'screenings' in event:
+                        for screening in event['screenings']:
+                            event_id = self._create_event_id(event['title'], screening['date'], screening['time'], event.get('venue', ''))
+                            self.existing_events_cache.add(event_id)
+                
+                print(f"Loaded {len(self.existing_events_cache)} existing events for duplicate detection")
+        except Exception as e:
+            print(f"Warning: Could not load existing events for duplicate detection: {e}")
+    
+    def _create_event_id(self, title: str, date: str, time: str, venue: str) -> str:
+        """Create a unique identifier for an event"""
+        # Normalize data for consistent comparison
+        normalized_title = title.strip().lower()
+        normalized_venue = venue.strip().lower()
+        normalized_time = time.strip().lower()
+        return f"{normalized_title}_{date}_{normalized_time}_{normalized_venue}"
+    
+    def _is_duplicate_event(self, title: str, date: str, time: str, venue: str) -> bool:
+        """Check if an event is a duplicate of an existing event"""
+        event_id = self._create_event_id(title, date, time, venue)
+        return event_id in self.existing_events_cache
+    
+    def scrape_new_events_only(self, target_week: bool = False, existing_data_path: str = None) -> List[Dict]:
+        """Scrape only new events that don't already exist"""
+        # Load existing events for duplicate detection
+        self.load_existing_events(existing_data_path)
+        
+        # Get all events
+        all_events = self.scrape_all_venues(target_week)
+        
+        # Filter out duplicates
+        new_events = []
+        duplicate_count = 0
+        
+        for event in all_events:
+            if not self._is_duplicate_event(event['title'], event['date'], event['time'], event.get('venue', '')):
+                new_events.append(event)
+                # Add to cache to prevent duplicates within this run
+                event_id = self._create_event_id(event['title'], event['date'], event['time'], event.get('venue', ''))
+                self.existing_events_cache.add(event_id)
+            else:
+                duplicate_count += 1
+        
+        print(f"Found {len(new_events)} new events ({duplicate_count} duplicates filtered out)")
+        return new_events
     
     def get_event_details(self, event: Dict) -> Dict:
         """Get event details using appropriate scraper based on venue"""

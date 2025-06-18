@@ -2,12 +2,18 @@
 let moviesData = [];
 let filteredMovies = [];
 let selectedGenres = new Set();
+let selectedVenues = new Set();
 let showSpecialEventsOnly = false;
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+let dateRangeStart = null;
+let dateRangeEnd = null;
 
 // DOM elements
 const ratingSlider = document.getElementById('rating-slider');
 const ratingValue = document.getElementById('rating-value');
 const downloadBtn = document.getElementById('download-btn');
+const googleCalendarBtn = document.getElementById('google-calendar-btn');
 const moviesList = document.getElementById('movies-list');
 const loadingElement = document.getElementById('loading');
 const listViewBtn = document.getElementById('list-view-btn');
@@ -16,6 +22,13 @@ const listView = document.getElementById('list-view');
 const calendarView = document.getElementById('calendar-view');
 const calendarContainer = document.getElementById('calendar-container');
 const specialEventsToggle = document.getElementById('special-events-toggle');
+const prevMonthBtn = document.getElementById('prev-month');
+const nextMonthBtn = document.getElementById('next-month');
+const monthYearDisplay = document.getElementById('month-year-display');
+const startDateInput = document.getElementById('start-date');
+const endDateInput = document.getElementById('end-date');
+const applyDateFilterBtn = document.getElementById('apply-date-filter');
+const clearDateFilterBtn = document.getElementById('clear-date-filter');
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
@@ -51,6 +64,26 @@ function setupEventListeners() {
 
     specialEventsToggle.addEventListener('click', function() {
         toggleSpecialEventsFilter();
+    });
+
+    googleCalendarBtn.addEventListener('click', function() {
+        addToGoogleCalendar();
+    });
+
+    prevMonthBtn.addEventListener('click', function() {
+        navigateMonth(-1);
+    });
+
+    nextMonthBtn.addEventListener('click', function() {
+        navigateMonth(1);
+    });
+
+    applyDateFilterBtn.addEventListener('click', function() {
+        applyDateRangeFilter();
+    });
+
+    clearDateFilterBtn.addEventListener('click', function() {
+        clearDateRangeFilter();
     });
 }
 
@@ -96,6 +129,7 @@ async function loadMoviesData() {
         
         moviesData = await response.json();
         setupGenreFilters();
+        setupVenueFilters();
         updateFilteredMovies();
         renderMovies();
         hideLoading();
@@ -128,6 +162,32 @@ function setupGenreFilters() {
         button.textContent = country;
         button.onclick = () => toggleGenreFilter(country);
         genreButtonsContainer.appendChild(button);
+    });
+}
+
+// Setup venue filter buttons
+function setupVenueFilters() {
+    const venues = [...new Set(moviesData
+        .map(movie => movie.venue)
+        .filter(venue => venue)
+    )].sort();
+    
+    const venueButtonsContainer = document.getElementById('venue-buttons');
+    
+    // Add "All" button
+    const allButton = document.createElement('button');
+    allButton.className = 'venue-filter-btn active';
+    allButton.textContent = 'All Venues';
+    allButton.onclick = () => toggleVenueFilter('all');
+    venueButtonsContainer.appendChild(allButton);
+    
+    // Add venue-specific buttons
+    venues.forEach(venue => {
+        const button = document.createElement('button');
+        button.className = 'venue-filter-btn';
+        button.textContent = getVenueName(venue);
+        button.onclick = () => toggleVenueFilter(venue);
+        venueButtonsContainer.appendChild(button);
     });
 }
 
@@ -190,6 +250,44 @@ function toggleGenreFilter(genre) {
     }
 }
 
+// Toggle venue filter
+function toggleVenueFilter(venue) {
+    if (venue === 'all') {
+        selectedVenues.clear();
+        document.querySelectorAll('.venue-filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector('.venue-filter-btn').classList.add('active'); // "All" button
+    } else {
+        // Remove "All" selection
+        document.querySelector('.venue-filter-btn').classList.remove('active');
+        
+        const button = [...document.querySelectorAll('.venue-filter-btn')]
+            .find(btn => btn.textContent === getVenueName(venue));
+        
+        if (selectedVenues.has(venue)) {
+            selectedVenues.delete(venue);
+            button.classList.remove('active');
+        } else {
+            selectedVenues.add(venue);
+            button.classList.add('active');
+        }
+        
+        // If no venues selected, activate "All"
+        if (selectedVenues.size === 0) {
+            document.querySelector('.venue-filter-btn').classList.add('active');
+        }
+    }
+    
+    updateFilteredMovies();
+    renderMovies();
+    
+    // Re-render calendar if it's currently visible
+    if (calendarView.style.display !== 'none') {
+        renderCalendar();
+    }
+}
+
 // Update filtered movies based on current rating and genre filters
 function updateFilteredMovies() {
     const minRating = parseInt(ratingSlider.value);
@@ -203,9 +301,23 @@ function updateFilteredMovies() {
             return false;
         }
         
+        // Venue filter
+        if (selectedVenues.size > 0 && !selectedVenues.has(movie.venue)) {
+            return false;
+        }
+        
         // Special events filter
         if (showSpecialEventsOnly && !movie.isSpecialScreening) {
             return false;
+        }
+        
+        // Date range filter
+        if (dateRangeStart && dateRangeEnd) {
+            const hasScreeningInRange = movie.screenings.some(screening => {
+                const screeningDate = new Date(screening.date);
+                return screeningDate >= dateRangeStart && screeningDate <= dateRangeEnd;
+            });
+            if (!hasScreeningInRange) return false;
         }
         
         return true;
@@ -318,6 +430,52 @@ function toggleDescription(movieId) {
     }
 }
 
+// Calendar navigation functions
+function navigateMonth(direction) {
+    currentMonth += direction;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    } else if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    renderCalendar();
+}
+
+function updateMonthYearDisplay() {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
+    monthYearDisplay.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+}
+
+function applyDateRangeFilter() {
+    const startDate = startDateInput.value;
+    const endDate = endDateInput.value;
+    
+    if (startDate && endDate) {
+        dateRangeStart = new Date(startDate);
+        dateRangeEnd = new Date(endDate);
+        updateFilteredMovies();
+        renderMovies();
+        if (calendarView.style.display !== 'none') {
+            renderCalendar();
+        }
+    }
+}
+
+function clearDateRangeFilter() {
+    dateRangeStart = null;
+    dateRangeEnd = null;
+    startDateInput.value = '';
+    endDateInput.value = '';
+    updateFilteredMovies();
+    renderMovies();
+    if (calendarView.style.display !== 'none') {
+        renderCalendar();
+    }
+}
+
 // Render calendar view
 function renderCalendar() {
     console.log('Rendering calendar...'); // Debug log
@@ -328,9 +486,8 @@ function renderCalendar() {
         return;
     }
     
+    updateMonthYearDisplay();
     const today = new Date();
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
     
     // Get screenings from filtered movies (respects UI filters)
     const moviesToUse = filteredMovies.length > 0 ? filteredMovies : moviesData;
@@ -434,10 +591,55 @@ function formatDateForComparison(date) {
     return `${year}-${month}-${day}`;
 }
 
-// Download filtered calendar
-function downloadFilteredCalendar(minRating) {
-    // Apply all UI filters (rating, country, and special events)
-    const filteredMovies = moviesData.filter(movie => {
+// Add to Google Calendar function
+function addToGoogleCalendar() {
+    const minRating = parseInt(ratingSlider.value);
+    const filteredMovies = getFilteredMoviesForDownload(minRating);
+    
+    if (filteredMovies.length === 0) {
+        alert('No movies match the selected filters.');
+        return;
+    }
+    
+    // Convert to individual screenings
+    const screenings = [];
+    filteredMovies.forEach(movie => {
+        movie.screenings.forEach(screening => {
+            screenings.push({
+                title: movie.title,
+                date: screening.date,
+                time: screening.time,
+                description: movie.description,
+                rating: movie.rating,
+                url: screening.url,
+                venue: movie.venue
+            });
+        });
+    });
+    
+    // Create Google Calendar URL for the first event
+    const firstEvent = screenings[0];
+    const startDate = new Date(firstEvent.date + ' ' + firstEvent.time);
+    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours later
+    
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('⭐' + firstEvent.rating + '/10 - ' + firstEvent.title)}&dates=${formatGoogleCalendarDate(startDate)}/${formatGoogleCalendarDate(endDate)}&details=${encodeURIComponent(stripHtmlTags(firstEvent.description))}&location=${encodeURIComponent('Austin, TX')}&ctz=America/Chicago`;
+    
+    // Open Google Calendar in new tab
+    window.open(googleCalendarUrl, '_blank');
+    
+    // If there are multiple events, inform the user
+    if (screenings.length > 1) {
+        alert(`Opening Google Calendar for the first event (${firstEvent.title}). For multiple events, please use the Download Calendar option.`);
+    }
+}
+
+function formatGoogleCalendarDate(date) {
+    return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+}
+
+// Helper function to get filtered movies for download
+function getFilteredMoviesForDownload(minRating) {
+    return moviesData.filter(movie => {
         // Rating filter
         if (movie.rating < minRating) return false;
         
@@ -446,13 +648,32 @@ function downloadFilteredCalendar(minRating) {
             return false;
         }
         
+        // Venue filter
+        if (selectedVenues.size > 0 && !selectedVenues.has(movie.venue)) {
+            return false;
+        }
+        
         // Special events filter
         if (showSpecialEventsOnly && !movie.isSpecialScreening) {
             return false;
         }
         
+        // Date range filter
+        if (dateRangeStart && dateRangeEnd) {
+            const hasScreeningInRange = movie.screenings.some(screening => {
+                const screeningDate = new Date(screening.date);
+                return screeningDate >= dateRangeStart && screeningDate <= dateRangeEnd;
+            });
+            if (!hasScreeningInRange) return false;
+        }
+        
         return true;
     });
+}
+
+// Download filtered calendar
+function downloadFilteredCalendar(minRating) {
+    const filteredMovies = getFilteredMoviesForDownload(minRating);
     
     if (filteredMovies.length === 0) {
         alert('No movies match the selected filters.');
@@ -485,8 +706,10 @@ function downloadFilteredCalendar(minRating) {
     
     // Generate filename with filters
     const countryFilter = selectedGenres.size > 0 ? `-${[...selectedGenres].join('-')}` : '';
+    const venueFilter = selectedVenues.size > 0 ? `-${[...selectedVenues].join('-')}` : '';
     const specialFilter = showSpecialEventsOnly ? '-special' : '';
-    link.download = `culture-calendar-${minRating}plus${countryFilter}${specialFilter}-${getCurrentDateString()}.ics`;
+    const dateFilter = dateRangeStart && dateRangeEnd ? `-${formatDateForFilename(dateRangeStart)}-to-${formatDateForFilename(dateRangeEnd)}` : '';
+    link.download = `culture-calendar-${minRating}plus${countryFilter}${venueFilter}${specialFilter}${dateFilter}-${getCurrentDateString()}.ics`;
     
     document.body.appendChild(link);
     link.click();
@@ -631,6 +854,10 @@ function formatDateTimeForICS(dateStr, timeStr, hoursToAdd = 0) {
 function getCurrentDateString() {
     const now = new Date();
     return now.toISOString().split('T')[0].replace(/-/g, '');
+}
+
+function formatDateForFilename(date) {
+    return date.toISOString().split('T')[0].replace(/-/g, '');
 }
 
 function hideLoading() {
