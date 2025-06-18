@@ -15,6 +15,7 @@ def main():
     print(f"Culture Calendar Update - Mode: {mode}")
     
     # Temporarily patch the filter function for different modes
+    full_update = False
     if mode == 'week':
         # Override the filter function to use 7 days
         import update_website_data
@@ -23,11 +24,14 @@ def main():
         print("Using 7-day window for weekly update")
     elif mode == 'month':
         print("Using current month + next month window for monthly update")
+    elif mode == 'full':
+        full_update = True
+        print("Using full event range for update")
     else:
         print(f"Unknown mode '{mode}', defaulting to monthly update")
     
     # Run the main update function
-    update_main()
+    update_main(full=full_update)
 
 if __name__ == "__main__":
     main()
