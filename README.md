@@ -68,7 +68,7 @@ Visit **[hadrien-cornier.github.io/Culture-Calendar](https://hadrien-cornier.git
    ```
 
 4. **Customize Preferences**
-   Edit `preferences.txt` with your favorite directors, genres, and keywords.
+   Edit `preferences.txt` with your favorite directors, genres, and keywords. For book club events, you can also add classic authors in `literature_preferences.txt`.
 
 5. **Enable GitHub Pages & Actions**
    - Go to repository Settings > Pages
@@ -138,6 +138,7 @@ Culture-Calendar/
 │
 └── ⚙️ Configuration
     ├── preferences.txt             # Personal taste preferences
+    ├── literature_preferences.txt  # Classic literature interests
     ├── requirements.txt            # Python dependencies
     ├── .env.example               # Environment template
     └── CLAUDE.md                  # AI assistant instructions

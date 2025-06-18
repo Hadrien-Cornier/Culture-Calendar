@@ -123,7 +123,7 @@ function switchToCalendarView() {
         if (moviesData && moviesData.length > 0) {
             renderCalendar();
         } else {
-            console.log('No movies data available for calendar');
+            console.log('No event data available for calendar');
             calendarContainer.innerHTML = '<div class="loading">Loading calendar data...</div>';
         }
     } catch (error) {
@@ -174,9 +174,9 @@ async function loadMoviesData() {
             throw new Error('Invalid data format: expected array, got ' + typeof moviesData);
         }
         
-        // Check if we have valid movie data
+        // Check if we have valid event data
         if (moviesData.length === 0) {
-            console.warn('No movie data found');
+            console.warn('No event data found');
             showError('No cultural events available at this time.');
             return;
         }
@@ -260,7 +260,7 @@ function toggleSpecialEventsFilter() {
     
     if (showSpecialEventsOnly) {
         specialEventsToggle.classList.add('active');
-        specialEventsToggle.textContent = 'Show All Movies';
+        specialEventsToggle.textContent = 'Show All Events';
     } else {
         specialEventsToggle.classList.remove('active');
         specialEventsToggle.textContent = 'Show Special Events Only';
@@ -400,10 +400,10 @@ function updateFilteredMovies() {
 function updateDownloadButton() {
     const count = filteredMovies.length;
     if (count === 0) {
-        downloadBtn.textContent = 'No movies match criteria';
+        downloadBtn.textContent = 'No events match criteria';
         downloadBtn.disabled = true;
     } else {
-        downloadBtn.textContent = `Download Calendar (${count} movies)`;
+        downloadBtn.textContent = `Download Calendar (${count} events)`;
         downloadBtn.disabled = false;
     }
 }
@@ -413,7 +413,7 @@ function renderMovies() {
     const moviesToRender = filteredMovies.length > 0 ? filteredMovies : moviesData;
     
     if (moviesToRender.length === 0) {
-        moviesList.innerHTML = '<p class="no-movies">No movies match the current filters.</p>';
+        moviesList.innerHTML = '<p class="no-movies">No events match the current filters.</p>';
         return;
     }
 
@@ -433,7 +433,7 @@ function createMovieCard(movie) {
     // Safety checks for required properties
     if (!movie || !movie.title) {
         console.error('Invalid movie object:', movie);
-        return '<div class="movie-card error">Invalid movie data</div>';
+        return '<div class="movie-card error">Invalid event data</div>';
     }
     
     const description = movie.description || 'No description available';
@@ -478,7 +478,7 @@ function createMovieCard(movie) {
                     ${formatDescription(shortDescription)}
                 </div>
                 <div class="description-full" id="full-${movie.id || 'unknown'}">
-                    ${description}
+                    ${formatDescription(description)}
                 </div>
                 ${needsExpansion ? `
                     <button class="expand-button" data-movie-id="${movie.id || 'unknown'}">
@@ -560,8 +560,8 @@ function renderCalendar() {
     console.log('Rendering calendar...'); // Debug log
     
     if (!moviesData || moviesData.length === 0) {
-        console.log('No movies data available for calendar');
-        calendarContainer.innerHTML = '<p>No movie data available</p>';
+        console.log('No event data available for calendar');
+        calendarContainer.innerHTML = '<p>No event data available</p>';
         return;
     }
     
@@ -682,10 +682,10 @@ function addToGoogleCalendar() {
     const minRating = parseInt(ratingSlider.value);
     const filteredMovies = getFilteredMoviesForDownload(minRating);
     
-    console.log('Filtered movies for Google Calendar:', filteredMovies.length); // Debug log
+    console.log('Filtered events for Google Calendar:', filteredMovies.length); // Debug log
     
     if (filteredMovies.length === 0) {
-        alert('No movies match the selected filters.');
+        alert('No events match the selected filters.');
         return;
     }
     
@@ -708,7 +708,7 @@ function addToGoogleCalendar() {
     console.log('Total screenings:', screenings.length); // Debug log
     
     if (screenings.length === 0) {
-        alert('No screenings available for the selected movies.');
+        alert('No screenings available for the selected events.');
         return;
     }
     
@@ -814,7 +814,7 @@ function downloadFilteredCalendar(minRating) {
     const filteredMovies = getFilteredMoviesForDownload(minRating);
     
     if (filteredMovies.length === 0) {
-        alert('No movies match the selected filters.');
+        alert('No events match the selected filters.');
         return;
     }
     

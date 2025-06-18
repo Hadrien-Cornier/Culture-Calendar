@@ -16,6 +16,8 @@ class EventProcessor:
     def __init__(self):
         self.perplexity_api_key = os.getenv('PERPLEXITY_API_KEY')
         self.preferences = self._load_preferences()
+        # Separate preference list for literature events
+        self.literature_preferences = self._load_literature_preferences()
         self.movie_cache = {}  # Cache AI ratings to avoid reprocessing
     
     def process_events(self, events: List[Dict]) -> List[Dict]:
@@ -88,7 +90,21 @@ class EventProcessor:
                         preferences.append(line.lower())
         except FileNotFoundError:
             print("Warning: preferences.txt not found")
-        
+
+        return preferences
+
+    def _load_literature_preferences(self) -> List[str]:
+        """Load literature-specific preferences from file"""
+        preferences = []
+        try:
+            with open('literature_preferences.txt', 'r') as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#'):
+                        preferences.append(line.lower())
+        except FileNotFoundError:
+            print("Warning: literature_preferences.txt not found")
+
         return preferences
     
     def _get_ai_rating(self, movie_title: str) -> Dict:
@@ -312,16 +328,21 @@ class EventProcessor:
     def _calculate_preference_score(self, event: Dict, ai_rating: Dict) -> int:
         """Calculate preference score based on user preferences"""
         score = 0
-        
+
         # Check title, description, and AI summary for preferences
         text_to_check = (
             event.get('title', '') + ' ' +
             event.get('description', '') + ' ' +
             ai_rating.get('summary', '')
         ).lower()
-        
+
+        # Combine general preferences with literature-specific ones for book clubs
+        preferences_to_use = list(self.preferences)
+        if event.get('type') == 'book_club':
+            preferences_to_use += self.literature_preferences
+
         # Add points for matching preferences
-        for preference in self.preferences:
+        for preference in preferences_to_use:
             if preference in text_to_check:
                 score += 2
         
