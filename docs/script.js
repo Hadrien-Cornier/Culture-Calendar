@@ -32,6 +32,19 @@ const clearDateFilterBtn = document.getElementById('clear-date-filter');
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded'); // Debug log
+    
+    // Verify critical elements exist
+    const criticalElements = ['loading', 'movies-list', 'rating-slider'];
+    const missingElements = criticalElements.filter(id => !document.getElementById(id));
+    
+    if (missingElements.length > 0) {
+        console.error('Missing critical elements:', missingElements);
+        alert('Page not loaded properly. Missing elements: ' + missingElements.join(', '));
+        return;
+    }
+    
+    console.log('All critical elements found, proceeding...'); // Debug log
     setupEventListeners();
     loadMoviesData();
 });
@@ -122,20 +135,43 @@ function switchToCalendarView() {
 // Load movies data from JSON file
 async function loadMoviesData() {
     try {
-        console.log('Attempting to load data.json...'); // Debug log
-        const response = await fetch('data.json');
-        console.log('Fetch response status:', response.status, response.statusText); // Debug log
+        console.log('Starting data load process...'); // Debug log
+        console.log('Current URL:', window.location.href); // Debug log
         
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        // Try absolute URL first, then relative
+        let dataUrl = 'data.json';
+        if (window.location.hostname === 'hadrien-cornier.github.io') {
+            dataUrl = '/Culture-Calendar/data.json';
         }
         
-        moviesData = await response.json();
-        console.log('Loaded movies data:', moviesData.length, 'events'); // Debug log
+        console.log('Attempting to load:', dataUrl); // Debug log
+        const response = await fetch(dataUrl);
+        console.log('Fetch response status:', response.status, response.statusText); // Debug log
+        console.log('Response headers:', response.headers); // Debug log
+        
+        if (!response.ok) {
+            // Try fallback URL
+            if (dataUrl !== 'data.json') {
+                console.log('Trying fallback URL: data.json');
+                const fallbackResponse = await fetch('data.json');
+                if (!fallbackResponse.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                const fallbackData = await fallbackResponse.json();
+                moviesData = fallbackData;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+            }
+        } else {
+            moviesData = await response.json();
+        }
+        
+        console.log('Loaded movies data:', moviesData?.length, 'events'); // Debug log
         
         // Validate data structure
         if (!Array.isArray(moviesData)) {
-            throw new Error('Invalid data format: expected array');
+            console.error('Invalid data type:', typeof moviesData);
+            throw new Error('Invalid data format: expected array, got ' + typeof moviesData);
         }
         
         // Check if we have valid movie data
@@ -145,6 +181,7 @@ async function loadMoviesData() {
             return;
         }
         
+        console.log('Setting up filters...'); // Debug log
         setupGenreFilters();
         setupVenueFilters();
         updateFilteredMovies();
@@ -154,7 +191,8 @@ async function loadMoviesData() {
         console.log('Movie data loaded successfully'); // Debug log
     } catch (error) {
         console.error('Detailed error loading movies data:', error);
-        showError(`Failed to load cultural event data: ${error.message}. Please try again later.`);
+        console.error('Error stack:', error.stack);
+        showError(`Failed to load cultural event data: ${error.message}. Please check browser console for details.`);
     }
 }
 
