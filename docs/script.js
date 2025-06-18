@@ -741,17 +741,24 @@ function downloadFilteredCalendar(minRating) {
     // Convert aggregated movies back to individual screenings for ICS
     const screenings = [];
     filteredMovies.forEach(movie => {
-        movie.screenings.forEach(screening => {
-            screenings.push({
-                title: movie.title,
-                date: screening.date,
-                time: screening.time,
-                description: movie.description,
-                rating: movie.rating,
-                url: screening.url,
-                id: `${movie.id}-${screening.date}-${screening.time.replace(/[^0-9]/g, '')}`
+        if (Array.isArray(movie.screenings)) {
+            movie.screenings.forEach(screening => {
+                // Guard against missing screening data
+                if (!screening || !screening.date) return;
+
+                const timeString = screening.time || '';
+
+                screenings.push({
+                    title: movie.title,
+                    date: screening.date,
+                    time: timeString,
+                    description: movie.description,
+                    rating: movie.rating,
+                    url: screening.url,
+                    id: `${movie.id || 'event'}-${screening.date}-${timeString.replace(/[^0-9]/g, '')}`
+                });
             });
-        });
+        }
     });
     
     // Generate calendar content
