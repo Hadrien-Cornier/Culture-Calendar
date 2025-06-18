@@ -574,20 +574,23 @@ main {
 .calendar-event {
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
-    padding: 2px 6px;
+    padding: 3px 6px;
     border-radius: 4px;
     font-size: 0.7rem;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: all 0.2s ease;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    border-left: 3px solid rgba(255,255,255,0.3);
+    font-weight: 500;
 }
 
 .calendar-event:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
     z-index: 10;
     position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .calendar-event.high-rating {
@@ -601,6 +604,39 @@ main {
 
 .calendar-event.low-rating {
     background: linear-gradient(135deg, #6c757d, #495057);
+}
+
+/* Venue-specific calendar event colors */
+.calendar-event.venue-afs {
+    border-left-color: #dc3545;
+}
+
+.calendar-event.venue-hyperreal {
+    border-left-color: #6f42c1;
+}
+
+.calendar-event.venue-paramount {
+    border-left-color: #fd7e14;
+}
+
+.calendar-event.venue-symphony {
+    border-left-color: #6f42c1;
+}
+
+.calendar-event.venue-earlymusic {
+    border-left-color: #d4af37;
+}
+
+.calendar-event.venue-lafollia {
+    border-left-color: #8b4513;
+}
+
+.calendar-event.venue-alienatedmajesty {
+    border-left-color: #2f4f4f;
+}
+
+.calendar-event.venue-firstlight {
+    border-left-color: #ff6b6b;
 }
 
 /* Footer */

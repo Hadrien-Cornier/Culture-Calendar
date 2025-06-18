@@ -122,20 +122,39 @@ function switchToCalendarView() {
 // Load movies data from JSON file
 async function loadMoviesData() {
     try {
+        console.log('Attempting to load data.json...'); // Debug log
         const response = await fetch('data.json');
+        console.log('Fetch response status:', response.status, response.statusText); // Debug log
+        
         if (!response.ok) {
-            throw new Error('Failed to load movie data');
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         moviesData = await response.json();
+        console.log('Loaded movies data:', moviesData.length, 'events'); // Debug log
+        
+        // Validate data structure
+        if (!Array.isArray(moviesData)) {
+            throw new Error('Invalid data format: expected array');
+        }
+        
+        // Check if we have valid movie data
+        if (moviesData.length === 0) {
+            console.warn('No movie data found');
+            showError('No cultural events available at this time.');
+            return;
+        }
+        
         setupGenreFilters();
         setupVenueFilters();
         updateFilteredMovies();
         renderMovies();
         hideLoading();
+        
+        console.log('Movie data loaded successfully'); // Debug log
     } catch (error) {
-        console.error('Error loading movies data:', error);
-        showError('Failed to load movie data. Please try again later.');
+        console.error('Detailed error loading movies data:', error);
+        showError(`Failed to load cultural event data: ${error.message}. Please try again later.`);
     }
 }
 
@@ -514,6 +533,7 @@ function renderCalendar() {
                     url: screening.url,
                     title: movie.title,
                     rating: movie.rating,
+                    venue: movie.venue,
                     id: movie.id
                 });
             });
@@ -564,15 +584,19 @@ function renderCalendar() {
             const ratingClass = screening.rating >= 8 ? 'high-rating' : 
                               screening.rating >= 6 ? 'medium-rating' : 'low-rating';
             
+            // Get venue emoji and CSS class for visual indication
+            const venueEmoji = getVenueEmoji(screening.venue);
+            const venueClass = screening.venue ? `venue-${screening.venue.toLowerCase()}` : '';
+            
             // Truncate long movie titles for calendar display
             const displayTitle = screening.title.length > 15 ? 
                 screening.title.substring(0, 12) + '...' : screening.title;
             
             eventsHTML += `
-                <div class="calendar-event ${ratingClass}" 
-                     title="${escapeHtml(screening.title)} - ${screening.time} - Rating: ${screening.rating}/10"
+                <div class="calendar-event ${ratingClass} ${venueClass}" 
+                     title="${escapeHtml(screening.title)} - ${screening.time} - Rating: ${screening.rating}/10 - ${getVenueName(screening.venue)}"
                      onclick="window.open('${screening.url}', '_blank')">
-                    ⭐${screening.rating} ${escapeHtml(displayTitle)}
+                    ${venueEmoji}⭐${screening.rating} ${escapeHtml(displayTitle)}
                 </div>
             `;
         });
@@ -606,8 +630,12 @@ function formatDateForComparison(date) {
 
 // Add to Google Calendar function
 function addToGoogleCalendar() {
+    console.log('Google Calendar button clicked'); // Debug log
+    
     const minRating = parseInt(ratingSlider.value);
     const filteredMovies = getFilteredMoviesForDownload(minRating);
+    
+    console.log('Filtered movies for Google Calendar:', filteredMovies.length); // Debug log
     
     if (filteredMovies.length === 0) {
         alert('No movies match the selected filters.');
@@ -630,19 +658,69 @@ function addToGoogleCalendar() {
         });
     });
     
+    console.log('Total screenings:', screenings.length); // Debug log
+    
+    if (screenings.length === 0) {
+        alert('No screenings available for the selected movies.');
+        return;
+    }
+    
     // Create Google Calendar URL for the first event
     const firstEvent = screenings[0];
-    const startDate = new Date(firstEvent.date + ' ' + firstEvent.time);
-    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours later
+    console.log('First event:', firstEvent); // Debug log
     
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('⭐' + firstEvent.rating + '/10 - ' + firstEvent.title)}&dates=${formatGoogleCalendarDate(startDate)}/${formatGoogleCalendarDate(endDate)}&details=${encodeURIComponent(stripHtmlTags(firstEvent.description))}&location=${encodeURIComponent('Austin, TX')}&ctz=America/Chicago`;
-    
-    // Open Google Calendar in new tab
-    window.open(googleCalendarUrl, '_blank');
-    
-    // If there are multiple events, inform the user
-    if (screenings.length > 1) {
-        alert(`Opening Google Calendar for the first event (${firstEvent.title}). For multiple events, please use the Download Calendar option.`);
+    try {
+        // Better date parsing - handle different formats
+        let startDate;
+        
+        if (firstEvent.date && firstEvent.time) {
+            // Parse date and time separately for better compatibility
+            const dateStr = firstEvent.date; // YYYY-MM-DD format
+            const timeStr = firstEvent.time; // "7:30 PM" format
+            
+            // Create date from YYYY-MM-DD
+            const [year, month, day] = dateStr.split('-').map(Number);
+            startDate = new Date(year, month - 1, day); // month is 0-indexed
+            
+            // Parse and add time
+            const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+            if (timeMatch) {
+                let hours = parseInt(timeMatch[1]);
+                const minutes = parseInt(timeMatch[2]);
+                const ampm = timeMatch[3].toUpperCase();
+                
+                if (ampm === 'PM' && hours !== 12) hours += 12;
+                if (ampm === 'AM' && hours === 12) hours = 0;
+                
+                startDate.setHours(hours, minutes, 0, 0);
+            }
+        } else {
+            throw new Error('Missing date or time information');
+        }
+        
+        console.log('Parsed start date:', startDate); // Debug log
+        
+        if (isNaN(startDate.getTime())) {
+            throw new Error('Invalid date/time format');
+        }
+        
+        const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours later
+        
+        const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('⭐' + firstEvent.rating + '/10 - ' + firstEvent.title)}&dates=${formatGoogleCalendarDate(startDate)}/${formatGoogleCalendarDate(endDate)}&details=${encodeURIComponent(stripHtmlTags(firstEvent.description))}&location=${encodeURIComponent('Austin, TX')}&ctz=America/Chicago`;
+        
+        console.log('Google Calendar URL:', googleCalendarUrl); // Debug log
+        
+        // Open Google Calendar in new tab
+        window.open(googleCalendarUrl, '_blank');
+        
+        // If there are multiple events, inform the user
+        if (screenings.length > 1) {
+            alert(`Opening Google Calendar for the first event (${firstEvent.title}). For multiple events, please use the Download Calendar option.`);
+        }
+        
+    } catch (error) {
+        console.error('Error creating Google Calendar event:', error);
+        alert('Error creating Google Calendar event. Please try downloading the calendar file instead.');
     }
 }
 
@@ -799,6 +877,20 @@ function getVenueName(venue) {
         'FirstLight': '📖 First Light'
     };
     return venueNames[venue] || venue;
+}
+
+function getVenueEmoji(venue) {
+    const venueEmojis = {
+        'AFS': '🎬',
+        'Hyperreal': '🎭',
+        'Paramount': '🎪',
+        'Symphony': '🎼',
+        'EarlyMusic': '🎵',
+        'LaFollia': '🎻',
+        'AlienatedMajesty': '📚',
+        'FirstLight': '📖'
+    };
+    return venueEmojis[venue] || '🎪';
 }
 
 function escapeHtml(text) {
