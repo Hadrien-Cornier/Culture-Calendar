@@ -15,10 +15,11 @@ An automated system that transforms Austin Film Society events into a curated, i
 
 ### 🌐 Modern Web Interface
 - **GitHub Pages Website**: Beautiful, responsive single-page application
+- **Multi-Venue Support**: AFS and Hyperreal Film Club events with venue tags
 - **Dual View Modes**: Toggle between list and calendar views
 - **Movie Aggregation**: Multiple showtimes grouped under single movie cards
-- **Rich Movie Cards**: Duration, director, country, year, and language badges
-- **Interactive Calendar**: Visual month view with color-coded ratings
+- **Rich Movie Cards**: Duration, director, country, year, language, and venue badges
+- **Interactive Calendar**: Visual month view with color-coded ratings and filtering
 - **Country Filtering**: Filter movies by country of origin
 - **Rating Filter**: Download custom calendars filtered by minimum rating (1-10)
 - **Mobile Responsive**: Works perfectly on all devices
@@ -196,9 +197,14 @@ python main.py --debug
 - ✅ **Phase 1**: Austin Film Society integration
 - ✅ **Phase 2**: GitHub Pages website with calendar view
 - ✅ **Phase 2.1**: Enhanced UI with movie aggregation and markdown rendering
+- ✅ **Phase 2.2**: Multi-venue support with Hyperreal Film Club integration
 
 ### 🔮 Future Enhancements
-- **📚 Phase 3**: Additional venues (bookstores, music venues, galleries)
+- **📚 Phase 3**: Additional venues
+  - **Paramount Theatre**: API investigation needed (endpoint restrictions)
+  - **The ABGB**: Music and film events
+  - **BookPeople**: Author events and film screenings
+  - **Independent galleries**: Art house screenings
 - **🔗 Phase 4**: Direct Google Calendar API integration  
 - **🎨 Phase 5**: Enhanced UI with advanced filtering and recommendations
 - **📱 Phase 6**: Mobile app or PWA version
