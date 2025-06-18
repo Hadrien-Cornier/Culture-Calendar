@@ -430,23 +430,32 @@ function renderMovies() {
 
 // Create HTML for a movie card
 function createMovieCard(movie) {
-    const shortDescription = truncateText(stripHtmlTags(movie.description), 200);
-    const needsExpansion = stripHtmlTags(movie.description).length > shortDescription.length;
+    // Safety checks for required properties
+    if (!movie || !movie.title) {
+        console.error('Invalid movie object:', movie);
+        return '<div class="movie-card error">Invalid movie data</div>';
+    }
     
-    // Create screening tags
-    const screeningTags = movie.screenings.map(screening => {
-        const formattedDate = formatDate(screening.date);
-        const formattedTime = screening.time;
-        return `<a href="${screening.url}" target="_blank" class="screening-tag">
-            📅 ${formattedDate} • 🕐 ${formattedTime}
-        </a>`;
-    }).join('');
+    const description = movie.description || 'No description available';
+    const shortDescription = truncateText(stripHtmlTags(description), 200);
+    const needsExpansion = stripHtmlTags(description).length > shortDescription.length;
+    
+    // Create screening tags with safety check
+    const screeningTags = (movie.screenings && Array.isArray(movie.screenings)) 
+        ? movie.screenings.map(screening => {
+            const formattedDate = formatDate(screening.date);
+            const formattedTime = screening.time || 'Time TBA';
+            return `<a href="${screening.url}" target="_blank" class="screening-tag">
+                📅 ${formattedDate} • 🕐 ${formattedTime}
+            </a>`;
+        }).join('')
+        : '<span class="screening-tag">No screenings available</span>';
     
     return `
         <div class="movie-card">
             <div class="movie-header">
                 <h3 class="movie-title">${escapeHtml(movie.title)}</h3>
-                <div class="movie-rating">⭐${movie.rating}/10</div>
+                <div class="movie-rating">⭐${movie.rating || 'N/A'}/10</div>
             </div>
             
             <div class="movie-info">
@@ -465,14 +474,14 @@ function createMovieCard(movie) {
             </div>
             
             <div class="movie-description">
-                <div class="description-preview" id="preview-${movie.id}">
+                <div class="description-preview" id="preview-${movie.id || 'unknown'}">
                     ${formatDescription(shortDescription)}
                 </div>
-                <div class="description-full" id="full-${movie.id}">
-                    ${movie.description}
+                <div class="description-full" id="full-${movie.id || 'unknown'}">
+                    ${description}
                 </div>
                 ${needsExpansion ? `
-                    <button class="expand-button" data-movie-id="${movie.id}">
+                    <button class="expand-button" data-movie-id="${movie.id || 'unknown'}">
                         Show More
                     </button>
                 ` : ''}
