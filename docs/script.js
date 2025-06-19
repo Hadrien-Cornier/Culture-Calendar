@@ -29,6 +29,10 @@ const endDateInput = document.getElementById('end-date');
 const applyDateFilterBtn = document.getElementById('apply-date-filter');
 const clearDateFilterBtn = document.getElementById('clear-date-filter');
 const updateList = document.getElementById('update-list');
+const searchInput = document.getElementById('search-input');
+
+let searchTerm = '';
+let selectedDirector = null;
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
@@ -95,6 +99,17 @@ function setupEventListeners() {
     clearDateFilterBtn.addEventListener('click', function() {
         clearDateRangeFilter();
     });
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            searchTerm = this.value.toLowerCase();
+            updateFilteredMovies();
+            renderMovies();
+            if (calendarView.style.display !== 'none') {
+                renderCalendar();
+            }
+        });
+    }
 }
 
 // Switch to list view
@@ -403,16 +418,29 @@ function updateFilteredMovies() {
         if (selectedVenues.size > 0 && !selectedVenues.has(movie.venue)) {
             return false;
         }
-        
+
         // Special events filter
         if (showSpecialEventsOnly && !movie.isSpecialScreening) {
             return false;
         }
-        
+
+        // Director filter
+        if (selectedDirector && movie.director !== selectedDirector) {
+            return false;
+        }
+
+        // Search filter (description)
+        if (searchTerm) {
+            const haystack = (movie.description || '').toLowerCase();
+            if (!haystack.includes(searchTerm)) {
+                return false;
+            }
+        }
+
         // Date range filter
         if (dateRangeStart && dateRangeEnd) {
             const hasScreeningInRange = movie.screenings.some(screening => {
-                const screeningDate = new Date(screening.date);
+                const screeningDate = parseLocalDate(screening.date);
                 return screeningDate >= dateRangeStart && screeningDate <= dateRangeEnd;
             });
             if (!hasScreeningInRange) return false;
@@ -446,12 +474,29 @@ function renderMovies() {
     }
 
     moviesList.innerHTML = moviesToRender.map(movie => createMovieCard(movie)).join('');
-    
+
     // Add event listeners for description toggle buttons
     document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', function() {
             const movieId = this.dataset.movieId;
             toggleDescription(movieId);
+        });
+    });
+
+    // Add click handlers for director badges
+    document.querySelectorAll('.director-badge').forEach(span => {
+        span.addEventListener('click', function() {
+            const dir = this.dataset.director;
+            if (selectedDirector === dir) {
+                selectedDirector = null;
+            } else {
+                selectedDirector = dir;
+            }
+            updateFilteredMovies();
+            renderMovies();
+            if (calendarView.style.display !== 'none') {
+                renderCalendar();
+            }
         });
     });
 }
@@ -498,7 +543,7 @@ function createMovieCard(movie) {
             <div class="movie-info">
                 <div class="movie-badges">
                     ${movie.duration ? `<span class="movie-meta-badge">⏱️ ${movie.duration}</span>` : ''}
-                    ${movie.director ? `<span class="movie-meta-badge">🎬 ${movie.director}</span>` : ''}
+                    ${movie.director ? `<span class="movie-meta-badge director-badge" data-director="${escapeHtml(movie.director)}">🎬 ${escapeHtml(movie.director)}</span>` : ''}
                     ${movie.country ? `<span class="country-badge">${movie.country}</span>` : ''}
                     ${movie.year ? `<span class="year-badge">${movie.year}</span>` : ''}
                     ${movie.language && movie.language !== 'English' ? `<span class="language-badge">${movie.language}</span>` : ''}
@@ -584,8 +629,8 @@ function applyDateRangeFilter() {
     const endDate = endDateInput.value;
     
     if (startDate && endDate) {
-        dateRangeStart = new Date(startDate);
-        dateRangeEnd = new Date(endDate);
+        dateRangeStart = parseLocalDate(startDate);
+        dateRangeEnd = parseLocalDate(endDate);
         updateFilteredMovies();
         renderMovies();
         if (calendarView.style.display !== 'none') {
@@ -748,11 +793,24 @@ function getFilteredMoviesForDownload(minRating) {
         if (showSpecialEventsOnly && !movie.isSpecialScreening) {
             return false;
         }
-        
+
+        // Director filter
+        if (selectedDirector && movie.director !== selectedDirector) {
+            return false;
+        }
+
+        // Search filter
+        if (searchTerm) {
+            const haystack = (movie.description || '').toLowerCase();
+            if (!haystack.includes(searchTerm)) {
+                return false;
+            }
+        }
+
         // Date range filter
         if (dateRangeStart && dateRangeEnd) {
             const hasScreeningInRange = movie.screenings.some(screening => {
-                const screeningDate = new Date(screening.date);
+                const screeningDate = parseLocalDate(screening.date);
                 return screeningDate >= dateRangeStart && screeningDate <= dateRangeEnd;
             });
             if (!hasScreeningInRange) return false;
@@ -931,17 +989,22 @@ function formatDescriptionForICS(text) {
                .replace(/\r/g, '');
 }
 
+function parseLocalDate(dateStr) {
+    const parts = dateStr.split('-').map(Number);
+    return new Date(parts[0], parts[1] - 1, parts[2]);
+}
+
 function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { 
-        weekday: 'short', 
-        month: 'short', 
-        day: 'numeric' 
+    const date = parseLocalDate(dateStr);
+    return date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
     });
 }
 
 function formatDateTimeForICS(dateStr, timeStr, hoursToAdd = 0) {
-    const date = new Date(dateStr);
+    const date = parseLocalDate(dateStr);
     
     // Parse time
     const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
@@ -1006,7 +1069,7 @@ function checkClassicalDataFreshness() {
     classicalEvents.forEach(event => {
         event.screenings.forEach(screening => {
             if (classicalVenues.includes(screening.venue)) {
-                const eventDate = new Date(screening.date);
+                const eventDate = parseLocalDate(screening.date);
                 if (!latestClassicalDate || eventDate > latestClassicalDate) {
                     latestClassicalDate = eventDate;
                 }
