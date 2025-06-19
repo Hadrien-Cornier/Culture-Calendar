@@ -623,10 +623,22 @@ class AlienatedMajestyBooksScraper:
         """Scrape the book club page for current events"""
         url = f"{self.base_url}/book-clubs"
         
-        # Try Firecrawl first if available
+        # Try regular requests first
+        try:
+            print("Trying requests scraping for Alienated Majesty Books")
+            response = self.session.get(url, timeout=10)
+            response.raise_for_status()
+            events = self._parse_book_club_html(response.text)
+            if events:
+                return events
+            print("Requests succeeded but no events found")
+        except Exception as e:
+            print(f"Error with requests scraping: {e}")
+        
+        # Try Firecrawl if available
         if self.firecrawl:
             try:
-                print("Using Firecrawl for JavaScript rendering")
+                print("Trying Firecrawl for JavaScript rendering")
                 scrape_result = self.firecrawl.scrape_url(url, params={'formats': ['markdown', 'html']})
                 if scrape_result and 'html' in scrape_result:
                     events = self._parse_book_club_html(scrape_result['html'])
@@ -638,25 +650,13 @@ class AlienatedMajestyBooksScraper:
             except Exception as e:
                 print(f"Firecrawl error: {e}")
         
-        # Try Pyppeteer as fallback
+        # Try Pyppeteer as last resort
         html = self._get_rendered_html(url)
         if html:
             events = self._parse_book_club_html(html)
             if events:
                 return events
             print("Pyppeteer succeeded but no events found")
-        
-        # Try regular requests as last resort
-        try:
-            print("Falling back to requests scraping")
-            response = self.session.get(url, timeout=10)
-            response.raise_for_status()
-            events = self._parse_book_club_html(response.text)
-            if events:
-                return events
-            print("Requests succeeded but no events found")
-        except Exception as e:
-            print(f"Error with requests scraping: {e}")
         
         # Return empty list if all methods fail
         print("All scraping methods failed - returning empty list")
@@ -800,10 +800,23 @@ class FirstLightAustinScraper:
         """Scrape the First Light Austin book club page"""
         url = f"{self.base_url}/book-club"
         
-        # Try Firecrawl first if available
+        # Try regular requests first
+        try:
+            print("Trying requests scraping for First Light Austin")
+            response = self.session.get(url, timeout=10)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.content, 'html.parser')
+            events = self._parse_book_club_text(soup.get_text())
+            if events:
+                return events
+            print("Requests succeeded but no events found")
+        except Exception as e:
+            print(f"Error scraping First Light Austin: {e}")
+        
+        # Try Firecrawl if available
         if self.firecrawl:
             try:
-                print("Using Firecrawl for First Light Austin")
+                print("Trying Firecrawl for First Light Austin")
                 scrape_result = self.firecrawl.scrape_url(url, params={'formats': ['markdown', 'html']})
                 if scrape_result and 'html' in scrape_result:
                     soup = BeautifulSoup(scrape_result['html'], 'html.parser')
@@ -820,19 +833,6 @@ class FirstLightAustinScraper:
                     print("Firecrawl failed to return content")
             except Exception as e:
                 print(f"Firecrawl error: {e}")
-        
-        # Try regular requests as fallback
-        try:
-            print("Falling back to requests scraping for First Light Austin")
-            response = self.session.get(url, timeout=10)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.content, 'html.parser')
-            events = self._parse_book_club_text(soup.get_text())
-            if events:
-                return events
-            print("Requests succeeded but no events found")
-        except Exception as e:
-            print(f"Error scraping First Light Austin: {e}")
         
         # Return empty list if all methods fail
         print("All scraping methods failed for First Light Austin - returning empty list")
