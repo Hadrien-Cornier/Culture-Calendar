@@ -203,15 +203,59 @@
   ],
   "laFolliaAustin": [
     {
-      "title": "Baroque Chamber Music Concert",
-      "program": "Chamber music featuring baroque composers",
-      "dates": ["2025-07-15"],
-      "times": ["7:30 PM"],
-      "venue_name": "Austin Chamber Music venue",
-      "series": "Chamber Music",
+      "title": "Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]",
+      "program": "That was the consensus of his contemporaries, both musicians and common folk. We'll prove their point by performing his sonatas, concertos, and suites, all bursting with imagination and exuberance. If you still prefer 'the other guy' after this, well bless your heart.",
+      "dates": ["2024-09-05", "2024-09-06"],
+      "times": ["7:30 PM", "3:00 PM"],
+      "venue_name": "Redeemer Presbyterian Church (Austin, TX), 78722",
+      "series": "Baroque Chamber Music",
       "featured_artist": "La Follia Austin",
-      "composers": ["Bach", "Vivaldi", "Handel"],
-      "works": ["Various baroque chamber pieces"]
+      "composers": ["Georg Philipp Telemann"],
+      "works": ["Sonatas", "Concertos", "Suites"]
+    },
+    {
+      "title": "Music for a Consort of Viols",
+      "program": "We present the lusciousness and intricacy of music for a five viol consort. It's like a string quintet, but better! Music from England, France, and Italy. The ultimate chill out music. Eric Taeyung Mun directs.",
+      "dates": ["2024-10-03", "2024-10-04"],
+      "times": ["7:30 PM", "3:00 PM"],
+      "venue_name": "TBD (Austin, TX)",
+      "series": "Baroque Chamber Music",
+      "featured_artist": "La Follia Austin, Eric Taeyung Mun (director)",
+      "composers": ["Various (England, France, Italy)", "Eric Taeyung Mun (director)", "Consort of Viols"],
+      "works": ["Consort music for five viols"]
+    },
+    {
+      "title": "Anton Nel and Keith Womer wrangle the Herd of Harpsichords",
+      "program": "Five harpsichords. Two performers. Who wins? You do! Anton and Keith perform music written for harpsichords of all types. Hear and see these beautiful instruments and learn what makes them different, as well as what makes the harpsichord sound so intoxicating. Yes, there will be a petting zoo at intermission and afterwards.",
+      "dates": ["2024-11-07", "2024-11-08"],
+      "times": ["7:30 PM", "3:00 PM"],
+      "venue_name": "Redeemer Presbyterian Church (Austin, TX), 78722",
+      "series": "Baroque Chamber Music",
+      "featured_artist": "Anton Nel, Keith Womer, La Follia Austin",
+      "composers": ["Various"],
+      "works": ["Music for harpsichords"]
+    },
+    {
+      "title": "Hidden Gems",
+      "program": "An annual fan-favorite concert. This time we will focus on music from the wild and crazy days of the early Baroque, featuring exotic instruments like cornetto and dulcian. Music by Castello, Erlebach, Weckmann, and others. If you don't know them, well, that's the point. As always, you can count on the music being fresh, exciting, and sublime.",
+      "dates": ["2025-01-09", "2025-01-10"],
+      "times": ["7:30 PM", "3:00 PM"],
+      "venue_name": "Redeemer Presbyterian Church (Austin, TX), 78722",
+      "series": "Baroque Chamber Music",
+      "featured_artist": "La Follia Austin",
+      "composers": ["Castello", "Erlebach", "Weckmann", "Others"],
+      "works": ["Early Baroque Hidden Gems"]
+    },
+    {
+      "title": "Haydn! Beethoven! Scotland! - with Anton Nel",
+      "program": "What do Haydn and Beethoven have in common? First, they wrote great chamber music, and second, they wrote superb settings of Scottish songs! Get a taste of both as Anton Nel performs on fortepiano with La Follia and guest vocalists. A pleasing, satisfying way to end a concert season!",
+      "dates": ["2025-04-24", "2025-04-25"],
+      "times": ["7:30 PM", "3:00 PM"],
+      "venue_name": "Redeemer Presbyterian Church (Austin, TX), 78722",
+      "series": "Baroque & Classical Chamber Music",
+      "featured_artist": "Anton Nel, La Follia Austin, guest vocalists",
+      "composers": ["Haydn", "Beethoven", "Scottish Songs"],
+      "works": ["Chamber music", "Scottish song settings"]
     }
   ],
   "lastUpdated": "2025-06-19",
