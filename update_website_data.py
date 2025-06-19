@@ -252,20 +252,32 @@ def is_movie_event(title, description=""):
 
 def generate_website_data(events):
     """Generate JSON data for the website with movie aggregation and venue tags"""
-    # Filter out non-movie events using the scraper's detection
-    movie_events = [event for event in events if event.get('is_movie', True)]
-    print(f"Filtered to {len(movie_events)} movie events from {len(events)} total events")
+    # Include both movies and classical music events for the website
+    website_events = []
+    movie_events = []
+    classical_events = []
     
-    # Group events by movie title
-    movies_dict = {}
+    for event in events:
+        if event.get('type') == 'concert':
+            classical_events.append(event)
+            website_events.append(event)
+        elif event.get('is_movie', True):
+            movie_events.append(event)
+            website_events.append(event)
     
+    print(f"Generating website data: {len(movie_events)} movies, {len(classical_events)} classical events, {len(website_events)} total")
+    
+    # Group movie events by title, add classical events directly
+    combined_data = {}
+    
+    # Process movies (group by title)
     for event in movie_events:
         title = event['title']
         
-        if title not in movies_dict:
+        if title not in combined_data:
             # Create new movie entry
             ai_rating = event.get('ai_rating', {})
-            movies_dict[title] = {
+            combined_data[title] = {
                 'title': title,
                 'rating': ai_rating.get('score', 5),  # Use base AI rating for consistency
                 'description': clean_markdown_text(ai_rating.get('summary', 'No description available')),
@@ -290,7 +302,7 @@ def generate_website_data(events):
         }
         
         # Check if this exact screening already exists
-        existing_screenings = movies_dict[title]['screenings']
+        existing_screenings = combined_data[title]['screenings']
         screening_exists = any(
             s['date'] == screening['date'] and 
             s['time'] == screening['time'] and 
@@ -299,18 +311,50 @@ def generate_website_data(events):
         )
         
         if not screening_exists:
-            movies_dict[title]['screenings'].append(screening)
+            combined_data[title]['screenings'].append(screening)
+    
+    # Process classical music events (each event is unique)
+    for event in classical_events:
+        # Create unique key for each classical event
+        event_key = f"{event['title']} - {event['date']} {event['time']}"
+        
+        ai_rating = event.get('ai_rating', {})
+        combined_data[event_key] = {
+            'title': event['title'],
+            'rating': ai_rating.get('score', 5),
+            'description': clean_markdown_text(ai_rating.get('summary', 'No description available')),
+            'url': event.get('url', ''),
+            'isSpecialScreening': False,  # Classical events aren't "screenings"
+            'isMovie': False,  # Classical events are concerts
+            'duration': event.get('duration'),
+            'director': None,  # Not applicable to concerts
+            'country': event.get('country', 'USA'),
+            'year': event.get('year'),
+            'language': None,  # Not applicable to instrumental music
+            'venue': event.get('venue'),
+            'series': event.get('series'),
+            'composers': event.get('composers', []),
+            'works': event.get('works', []),
+            'featured_artist': event.get('featured_artist'),
+            'program': event.get('program'),
+            'screenings': [{  # Using "screenings" terminology for consistency with website
+                'date': event['date'],
+                'time': event.get('time', 'TBD'),
+                'url': event.get('url', ''),
+                'venue': event.get('venue')
+            }]
+        }
     
     # Convert to list and add unique IDs
     website_data = []
-    for title, movie_data in movies_dict.items():
-        movie_id = title.lower().replace(' ', '-').replace("'", '').replace('"', '')
-        movie_data['id'] = movie_id
+    for title, event_data in combined_data.items():
+        event_id = title.lower().replace(' ', '-').replace("'", '').replace('"', '').replace(':', '').replace(',', '')
+        event_data['id'] = event_id
         
         # Sort screenings by date and time
-        movie_data['screenings'].sort(key=lambda x: (x['date'], x['time']))
+        event_data['screenings'].sort(key=lambda x: (x['date'], x['time']))
         
-        website_data.append(movie_data)
+        website_data.append(event_data)
     
     # Sort by rating (highest first), then by title
     website_data.sort(key=lambda x: (-x['rating'], x['title']))
