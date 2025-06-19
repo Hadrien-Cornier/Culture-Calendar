@@ -10,13 +10,13 @@ Culture Calendar is a comprehensive Python application that automatically scrape
 
 ```bash
 # Update website data (incremental - new events only)
-source venv/bin/activate && python update_website_data_configurable.py --incremental
+source venv/bin/activate && python update_website_data.py --incremental
 
 # Update website data (full refresh)
-source venv/bin/activate && python update_website_data_configurable.py --full
+source venv/bin/activate && python update_website_data.py --full
 
-# Update specific venues only
-source venv/bin/activate && python update_website_data_configurable.py --incremental --venues AFS,Hyperreal
+# Force re-rate all events (ignore cache)
+source venv/bin/activate && python update_website_data.py --full --force-reprocess
 
 # Install dependencies
 pip install -r requirements.txt
@@ -208,8 +208,9 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 4. **Manual Workflow Triggers:**
    - Go to Actions tab
    - **Weekly Update**: "Weekly Culture Calendar Update" (upcoming month)
-   - **Monthly Update**: "Monthly Culture Calendar Update" (full refresh)
-   - Click "Run workflow" to test either one
+   - **Monthly Update**: "Monthly Culture Calendar Update" (full refresh) 
+   - **Re-rate Events**: "Re-rate All Events" (force fresh AI analysis)
+   - Click "Run workflow" to test any workflow
 
 5. **View Website:**
    - Website will be available at: `https://[username].github.io/Culture-Calendar/`

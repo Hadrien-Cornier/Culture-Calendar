@@ -318,19 +318,20 @@ def generate_website_data(events):
     return website_data
 
 
-def main(test_week: bool = False, full: bool = False):
+def main(test_week: bool = False, full: bool = False, force_reprocess: bool = False):
     """Generate website data.
 
     Args:
         test_week: If True, limit scraping to current week for testing.
         full: If True, include all events without date filtering.
+        force_reprocess: If True, force re-processing of all events (ignore cache).
     """
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
     
     try:
         # Initialize components
         scraper = MultiVenueScraper()
-        processor = EventProcessor()
+        processor = EventProcessor(force_reprocess=force_reprocess)
         
         # Scrape all venues
         print("Fetching calendar data from all venues...")
@@ -405,4 +406,5 @@ if __name__ == "__main__":
     # Parse command line flags
     test_week = '--test-week' in sys.argv
     full_update = '--full' in sys.argv
-    main(test_week=test_week, full=full_update)
+    force_reprocess = '--force-reprocess' in sys.argv
+    main(test_week=test_week, full=full_update, force_reprocess=force_reprocess)

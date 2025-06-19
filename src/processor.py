@@ -13,12 +13,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class EventProcessor:
-    def __init__(self):
+    def __init__(self, force_reprocess: bool = False):
         self.perplexity_api_key = os.getenv('PERPLEXITY_API_KEY')
         self.preferences = self._load_preferences()
         # Separate preference list for literature events
         self.literature_preferences = self._load_literature_preferences()
         self.movie_cache = {}  # Cache AI ratings to avoid reprocessing
+        self.force_reprocess = force_reprocess
     
     def process_events(self, events: List[Dict]) -> List[Dict]:
         """Process and enrich all events"""
@@ -42,10 +43,12 @@ class EventProcessor:
                 
                 # Get AI rating (with caching)
                 event_title = event['title'].upper().strip()
-                if event_title in self.movie_cache:
+                if event_title in self.movie_cache and not self.force_reprocess:
                     print(f"  Using cached rating for {event_title}")
                     ai_rating = self.movie_cache[event_title]
                 else:
+                    if self.force_reprocess and event_title in self.movie_cache:
+                        print(f"  Force re-processing {event_title} (ignoring cache)")
                     if event.get('type') == 'concert':
                         ai_rating = self._get_classical_rating(event)
                     elif event.get('type') == 'book_club':
