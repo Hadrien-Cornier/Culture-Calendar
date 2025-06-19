@@ -183,6 +183,10 @@ async function loadMoviesData() {
         setupVenueFilters();
         updateFilteredMovies();
         renderMovies();
+        
+        // Check for outdated classical music data
+        checkClassicalDataFreshness();
+        
         hideLoading();
         
         console.log('Movie data loaded successfully'); // Debug log
@@ -978,4 +982,72 @@ function hideLoading() {
 
 function showError(message) {
     loadingElement.innerHTML = `<p class="error">⚠️ ${message}</p>`;
+}
+
+// Check if classical music data is outdated
+function checkClassicalDataFreshness() {
+    // Find all classical music events (Symphony, EarlyMusic, LaFollia venues)
+    const classicalVenues = ['Symphony', 'EarlyMusic', 'LaFollia'];
+    const classicalEvents = moviesData.filter(event => 
+        event.screenings && event.screenings.some(screening => 
+            classicalVenues.includes(screening.venue)
+        )
+    );
+    
+    if (classicalEvents.length === 0) {
+        console.log('No classical music events found in data');
+        return;
+    }
+    
+    // Find the latest date among all classical events
+    let latestClassicalDate = null;
+    const today = new Date();
+    
+    classicalEvents.forEach(event => {
+        event.screenings.forEach(screening => {
+            if (classicalVenues.includes(screening.venue)) {
+                const eventDate = new Date(screening.date);
+                if (!latestClassicalDate || eventDate > latestClassicalDate) {
+                    latestClassicalDate = eventDate;
+                }
+            }
+        });
+    });
+    
+    // Check if all classical events are in the past
+    if (latestClassicalDate && latestClassicalDate < today) {
+        showClassicalDataWarning();
+    }
+}
+
+// Show warning about outdated classical music data
+function showClassicalDataWarning() {
+    const warningContainer = document.getElementById('classical-data-warning');
+    if (!warningContainer) {
+        console.warn('Classical data warning container not found');
+        return;
+    }
+    
+    const currentYear = new Date().getFullYear();
+    const nextYear = currentYear + 1;
+    
+    warningContainer.innerHTML = `
+        <div class="warning-content">
+            <h3>⚠️ Classical Music Season Update Needed</h3>
+            <p>The classical music season data appears to be outdated. All concerts in the database have already passed.</p>
+            <p><strong>Action needed:</strong> Please update the classical music data for the ${nextYear}/${nextYear + 1} season.</p>
+            <div class="venue-links">
+                <p><strong>Update sources:</strong></p>
+                <ul>
+                    <li><a href="https://austinsymphony.org/concerts/" target="_blank" rel="noopener">Austin Symphony Orchestra Season</a></li>
+                    <li><a href="https://www.earlymusicaustin.org/concerts/" target="_blank" rel="noopener">Texas Early Music Project</a></li>
+                    <li><a href="https://www.lafollia.com/concerts/" target="_blank" rel="noopener">La Follia Austin Chamber Music</a></li>
+                </ul>
+            </div>
+            <p class="update-note">Update the data in <code>docs/classical_data.json</code> with the new season information.</p>
+        </div>
+    `;
+    
+    warningContainer.style.display = 'block';
+    console.log('Classical music data warning displayed');
 }

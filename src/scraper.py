@@ -13,6 +13,10 @@ import os
 
 import asyncio
 from pyppeteer import launch
+from firecrawl import FirecrawlApp
+from dotenv import load_dotenv
+
+load_dotenv()
 class AFSScraper:
     def __init__(self):
         self.base_url = "https://www.austinfilm.org"
@@ -479,84 +483,10 @@ class EarlyMusicAustinScraper:
     
     def __init__(self):
         self.base_url = "https://www.early-music.org"
-        # Pre-defined season data for 2025-2026
-        self.season_data = self._get_season_data()
-    
-    def _get_season_data(self):
-        """Return the 2025-2026 season data"""
-        return [
-            {
-                'title': 'A Cry of many voices: British Isles & The Lowlands',
-                'program': 'Choral works from c.1490-1510 with 9-19 vocal parts',
-                'dates': ['2025-09-20', '2025-09-21'],
-                'times': ['7:30 PM', '3:00 PM'],
-                'venue_name': 'St. Martin\'s Lutheran Church',
-                'series': 'Early Music',
-                'featured_artist': 'Texas Early Music Project',
-                'composers': ['Various British & Lowland composers'],
-                'works': ['Choral works c.1490-1510']
-            },
-            {
-                'title': 'Joy and Light: Delights of the Season',
-                'program': 'Multicultural holiday music featuring medieval chants, carols, motets',
-                'dates': ['2025-12-13', '2025-12-14'],
-                'times': ['7:30 PM', '3:00 PM'],
-                'venue_name': 'Arts on Alexander',
-                'series': 'Early Music',
-                'featured_artist': 'Texas Early Music Project',
-                'composers': ['Various medieval composers'],
-                'works': ['Medieval chants, carols, motets']
-            },
-            {
-                'title': 'Troubadours of France & Iberia',
-                'program': 'Music from southern France and northern Spain, 11th-13th centuries',
-                'dates': ['2026-02-28', '2026-03-01'],
-                'times': ['7:30 PM', '3:00 PM'],
-                'venue_name': 'Arts on Alexander',
-                'series': 'Early Music',
-                'featured_artist': 'Texas Early Music Project',
-                'composers': ['Various troubadour composers'],
-                'works': ['French and Iberian music 11th-13th centuries']
-            },
-            {
-                'title': 'Purcell. Henry Purcell: License to Trill',
-                'program': 'Featuring Purcell\'s diverse repertoire',
-                'dates': ['2026-04-18', '2026-04-19'],
-                'times': ['7:30 PM', '3:00 PM'],
-                'venue_name': 'Arts on Alexander',
-                'series': 'Early Music',
-                'featured_artist': 'Texas Early Music Project',
-                'composers': ['Henry Purcell'],
-                'works': ['Purcell\'s diverse repertoire']
-            }
-        ]
     
     def scrape_calendar(self) -> List[Dict]:
-        """Return all early music season events as standardized event data"""
-        events = []
-        
-        for concert in self.season_data:
-            # Create an event for each date
-            for i, date in enumerate(concert['dates']):
-                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
-                
-                event = {
-                    'title': concert['title'],
-                    'url': f"{self.base_url}/concerts/{concert['title'].lower().replace(' ', '-').replace(':', '').replace(',', '')}",
-                    'date': date,
-                    'time': time,
-                    'type': 'concert',
-                    'location': concert['venue_name'],
-                    'venue': 'EarlyMusic',
-                    'series': concert['series'],
-                    'program': concert['program'],
-                    'featured_artist': concert['featured_artist'],
-                    'composers': concert['composers'],
-                    'works': concert['works']
-                }
-                events.append(event)
-        
-        return events
+        """Return empty list - classical data now loaded from docs/classical_data.json"""
+        return []
     
     def get_event_details(self, event: Dict) -> Dict:
         """Return detailed information for early music events"""
@@ -582,51 +512,10 @@ class LaFolliaAustinScraper:
     
     def __init__(self):
         self.base_url = "https://www.lafolliaaustin.org"
-        # Sample chamber music events (would need to be populated with actual data)
-        self.season_data = self._get_season_data()
-    
-    def _get_season_data(self):
-        """Return upcoming chamber music events"""
-        # This would be updated with actual event data from the venue
-        return [
-            {
-                'title': 'Baroque Chamber Music Concert',
-                'program': 'Chamber music featuring baroque composers',
-                'dates': ['2025-07-15'],
-                'times': ['7:30 PM'],
-                'venue_name': 'Austin Chamber Music venue',
-                'series': 'Chamber Music',
-                'featured_artist': 'La Follia Austin',
-                'composers': ['Bach', 'Vivaldi', 'Handel'],
-                'works': ['Various baroque chamber pieces']
-            }
-        ]
     
     def scrape_calendar(self) -> List[Dict]:
-        """Return chamber music events as standardized event data"""
-        events = []
-        
-        for concert in self.season_data:
-            for i, date in enumerate(concert['dates']):
-                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
-                
-                event = {
-                    'title': concert['title'],
-                    'url': f"{self.base_url}/events/{concert['title'].lower().replace(' ', '-')}",
-                    'date': date,
-                    'time': time,
-                    'type': 'concert',
-                    'location': concert['venue_name'],
-                    'venue': 'LaFollia',
-                    'series': concert['series'],
-                    'program': concert['program'],
-                    'featured_artist': concert['featured_artist'],
-                    'composers': concert['composers'],
-                    'works': concert['works']
-                }
-                events.append(event)
-        
-        return events
+        """Return empty list - classical data now loaded from docs/classical_data.json"""
+        return []
     
     def get_event_details(self, event: Dict) -> Dict:
         """Return detailed information for chamber music events"""
@@ -656,6 +545,9 @@ class AlienatedMajestyBooksScraper:
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         })
+        # Initialize Firecrawl client
+        firecrawl_api_key = os.getenv('FIRECRAWL_API_KEY')
+        self.firecrawl = FirecrawlApp(api_key=firecrawl_api_key) if firecrawl_api_key else None
     
     def _get_rendered_html(self, url: str) -> Optional[str]:
         """Fetch page content using headless Chrome"""
@@ -730,44 +622,46 @@ class AlienatedMajestyBooksScraper:
     def _scrape_book_club_page(self):
         """Scrape the book club page for current events"""
         url = f"{self.base_url}/book-clubs"
-        html = self._get_rendered_html(url)
-        if not html:
-            print("Falling back to requests scraping")
+        
+        # Try Firecrawl first if available
+        if self.firecrawl:
             try:
-                response = self.session.get(url, timeout=10)
-                response.raise_for_status()
-                html = response.text
+                print("Using Firecrawl for JavaScript rendering")
+                scrape_result = self.firecrawl.scrape_url(url, params={'formats': ['markdown', 'html']})
+                if scrape_result and 'html' in scrape_result:
+                    events = self._parse_book_club_html(scrape_result['html'])
+                    if events:
+                        return events
+                    print("Firecrawl succeeded but no events found")
+                else:
+                    print("Firecrawl failed to return HTML")
             except Exception as e:
-                print(f"Error fetching fallback HTML: {e}")
-                return self._get_fallback_book_club_data()
-
-        events = self._parse_book_club_html(html)
-        if not events:
-            print("Using fallback data for Alienated Majesty Books")
-            return self._get_fallback_book_club_data()
-        return events
+                print(f"Firecrawl error: {e}")
+        
+        # Try Pyppeteer as fallback
+        html = self._get_rendered_html(url)
+        if html:
+            events = self._parse_book_club_html(html)
+            if events:
+                return events
+            print("Pyppeteer succeeded but no events found")
+        
+        # Try regular requests as last resort
+        try:
+            print("Falling back to requests scraping")
+            response = self.session.get(url, timeout=10)
+            response.raise_for_status()
+            events = self._parse_book_club_html(response.text)
+            if events:
+                return events
+            print("Requests succeeded but no events found")
+        except Exception as e:
+            print(f"Error with requests scraping: {e}")
+        
+        # Return empty list if all methods fail
+        print("All scraping methods failed - returning empty list")
+        return []
     
-    def _get_fallback_book_club_data(self):
-        """Return fallback book club data when scraping fails"""
-        from datetime import datetime, timedelta
-        
-        # Generate dates for the next few months
-        today = datetime.now()
-        next_month = today.replace(day=1) + timedelta(days=32)
-        next_month = next_month.replace(day=15)  # 15th of next month
-        
-        return [
-            {
-                'title': 'Monthly Book Club Discussion',
-                'book': 'Current Book Selection',
-                'author': 'To Be Announced',
-                'dates': [next_month.strftime('%Y-%m-%d')],
-                'times': ['7:00 PM'],
-                'venue_name': 'Alienated Majesty Books',
-                'series': 'Monthly Book Club',
-                'description': 'Monthly discussion of carefully selected contemporary and classic literature. Check our website for current book selection and registration details.'
-            }
-        ]
     
     def scrape_calendar(self) -> List[Dict]:
         """Return book club events as standardized event data"""
@@ -775,6 +669,11 @@ class AlienatedMajestyBooksScraper:
         
         # Get current book club data from website
         book_clubs = self._scrape_book_club_page()
+        
+        # Return empty list if no book clubs found
+        if not book_clubs:
+            print("No book club events found for Alienated Majesty Books")
+            return []
         
         for club in book_clubs:
             for i, date in enumerate(club['dates']):
@@ -824,132 +723,121 @@ class FirstLightAustinScraper:
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         })
+        # Initialize Firecrawl client
+        firecrawl_api_key = os.getenv('FIRECRAWL_API_KEY')
+        self.firecrawl = FirecrawlApp(api_key=firecrawl_api_key) if firecrawl_api_key else None
     
+    def _parse_book_club_text(self, text: str) -> List[Dict]:
+        """Parse book club information from page text"""
+        import re
+        
+        book_clubs = []
+        lines = text.split('\n')
+        current_club = None
+        
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            
+            # Look for book club names
+            if 'book club' in line.lower() and any(keyword in line.lower() for keyword in ['world wide', 'motherhood', 'small', 'future']):
+                if current_club:
+                    book_clubs.append(current_club)
+                current_club = {
+                    'title': line,
+                    'book': '',
+                    'author': '',
+                    'dates': [],
+                    'times': ['7:00 PM'],
+                    'venue_name': 'First Light Austin',
+                    'series': 'Book Club',
+                    'host': '',
+                    'description': ''
+                }
+            
+            # Look for book titles
+            elif current_club and (line.startswith('"') and line.endswith('"')):
+                current_club['book'] = line.strip('"')
+            
+            # Look for authors
+            elif current_club and 'by ' in line.lower() and len(line.split()) <= 4:
+                current_club['author'] = line.replace('by ', '').strip()
+            
+            # Look for dates
+            elif current_club and any(month in line.lower() for month in ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']):
+                # Parse date from text like "Friday, June 27th"
+                date_match = re.search(r'(\w+),?\s+(\w+)\s+(\d+)', line)
+                if date_match:
+                    month_str = date_match.group(2)
+                    day = int(date_match.group(3))
+                    
+                    # Convert month name to number
+                    months = {
+                        'january': 1, 'february': 2, 'march': 3, 'april': 4,
+                        'may': 5, 'june': 6, 'july': 7, 'august': 8,
+                        'september': 9, 'october': 10, 'november': 11, 'december': 12
+                    }
+                    
+                    month_num = months.get(month_str.lower())
+                    if month_num:
+                        # Assume current year, but if month has passed, use next year
+                        from datetime import datetime
+                        current_year = datetime.now().year
+                        current_month = datetime.now().month
+                        
+                        year = current_year if month_num >= current_month else current_year + 1
+                        date_str = f"{year}-{month_num:02d}-{day:02d}"
+                        current_club['dates'].append(date_str)
+        
+        # Add the last club if it exists
+        if current_club and current_club['book']:
+            book_clubs.append(current_club)
+        
+        return [club for club in book_clubs if club['dates']]
+
     def _scrape_book_club_page(self):
         """Scrape the First Light Austin book club page"""
+        url = f"{self.base_url}/book-club"
+        
+        # Try Firecrawl first if available
+        if self.firecrawl:
+            try:
+                print("Using Firecrawl for First Light Austin")
+                scrape_result = self.firecrawl.scrape_url(url, params={'formats': ['markdown', 'html']})
+                if scrape_result and 'html' in scrape_result:
+                    soup = BeautifulSoup(scrape_result['html'], 'html.parser')
+                    events = self._parse_book_club_text(soup.get_text())
+                    if events:
+                        return events
+                    print("Firecrawl succeeded but no events found")
+                elif scrape_result and 'markdown' in scrape_result:
+                    events = self._parse_book_club_text(scrape_result['markdown'])
+                    if events:
+                        return events
+                    print("Firecrawl markdown succeeded but no events found")
+                else:
+                    print("Firecrawl failed to return content")
+            except Exception as e:
+                print(f"Firecrawl error: {e}")
+        
+        # Try regular requests as fallback
         try:
-            response = self.session.get(f"{self.base_url}/book-club", timeout=10)
+            print("Falling back to requests scraping for First Light Austin")
+            response = self.session.get(url, timeout=10)
             response.raise_for_status()
             soup = BeautifulSoup(response.content, 'html.parser')
-            
-            book_clubs = []
-            
-            # Look for book club information in the HTML
-            page_text = soup.get_text()
-            
-            # Parse the book club information from the page
-            # Also look for patterns like "Book: Title by Author"
-            import re
-            
-            # Extract book club events from the page text
-            lines = page_text.split('\n')
-            current_club = None
-            
-            for line in lines:
-                line = line.strip()
-                if not line:
-                    continue
-                
-                # Look for book club names
-                if 'book club' in line.lower() and any(keyword in line.lower() for keyword in ['world wide', 'motherhood', 'small', 'future']):
-                    if current_club:
-                        book_clubs.append(current_club)
-                    current_club = {
-                        'title': line,
-                        'book': '',
-                        'author': '',
-                        'dates': [],
-                        'times': ['7:00 PM'],
-                        'venue_name': 'First Light Austin',
-                        'series': 'Book Club',
-                        'host': '',
-                        'description': ''
-                    }
-                
-                # Look for book titles
-                elif current_club and (line.startswith('"') and line.endswith('"')):
-                    current_club['book'] = line.strip('"')
-                
-                # Look for authors
-                elif current_club and 'by ' in line.lower() and len(line.split()) <= 4:
-                    current_club['author'] = line.replace('by ', '').strip()
-                
-                # Look for dates
-                elif current_club and any(month in line.lower() for month in ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']):
-                    # Parse date from text like "Friday, June 27th"
-                    date_match = re.search(r'(\w+),?\s+(\w+)\s+(\d+)', line)
-                    if date_match:
-                        month_str = date_match.group(2)
-                        day = int(date_match.group(3))
-                        
-                        # Convert month name to number
-                        months = {
-                            'january': 1, 'february': 2, 'march': 3, 'april': 4,
-                            'may': 5, 'june': 6, 'july': 7, 'august': 8,
-                            'september': 9, 'october': 10, 'november': 11, 'december': 12
-                        }
-                        
-                        month_num = months.get(month_str.lower())
-                        if month_num:
-                            # Assume current year, but if month has passed, use next year
-                            from datetime import datetime
-                            current_year = datetime.now().year
-                            current_month = datetime.now().month
-                            
-                            year = current_year if month_num >= current_month else current_year + 1
-                            date_str = f"{year}-{month_num:02d}-{day:02d}"
-                            current_club['dates'].append(date_str)
-            
-            # Add the last club if it exists
-            if current_club and current_club['book']:
-                book_clubs.append(current_club)
-            
-            # If no events found, use fallback
-            if not book_clubs:
-                print("Using fallback data for First Light Austin")
-                return self._get_fallback_book_club_data()
-            
-            return book_clubs
-            
+            events = self._parse_book_club_text(soup.get_text())
+            if events:
+                return events
+            print("Requests succeeded but no events found")
         except Exception as e:
             print(f"Error scraping First Light Austin: {e}")
-            return self._get_fallback_book_club_data()
+        
+        # Return empty list if all methods fail
+        print("All scraping methods failed for First Light Austin - returning empty list")
+        return []
     
-    def _get_fallback_book_club_data(self):
-        """Return fallback book club data when scraping fails"""
-        from datetime import datetime, timedelta
-        
-        # Generate dates for the next few months  
-        today = datetime.now()
-        dates = []
-        for i in range(4):  # Next 4 months
-            future_date = today + timedelta(days=30 * i + 15)  # Mid-month
-            dates.append(future_date.strftime('%Y-%m-%d'))
-        
-        return [
-            {
-                'title': 'World Wide What Book Club',
-                'book': 'Current Book Selection',
-                'author': 'To Be Announced',
-                'dates': [dates[0]],
-                'times': ['7:00 PM'],
-                'venue_name': 'First Light Austin',
-                'series': 'Book Club',
-                'host': 'Sam Ackerman',
-                'description': 'Book club discussion hosted by book buyer Sam Ackerman. Check website for current book selection.'
-            },
-            {
-                'title': 'About Motherhood Book Club',
-                'book': 'Current Book Selection',
-                'author': 'To Be Announced',
-                'dates': [dates[1]],
-                'times': ['7:00 PM'],
-                'venue_name': 'First Light Austin',
-                'series': 'Book Club',
-                'host': 'Breezy Mayo',
-                'description': 'Book club discussion hosted by general manager Breezy Mayo. Check website for current book selection.'
-            }
-        ]
     
     def scrape_calendar(self) -> List[Dict]:
         """Return book club events as standardized event data"""
@@ -957,6 +845,11 @@ class FirstLightAustinScraper:
         
         # Get current book club data from website
         book_clubs = self._scrape_book_club_page()
+        
+        # Return empty list if no book clubs found
+        if not book_clubs:
+            print("No book club events found for First Light Austin")
+            return []
         
         for club in book_clubs:
             for i, date in enumerate(club['dates']):
@@ -1004,196 +897,10 @@ class AustinSymphonyScraper:
     
     def __init__(self):
         self.base_url = "https://austinsymphony.org"
-        self.season_data = self._get_season_data()
-    
-    def _get_season_data(self) -> List[Dict]:
-        """Return the 2025-26 season data structure"""
-        return [
-            # MASTERWORKS SERIES
-            {
-                'title': 'Masterworks 1: Stefan Jackiw, violin',
-                'program': 'Gabriela Ortiz - Kauyumari | Prokofiev - Violin Concerto No. 2 in G Minor | Saint-Saëns - Symphony No. 3 in C Minor (Organ Symphony)',
-                'dates': ['2025-09-12', '2025-09-13'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Masterworks',
-                'featured_artist': 'Stefan Jackiw (violin)',
-                'composers': ['Gabriela Ortiz', 'Sergei Prokofiev', 'Camille Saint-Saëns'],
-                'works': ['Kauyumari', 'Violin Concerto No. 2 in G Minor', 'Symphony No. 3 in C Minor (Organ Symphony)']
-            },
-            {
-                'title': 'Masterworks 2: Emanuel Ax, piano',
-                'program': 'Valerie Coleman - Seven O\'Clock Shout | Beethoven - Piano Concerto No. 3 in C Minor | Tchaikovsky - Symphony No. 3 in D Major (Polish)',
-                'dates': ['2025-10-24', '2025-10-25'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Masterworks',
-                'featured_artist': 'Emanuel Ax (piano)',
-                'composers': ['Valerie Coleman', 'Ludwig van Beethoven', 'Pyotr Ilyich Tchaikovsky'],
-                'works': ['Seven O\'Clock Shout', 'Piano Concerto No. 3 in C Minor', 'Symphony No. 3 in D Major (Polish)']
-            },
-            {
-                'title': 'Masterworks 3: Rhapsody Spectacular',
-                'program': 'Liszt/Doppler - Hungarian Rhapsody No. 2 | Debussy - Première rapsodie for Clarinet and Orchestra | Enescu - Romanian Rhapsody No. 1 | Gershwin - Second Rhapsody for Piano and Orchestra | Beethoven - Symphony No. 5 in C Minor',
-                'dates': ['2025-11-21', '2025-11-22'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Masterworks',
-                'featured_artist': 'Stephen Girko (clarinet), Alex Maynegre-Torra (piano)',
-                'composers': ['Franz Liszt', 'Claude Debussy', 'George Enescu', 'George Gershwin', 'Ludwig van Beethoven'],
-                'works': ['Hungarian Rhapsody No. 2', 'Première rapsodie for Clarinet and Orchestra', 'Romanian Rhapsody No. 1', 'Second Rhapsody for Piano and Orchestra', 'Symphony No. 5 in C Minor']
-            },
-            {
-                'title': 'Masterworks 4: Miguel Espinoza Fusion',
-                'program': 'Aaron Copland - El Salón México | Miguel Espinoza - New Work (World Premiere) | Gustav Holst - The Planets',
-                'dates': ['2026-01-16', '2026-01-17'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Masterworks',
-                'featured_artist': 'Miguel Espinoza Fusion ensemble',
-                'composers': ['Aaron Copland', 'Miguel Espinoza', 'Gustav Holst'],
-                'works': ['El Salón México', 'New Work (World Premiere)', 'The Planets']
-            },
-            {
-                'title': 'Masterworks 5: Annie Jacobs-Perkins, cello',
-                'program': 'Felix Mendelssohn - The Hebrides Overture | Ernest Bloch - Schelomo | Jaromír Weinberger - Schwanda the Bagpiper Suite | Leonard Bernstein - Symphonic Dances from West Side Story',
-                'dates': ['2026-02-20', '2026-02-21'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Masterworks',
-                'featured_artist': 'Annie Jacobs-Perkins (cello)',
-                'composers': ['Felix Mendelssohn', 'Ernest Bloch', 'Jaromír Weinberger', 'Leonard Bernstein'],
-                'works': ['The Hebrides Overture', 'Schelomo', 'Schwanda the Bagpiper Suite', 'Symphonic Dances from West Side Story']
-            },
-            {
-                'title': 'Masterworks 6: Nancy Zhou, violin',
-                'program': 'Bernard Herrmann/Palmer - Psycho Suite | Erich Wolfgang Korngold - Violin Concerto in D Major | Richard Strauss - Also sprach Zarathustra',
-                'dates': ['2026-03-13', '2026-03-14'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Masterworks',
-                'featured_artist': 'Nancy Zhou (violin)',
-                'composers': ['Bernard Herrmann', 'Erich Wolfgang Korngold', 'Richard Strauss'],
-                'works': ['Psycho Suite', 'Violin Concerto in D Major', 'Also sprach Zarathustra']
-            },
-            {
-                'title': 'Masterworks 7: Grisha Goryachev, guitar & Mozart Requiem',
-                'program': 'Perttu - New Guitar Concerto | Joaquín Rodrigo - Concierto de Aranjuez | Wolfgang Amadeus Mozart - Requiem in D Minor',
-                'dates': ['2026-04-10', '2026-04-11'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Masterworks',
-                'featured_artist': 'Grisha Goryachev (guitar), Chorus Austin',
-                'composers': ['Perttu', 'Joaquín Rodrigo', 'Wolfgang Amadeus Mozart'],
-                'works': ['New Guitar Concerto', 'Concierto de Aranjuez', 'Requiem in D Minor']
-            },
-            {
-                'title': 'Masterworks 8: Steinway Spirio featuring "George Gershwin"',
-                'program': 'Morton Gould - American Salute | George Gershwin - Piano Concerto in F | Charles Ives - Symphony No. 2 | Aaron Copland - Fanfare for the Common Man',
-                'dates': ['2026-05-15', '2026-05-16'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Masterworks',
-                'featured_artist': 'Steinway Spirio featuring "George Gershwin"',
-                'composers': ['Morton Gould', 'George Gershwin', 'Charles Ives', 'Aaron Copland'],
-                'works': ['American Salute', 'Piano Concerto in F', 'Symphony No. 2', 'Fanfare for the Common Man']
-            },
-            # BUTLER POPS SERIES
-            {
-                'title': 'Star Wars: Return of the Jedi in Concert',
-                'program': 'John Williams - Star Wars: Return of the Jedi (complete film with live orchestra)',
-                'dates': ['2025-10-17', '2025-10-18'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Butler Pops',
-                'featured_artist': 'Austin Symphony Orchestra',
-                'composers': ['John Williams'],
-                'works': ['Star Wars: Return of the Jedi (film score)']
-            },
-            {
-                'title': 'Home Alone in Concert',
-                'program': 'John Williams - Home Alone (complete film with live orchestra)',
-                'dates': ['2025-12-16', '2025-12-17'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Butler Pops',
-                'featured_artist': 'Austin Symphony Orchestra',
-                'composers': ['John Williams'],
-                'works': ['Home Alone (film score)']
-            },
-            {
-                'title': 'Pirates of the Caribbean in Concert',
-                'program': 'Klaus Badelt - Pirates of the Caribbean: The Curse of the Black Pearl (complete film with live orchestra)',
-                'dates': ['2026-02-27', '2026-02-28'],
-                'times': ['8:00 PM', '8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Butler Pops',
-                'featured_artist': 'Austin Symphony Orchestra',
-                'composers': ['Klaus Badelt'],
-                'works': ['Pirates of the Caribbean: The Curse of the Black Pearl (film score)']
-            },
-            {
-                'title': 'Video Games Live',
-                'program': 'Various composers - Video game music orchestral concert experience',
-                'dates': ['2026-05-29'],
-                'times': ['8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Butler Pops',
-                'featured_artist': 'Austin Symphony Orchestra',
-                'composers': ['Various'],
-                'works': ['Video game music selection']
-            },
-            # SPECIAL EVENTS
-            {
-                'title': 'Halloween Children\'s Concert',
-                'program': 'Family-friendly Halloween themed classical music concert',
-                'dates': ['2025-10-26'],
-                'times': ['3:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Special Events',
-                'featured_artist': 'Austin Symphony Orchestra',
-                'composers': ['Various'],
-                'works': ['Halloween themed classical selections']
-            },
-            {
-                'title': 'Handel\'s Messiah',
-                'program': 'George Frideric Handel - Messiah (complete oratorio)',
-                'dates': ['2025-12-02'],
-                'times': ['8:00 PM'],
-                'venue_name': 'Dell Hall at Long Center',
-                'series': 'Special Events',
-                'featured_artist': 'Austin Symphony Orchestra, Chorus Austin',
-                'composers': ['George Frideric Handel'],
-                'works': ['Messiah']
-            }
-        ]
     
     def scrape_calendar(self) -> List[Dict]:
-        """Return all symphony season events as standardized event data"""
-        events = []
-        
-        for concert in self.season_data:
-            # Create an event for each date
-            for i, date in enumerate(concert['dates']):
-                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
-                
-                event = {
-                    'title': concert['title'],
-                    'url': f"{self.base_url}/concerts/{concert['title'].lower().replace(' ', '-').replace(':', '').replace(',', '')}",
-                    'date': date,
-                    'time': time,
-                    'type': 'concert',
-                    'location': concert['venue_name'],
-                    'venue': 'Symphony',
-                    'series': concert['series'],
-                    'program': concert['program'],
-                    'featured_artist': concert['featured_artist'],
-                    'composers': concert['composers'],
-                    'works': concert['works']
-                }
-                events.append(event)
-        
-        return events
+        """Return empty list - classical data now loaded from docs/classical_data.json"""
+        return []
     
     def get_event_details(self, event: Dict) -> Dict:
         """Return detailed information for symphony events"""

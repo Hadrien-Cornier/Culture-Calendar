@@ -21,6 +21,85 @@ def save_update_info(info: dict, path: str = 'docs/source_update_times.json') ->
     except Exception as e:
         print(f"Error saving update info: {e}")
 
+def load_classical_music_events() -> list:
+    """Load classical music events from static JSON file"""
+    classical_events = []
+    classical_data_path = 'docs/classical_data.json'
+    
+    try:
+        with open(classical_data_path, 'r') as f:
+            classical_data = json.load(f)
+        
+        # Process Austin Symphony events
+        for concert in classical_data.get('austinSymphony', []):
+            for i, date in enumerate(concert['dates']):
+                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
+                event = {
+                    'title': concert['title'],
+                    'url': f"https://austinsymphony.org/concerts/{concert['title'].lower().replace(' ', '-').replace(':', '').replace(',', '')}",
+                    'date': date,
+                    'time': time,
+                    'type': 'concert',
+                    'location': concert['venue_name'],
+                    'venue': 'Symphony',
+                    'series': concert['series'],
+                    'program': concert['program'],
+                    'featured_artist': concert['featured_artist'],
+                    'composers': concert['composers'],
+                    'works': concert['works']
+                }
+                classical_events.append(event)
+        
+        # Process Early Music Austin events
+        for concert in classical_data.get('earlyMusicAustin', []):
+            for i, date in enumerate(concert['dates']):
+                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
+                event = {
+                    'title': concert['title'],
+                    'url': f"https://earlymusicaustin.org/events/{concert['title'].lower().replace(' ', '-')}",
+                    'date': date,
+                    'time': time,
+                    'type': 'concert',
+                    'location': concert['venue_name'],
+                    'venue': 'EarlyMusic',
+                    'series': concert['series'],
+                    'program': concert['program'],
+                    'featured_artist': concert['featured_artist'],
+                    'composers': concert['composers'],
+                    'works': concert['works']
+                }
+                classical_events.append(event)
+        
+        # Process La Follia Austin events
+        for concert in classical_data.get('laFolliaAustin', []):
+            for i, date in enumerate(concert['dates']):
+                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
+                event = {
+                    'title': concert['title'],
+                    'url': f"https://lafollia.com/events/{concert['title'].lower().replace(' ', '-')}",
+                    'date': date,
+                    'time': time,
+                    'type': 'concert',
+                    'location': concert['venue_name'],
+                    'venue': 'LaFollia',
+                    'series': concert['series'],
+                    'program': concert['program'],
+                    'featured_artist': concert['featured_artist'],
+                    'composers': concert['composers'],
+                    'works': concert['works']
+                }
+                classical_events.append(event)
+        
+        print(f"Loaded {len(classical_events)} classical music events from static data")
+        return classical_events
+        
+    except FileNotFoundError:
+        print(f"Classical data file {classical_data_path} not found")
+        return []
+    except Exception as e:
+        print(f"Error loading classical music data: {e}")
+        return []
+
 def filter_work_hours(events):
     """Filter out events during work hours (9am-6pm weekdays)"""
     filtered_events = []
@@ -256,34 +335,43 @@ def main(test_week: bool = False, full: bool = False):
         # Scrape all venues
         print("Fetching calendar data from all venues...")
         events = scraper.scrape_all_venues(target_week=test_week)
-        print(f"Found {len(events)} total events")
+        print(f"Found {len(events)} total events from live scraping")
         
-        # Get detailed information for each screening event
+        # Add classical music events from static data
+        print("Loading classical music events...")
+        classical_events = load_classical_music_events()
+        events.extend(classical_events)
+        print(f"Found {len(events)} total events including classical music")
+        
+        # Get detailed information for screening and book club events
         print("Fetching event details...")
-        screening_events = []
+        detailed_events = []
         for event in events:
-            if event.get('type') == 'screening':
+            if event.get('type') in ['screening', 'book_club']:
                 try:
                     details = scraper.get_event_details(event)
                     event.update(details)
-                    screening_events.append(event)
+                    detailed_events.append(event)
                 except Exception as e:
                     print(f"Error getting details for {event.get('title', 'Unknown')}: {e}")
+            elif event.get('type') == 'concert':
+                # Classical events already have complete details from JSON
+                detailed_events.append(event)
         
-        print(f"Processing {len(screening_events)} screening events")
+        print(f"Processing {len(detailed_events)} total events")
         
         # Filter to desired time range
         if full:
             # No date filtering - include all events
-            upcoming_events = screening_events
+            upcoming_events = detailed_events
             print(f"Using all {len(upcoming_events)} events for full update")
         elif test_week:
             # For testing, use all events from current week
-            upcoming_events = screening_events
+            upcoming_events = detailed_events
             print(f"Using all {len(upcoming_events)} events for test week")
         else:
             # Filter to upcoming events (current month + next month)
-            upcoming_events = filter_upcoming_events(screening_events, mode='month')
+            upcoming_events = filter_upcoming_events(detailed_events, mode='month')
             print(f"Found {len(upcoming_events)} upcoming events")
         
         # Filter out work-hour events
