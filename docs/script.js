@@ -30,6 +30,7 @@ const applyDateFilterBtn = document.getElementById('apply-date-filter');
 const clearDateFilterBtn = document.getElementById('clear-date-filter');
 const updateList = document.getElementById('update-list');
 const searchInput = document.getElementById('search-input');
+const codeUpdatedElement = document.getElementById('code-updated');
 
 let searchTerm = '';
 let selectedDirector = null;
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
     loadMoviesData();
     loadUpdateInfo();
+    loadCodeUpdateTime();
 });
 
 // Set up event listeners
@@ -236,6 +238,24 @@ async function loadUpdateInfo() {
         });
     } catch (err) {
         console.error('Error loading update info', err);
+    }
+}
+
+// Load timestamp of the latest repository commit
+async function loadCodeUpdateTime() {
+    if (!codeUpdatedElement) return;
+    try {
+        const url = 'https://api.github.com/repos/hadrien-cornier/Culture-Calendar/commits?per_page=1';
+        const response = await fetch(url);
+        if (!response.ok) return;
+        const data = await response.json();
+        if (Array.isArray(data) && data.length > 0) {
+            const commitDate = data[0].commit.committer.date;
+            const localDate = new Date(commitDate).toLocaleString();
+            codeUpdatedElement.textContent = `Code updated: ${localDate}`;
+        }
+    } catch (err) {
+        console.error('Error loading code update time', err);
     }
 }
 
