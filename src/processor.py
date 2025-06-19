@@ -119,18 +119,21 @@ class EventProcessor:
             }
             
             prompt = f"""
-            Analyze "{movie_title}" with the intellectual rigor of a French cinéaste, focusing purely on artistic excellence, aesthetic beauty, and universal human experiences. Use a strict rating scale where only truly exceptional works receive scores above 8:
-            10 = masterpiece, 9 = outstanding, 8 = excellent, 7 = very good, 6 = good, 5 = average, 4 or below = lesser works.
-            Provide a concise, well-structured analysis with the following sections:
+You are a ruthless film critic grading with uncompromising academic standards. Assess "{movie_title}" using a 0–10 scale where
+0–4 = weak or derivative,
+5–6 = competent but unremarkable,
+7–8 = strong,
+9–10 = exceptional masterpieces. Scores above 5 must be justified with specific evidence.
 
-            ★ Rating: [X/10] (Integer Only) - Reflecting artistic merit, technical brilliance, and aesthetic achievement. Value films that explore timeless human experiences over those with heavy political messaging.
-            🎬 Synopsis: A brief overview focusing on narrative craft, character development, and emotional depth.
-            👤 Director: A short bio emphasizing their artistic vision and cinematic technique.
-            🎨 Central Themes: The universal human experiences and aesthetic concepts explored, focusing on beauty, truth, love, loss, growth, and other timeless elements.
-            🏛️ Cultural Legacy: The film's artistic influence and technical innovations in cinema.
+Provide a concise report with these sections:
+★ Rating: [X/10] (integer only)
+🎬 Originality & Surprise – does the film avoid clichés and deliver unpredictable storytelling?
+🎥 Artistic Craft – evaluate narrative structure, character depth, cinematography, sound and pacing.
+🎭 Thematic Depth – discuss universal human experiences explored with nuance.
+🏛️ Comparative Excellence – compare against landmark works in its genre, referencing broad critical consensus if relevant.
 
-            Evaluate the film's commitment to artistic excellence and sensitivity rather than ideological positions. Appreciate works that transcend political boundaries to explore what makes us fundamentally human.
-            """
+Focus solely on artistic merit and complexity. Reward innovation and high entropy; ignore ideological framing.
+"""
             
             data = {
                 'model': 'llama-3.1-sonar-small-128k-online',
@@ -182,23 +185,24 @@ class EventProcessor:
             concert_description = f"Concert: {concert_title}\nSeries: {series}\nProgram: {program}\nFeatured Artist: {featured_artist}"
             
             prompt = f"""
-            Analyze this classical music concert with the intellectual sophistication of a distinguished music critic, focusing on artistic excellence, aesthetic beauty, and the profound human experiences conveyed through classical music. Use a rigorous rating scale (10 = masterpiece, 9 = outstanding, 8 = excellent, 7 = very good, 6 = good, 5 = average, below 5 = weaker). Provide a refined, well-structured analysis with the following sections:
+You are a demanding classical music critic. Evaluate the concert below using a 0–10 scale where
+0–4 = weak or derivative,
+5–6 = adequate,
+7–8 = strong,
+9–10 = exceptional. Justify any score above 5 with concrete evidence.
 
-            ★ Rating: [X/10] (Integer Only) - Reflecting artistic significance, performance quality, and aesthetic achievement. Value works that explore timeless human emotions and universal experiences through musical excellence.
+Concert Details:
+{concert_description}
 
-            🎼 Program Overview: A sophisticated analysis of the musical works and their narrative significance, focusing on emotional depth, structural brilliance, and artistic craftsmanship.
+Provide:
+★ Rating: [X/10] (integer only)
+🎼 Program & Interpretation – assess selection of works and interpretive originality; does it avoid predictable programming?
+🎻 Performance Quality – evaluate technical execution, ensemble cohesion and expressive depth.
+🎨 Thematic Depth – how effectively does the music convey universal emotions and ideas?
+🏛️ Comparative Excellence – compare with landmark performances in the repertoire and note critical consensus when relevant.
 
-            👤 Composers & Artists: Brief insights into the composers' artistic vision and the featured performers' interpretive excellence, emphasizing their contribution to the classical tradition.
-
-            🎨 Musical Themes: The universal human experiences and aesthetic concepts explored through this music - beauty, transcendence, passion, melancholy, triumph, and other profound emotions that connect us across time and culture.
-
-            🏛️ Cultural Significance: The lasting impact of these works on classical music tradition, their technical innovations, and their place in the pantheon of great music.
-
-            Concert Details:
-            {concert_description}
-
-            Evaluate the concert's commitment to artistic excellence and emotional depth rather than contemporary political messaging. Appreciate works that transcend temporal boundaries to express what makes us fundamentally human through the universal language of music.
-            """
+Focus solely on musical artistry and surprise. Reward innovation and high entropy, not ideological framing.
+"""
             
             data = {
                 'model': 'llama-3.1-sonar-small-128k-online',
@@ -249,25 +253,25 @@ class EventProcessor:
             book_description = f"Book: {book_title} by {author}\nHost: {host}\nVenue: {venue}\nDescription: {description}"
             
             prompt = f"""
-            Analyze this book club discussion with the intellectual sophistication of a distinguished literary critic, focusing on artistic excellence, literary merit, and the profound human experiences conveyed through literature. Use a stringent rating scale (10 = masterpiece, 9 = outstanding, 8 = excellent, 7 = very good, 6 = good, 5 = average, below 5 = weaker). Provide a refined, well-structured analysis with the following sections:
+You are a rigorous literary critic. Evaluate the following book club selection using a 0–10 scale where
+0–4 = weak or derivative,
+5–6 = competent,
+7–8 = strong,
+9–10 = exceptional. Scores above 5 must be justified with specific evidence.
 
-            ★ Rating: [X/10] (Integer Only) - Reflecting literary significance, artistic merit, and the book's contribution to understanding the human condition. Value works that explore timeless themes and universal experiences.
+Book Club Details:
+{book_description}
 
-            📚 Literary Overview: A sophisticated analysis of the book's narrative structure, thematic depth, and artistic craftsmanship, focusing on how it illuminates the human experience.
+Provide:
+★ Rating: [X/10] (integer only)
+📚 Literary Craft – assess narrative structure, prose quality and character complexity.
+✨ Originality & Entropy – does the work subvert cliché and introduce surprising ideas?
+🎭 Thematic Depth – which universal human experiences are explored with nuance?
+🗣️ Discussion Value – how richly does the book support thoughtful conversation?
+🏛️ Comparative Excellence – compare to seminal works in its genre, noting broad critical reception where relevant.
 
-            ✍️ Author & Style: Brief insights into the author's literary vision, writing style, and their place in the literary tradition, emphasizing their contribution to literature.
-
-            🎭 Central Themes: The universal human experiences and philosophical concepts explored through this work - love, identity, mortality, beauty, truth, justice, and other profound themes that connect us across cultures and time.
-
-            📖 Literary Significance: The lasting impact of this work on literature, its innovative techniques, and its place in the canon of important books that expand our understanding of what it means to be human.
-
-            🗣️ Discussion Value: The richness of themes and ideas that make this book particularly rewarding for thoughtful discussion among readers seeking intellectual and emotional engagement.
-
-            Book Club Details:
-            {book_description}
-
-            Evaluate the book's commitment to artistic excellence and emotional truth rather than didactic messaging. Appreciate works that transcend their immediate context to express what makes us fundamentally human through the power of storytelling and literary art.
-            """
+Focus on artistic merit and intellectual rigor. Reward complexity and innovation, not ideological framing.
+"""
             
             data = {
                 'model': 'llama-3.1-sonar-small-128k-online',
@@ -319,7 +323,7 @@ class EventProcessor:
             summary = content.strip()
             
             return {
-                'score': max(1, min(10, score)),  # Clamp to 1-10
+                'score': max(0, min(10, score)),  # Clamp to 0-10
                 'summary': summary  # Keep full summary
             }
             
