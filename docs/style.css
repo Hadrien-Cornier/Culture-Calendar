@@ -160,6 +160,18 @@ main {
     flex-wrap: wrap;
 }
 
+.search-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-filter input {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
 .filter-controls label {
     font-weight: 600;
     color: #555;
@@ -433,6 +445,11 @@ main {
     font-size: 0.75rem;
     font-weight: 600;
     border: 1px solid #dee2e6;
+}
+
+.director-badge {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .country-badge {
