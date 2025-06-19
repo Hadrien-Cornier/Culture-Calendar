@@ -1,0 +1,61 @@
+name: Complete Data Wipe and Reload
+
+on:
+  # Allow manual triggering only
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  complete-reload:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Wipe existing data files (preserving classical data)
+      run: |
+        echo "🧹 Wiping scraped data files (preserving classical_data.json)"
+        rm -f docs/data.json
+        rm -f docs/source_update_times.json
+        echo "Data files wiped successfully (classical data preserved)"
+        
+    - name: Complete data reload - All venues for next 60 days
+      env:
+        PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+      run: |
+        echo "🔄 Complete data reload - collecting all events for next 60 days"
+        echo "This will gather:"
+        echo "  🎬 Movies from Austin Film Society & Hyperreal Film Club"
+        echo "  🎼 Classical music from Paramount, Symphony, Early Music, La Follia"
+        echo "  📚 Book clubs from Alienated Majesty & First Light Austin"
+        python update_website_data.py --full --force-reprocess --days 60
+        
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action - Complete Data Reload"
+        
+    - name: Commit and push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git add docs/data.json docs/source_update_times.json
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "💥 Complete data wipe and reload - All venues for next 60 days - $(date -u +%Y-%m-%d)"
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+        fi

@@ -362,13 +362,14 @@ def generate_website_data(events):
     return website_data
 
 
-def main(test_week: bool = False, full: bool = False, force_reprocess: bool = False):
+def main(test_week: bool = False, full: bool = False, force_reprocess: bool = False, days: int = None):
     """Generate website data.
 
     Args:
         test_week: If True, limit scraping to current week for testing.
         full: If True, include all events without date filtering.
         force_reprocess: If True, force re-processing of all events (ignore cache).
+        days: If specified, collect events for this many days from today.
     """
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
     
@@ -414,6 +415,10 @@ def main(test_week: bool = False, full: bool = False, force_reprocess: bool = Fa
             # For testing, use all events from current week
             upcoming_events = detailed_events
             print(f"Using all {len(upcoming_events)} events for test week")
+        elif days:
+            # Filter to specific number of days
+            upcoming_events = filter_upcoming_events(detailed_events, mode=days)
+            print(f"Found {len(upcoming_events)} events for next {days} days")
         else:
             # Filter to upcoming events (current month + next month)
             upcoming_events = filter_upcoming_events(detailed_events, mode='month')
@@ -451,4 +456,16 @@ if __name__ == "__main__":
     test_week = '--test-week' in sys.argv
     full_update = '--full' in sys.argv
     force_reprocess = '--force-reprocess' in sys.argv
-    main(test_week=test_week, full=full_update, force_reprocess=force_reprocess)
+    
+    # Parse --days parameter
+    days_param = None
+    for i, arg in enumerate(sys.argv):
+        if arg == '--days' and i + 1 < len(sys.argv):
+            try:
+                days_param = int(sys.argv[i + 1])
+            except ValueError:
+                print(f"Error: --days parameter must be a number, got '{sys.argv[i + 1]}'")
+                sys.exit(1)
+            break
+    
+    main(test_week=test_week, full=full_update, force_reprocess=force_reprocess, days=days_param)
