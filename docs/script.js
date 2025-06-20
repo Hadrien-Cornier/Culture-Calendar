@@ -81,13 +81,17 @@ function setupEventListeners() {
         downloadFilteredCalendar(minRating);
     });
 
-    listViewBtn.addEventListener('click', function() {
-        switchToListView();
-    });
+    if (listViewBtn) {
+        listViewBtn.addEventListener('click', function() {
+            switchToListView();
+        });
+    }
 
-    calendarViewBtn.addEventListener('click', function() {
-        switchToCalendarView();
-    });
+    if (calendarViewBtn) {
+        calendarViewBtn.addEventListener('click', function() {
+            switchToCalendarView();
+        });
+    }
 
     specialEventsToggle.addEventListener('click', function() {
         toggleSpecialEventsFilter();
@@ -276,8 +280,8 @@ function toggleFilterDrawer() {
 function switchToListView() {
     listView.style.display = 'block';
     calendarView.style.display = 'none';
-    listViewBtn.classList.add('active');
-    calendarViewBtn.classList.remove('active');
+    if (listViewBtn) listViewBtn.classList.add('active');
+    if (calendarViewBtn) calendarViewBtn.classList.remove('active');
 }
 
 // Switch to calendar view
@@ -287,8 +291,8 @@ function switchToCalendarView() {
     try {
         listView.style.display = 'none';
         calendarView.style.display = 'block';
-        listViewBtn.classList.remove('active');
-        calendarViewBtn.classList.add('active');
+        if (listViewBtn) listViewBtn.classList.remove('active');
+        if (calendarViewBtn) calendarViewBtn.classList.add('active');
         
         console.log('Movies data length:', moviesData.length); // Debug log
         

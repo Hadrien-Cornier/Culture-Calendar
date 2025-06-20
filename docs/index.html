@@ -6,7 +6,7 @@
     <title>Culture Calendar - Austin Cultural Events</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,10 +16,6 @@
             <span class="divider"></span>
             <span class="location">Austin</span>
         </div>
-        <div class="header-center">
-            <button id="list-view-btn" class="view-toggle active">List</button>
-            <button id="calendar-view-btn" class="view-toggle">Calendar</button>
-        </div>
         <div class="header-right">
             <nav class="nav-rail">
                 <a href="#" class="nav-link active">Today</a>
@@ -27,37 +23,10 @@
                 <a href="#" class="nav-link">Calendar</a>
                 <a href="#" class="nav-link">Venues</a>
             </nav>
-            <button class="icon-btn" id="filter-btn">Filter ▼</button>
-            <div class="sort-dropdown">
-                <button class="icon-btn" id="sort-btn">Sort ▼</button>
-                <div class="sort-menu" id="sort-menu">
-                    <button class="sort-option active" data-sort="chronological">Chronological</button>
-                    <button class="sort-option" data-sort="rating">Rating (High to Low)</button>
-                </div>
-            </div>
         </div>
     </header>
 
     <main class="container">
-        <!-- Disclaimer Section -->
-        <section class="disclaimer">
-            <p><strong>Note:</strong> Ratings reflect personal preferences focusing on artistic excellence and aesthetic beauty.
-            Film events exclude work hours (9am-6pm weekdays).
-            Events sourced from <a href="https://www.austinfilm.org" target="_blank">Austin Film Society</a>,
-            <a href="https://hyperrealfilm.club" target="_blank">Hyperreal Film Club</a>,
-            <a href="https://www.austinparamount.com" target="_blank">Paramount Theatre</a>,
-            <a href="https://austinsymphony.org" target="_blank">Austin Symphony Orchestra</a>,
-            <a href="https://www.early-music.org" target="_blank">Texas Early Music Project</a>,
-            <a href="https://www.lafolliaaustin.org" target="_blank">La Follia Austin</a>,
-            <a href="https://www.alienatedmajestybooks.com" target="_blank">Alienated Majesty Books</a>, and
-            <a href="https://www.firstlightaustin.com" target="_blank">First Light Austin</a>.</p>
-        </section>
-
-        <section class="update-info">
-            <h3>Data Last Updated</h3>
-            <ul id="update-list"></ul>
-            <p id="code-updated">Code updated: loading...</p>
-        </section>
 
         <!-- Classical Music Data Warning -->
         <section id="classical-data-warning" class="classical-warning" style="display: none;">
@@ -116,6 +85,13 @@
         <!-- Events List Section -->
         <section class="movies-section" id="list-view">
             <h2>All Upcoming Events</h2>
+            <div class="sort-dropdown results-sort">
+                <button class="icon-btn" id="sort-btn">Sort ▼</button>
+                <div class="sort-menu" id="sort-menu">
+                    <button class="sort-option active" data-sort="chronological">Chronological</button>
+                    <button class="sort-option" data-sort="rating">Rating (High to Low)</button>
+                </div>
+            </div>
             <div id="loading" class="loading">Loading event data...</div>
             <div id="movies-list" class="movies-list"></div>
         </section>
@@ -138,6 +114,26 @@
             </div>
             <div id="calendar-loading" class="loading" style="display: none;">Loading calendar...</div>
             <div id="calendar-container" class="calendar-container"></div>
+        </section>
+
+        <!-- Disclaimer Section relocated -->
+        <section class="disclaimer">
+            <p><strong>Note:</strong> Ratings reflect personal preferences focusing on artistic excellence and aesthetic beauty.
+            Film events exclude work hours (9am-6pm weekdays).
+            Events sourced from <a href="https://www.austinfilm.org" target="_blank">Austin Film Society</a>,
+            <a href="https://hyperrealfilm.club" target="_blank">Hyperreal Film Club</a>,
+            <a href="https://www.austinparamount.com" target="_blank">Paramount Theatre</a>,
+            <a href="https://austinsymphony.org" target="_blank">Austin Symphony Orchestra</a>,
+            <a href="https://www.early-music.org" target="_blank">Texas Early Music Project</a>,
+            <a href="https://www.lafolliaaustin.org" target="_blank">La Follia Austin</a>,
+            <a href="https://www.alienatedmajestybooks.com" target="_blank">Alienated Majesty Books</a>, and
+            <a href="https://www.firstlightaustin.com" target="_blank">First Light Austin</a>.</p>
+        </section>
+
+        <section class="update-info">
+            <h3>Data Last Updated</h3>
+            <ul id="update-list"></ul>
+            <p id="code-updated">Code updated: loading...</p>
         </section>
     </main>
 
