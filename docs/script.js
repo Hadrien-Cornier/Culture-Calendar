@@ -8,6 +8,8 @@ let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 let dateRangeStart = null;
 let dateRangeEnd = null;
+let currentSort = 'chronological';
+let currentNavFilter = 'all';
 
 // DOM elements
 const ratingSlider = document.getElementById('rating-slider');
@@ -33,6 +35,9 @@ const searchInput = document.getElementById('search-input');
 const codeUpdatedElement = document.getElementById('code-updated');
 const refineBtn = document.getElementById('refine-btn');
 const filterDrawer = document.getElementById('filter-drawer');
+const sortBtn = document.getElementById('sort-btn');
+const sortMenu = document.getElementById('sort-menu');
+const navLinks = document.querySelectorAll('.nav-link');
 
 let searchTerm = '';
 let selectedDirector = null;
@@ -120,6 +125,140 @@ function setupEventListeners() {
             toggleFilterDrawer();
         });
     }
+
+    // Sort functionality
+    if (sortBtn) {
+        sortBtn.addEventListener('click', function() {
+            toggleSortMenu();
+        });
+    }
+
+    // Navigation functionality
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const linkText = this.textContent.toLowerCase();
+            handleNavClick(linkText, this);
+        });
+    });
+
+    // Sort options
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('sort-option')) {
+            handleSortChange(e.target.dataset.sort);
+        }
+        // Close sort menu if clicking outside
+        if (!e.target.closest('.sort-dropdown')) {
+            closeSortMenu();
+        }
+    });
+}
+
+// Sort menu functions
+function toggleSortMenu() {
+    sortMenu.classList.toggle('open');
+}
+
+function closeSortMenu() {
+    sortMenu.classList.remove('open');
+}
+
+function handleSortChange(sortType) {
+    currentSort = sortType;
+    
+    // Update active sort option
+    document.querySelectorAll('.sort-option').forEach(option => {
+        option.classList.remove('active');
+    });
+    document.querySelector(`[data-sort="${sortType}"]`).classList.add('active');
+    
+    // Re-render movies with new sort
+    renderMovies();
+    closeSortMenu();
+}
+
+// Navigation functions
+function handleNavClick(linkText, element) {
+    // Update active nav link
+    navLinks.forEach(link => link.classList.remove('active'));
+    element.classList.add('active');
+    
+    // Set navigation filter
+    currentNavFilter = linkText;
+    
+    // Handle different navigation types
+    switch (linkText) {
+        case 'today':
+            filterToday();
+            break;
+        case 'this week':
+            filterThisWeek();
+            break;
+        case 'calendar':
+            clearDateRangeFilter();
+            switchToCalendarView();
+            break;
+        case 'venues':
+            // Show venue filter in drawer
+            if (!filterDrawer.classList.contains('open')) {
+                toggleFilterDrawer();
+            }
+            break;
+        default:
+            currentNavFilter = 'all';
+            clearDateRangeFilter();
+            updateFilteredMovies();
+            renderMovies();
+            // Reset section header
+            const sectionHeader = document.querySelector('#list-view h2');
+            if (sectionHeader) {
+                sectionHeader.textContent = 'All Upcoming Events';
+            }
+    }
+}
+
+function filterToday() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    dateRangeStart = today;
+    dateRangeEnd = tomorrow;
+    
+    updateFilteredMovies();
+    renderMovies();
+    
+    // Update section header
+    const sectionHeader = document.querySelector('#list-view h2');
+    if (sectionHeader) {
+        sectionHeader.textContent = `Today's Events (${filteredMovies.length})`;
+    }
+    
+    // Switch to list view for better readability
+    switchToListView();
+}
+
+function filterThisWeek() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const nextWeek = new Date(today);
+    nextWeek.setDate(nextWeek.getDate() + 7);
+    
+    dateRangeStart = today;
+    dateRangeEnd = nextWeek;
+    
+    updateFilteredMovies();
+    renderMovies();
+    
+    // Update section header
+    const sectionHeader = document.querySelector('#list-view h2');
+    if (sectionHeader) {
+        sectionHeader.textContent = `This Week's Events (${filteredMovies.length})`;
+    }
+    
+    // Switch to list view for better readability
+    switchToListView();
 }
 
 // Toggle filter drawer
@@ -503,14 +642,37 @@ function updateDownloadButton() {
     }
 }
 
+// Helper function to get earliest screening date for sorting
+function getEarliestScreeningDate(movie) {
+    if (!movie.screenings || movie.screenings.length === 0) {
+        return new Date('2099-12-31'); // Far future date for events without screenings
+    }
+    
+    const dates = movie.screenings.map(screening => parseLocalDate(screening.date));
+    return new Date(Math.min(...dates));
+}
+
 // Render movies list
 function renderMovies() {
-    const moviesToRender = filteredMovies.length > 0 ? filteredMovies : moviesData;
+    let moviesToRender = filteredMovies.length > 0 ? filteredMovies : moviesData;
     
     if (moviesToRender.length === 0) {
         moviesList.innerHTML = '<p class="no-movies">No events match the current filters.</p>';
         return;
     }
+
+    // Sort movies based on current sort option
+    moviesToRender = [...moviesToRender].sort((a, b) => {
+        if (currentSort === 'rating') {
+            // Sort by rating (high to low)
+            return (b.final_rating || b.rating || 0) - (a.final_rating || a.rating || 0);
+        } else {
+            // Sort chronologically (earliest first)
+            const aDate = getEarliestScreeningDate(a);
+            const bDate = getEarliestScreeningDate(b);
+            return aDate - bDate;
+        }
+    });
 
     moviesList.innerHTML = moviesToRender.map(movie => createMovieCard(movie)).join('');
 

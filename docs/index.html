@@ -28,7 +28,13 @@
                 <a href="#" class="nav-link">Venues</a>
             </nav>
             <button class="icon-btn" id="filter-btn">Filter ▼</button>
-            <button class="icon-btn" id="sort-btn">Sort ▼</button>
+            <div class="sort-dropdown">
+                <button class="icon-btn" id="sort-btn">Sort ▼</button>
+                <div class="sort-menu" id="sort-menu">
+                    <button class="sort-option active" data-sort="chronological">Chronological</button>
+                    <button class="sort-option" data-sort="rating">Rating (High to Low)</button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -61,10 +67,6 @@
         <!-- Filter Section -->
         <section class="filter-section">
             <div class="filter-main-controls">
-                <div class="rating-control">
-                    <label for="rating-slider">Minimum Rating: <span id="rating-value">1</span>/10</label>
-                    <input type="range" id="rating-slider" min="1" max="10" value="1" class="slider">
-                </div>
                 <button id="refine-btn" class="refine-button">Refine Selection</button>
                 <div class="download-buttons">
                     <button id="download-btn" class="download-button">Download Calendar</button>
@@ -74,6 +76,11 @@
             <!-- Collapsible Filter Drawer -->
             <div id="filter-drawer" class="filter-drawer">
                 <div class="filter-drawer-content">
+                    <div class="rating-control">
+                        <label for="rating-slider">Minimum Rating: <span id="rating-value">1</span>/10</label>
+                        <input type="range" id="rating-slider" min="1" max="10" value="1" class="slider">
+                    </div>
+                    
                     <div class="search-filter">
                         <label for="search-input">Search Reviews</label>
                         <input type="text" id="search-input" placeholder="Enter keywords...">
