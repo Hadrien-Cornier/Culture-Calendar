@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="container">
-            <h1>🎬 Culture Calendar</h1>
+            <h1>Culture Calendar</h1>
             <p class="subtitle">Curated Austin Cultural Events</p>
         </div>
     </header>
@@ -30,7 +30,7 @@
         </section>
 
         <section class="update-info">
-            <h3>⏰ Data Last Updated</h3>
+            <h3>Data Last Updated</h3>
             <ul id="update-list"></ul>
             <p id="code-updated">Code updated: loading...</p>
         </section>
@@ -42,36 +42,47 @@
 
         <!-- Filter Section -->
         <section class="filter-section">
-            <h2>📅 Download Calendar & Filters</h2>
-            <div class="filter-controls">
-                <label for="rating-slider">Minimum Rating: <span id="rating-value">1</span>/10</label>
-                <input type="range" id="rating-slider" min="1" max="10" value="1" class="slider">
-                <div class="search-filter">
-                    <label for="search-input">Search Reviews:</label>
-                    <input type="text" id="search-input" placeholder="Enter keywords">
+            <div class="filter-main-controls">
+                <div class="rating-control">
+                    <label for="rating-slider">Minimum Rating: <span id="rating-value">1</span>/10</label>
+                    <input type="range" id="rating-slider" min="1" max="10" value="1" class="slider">
                 </div>
+                <button id="refine-btn" class="refine-button">Refine Selection</button>
                 <div class="download-buttons">
-                    <button id="download-btn" class="download-button">Download Calendar (.ics)</button>
+                    <button id="download-btn" class="download-button">Download Calendar</button>
                 </div>
             </div>
-            <div class="genre-filters" id="genre-filters">
-                <h3>🌍 Filter by Country</h3>
-                <div class="genre-buttons" id="genre-buttons">
-                    <!-- Country filter buttons will be populated by JavaScript -->
-                </div>
-            </div>
-            <div class="venue-filters" id="venue-filters">
-                <h3>🎪 Filter by Venue</h3>
-                <div class="venue-buttons" id="venue-buttons">
-                    <!-- Venue filter buttons will be populated by JavaScript -->
-                </div>
-            </div>
-            <div class="special-events-filter" id="special-events-filter">
-                <h3>✨ Special Events</h3>
-                <div class="special-filter-buttons">
-                    <button id="special-events-toggle" class="special-filter-btn">
-                        Show Special Events Only
-                    </button>
+            
+            <!-- Collapsible Filter Drawer -->
+            <div id="filter-drawer" class="filter-drawer">
+                <div class="filter-drawer-content">
+                    <div class="search-filter">
+                        <label for="search-input">Search Reviews</label>
+                        <input type="text" id="search-input" placeholder="Enter keywords...">
+                    </div>
+                    
+                    <div class="genre-filters" id="genre-filters">
+                        <h3>Filter by Country</h3>
+                        <div class="genre-buttons" id="genre-buttons">
+                            <!-- Country filter buttons will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="venue-filters" id="venue-filters">
+                        <h3>Filter by Venue</h3>
+                        <div class="venue-buttons" id="venue-buttons">
+                            <!-- Venue filter buttons will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="special-events-filter" id="special-events-filter">
+                        <h3>Special Events</h3>
+                        <div class="special-filter-buttons">
+                            <button id="special-events-toggle" class="special-filter-btn">
+                                Show Special Events Only
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -79,21 +90,21 @@
         <!-- View Toggle Section -->
         <section class="view-toggle-section">
             <div class="toggle-buttons">
-                <button id="list-view-btn" class="view-button active">📝 List View</button>
-                <button id="calendar-view-btn" class="view-button">📅 Calendar View</button>
+                <button id="list-view-btn" class="view-button active">List View</button>
+                <button id="calendar-view-btn" class="view-button">Calendar View</button>
             </div>
         </section>
 
         <!-- Events List Section -->
         <section class="movies-section" id="list-view">
-            <h2>🎭 Upcoming Events</h2>
+            <h2>Upcoming Events</h2>
             <div id="loading" class="loading">Loading event data...</div>
             <div id="movies-list" class="movies-list"></div>
         </section>
 
         <!-- Calendar View Section -->
         <section class="calendar-section" id="calendar-view" style="display: none;">
-            <h2>📅 Calendar View</h2>
+            <h2>Calendar View</h2>
             <div class="calendar-navigation">
                 <button id="prev-month" class="nav-btn">← Previous</button>
                 <div class="month-year-display" id="month-year-display"></div>

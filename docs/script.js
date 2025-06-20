@@ -31,6 +31,8 @@ const clearDateFilterBtn = document.getElementById('clear-date-filter');
 const updateList = document.getElementById('update-list');
 const searchInput = document.getElementById('search-input');
 const codeUpdatedElement = document.getElementById('code-updated');
+const refineBtn = document.getElementById('refine-btn');
+const filterDrawer = document.getElementById('filter-drawer');
 
 let searchTerm = '';
 let selectedDirector = null;
@@ -111,6 +113,23 @@ function setupEventListeners() {
                 renderCalendar();
             }
         });
+    }
+
+    if (refineBtn) {
+        refineBtn.addEventListener('click', function() {
+            toggleFilterDrawer();
+        });
+    }
+}
+
+// Toggle filter drawer
+function toggleFilterDrawer() {
+    if (filterDrawer.classList.contains('open')) {
+        filterDrawer.classList.remove('open');
+        refineBtn.textContent = 'Refine Selection';
+    } else {
+        filterDrawer.classList.add('open');
+        refineBtn.textContent = 'Hide Options';
     }
 }
 
@@ -547,7 +566,7 @@ function createMovieCard(movie) {
             const formattedDate = formatDate(screening.date);
             const formattedTime = screening.time || 'Time TBA';
             return `<a href="${screening.url}" target="_blank" class="screening-tag">
-                📅 ${formattedDate} • 🕐 ${formattedTime}
+                ${formattedDate} • ${formattedTime}
             </a>`;
         }).join('')
         : '<span class="screening-tag">No screenings available</span>';
@@ -556,14 +575,14 @@ function createMovieCard(movie) {
         <div class="movie-card">
             <div class="movie-header">
                 <h3 class="movie-title">${escapeHtml(movie.title)}</h3>
-                <div class="movie-rating">⭐${finalRating || 'N/A'}/10 ${boostHtml}</div>
+                <div class="movie-rating">★ ${finalRating || 'N/A'}/10 ${boostHtml}</div>
                 ${needsExpansion ? `<button class="collapse-button toggle-button" data-movie-id="${movie.id || 'unknown'}" style="display:none">Hide</button>` : ''}
             </div>
             
             <div class="movie-info">
                 <div class="movie-badges">
-                    ${movie.duration ? `<span class="movie-meta-badge">⏱️ ${movie.duration}</span>` : ''}
-                    ${movie.director ? `<span class="movie-meta-badge director-badge" data-director="${escapeHtml(movie.director)}">🎬 ${escapeHtml(movie.director)}</span>` : ''}
+                    ${movie.duration ? `<span class="movie-meta-badge">${movie.duration}</span>` : ''}
+                    ${movie.director ? `<span class="movie-meta-badge director-badge" data-director="${escapeHtml(movie.director)}">Dir. ${escapeHtml(movie.director)}</span>` : ''}
                     ${movie.country ? `<span class="country-badge">${movie.country}</span>` : ''}
                     ${movie.year ? `<span class="year-badge">${movie.year}</span>` : ''}
                     ${movie.language && movie.language !== 'English' ? `<span class="language-badge">${movie.language}</span>` : ''}
@@ -571,7 +590,7 @@ function createMovieCard(movie) {
                 </div>
                 <div class="screenings-container">
                     ${screeningTags}
-                    ${movie.isSpecialScreening ? '<span class="special-screening-indicator">✨ Special</span>' : ''}
+                    ${movie.isSpecialScreening ? '<span class="special-screening-indicator">Special Screening</span>' : ''}
                 </div>
             </div>
             
@@ -747,8 +766,8 @@ function renderCalendar() {
             const ratingClass = screening.rating >= 8 ? 'high-rating' : 
                               screening.rating >= 6 ? 'medium-rating' : 'low-rating';
             
-            // Get venue emoji and CSS class for visual indication
-            const venueEmoji = getVenueEmoji(screening.venue);
+            // Get venue abbreviation and CSS class for visual indication
+            const venueAbbr = getVenueAbbr(screening.venue);
             const venueClass = screening.venue ? `venue-${screening.venue.toLowerCase()}` : '';
             
             // Truncate long movie titles for calendar display
@@ -759,7 +778,7 @@ function renderCalendar() {
                 <div class="calendar-event ${ratingClass} ${venueClass}" 
                      title="${escapeHtml(screening.title)} - ${screening.time} - Rating: ${screening.rating}/10 - ${getVenueName(screening.venue)}"
                      onclick="window.open('${screening.url}', '_blank')">
-                    ${venueEmoji}⭐${screening.rating} ${escapeHtml(displayTitle)}
+                    ${venueAbbr} ★${screening.rating} ${escapeHtml(displayTitle)}
                 </div>
             `;
         });
@@ -935,7 +954,7 @@ function generateICSContent(movies) {
             `DTSTAMP:${timestamp}`,
             `DTSTART;${startDateTime}`,
             `DTEND;${endDateTime}`,
-            `SUMMARY:⭐${movie.rating}/10 - ${movie.title}`,
+            `SUMMARY:★${movie.rating}/10 - ${movie.title}`,
             `DESCRIPTION:${formatDescriptionForICS(movie.description)}`,
             `LOCATION:Austin Film Society Cinema, 6226 Middle Fiskville Rd, Austin, TX 78752`,
             `URL:${movie.url || 'https://www.austinfilm.org/'}`,
@@ -952,30 +971,30 @@ function generateICSContent(movies) {
 // Utility functions
 function getVenueName(venue) {
     const venueNames = {
-        'AFS': '🎬 AFS',
-        'Hyperreal': '🎭 Hyperreal',
-        'Paramount': '🎪 Paramount',
-        'Symphony': '🎼 Symphony',
-        'EarlyMusic': '🎵 Early Music',
-        'LaFollia': '🎻 La Follia',
-        'AlienatedMajesty': '📚 Alienated Majesty',
-        'FirstLight': '📖 First Light'
+        'AFS': 'Austin Film Society',
+        'Hyperreal': 'Hyperreal Film Club',
+        'Paramount': 'Paramount Theater',
+        'Symphony': 'Austin Symphony',
+        'EarlyMusic': 'Early Music Project',
+        'LaFollia': 'La Follia Austin',
+        'AlienatedMajesty': 'Alienated Majesty Books',
+        'FirstLight': 'First Light Austin'
     };
     return venueNames[venue] || venue;
 }
 
-function getVenueEmoji(venue) {
-    const venueEmojis = {
-        'AFS': '🎬',
-        'Hyperreal': '🎭',
-        'Paramount': '🎪',
-        'Symphony': '🎼',
-        'EarlyMusic': '🎵',
-        'LaFollia': '🎻',
-        'AlienatedMajesty': '📚',
-        'FirstLight': '📖'
+function getVenueAbbr(venue) {
+    const venueAbbrs = {
+        'AFS': 'AFS',
+        'Hyperreal': 'HFC',
+        'Paramount': 'PAR',
+        'Symphony': 'ASO',
+        'EarlyMusic': 'EMP',
+        'LaFollia': 'LFA',
+        'AlienatedMajesty': 'AMB',
+        'FirstLight': 'FLA'
     };
-    return venueEmojis[venue] || '🎪';
+    return venueAbbrs[venue] || venue;
 }
 
 function escapeHtml(text) {
