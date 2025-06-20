@@ -391,8 +391,15 @@ def generate_website_data(events):
         
         website_data.append(event_data)
     
-    # Sort by rating (highest first), then by title
-    website_data.sort(key=lambda x: (-x['rating'], x['title']))
+    # Sort by the earliest screening date/time so upcoming events appear first
+    def first_screening_key(item):
+        screenings = item.get('screenings', [])
+        if not screenings:
+            return ('9999-12-31', '23:59')
+        first = min(screenings, key=lambda s: (s['date'], s.get('time', '')))
+        return (first['date'], first.get('time', ''))
+
+    website_data.sort(key=first_screening_key)
     
     return website_data
 

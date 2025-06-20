@@ -54,7 +54,7 @@ class EventProcessor:
                     elif event.get('type') == 'book_club':
                         ai_rating = self._get_book_club_rating(event)
                     else:
-                        ai_rating = self._get_ai_rating(event['title'])
+                        ai_rating = self._get_ai_rating(event)
                     self.movie_cache[event_title] = ai_rating
                 
                 # Calculate personal preference score
@@ -110,23 +110,41 @@ class EventProcessor:
 
         return preferences
     
-    def _get_ai_rating(self, movie_title: str) -> Dict:
-        """Get movie rating and info from Perplexity API"""
+    def _get_ai_rating(self, event: Dict) -> Dict:
+        """Get movie rating and info from Perplexity API using detailed metadata"""
         if not self.perplexity_api_key:
             return {'score': 5, 'summary': 'No API key provided'}
-        
+
         try:
             headers = {
                 'Authorization': f'Bearer {self.perplexity_api_key}',
                 'Content-Type': 'application/json'
             }
-            
+            movie_title = event.get('title', '')
+            year = event.get('year', 'unknown')
+            duration = event.get('duration', 'unknown')
+            director = event.get('director', 'unknown')
+            country = event.get('country', 'unknown')
+            language = event.get('language', 'unknown')
+
+            details = (
+                f"Title: {movie_title}\n"
+                f"Year: {year}\n"
+                f"Director: {director}\n"
+                f"Duration: {duration}\n"
+                f"Country: {country}\n"
+                f"Language: {language}"
+            )
+
             prompt = f"""
-You are a ruthless film critic grading with uncompromising academic standards. Assess "{movie_title}" using a 0–10 scale where
+You are a ruthless film critic grading with uncompromising academic standards. Assess the film described below using a 0–10 scale where
 0–4 = weak or derivative,
 5–6 = competent but unremarkable,
 7–8 = strong,
 9–10 = exceptional masterpieces. Scores above 5 must be justified with specific evidence.
+
+Film Details:
+{details}
 
 Provide a concise report with these sections:
 ★ Rating: [X/10] (integer only)
@@ -135,7 +153,7 @@ Provide a concise report with these sections:
 🎭 Thematic Depth – discuss universal human experiences explored with nuance.
 🏛️ Comparative Excellence – compare against landmark works in its genre, referencing broad critical consensus if relevant.
 
-Focus solely on artistic merit and complexity. Reward innovation and high entropy; ignore ideological framing.
+Focus solely on artistic merit and complexity. Reward innovation and high entropy; ignore ideological framing. Ensure you are reviewing the specific film described above and not a different work with a similar title.
 """
             
             data = {
@@ -322,7 +340,9 @@ Focus on artistic merit and intellectual rigor. Reward complexity and innovation
                     score = round(float(rating_match.group(1)))
                     break
             
-            # Use the full content as summary for the French cinéaste style
+            # Remove Perplexity citation numbers like [1]
+            content = re.sub(r'\[\d+\]', '', content)
+            # Use the cleaned content as summary for the French cinéaste style
             summary = content.strip()
             
             return {
