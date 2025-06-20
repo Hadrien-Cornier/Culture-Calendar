@@ -252,20 +252,24 @@ def is_movie_event(title, description=""):
 
 def generate_website_data(events):
     """Generate JSON data for the website with movie aggregation and venue tags"""
-    # Include both movies and classical music events for the website
+    # Include movies, classical music events, and book club events for the website
     website_events = []
     movie_events = []
     classical_events = []
+    book_club_events = []
     
     for event in events:
         if event.get('type') == 'concert':
             classical_events.append(event)
             website_events.append(event)
+        elif event.get('type') == 'book_club':
+            book_club_events.append(event)
+            website_events.append(event)
         elif event.get('is_movie', True):
             movie_events.append(event)
             website_events.append(event)
     
-    print(f"Generating website data: {len(movie_events)} movies, {len(classical_events)} classical events, {len(website_events)} total")
+    print(f"Generating website data: {len(movie_events)} movies, {len(classical_events)} classical events, {len(book_club_events)} book clubs, {len(website_events)} total")
     
     # Group movie events by title, add classical events directly
     combined_data = {}
@@ -337,6 +341,37 @@ def generate_website_data(events):
             'works': event.get('works', []),
             'featured_artist': event.get('featured_artist'),
             'program': event.get('program'),
+            'screenings': [{  # Using "screenings" terminology for consistency with website
+                'date': event['date'],
+                'time': event.get('time', 'TBD'),
+                'url': event.get('url', ''),
+                'venue': event.get('venue')
+            }]
+        }
+    
+    # Process book club events (each event is unique)
+    for event in book_club_events:
+        # Create unique key for each book club event  
+        event_key = f"{event['title']} - {event['date']} {event['time']}"
+        
+        ai_rating = event.get('ai_rating', {})
+        combined_data[event_key] = {
+            'title': event['title'],
+            'rating': ai_rating.get('score', 5),
+            'description': clean_markdown_text(ai_rating.get('summary', 'No description available')),
+            'url': event.get('url', ''),
+            'isSpecialScreening': False,  # Book clubs aren't "screenings"
+            'isMovie': False,  # Book clubs are discussions
+            'duration': event.get('duration'),
+            'director': None,  # Not applicable to book clubs
+            'country': event.get('country', 'USA'),
+            'year': event.get('year'),
+            'language': event.get('language', 'English'),
+            'venue': event.get('venue'),
+            'series': event.get('series'),
+            'book': event.get('book'),
+            'author': event.get('author'),
+            'host': event.get('host'),
             'screenings': [{  # Using "screenings" terminology for consistency with website
                 'date': event['date'],
                 'time': event.get('time', 'TBD'),
