@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: 400;
     line-height: 1.6;
     color: #111;
@@ -34,9 +34,9 @@ body {
 }
 
 .brand {
-    font-family: 'Charter', Georgia, serif;
-    font-size: 20px;
-    font-weight: 700;
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: 32px;
+    font-weight: 400;
 }
 
 .divider {
@@ -48,7 +48,7 @@ body {
 }
 
 .location {
-    font-family: 'Inter', sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 12px;
     text-transform: uppercase;
     color: #777;
@@ -62,7 +62,7 @@ body {
 
 .view-toggle {
     padding: 0.25rem 1rem;
-    font-family: 'Inter', sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 12px;
     border-radius: 16px;
     border: 1px solid #ccc;
@@ -122,6 +122,10 @@ body {
 .sort-dropdown {
     position: relative;
     display: inline-block;
+}
+
+.results-sort {
+    margin: 1rem 0;
 }
 
 .sort-menu {
@@ -633,7 +637,7 @@ main {
     border: 1px solid #ddd;
     padding: 0.4rem 0.8rem;
     border-radius: 3px;
-    font-family: 'Inter', sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: 600;
     font-size: 14px;
     margin-left: auto;
