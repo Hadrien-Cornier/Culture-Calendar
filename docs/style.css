@@ -796,11 +796,15 @@ main {
 }
 
 .screenings-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    display: block;
+    margin-bottom: 1rem;
     line-height: 1.4;
+}
+
+.screenings-text {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    color: #333;
 }
 
 .screening-tag {
