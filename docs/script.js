@@ -1,6 +1,6 @@
 // Global variables
-let moviesData = [];
-let filteredMovies = [];
+let eventsData = [];
+let filteredEvents = [];
 let selectedGenres = new Set();
 let selectedVenues = new Set();
 let showSpecialEventsOnly = false;
@@ -9,16 +9,15 @@ let currentYear = new Date().getFullYear();
 let dateRangeStart = null;
 let dateRangeEnd = null;
 let currentSort = 'chronological';
-let currentNavFilter = 'all';
+let currentView = 'today'; // today, weekend, week, calendar
 
 // DOM elements
 const ratingSlider = document.getElementById('rating-slider');
 const ratingValue = document.getElementById('rating-value');
 const downloadBtn = document.getElementById('download-btn');
-const moviesList = document.getElementById('movies-list');
+const eventsList = document.getElementById('events-list');
+const eventsHeading = document.getElementById('events-heading');
 const loadingElement = document.getElementById('loading');
-const listViewBtn = document.getElementById('list-view-btn');
-const calendarViewBtn = document.getElementById('calendar-view-btn');
 const listView = document.getElementById('list-view');
 const calendarView = document.getElementById('calendar-view');
 const calendarContainer = document.getElementById('calendar-container');
@@ -33,11 +32,9 @@ const clearDateFilterBtn = document.getElementById('clear-date-filter');
 const updateList = document.getElementById('update-list');
 const searchInput = document.getElementById('search-input');
 const codeUpdatedElement = document.getElementById('code-updated');
-const refineBtn = document.getElementById('refine-btn');
+const showFiltersBtn = document.getElementById('show-filters-btn');
 const filterDrawer = document.getElementById('filter-drawer');
-const sortBtn = document.getElementById('sort-btn');
-const sortMenu = document.getElementById('sort-menu');
-const navLinks = document.querySelectorAll('.nav-link');
+const navTabs = document.querySelectorAll('.nav-tab');
 
 let searchTerm = '';
 let selectedDirector = null;
@@ -47,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded'); // Debug log
     
     // Verify critical elements exist
-    const criticalElements = ['loading', 'movies-list', 'rating-slider'];
+    const criticalElements = ['loading', 'events-list', 'rating-slider'];
     const missingElements = criticalElements.filter(id => !document.getElementById(id));
     
     if (missingElements.length > 0) {
@@ -58,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('All critical elements found, proceeding...'); // Debug log
     setupEventListeners();
-    loadMoviesData();
+    loadEventsData();
     loadUpdateInfo();
     loadCodeUpdateTime();
 });
@@ -67,11 +64,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function setupEventListeners() {
     ratingSlider.addEventListener('input', function() {
         ratingValue.textContent = this.value;
-        updateFilteredMovies();
-        renderMovies();
+        updateFilteredEvents();
+        renderEvents();
         
         // Re-render calendar if it's currently visible
-        if (calendarView.style.display !== 'none') {
+        if (currentView === 'calendar') {
             renderCalendar();
         }
     });
@@ -81,15 +78,19 @@ function setupEventListeners() {
         downloadFilteredCalendar(minRating);
     });
 
-    if (listViewBtn) {
-        listViewBtn.addEventListener('click', function() {
-            switchToListView();
+    // Navigation tabs
+    navTabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const newView = this.dataset.view;
+            switchView(newView);
         });
-    }
+    });
 
-    if (calendarViewBtn) {
-        calendarViewBtn.addEventListener('click', function() {
-            switchToCalendarView();
+    // Show/hide filters
+    if (showFiltersBtn) {
+        showFiltersBtn.addEventListener('click', function() {
+            toggleFilterDrawer();
         });
     }
 
@@ -116,17 +117,11 @@ function setupEventListeners() {
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             searchTerm = this.value.toLowerCase();
-            updateFilteredMovies();
-            renderMovies();
-            if (calendarView.style.display !== 'none') {
+            updateFilteredEvents();
+            renderEvents();
+            if (currentView === 'calendar') {
                 renderCalendar();
             }
-        });
-    }
-
-    if (refineBtn) {
-        refineBtn.addEventListener('click', function() {
-            toggleFilterDrawer();
         });
     }
 
@@ -286,7 +281,17 @@ function filterThisWeekend() {
     // Determine Friday of the current week
     const friday = new Date(today);
     const day = friday.getDay();
-    const diffToFriday = (5 - day + 7) % 7;
+    
+    // Calculate days to next Friday
+    // If it's Monday (1) through Sunday (0), we want this week's Friday
+    // getDay() returns: 0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday
+    let diffToFriday;
+    if (day == 0) {// Sunday
+        diffToFriday = -2;
+    } else {// Monday (1) through Saturday (6)
+        diffToFriday = 5 - day;
+    }
+ 
     friday.setDate(friday.getDate() + diffToFriday);
 
     const sunday = new Date(friday);
@@ -351,7 +356,7 @@ function switchToCalendarView() {
 }
 
 // Load movies data from JSON file
-async function loadMoviesData() {
+async function loadEventsData() {
     try {
         console.log('Starting data load process...'); // Debug log
         console.log('Current URL:', window.location.href); // Debug log
@@ -376,24 +381,24 @@ async function loadMoviesData() {
                     throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
                 }
                 const fallbackData = await fallbackResponse.json();
-                moviesData = fallbackData;
+                eventsData = fallbackData;
             } else {
                 throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
             }
         } else {
-            moviesData = await response.json();
+            eventsData = await response.json();
         }
         
-        console.log('Loaded movies data:', moviesData?.length, 'events'); // Debug log
+        console.log('Loaded events data:', eventsData?.length, 'events'); // Debug log
         
         // Validate data structure
-        if (!Array.isArray(moviesData)) {
-            console.error('Invalid data type:', typeof moviesData);
-            throw new Error('Invalid data format: expected array, got ' + typeof moviesData);
+        if (!Array.isArray(eventsData)) {
+            console.error('Invalid data type:', typeof eventsData);
+            throw new Error('Invalid data format: expected array, got ' + typeof eventsData);
         }
         
         // Check if we have valid event data
-        if (moviesData.length === 0) {
+        if (eventsData.length === 0) {
             console.warn('No event data found');
             showError('No cultural events available at this time.');
             return;
@@ -402,16 +407,17 @@ async function loadMoviesData() {
         console.log('Setting up filters...'); // Debug log
         setupGenreFilters();
         setupVenueFilters();
-        updateFilteredMovies();
-        renderMovies();
-        filterToday();
+        updateFilteredEvents();
+        renderEvents();
+        // Start with Today's Events view
+        switchView('today');
         
         // Check for outdated classical music data
         checkClassicalDataFreshness();
         
         hideLoading();
         
-        console.log('Movie data loaded successfully'); // Debug log
+        console.log('Events data loaded successfully'); // Debug log
     } catch (error) {
         console.error('Detailed error loading movies data:', error);
         console.error('Error stack:', error.stack);
@@ -1365,4 +1371,275 @@ function showClassicalDataWarning() {
     
     warningContainer.style.display = 'block';
     console.log('Classical music data warning displayed');
+}
+
+// ===== NEW REDESIGN FUNCTIONS =====
+
+// Switch between different views
+function switchView(viewType) {
+    currentView = viewType;
+    
+    // Update active tab
+    navTabs.forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.dataset.view === viewType) {
+            tab.classList.add('active');
+        }
+    });
+    
+    // Show/hide appropriate sections
+    if (viewType === 'calendar') {
+        listView.style.display = 'none';
+        calendarView.style.display = 'block';
+        renderCalendar();
+    } else {
+        listView.style.display = 'block';
+        calendarView.style.display = 'none';
+        
+        // Update events based on view type
+        switch (viewType) {
+            case 'today':
+                filterToday();
+                eventsHeading.textContent = "Today's Events";
+                break;
+            case 'weekend':
+                filterWeekend();
+                eventsHeading.textContent = "This Weekend";
+                break;
+            case 'week':
+                filterWeek();
+                eventsHeading.textContent = "This Week";
+                break;
+        }
+        
+        updateFilteredEvents();
+        renderEvents();
+    }
+}
+
+// Filter events for today
+function filterToday() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    dateRangeStart = today;
+    dateRangeEnd = tomorrow;
+}
+
+// Filter events for this weekend (Saturday and Sunday)
+function filterWeekend() {
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
+    
+    // Find next Saturday
+    const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+    const saturday = new Date(today);
+    saturday.setDate(today.getDate() + daysUntilSaturday);
+    saturday.setHours(0, 0, 0, 0);
+    
+    // Weekend ends Sunday night
+    const sunday = new Date(saturday);
+    sunday.setDate(saturday.getDate() + 1);
+    sunday.setHours(23, 59, 59, 999);
+    
+    dateRangeStart = saturday;
+    dateRangeEnd = sunday;
+}
+
+// Filter events for this week (next 7 days)
+function filterWeek() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const nextWeek = new Date(today);
+    nextWeek.setDate(today.getDate() + 7);
+    
+    dateRangeStart = today;
+    dateRangeEnd = nextWeek;
+}
+
+// Update filtered events based on current filters
+function updateFilteredEvents() {
+    const minRating = parseInt(ratingSlider.value);
+    
+    filteredEvents = eventsData.filter(event => {
+        // Rating filter
+        if (event.rating < minRating) return false;
+        
+        // Search filter
+        if (searchTerm && !eventMatchesSearch(event, searchTerm)) return false;
+        
+        // Genre filter
+        if (selectedGenres.size > 0 && !eventMatchesGenres(event, selectedGenres)) return false;
+        
+        // Venue filter
+        if (selectedVenues.size > 0 && !selectedVenues.has(event.venue)) return false;
+        
+        // Special events filter
+        if (showSpecialEventsOnly && !event.isSpecialScreening) return false;
+        
+        // Date range filter (for time-based views)
+        if (dateRangeStart && dateRangeEnd) {
+            if (!eventInDateRange(event, dateRangeStart, dateRangeEnd)) return false;
+        }
+        
+        return true;
+    });
+    
+    // Sort events
+    if (currentSort === 'rating') {
+        filteredEvents.sort((a, b) => b.rating - a.rating);
+    } else {
+        // Chronological sort
+        filteredEvents.sort((a, b) => {
+            const aDate = getEarliestEventDate(a);
+            const bDate = getEarliestEventDate(b);
+            return aDate - bDate;
+        });
+    }
+}
+
+// Render events list in the new design
+function renderEvents() {
+    if (!eventsList) return;
+    
+    if (filteredEvents.length === 0) {
+        eventsList.innerHTML = '<div class="no-events">No events found matching your criteria.</div>';
+        return;
+    }
+    
+    eventsList.innerHTML = filteredEvents.map(event => renderEventCard(event)).join('');
+    
+    // Add event listeners for expandable reviews
+    document.querySelectorAll('.read-review-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const eventCard = this.closest('.event-card');
+            const reviewContent = eventCard.querySelector('.review-content');
+            const isExpanded = reviewContent.style.display === 'block';
+            
+            if (isExpanded) {
+                reviewContent.style.display = 'none';
+                this.textContent = 'Read Review ▼';
+            } else {
+                reviewContent.style.display = 'block';
+                this.textContent = 'Collapse ▲';
+            }
+        });
+    });
+}
+
+// Render a single event card
+function renderEventCard(event) {
+    const icon = getEventIcon(event);
+    const rating = formatRating(event.rating);
+    const oneLinerSummary = event.oneLinerSummary || 'Cultural event with unique appeal';
+    const metadata = formatEventMetadata(event);
+    
+    return `
+        <div class="event-card">
+            <div class="event-header">
+                <h3 class="event-title">${icon} ${event.title}</h3>
+                <div class="event-time-venue">${formatEventDateTime(event)} — ${event.venue}</div>
+                <div class="event-rating">${rating}</div>
+                <div class="event-summary">${oneLinerSummary}</div>
+                <div class="event-metadata">${metadata}</div>
+                <button class="read-review-btn">Read Review ▼</button>
+            </div>
+            <div class="review-content" style="display: none;">
+                <div class="review-text">${event.description || 'Full review content...'}</div>
+            </div>
+        </div>
+    `;
+}
+
+// Get appropriate icon for event type
+function getEventIcon(event) {
+    if (event.isMovie || event.type === 'screening') return '🎬';
+    if (event.type === 'concert') return '🎻';
+    if (event.type === 'book_club') return '📚';
+    return '🎭';
+}
+
+// Format rating with stars
+function formatRating(rating) {
+    if (rating >= 9) return '★★★★★ MUST-SEE';
+    if (rating >= 7) return '★★★★☆ RECOMMENDED';
+    if (rating >= 5) return '★★★☆☆ GOOD';
+    return '★★☆☆☆ FAIR';
+}
+
+// Format event metadata tags
+function formatEventMetadata(event) {
+    const tags = [];
+    
+    if (event.country) tags.push(event.country);
+    if (event.year) tags.push(event.year);
+    if (event.duration) tags.push(event.duration);
+    if (event.language && event.language !== 'English') tags.push(event.language);
+    
+    return `(${tags.join(' · ')})`;
+}
+
+// Format event date and time
+function formatEventDateTime(event) {
+    if (event.screenings && event.screenings.length > 0) {
+        const screening = event.screenings[0];
+        const date = new Date(screening.date + 'T00:00:00');
+        const timeStr = screening.time || '';
+        return `${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} ${timeStr}`;
+    }
+    return 'Date TBD';
+}
+
+// Check if event matches search term
+function eventMatchesSearch(event, searchTerm) {
+    const searchFields = [
+        event.title,
+        event.description,
+        event.director,
+        event.country,
+        event.oneLinerSummary
+    ].join(' ').toLowerCase();
+    
+    return searchFields.includes(searchTerm);
+}
+
+// Check if event matches selected genres
+function eventMatchesGenres(event, selectedGenres) {
+    if (!event.country) return false;
+    return selectedGenres.has(event.country);
+}
+
+// Check if event is in date range
+function eventInDateRange(event, startDate, endDate) {
+    if (!event.screenings || event.screenings.length === 0) return false;
+    
+    return event.screenings.some(screening => {
+        const eventDate = new Date(screening.date + 'T00:00:00');
+        return eventDate >= startDate && eventDate <= endDate;
+    });
+}
+
+// Get earliest date for an event
+function getEarliestEventDate(event) {
+    if (!event.screenings || event.screenings.length === 0) {
+        return new Date('2099-12-31'); // Far future for events without dates
+    }
+    
+    const dates = event.screenings.map(s => new Date(s.date + 'T00:00:00'));
+    return new Date(Math.min(...dates));
+}
+
+// Toggle filter drawer
+function toggleFilterDrawer() {
+    const isVisible = filterDrawer.style.display !== 'none';
+    
+    if (isVisible) {
+        filterDrawer.style.display = 'none';
+        showFiltersBtn.textContent = 'Show Filters ▸';
+    } else {
+        filterDrawer.style.display = 'block';
+        showFiltersBtn.textContent = 'Hide Filters ▾';
+    }
 }

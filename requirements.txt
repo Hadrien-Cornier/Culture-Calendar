@@ -7,3 +7,4 @@ lxml==5.2.2
 pytz==2023.3
 pyppeteer==1.0.2
 firecrawl-py==0.0.20
+anthropic==0.40.0

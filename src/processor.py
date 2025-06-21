@@ -9,6 +9,7 @@ from datetime import datetime
 import json
 import time
 from dotenv import load_dotenv
+from .summary_generator import SummaryGenerator
 
 load_dotenv()
 
@@ -20,6 +21,13 @@ class EventProcessor:
         self.literature_preferences = self._load_literature_preferences()
         self.movie_cache = {}  # Cache AI ratings to avoid reprocessing
         self.force_reprocess = force_reprocess
+        
+        # Initialize summary generator
+        try:
+            self.summary_generator = SummaryGenerator()
+        except ValueError as e:
+            print(f"Warning: Could not initialize summary generator: {e}")
+            self.summary_generator = None
     
     def process_events(self, events: List[Dict]) -> List[Dict]:
         """Process and enrich all events"""
@@ -65,6 +73,20 @@ class EventProcessor:
                 event['preference_score'] = preference_score
                 event['final_rating'] = self._calculate_final_rating(ai_rating, preference_score)
                 event['rating_explanation'] = self._generate_rating_explanation(event, ai_rating, preference_score)
+                
+                # Add the AI-generated description to the event for summary generation
+                event['description'] = ai_rating.get('summary', '')
+                
+                # Generate one-line summary using Claude API (AFTER AI description is available)
+                one_liner_summary = None
+                if self.summary_generator:
+                    try:
+                        one_liner_summary = self.summary_generator.generate_summary(event, self.force_reprocess)
+                    except Exception as e:
+                        print(f"  Error generating summary: {e}")
+                        one_liner_summary = None
+                
+                event['oneLinerSummary'] = one_liner_summary
                 
                 enriched_events.append(event)
                 

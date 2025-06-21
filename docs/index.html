@@ -12,19 +12,16 @@
 </head>
 <body>
     <header class="global-header container">
-        <div class="header-left">
-            <span class="brand">Culture Calendar</span>
-            <span class="divider"></span>
-            <span class="location">Austin</span>
-        </div>
-        <div class="header-right">
-            <nav class="nav-rail">
-                <a href="#" class="nav-link active">Today</a>
-                <a href="#" class="nav-link">This Week</a>
-                <a href="#" class="nav-link">Weekend</a>
-                <a href="#" class="nav-link">All Events</a>
-                <a href="#" class="nav-link">Calendar</a>
-                <a href="#" class="nav-link">Venues</a>
+        <div class="header-content">
+            <div class="header-brand">
+                <span class="brand">🎭 Culture Calendar</span>
+                <span class="tagline">⬤ Film ⬤ Music ⬤ Books — All Events</span>
+            </div>
+            <nav class="nav-tabs">
+                <a href="#" class="nav-tab active" data-view="today">Today</a>
+                <a href="#" class="nav-tab" data-view="weekend">This Weekend</a>
+                <a href="#" class="nav-tab" data-view="week">This Week</a>
+                <a href="#" class="nav-tab" data-view="calendar">Calendar View</a>
             </nav>
         </div>
     </header>
@@ -39,14 +36,14 @@
         <!-- Filter Section -->
         <section class="filter-section">
             <div class="filter-main-controls">
-                <button id="refine-btn" class="refine-button">Refine Selection</button>
+                <button id="show-filters-btn" class="show-filters-button">Show Filters ▸</button>
                 <div class="download-buttons">
                     <button id="download-btn" class="download-button">Download Calendar</button>
                 </div>
             </div>
             
             <!-- Collapsible Filter Drawer -->
-            <div id="filter-drawer" class="filter-drawer">
+            <div id="filter-drawer" class="filter-drawer" style="display: none;">
                 <div class="filter-drawer-content">
                     <div class="rating-control">
                         <label for="rating-slider">Minimum Rating: <span id="rating-value">1</span>/10</label>
@@ -86,17 +83,10 @@
 
 
         <!-- Events List Section -->
-        <section class="movies-section" id="list-view">
-            <h2>All Upcoming Events</h2>
-            <div class="sort-dropdown results-sort">
-                <button class="icon-btn" id="sort-btn">Sort ▼</button>
-                <div class="sort-menu" id="sort-menu">
-                    <button class="sort-option active" data-sort="chronological">Chronological</button>
-                    <button class="sort-option" data-sort="rating">Rating (High to Low)</button>
-                </div>
-            </div>
+        <section class="events-section" id="list-view">
+            <h2 id="events-heading">Today's Events</h2>
             <div id="loading" class="loading">Loading event data...</div>
-            <div id="movies-list" class="movies-list"></div>
+            <div id="events-list" class="events-list"></div>
         </section>
 
         <!-- Calendar View Section -->
