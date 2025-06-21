@@ -1,4 +1,4 @@
-name: Weekly Culture Calendar Update
+name: Weekly Incremental Update
 
 on:
   schedule:
@@ -21,24 +21,32 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.11'
         
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Run weekly calendar update
+    - name: Run weekly incremental update
       env:
         PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
       run: |
-        echo "📅 Running weekly update - collecting all events"
-        python update_website_data.py --full
+        echo "📅 Running weekly incremental update"
+        echo "This will:"
+        echo "  🔍 Look for new events one week ahead from last update"
+        echo "  🎬 Scrape any new movies and screenings"
+        echo "  📚 Check for new book club events"
+        echo "  🤖 Generate AI ratings and summaries for new events only"
+        echo "  💾 Merge with existing data efficiently"
+        python update_website_data.py --days 14
         
     - name: Configure Git
       run: |
         git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action - Weekly Update"
+        git config --local user.name "GitHub Action - Weekly Incremental Update"
         
     - name: Commit and push changes
       env:
@@ -48,6 +56,6 @@ jobs:
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
-          git commit -m "📅 Weekly calendar update - $(date -u +%Y-%m-%d)"
+          git commit -m "📅 Weekly incremental update - New events processed - $(date -u +%Y-%m-%d)"
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
         fi

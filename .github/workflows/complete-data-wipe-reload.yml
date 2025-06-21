@@ -1,4 +1,4 @@
-name: Complete Data Wipe and Reload
+name: Complete Batch Reload
 
 on:
   # Allow manual triggering only
@@ -18,30 +18,35 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.11'
         
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Wipe existing data files (preserving classical data)
+    - name: Wipe all cached data and existing files
       run: |
-        echo "🧹 Wiping scraped data files (preserving classical_data.json)"
+        echo "🧹 Complete data wipe - removing all cached data"
         rm -f docs/data.json
         rm -f docs/source_update_times.json
-        echo "Data files wiped successfully (classical data preserved)"
+        rm -rf cache/
+        echo "All cached data wiped successfully (preserving classical_data.json)"
         
-    - name: Complete data reload - All venues for next 60 days
+    - name: Complete batch reload - All venues with fresh AI analysis
       env:
         PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
       run: |
-        echo "🔄 Complete data reload - collecting all events for next 60 days"
-        echo "This will gather:"
-        echo "  🎬 Movies from Austin Film Society & Hyperreal Film Club"
-        echo "  🎼 Classical music from Paramount, Symphony, Early Music, La Follia"
-        echo "  📚 Book clubs from Alienated Majesty & First Light Austin"
-        python update_website_data.py --full --force-reprocess --days 60
+        echo "🔄 Complete batch reload - regenerating everything from scratch"
+        echo "This will:"
+        echo "  🎬 Scrape movies from Austin Film Society & Hyperreal Film Club"
+        echo "  🎼 Load classical music from Paramount, Symphony, Early Music, La Follia"
+        echo "  📚 Scrape book clubs from Alienated Majesty & First Light Austin"
+        echo "  🤖 Generate fresh AI ratings and summaries for all events"
+        echo "  💾 Create new cache files and website data"
+        python update_website_data.py --full --force-reprocess
         
     - name: Configure Git
       run: |
@@ -56,6 +61,6 @@ jobs:
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
-          git commit -m "💥 Complete data wipe and reload - All venues for next 60 days - $(date -u +%Y-%m-%d)"
+          git commit -m "💥 Complete batch reload - Fresh AI analysis and summaries - $(date -u +%Y-%m-%d)"
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
         fi
