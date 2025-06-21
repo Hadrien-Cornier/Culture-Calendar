@@ -3,3 +3,5 @@
 venv/
 *.pyc
 docs/calendars/
+cache/
+__pycache__/
