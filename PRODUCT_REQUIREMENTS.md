@@ -1,77 +1,260 @@
-# Product Requirement Document: Culture Calendar
+# 🗓️ Culture Calendar Redesign — Full UI & UX Product Requirements
 
-## 1. Introduction & Vision
+This document supersedes the earlier product requirements now archived in `PRODUCT_REQUIREMENTS_ARCHIVE.md`. It provides a comprehensive overview of the redesign, complete with UX guidance, technical implementation details, and a markdown wireframe.
 
-Culture Calendar is a personal automation project designed to aggregate cultural events from various online sources, enrich them with personalized ratings and external data, and consolidate them into a single, easily accessible Google Calendar. The vision is to create a smart, curated, and effortless way to keep track of interesting cultural happenings, starting with film screenings and expanding to other areas like bookstore events and classical music concerts.
+## tl;dr
 
-## 2. Problem Statement
+This document outlines a comprehensive UI/UX redesign for the Culture Calendar web experience. The goal is to create an elegant, timeless, and high-utility interface that prioritizes “What’s happening today?” while allowing rich cultural discovery across film, music, and literature events in Austin.
 
-Manually tracking cultural events across multiple websites is time-consuming and inefficient. It's difficult to get a consolidated view of what's happening, and it requires extra effort to research each event to determine if it's a good fit for one's personal tastes. This often leads to missed opportunities and a reactive, rather than proactive, approach to planning cultural outings.
+We will redesign both the **list view** and the **calendar view**, integrate **ET Book typography**, hide or simplify secondary filters, and restructure information architecture around clarity, elegance, and decision-making.
 
-## 3. Goals & Objectives
+---
 
-*   **Automate Event Aggregation:** Eliminate the need to manually check multiple websites for event information.
-*   **Centralize Event Information:** Provide a single source of truth for all tracked cultural events in a familiar format (Google Calendar).
-*   **Personalize & Curate:** Automatically enrich events with ratings and relevant details to make it easier to decide what to attend.
-*   **Create a Scalable System:** Build a foundation that can be easily expanded to include new event sources and types in the future.
+## 🎯 Goals
 
-## 4. Target Audience
+### Business Goals
 
-The primary user is the project owner, an individual with a keen interest in cultural events who wants a more efficient and personalized way to manage their cultural life.
+- Increase .ics calendar downloads and event clickthroughs
+- Establish the site as a high-trust, design-forward source for culture
+- Improve mobile usability and desktop information density
 
-## 5. Project Phases & Features
+### User Goals
 
-### Phase 1: MVP - Austin Film Society Integration
+- See what’s on *today* without clicking or scrolling
+- Understand what an event is about at a glance
+- Read longer reviews if interested — not by default
+- Access filters only if needed, without distraction
 
-The Minimum Viable Product will focus on a single source to prove the core concept.
+### Non-Goals
 
-#### Core Features
+- No login, personalization, social, or ticketing features
+- No recommendation engine logic changes in this scope
+- No real-time interactivity (static site remains GitHub Pages-compatible)
 
-**1. Scheduled Web Scraping:**
-    - The system will automatically fetch event data from the Austin Film Society (AFS) calendar on a predefined schedule (e.g., daily, weekly).
-    - **Source URL:** `https://www.austinfilm.org/calendar/`
+---
 
-**2. Content Processing & Enrichment:**
-    - **Page Processing:** Use the Firecrawl API to process the AFS calendar page and extract event listings.
-    - **Detail Extraction:** For each event, follow its link to the detail page to determine if it is a "special screening" (e.g., Q&A with the director, 35mm print).
-    - **AI-Powered Rating:** Use the Perplexity AI API to research movie titles and generate a preliminary rating or summary.
+## 👤 User Stories
 
-**3. Personalized Rating System:**
-    - A mechanism will be developed to assign a final rating to each event. This rating will be a composite of:
-        - The rating/information gathered via the Perplexity API.
-        - A personal preference score derived from a user-defined text file (e.g., `preferences.txt`) containing keywords, directors, genres, etc.
-        - A boost for "special screenings".
+- “As someone planning tonight, I want to immediately see the best events today with a summary I can scan quickly.”
+- “As a curious cultural fan, I want to read rich reviews if I choose, but not be bombarded by them.”
+- “As someone on my phone, I want everything to be readable and not cluttered with options.”
+- “As a design lover, I want the site to feel like an elegant literary calendar — not a modern tech dashboard.”
 
-**4. iCalendar (`.ics`) File Generation:**
-    - The system will generate a standard `.ics` file containing all the processed and enriched events.
-    - Each calendar event will include:
-        - Event Title
-        - Date & Time
-        - Location (AFS Cinema)
-        - Description (including the calculated rating, an explanation for the rating, and a note if it's a special screening).
-        - A link back to the original AFS event page.
-    - This file can be manually imported into Google Calendar.
+---
 
-### Future Phases (Roadmap)
+## 🧑‍🎨 Design Language & Visual Aesthetic
 
-*   **Phase 2: Source Expansion:** Add support for more websites, such as local bookstores, music venues (for classical/chamber music), and other art-house cinemas. This will require making the scraping and processing logic more generic.
-*   **Phase 3: Direct Calendar Integration:** Implement direct integration with the Google Calendar API to add/update events automatically, removing the need for manual `.ics` file imports.
-*   **Phase 4: UI for Management:** Develop a simple web interface to manage event sources, view aggregated events, and tweak personalization settings.
+- Primary typeface: **ET Book** (self-hosted `.woff2` or via CDN)
+- Serif-only typography for all elements
+- Use **italics, small caps, and spacing** instead of bolding or color
+- Very limited use of icons or emoji — for signal only, not decoration
+- Layout should evoke **a printed cultural calendar or fine arts publication**
 
-## 6. Technical Requirements
+---
 
-*   **Programming Language:** To be determined, but a language like Python is recommended for its strong support for scripting, web scraping, and API integrations.
-*   **APIs:**
-    - **Firecrawl API:** For reliable content extraction from web pages.
-    - **Perplexity AI API:** For enriching event data with external information.
-*   **Configuration:**
-    - API keys and other sensitive information will be managed securely using a `.env` file.
-*   **Scheduling:**
-    - The scraping process will be run on a schedule using a `cron` job or a library-based scheduler.
+## ✨ Features & Experience
 
-## 7. Assumptions & Constraints
+### ✅ 1. Landing Experience
 
-*   The website structure of the Austin Film Society is reasonably stable.
-*   The Firecrawl and Perplexity APIs have the capabilities required for the specified extraction and enrichment tasks.
-*   The user possesses valid API keys for the required services.
-*   For Phase 1, the output is an `.ics` file, and manual import is an acceptable workflow. 
+- Immediately show **Today’s Events** list
+- Hide filters by default
+- Subtle tab-switching element to toggle views:
+
+```plaintext
+[ Today ] [ This Weekend ] [ This Week ] [ Calendar ]
+```
+
+---
+
+### ✅ 2. List View (Default View)
+- For each event, display:
+  - 🎬 Title
+  - 🕘 Time & Venue
+  - ★ Rating (text-based: “★★★★☆ Recommended”)
+  - 🧠 One-line vibe summary (e.g. “Bleak UK road film about obsession and loneliness”)
+  - 📚 Subtext/Tags (e.g. “Psychological · Female-led · 1990s · 88 min”)
+  - [ Read Review ▼ ] button (reveals full AI review inline)
+  - Use generous spacing between events to maintain readability
+
+---
+
+### ✅ 3. Review Interaction
+- Full AI reviews are hidden by default
+- On click, [ Read Review ▼ ] opens either:
+  - An inline accordion or
+  - A light modal overlay
+- Review collapses with [ Collapse ▲ ] or outside click
+
+---
+
+### ✅ 4. Calendar View
+- Monthly grid: full-width, responsive 7-column layout
+- Each cell can contain multiple “event pills” (short entries with time + title)
+- On hover (desktop) or tap (mobile), show preview tooltip with vibe summary + tag line
+- Clicking a day opens full summary list below the calendar
+- No three-letter truncation
+
+---
+
+### ✅ 5. Filters & Controls
+- Filters are collapsed by default
+- Accessed via a simple toggle:
+
+```
+[ Show Filters ▸ ]
+```
+
+- When expanded, show:
+
+```
+▾ Filters:
+──────────────
+✔️  Venue Filter: Checkbox group for 7 cultural venues  
+✔️  Category Filter: Film · Music · Literature  
+✔️  Rating Threshold: User-defined numerical input (1–10)  
+    — Not "7+" or "9+" presets  
+✔️  Country or Language: Optional tag input field  
+```
+
+- No time-based filtering needed (work-hour events already auto-excluded)
+
+---
+
+## 🧱 Wireframe Layout (Markdown/Figma Style)
+
+```
+HEADER
+
+┌────────────────────────────────────────────────────────────┐
+│                🎭 CULTURE CALENDAR (ET Book)               │
+│             ⬤ Film ⬤ Music ⬤ Books — All Events            │
+├────────────────────────────────────────────────────────────┤
+│ [ Today ] [ This Weekend ] [ This Week ] [ Calendar View ] │
+└────────────────────────────────────────────────────────────┘
+
+LIST VIEW
+
+📅 TODAY — June 21
+────────────────────────────────────────────────────────────
+
+🎬 BUTTERFLY KISS
+9:00 PM — AFS  
+★★★★☆ RECOMMENDED  
+Bleak UK road film about obsession and loneliness  
+(Psychological · Female-led · 1990s · 88 min)  
+[ Read Review ▼ ]
+
+────────────────────────────────────────────────────────────
+
+🎻 LA FOLLIA: BAROQUE LEGENDS
+7:30 PM — La Follia Austin  
+★★★★★ MUST-SEE  
+Candlelit Vivaldi & Corelli performed live  
+(Baroque · Chamber Music · Local Virtuosos · 90 min)  
+[ Read Review ▼ ]
+
+────────────────────────────────────────────────────────────
+
+📚 BOOK CLUB — "Solaris"  
+6:30 PM — Alienated Majesty Books  
+★★★★☆ RECOMMENDED  
+Sci-fi discussion on identity and consciousness  
+(Lem · Sci-Fi · Existential · 1972 · Russian)  
+[ Read Review ▼ ]
+
+REVIEW EXPANSION
+
+[ Read Review ▼ ] → expands to:
+
+⭐ Full AI Review — Butterfly Kiss
+
+Michael Winterbottom’s 1995 cult road film delivers a brutal, poetic narrative of obsession and trauma. Inspired by New German Cinema and British realism, the film follows Eunice and Miriam through bleak industrial towns, exploring intimacy, violence, and female alienation...
+
+[ Collapse ▲ ]
+
+CALENDAR VIEW
+
+📅 JUNE 2025
+────────────────────────────────────────────────────────────
+
+[Mon] [Tue] [Wed] [Thu] [Fri] [Sat] [Sun]
+────────────────────────────────────────────
+  1      2      3      4      5      6      7
+                      🎬 Film @ AFS
+                             📚 Book Club
+
+  8      9     10     11     12     13     14
+                      🎻 La Follia
+                      🎬 Hyperreal Screening
+
+ 15     16     17     18     19     20     21
+              🎬 Butterfly Kiss
+                             📚 Solaris
+
+ → Click any day to reveal:
+
+────────────────────────────────────────────
+
+📅 June 21
+🎬 BUTTERFLY KISS — 9:00 PM — AFS  
+(Psychological · UK · Female Antihero)
+
+🎻 LA FOLLIA — 7:30 PM — Chamber Music  
+(Vivaldi · Baroque · Intimate)
+
+📚 BOOK CLUB: Solaris — 6:30 PM  
+(Sci-fi · Consciousness · Lem)
+```
+
+---
+
+## ✅ Success Metrics
+- +30% increase in .ics downloads
+- 40%+ users expand a review at least once
+- Time on site > 2:00 avg
+- Bounce rate < 30% mobile
+
+---
+
+## 🛠️ Technical Implementation
+
+### Fonts
+- ET Book loaded via .woff2 or CDN
+- Fallback: Garamond, Georgia
+
+### CSS/JS
+- Use CSS Grid for calendar layout
+- Use JS (or Alpine.js or minimal React) for:
+  - Toggling reviews
+  - Switching view modes
+  - Expanding calendar details
+- Avoid any build toolchains that prevent GitHub Pages deployment
+
+### Data
+- Events still pulled via Python scraper
+- Event metadata includes:
+  - Title, time, venue, rating (1–10), one-liner summary, tag list, full review
+
+---
+
+## 📅 Milestones
+
+**Week 1**
+- Set up ET Book + base typography styles
+- Build new list view with expandable reviews
+
+**Week 2**
+- Overhaul calendar layout + event pill display
+- Implement calendar interaction model (hover/tap, click to expand)
+
+**Week 3**
+- Implement filter toggle logic + styling
+- QA full responsive behavior
+- Connect to live data source + deploy
+
+---
+
+## 📖 Narrative
+
+The Culture Calendar isn’t just a listings site — it’s a cultural artifact in itself. By pairing thoughtful curation with elegant presentation, this redesign creates a space that feels more like a print magazine than a tech platform. It’s for people who value story, clarity, and beautiful information. With this redesign, Culture Calendar becomes not just useful, but essential.
+
