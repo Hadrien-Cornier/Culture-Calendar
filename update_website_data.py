@@ -386,8 +386,8 @@ def generate_website_data(events):
         event_id = title.lower().replace(' ', '-').replace("'", '').replace('"', '').replace(':', '').replace(',', '')
         event_data['id'] = event_id
         
-        # Sort screenings by date and time
-        event_data['screenings'].sort(key=lambda x: (x['date'], x['time']))
+        # Sort screenings by date and time (handle None values)
+        event_data['screenings'].sort(key=lambda x: (x.get('date') or '9999-12-31', x.get('time') or '23:59'))
         
         website_data.append(event_data)
     
@@ -396,8 +396,8 @@ def generate_website_data(events):
         screenings = item.get('screenings', [])
         if not screenings:
             return ('9999-12-31', '23:59')
-        first = min(screenings, key=lambda s: (s['date'], s.get('time', '')))
-        return (first['date'], first.get('time', ''))
+        first = min(screenings, key=lambda s: (s.get('date') or '9999-12-31', s.get('time') or '23:59'))
+        return (first.get('date') or '9999-12-31', first.get('time') or '23:59')
 
     website_data.sort(key=first_screening_key)
     
