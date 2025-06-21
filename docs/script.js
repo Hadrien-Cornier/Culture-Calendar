@@ -198,6 +198,10 @@ function handleNavClick(linkText, element) {
         case 'this week':
             filterThisWeek();
             break;
+        case 'weekend':
+        case 'this weekend':
+            filterThisWeekend();
+            break;
         case 'calendar':
             clearDateRangeFilter();
             switchToCalendarView();
@@ -272,6 +276,34 @@ function filterThisWeek() {
     }
     
     // Switch to list view for better readability
+    switchToListView();
+}
+
+function filterThisWeekend() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Determine Friday of the current week
+    const friday = new Date(today);
+    const day = friday.getDay();
+    const diffToFriday = (5 - day + 7) % 7;
+    friday.setDate(friday.getDate() + diffToFriday);
+
+    const sunday = new Date(friday);
+    sunday.setDate(friday.getDate() + 2);
+    sunday.setHours(23, 59, 59, 999);
+
+    dateRangeStart = friday;
+    dateRangeEnd = sunday;
+
+    updateFilteredMovies();
+    renderMovies();
+
+    const sectionHeader = document.querySelector('#list-view h2');
+    if (sectionHeader) {
+        sectionHeader.textContent = `This Weekend's Events (${filteredMovies.length})`;
+    }
+
     switchToListView();
 }
 
@@ -662,9 +694,9 @@ function getEarliestScreeningDate(movie) {
     if (!movie.screenings || movie.screenings.length === 0) {
         return new Date('2099-12-31'); // Far future date for events without screenings
     }
-    
-    const dates = movie.screenings.map(screening => parseLocalDate(screening.date));
-    return new Date(Math.min(...dates));
+
+    const dates = movie.screenings.map(screening => new Date(screening.date));
+    return new Date(Math.min(...dates.map(d => d.getTime())));
 }
 
 // Render movies list
@@ -751,27 +783,27 @@ function createMovieCard(movie) {
     const metaHtml = metaParts.length ? `<div class="movie-subtitle">${metaParts.join(' • ')}</div>` : '';
 
     // Create screening tags with safety check
-    const screeningTags = (movie.screenings && Array.isArray(movie.screenings)) 
+    const screeningsText = (movie.screenings && Array.isArray(movie.screenings))
         ? movie.screenings.map(screening => {
             const formattedDate = formatDate(screening.date);
             const formattedTime = screening.time || 'Time TBA';
-            return `<a href="${screening.url}" target="_blank" class="screening-tag">
-                ${formattedDate} • ${formattedTime}
-            </a>`;
-        }).join('')
-        : '<span class="screening-tag">No screenings available</span>';
+            return `${formattedDate} • ${formattedTime}`;
+        }).join(' | ')
+        : 'No screenings available';
+
+    const eventUrl = movie.screenings && movie.screenings[0] ? movie.screenings[0].url : (movie.url || '#');
     
     return `
         <div class="movie-card">
             ${stampHtml}
             <div class="movie-header">
-                <h3 class="movie-title">${escapeHtml(movie.title)}</h3>
+                <h3 class="movie-title"><a href="${eventUrl}" target="_blank">${escapeHtml(movie.title)}</a></h3>
                 <div class="movie-rating">${finalRating || 'N/A'}/10 ${boostHtml}</div>
                 ${needsExpansion ? `<button class="collapse-button toggle-button" data-movie-id="${movie.id || 'unknown'}" style="display:none">Hide</button>` : ''}
             </div>
             ${metaHtml}
             <div class="screenings-container">
-                ${screeningTags}
+                <div class="screenings-text">${screeningsText}</div>
                 ${movie.isSpecialScreening ? '<span class="special-screening-indicator">Special Screening</span>' : ''}
             </div>
 
