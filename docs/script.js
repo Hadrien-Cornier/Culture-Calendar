@@ -741,6 +741,15 @@ function createMovieCard(movie) {
         stampHtml = '<span class="quality-stamp">★</span>';
     }
 
+    const metaParts = [];
+    if (movie.director) metaParts.push(`Dir. ${escapeHtml(movie.director)}`);
+    if (movie.country) metaParts.push(movie.country);
+    if (movie.year) metaParts.push(movie.year);
+    if (movie.language && movie.language !== 'English') metaParts.push(movie.language);
+    if (movie.duration) metaParts.push(movie.duration);
+    if (movie.venue) metaParts.push(getVenueName(movie.venue));
+    const metaHtml = metaParts.length ? `<div class="movie-subtitle">${metaParts.join(' • ')}</div>` : '';
+
     // Create screening tags with safety check
     const screeningTags = (movie.screenings && Array.isArray(movie.screenings)) 
         ? movie.screenings.map(screening => {
@@ -754,27 +763,18 @@ function createMovieCard(movie) {
     
     return `
         <div class="movie-card">
+            ${stampHtml}
             <div class="movie-header">
                 <h3 class="movie-title">${escapeHtml(movie.title)}</h3>
-                <div class="movie-rating">★ ${finalRating || 'N/A'}/10 ${boostHtml} ${stampHtml}</div>
+                <div class="movie-rating">${finalRating || 'N/A'}/10 ${boostHtml}</div>
                 ${needsExpansion ? `<button class="collapse-button toggle-button" data-movie-id="${movie.id || 'unknown'}" style="display:none">Hide</button>` : ''}
             </div>
-            
-            <div class="movie-info">
-                <div class="movie-badges">
-                    ${movie.duration ? `<span class="movie-meta-badge">${movie.duration}</span>` : ''}
-                    ${movie.director ? `<span class="movie-meta-badge director-badge" data-director="${escapeHtml(movie.director)}">Dir. ${escapeHtml(movie.director)}</span>` : ''}
-                    ${movie.country ? `<span class="country-badge">${movie.country}</span>` : ''}
-                    ${movie.year ? `<span class="year-badge">${movie.year}</span>` : ''}
-                    ${movie.language && movie.language !== 'English' ? `<span class="language-badge">${movie.language}</span>` : ''}
-                    ${movie.venue ? `<span class="venue-badge venue-${movie.venue.toLowerCase()}">${getVenueName(movie.venue)}</span>` : ''}
-                </div>
-                <div class="screenings-container">
-                    ${screeningTags}
-                    ${movie.isSpecialScreening ? '<span class="special-screening-indicator">Special Screening</span>' : ''}
-                </div>
+            ${metaHtml}
+            <div class="screenings-container">
+                ${screeningTags}
+                ${movie.isSpecialScreening ? '<span class="special-screening-indicator">Special Screening</span>' : ''}
             </div>
-            
+
             <div class="movie-description">
                 <div class="description-preview" id="preview-${movie.id || 'unknown'}">
                     ${formatDescription(shortDescription)}

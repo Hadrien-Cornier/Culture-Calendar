@@ -608,6 +608,7 @@ main {
     border-radius: 4px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     min-height: 160px;
+    position: relative;
 }
 
 .movie-card:hover {
@@ -635,6 +636,13 @@ main {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.movie-subtitle {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 0.75rem;
 }
 
 .movie-rating {
@@ -667,8 +675,10 @@ main {
     padding: 0.2rem 0.6rem;
     border-radius: 12px;
     font-size: 0.8rem;
-    margin-left: 0.5rem;
     font-family: 'EB Garamond', serif;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
 }
 
 .movie-info {
@@ -681,8 +691,6 @@ main {
     gap: 0.4rem;
     margin-bottom: 0.5rem;
     line-height: 1.4;
-    max-height: 2.8rem;
-    overflow: hidden;
 }
 
 .movie-meta-badge {
@@ -793,8 +801,6 @@ main {
     gap: 0.5rem;
     margin-bottom: 1.5rem;
     line-height: 1.4;
-    max-height: 3rem;
-    overflow: hidden;
 }
 
 .screening-tag {
