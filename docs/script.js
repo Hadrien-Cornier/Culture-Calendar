@@ -208,6 +208,16 @@ function handleNavClick(linkText, element) {
                 toggleFilterDrawer();
             }
             break;
+        case 'all events':
+            currentNavFilter = 'all';
+            clearDateRangeFilter();
+            updateFilteredMovies();
+            renderMovies();
+            const allHeader = document.querySelector('#list-view h2');
+            if (allHeader) {
+                allHeader.textContent = 'All Upcoming Events';
+            }
+            break;
         default:
             currentNavFilter = 'all';
             clearDateRangeFilter();
@@ -362,6 +372,7 @@ async function loadMoviesData() {
         setupVenueFilters();
         updateFilteredMovies();
         renderMovies();
+        filterToday();
         
         // Check for outdated classical music data
         checkClassicalDataFreshness();
@@ -414,7 +425,7 @@ async function loadCodeUpdateTime() {
         if (Array.isArray(data) && data.length > 0) {
             const commitDate = data[0].commit.committer.date;
             const localDate = new Date(commitDate).toLocaleString();
-            codeUpdatedElement.textContent = `Code updated: ${localDate}`;
+            codeUpdatedElement.textContent = `Data last updated: ${localDate}`;
         }
     } catch (err) {
         console.error('Error loading code update time', err);
@@ -725,6 +736,10 @@ function createMovieCard(movie) {
         const boost = finalRating - aiRating;
         boostHtml = `<span class="preference-boost">+${boost}</span>`;
     }
+    let stampHtml = '';
+    if (finalRating && finalRating >= 8) {
+        stampHtml = '<span class="quality-stamp">★</span>';
+    }
 
     // Create screening tags with safety check
     const screeningTags = (movie.screenings && Array.isArray(movie.screenings)) 
@@ -741,7 +756,7 @@ function createMovieCard(movie) {
         <div class="movie-card">
             <div class="movie-header">
                 <h3 class="movie-title">${escapeHtml(movie.title)}</h3>
-                <div class="movie-rating">★ ${finalRating || 'N/A'}/10 ${boostHtml}</div>
+                <div class="movie-rating">★ ${finalRating || 'N/A'}/10 ${boostHtml} ${stampHtml}</div>
                 ${needsExpansion ? `<button class="collapse-button toggle-button" data-movie-id="${movie.id || 'unknown'}" style="display:none">Hide</button>` : ''}
             </div>
             

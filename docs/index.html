@@ -6,7 +6,7 @@
     <title>Culture Calendar - Austin Cultural Events</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,6 +20,7 @@
             <nav class="nav-rail">
                 <a href="#" class="nav-link active">Today</a>
                 <a href="#" class="nav-link">This Week</a>
+                <a href="#" class="nav-link">All Events</a>
                 <a href="#" class="nav-link">Calendar</a>
                 <a href="#" class="nav-link">Venues</a>
             </nav>
@@ -116,24 +117,32 @@
             <div id="calendar-container" class="calendar-container"></div>
         </section>
 
-        <!-- Disclaimer Section relocated -->
-        <section class="disclaimer">
-            <p><strong>Note:</strong> Ratings reflect personal preferences focusing on artistic excellence and aesthetic beauty.
-            Film events exclude work hours (9am-6pm weekdays).
-            Events sourced from <a href="https://www.austinfilm.org" target="_blank">Austin Film Society</a>,
-            <a href="https://hyperrealfilm.club" target="_blank">Hyperreal Film Club</a>,
-            <a href="https://www.austinparamount.com" target="_blank">Paramount Theatre</a>,
-            <a href="https://austinsymphony.org" target="_blank">Austin Symphony Orchestra</a>,
-            <a href="https://www.early-music.org" target="_blank">Texas Early Music Project</a>,
-            <a href="https://www.lafolliaaustin.org" target="_blank">La Follia Austin</a>,
-            <a href="https://www.alienatedmajestybooks.com" target="_blank">Alienated Majesty Books</a>, and
-            <a href="https://www.firstlightaustin.com" target="_blank">First Light Austin</a>.</p>
+        <!-- How It Works / Methodology -->
+        <section class="info-section">
+            <h3>How It Works</h3>
+            <p>Event data is scraped from major Austin venues and rated using the Perplexity AI API. Screenings during standard work hours are automatically filtered out.</p>
+
+            <h4>Methodology</h4>
+            <pre class="prompt-sample">You are a ruthless film critic... ★ Rating: [X/10]</pre>
+
+            <h4>API</h4>
+            <p>Calendar API support is coming soon.</p>
+
+            <h4>Venues</h4>
+            <ul class="venue-links">
+                <li><a href="https://www.austinfilm.org" target="_blank">Austin Film Society</a></li>
+                <li><a href="https://hyperrealfilm.club" target="_blank">Hyperreal Film Club</a></li>
+                <li><a href="https://www.austinparamount.com" target="_blank">Paramount Theatre</a></li>
+                <li><a href="https://austinsymphony.org" target="_blank">Austin Symphony Orchestra</a></li>
+                <li><a href="https://www.early-music.org" target="_blank">Texas Early Music Project</a></li>
+                <li><a href="https://www.lafolliaaustin.org" target="_blank">La Follia Austin</a></li>
+                <li><a href="https://www.alienatedmajestybooks.com" target="_blank">Alienated Majesty Books</a></li>
+                <li><a href="https://www.firstlightaustin.com" target="_blank">First Light Austin</a></li>
+            </ul>
         </section>
 
         <section class="update-info">
-            <h3>Data Last Updated</h3>
-            <ul id="update-list"></ul>
-            <p id="code-updated">Code updated: loading...</p>
+            <p id="code-updated">Data last updated: loading...</p>
         </section>
     </main>
 
