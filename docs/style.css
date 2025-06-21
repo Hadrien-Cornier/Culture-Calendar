@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'EB Garamond', serif;
+    font-family: 'et-book', 'EB Garamond', Georgia, serif;
     font-weight: 400;
     line-height: 1.6;
     color: #111;
@@ -112,7 +112,7 @@ body {
     padding: 0.4rem 1rem;
     font-size: 0.85rem;
     cursor: pointer;
-    font-family: 'EB Garamond', serif;
+    font-family: 'et-book', 'EB Garamond', Georgia, serif;
     transition: background 0.2s ease;
 }
 
@@ -193,7 +193,7 @@ main {
 
 .info-section h3,
 .info-section h4 {
-    font-family: 'EB Garamond', serif;
+    font-family: 'et-book', 'EB Garamond', Georgia, serif;
     margin-bottom: 0.5rem;
 }
 
@@ -626,7 +626,7 @@ main {
 }
 
 .movie-title {
-    font-family: 'EB Garamond', serif;
+    font-family: 'et-book', 'EB Garamond', Georgia, serif;
     font-size: 1rem;
     font-weight: 700;
     color: #111;
@@ -675,7 +675,7 @@ main {
     padding: 0.2rem 0.6rem;
     border-radius: 12px;
     font-size: 0.8rem;
-    font-family: 'EB Garamond', serif;
+    font-family: 'et-book', 'EB Garamond', Georgia, serif;
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -843,7 +843,7 @@ main {
 .movie-description {
     color: #111;
     line-height: 1.4;
-    font-family: 'EB Garamond', serif;
+    font-family: 'et-book', 'EB Garamond', Georgia, serif;
     font-size: 0.975rem;
 }
 
