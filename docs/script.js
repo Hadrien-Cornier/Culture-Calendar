@@ -9,7 +9,7 @@ let currentYear = new Date().getFullYear();
 let dateRangeStart = null;
 let dateRangeEnd = null;
 let currentSort = 'chronological';
-let currentView = 'today'; // today, weekend, week, calendar
+let currentView = 'today'; // today, weekend, week, all, calendar
 
 // DOM elements
 const ratingSlider = document.getElementById('rating-slider');
@@ -1424,6 +1424,10 @@ function switchView(viewType) {
                 filterWeek();
                 eventsHeading.textContent = "This Week";
                 break;
+            case 'all':
+                filterAll();
+                eventsHeading.textContent = "All Upcoming Events";
+                break;
         }
         
         updateFilteredEvents();
@@ -1468,9 +1472,15 @@ function filterWeek() {
     today.setHours(0, 0, 0, 0);
     const nextWeek = new Date(today);
     nextWeek.setDate(today.getDate() + 7);
-    
+
     dateRangeStart = today;
     dateRangeEnd = nextWeek;
+}
+
+// Clear date filtering to show all upcoming events
+function filterAll() {
+    dateRangeStart = null;
+    dateRangeEnd = null;
 }
 
 // Update filtered events based on current filters
