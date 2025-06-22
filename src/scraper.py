@@ -14,6 +14,7 @@ import os
 import asyncio
 from pyppeteer import launch
 from firecrawl import FirecrawlApp
+from anthropic import Anthropic
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -645,26 +646,34 @@ class AlienatedMajestyBooksScraper:
                 print("Trying Firecrawl for JavaScript rendering")
                 scrape_result = self.firecrawl.scrape_url(url, params={'formats': ['markdown', 'html']})
                 print(f"Firecrawl response keys: {list(scrape_result.keys()) if scrape_result else 'None'}")
-                if scrape_result and 'html' in scrape_result:
-                    events = self._parse_book_club_html(scrape_result['html'])
+                if scrape_result and 'markdown' in scrape_result:
+                    # Try Anthropic parsing first (most reliable)
+                    events = self._parse_with_anthropic(scrape_result['markdown'])
+                    if events:
+                        print(f"Firecrawl markdown + Anthropic successfully found {len(events)} events")
+                        return events
+                    
+                    # Fallback to regex parsing if Anthropic fails
+                    print("Anthropic parsing failed, trying regex parsing")
+                    events = self._parse_book_club_text(scrape_result['markdown'])
+                    if events:
+                        print(f"Firecrawl markdown + regex successfully found {len(events)} events")
+                        return events
+                    print("Firecrawl markdown succeeded but no events found with either parsing method")
+                elif scrape_result and 'html' in scrape_result:
+                    soup = BeautifulSoup(scrape_result['html'], 'html.parser')
+                    events = self._parse_book_club_text(soup.get_text())
                     if events:
                         print(f"Firecrawl HTML successfully found {len(events)} events")
                         return events
-                    print("Firecrawl HTML succeeded but no events found in parsed HTML")
+                    print("Firecrawl HTML succeeded but no events found")
                 elif scrape_result and 'content' in scrape_result:
                     # Use content field as fallback
-                    events = self._parse_book_club_html(scrape_result['content'])
+                    events = self._parse_book_club_text(scrape_result['content'])
                     if events:
                         print(f"Firecrawl content successfully found {len(events)} events")
                         return events
-                    print("Firecrawl content succeeded but no events found in parsed content")
-                elif scrape_result and 'markdown' in scrape_result:
-                    # Use markdown field as last resort
-                    events = self._parse_book_club_html(scrape_result['markdown'])
-                    if events:
-                        print(f"Firecrawl markdown successfully found {len(events)} events")
-                        return events
-                    print("Firecrawl markdown succeeded but no events found in parsed markdown")
+                    print("Firecrawl content succeeded but no events found")
                 else:
                     print(f"Firecrawl failed to return usable content. Result keys: {list(scrape_result.keys()) if scrape_result else 'None'}")
             except Exception as e:
@@ -754,7 +763,87 @@ class FirstLightAustinScraper:
             print(f"FirstLight: Firecrawl API key configured: {firecrawl_api_key[:10]}...")
         else:
             print("FirstLight: No Firecrawl API key found in environment")
+        
+        # Initialize Anthropic client
+        anthropic_api_key = os.getenv('ANTHROPIC_API_KEY')
+        self.anthropic = Anthropic(api_key=anthropic_api_key) if anthropic_api_key else None
+        if anthropic_api_key:
+            print(f"FirstLight: Anthropic API key configured: {anthropic_api_key[:10]}...")
+        else:
+            print("FirstLight: No Anthropic API key found in environment")
     
+    def _parse_with_anthropic(self, markdown_content: str) -> List[Dict]:
+        """
+        Use Anthropic Claude to parse book club events from markdown content.
+        This is more reliable than regex-based parsing.
+        """
+        if not self.anthropic:
+            print("Anthropic client not available, falling back to regex parsing")
+            return []
+        
+        try:
+            prompt = f"""Parse the following markdown content from a book club website and extract all book club events. Return the data as a JSON array.
+
+For each book club event, extract:
+- title: The book club name (e.g., "World Wide What", "About Motherhood")
+- book: The book title being discussed
+- author: The book's author
+- date: The meeting date in YYYY-MM-DD format
+- time: The meeting time (e.g., "7:00 PM")
+- host: The host name if mentioned
+- description: A brief description of the book club
+
+Markdown content:
+{markdown_content}
+
+Return ONLY valid JSON array. Example format:
+[
+  {{
+    "title": "World Wide What",
+    "book": "The Jamaica Kollection of the Shante Dream Arkive",
+    "author": "Marcia Douglas",
+    "date": "2025-06-27",
+    "time": "7:00 PM",
+    "host": "Sam Ackerman",
+    "description": "Travels to the forefront of global storytelling with recently released works and enduring classics."
+  }}
+]"""
+
+            # Add rate limiting
+            time.sleep(1)
+            
+            response = self.anthropic.messages.create(
+                model="claude-3-5-sonnet-20241022",
+                max_tokens=1000,
+                temperature=0.1,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+            
+            # Extract JSON from response
+            content = response.content[0].text.strip()
+            
+            # Try to find JSON in the response (in case Claude adds extra text)
+            json_start = content.find('[')
+            json_end = content.rfind(']') + 1
+            
+            if json_start != -1 and json_end > json_start:
+                json_str = content[json_start:json_end]
+                events = json.loads(json_str)
+                print(f"Anthropic successfully parsed {len(events)} book club events")
+                return events
+            else:
+                print(f"Could not find valid JSON in Anthropic response: {content}")
+                return []
+                
+        except Exception as e:
+            print(f"Error parsing with Anthropic: {e}")
+            return []
+
     def _parse_book_club_text(self, text: str) -> List[Dict]:
         """Parse book club information from page text"""
         import re
@@ -847,7 +936,13 @@ class FirstLightAustinScraper:
                 print("Trying Firecrawl for First Light Austin")
                 scrape_result = self.firecrawl.scrape_url(url, params={'formats': ['markdown', 'html']})
                 print(f"Firecrawl response keys: {list(scrape_result.keys()) if scrape_result else 'None'}")
-                if scrape_result and 'html' in scrape_result:
+                if scrape_result and 'markdown' in scrape_result:
+                    events = self._parse_with_anthropic(scrape_result['markdown'])
+                    if events:
+                        print(f"Firecrawl markdown successfully found {len(events)} events")
+                        return events
+                    print("Firecrawl markdown succeeded but no events found")
+                elif scrape_result and 'html' in scrape_result:
                     soup = BeautifulSoup(scrape_result['html'], 'html.parser')
                     events = self._parse_book_club_text(soup.get_text())
                     if events:
@@ -861,12 +956,6 @@ class FirstLightAustinScraper:
                         print(f"Firecrawl content successfully found {len(events)} events")
                         return events
                     print("Firecrawl content succeeded but no events found")
-                elif scrape_result and 'markdown' in scrape_result:
-                    events = self._parse_book_club_text(scrape_result['markdown'])
-                    if events:
-                        print(f"Firecrawl markdown successfully found {len(events)} events")
-                        return events
-                    print("Firecrawl markdown succeeded but no events found")
                 else:
                     print(f"Firecrawl failed to return usable content. Result keys: {list(scrape_result.keys()) if scrape_result else 'None'}")
             except Exception as e:
@@ -894,22 +983,42 @@ class FirstLightAustinScraper:
             return []
         
         for club in book_clubs:
-            for i, date in enumerate(club['dates']):
-                time = club['times'][i] if i < len(club['times']) else club['times'][0]
-                
+            # Handle both old regex format and new Anthropic format
+            if 'dates' in club:
+                # Old regex format - has dates array
+                for i, date in enumerate(club['dates']):
+                    time = club['times'][i] if i < len(club['times']) else club['times'][0]
+                    
+                    event = {
+                        'title': f"{club['title']}: {club['book']}",
+                        'url': f"{self.base_url}/book-club",
+                        'date': date,
+                        'time': time,
+                        'type': 'book_club',
+                        'location': club['venue_name'],
+                        'venue': 'FirstLight',
+                        'series': club['series'],
+                        'book': club['book'],
+                        'author': club['author'],
+                        'host': club.get('host', ''),
+                        'description': club['description']
+                    }
+                    events.append(event)
+            else:
+                # New Anthropic format - has single date and time
                 event = {
                     'title': f"{club['title']}: {club['book']}",
                     'url': f"{self.base_url}/book-club",
-                    'date': date,
-                    'time': time,
+                    'date': club['date'],
+                    'time': club['time'],
                     'type': 'book_club',
-                    'location': club['venue_name'],
+                    'location': 'First Light Austin',
                     'venue': 'FirstLight',
-                    'series': club['series'],
+                    'series': 'Book Club',
                     'book': club['book'],
                     'author': club['author'],
                     'host': club.get('host', ''),
-                    'description': club['description']
+                    'description': club.get('description', '')
                 }
                 events.append(event)
         
