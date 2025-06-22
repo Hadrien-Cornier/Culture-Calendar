@@ -35,6 +35,12 @@ const codeUpdatedElement = document.getElementById('code-updated');
 const showFiltersBtn = document.getElementById('show-filters-btn');
 const filterDrawer = document.getElementById('filter-drawer');
 const navTabs = document.querySelectorAll('.nav-tab');
+const sortBtn = document.getElementById('sort-btn');
+const sortMenu = document.getElementById('sort-menu');
+const navLinks = document.querySelectorAll('.nav-link');
+const refineBtn = document.getElementById('refine-btn');
+const listViewBtn = document.getElementById('list-view-btn');
+const calendarViewBtn = document.getElementById('calendar-view-btn');
 
 let searchTerm = '';
 let selectedDirector = null;
@@ -133,13 +139,15 @@ function setupEventListeners() {
     }
 
     // Navigation functionality
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const linkText = this.textContent.toLowerCase();
-            handleNavClick(linkText, this);
+    if (navLinks && navLinks.length > 0) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const linkText = this.textContent.toLowerCase();
+                handleNavClick(linkText, this);
+            });
         });
-    });
+    }
 
     // Sort options
     document.addEventListener('click', function(e) {
@@ -155,11 +163,15 @@ function setupEventListeners() {
 
 // Sort menu functions
 function toggleSortMenu() {
-    sortMenu.classList.toggle('open');
+    if (sortMenu) {
+        sortMenu.classList.toggle('open');
+    }
 }
 
 function closeSortMenu() {
-    sortMenu.classList.remove('open');
+    if (sortMenu) {
+        sortMenu.classList.remove('open');
+    }
 }
 
 function handleSortChange(sortType) {
@@ -172,14 +184,16 @@ function handleSortChange(sortType) {
     document.querySelector(`[data-sort="${sortType}"]`).classList.add('active');
     
     // Re-render movies with new sort
-    renderMovies();
+    renderEvents();
     closeSortMenu();
 }
 
 // Navigation functions
 function handleNavClick(linkText, element) {
     // Update active nav link
-    navLinks.forEach(link => link.classList.remove('active'));
+    if (navLinks && navLinks.length > 0) {
+        navLinks.forEach(link => link.classList.remove('active'));
+    }
     element.classList.add('active');
     
     // Set navigation filter
@@ -210,8 +224,8 @@ function handleNavClick(linkText, element) {
         case 'all events':
             currentNavFilter = 'all';
             clearDateRangeFilter();
-            updateFilteredMovies();
-            renderMovies();
+            updateFilteredEvents();
+            renderEvents();
             const allHeader = document.querySelector('#list-view h2');
             if (allHeader) {
                 allHeader.textContent = 'All Upcoming Events';
@@ -220,8 +234,8 @@ function handleNavClick(linkText, element) {
         default:
             currentNavFilter = 'all';
             clearDateRangeFilter();
-            updateFilteredMovies();
-            renderMovies();
+            updateFilteredEvents();
+            renderEvents();
             // Reset section header
             const sectionHeader = document.querySelector('#list-view h2');
             if (sectionHeader) {
@@ -239,13 +253,13 @@ function filterToday() {
     dateRangeStart = today;
     dateRangeEnd = tomorrow;
     
-    updateFilteredMovies();
-    renderMovies();
+    updateFilteredEvents();
+    renderEvents();
     
     // Update section header
     const sectionHeader = document.querySelector('#list-view h2');
     if (sectionHeader) {
-        sectionHeader.textContent = `Today's Events (${filteredMovies.length})`;
+        sectionHeader.textContent = `Today's Events (${filteredEvents.length})`;
     }
     
     // Switch to list view for better readability
@@ -261,13 +275,13 @@ function filterThisWeek() {
     dateRangeStart = today;
     dateRangeEnd = nextWeek;
     
-    updateFilteredMovies();
-    renderMovies();
+    updateFilteredEvents();
+    renderEvents();
     
     // Update section header
     const sectionHeader = document.querySelector('#list-view h2');
     if (sectionHeader) {
-        sectionHeader.textContent = `This Week's Events (${filteredMovies.length})`;
+        sectionHeader.textContent = `This Week's Events (${filteredEvents.length})`;
     }
     
     // Switch to list view for better readability
@@ -301,12 +315,12 @@ function filterThisWeekend() {
     dateRangeStart = friday;
     dateRangeEnd = sunday;
 
-    updateFilteredMovies();
-    renderMovies();
+    updateFilteredEvents();
+    renderEvents();
 
     const sectionHeader = document.querySelector('#list-view h2');
     if (sectionHeader) {
-        sectionHeader.textContent = `This Weekend's Events (${filteredMovies.length})`;
+        sectionHeader.textContent = `This Weekend's Events (${filteredEvents.length})`;
     }
 
     switchToListView();
@@ -314,12 +328,12 @@ function filterThisWeekend() {
 
 // Toggle filter drawer
 function toggleFilterDrawer() {
-    if (filterDrawer.classList.contains('open')) {
+    if (filterDrawer && filterDrawer.classList.contains('open')) {
         filterDrawer.classList.remove('open');
-        refineBtn.textContent = 'Refine Selection';
-    } else {
+        if (refineBtn) refineBtn.textContent = 'Refine Selection';
+    } else if (filterDrawer) {
         filterDrawer.classList.add('open');
-        refineBtn.textContent = 'Hide Options';
+        if (refineBtn) refineBtn.textContent = 'Hide Options';
     }
 }
 
@@ -341,9 +355,9 @@ function switchToCalendarView() {
         if (listViewBtn) listViewBtn.classList.remove('active');
         if (calendarViewBtn) calendarViewBtn.classList.add('active');
         
-        console.log('Movies data length:', moviesData.length); // Debug log
+        console.log('Events data length:', eventsData.length); // Debug log
         
-        if (moviesData && moviesData.length > 0) {
+        if (eventsData && eventsData.length > 0) {
             renderCalendar();
         } else {
             console.log('No event data available for calendar');
@@ -472,8 +486,8 @@ async function loadCodeUpdateTime() {
 
 // Setup country filter buttons
 function setupGenreFilters() {
-    const countries = [...new Set(moviesData
-        .map(movie => movie.country)
+    const countries = [...new Set(eventsData
+        .map(event => event.country)
         .filter(country => country)
     )].sort();
     
@@ -498,8 +512,8 @@ function setupGenreFilters() {
 
 // Setup venue filter buttons
 function setupVenueFilters() {
-    const venues = [...new Set(moviesData
-        .map(movie => movie.venue)
+    const venues = [...new Set(eventsData
+        .map(event => event.venue)
         .filter(venue => venue)
     )].sort();
     
@@ -540,8 +554,8 @@ function toggleSpecialEventsFilter() {
         specialEventsToggle.textContent = 'Show Special Events Only';
     }
     
-    updateFilteredMovies();
-    renderMovies();
+    updateFilteredEvents();
+    renderEvents();
     
     // Re-render calendar if it's currently visible
     if (calendarView.style.display !== 'none') {
@@ -578,8 +592,8 @@ function toggleGenreFilter(genre) {
         }
     }
     
-    updateFilteredMovies();
-    renderMovies();
+    updateFilteredEvents();
+    renderEvents();
     
     // Re-render calendar if it's currently visible
     if (calendarView.style.display !== 'none') {
@@ -623,8 +637,8 @@ function toggleVenueFilter(venue) {
     
     console.log('Selected venues after:', [...selectedVenues]); // Debug log
     
-    updateFilteredMovies();
-    renderMovies();
+    updateFilteredEvents();
+    renderEvents();
     
     // Re-render calendar if it's currently visible
     if (calendarView.style.display !== 'none') {
@@ -633,36 +647,36 @@ function toggleVenueFilter(venue) {
 }
 
 // Update filtered movies based on current rating and genre filters
-function updateFilteredMovies() {
+function updateFilteredEvents() {
     const minRating = parseInt(ratingSlider.value);
     
-    filteredMovies = moviesData.filter(movie => {
+    filteredEvents = eventsData.filter(movie => {
         // Rating filter
-        if (movie.rating < minRating) return false;
+        if (event.rating < minRating) return false;
         
         // Country filter
-        if (selectedGenres.size > 0 && !selectedGenres.has(movie.country)) {
+        if (selectedGenres.size > 0 && !selectedGenres.has(event.country)) {
             return false;
         }
         
         // Venue filter
-        if (selectedVenues.size > 0 && !selectedVenues.has(movie.venue)) {
+        if (selectedVenues.size > 0 && !selectedVenues.has(event.venue)) {
             return false;
         }
 
         // Special events filter
-        if (showSpecialEventsOnly && !movie.isSpecialScreening) {
+        if (showSpecialEventsOnly && !event.isSpecialScreening) {
             return false;
         }
 
         // Director filter
-        if (selectedDirector && movie.director !== selectedDirector) {
+        if (selectedDirector && event.director !== selectedDirector) {
             return false;
         }
 
         // Search filter (description)
         if (searchTerm) {
-            const haystack = (movie.description || '').toLowerCase();
+            const haystack = (event.description || '').toLowerCase();
             if (!haystack.includes(searchTerm)) {
                 return false;
             }
@@ -670,7 +684,7 @@ function updateFilteredMovies() {
 
         // Date range filter
         if (dateRangeStart && dateRangeEnd) {
-            const hasScreeningInRange = movie.screenings.some(screening => {
+            const hasScreeningInRange = event.screenings.some(screening => {
                 const screeningDate = parseLocalDate(screening.date);
                 return screeningDate >= dateRangeStart && screeningDate <= dateRangeEnd;
             });
@@ -685,7 +699,7 @@ function updateFilteredMovies() {
 
 // Update download button state
 function updateDownloadButton() {
-    const count = filteredMovies.length;
+    const count = filteredEvents.length;
     if (count === 0) {
         downloadBtn.textContent = 'No events match criteria';
         downloadBtn.disabled = true;
@@ -697,20 +711,20 @@ function updateDownloadButton() {
 
 // Helper function to get earliest screening date for sorting
 function getEarliestScreeningDate(movie) {
-    if (!movie.screenings || movie.screenings.length === 0) {
+    if (!event.screenings || event.screenings.length === 0) {
         return new Date('2099-12-31'); // Far future date for events without screenings
     }
 
-    const dates = movie.screenings.map(screening => new Date(screening.date));
+    const dates = event.screenings.map(screening => new Date(screening.date));
     return new Date(Math.min(...dates.map(d => d.getTime())));
 }
 
 // Render movies list
-function renderMovies() {
-    let moviesToRender = filteredMovies.length > 0 ? filteredMovies : moviesData;
+function renderEvents() {
+    let moviesToRender = filteredEvents.length > 0 ? filteredEvents : eventsData;
     
     if (moviesToRender.length === 0) {
-        moviesList.innerHTML = '<p class="no-movies">No events match the current filters.</p>';
+        eventsList.innerHTML = '<p class="no-movies">No events match the current filters.</p>';
         return;
     }
 
@@ -727,13 +741,13 @@ function renderMovies() {
         }
     });
 
-    moviesList.innerHTML = moviesToRender.map(movie => createMovieCard(movie)).join('');
+    eventsList.innerHTML = moviesToRender.map(event => createEventCard(event)).join('');
 
     // Add event listeners for description toggle buttons
     document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', function() {
-            const movieId = this.dataset.movieId;
-            toggleDescription(movieId);
+            const eventId = this.dataset.eventId;
+            toggleDescription(eventId);
         });
     });
 
@@ -746,8 +760,8 @@ function renderMovies() {
             } else {
                 selectedDirector = dir;
             }
-            updateFilteredMovies();
-            renderMovies();
+            updateFilteredEvents();
+            renderEvents();
             if (calendarView.style.display !== 'none') {
                 renderCalendar();
             }
@@ -756,19 +770,19 @@ function renderMovies() {
 }
 
 // Create HTML for a movie card
-function createMovieCard(movie) {
+function createEventCard(event) {
     // Safety checks for required properties
-    if (!movie || !movie.title) {
-        console.error('Invalid movie object:', movie);
-        return '<div class="movie-card error">Invalid event data</div>';
+    if (!event || !event.title) {
+        console.error('Invalid event object:', event);
+        return '<div class="event-card error">Invalid event data</div>';
     }
     
-    const description = movie.description || 'No description available';
+    const description = event.description || 'No description available';
     const shortDescription = truncateText(stripHtmlTags(description), 200);
     const needsExpansion = stripHtmlTags(description).length > shortDescription.length;
 
-    const finalRating = movie.final_rating ?? movie.rating ?? (movie.ai_rating ? movie.ai_rating.score : null);
-    const aiRating = movie.ai_rating ? movie.ai_rating.score : finalRating;
+    const finalRating = event.final_rating ?? event.rating ?? (event.ai_rating ? event.ai_rating.score : null);
+    const aiRating = event.ai_rating ? event.ai_rating.score : finalRating;
     let boostHtml = '';
     if (finalRating && aiRating && finalRating > aiRating) {
         const boost = finalRating - aiRating;
@@ -780,48 +794,48 @@ function createMovieCard(movie) {
     }
 
     const metaParts = [];
-    if (movie.director) metaParts.push(`Dir. ${escapeHtml(movie.director)}`);
-    if (movie.country) metaParts.push(movie.country);
-    if (movie.year) metaParts.push(movie.year);
-    if (movie.language && movie.language !== 'English') metaParts.push(movie.language);
-    if (movie.duration) metaParts.push(movie.duration);
-    if (movie.venue) metaParts.push(getVenueName(movie.venue));
+    if (event.director) metaParts.push(`Dir. ${escapeHtml(event.director)}`);
+    if (event.country) metaParts.push(event.country);
+    if (event.year) metaParts.push(event.year);
+    if (event.language && event.language !== 'English') metaParts.push(event.language);
+    if (event.duration) metaParts.push(event.duration);
+    if (event.venue) metaParts.push(getVenueName(event.venue));
     const metaHtml = metaParts.length ? `<div class="movie-subtitle">${metaParts.join(' • ')}</div>` : '';
 
     // Create screening tags with safety check
-    const screeningsText = (movie.screenings && Array.isArray(movie.screenings))
-        ? movie.screenings.map(screening => {
+    const screeningsText = (event.screenings && Array.isArray(event.screenings))
+        ? event.screenings.map(screening => {
             const formattedDate = formatDate(screening.date);
             const formattedTime = screening.time || 'Time TBA';
             return `${formattedDate} • ${formattedTime}`;
         }).join(' | ')
         : 'No screenings available';
 
-    const eventUrl = movie.screenings && movie.screenings[0] ? movie.screenings[0].url : (movie.url || '#');
+    const eventUrl = event.screenings && event.screenings[0] ? event.screenings[0].url : (event.url || '#');
     
     return `
-        <div class="movie-card">
+        <div class="event-card">
             ${stampHtml}
-            <div class="movie-header">
-                <h3 class="movie-title"><a href="${eventUrl}" target="_blank">${escapeHtml(movie.title)}</a></h3>
-                <div class="movie-rating">${finalRating || 'N/A'}/10 ${boostHtml}</div>
-                ${needsExpansion ? `<button class="collapse-button toggle-button" data-movie-id="${movie.id || 'unknown'}" style="display:none">Hide</button>` : ''}
+            <div class="event-header">
+                <h3 class="event-title"><a href="${eventUrl}" target="_blank">${escapeHtml(event.title)}</a></h3>
+                <div class="event-rating">${finalRating || 'N/A'}/10 ${boostHtml}</div>
+                ${needsExpansion ? `<button class="collapse-button toggle-button" data-event-id="${event.id || 'unknown'}" style="display:none">Hide</button>` : ''}
             </div>
             ${metaHtml}
             <div class="screenings-container">
                 <div class="screenings-text">${screeningsText}</div>
-                ${movie.isSpecialScreening ? '<span class="special-screening-indicator">Special Screening</span>' : ''}
+                ${event.isSpecialScreening ? '<span class="special-screening-indicator">Special Screening</span>' : ''}
             </div>
 
-            <div class="movie-description">
-                <div class="description-preview" id="preview-${movie.id || 'unknown'}">
+            <div class="event-description">
+                <div class="description-preview" id="preview-${event.id || 'unknown'}">
                     ${formatDescription(shortDescription)}
                 </div>
-                <div class="description-full" id="full-${movie.id || 'unknown'}">
+                <div class="description-full" id="full-${event.id || 'unknown'}">
                     ${formatDescription(description)}
                 </div>
                 ${needsExpansion ? `
-                    <button class="expand-button toggle-button" data-movie-id="${movie.id || 'unknown'}">
+                    <button class="expand-button toggle-button" data-event-id="${event.id || 'unknown'}">
                         Show More
                     </button>
                 ` : ''}
@@ -831,10 +845,10 @@ function createMovieCard(movie) {
 }
 
 // Toggle description expansion
-function toggleDescription(movieId) {
-    const preview = document.getElementById(`preview-${movieId}`);
-    const full = document.getElementById(`full-${movieId}`);
-    const buttons = document.querySelectorAll(`[data-movie-id="${movieId}"]`);
+function toggleDescription(eventId) {
+    const preview = document.getElementById(`preview-${eventId}`);
+    const full = document.getElementById(`full-${eventId}`);
+    const buttons = document.querySelectorAll(`[data-event-id="${eventId}"]`);
 
     if (full.classList.contains('expanded')) {
         // Collapse
@@ -889,8 +903,8 @@ function applyDateRangeFilter() {
     if (startDate && endDate) {
         dateRangeStart = parseLocalDate(startDate);
         dateRangeEnd = parseLocalDate(endDate);
-        updateFilteredMovies();
-        renderMovies();
+        updateFilteredEvents();
+        renderEvents();
         if (calendarView.style.display !== 'none') {
             renderCalendar();
         }
@@ -902,8 +916,8 @@ function clearDateRangeFilter() {
     dateRangeEnd = null;
     startDateInput.value = '';
     endDateInput.value = '';
-    updateFilteredMovies();
-    renderMovies();
+    updateFilteredEvents();
+    renderEvents();
     if (calendarView.style.display !== 'none') {
         renderCalendar();
     }
@@ -913,7 +927,7 @@ function clearDateRangeFilter() {
 function renderCalendar() {
     console.log('Rendering calendar...'); // Debug log
     
-    if (!moviesData || moviesData.length === 0) {
+    if (!eventsData || eventsData.length === 0) {
         console.log('No event data available for calendar');
         calendarContainer.innerHTML = '<p>No event data available</p>';
         return;
@@ -923,19 +937,19 @@ function renderCalendar() {
     const today = new Date();
     
     // Get screenings from filtered movies (respects UI filters)
-    const moviesToUse = filteredMovies.length > 0 ? filteredMovies : moviesData;
+    const moviesToUse = filteredEvents.length > 0 ? filteredEvents : eventsData;
     const allScreenings = [];
     moviesToUse.forEach(movie => {
-        if (movie.screenings && Array.isArray(movie.screenings)) {
-            movie.screenings.forEach(screening => {
+        if (event.screenings && Array.isArray(event.screenings)) {
+            event.screenings.forEach(screening => {
                 allScreenings.push({
                     date: screening.date,
                     time: screening.time,
                     url: screening.url,
-                    title: movie.title,
-                    rating: movie.rating,
-                    venue: movie.venue,
-                    id: movie.id
+                    title: event.title,
+                    rating: event.rating,
+                    venue: event.venue,
+                    id: event.id
                 });
             });
         }
@@ -1032,34 +1046,34 @@ function formatDateForComparison(date) {
 // Add to Google Calendar function
 
 // Helper function to get filtered movies for download
-function getFilteredMoviesForDownload(minRating) {
-    return moviesData.filter(movie => {
+function getFilteredEventsForDownload(minRating) {
+    return eventsData.filter(event => {
         // Rating filter
-        if (movie.rating < minRating) return false;
+        if (event.rating < minRating) return false;
         
         // Country filter
-        if (selectedGenres.size > 0 && !selectedGenres.has(movie.country)) {
+        if (selectedGenres.size > 0 && !selectedGenres.has(event.country)) {
             return false;
         }
         
         // Venue filter
-        if (selectedVenues.size > 0 && !selectedVenues.has(movie.venue)) {
+        if (selectedVenues.size > 0 && !selectedVenues.has(event.venue)) {
             return false;
         }
         
         // Special events filter
-        if (showSpecialEventsOnly && !movie.isSpecialScreening) {
+        if (showSpecialEventsOnly && !event.isSpecialScreening) {
             return false;
         }
 
         // Director filter
-        if (selectedDirector && movie.director !== selectedDirector) {
+        if (selectedDirector && event.director !== selectedDirector) {
             return false;
         }
 
         // Search filter
         if (searchTerm) {
-            const haystack = (movie.description || '').toLowerCase();
+            const haystack = (event.description || '').toLowerCase();
             if (!haystack.includes(searchTerm)) {
                 return false;
             }
@@ -1067,7 +1081,7 @@ function getFilteredMoviesForDownload(minRating) {
 
         // Date range filter
         if (dateRangeStart && dateRangeEnd) {
-            const hasScreeningInRange = movie.screenings.some(screening => {
+            const hasScreeningInRange = event.screenings.some(screening => {
                 const screeningDate = parseLocalDate(screening.date);
                 return screeningDate >= dateRangeStart && screeningDate <= dateRangeEnd;
             });
@@ -1080,31 +1094,31 @@ function getFilteredMoviesForDownload(minRating) {
 
 // Download filtered calendar
 function downloadFilteredCalendar(minRating) {
-    const filteredMovies = getFilteredMoviesForDownload(minRating);
+    const filteredEvents = getFilteredEventsForDownload(minRating);
     
-    if (filteredMovies.length === 0) {
+    if (filteredEvents.length === 0) {
         alert('No events match the selected filters.');
         return;
     }
     
     // Convert aggregated movies back to individual screenings for ICS
     const screenings = [];
-    filteredMovies.forEach(movie => {
-        if (Array.isArray(movie.screenings)) {
-            movie.screenings.forEach(screening => {
+    filteredEvents.forEach(movie => {
+        if (Array.isArray(event.screenings)) {
+            event.screenings.forEach(screening => {
                 // Guard against missing screening data
                 if (!screening || !screening.date) return;
 
                 const timeString = screening.time || '';
 
                 screenings.push({
-                    title: movie.title,
+                    title: event.title,
                     date: screening.date,
                     time: timeString,
-                    description: movie.description,
-                    rating: movie.rating,
+                    description: event.description,
+                    rating: event.rating,
                     url: screening.url,
-                    id: `${movie.id || 'event'}-${screening.date}-${timeString.replace(/[^0-9]/g, '')}`
+                    id: `${event.id || 'event'}-${screening.date}-${timeString.replace(/[^0-9]/g, '')}`
                 });
             });
         }
@@ -1163,20 +1177,20 @@ function generateICSContent(movies) {
         ''
     ].join('\r\n');
     
-    movies.forEach(movie => {
-        const startDateTime = formatDateTimeForICS(movie.date, movie.time);
-        const endDateTime = formatDateTimeForICS(movie.date, movie.time, 2); // 2 hour duration
+    movies.forEach(event => {
+        const startDateTime = formatDateTimeForICS(event.date, event.time);
+        const endDateTime = formatDateTimeForICS(event.date, event.time, 2); // 2 hour duration
         
         icsContent += [
             'BEGIN:VEVENT',
-            `UID:${movie.id}@culturecalendar.local`,
+            `UID:${event.id}@culturecalendar.local`,
             `DTSTAMP:${timestamp}`,
             `DTSTART;${startDateTime}`,
             `DTEND;${endDateTime}`,
-            `SUMMARY:★${movie.rating}/10 - ${movie.title}`,
-            `DESCRIPTION:${formatDescriptionForICS(movie.description)}`,
+            `SUMMARY:★${event.rating}/10 - ${event.title}`,
+            `DESCRIPTION:${formatDescriptionForICS(event.description)}`,
             `LOCATION:Austin Film Society Cinema, 6226 Middle Fiskville Rd, Austin, TX 78752`,
-            `URL:${movie.url || 'https://www.austinfilm.org/'}`,
+            `URL:${event.url || 'https://www.austinfilm.org/'}`,
             'CATEGORIES:Film,Entertainment',
             'END:VEVENT',
             ''
@@ -1309,7 +1323,7 @@ function showError(message) {
 function checkClassicalDataFreshness() {
     // Find all classical music events (Symphony, EarlyMusic, LaFollia venues)
     const classicalVenues = ['Symphony', 'EarlyMusic', 'LaFollia'];
-    const classicalEvents = moviesData.filter(event => 
+    const classicalEvents = eventsData.filter(event => 
         event.screenings && event.screenings.some(screening => 
             classicalVenues.includes(screening.venue)
         )
