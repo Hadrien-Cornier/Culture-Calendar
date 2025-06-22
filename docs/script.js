@@ -1647,13 +1647,15 @@ function getEarliestEventDate(event) {
 
 // Toggle filter drawer
 function toggleFilterDrawer() {
-    const isVisible = filterDrawer.style.display !== 'none';
-    
-    if (isVisible) {
+    const isOpen = filterDrawer.classList.contains('open');
+
+    if (isOpen) {
+        filterDrawer.classList.remove('open');
         filterDrawer.style.display = 'none';
         showFiltersBtn.textContent = 'Show Filters ▸';
     } else {
         filterDrawer.style.display = 'block';
+        filterDrawer.classList.add('open');
         showFiltersBtn.textContent = 'Hide Filters ▾';
     }
 }
