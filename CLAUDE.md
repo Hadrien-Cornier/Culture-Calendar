@@ -9,21 +9,34 @@ Culture Calendar is a comprehensive Python application that automatically scrape
 ## Common Commands
 
 ```bash
+# Activate virtual environment (required for all operations)
+source venv/bin/activate
+
 # Update website data (incremental - new events only)
-source venv/bin/activate && python update_website_data.py --incremental
+python update_website_data.py --incremental
 
 # Update website data (full refresh)
-source venv/bin/activate && python update_website_data.py --full
+python update_website_data.py --full
 
 # Force re-rate all events (ignore cache)
-source venv/bin/activate && python update_website_data.py --full --force-reprocess
+python update_website_data.py --full --force-reprocess
+
+# Update with specific number of days ahead
+python update_website_data.py --days 14
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Set up environment
 cp .env.example .env
-# Then edit .env to add PERPLEXITY_API_KEY
+# Then edit .env to add required API keys:
+# PERPLEXITY_API_KEY=your_key_here
+# ANTHROPIC_API_KEY=your_key_here  
+# FIRECRAWL_API_KEY=your_key_here
+
+# Test individual components
+python src/scraper.py  # Test scrapers independently
+python src/processor.py  # Test AI processing
 ```
 
 ## Virtual Environment
@@ -75,8 +88,12 @@ Modern web application creation:
 ## Key Configuration Files
 
 - **`preferences.txt`**: Personal preferences (directors, genres, keywords) used for rating boosts
-- **`.env`**: Environment variables, primarily `PERPLEXITY_API_KEY`
-- **`requirements.txt`**: Python dependencies including requests, beautifulsoup4, icalendar
+- **`literature_preferences.txt`**: Book club preferences (authors, genres, themes)
+- **`.env`**: Environment variables for API keys (PERPLEXITY_API_KEY, ANTHROPIC_API_KEY, FIRECRAWL_API_KEY)
+- **`requirements.txt`**: Python dependencies including requests, beautifulsoup4, icalendar, anthropic, firecrawl-py
+- **`cache/summary_cache.json`**: AI response cache to avoid reprocessing
+- **`docs/data.json`**: Generated website data consumed by the frontend
+- **`docs/source_update_times.json`**: Tracks last update times per venue
 
 ## Data Flow
 
@@ -329,3 +346,34 @@ The system now uses **structure-based detection** instead of keyword matching:
 - Extracts: "World Wide What", "About Motherhood", "Small & Indie", "Future Greats"
 - Date Parsing: Converts "Friday, June 27th" to proper date format
 - Fallback: Host-specific defaults for each book club series
+
+## Local Development & Debugging
+
+### Environment Setup Issues
+- **Missing API Keys**: Ensure all three API keys are set in `.env` file
+- **Virtual Environment**: Always activate `venv` before running scripts
+- **Python Version**: Requires Python 3.11+ for proper dependency compatibility
+
+### Common Debugging Commands
+```bash
+# Check cache status and clear if needed
+ls -la cache/
+rm cache/summary_cache.json  # Clear AI cache to force re-processing
+
+# Test individual venue scrapers
+python -c "from src.scraper import AFSScraper; print(len(AFSScraper().scrape_calendar()))"
+python -c "from src.scraper import HyperrealFilmClubScraper; print(len(HyperrealFilmClubScraper().scrape_events()))"
+
+# Validate generated data
+python -c "import json; data=json.load(open('docs/data.json')); print(f'Total events: {len(data)}')"
+
+# Check GitHub Actions logs locally
+cat .github/workflows/update-calendar.yml
+cat .github/workflows/complete-data-wipe-reload.yml
+```
+
+### Performance & Rate Limiting
+- **API Delays**: Built-in 1-second delays between AI API calls
+- **Web Scraping**: 0.5-second delays between page fetches
+- **Cache Usage**: AI responses cached to avoid redundant processing
+- **Incremental Updates**: Use `--incremental` flag for faster updates
