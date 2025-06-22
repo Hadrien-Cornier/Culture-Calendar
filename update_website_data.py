@@ -91,6 +91,15 @@ def load_classical_music_events() -> list:
                 classical_events.append(event)
         
         print(f"Loaded {len(classical_events)} classical music events from static data")
+        
+        # Debug: Show breakdown by venue
+        symphony_count = sum(1 for e in classical_events if e['venue'] == 'Symphony')
+        early_music_count = sum(1 for e in classical_events if e['venue'] == 'EarlyMusic') 
+        la_follia_count = sum(1 for e in classical_events if e['venue'] == 'LaFollia')
+        print(f"  - Austin Symphony: {symphony_count} events")
+        print(f"  - Early Music Austin: {early_music_count} events")
+        print(f"  - La Follia Austin: {la_follia_count} events")
+        
         return classical_events
         
     except FileNotFoundError:
@@ -427,6 +436,8 @@ def main(test_week: bool = False, full: bool = False, force_reprocess: bool = Fa
         
         # Add classical music events from static data
         print("Loading classical music events...")
+        print("NOTE: Classical music venues (Symphony, EarlyMusic, LaFollia) return 0 from scrapers by design.")
+        print("      Their events are loaded from docs/classical_data.json instead.")
         classical_events = load_classical_music_events()
         events.extend(classical_events)
         print(f"Found {len(events)} total events including classical music")

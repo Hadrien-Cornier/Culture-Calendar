@@ -548,6 +548,10 @@ class AlienatedMajestyBooksScraper:
         # Initialize Firecrawl client
         firecrawl_api_key = os.getenv('FIRECRAWL_API_KEY')
         self.firecrawl = FirecrawlApp(api_key=firecrawl_api_key) if firecrawl_api_key else None
+        if firecrawl_api_key:
+            print(f"AlienatedMajesty: Firecrawl API key configured: {firecrawl_api_key[:10]}...")
+        else:
+            print("AlienatedMajesty: No Firecrawl API key found in environment")
     
     def _get_rendered_html(self, url: str) -> Optional[str]:
         """Fetch page content using headless Chrome"""
@@ -640,15 +644,35 @@ class AlienatedMajestyBooksScraper:
             try:
                 print("Trying Firecrawl for JavaScript rendering")
                 scrape_result = self.firecrawl.scrape_url(url, params={'formats': ['markdown', 'html']})
+                print(f"Firecrawl response keys: {list(scrape_result.keys()) if scrape_result else 'None'}")
                 if scrape_result and 'html' in scrape_result:
                     events = self._parse_book_club_html(scrape_result['html'])
                     if events:
+                        print(f"Firecrawl HTML successfully found {len(events)} events")
                         return events
-                    print("Firecrawl succeeded but no events found")
+                    print("Firecrawl HTML succeeded but no events found in parsed HTML")
+                elif scrape_result and 'content' in scrape_result:
+                    # Use content field as fallback
+                    events = self._parse_book_club_html(scrape_result['content'])
+                    if events:
+                        print(f"Firecrawl content successfully found {len(events)} events")
+                        return events
+                    print("Firecrawl content succeeded but no events found in parsed content")
+                elif scrape_result and 'markdown' in scrape_result:
+                    # Use markdown field as last resort
+                    events = self._parse_book_club_html(scrape_result['markdown'])
+                    if events:
+                        print(f"Firecrawl markdown successfully found {len(events)} events")
+                        return events
+                    print("Firecrawl markdown succeeded but no events found in parsed markdown")
                 else:
-                    print("Firecrawl failed to return HTML")
+                    print(f"Firecrawl failed to return usable content. Result keys: {list(scrape_result.keys()) if scrape_result else 'None'}")
             except Exception as e:
                 print(f"Firecrawl error: {e}")
+                print(f"Firecrawl error type: {type(e).__name__}")
+                if hasattr(e, 'response'):
+                    print(f"Firecrawl response status: {getattr(e.response, 'status_code', 'Unknown')}")
+                    print(f"Firecrawl response text: {getattr(e.response, 'text', 'Unknown')[:200]}")
         
         # Try Pyppeteer as last resort
         html = self._get_rendered_html(url)
@@ -726,6 +750,10 @@ class FirstLightAustinScraper:
         # Initialize Firecrawl client
         firecrawl_api_key = os.getenv('FIRECRAWL_API_KEY')
         self.firecrawl = FirecrawlApp(api_key=firecrawl_api_key) if firecrawl_api_key else None
+        if firecrawl_api_key:
+            print(f"FirstLight: Firecrawl API key configured: {firecrawl_api_key[:10]}...")
+        else:
+            print("FirstLight: No Firecrawl API key found in environment")
     
     def _parse_book_club_text(self, text: str) -> List[Dict]:
         """Parse book club information from page text"""
@@ -818,21 +846,35 @@ class FirstLightAustinScraper:
             try:
                 print("Trying Firecrawl for First Light Austin")
                 scrape_result = self.firecrawl.scrape_url(url, params={'formats': ['markdown', 'html']})
+                print(f"Firecrawl response keys: {list(scrape_result.keys()) if scrape_result else 'None'}")
                 if scrape_result and 'html' in scrape_result:
                     soup = BeautifulSoup(scrape_result['html'], 'html.parser')
                     events = self._parse_book_club_text(soup.get_text())
                     if events:
+                        print(f"Firecrawl HTML successfully found {len(events)} events")
                         return events
-                    print("Firecrawl succeeded but no events found")
+                    print("Firecrawl HTML succeeded but no events found")
+                elif scrape_result and 'content' in scrape_result:
+                    # Use content field as fallback
+                    events = self._parse_book_club_text(scrape_result['content'])
+                    if events:
+                        print(f"Firecrawl content successfully found {len(events)} events")
+                        return events
+                    print("Firecrawl content succeeded but no events found")
                 elif scrape_result and 'markdown' in scrape_result:
                     events = self._parse_book_club_text(scrape_result['markdown'])
                     if events:
+                        print(f"Firecrawl markdown successfully found {len(events)} events")
                         return events
                     print("Firecrawl markdown succeeded but no events found")
                 else:
-                    print("Firecrawl failed to return content")
+                    print(f"Firecrawl failed to return usable content. Result keys: {list(scrape_result.keys()) if scrape_result else 'None'}")
             except Exception as e:
                 print(f"Firecrawl error: {e}")
+                print(f"Firecrawl error type: {type(e).__name__}")
+                if hasattr(e, 'response'):
+                    print(f"Firecrawl response status: {getattr(e.response, 'status_code', 'Unknown')}")
+                    print(f"Firecrawl response text: {getattr(e.response, 'text', 'Unknown')[:200]}")
         
         # Return empty list if all methods fail
         print("All scraping methods failed for First Light Austin - returning empty list")
