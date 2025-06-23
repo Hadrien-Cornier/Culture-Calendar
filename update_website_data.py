@@ -21,93 +21,7 @@ def save_update_info(info: dict, path: str = 'docs/source_update_times.json') ->
     except Exception as e:
         print(f"Error saving update info: {e}")
 
-def load_classical_music_events() -> list:
-    """Load classical music events from static JSON file"""
-    classical_events = []
-    classical_data_path = 'docs/classical_data.json'
-    
-    try:
-        with open(classical_data_path, 'r') as f:
-            classical_data = json.load(f)
-        
-        # Process Austin Symphony events
-        for concert in classical_data.get('austinSymphony', []):
-            for i, date in enumerate(concert['dates']):
-                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
-                event = {
-                    'title': concert['title'],
-                    'url': f"https://austinsymphony.org/concerts/{concert['title'].lower().replace(' ', '-').replace(':', '').replace(',', '')}",
-                    'date': date,
-                    'time': time,
-                    'type': 'concert',
-                    'location': concert['venue_name'],
-                    'venue': 'Symphony',
-                    'series': concert['series'],
-                    'program': concert['program'],
-                    'featured_artist': concert['featured_artist'],
-                    'composers': concert['composers'],
-                    'works': concert['works']
-                }
-                classical_events.append(event)
-        
-        # Process Early Music Austin events
-        for concert in classical_data.get('earlyMusicAustin', []):
-            for i, date in enumerate(concert['dates']):
-                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
-                event = {
-                    'title': concert['title'],
-                    'url': f"https://earlymusicaustin.org/events/{concert['title'].lower().replace(' ', '-')}",
-                    'date': date,
-                    'time': time,
-                    'type': 'concert',
-                    'location': concert['venue_name'],
-                    'venue': 'EarlyMusic',
-                    'series': concert['series'],
-                    'program': concert['program'],
-                    'featured_artist': concert['featured_artist'],
-                    'composers': concert['composers'],
-                    'works': concert['works']
-                }
-                classical_events.append(event)
-        
-        # Process La Follia Austin events
-        for concert in classical_data.get('laFolliaAustin', []):
-            for i, date in enumerate(concert['dates']):
-                time = concert['times'][i] if i < len(concert['times']) else concert['times'][0]
-                event = {
-                    'title': concert['title'],
-                    'url': f"https://lafollia.com/events/{concert['title'].lower().replace(' ', '-')}",
-                    'date': date,
-                    'time': time,
-                    'type': 'concert',
-                    'location': concert['venue_name'],
-                    'venue': 'LaFollia',
-                    'series': concert['series'],
-                    'program': concert['program'],
-                    'featured_artist': concert['featured_artist'],
-                    'composers': concert['composers'],
-                    'works': concert['works']
-                }
-                classical_events.append(event)
-        
-        print(f"Loaded {len(classical_events)} classical music events from static data")
-        
-        # Debug: Show breakdown by venue
-        symphony_count = sum(1 for e in classical_events if e['venue'] == 'Symphony')
-        early_music_count = sum(1 for e in classical_events if e['venue'] == 'EarlyMusic') 
-        la_follia_count = sum(1 for e in classical_events if e['venue'] == 'LaFollia')
-        print(f"  - Austin Symphony: {symphony_count} events")
-        print(f"  - Early Music Austin: {early_music_count} events")
-        print(f"  - La Follia Austin: {la_follia_count} events")
-        
-        return classical_events
-        
-    except FileNotFoundError:
-        print(f"Classical data file {classical_data_path} not found")
-        return []
-    except Exception as e:
-        print(f"Error loading classical music data: {e}")
-        return []
+# Classical music events are now loaded directly by the individual scrapers from docs/classical_data.json
 
 def filter_work_hours(events):
     """Filter out events during work hours (9am-6pm weekdays)"""
@@ -429,18 +343,11 @@ def main(test_week: bool = False, full: bool = False, force_reprocess: bool = Fa
         scraper = MultiVenueScraper()
         processor = EventProcessor(force_reprocess=force_reprocess)
         
-        # Scrape all venues
+        # Scrape all venues (including classical music from JSON)
         print("Fetching calendar data from all venues...")
         events = scraper.scrape_all_venues(target_week=test_week)
-        print(f"Found {len(events)} total events from live scraping")
-        
-        # Add classical music events from static data
-        print("Loading classical music events...")
-        print("NOTE: Classical music venues (Symphony, EarlyMusic, LaFollia) return 0 from scrapers by design.")
-        print("      Their events are loaded from docs/classical_data.json instead.")
-        classical_events = load_classical_music_events()
-        events.extend(classical_events)
-        print(f"Found {len(events)} total events including classical music")
+        print(f"Found {len(events)} total events from all venues")
+        print("NOTE: Classical music venues load their events from docs/classical_data.json")
         
         # Get detailed information for screening and book club events
         print("Fetching event details...")
