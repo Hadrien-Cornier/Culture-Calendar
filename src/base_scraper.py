@@ -41,7 +41,16 @@ class BaseScraper(ABC):
         # Initialize HTTP session
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Cache-Control': 'max-age=0'
         })
         
         # Initialize LLM service
@@ -166,7 +175,17 @@ class BaseScraper(ABC):
     
     def _scrape_with_requests_llm(self, url: str) -> List[Dict]:
         """Tier 2: Requests + LLM extraction"""
+        # Add a small delay to be respectful
+        time.sleep(2)
+        
         response = self.session.get(url, timeout=30)
+        
+        # Handle 403 errors specifically
+        if response.status_code == 403:
+            print(f"   Received 403 Forbidden - site may be blocking automated requests")
+            print(f"   Response headers: {dict(response.headers)}")
+            raise Exception("403 Forbidden - site blocking automated access")
+        
         response.raise_for_status()
         
         # Use LLM to extract data from HTML
