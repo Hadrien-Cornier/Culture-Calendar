@@ -208,6 +208,7 @@ def generate_website_data(events):
                 'title': title,
                 'rating': ai_rating.get('score', 5),  # Use base AI rating for consistency
                 'description': clean_markdown_text(ai_rating.get('summary', 'No description available')),
+                'oneLinerSummary': event.get('oneLinerSummary'),  # Preserve AI-generated summary
                 'url': event.get('url', ''),
                 'isSpecialScreening': event.get('is_special_screening', False),
                 'isMovie': event.get('is_movie', True),  # From scraper detection
@@ -250,6 +251,7 @@ def generate_website_data(events):
             'title': event['title'],
             'rating': ai_rating.get('score', 5),
             'description': clean_markdown_text(ai_rating.get('summary', 'No description available')),
+            'oneLinerSummary': event.get('oneLinerSummary'),  # Preserve AI-generated summary
             'url': event.get('url', ''),
             'isSpecialScreening': False,  # Classical events aren't "screenings"
             'isMovie': False,  # Classical events are concerts
@@ -282,6 +284,7 @@ def generate_website_data(events):
             'title': event['title'],
             'rating': ai_rating.get('score', 5),
             'description': clean_markdown_text(ai_rating.get('summary', 'No description available')),
+            'oneLinerSummary': event.get('oneLinerSummary'),  # Preserve AI-generated summary
             'url': event.get('url', ''),
             'isSpecialScreening': False,  # Book clubs aren't "screenings"
             'isMovie': False,  # Book clubs are discussions
