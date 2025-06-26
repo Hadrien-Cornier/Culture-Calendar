@@ -1,0 +1,144 @@
+{
+  "description": "Test database for Hyperreal Film Club scraper with real movie examples from June 2025",
+  "schema": {
+    "title": "string (required) - Clean movie title",
+    "full_title": "string (required) - Complete event title as shown on site",
+    "presenter": "string (optional) - Event presenter or series name",
+    "dates": "array of strings in YYYY-MM-DD format (required)",
+    "times": "array of strings like \"7:30 PM\" (required)",
+    "end_times": "array of strings like \"11:00 PM\" (optional)",
+    "venue": "string (required) - Venue name",
+    "description": "string (optional) - Event description",
+    "trailer_url": "string (optional) - Link to movie trailer",
+    "url": "string (required) - Original event page URL",
+    "is_special_screening": "boolean (optional) - Whether this is a special/themed screening"
+  },
+  "test_cases": [
+    {
+      "test_id": 1,
+      "input": {
+        "html_file": "mermaids_movie_page.html",
+        "description": "Movie screening: MERMAIDS",
+        "url": "https://hyperrealfilm.club/events/2025/6-3/mermaids-movie-screening"
+      },
+      "expected_output": {
+        "title": "MERMAIDS",
+        "full_title": "A Woman of Taste Presents ~ MERMAIDS at HYPERREAL FILM CLUB",
+        "presenter": "A Woman of Taste",
+        "dates": ["2025-06-03"],
+        "times": ["7:30 PM"],
+        "end_times": ["11:00 PM"],
+        "venue": "Hyperreal Film Club",
+        "description": "The vitals:Tuesday, June 37:00 ~ Doors7:30 ~ A Woman of Taste Presents ~ MERMAIDSGet your marshmallow kabobs and cheeseball pick-me-ups ready because we are going on a East Coast road trip of self-discovery with the trifecta of feminine cool–Winona Ryder, Christina Ricci, and CHER!Tired of moving from town to town because of her impulsive mother, Charlotte (Ryder) finds herself living in a small Massachusetts town where she can both explore her burgeoning identity as a devout Catholic (She's Jewish.) and her fastly growing sexual desire for the older, local church groundskeeper. Rachel (Cher) is a single and freethinking mother trying to juggle motherhood in the 1960s while staying true to herself when she meets Lou (Bob Hoskins), who wants nothing more than to be a part of her chaotic family dynamic.Passionate mother/daughter fights will be had, messy coming-of-age mistakes will be made, and finger foods will be served.-Jenny McKeown",
+        "trailer_url": "https://www.google.com/search?client=safari&rls=en&q=mermaids+movie+trailer&ie=UTF-8&oe=UTF-8#fpstate=ive&vld=cid:85ce20cb,vid:Q6d3CszheJM,st:0",
+        "url": "https://hyperrealfilm.club/events/2025/6-3/mermaids-movie-screening",
+        "is_special_screening": true
+      }
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "html_file": "past_lives_movie_page.html",
+        "description": "Movie screening: PAST LIVES",
+        "url": "https://hyperrealfilm.club/events/2025/6-11/past-lives-movie-screening"
+      },
+      "expected_output": {
+        "title": "PAST LIVES",
+        "full_title": "PAST LIVES at HYPERREAL FILM CLUB",
+        "presenter": null,
+        "dates": ["2025-06-11"],
+        "times": ["7:30 PM"],
+        "end_times": ["11:00 PM"],
+        "venue": "Hyperreal Film Club",
+        "description": "When Nora's sweetheart from her childhood in Korea pops up in her new life in New York City, she is swept up in the emotional wake of what could have been.Sometimes the one that got away isn't just an ex but an entire past life, a version of yourself that's left behind but never forgotten. Celine Song's celebrated directorial debut PAST LIVES is a sensitive portrait of diaspora and a woman caught in a love triangle between different cultures, languages, and versions of herself.The vitals:Wednesday, June 117:00 ~ Doors7:30 ~ PAST LIVES",
+        "trailer_url": "https://www.youtube.com/watch?v=kA244xewjcI",
+        "url": "https://hyperrealfilm.club/events/2025/6-11/past-lives-movie-screening",
+        "is_special_screening": false
+      }
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "html_file": "please_baby_please_movie_page.html",
+        "description": "Movie screening: PLEASE BABY PLEASE",
+        "url": "https://hyperrealfilm.club/events/2025/6-16/please-baby-please-movie-screening"
+      },
+      "expected_output": {
+        "title": "PLEASE BABY PLEASE",
+        "full_title": "First Times ~ PLEASE BABY PLEASE at HYPERREAL FILM CLUB",
+        "presenter": "First Times",
+        "dates": ["2025-06-16"],
+        "times": ["7:30 PM"],
+        "end_times": ["11:00 PM"],
+        "venue": "Hyperreal Film Club",
+        "description": "Ever wish West Side Story was gayer and more dangerous? Well well well.The vitals:Monday, June 167:00 ~ Doors7:30 ~ First Times ~ PLEASE BABY PLEASEFirst Times Presents: Andrea Kramer's \"Please Baby Please\"- After witnessing a violent crime, Suze and her husband Arthur begin to unravel as new fears and desires take hold. Director Amanda Kramer dissects the breakdown of the \"perfect\" American couple through artifice and over-the-top theatrics, anchored by Andrea Riseborough's sizzling performance that's as intoxicating as it is unsettling. The film's visual style has been compared toWest Side Storyby way of Kenneth Anger — a refreshing departure from the realism that often dominates contemporary cinema. Lofty and poetic, Kramer has said that this film is meant to leave you with more questions than answers.-Emily Basma",
+        "trailer_url": "https://www.youtube.com/watch?v=5IutqDKERXU&ab_channel=MusicBoxFilms",
+        "url": "https://hyperrealfilm.club/events/2025/6-16/please-baby-please-movie-screening",
+        "is_special_screening": true
+      }
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "html_file": "miss_juneteenth_movie_page.html",
+        "description": "Movie screening: MISS JUNETEENTH",
+        "url": "https://hyperrealfilm.club/events/2025/6-19/miss-juneteenth-movie-screening"
+      },
+      "expected_output": {
+        "title": "MISS JUNETEENTH",
+        "full_title": "MISS JUNETEENTH free screening at HYPERREAL FILM CLUB",
+        "presenter": null,
+        "dates": ["2025-06-19"],
+        "times": ["7:30 PM"],
+        "end_times": ["11:00 PM"],
+        "venue": "Hyperreal Film Club",
+        "description": "The vitals:Thursday, June 197:00 ~ Doors7:30 ~ MISS JUNETEENTHPart coming-of-age story, part mom-daughter showdown,Miss Juneteenthis a soulful slice of Southern life about a former beauty queen trying to get her teenage daughter to chase the crown she never quite caught. Set in Fort Worth and soaked in summer heat, the film is full of heart, hustle, and that specific kind of love that shows up whether you want it or not. Nicole Beharie is magnetic.",
+        "trailer_url": "https://www.youtube.com/watch?v=Vb3oREG_DdA",
+        "url": "https://hyperrealfilm.club/events/2025/6-19/miss-juneteenth-movie-screening",
+        "is_special_screening": true
+      }
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "html_file": "saving_face_movie_page.html",
+        "description": "Movie screening: SAVING FACE",
+        "url": "https://hyperrealfilm.club/events/2025/6-24/saving-face-movie-screening"
+      },
+      "expected_output": {
+        "title": "SAVING FACE",
+        "full_title": "SAVING FACE at HYPERREAL FILM CLUB",
+        "presenter": null,
+        "dates": ["2025-06-24"],
+        "times": ["7:30 PM"],
+        "end_times": ["11:00 PM"],
+        "venue": "Hyperreal Film Club",
+        "description": "Shy doctor Wil is bewitched by a dancer with a wild side, but finds it difficult to kindle sapphic romance while her watchful and traditional mother JOAN CHEN (Twin Peaks, Didi) is hiding out in her apartment due to her own unplanned pregnancy. Wil and her mother experience twin journeys of sexual liberation, learning to move past shame and into self-acceptance.CARABINER CLUB is back with a Pride month screening of Alice Wu's cult classic rom-com SAVING FACE (2004). Curl up with Sapphic Singles, Dyke March, and Asian Family Support Services of Austin for a night of giggling, blushing, and kicking our feet.Stay after the movie for our sapphic happy hour!The vitals:Tuesday, June 247:00 ~ Doors7:30 ~ SAVING FACE10-midnight ~ CARABINER CLUB DJ set and mixer",
+        "trailer_url": "https://www.youtube.com/watch?v=HF6rNrh60hI",
+        "url": "https://hyperrealfilm.club/events/2025/6-24/saving-face-movie-screening",
+        "is_special_screening": false
+      }
+    },
+    {
+      "test_id": 6,
+      "input": {
+        "html_file": "saw_movie_page.html",
+        "description": "Movie screening: SAW",
+        "url": "https://hyperrealfilm.club/events/2025/6-27/saw-movie-screening"
+      },
+      "expected_output": {
+        "title": "SAW",
+        "full_title": "SAW at HYPERREAL FILM CLUB",
+        "presenter": null,
+        "dates": ["2025-06-27"],
+        "times": ["7:30 PM"],
+        "end_times": ["11:00 PM"],
+        "venue": "Hyperreal Film Club",
+        "description": "Experience the beginning of horror's greatest soap opera.The vitals:Friday, June 277:00 ~ Doors7:30 ~ SAWLet's talk in the first-person for a second. I love SAW. I have no shame about loving SAW. What the haters and losers don't realize about SAW is that it's secretly the best longform soap opera ever released in movie theaters. Horror is a genre which constantly flirts with the idea of camp and short of something explicitly goofy like the CHUCKY films SAW may actually be the greatest modern realization of this concept. Consider Jigsaw, consider his silly voice and consider his gay little puppet and consider his relentlessly petty attitude and consider how in its best moments his philosophy amounts to pushing past fear to embrace yourself and live your true life. Consider the intense homoeroticism of two men chained in a bathroom, their lives in each other's hands, cradling each other; \"don't leave me.\" Like a weed pushing through concrete, yaoi endures.Anyway. We're screening SAW. It's the first movie so there's not a bunch of characters and flashbacks inside flashbacks yet. It's sort of like SE7EN with some TETSUO: THE IRON MAN stylistic flourishes. You already know if you want to come see this or not. Actually, you should sell this out so I can show the whole franchise. Screening SAW III in an abandoned meat packing plant? I think so. See you there.- Morgan Hyde",
+        "trailer_url": "https://www.youtube.com/watch?v=zaANSeQ3La4&pp=0gcJCdgAo7VqN5tD",
+        "url": "https://hyperrealfilm.club/events/2025/6-27/saw-movie-screening",
+        "is_special_screening": false
+      }
+    }
+  ]
+} 
