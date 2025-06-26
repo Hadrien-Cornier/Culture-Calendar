@@ -11,11 +11,11 @@ from .early_music_scraper import EarlyMusicAustinScraper
 from .la_follia_scraper import LaFolliaAustinScraper
 
 __all__ = [
-    'FirstLightAustinScraper',
-    'AFSScraper', 
-    'HyperrealScraper',
-    'AlienatedMajestyBooksScraper',
-    'AustinSymphonyScraper',
-    'EarlyMusicAustinScraper',
-    'LaFolliaAustinScraper'
+    "FirstLightAustinScraper",
+    "AFSScraper",
+    "HyperrealScraper",
+    "AlienatedMajestyBooksScraper",
+    "AustinSymphonyScraper",
+    "EarlyMusicAustinScraper",
+    "LaFolliaAustinScraper",
 ]

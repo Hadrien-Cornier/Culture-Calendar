@@ -1,0 +1,207 @@
+{
+  "description": "Test database for AFS scraper with real movie examples",
+  "schema": {
+    "title": "string (required)",
+    "director": "string (optional)",
+    "year": "integer (optional)",
+    "country": "string (optional)",
+    "language": "string (optional)",
+    "duration": "string (optional)",
+    "dates": "array of strings in YYYY-MM-DD format (required)",
+    "times": "array of strings like \"7:30 PM\" (required)",
+    "venue": "string (optional)",
+    "description": "string (optional)",
+    "is_special_screening": "boolean (optional)",
+    "url": "string (the original URL)"
+  },
+  "test_cases": [
+    {
+      "test_id": 1,
+      "input": {
+        "html_file": "gwen_movie_page.html",
+        "description": "French animated film with multiple showtimes",
+        "url": "https://www.austinfilm.org/screening/gwen-and-the-book-of-sand/"
+      },
+      "expected_output": {
+        "title": "GWEN AND THE BOOK OF SAND",
+        "director": "Jean-François Laguionie",
+        "year": 1985,
+        "country": "France",
+        "language": "French",
+        "duration": "1h 7min",
+        "dates": [
+          "2025-06-27",
+          "2025-06-28"
+        ],
+        "times": [
+          "9:30 PM",
+          "9:00 PM"
+        ],
+        "venue": "AFS Cinema",
+        "description": "“Every bit as remarkable as FANTASTIC PLANET.” —Sight & Sound “GWEN took me to completely new places, on every level.” —Sébastien Laudenbach, director of THE GIRL WITHOUT HANDS (2016) In a desert world where telephones rain from the sky and sales catalog discounts are sung as sacred hymns, a young boy goes missing. Can he be found before unseen dangers close in? GWEN, a long-lost gem of animation, is a post-apocalyptic odyssey akin to ANGEL’S EGG — mysterious, thrilling, and utterly captivating. Experience its restored brilliance.",
+        "is_special_screening": false,
+        "url": "https://www.austinfilm.org/screening/gwen-and-the-book-of-sand/"
+      }
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "html_file": "pavements_movie_page.html",
+        "description": "Contemporary film example",
+        "url": "https://www.austinfilm.org/screening/pavements/"
+      },
+      "expected_output": {
+        "title": "PAVEMENTS",
+        "director": "Alex Ross Perry",
+        "year": 2025,
+        "country": "USA",
+        "language": null,
+        "duration": "2h 8min",
+        "dates": [
+          "2025-06-26",
+          "2025-06-29",
+          "2025-07-03"
+        ],
+        "times": [
+          "3:45 PM",
+          "8:00 PM",
+          "3:50 PM"
+        ],
+        "venue": "AFS Cinema",
+        "description": "“This multifaceted meta-movie is at once documentary, musical comedy, faux biopic and real museum exhibition.” —Jordan Mintzer, Variety “It captures the artistry, ingenuity and humor of its subject better than an encyclopedic history ever could – a music doc for whom success, in the spirit of Pavement, looks very different.” —Little White Lies This new doc about the American indie band Pavement combines scripted material with documentary images of the band and a musical mise-en-scene composed of songs from their discography. This is not a straight-ahead music doc by any means but rather an often funny meditation on the meaning of music and, well, life itself. Written and directed by Alex Ross Perry (THE COLOR WHEEL, HER SMELL, LISTEN UP PHILIP.) See Pavement live on Sunday, September 28, during LEVITATION 2025 at the Palmer Events Center. Tickets and more info here.",
+        "is_special_screening": false,
+        "url": "https://www.austinfilm.org/screening/pavements/"
+      }
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "html_file": "jane_austen_movie_page.html",
+        "description": "Documentary film example",
+        "url": "https://www.austinfilm.org/screening/jane-austen-wrecked-my-life/"
+      },
+      "expected_output": {
+        "title": "JANE AUSTEN WRECKED MY LIFE",
+        "director": "Laura Piani",
+        "year": 2024,
+        "country": "France",
+        "language": "English",
+        "duration": "1h 38min",
+        "dates": [
+          "2025-06-26",
+          "2025-06-27",
+          "2025-06-28",
+          "2025-06-29",
+          "2025-06-30",
+          "2025-07-01",
+          "2025-07-02",
+          "2025-07-03"
+        ],
+        "times": [
+          "6:45 PM",
+          "3:45 PM",
+          "12:15 PM",
+          "12:30 PM",
+          "4:15 PM",
+          "5:00 PM",
+          "4:30 PM",
+          "3:30 PM"
+        ],
+        "venue": "AFS Cinema",
+        "description": "“Both pleasantly diverting and sneakily wise. Following in the footsteps of her beloved literary heroines, Agathe discovers a bit about real life outside of books — and not just romance, either. It is a universal truth: Sometimes to unwreck your own life, you’ve got to start acting like you’re the protagonist.” —Alissa Wilkinson, New York Times (Critic’s Pick) “A celebration of bibliophilia and cinephilia alike.” —Ann Hornaday, Washington Post Agathe (Camille Rutherford) is a hopelessly clumsy yet charming young woman who works in the legendary Shakespeare & Co. bookshop in Paris. While she dreams of being a successful writer, and of experiencing love akin to a Jane Austen novel, she finds herself desperately single and plagued by writer’s block. When Agathe’s best friend (Pablo Pauly) gets her invited to the Jane Austen Writers’ Residency in England, she finally has her Jane Austen moment … and is caught in a very unexpected romantic triangle. Agathe must let go of her insecurities to decide what she really wants for herself — and to achieve her romantic and professional dreams.",
+        "is_special_screening": false,
+        "url": "https://www.austinfilm.org/screening/jane-austen-wrecked-my-life/"
+      }
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "html_file": "pee_wee_movie_page.html",
+        "description": "Classic American film example",
+        "url": "https://www.austinfilm.org/screening/pee-wees-big-adventure/"
+      },
+      "expected_output": {
+        "title": "PEE-WEE’S BIG ADVENTURE",
+        "director": "Tim Burton",
+        "year": 1985,
+        "country": "USA",
+        "language": null,
+        "duration": "1h 31min",
+        "dates": [
+          "2025-06-26"
+        ],
+        "times": [
+          "9:00 PM"
+        ],
+        "venue": "AFS Cinema",
+        "description": "Do you need a good laugh right now? How about fifty good laughs? It’s the 40th anniversary of one of the most charming, funny, and creative Hollywood films ever made. In 1985, Paul Reubens and his creative collaborators were just on the verge of a pop-cultural breakthrough. The Pee-Wee Herman character had become popular in talk show spots and on hip improv stages, but would it translate to the big screen? Well, we all know the answer. With the help of co-writers Phil Hartman and Michael Varhol and director Tim Burton, the precocious man-child became a household name, and provided proof of concept for a brilliant television series that followed. The film is an astonishing blast of comedic invention, carried by Reubens and ably supported by an absolutely perfect supporting cast and a music score by Danny Elfman.",
+        "is_special_screening": false,
+        "url": "https://www.austinfilm.org/screening/pee-wees-big-adventure/"
+      }
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "html_file": "dogtooth_movie_page.html",
+        "description": "Foreign film restoration example",
+        "url": "https://www.austinfilm.org/screening/dogtooth-4k-restoration/"
+      },
+      "expected_output": {
+        "title": "DOGTOOTH 4K Restoration",
+        "director": "Yorgos Lanthimos",
+        "year": 2009,
+        "country": "Greece",
+        "language": "Greek",
+        "duration": "1h 34min",
+        "dates": [
+          "2025-06-27",
+          "2025-06-28",
+          "2025-06-29",
+          "2025-06-30",
+          "2025-07-03"
+        ],
+        "times": [
+          "6:15 PM",
+          "3:00 PM",
+          "3:00 PM",
+          "5:00 PM",
+          "9:05 PM"
+        ],
+        "venue": "AFS Cinema",
+        "description": "Newly Restored in 4K. From Yorgos Lanthimos, writer and director of POOR THINGS and THE FAVOURITE. The rules are simple: never go beyond the garden walls, stay inside to be protected, and only when the DOGTOOTH falls out will the children be prepared to face the dangers of the outside world. And the biggest danger of all? Daddy. Home is where the horror begins as a father and mother exert complete control over their adult children, that is, until an outsider brought in to satisfy the needs of the eldest son brings with her the wonders of sex and VHS tapes. Dubbed “perverse”, “bizarre”, and downright “weird”, Yorgos Lanthimos’ DOGTOOTH added another label after the end credits rolled, Oscar nominee for Best Foreign Language film.",
+        "is_special_screening": false,
+        "url": "https://www.austinfilm.org/screening/dogtooth-4k-restoration/"
+      }
+    },
+    {
+      "test_id": 6,
+      "input": {
+        "html_file": "that_they_may_face_rising_sun.html",
+        "description": "Irish film with special screening (Free Member Monday)",
+        "url": "https://www.austinfilm.org/screening/that-they-may-face-the-rising-sun/"
+      },
+      "expected_output": {
+        "title": "THAT THEY MAY FACE THE RISING SUN",
+        "director": "Pat Collins",
+        "year": 2023,
+        "country": "Ireland",
+        "language": null,
+        "duration": "1h 51min",
+        "dates": [
+          "2025-07-07",
+          "2025-07-08",
+          "2025-07-09"
+        ],
+        "times": [
+          "7:00 PM",
+          "7:45 PM",
+          "6:15 PM"
+        ],
+        "venue": "AFS Cinema",
+        "description": "“A quietly captivating experience.” —BFI “The best Irish film in a very long time.” —The Irish Times “… A perfect examination of the multifaceted nature of life.” —ScreenRant This new adaptation of Irish author John McGahern’s final novel (it was published stateside as By The Lake) is a stately and evocative view of Irish countryside life as lived by two Londoners who are downshifting from a hectic way of life to the breezy ways of the Emerald Isle. This is a gentle, contemplative film that makes us carefully consider the meaning of happiness. Free Member Monday — free admission for all AFS members on Monday, July 7.",
+        "is_special_screening": true,
+        "url": "https://www.austinfilm.org/screening/that-they-may-face-the-rising-sun/"
+      }
+    }
+  ]
+}
