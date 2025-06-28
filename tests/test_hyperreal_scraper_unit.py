@@ -201,26 +201,26 @@ class TestHyperrealScraper:
         """Test that the scraper returns a proper schema."""
         schema = self.scraper.get_schema()
 
-        # Verify schema has expected fields
+        # Verify schema has expected fields that align with FilmEventSchema
         expected_fields = [
             "title",
-            "full_title",
+            "full_title", 
             "presenter",
             "dates",
-            "times",
-            "end_times",
+            "time",  # Schema uses 'time' not 'times'
             "venue",
             "description",
-            "trailer_url",
             "url",
             "is_special_screening",
         ]
 
-        # Schema should be a dictionary or have attributes for these fields
+        # Schema should be a dictionary with these fields as keys
         for field in expected_fields:
-            assert (
-                hasattr(schema, field) or field in schema
-            ), f"Schema missing field: {field}"
+            assert field in schema, f"Schema missing field: {field}"
+            # Verify each field has proper structure
+            assert isinstance(schema[field], dict), f"Field {field} should be a dict"
+            assert "type" in schema[field], f"Field {field} missing 'type'"
+            assert "required" in schema[field], f"Field {field} missing 'required'"
 
     def test_venue_and_address_constants(self):
         """Test that venue information is properly set."""

@@ -9,9 +9,9 @@ from typing import Dict, List
 
 # Import all new LLM-powered scrapers
 from .scrapers import (
+    AFSScraper,
     AlienatedMajestyBooksScraper,
     AustinSymphonyScraper,
-    ComprehensiveAFSScraper,
     EarlyMusicAustinScraper,
     FirstLightAustinScraper,
     HyperrealScraper,
@@ -25,7 +25,7 @@ class MultiVenueScraper:
 
     def __init__(self):
         # Initialize all new scrapers
-        self.afs_scraper = ComprehensiveAFSScraper()
+        self.afs_scraper = AFSScraper()
         self.hyperreal_scraper = HyperrealScraper()
         self.alienated_majesty_scraper = AlienatedMajestyBooksScraper()
         self.first_light_scraper = FirstLightAustinScraper()
