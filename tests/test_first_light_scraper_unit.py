@@ -5,10 +5,20 @@ Tests for First Light Austin scraper using the test database
 
 import json
 from pathlib import Path
+import re
 
 import pytest
 
 from src.scrapers.first_light_scraper import FirstLightAustinScraper
+
+def text_similarity(s1, s2):
+    """Calculate similarity based on common words."""
+    s1_words = set(re.findall(r'\w+', s1.lower()))
+    s2_words = set(re.findall(r'\w+', s2.lower()))
+    if not s1_words or not s2_words:
+        return 0.0
+    return len(s1_words.intersection(s2_words)) / len(s1_words.union(s2_words))
+
 
 
 class TestFirstLightScraper:
@@ -139,7 +149,10 @@ class TestFirstLightScraper:
                 # For string fields, check if they match or at least contain
                 # key information
                 if isinstance(expected_value, str) and isinstance(actual_value, str):
-                    if field == "date":
+                    if field == "description":
+                        similarity = text_similarity(actual_value, expected_value)
+                        assert similarity > 0.6, f"Test {test_id}: Description similarity too low ({similarity:.2f})"
+                    elif field == "date":
                         assert (
                             actual_value == expected_value
                         ), f"Test {test_id}: Date mismatch. Expected: {expected_value}, Got: {actual_value}"

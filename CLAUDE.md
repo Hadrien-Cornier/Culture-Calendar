@@ -21,6 +21,7 @@ cp .env.example .env
 # ANTHROPIC_API_KEY=your_key_here
 # PERPLEXITY_API_KEY=your_key_here  
 # FIRECRAWL_API_KEY=your_key_here
+# Note: ANTHROPIC_API_KEY must be added manually to .env (not in .env.example)
 
 # Update website data (incremental - new events only)
 python update_website_data.py --days 14
@@ -34,17 +35,13 @@ python update_website_data.py --full --force-reprocess
 # Update with smart validation (recommended for production)
 python update_website_data.py --full --validate
 
-# Run comprehensive test suite
-python run_tests.py              # All tests with coverage
-python run_tests.py unit         # Unit tests only
-python run_tests.py integration  # Integration tests
-python run_tests.py fast         # Fast tests (no API calls)
-python run_tests.py quality      # Data quality validation
-python run_tests.py live         # Live integration tests (requires API keys)
+# Run test suite (uses standard Python unittest)
+python -m unittest discover tests/ -v    # All unit tests
+python tests/test_afs_scraper_unit.py     # Individual scraper tests
+python tests/test_validation_integration.py  # Validation system tests
 
-# Test validation system
-python test_validation.py        # Test scraper validation system
-python test_validation.py --quick # Quick validation test (no live scraping)
+# Alternative with pytest (if installed)
+python -m pytest tests/ -v
 
 # Pre-commit code quality checks (run before committing!)
 python pre_commit_checks.py      # Auto-fix + quality checks + tests
@@ -52,21 +49,19 @@ python pre_commit_checks.py --fix-only    # Only run auto-fixes (black, isort, e
 python pre_commit_checks.py --check-only  # Only run quality checks
 python pre_commit_checks.py --no-tests    # Skip tests, only code quality
 
-# Test individual venue scrapers
-python test_all_scrapers.py
-
-# Generate new scraper from schema
-python -c "from src.scraper_generator import create_new_venue_scraper; create_new_venue_scraper('VenueName', 'film', base_url='https://venue.com')"
+# Test individual venue scrapers manually
+python -c "from src.scrapers import AFSScraper; s=AFSScraper(); print(f'AFS: {len(s.scrape_events())} events')"
+python -c "from src.scrapers import FirstLightAustinScraper; s=FirstLightAustinScraper(); print(f'FirstLight: {len(s.scrape_events())} events')"
 ```
 
 ## Development Workflow
 
 ### Adding New Venues
 1. **Define Schema**: Add venue-specific schema to `src/schemas.py` with extraction hints
-2. **Generate Scraper**: Use `ScraperGenerator.create_new_venue_scraper()` for 30-line boilerplate
+2. **Create Scraper**: Implement new scraper in `src/scrapers/` following existing patterns (typically 30-40 lines)
 3. **Customize Logic**: Implement venue-specific `get_target_urls()` and `get_fallback_data()`
-4. **Add Tests**: Create tests in `tests/` following existing patterns
-5. **Update Registry**: Add venue to `VENUE_SCHEMAS` mapping
+4. **Add Tests**: Create unit tests in `tests/` following existing patterns
+5. **Update Registry**: Add venue to scraper imports and MultiVenueScraper
 
 ### Key Architectural Patterns
 - **Progressive Fallback**: Always have 4 tiers (requests → pyppeteer → firecrawl → static)
@@ -225,10 +220,10 @@ The system uses **schemas** (`src/schemas.py`) to define data extraction pattern
 - **ConcertEventSchema**: composers, featured_artist, classical music terminology
 - **SchemaRegistry**: Central registry managing all venue-schema mappings
 
-**Auto-Generated Scrapers** (`src/scraper_generator.py`):
-- **Template System**: Generate 30-line scrapers from schemas vs 200+ line custom code
-- **Configuration-Driven**: New venues via JSON config, not Python code
-- **LLM Integration**: Automatic extraction hint incorporation
+**Individual Venue Scrapers** (`src/scrapers/`):
+- **Consistent Architecture**: All scrapers follow BaseScraper pattern (~30-40 lines each)
+- **Schema-Driven**: Use schemas from `src/schemas.py` for extraction hints
+- **LLM Integration**: All data extraction through structured Claude API prompts
 
 ## Key Configuration Files
 
@@ -309,9 +304,12 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 
 **Website Files:**
 - `docs/index.html` - Main single-page application
+- `docs/how-it-works.html` - Separate "How It Works" explanation page
 - `docs/style.css` - Styling and responsive design
 - `docs/script.js` - Interactive features and filtering
-- `docs/data.json` - Movie data for display
+- `docs/data.json` - Main event data for display
+- `docs/classical_data.json` - Separate classical music event data
+- `docs/source_update_times.json` - Data source update tracking
 - `.ics` files generated dynamically on the client
 
 **Key Features:**
@@ -370,9 +368,9 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 
 4. **Manual Workflow Triggers:**
    - Go to Actions tab
-   - **Weekly Update**: "Weekly Culture Calendar Update" (upcoming month)
-   - **Monthly Update**: "Monthly Culture Calendar Update" (full refresh) 
-   - **Re-rate Events**: "Re-rate All Events" (force fresh AI analysis)
+   - **Weekly Incremental Update**: "Weekly Incremental Update" workflow 
+   - **Complete Batch Reload**: "Complete Batch Reload" workflow (full refresh)
+   - **PR Validation**: "PR Validation Pipeline" (runs on pull requests)
    - Click "Run workflow" to test any workflow
 
 5. **View Website:**
@@ -523,22 +521,21 @@ The system now uses **structure-based detection** instead of keyword matching:
 
 ### Testing & Debugging Commands
 ```bash
-# Run comprehensive test suite
-python run_tests.py              # All tests with coverage
-python run_tests.py unit         # Unit tests only  
-python run_tests.py integration  # Integration tests
-python run_tests.py fast         # Fast tests (no API calls)
-python run_tests.py quality      # Data quality validation
-python run_tests.py e2e          # End-to-end pipeline tests
+# Run test suite (uses standard unittest framework)
+python -m unittest discover tests/ -v    # All unit tests
+python tests/test_afs_scraper_unit.py     # Individual scraper tests
+python tests/test_validation_integration.py  # Validation system tests
+
+# Alternative with pytest (if installed)
+python -m pytest tests/ -v
 
 # Test individual venue scrapers
-python test_all_scrapers.py
 python -c "from src.scrapers import AFSScraper; s=AFSScraper(); print(f'AFS: {len(s.scrape_events())} events')"
 python -c "from src.scrapers import FirstLightAustinScraper; s=FirstLightAustinScraper(); print(f'FirstLight: {len(s.scrape_events())} events')"
 
 # Validate system components
 python -c "from src.schemas import SchemaRegistry; print('Available schemas:', SchemaRegistry.get_available_types())"
-python -c "from src.scraper_generator import ScraperGenerator; g=ScraperGenerator(); print('Generator ready')"
+python -c "from src.validation_service import ValidationService; v=ValidationService(); print('Validation service ready')"
 python -c "import json; data=json.load(open('docs/data.json')); print(f'Total events: {len(data)}')"
 
 # Cache management
@@ -558,83 +555,51 @@ cat .github/workflows/complete-data-wipe-reload.yml
 
 ## Testing & Debugging
 
-### Comprehensive Test Suite (85+ Tests)
+### Test Suite Architecture
 
-The test suite is organized into four categories:
+The test suite uses standard Python unittest framework:
 
 ```
 tests/
-├── unit/           # Unit tests for individual components
-├── integration/    # Integration tests for system interactions
-├── live/          # Live tests with real API calls (optional)
-└── quality/       # Data quality validation tests
+├── test_afs_scraper_unit.py          # AFS scraper unit tests
+├── test_validation_integration.py    # Validation system integration tests
+└── test_*.py                         # Additional individual component tests
 ```
 
-**Unit Tests** (`tests/test_units.py`):
+**Unit Tests** (individual test files):
 ```bash
-pytest tests/test_units.py -v -m unit
+python tests/test_afs_scraper_unit.py
+python -m unittest tests.test_afs_scraper_unit -v
 ```
-- LLMService API integration and error handling
-- BaseScraper progressive fallback system
-- Schema validation and registry functionality
-- SummaryGenerator caching and prompt building
-- CalendarGenerator ICS file creation
-- ScraperGenerator template system
+- Individual scraper functionality and error handling
+- Schema validation and data extraction
+- LLMService integration testing
+- Fallback data generation
 
-**Integration Tests** (`tests/test_integration.py`):
+**Integration Tests**:
 ```bash
-pytest tests/test_integration.py -v -m integration
+python tests/test_validation_integration.py
+python -m unittest tests.test_validation_integration -v
 ```
-- MultiVenueScraper coordination and error isolation
-- Individual scraper initialization and schema consistency
-- EventProcessor AI pipeline integration
-- Full scraping → processing → output workflows
+- Validation service testing with real data
+- Multi-venue scraper coordination
+- Complete data pipeline testing
+- AI processing integration
 
-**Data Quality Tests** (`tests/test_data_quality.py`):
+**Manual Testing Commands**:
 ```bash
-pytest tests/test_data_quality.py -v -m unit
-```
-- Schema validation and field consistency
-- Date/time format validation and business rules
-- Cross-venue data quality and duplicate detection
-- Data sanitization and None handling
+# Test full pipeline manually
+python update_website_data.py --days 7 --validate
 
-**End-to-End Tests** (`tests/test_e2e.py`):
-```bash
-pytest tests/test_e2e.py -v -m integration
-```
-- Complete pipeline testing from scraping to calendar generation
-- ICS calendar compatibility and JSON data validation
-- Performance requirements and memory usage
-- Error recovery and graceful degradation
+# Test validation service manually  
+python -c "from src.validation_service import ValidationService; v=ValidationService(); print('Testing validation...')"
 
-**Live Integration Tests** (`tests/test_live_integration.py`):
-```bash
-python run_live_tests.py
-# or
-pytest tests/test_live_integration.py -v -s -m live
+# Test individual scrapers with error handling
+python -c "from src.scrapers import AFSScraper; s=AFSScraper(); events=s.scrape_events(); print(f'Scraped {len(events)} events')"
 ```
-- **Real API Keys**: Uses actual FIRECRAWL_API_KEY and ANTHROPIC_API_KEY
-- **Live Data**: Fetches real events from all venue websites
-- **Mini Refresh**: Simulates complete update_website_data.py process
-- **Validation**: Ensures at least one valid event per scraper
-- **Pipeline Testing**: Tests scraping → AI processing → calendar generation
-
-**Empty Extraction Tests** (`tests/test_empty_extraction.py`):
-```bash
-pytest tests/test_empty_extraction.py -v -m unit
-```
-- Edge cases where LLM returns no useful data
-- Error handling for invalid JSON responses
-- Validation of empty/null field handling
-
-**New Scrapers Tests** (`tests/test_new_scrapers.py`):
-```bash
-pytest tests/test_new_scrapers.py -v -s
-```
-- LLM-powered scraper architecture validation
-- Live website testing with real data
-- Schema-driven development verification
+- Complete pipeline validation
+- Individual component testing
+- Error handling verification
 
 ### Live Testing with Real Data
 

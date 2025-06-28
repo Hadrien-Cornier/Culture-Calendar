@@ -4,6 +4,7 @@ Hyperreal Film Club scraper for extracting movie screening events.
 
 import asyncio
 import re
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 from urllib.parse import urljoin
 
@@ -18,10 +19,24 @@ class HyperrealScraper(BaseScraper):
     """Scraper for Hyperreal Film Club events."""
 
     def __init__(self):
-        super().__init__()
-        self.base_url = "https://hyperrealfilm.club"
-        self.venue_name = "Hyperreal Film Club"
+        super().__init__(
+            base_url="https://hyperrealfilm.club", venue_name="Hyperreal Film Club"
+        )
         self.venue_address = "301 Chicon Street, Austin, TX, 78702"
+
+    def get_target_urls(self) -> List[str]:
+        """Return the list of target URLs to scrape."""
+        # Scrape the current month
+        now = datetime.now()
+        return [self.get_calendar_url(now.year, now.month)]
+
+    def get_data_schema(self) -> Dict:
+        """Return the data schema for this scraper."""
+        return FilmEventSchema.get_schema()
+
+    def get_fallback_data(self) -> List[Dict]:
+        """Return fallback data if scraping fails."""
+        return []
 
     def get_calendar_url(self, year: int, month: int) -> str:
         """Generate calendar URL for a specific month."""
@@ -135,6 +150,8 @@ class HyperrealScraper(BaseScraper):
             title = title.split(" Presents ~ ")[-1]
         elif " presents " in title.lower():
             title = title.split(" presents ")[-1]
+        elif " ~ " in title:
+            title = title.split(" ~ ")[-1]
 
         # Remove "at HYPERREAL FILM CLUB" suffix
         if " at HYPERREAL FILM CLUB" in title:
@@ -255,18 +272,6 @@ class HyperrealScraper(BaseScraper):
             self.logger.error(f"Error scraping calendar {calendar_url}: {e}")
             return []
 
-    def get_schema(self) -> FilmEventSchema:
+    def get_schema(self) -> Dict:
         """Return the schema for Hyperreal events."""
-        return EventSchema(
-            title="Movie screening title",
-            full_title="Complete event title as shown on site",
-            presenter="Event presenter or series name",
-            dates="List of screening dates in YYYY-MM-DD format",
-            times="List of start times",
-            end_times="List of end times",
-            venue="Screening venue name",
-            description="Event description",
-            trailer_url="Link to movie trailer if available",
-            url="Original event page URL",
-            is_special_screening="Whether this is a special/themed screening",
-        )
+        return FilmEventSchema.get_schema()

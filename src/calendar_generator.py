@@ -72,10 +72,13 @@ class CalendarGenerator:
             if event_date:
                 event.add("dtstart", event_date.date())
 
-        # Location
-        location = (
-            "Austin Film Society Cinema, 6226 Middle Fiskville Rd, Austin, TX 78752"
-        )
+        # Location - use event-specific location if available, otherwise default to AFS
+        location = event_data.get("location")
+        if not location:
+            if event_data.get("venue") == "NewYorkerMeetup":
+                location = "Central Market, 4001 N Lamar Blvd, Austin, TX 78752"
+            else:
+                location = "Austin Film Society Cinema, 6226 Middle Fiskville Rd, Austin, TX 78752"
         event.add("location", location)
 
         # Description
@@ -86,10 +89,19 @@ class CalendarGenerator:
         if event_data.get("url"):
             event.add("url", event_data["url"])
 
-        # Categories
-        categories = ["Film", "Entertainment"]
+        # Categories - set based on event type
+        if event_data.get("type") == "book_club":
+            categories = ["Book Club", "Literature", "Discussion"]
+        elif event_data.get("type") == "concert":
+            categories = ["Concert", "Music", "Classical"]
+        else:
+            categories = ["Film", "Entertainment"]
+            
         if event_data.get("is_special_screening"):
             categories.append("Special Event")
+        if event_data.get("is_recurring"):
+            categories.append("Recurring Event")
+            
         event.add("categories", categories)
 
         return event

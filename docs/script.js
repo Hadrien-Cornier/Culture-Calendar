@@ -1211,7 +1211,8 @@ function getVenueName(venue) {
         'EarlyMusic': 'Early Music Project',
         'LaFollia': 'La Follia Austin',
         'AlienatedMajesty': 'Alienated Majesty Books',
-        'FirstLight': 'First Light Austin'
+        'FirstLight': 'First Light Austin',
+        'NewYorkerMeetup': 'New Yorker Book Club'
     };
     return venueNames[venue] || venue;
 }
@@ -1225,7 +1226,8 @@ function getVenueAbbr(venue) {
         'EarlyMusic': 'EMP',
         'LaFollia': 'LFA',
         'AlienatedMajesty': 'AMB',
-        'FirstLight': 'FLA'
+        'FirstLight': 'FLA',
+        'NewYorkerMeetup': 'NYR'
     };
     return venueAbbrs[venue] || venue;
 }

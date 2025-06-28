@@ -51,6 +51,18 @@ class EventProcessor:
                 processed_count += 1
                 print(f"Processing ({processed_count}): {event['title']}")
 
+                # Skip AI processing for recurring events - they have predefined content
+                if event.get("is_recurring"):
+                    print(f"  Skipping AI processing for recurring event")
+                    # Set simple defaults for recurring events
+                    event["ai_rating"] = {"score": 7, "summary": event.get("description", "")}
+                    event["preference_score"] = 0
+                    event["final_rating"] = 7
+                    event["rating_explanation"] = "Weekly recurring event"
+                    event["oneLinerSummary"] = "Weekly literary discussion group"
+                    enriched_events.append(event)
+                    continue
+
                 # Get AI rating (with caching)
                 event_title = event["title"].upper().strip()
                 if event_title in self.movie_cache and not self.force_reprocess:
