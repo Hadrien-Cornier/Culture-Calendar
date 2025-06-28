@@ -5,3 +5,5 @@ venv/
 docs/calendars/
 cache/
 __pycache__/
+.gemini/
+.claude/
