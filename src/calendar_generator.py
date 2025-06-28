@@ -96,12 +96,12 @@ class CalendarGenerator:
             categories = ["Concert", "Music", "Classical"]
         else:
             categories = ["Film", "Entertainment"]
-            
+
         if event_data.get("is_special_screening"):
             categories.append("Special Event")
         if event_data.get("is_recurring"):
             categories.append("Recurring Event")
-            
+
         event.add("categories", categories)
 
         return event

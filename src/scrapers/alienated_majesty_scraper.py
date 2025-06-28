@@ -363,25 +363,31 @@ class AlienatedMajestyBooksScraper(BaseScraper):
 
         # Handle title field for Subculture Lit books - need to shorten long book titles
         if "title" in mapped and "book" in mapped and "series" in mapped:
-            if mapped["series"] == "Subculture Lit" and "David Wojnarowicz" in mapped["book"]:
+            if (
+                mapped["series"] == "Subculture Lit"
+                and "David Wojnarowicz" in mapped["book"]
+            ):
                 # Shorten the long book title to just "David Wojnarowicz" for the title
                 mapped["title"] = f"{mapped['series']} - David Wojnarowicz"
 
         # Add missing host and description based on series from _get_series_details
         if "series" in mapped:
             time_str, host, description = self._get_series_details(mapped["series"])
-            
+
             # Only set host if not already present and host exists for this series
             if ("host" not in mapped or not mapped["host"]) and host is not None:
                 mapped["host"] = host
-            
+
             # Only set description if not already present
             if "description" not in mapped or not mapped["description"]:
                 # Special handling for "A Season Of" series with publisher info
                 if mapped["series"] == "A Season Of" and "book" in mapped:
-                    if "Chrysalis Pastoral" in mapped["book"] or "Through the Forest" in mapped["book"]:
+                    if (
+                        "Chrysalis Pastoral" in mapped["book"]
+                        or "Through the Forest" in mapped["book"]
+                    ):
                         description = "Reading a single author or title for a season. Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club. From Fum d'Estampa Press."
-                
+
                 mapped["description"] = description
 
         # Fix specific author name issues
@@ -544,19 +550,19 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                 "Small presses, experimental and transgressive writers and work. Meets the 2nd Sunday of every month at 3pm. Run by East Austin Writing Project.",
             ),
             "A Season Of": (
-                "11:00 AM", 
-                "Austin NYRB Book Club", 
-                "Reading a single author or title for a season. Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club."
+                "11:00 AM",
+                "Austin NYRB Book Club",
+                "Reading a single author or title for a season. Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club.",
             ),
             "Voyage Out": (
-                "5:00 PM", 
-                None, 
-                "A regional reading series. Meets the 3rd Sunday of every month at 5pm."
+                "5:00 PM",
+                None,
+                "A regional reading series. Meets the 3rd Sunday of every month at 5pm.",
             ),
             "Apricot Trees Exist": (
-                "3:00 PM", 
-                None, 
-                "Reading poems for generative inspiration. Meets the 4th Sunday of every month at 3pm."
+                "3:00 PM",
+                None,
+                "Reading poems for generative inspiration. Meets the 4th Sunday of every month at 3pm.",
             ),
         }
 

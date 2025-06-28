@@ -204,7 +204,7 @@ class TestHyperrealScraper:
         # Verify schema has expected fields that align with FilmEventSchema
         expected_fields = [
             "title",
-            "full_title", 
+            "full_title",
             "presenter",
             "dates",
             "time",  # Schema uses 'time' not 'times'

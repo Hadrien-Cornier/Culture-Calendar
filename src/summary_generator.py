@@ -118,54 +118,93 @@ class SummaryGenerator:
         """Check if this is a specific event that should be summarized"""
         title = event.get("title", "").lower()
         description = event.get("description", "").lower()
-        
+
         # Events that should NOT be summarized
         non_specific_indicators = [
-            "film festival", "festival", "symposium", "conference", "workshop",
-            "discussion panel", "panel", "conversation", "talk", "seminar",
-            "masterclass", "awards", "ceremony", "gala", "fundraiser", "benefit",
-            "market", "networking", "party", "reception", "opening night",
-            "closing night", "auteur festival", "series", "season", "program",
-            "showcase", "retrospective", "tribute", "celebration", "event series",
-            "monthly meeting", "weekly meeting", "club meeting", "group meeting"
+            "film festival",
+            "festival",
+            "symposium",
+            "conference",
+            "workshop",
+            "discussion panel",
+            "panel",
+            "conversation",
+            "talk",
+            "seminar",
+            "masterclass",
+            "awards",
+            "ceremony",
+            "gala",
+            "fundraiser",
+            "benefit",
+            "market",
+            "networking",
+            "party",
+            "reception",
+            "opening night",
+            "closing night",
+            "auteur festival",
+            "series",
+            "season",
+            "program",
+            "showcase",
+            "retrospective",
+            "tribute",
+            "celebration",
+            "event series",
+            "monthly meeting",
+            "weekly meeting",
+            "club meeting",
+            "group meeting",
         ]
-        
+
         # Check title for non-specific indicators
         for indicator in non_specific_indicators:
             if indicator in title:
                 return False
-        
+
         # Check description for non-specific indicators
         for indicator in non_specific_indicators:
             if indicator in description:
                 return False
-        
+
         # For film events, check if it's actually a specific film
         if event.get("type") == "screening" or event.get("isMovie", False):
             # If it doesn't have a director and year, it might not be a specific film
             if not event.get("director") and not event.get("year"):
                 # Check if title suggests it's not a specific film
                 vague_film_indicators = [
-                    "various films", "multiple films", "selection of", "collection of",
-                    "featuring films", "film series", "movie series", "cinema series"
+                    "various films",
+                    "multiple films",
+                    "selection of",
+                    "collection of",
+                    "featuring films",
+                    "film series",
+                    "movie series",
+                    "cinema series",
                 ]
                 for indicator in vague_film_indicators:
                     if indicator in title or indicator in description:
                         return False
-        
+
         # For book clubs, make sure it's about a specific book
         if event.get("type") == "book_club":
             # If no specific book is mentioned, don't summarize
             if not event.get("book") and not event.get("author"):
                 # Check if it's a general book club meeting
                 general_book_indicators = [
-                    "book club meeting", "monthly book", "weekly book", "discussion group",
-                    "reading group", "literature group", "book discussion"
+                    "book club meeting",
+                    "monthly book",
+                    "weekly book",
+                    "discussion group",
+                    "reading group",
+                    "literature group",
+                    "book discussion",
                 ]
                 for indicator in general_book_indicators:
                     if indicator in title:
                         return False
-        
+
         return True
 
     def _call_claude_api(self, event: Dict) -> Optional[str]:
@@ -216,9 +255,9 @@ class SummaryGenerator:
                 "is a series",
                 "multiple films",
                 "collection of",
-                "various films"
+                "various films",
             ]
-            
+
             for indicator in refusal_indicators:
                 if indicator in summary.lower():
                     print(f"  AI refused to summarize: {summary[:100]}...")
@@ -227,7 +266,7 @@ class SummaryGenerator:
             # Remove common introductory phrases and meta-commentary
             prefixes_to_remove = [
                 "Based on this analysis",
-                "Based on the analysis", 
+                "Based on the analysis",
                 "Based on the detailed analysis",
                 "here's a summary:",
                 "here's an 8-12 word summary:",
@@ -255,22 +294,22 @@ class SummaryGenerator:
 
             # Clean up trailing artifacts and formatting issues
             summary = summary.strip("\"'")
-            
+
             # Remove trailing phrases that indicate incomplete responses
             trailing_artifacts = [
-                "\" This 10-wor",
-                "\" This 8-12",
-                "\" This summary",
-                "...\" This",
+                '" This 10-wor',
+                '" This 8-12',
+                '" This summary',
+                '..." This',
                 "\" Here's",
-                "\" Based on"
+                '" Based on',
             ]
-            
+
             for artifact in trailing_artifacts:
                 if artifact in summary:
                     summary = summary.split(artifact)[0].strip()
                     break
-            
+
             # Remove any remaining quotes and clean up
             summary = summary.strip("\"'").strip()
 
@@ -278,7 +317,7 @@ class SummaryGenerator:
             if len(summary) < 10:
                 print(f"  Summary too short, rejecting: {summary}")
                 return None
-                
+
             # Check for meta-commentary that shouldn't be in the final summary
             meta_indicators = [
                 "based on",
@@ -287,20 +326,20 @@ class SummaryGenerator:
                 "word summary",
                 "analysis",
                 "10-word",
-                "8-12 word"
+                "8-12 word",
             ]
-            
+
             summary_lower = summary.lower()
             for indicator in meta_indicators:
                 if indicator in summary_lower:
                     print(f"  Summary contains meta-commentary, rejecting: {summary}")
                     return None
-            
+
             # Check for trailing artifacts that indicate incomplete responses
             if any(artifact in summary for artifact in ['" This', '" Here', '" Based']):
                 print(f"  Summary has trailing artifacts, rejecting: {summary}")
                 return None
-            
+
             # Check for incomplete or malformed summaries
             if summary.endswith("...") and len(summary) < 30:
                 print(f"  Summary appears incomplete, rejecting: {summary}")

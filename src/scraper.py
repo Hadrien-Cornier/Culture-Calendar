@@ -32,7 +32,7 @@ class MultiVenueScraper:
         self.symphony_scraper = AustinSymphonyScraper()
         self.early_music_scraper = EarlyMusicAustinScraper()
         self.la_follia_scraper = LaFolliaAustinScraper()
-        
+
         # Initialize recurring events generator
         self.recurring_events_generator = RecurringEventGenerator()
 
@@ -140,7 +140,11 @@ class MultiVenueScraper:
         try:
             # Generate events for next 8 weeks by default, or 2 weeks for target_week mode
             weeks_ahead = 2 if target_week else 8
-            recurring_events = self.recurring_events_generator.generate_all_recurring_events(weeks_ahead)
+            recurring_events = (
+                self.recurring_events_generator.generate_all_recurring_events(
+                    weeks_ahead
+                )
+            )
             all_events.extend(recurring_events)
             print(f"Generated {len(recurring_events)} recurring events")
             self.last_updated["RecurringEvents"] = datetime.now().isoformat()

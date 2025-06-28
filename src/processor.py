@@ -55,7 +55,10 @@ class EventProcessor:
                 if event.get("is_recurring"):
                     print(f"  Skipping AI processing for recurring event")
                     # Set simple defaults for recurring events
-                    event["ai_rating"] = {"score": 7, "summary": event.get("description", "")}
+                    event["ai_rating"] = {
+                        "score": 7,
+                        "summary": event.get("description", ""),
+                    }
                     event["preference_score"] = 0
                     event["final_rating"] = 7
                     event["rating_explanation"] = "Weekly recurring event"

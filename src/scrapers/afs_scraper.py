@@ -14,8 +14,7 @@ class AFSScraper(BaseScraper):
 
     def __init__(self):
         super().__init__(
-            base_url="https://www.austinfilm.org", 
-            venue_name="Austin Film Society"
+            base_url="https://www.austinfilm.org", venue_name="Austin Film Society"
         )
 
     def get_target_urls(self) -> List[str]:
@@ -32,10 +31,10 @@ class AFSScraper(BaseScraper):
             {
                 "title": "Regular Film Screening",
                 "date": datetime.now().strftime("%Y-%m-%d"),
-                "time": "7:00 PM", 
+                "time": "7:00 PM",
                 "venue": "AFS Cinema",
                 "type": "screening",
                 "description": "Austin Film Society presents carefully curated independent and international films.",
-                "url": "https://www.austinfilm.org"
+                "url": "https://www.austinfilm.org",
             }
         ]

@@ -48,14 +48,14 @@ class TestAFSScraper(unittest.TestCase):
         fallback_data = self.scraper.get_fallback_data()
         self.assertIsInstance(fallback_data, list)
         self.assertTrue(len(fallback_data) > 0)
-        
+
         # Check that fallback event has required fields
         event = fallback_data[0]
         required_fields = ["title", "date", "venue", "type"]
         for field in required_fields:
             self.assertIn(field, event)
 
-    @patch('src.base_scraper.BaseScraper._scrape_single_url')
+    @patch("src.base_scraper.BaseScraper._scrape_single_url")
     def test_scrape_events_with_mock(self, mock_scrape):
         """Test scrape_events method with mocked data"""
         # Mock successful scraping result
@@ -66,13 +66,13 @@ class TestAFSScraper(unittest.TestCase):
                 "time": "7:00 PM",
                 "venue": "AFS Cinema",
                 "type": "screening",
-                "description": "A test movie screening"
+                "description": "A test movie screening",
             }
         ]
-        
+
         events = self.scraper.scrape_events()
         self.assertIsInstance(events, list)
-        
+
         # If mock was called, we should get the mocked data
         if events:
             self.assertTrue(len(events) > 0)
@@ -84,12 +84,12 @@ class TestAFSScraper(unittest.TestCase):
         # Test that the scraper is properly configured for AFS
         self.assertEqual(self.scraper.venue_name, "Austin Film Society")
         self.assertTrue(self.scraper.base_url.startswith("https://"))
-        
+
         # Test that required methods are implemented
-        self.assertTrue(hasattr(self.scraper, 'get_target_urls'))
-        self.assertTrue(hasattr(self.scraper, 'get_data_schema'))
-        self.assertTrue(hasattr(self.scraper, 'get_fallback_data'))
-        self.assertTrue(hasattr(self.scraper, 'scrape_events'))
+        self.assertTrue(hasattr(self.scraper, "get_target_urls"))
+        self.assertTrue(hasattr(self.scraper, "get_data_schema"))
+        self.assertTrue(hasattr(self.scraper, "get_fallback_data"))
+        self.assertTrue(hasattr(self.scraper, "scrape_events"))
 
 
 if __name__ == "__main__":
