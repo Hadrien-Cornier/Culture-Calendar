@@ -11,7 +11,7 @@ from pyppeteer import launch
 from bs4 import BeautifulSoup
 
 from ..base_scraper import BaseScraper
-from ..schemas import EventSchema
+from ..schemas import FilmEventSchema
 
 
 class HyperrealScraper(BaseScraper):
@@ -249,7 +249,7 @@ class HyperrealScraper(BaseScraper):
             self.logger.error(f"Error scraping calendar {calendar_url}: {e}")
             return []
     
-    def get_schema(self) -> EventSchema:
+    def get_schema(self) -> FilmEventSchema:
         """Return the schema for Hyperreal events."""
         return EventSchema(
             title="Movie screening title",

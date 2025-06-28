@@ -1,0 +1,216 @@
+{
+  "description": "Test database for First Light Books scraper with real author event examples and book club events",
+  "schema": {
+    "title": "string (required) - Event title (e.g., 'Sahil Bloom: The 5 Types of Wealth')",
+    "author": "string (required) - Author name",
+    "book": "string (optional) - Book title if applicable",
+    "date": "string (required) - Event date in YYYY-MM-DD format",
+    "time": "string (required) - Event time (e.g., '7:00 PM')",
+    "venue": "string (required) - Venue name",
+    "description": "string (optional) - Event description",
+    "rsvp_url": "string (optional) - RSVP/ticket link",
+    "url": "string (required) - Original event page URL",
+    "host": "string (optional) - Event host or facilitator name",
+    "series": "string (optional) - Book club series name"
+  },
+  "test_cases": [
+    {
+      "test_id": 1,
+      "input": {
+        "html_file": "violet_lucca_cronenberg.html",
+        "description": "Event page: Violet Lucca @ AFS: David Cronenberg Clinical Trials",
+        "url": "https://www.firstlightaustin.com/events/violet-lucca-cronenberg"
+      },
+      "expected_output": {
+        "title": "Violet Lucca @ AFS: David Cronenberg Clinical Trials",
+        "author": "Violet Lucca @ AFS",
+        "book": "David Cronenberg Clinical Trials",
+        "date": "2025-07-24",
+        "time": "8:00 PM",
+        "venue": "First Light Books",
+        "description": "Let's go to the movies. First Light heads to Austin Film Society for a screening of Crash, David Cronenberg's visceral, bizarre, and transgressive adaptation of J.G. Ballard's novel about people who are obsessed with car crashes and their aftermath. Tickets include access to the screening and conversation with author Violet Lucca on Cronenberg's work and her forthcoming monograph, DAVID CRONENBERG CLINICAL TRIALS. First Light will be selling copies of both Lucca's and Ballard's books at AFS Cinema.About the book An illustrated monograph on the work of legendary writer and director David Cronenberg, master of body horror and cinematic provocateur behind films such as The Fly, Scanners, Naked Lunch, Eastern Promises, and Crimes of the Future. Cronenberg’s films have long enjoyed a cult following, pushing the boundaries of taste, blending high art with horror, and straddling the commercial and the cutting-edge. With this handsome book, the familiar and unfamiliar aspects of iconic films such as Videodrome, The Fly, Naked Lunch, and Crash is explored.Though dividing the book into two halves suggests a binary, the Jungian-inspired chapters within each emphasize that this work—and the world itself—is perpetually shifting. The reader progresses through these different stages (of Jungian individuation and therapy) and sees how the recurrent narrative, cultural, and visual themes loop back and intersect with one another. Rather than a straightforward narrative about a filmmaker, this book is a dreamlike exploration of all that is Cronenbergian.Featuring a foreword by Oscar-nominated actor Viggo Mortensen, it also includes interviews with composer Howard Shore, production designer Carol Spier, cinematographer Peter Suschitzky, and producer and playwright/screenwriter Jeremy Thomas.About the author Violet Lucca’s writing has appeared in The New York Times, Criterion’s The Current, Art in America, The Village Voice, and elsewhere. She studied film and film production at the University of Iowa, graduating with honors, and received her master’s degree in cinema studies from New York University in 2009.Violet will be joined in conversation by Lars Nilsen, the lead programmer at AFS.",
+        "rsvp_url": "https://www.austinfilm.org/screening/crash/",
+        "url": "https://www.firstlightaustin.com/events/violet-lucca-cronenberg"
+      }
+    },
+    {
+      "test_id": 2,
+      "input": {
+        "html_file": "sahil_bloom_5_types_wealth.html",
+        "description": "Event page: Sahil Bloom: The 5 Types of Wealth",
+        "url": "https://www.firstlightaustin.com/events/sahil-bloom-5-types-wealth"
+      },
+      "expected_output": {
+        "title": "Sahil Bloom: The 5 Types of Wealth",
+        "author": "Sahil Bloom",
+        "book": "THE 5 TYPES OF WEALTH.",
+        "date": "2025-06-30",
+        "time": "7:00 PM",
+        "venue": "Austin Public Library Central Branch",
+        "description": "On June 30, First Light is excited to welcome Sahil Bloom to discuss his debut book, THE 5 TYPES OF WEALTH.This event will take place at the Central branch of the Austin Public Library downtown. Limited paid parking is available onsite in the Central Library’s underground garage. Spaces are first come, first served. Doors open at 6 p.m.Tickets include the option to receive a signed hardcover copy of THE 5 TYPES OF WEALTH.About the bookAfter years of research, personal experimentation, and thousands of interviews across the globe, Sahil Bloom has created a groundbreaking blueprint to build your life around the five types of wealth: Time Wealth, Social Wealth, Mental Wealth, Physical Wealth, and Financial Wealth.Through powerful storytelling, science-backed practices, and actionable insights, THE 5 TYPES OF WEALTH will teach you:How to prioritize energy-creating tasks to unlock more time in your dayHow to create deeper bonds and build a powerful networkHow to engage your purpose to spark continuous growthHow to maximize health and vitality through three simple principlesHow to achieve financial independence and define your version of “enough”No matter where you are on your path—a recent graduate, new parent, midlife warrior, retiree, or anywhere in between—the book will help you act on your priorities to create an immediate positive impact in your daily life, make better decisions, and design the life you’ve always dreamed of.About the authorSahil Bloom is an inspirational writer and content creator, captivating millions of people every week through his insights and biweekly newsletter, The Curiosity Chronicle. His book THE 5 TYPES OF WEALTH was an instant New York Times and USA Today bestseller. Sahil is a successful entrepreneur, owner of SRB Holdings, and the managing partner of SRB Ventures, an early-stage investment fund. Sahil graduated from Stanford University with an master's in public policy and a bachelor's in economics and sociology. He was a four-year member of the Stanford baseball team.Sahil will be joined in conversation by Dominic Schlueter, the 20-year-old Founder of The Running Effect—the fastest-growing running media brand in the world, earning a spot as high as #15 on Spotify’s “Top Sports Podcasts in the US.” Dominic’s platform has become the go-to destination for elite storytelling, raw inspiration, and next-gen performance insights across the running world. He now leads a growing media company that’s redefining how endurance is talked about, experienced, and shared.",
+        "rsvp_url": "https://thethirdplace.is/event/sahil-bloom-the-5-types-of-wealth",
+        "url": "https://www.firstlightaustin.com/events/sahil-bloom-5-types-wealth"
+      }
+    },
+    {
+      "test_id": 3,
+      "input": {
+        "html_file": "katie_simon_tell_me_what_you_like.html",
+        "description": "Event page: Katie Simon: Tell Me What You Like",
+        "url": "https://www.firstlightaustin.com/events/katie-simon-tell-me-what-you-like"
+      },
+      "expected_output": {
+        "title": "Katie Simon: Tell Me What You Like",
+        "author": "Katie Simon",
+        "book": "Tell Me What You Like",
+        "date": "2025-07-29",
+        "time": "7:00 PM",
+        "venue": "First Light Books",
+        "description": "Join First Light Books on Tuesday, July 29, for the book launch of TELL ME WHAT YOU LIKE, Katie Simon's debut narrative nonfiction work about intimacy after sexual assault.About the bookOver a decade ago, Katie Simon began seeking out stories of people who faced sexual challenges after sexual trauma—just as she did. Simon interviewed dozens of survivors, and her investigation yielded diverse responses from people of all backgrounds, ultimately confirming that there is no single path toward healing.Simon's research led her to life-changing findings that sexual assault survivors most want to know about: coping with trauma triggers and traumatic stress symptoms such as anxiety, depression, physical pain, and flashbacks. From embodied consent to self-pleasure, sexual regret, break-ups and beyond, you'll find answers to all your questions about how sexual trauma affects sex and relationships within these pages, in stories told by survivors who've actually been there.Millions of survivors across the United States are treated as irreparably broken. Simon offers a positive approach to healing based on empathy and community—and the understanding and tools to navigate trauma and cultivate the sex lives we desire and deserve. The narratives Simon has gathered break down the potential obstacles to rebuilding post-assault, and offer multiple paths forward with optimistic, new approaches to sex after sexual assault. Packed with insights, stories, and advice, this invaluable guide reimagines what sex can look like—not only for survivors, but for all of us.About the author Katie Simon (she/they) has been published in The New York Times, The Washington Post, Vogue, BuzzFeed, The Cut, and elsewhere, including the anthology Anatomy of Silence. Katie earned a BA in contemporary storytelling at New York University and an MA in biography and creative nonfiction writing at University of East Anglia. She studied narrative medicine at Columbia University and completed the Memoir Incubator at Grub Street in Boston, Massachusetts and the Human Sexuality Intensive at the Kinsey Institute. She lives in Texas with her dog, Babka.",
+        "rsvp_url": "https://thethirdplace.is/event/katie-simon-tell-me-what-you-like",
+        "url": "https://www.firstlightaustin.com/events/katie-simon-tell-me-what-you-like"
+      }
+    },
+    {
+      "test_id": 4,
+      "input": {
+        "html_file": "kelly_ramsey_wildfire_days.html",
+        "description": "Event page: Kelly Ramsey: Wildfire Days",
+        "url": "https://www.firstlightaustin.com/events/kelly-ramsey-wildfire-days"
+      },
+      "expected_output": {
+        "title": "Kelly Ramsey: Wildfire Days",
+        "author": "Kelly Ramsey",
+        "book": "Wildfire Days",
+        "date": "2025-07-09",
+        "time": "7:00 PM",
+        "venue": "First Light Books",
+        "description": "Join First Light Books on Wednesday, July 9, to celebrate the release of Kelly Ramsey's memoir WILDFIRE DAYS about her work as wildland firefighter. Tickets include a copy of the book and a reserved seat. Unreserved seats are available on a first come, first served basis. Free RSVPs are also encouraged.About the bookIn the exhilarating spirit of Wild and A Walk in the Park, an adventure-filled memoir of one woman’s struggle to succeed as a wildland firefighter on an elite, male-dominated crew as they battle some of the fiercest wildfires in the West.When Kelly Ramsey drives over a California mountain pass to join an elite firefighting crew, she’s terrified that she won’t be able to keep up with the intense demands of the job. Not only will she be the only woman on this hotshot crew and their first in ten years, she’ll also be among the oldest. As she trains relentlessly to overcome the crew’s skepticism and gain their respect, megafires erupt across the West, posing an increasing danger both on the job and back home. In vivid prose that evokes the majesty of Northern California’s forests, Kelly takes us on the ground to see how major wildfires are fought and to lay bare the psychological toll, the bone-deep weariness, and the unbreakable camaraderie that emerge in the face of nature’s fury.Despite the wear and tear of her rookie year in fire, Kelly gears up for a second season, determined to prove that not only can a woman survive this work, she can excel. But when her plans to marry her partner start to crumble and sparks fly with a fellow crew member, Kelly wrestles with whether she’s truly outgrown the self-destructive patterns she’s learned from her father, whose drinking and itinerant ways haunt her. And as the season wears on, she discovers how tenuous “belonging” can be amid ever-changing crew dynamics.In this vivid, visceral, and intimate memoir, Kelly wrestles with the immense power of fire for both destruction and renewal, confronted with the questions: Which fires do you fight, and which do you let burn you clean?About the authorKelly Ramsey studied poetry at the University of Virginia and fiction writing at the University of Pittsburgh. She cofounded The Lighthouse Works, an artists’ residency program, and later moved to Northern California, where she worked for the US Forest Service as a trail maintenance worker, wilderness ranger, and wildland firefighter. Her writing has appeared in The Washington Post, Sierra magazine, Electric Literature, and the anthology Letter to a Stranger. She lives in Redding, California, with her partner and their dog, Rookie.",
+        "rsvp_url": "https://thethirdplace.is/event/kelly-ramsey-wildfire-days",
+        "url": "https://www.firstlightaustin.com/events/kelly-ramsey-wildfire-days"
+      }
+    },
+    {
+      "test_id": 5,
+      "input": {
+        "html_file": "wildsam_texas_state_parks.html",
+        "description": "Event page: Wildsam x Texas State Parks Happy Hour",
+        "url": "https://www.firstlightaustin.com/events/wildsam-texas-state-parks"
+      },
+      "expected_output": {
+        "title": "Wildsam x Texas State Parks Happy Hour",
+        "author": null,
+        "book": null,
+        "date": "2025-07-08",
+        "time": "6:00 PM",
+        "venue": "First Light Books",
+        "description": "Gather with us for a happy hour at First Light Books to celebrate the second release of Wildsam's Texas field guide with Texas State Parks.Tickets include a copy of the updated field guide as well as a drink ticket. Free RSVPs are also encouraged.About WILDSAM TEXASA field guide to Texas: Marfa art and Hill Country springs, songwriters and pitmasters, Texas traditions and Rio Grande stories.Inside WILDSAM TEXAS, you'll find Lone Star tales from prize-winning writers, past and present; detailed road trip itineraries and profiles of Texas towns; interviews with painters, directors, activists and songwriters; delightful miscellany from the archives, selective recommendations about authentic Texas experiences and offbeat intel that offers stunning insight into Texas.About WildsamFounded in 2012, Wildsam is an American travel brand built upon telling true stories of place. They seek out the real and rooted things, what’s truly authentic, and share the pathways to deep connections and wonders in the world, for travelers and locals alike.About Texas State ParksSince 1923, Texas State Parks has been dedicated to protecting the best parts of Texas’ vast natural and cultural beauty. More than 100 years later, the Texas State Park system has grown to a network of over 85 parks, historic sites and natural areas providing recreational educational opportunities to millions of visitors every year.About Texas Parks & Wildlife MagazineSince 1942, Texas Parks & Wildlife Magazine has been the voice of the Texas outdoors. Each issue of this award-winning publication is packed with outstanding photography and inspirational storytelling, shining the spotlight on a multitude of outdoor recreation opportunities including state parks, fishing, hunting, camping, birding, paddling, boating, and travel, as well as wildlife, conservation, and environmental issues across the Lone Star State.",
+        "rsvp_url": "https://thethirdplace.is/event/wildsam-x-texas-state-parks-happy-hour",
+        "url": "https://www.firstlightaustin.com/events/wildsam-texas-state-parks"
+      }
+    },
+    {
+      "test_id": 6,
+      "input": {
+        "html_file": "county_highway.html",
+        "description": "Event page: A Night with County Highway",
+        "url": "https://www.firstlightaustin.com/events/county-highway"
+      },
+      "expected_output": {
+        "title": "A Night with County Highway",
+        "author": null,
+        "book": null,
+        "date": "2025-07-31",
+        "time": "6:00 PM",
+        "venue": "First Light Books",
+        "description": "First Light Books welcomes County Highway to the shop—a magazine about America in the form of a 19th century newspaper. After a happy hour to mingle with your fellow newsstans, founder and editor David Samuels will be in conversation with contributing writer Meaghan Garvey.County Highway merch will be exclusively available to attendees with the purchase of an issue, or of two forthcoming titles from their new publishing imprints: Bloodline by Lee Clay Johnson and Life Sentences by Martin Mull.This event is free to attend; RSVPs are encouraged.About the publicationWherever there’s a stop sign, there’s a story.Started on a shoestring by three friends (David Samuels, Walter Kirn, and Ryan Baesemann) in the wake of the pandemic, County Highway has since become the fastest growing print periodical in the country—earning an annual circulation of 150,000 copies barely one year after releasing its debut issue. The name is inspired by what they believe is the perfect-sized place for the enhancement of life and art. A county is a chunk of earth big enough to allow for a variety of human types, but small enough to get to know a decent number of one's neighbors—where they come from, what they’re proud of, what they fear, what they smoke, what they drink, and what they love. The county where this newspaper is located is somewhere between all those places, real and imaginary. It’s the scale of the place that’s important, and also the idea of traveling from one to another with an eye towards finding new answers to the founding American questions of who we are and why we are here. County Highway features hairy off-road adventures by some of America's best and strangest writers; reports on the myriad of political and spiritual crises that are gripping our country and their deeper cultural and historical sources; regular columns about agriculture, civil liberties, animals, herbal medicine, and living off the grid, both mentally and physically; essays about literature and art; and an entire section devoted to music. Offering a roadside banquet of American humor, common-speech, and social and political insights in every issue, it prints six times each year for readers across all fifty states and Canada. About the featured guestsDavid Samuels is editor and co-founder of County Highway. He had a long career as a staff and contract writer for The New Yorker, Harper’s, The Atlantic, The New York Times Magazine, The Point, and other magazines, on subjects including dog tracks, music festivals, blimp pilots, serial impostors, jewel thieves, pigeon racing, and the art of bringing down large buildings with explosives. He also reported on wars in the Balkans and the Middle East, where he learned the importance of gun safety. He is currently restoring a gold 1985 Porsche 924 that he bought off a guy who found it in a barn. Meaghan Garvey is a writer and illustrator living on the beach in the Midwest. She’s a contributing writer to County Highway, with bylines in Pitchfork, NPR, The New York Times, New York Magazine, Tablet, and Vulture, and many other outlets. Her debut book Midwestern Death Trip will be published by Panamerica Books in 2026.",
+        "rsvp_url": "https://thethirdplace.is/event/a-night-with-county-highway",
+        "url": "https://www.firstlightaustin.com/events/county-highway"
+      }
+    },
+    {
+      "test_id": 7,
+      "input": {
+        "html_file": "first_light_book_club.html",
+        "description": "Book club event: World Wide What Book Club - The Jamaica Kollection of the Shante Dream Arkive: being dreamity, algoriddims, chants & riffs",
+        "url": "https://www.firstlightaustin.com/book-club"
+      },
+      "expected_output": {
+        "title": "World Wide What Book Club - The Jamaica Kollection of the Shante Dream Arkive: being dreamity, algoriddims, chants & riffs",
+        "author": "Marcia Douglas",
+        "book": "The Jamaica Kollection of the Shante Dream Arkive: being dreamity, algoriddims, chants & riffs",
+        "date": "2025-06-27",
+        "time": "7:00 PM",
+        "venue": "First Light Books",
+        "host": "Sam Ackerman",
+        "series": "World Wide What Book Club",
+        "description": "The World Wide What Book Club travels to the forefront of global storytelling. With a focus on recently released works alongside enduring classics, our selections span continents, offering new bearings and diverse voices from around the world. Hosted by First Light book buyer Sam Ackerman.",
+        "rsvp_url": null,
+        "url": "https://www.firstlightaustin.com/book-club"
+      }
+    },
+    {
+      "test_id": 8,
+      "input": {
+        "html_file": "first_light_book_club.html",
+        "description": "Book club event: About Motherhood Book Club - Lifeform",
+        "url": "https://www.firstlightaustin.com/book-club"
+      },
+      "expected_output": {
+        "title": "About Motherhood Book Club - Lifeform",
+        "author": "Jenny Slate",
+        "book": "Lifeform",
+        "date": "2025-07-30",
+        "time": "7:00 PM",
+        "venue": "First Light Books",
+        "host": "Breezy Mayo",
+        "series": "About Motherhood Book Club",
+        "description": "The About Motherhood Book Club explores the personal complexities of being a mother, femininity, and domestic life. We'll use the landmark text Of Woman Born by poet Adrienne Rich as companion text to novels, memoirs and beyond that plumb the joys, grief, indecision, curiosities, and love of motherhood. Hosted by First Light general manager and partner Breezy Mayo.",
+        "rsvp_url": null,
+        "url": "https://www.firstlightaustin.com/book-club"
+      }
+    },
+    {
+      "test_id": 9,
+      "input": {
+        "html_file": "first_light_book_club.html",
+        "description": "Book club event: Small & Indie Book Club - The Blue Book of Nebo",
+        "url": "https://www.firstlightaustin.com/book-club"
+      },
+      "expected_output": {
+        "title": "Small & Indie Book Club - The Blue Book of Nebo",
+        "author": "Manon Steffan Ros",
+        "book": "The Blue Book of Nebo",
+        "date": "2025-08-06",
+        "time": "7:00 PM",
+        "venue": "First Light Books",
+        "host": "Annie Tate Cockrum",
+        "series": "Small & Indie Book Club",
+        "description": "The Small & Indie Book Club highlights emerging and avant-garde novels from thoughtful independent presses across the US. Consider this a club of literary discovery: new writers, lesser-publicized works, hyper fresh voices. Hosted by First Light bookseller Annie Tate Cockrum.",
+        "rsvp_url": null,
+        "url": "https://www.firstlightaustin.com/book-club"
+      }
+    },
+    {
+      "test_id": 10,
+      "input": {
+        "html_file": "first_light_book_club.html",
+        "description": "Book club event: Future Greats Book Club - The Slip",
+        "url": "https://www.firstlightaustin.com/book-club"
+      },
+      "expected_output": {
+        "title": "Future Greats Book Club - The Slip",
+        "author": "Lucas Schaefer",
+        "book": "The Slip",
+        "date": "2025-07-07",
+        "time": "7:00 PM",
+        "venue": "First Light Books",
+        "host": "Taylor Bruce",
+        "series": "Future Greats Book Club",
+        "description": "The Future Greats Book Club explores the evolving and enduring nature of \"great novels\" in modern times. We'll read frontlist and recent contemporary fiction with ambitious scope and cultural zeitgeist – books that we think will be read for a long, long time. Hosted by First Light partner Taylor Bruce.",
+        "rsvp_url": null,
+        "url": "https://www.firstlightaustin.com/book-club"
+      }
+    }
+  ]
+}
