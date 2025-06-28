@@ -174,7 +174,6 @@ jobs:
   live-tests:
     runs-on: ubuntu-latest
     name: Live Integration Tests
-    if: ${{ secrets.ANTHROPIC_API_KEY != '' && secrets.FIRECRAWL_API_KEY != '' }}
     
     steps:
     - name: Checkout code

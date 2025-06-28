@@ -220,13 +220,21 @@ python main.py --debug
 
 ### 🔮 Future Enhancements
 - **📚 Phase 4**: Additional Austin venues
-  - **The ABGB**: Music and film events
+  - **Alamo Drafthouse**: Classic Austin cinema experience
+  - **Violet Crown Cinema**: Independent and international films
+  - **East Austin Movie Theater**: Revived single-screen cinema
+  - **The Long Center**: Performing arts, including opera and ballet
+  - **The VORTEX**: Experimental theater and performance art
+  - **Beerthoven Concert Series**: Casual classical music events
   - **BookPeople**: Author events and readings
-  - **Independent galleries**: Art house screenings and exhibitions
-  - **Ballet Austin**: Dance performances
+  - **Austin Public Library**: Author talks, readings, and workshops
 - **🔗 Phase 5**: Direct Google Calendar API integration  
 - **🎨 Phase 6**: Enhanced recommendations and discovery features
 - **📱 Phase 7**: Mobile app or PWA version
+- **ექს Phase 8**: Experimental and niche venues
+  - **The Museum of Human Achievement**: Unconventional performances and art
+  - **Fusebox Festival**: Annual festival for innovative and genre-defying work
+  - **dadaLab**: Tech-art gallery and event space
 
 ## 🤝 Contributing
 
