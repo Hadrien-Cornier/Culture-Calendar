@@ -21,9 +21,10 @@ cp .env.example .env
 # ANTHROPIC_API_KEY=your_key_here
 # PERPLEXITY_API_KEY=your_key_here  
 # FIRECRAWL_API_KEY=your_key_here
+# Note: ANTHROPIC_API_KEY must be added manually to .env (not in .env.example)
 
 # Update website data (incremental - new events only)
-python update_website_data.py --incremental
+python update_website_data.py --days 14
 
 # Update website data (full refresh)
 python update_website_data.py --full
@@ -31,28 +32,36 @@ python update_website_data.py --full
 # Force re-rate all events (ignore cache)
 python update_website_data.py --full --force-reprocess
 
-# Run comprehensive test suite
-python run_tests.py              # All tests
-python run_tests.py unit         # Unit tests only
-python run_tests.py integration  # Integration tests
-python run_tests.py fast         # Fast tests (no API calls)
-python run_tests.py quality      # Data quality validation
+# Update with smart validation (recommended for production)
+python update_website_data.py --full --validate
 
-# Test individual venue scrapers
-python test_all_scrapers.py
+# Run test suite (uses standard Python unittest)
+python -m unittest discover tests/ -v    # All unit tests
+python tests/test_afs_scraper_unit.py     # Individual scraper tests
+python tests/test_validation_integration.py  # Validation system tests
 
-# Generate new scraper from schema
-python -c "from src.scraper_generator import create_new_venue_scraper; create_new_venue_scraper('VenueName', 'film', base_url='https://venue.com')"
+# Alternative with pytest (if installed)
+python -m pytest tests/ -v
+
+# Pre-commit code quality checks (run before committing!)
+python pre_commit_checks.py      # Auto-fix + quality checks + tests
+python pre_commit_checks.py --fix-only    # Only run auto-fixes (black, isort, etc.)
+python pre_commit_checks.py --check-only  # Only run quality checks
+python pre_commit_checks.py --no-tests    # Skip tests, only code quality
+
+# Test individual venue scrapers manually
+python -c "from src.scrapers import AFSScraper; s=AFSScraper(); print(f'AFS: {len(s.scrape_events())} events')"
+python -c "from src.scrapers import FirstLightAustinScraper; s=FirstLightAustinScraper(); print(f'FirstLight: {len(s.scrape_events())} events')"
 ```
 
 ## Development Workflow
 
 ### Adding New Venues
 1. **Define Schema**: Add venue-specific schema to `src/schemas.py` with extraction hints
-2. **Generate Scraper**: Use `ScraperGenerator.create_new_venue_scraper()` for 30-line boilerplate
+2. **Create Scraper**: Implement new scraper in `src/scrapers/` following existing patterns (typically 30-40 lines)
 3. **Customize Logic**: Implement venue-specific `get_target_urls()` and `get_fallback_data()`
-4. **Add Tests**: Create tests in `tests/` following existing patterns
-5. **Update Registry**: Add venue to `VENUE_SCHEMAS` mapping
+4. **Add Tests**: Create unit tests in `tests/` following existing patterns
+5. **Update Registry**: Add venue to scraper imports and MultiVenueScraper
 
 ### Key Architectural Patterns
 - **Progressive Fallback**: Always have 4 tiers (requests → pyppeteer → firecrawl → static)
@@ -66,6 +75,111 @@ Always use the venv python environment: `source venv/bin/activate`
 
 ## Automated Scheduling
 GitHub Actions handle all scheduling - no local cron jobs or scheduler.py needed.
+
+## Smart Validation System
+
+The Culture Calendar now includes a comprehensive validation system that ensures data quality and prevents deployment of malformed events.
+
+### Validation Features
+- **Schema Validation**: Ensures all events have required fields (title, date, venue, type)
+- **LLM Content Validation**: AI-powered validation of event content quality
+- **Per-Scraper Health Checks**: Validates at least 1 event from each scraper
+- **Fail-Fast Mechanisms**: Stops pipeline immediately if >50% of scrapers fail
+- **Detailed Logging**: Structured logs for debugging extraction failures
+
+### Usage
+```bash
+# Enable validation during data refresh
+python update_website_data.py --full --validate
+
+# Test validation system manually
+python test_validation.py
+
+# Quick validation test (no live scraping)
+python test_validation.py --quick
+```
+
+### GitHub Actions Integration
+- **PR Validation**: Comprehensive testing on every pull request
+- **Data Refresh Validation**: Smart validation during weekly/monthly updates
+- **Automatic Failure Detection**: Workflows fail fast with detailed error reports
+
+### Validation Thresholds
+- **Minimum Scraper Success Rate**: 50% of scrapers must produce valid events
+- **Events per Scraper**: At least 1 valid event required per scraper
+- **Sample Size**: 3 events validated per scraper (adjustable)
+
+The validation system helps catch issues early including:
+- Website structure changes breaking scrapers
+- Network connectivity problems
+- LLM extraction failures  
+- Schema validation errors
+- Malformed or spam data
+
+## Pre-Commit Code Quality Workflow
+
+**Always run code quality checks before committing** to ensure your changes pass GitHub Actions:
+
+### 🚀 Quick Pre-Commit (Recommended)
+```bash
+# Run this before every commit
+python pre_commit_checks.py
+```
+This will:
+- **Auto-fix imports** (remove unused, sort with isort)
+- **Auto-fix formatting** (autopep8 + black)
+- **Run quality checks** (security audit)
+- **Run quick tests** (unit tests only)
+
+### 🔧 Auto-Fix Only Mode
+```bash
+# Just apply automatic fixes without running checks
+python pre_commit_checks.py --fix-only
+```
+Perfect for:
+- Cleaning up messy code quickly
+- Applying consistent formatting
+- Removing unused imports
+
+### 🔍 Check-Only Mode  
+```bash
+# Only run quality checks, no auto-fixes
+python pre_commit_checks.py --check-only
+```
+Use when:
+- You want to see what needs fixing
+- Code is already formatted
+- Just validating before commit
+
+### 📦 Installation
+```bash
+# Install all code quality tools
+python pre_commit_checks.py --install
+```
+
+### Tools Included
+- **black**: Code formatting (PEP8 compliant)
+- **isort**: Import sorting and organization
+- **autoflake**: Remove unused imports/variables
+- **autopep8**: Basic PEP8 fixes
+- **bandit**: Security vulnerability scanning
+- **safety**: Dependency vulnerability checking
+
+### Typical Workflow
+```bash
+# 1. Make your code changes
+# 2. Run pre-commit checks
+python pre_commit_checks.py
+
+# 3. Review any auto-fixes applied
+git diff
+
+# 4. Commit your changes
+git add .
+git commit -m "Your commit message"
+```
+
+**Note**: The pre-commit script runs the exact same checks as GitHub Actions, so if it passes locally, your PR will pass validation.
 
 ## Architecture
 
@@ -106,10 +220,10 @@ The system uses **schemas** (`src/schemas.py`) to define data extraction pattern
 - **ConcertEventSchema**: composers, featured_artist, classical music terminology
 - **SchemaRegistry**: Central registry managing all venue-schema mappings
 
-**Auto-Generated Scrapers** (`src/scraper_generator.py`):
-- **Template System**: Generate 30-line scrapers from schemas vs 200+ line custom code
-- **Configuration-Driven**: New venues via JSON config, not Python code
-- **LLM Integration**: Automatic extraction hint incorporation
+**Individual Venue Scrapers** (`src/scrapers/`):
+- **Consistent Architecture**: All scrapers follow BaseScraper pattern (~30-40 lines each)
+- **Schema-Driven**: Use schemas from `src/schemas.py` for extraction hints
+- **LLM Integration**: All data extraction through structured Claude API prompts
 
 ## Key Configuration Files
 
@@ -190,9 +304,12 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 
 **Website Files:**
 - `docs/index.html` - Main single-page application
+- `docs/how-it-works.html` - Separate "How It Works" explanation page
 - `docs/style.css` - Styling and responsive design
 - `docs/script.js` - Interactive features and filtering
-- `docs/data.json` - Movie data for display
+- `docs/data.json` - Main event data for display
+- `docs/classical_data.json` - Separate classical music event data
+- `docs/source_update_times.json` - Data source update tracking
 - `.ics` files generated dynamically on the client
 
 **Key Features:**
@@ -251,9 +368,9 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 
 4. **Manual Workflow Triggers:**
    - Go to Actions tab
-   - **Weekly Update**: "Weekly Culture Calendar Update" (upcoming month)
-   - **Monthly Update**: "Monthly Culture Calendar Update" (full refresh) 
-   - **Re-rate Events**: "Re-rate All Events" (force fresh AI analysis)
+   - **Weekly Incremental Update**: "Weekly Incremental Update" workflow 
+   - **Complete Batch Reload**: "Complete Batch Reload" workflow (full refresh)
+   - **PR Validation**: "PR Validation Pipeline" (runs on pull requests)
    - Click "Run workflow" to test any workflow
 
 5. **View Website:**
@@ -404,22 +521,21 @@ The system now uses **structure-based detection** instead of keyword matching:
 
 ### Testing & Debugging Commands
 ```bash
-# Run comprehensive test suite
-python run_tests.py              # All tests with coverage
-python run_tests.py unit         # Unit tests only  
-python run_tests.py integration  # Integration tests
-python run_tests.py fast         # Fast tests (no API calls)
-python run_tests.py quality      # Data quality validation
-python run_tests.py e2e          # End-to-end pipeline tests
+# Run test suite (uses standard unittest framework)
+python -m unittest discover tests/ -v    # All unit tests
+python tests/test_afs_scraper_unit.py     # Individual scraper tests
+python tests/test_validation_integration.py  # Validation system tests
+
+# Alternative with pytest (if installed)
+python -m pytest tests/ -v
 
 # Test individual venue scrapers
-python test_all_scrapers.py
 python -c "from src.scrapers import AFSScraper; s=AFSScraper(); print(f'AFS: {len(s.scrape_events())} events')"
 python -c "from src.scrapers import FirstLightAustinScraper; s=FirstLightAustinScraper(); print(f'FirstLight: {len(s.scrape_events())} events')"
 
 # Validate system components
 python -c "from src.schemas import SchemaRegistry; print('Available schemas:', SchemaRegistry.get_available_types())"
-python -c "from src.scraper_generator import ScraperGenerator; g=ScraperGenerator(); print('Generator ready')"
+python -c "from src.validation_service import ValidationService; v=ValidationService(); print('Validation service ready')"
 python -c "import json; data=json.load(open('docs/data.json')); print(f'Total events: {len(data)}')"
 
 # Cache management
@@ -439,73 +555,51 @@ cat .github/workflows/complete-data-wipe-reload.yml
 
 ## Testing & Debugging
 
-### Comprehensive Test Suite (85+ Tests)
+### Test Suite Architecture
 
-**Unit Tests** (`tests/test_units.py`):
-```bash
-pytest tests/test_units.py -v -m unit
-```
-- LLMService API integration and error handling
-- BaseScraper progressive fallback system
-- Schema validation and registry functionality
-- SummaryGenerator caching and prompt building
-- CalendarGenerator ICS file creation
-- ScraperGenerator template system
+The test suite uses standard Python unittest framework:
 
-**Integration Tests** (`tests/test_integration.py`):
-```bash
-pytest tests/test_integration.py -v -m integration
 ```
-- MultiVenueScraper coordination and error isolation
-- Individual scraper initialization and schema consistency
-- EventProcessor AI pipeline integration
-- Full scraping → processing → output workflows
+tests/
+├── test_afs_scraper_unit.py          # AFS scraper unit tests
+├── test_validation_integration.py    # Validation system integration tests
+└── test_*.py                         # Additional individual component tests
+```
 
-**Data Quality Tests** (`tests/test_data_quality.py`):
+**Unit Tests** (individual test files):
 ```bash
-pytest tests/test_data_quality.py -v -m unit
+python tests/test_afs_scraper_unit.py
+python -m unittest tests.test_afs_scraper_unit -v
 ```
-- Schema validation and field consistency
-- Date/time format validation and business rules
-- Cross-venue data quality and duplicate detection
-- Data sanitization and None handling
+- Individual scraper functionality and error handling
+- Schema validation and data extraction
+- LLMService integration testing
+- Fallback data generation
 
-**End-to-End Tests** (`tests/test_e2e.py`):
+**Integration Tests**:
 ```bash
-pytest tests/test_e2e.py -v -m integration
+python tests/test_validation_integration.py
+python -m unittest tests.test_validation_integration -v
 ```
-- Complete pipeline testing from scraping to calendar generation
-- ICS calendar compatibility and JSON data validation
-- Performance requirements and memory usage
-- Error recovery and graceful degradation
+- Validation service testing with real data
+- Multi-venue scraper coordination
+- Complete data pipeline testing
+- AI processing integration
 
-**Live Integration Tests** (`tests/test_live_integration.py`):
+**Manual Testing Commands**:
 ```bash
-python run_live_tests.py
-# or
-pytest tests/test_live_integration.py -v -s -m live
-```
-- **Real API Keys**: Uses actual FIRECRAWL_API_KEY and ANTHROPIC_API_KEY
-- **Live Data**: Fetches real events from all venue websites
-- **Mini Refresh**: Simulates complete update_website_data.py process
-- **Validation**: Ensures at least one valid event per scraper
-- **Pipeline Testing**: Tests scraping → AI processing → calendar generation
+# Test full pipeline manually
+python update_website_data.py --days 7 --validate
 
-**Empty Extraction Tests** (`tests/test_empty_extraction.py`):
-```bash
-pytest tests/test_empty_extraction.py -v -m unit
-```
-- Edge cases where LLM returns no useful data
-- Error handling for invalid JSON responses
-- Validation of empty/null field handling
+# Test validation service manually  
+python -c "from src.validation_service import ValidationService; v=ValidationService(); print('Testing validation...')"
 
-**New Scrapers Tests** (`tests/test_new_scrapers.py`):
-```bash
-pytest tests/test_new_scrapers.py -v -s
+# Test individual scrapers with error handling
+python -c "from src.scrapers import AFSScraper; s=AFSScraper(); events=s.scrape_events(); print(f'Scraped {len(events)} events')"
 ```
-- LLM-powered scraper architecture validation
-- Live website testing with real data
-- Schema-driven development verification
+- Complete pipeline validation
+- Individual component testing
+- Error handling verification
 
 ### Live Testing with Real Data
 

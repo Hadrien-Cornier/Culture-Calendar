@@ -3,12 +3,13 @@ Event processor for enriching and rating events
 """
 
 import os
-import requests
-from typing import List, Dict, Optional
-from datetime import datetime
-import json
 import time
+from datetime import datetime
+from typing import Dict, List
+
+import requests
 from dotenv import load_dotenv
+
 from .summary_generator import SummaryGenerator
 
 load_dotenv()
@@ -33,7 +34,7 @@ class EventProcessor:
     def process_events(self, events: List[Dict]) -> List[Dict]:
         """Process and enrich all events"""
         enriched_events = []
-        total_events = len(events)
+        len(events)
         processed_count = 0
 
         for i, event in enumerate(events, 1):
@@ -49,6 +50,21 @@ class EventProcessor:
 
                 processed_count += 1
                 print(f"Processing ({processed_count}): {event['title']}")
+
+                # Skip AI processing for recurring events - they have predefined content
+                if event.get("is_recurring"):
+                    print(f"  Skipping AI processing for recurring event")
+                    # Set simple defaults for recurring events
+                    event["ai_rating"] = {
+                        "score": 7,
+                        "summary": event.get("description", ""),
+                    }
+                    event["preference_score"] = 0
+                    event["final_rating"] = 7
+                    event["rating_explanation"] = "Weekly recurring event"
+                    event["oneLinerSummary"] = "Weekly literary discussion group"
+                    enriched_events.append(event)
+                    continue
 
                 # Get AI rating (with caching)
                 event_title = event["title"].upper().strip()
@@ -79,10 +95,12 @@ class EventProcessor:
                     event, ai_rating, preference_score
                 )
 
-                # Add the AI-generated description to the event for summary generation
+                # Add the AI-generated description to the event for summary
+                # generation
                 event["description"] = ai_rating.get("summary", "")
 
-                # Generate one-line summary using Claude API (AFTER AI description is available)
+                # Generate one-line summary using Claude API (AFTER AI
+                # description is available)
                 one_liner_summary = None
                 if self.summary_generator:
                     try:
@@ -101,7 +119,7 @@ class EventProcessor:
                 time.sleep(1)
 
             except Exception as e:
-                print(f"Error processing event '{event.get('title', 'Unknown')}': {e}")
+                print(f"Error processing event '{event.get( 'title','Unknown')}': {e}")
                 # Add event with minimal data
                 event["ai_rating"] = {"score": 5, "summary": "Unable to rate"}
                 event["preference_score"] = 0
@@ -224,8 +242,8 @@ Focus solely on artistic merit and complexity. Reward innovation and high entrop
             # Extract key information from the event
             concert_title = event.get("title", "")
             program = event.get("program", "")
-            composers = event.get("composers", [])
-            works = event.get("works", [])
+            event.get("composers", [])
+            event.get("works", [])
             featured_artist = event.get("featured_artist", "")
             series = event.get("series", "")
 
@@ -349,7 +367,8 @@ Focus on artistic merit and intellectual rigor. Reward complexity and innovation
         try:
             import re
 
-            # Look for rating pattern like "★ Rating: 8/10" or "[8/10]" or "3.6/10"
+            # Look for rating pattern like "★ Rating: 8/10" or "[8/10]" or
+            # "3.6/10"
             rating_patterns = [
                 r"★\s*Rating:\s*\[?(\d+(?:\.\d+)?)/10\]?",
                 r"\[(\d+(?:\.\d+)?)/10\]",
@@ -391,7 +410,8 @@ Focus on artistic merit and intellectual rigor. Reward complexity and innovation
             + ai_rating.get("summary", "")
         ).lower()
 
-        # Combine general preferences with literature-specific ones for book clubs
+        # Combine general preferences with literature-specific ones for book
+        # clubs
         preferences_to_use = list(self.preferences)
         if event.get("type") == "book_club":
             preferences_to_use += self.literature_preferences
@@ -488,5 +508,5 @@ Focus on artistic merit and intellectual rigor. Reward complexity and innovation
             return work_start <= event_time_minutes <= work_end
 
         except Exception as e:
-            print(f"Error checking work hours for {event.get('title', 'Unknown')}: {e}")
+            print(f"Error checking work hours for {event.get( 'title','Unknown')}: {e}")
             return False

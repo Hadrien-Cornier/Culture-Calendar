@@ -2,18 +2,18 @@
 Base scraper class with progressive fallback system and LLM-powered extraction
 """
 
-import os
-import time
 import asyncio
 import hashlib
-from typing import Dict, List, Optional, Union, Any
-from datetime import datetime, timedelta
+import os
+import time
 from abc import ABC, abstractmethod
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Union
 
 import requests
-from pyppeteer import launch
-from firecrawl import FirecrawlApp
 from dotenv import load_dotenv
+from firecrawl import FirecrawlApp
+from pyppeteer import launch
 
 from src.llm_service import LLMService
 
@@ -84,17 +84,14 @@ class BaseScraper(ABC):
     @abstractmethod
     def get_target_urls(self) -> List[str]:
         """Return list of URLs to scrape for this venue"""
-        pass
 
     @abstractmethod
     def get_data_schema(self) -> Dict:
         """Return the expected data schema for this venue"""
-        pass
 
     @abstractmethod
     def get_fallback_data(self) -> List[Dict]:
         """Return fallback data when all scraping methods fail"""
-        pass
 
     def scrape_events(self, use_cache: bool = True) -> List[Dict]:
         """
@@ -208,7 +205,8 @@ class BaseScraper(ABC):
             validation_result = self.llm_service.validate_extraction(
                 extracted_data=extraction_result["data"],
                 schema=schema,
-                original_content=response.text[:2000],  # Truncate for validation
+                # Truncate for validation
+                original_content=response.text[:2000],
             )
 
             if validation_result["is_valid"]:
@@ -429,7 +427,7 @@ class BaseScraper(ABC):
             timestamp = datetime.fromisoformat(cached_data["timestamp"])
             age = datetime.now() - timestamp
             return age < timedelta(hours=max_age_hours)
-        except:
+        except BaseException:
             return False
 
     def clear_cache(self):

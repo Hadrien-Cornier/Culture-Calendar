@@ -2,12 +2,13 @@
 LLM Service for extraction, validation, and analysis of cultural event data
 """
 
-import os
 import json
-import time
+import os
 import re
-from typing import Dict, List, Optional, Any, Union
+import time
 from datetime import datetime
+from typing import Dict
+
 from anthropic import Anthropic
 from dotenv import load_dotenv
 
@@ -174,7 +175,7 @@ Event 2:
 
 Respond with a similarity score from 0.0 to 1.0:
 - 1.0 = Same event (duplicate)
-- 0.8-0.9 = Very likely the same event  
+- 0.8-0.9 = Very likely the same event
 - 0.5-0.7 = Possibly related events
 - 0.0-0.4 = Different events
 
@@ -226,12 +227,15 @@ CONTENT TO PARSE:
 {content}
 
 INSTRUCTIONS:
-1. Extract data that matches the schema exactly
-2. If a field is not found, use null or empty string as appropriate
-3. Ensure dates are in YYYY-MM-DD format
-4. Ensure times are in standard format (e.g., "7:30 PM")
-5. Be conservative - only extract data you're confident about
-6. For arrays, extract all relevant items found
+1. Extract data that matches the schema exactly.
+2. The 'description' field should always be extracted, even if it's short.
+3. If a field is not found, use null or an empty string.
+4. For book club events, the 'series' field should contain the name of the book club (e.g., "Sci-Fi Book Club"). The 'title' should be in the format "Series Name - Book Title".
+5. If an event is not a book reading (e.g., a happy hour), the 'book' and 'author' fields should be null.
+6. Ensure dates are in YYYY-MM-DD format.
+7. Ensure times are in a standard format (e.g., "7:30 PM").
+8. Be conservative - only extract data you're confident about.
+9. For arrays, extract all relevant items found.
 
 Return the extracted data as valid JSON only. Do not include explanations or markdown formatting.
 
@@ -290,7 +294,8 @@ Focus on whether the data represents a plausible real-world event.
                 json_str = response_text[json_start:json_end]
                 extracted_data = json.loads(json_str)
 
-                # Check if the extracted data is useful (not empty or all null/empty)
+                # Check if the extracted data is useful (not empty or all
+                # null/empty)
                 if self._is_extraction_data_useful(extracted_data, schema):
                     return {
                         "success": True,

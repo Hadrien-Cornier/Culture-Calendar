@@ -5,6 +5,7 @@ La Follia Austin chamber music scraper using JSON data loading
 import json
 import os
 from typing import Dict, List
+
 from src.base_scraper import BaseScraper
 
 

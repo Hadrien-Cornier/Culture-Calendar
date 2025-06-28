@@ -5,18 +5,19 @@ Unified multi-venue scraper using the new LLM-powered architecture
 import json
 import os
 from datetime import datetime, timedelta
-from typing import List, Dict
+from typing import Dict, List
 
 # Import all new LLM-powered scrapers
 from .scrapers import (
     AFSScraper,
-    HyperrealScraper,
     AlienatedMajestyBooksScraper,
-    FirstLightAustinScraper,
     AustinSymphonyScraper,
     EarlyMusicAustinScraper,
+    FirstLightAustinScraper,
+    HyperrealScraper,
     LaFolliaAustinScraper,
 )
+from .recurring_events import RecurringEventGenerator
 
 
 class MultiVenueScraper:
@@ -31,6 +32,9 @@ class MultiVenueScraper:
         self.symphony_scraper = AustinSymphonyScraper()
         self.early_music_scraper = EarlyMusicAustinScraper()
         self.la_follia_scraper = LaFolliaAustinScraper()
+
+        # Initialize recurring events generator
+        self.recurring_events_generator = RecurringEventGenerator()
 
         self.existing_events_cache = set()  # Cache for duplicate detection
         self.last_updated = {}
@@ -130,6 +134,23 @@ class MultiVenueScraper:
         except Exception as e:
             print(f"Error loading First Light events: {e}")
             self.last_updated["FirstLight"] = None
+
+        # Generate recurring events
+        print("Generating recurring events...")
+        try:
+            # Generate events for next 8 weeks by default, or 2 weeks for target_week mode
+            weeks_ahead = 2 if target_week else 8
+            recurring_events = (
+                self.recurring_events_generator.generate_all_recurring_events(
+                    weeks_ahead
+                )
+            )
+            all_events.extend(recurring_events)
+            print(f"Generated {len(recurring_events)} recurring events")
+            self.last_updated["RecurringEvents"] = datetime.now().isoformat()
+        except Exception as e:
+            print(f"Error generating recurring events: {e}")
+            self.last_updated["RecurringEvents"] = None
 
         # Filter to current week if requested
         if target_week:
@@ -236,6 +257,10 @@ class MultiVenueScraper:
     def get_event_details(self, event: Dict) -> Dict:
         """Get event details using appropriate scraper based on venue"""
         venue = event.get("venue", "AFS")
+
+        # Recurring events already have all necessary details
+        if event.get("is_recurring"):
+            return {}
 
         if venue == "Hyperreal":
             return self.hyperreal_scraper.get_event_details(event["url"])

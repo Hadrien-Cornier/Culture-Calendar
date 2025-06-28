@@ -5,12 +5,13 @@ Generates JSON data for the GitHub Pages website
 Supports multiple venues: AFS, Hyperreal Film Club, and others
 """
 
-import os
 import json
 import sys
 from datetime import datetime, timedelta
-from src.scraper import MultiVenueScraper
+
 from src.processor import EventProcessor
+from src.scraper import MultiVenueScraper
+from src.validation_service import EventValidationService
 
 
 def save_update_info(info: dict, path: str = "docs/source_update_times.json") -> None:
@@ -23,7 +24,8 @@ def save_update_info(info: dict, path: str = "docs/source_update_times.json") ->
         print(f"Error saving update info: {e}")
 
 
-# Classical music events are now loaded directly by the individual scrapers from docs/classical_data.json
+# Classical music events are now loaded directly by the individual
+# scrapers from docs/classical_data.json
 
 
 def filter_work_hours(events):
@@ -73,7 +75,7 @@ def filter_work_hours(events):
 
         except Exception as e:
             print(
-                f"Error filtering work hours for {event.get('title', 'Unknown')}: {e}"
+                f"Error filtering work hours for {event.get( 'title','Unknown')}: {e}"
             )
             # Include event if there's an error parsing
             filtered_events.append(event)
@@ -201,7 +203,8 @@ def is_movie_event(title, description=""):
             )
             return False
 
-    # If it contains "premiere" but also "world premiere" or "us premiere", it's likely a movie
+    # If it contains "premiere" but also "world premiere" or "us premiere",
+    # it's likely a movie
     if "premiere" in title_lower and any(
         phrase in title_lower
         for phrase in [
@@ -218,7 +221,8 @@ def is_movie_event(title, description=""):
 
 def generate_website_data(events):
     """Generate JSON data for the website with movie aggregation and venue tags"""
-    # Include movies, classical music events, and book club events for the website
+    # Include movies, classical music events, and book club events for the
+    # website
     website_events = []
     movie_events = []
     classical_events = []
@@ -236,7 +240,7 @@ def generate_website_data(events):
             website_events.append(event)
 
     print(
-        f"Generating website data: {len(movie_events)} movies, {len(classical_events)} classical events, {len(book_club_events)} book clubs, {len(website_events)} total"
+        f"Generating website data: { len(movie_events)} movies, {len(classical_events)} classical events, { len(book_club_events)} book clubs, {len(website_events)} total"
     )
 
     # Group movie events by title, add classical events directly
@@ -262,7 +266,8 @@ def generate_website_data(events):
                 ),  # Preserve AI-generated summary
                 "url": event.get("url", ""),
                 "isSpecialScreening": event.get("is_special_screening", False),
-                "isMovie": event.get("is_movie", True),  # From scraper detection
+                # From scraper detection
+                "isMovie": event.get("is_movie", True),
                 "duration": event.get("duration"),
                 "director": event.get("director"),
                 "country": event.get("country") if event.get("country") else "Unknown",
@@ -410,6 +415,7 @@ def main(
     full: bool = False,
     force_reprocess: bool = False,
     days: int = None,
+    validate: bool = False,
 ):
     """Generate website data.
 
@@ -418,6 +424,7 @@ def main(
         full: If True, include all events without date filtering.
         force_reprocess: If True, force re-processing of all events (ignore cache).
         days: If specified, collect events for this many days from today.
+        validate: If True, enable smart validation with fail-fast mechanisms.
     """
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
 
@@ -434,6 +441,50 @@ def main(
             "NOTE: Classical music venues load their events from docs/classical_data.json"
         )
 
+        # Smart validation if enabled
+        if validate:
+            print("\n🔍 Starting smart validation of scraped events...")
+            validator = EventValidationService()
+
+            # Group events by scraper for validation
+            scraper_events = {
+                "AFS": [e for e in events if e.get("venue") == "AFS"],
+                "Hyperreal": [e for e in events if e.get("venue") == "Hyperreal"],
+                "AlienatedMajesty": [
+                    e for e in events if e.get("venue") == "AlienatedMajesty"
+                ],
+                "FirstLight": [e for e in events if e.get("venue") == "FirstLight"],
+                "Symphony": [e for e in events if e.get("venue") == "Symphony"],
+                "EarlyMusic": [e for e in events if e.get("venue") == "EarlyMusic"],
+                "LaFollia": [e for e in events if e.get("venue") == "LaFollia"],
+                "Paramount": [e for e in events if e.get("venue") == "Paramount"],
+            }
+
+            # Validate all scrapers
+            should_continue, health_checks = validator.validate_all_scrapers(
+                scraper_events
+            )
+
+            # Generate detailed report
+            validator.log_validation_report(health_checks)
+
+            if not should_continue:
+                print("\n❌ VALIDATION FAILURE - Pipeline stopped!")
+                print("Reason: Too many scrapers failed validation checks")
+                print("This indicates potential issues with:")
+                print("  - Website structure changes")
+                print("  - Network connectivity problems")
+                print("  - LLM extraction failures")
+                print("  - Schema validation errors")
+                print(
+                    "\nPlease review the validation report above and fix issues before retrying."
+                )
+                sys.exit(1)
+
+            print("✅ Validation passed - continuing with data processing...")
+        else:
+            print("⚠️ Smart validation disabled - continuing without checks")
+
         # Get detailed information for screening and book club events
         print("Fetching event details...")
         detailed_events = []
@@ -445,7 +496,7 @@ def main(
                     detailed_events.append(event)
                 except Exception as e:
                     print(
-                        f"Error getting details for {event.get('title', 'Unknown')}: {e}"
+                        f"Error getting details for {event.get( 'title','Unknown')}: {e}"
                     )
             elif event.get("type") == "concert":
                 # Classical events already have complete details from JSON
@@ -504,6 +555,7 @@ if __name__ == "__main__":
     test_week = "--test-week" in sys.argv
     full_update = "--full" in sys.argv
     force_reprocess = "--force-reprocess" in sys.argv
+    validate = "--validate" in sys.argv
 
     # Parse --days parameter
     days_param = None
@@ -523,4 +575,5 @@ if __name__ == "__main__":
         full=full_update,
         force_reprocess=force_reprocess,
         days=days_param,
+        validate=validate,
     )

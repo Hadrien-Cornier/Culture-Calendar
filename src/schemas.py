@@ -2,8 +2,7 @@
 Data schemas for different venue types in the Culture Calendar system
 """
 
-from typing import Dict, Any
-from dataclasses import dataclass
+from typing import Any, Dict
 
 
 class SchemaField:
@@ -76,6 +75,21 @@ class FilmEventSchema(BaseEventSchema):
         schema = super().get_schema()
         schema.update(
             {
+                "full_title": SchemaField(
+                    "string",
+                    required=False,
+                    description="Full event title, including presenter",
+                ).to_dict(),
+                "presenter": SchemaField(
+                    "string",
+                    required=False,
+                    description="Presenter of the film event",
+                ).to_dict(),
+                "dates": SchemaField(
+                    "array",
+                    required=False,
+                    description="List of dates for the event",
+                ).to_dict(),
                 "director": SchemaField(
                     "string",
                     required=False,
@@ -434,6 +448,7 @@ VENUE_SCHEMAS = {
     "AlienatedMajesty": "book_club",
     "FirstLight": "book_club",
     "Paramount": "film",
+    "NewYorkerMeetup": "book_club",
 }
 
 

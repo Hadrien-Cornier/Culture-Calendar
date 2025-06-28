@@ -32,20 +32,76 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Run weekly incremental update
+    - name: Run weekly incremental update with validation
       env:
         PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
       run: |
-        echo "📅 Running weekly incremental update"
+        echo "📅 Running weekly incremental update with smart validation"
         echo "This will:"
         echo "  🔍 Look for new events one week ahead from last update"
         echo "  🎬 Scrape any new movies and screenings"
         echo "  📚 Check for new book club events"
+        echo "  ✅ Validate scraped events with AI quality checks"
+        echo "  🚨 Fail fast if >50% of scrapers produce invalid data"
         echo "  🤖 Generate AI ratings and summaries for new events only"
         echo "  💾 Merge with existing data efficiently"
-        python update_website_data.py --days 14
+        echo ""
+        echo "🔍 Starting validation-enhanced update..."
+        python update_website_data.py --days 14 --validate
+        
+    - name: Validate update results
+      run: |
+        echo "🔍 Validating update results..."
+        
+        # Check that data.json was created and has content
+        if [ ! -f "docs/data.json" ]; then
+          echo "❌ Error: docs/data.json not found"
+          exit 1
+        fi
+        
+        # Check data.json has valid JSON and reasonable content
+        python -c "
+        import json
+        import sys
+        
+        try:
+            with open('docs/data.json', 'r') as f:
+                data = json.load(f)
+            
+            if not isinstance(data, list):
+                print('❌ Error: data.json is not a list')
+                sys.exit(1)
+            
+            if len(data) == 0:
+                print('⚠️ Warning: data.json is empty')
+                sys.exit(1)
+            
+            # Check for reasonable number of events
+            if len(data) < 5:
+                print(f'⚠️ Warning: Only {len(data)} events found - may indicate scraping issues')
+            else:
+                print(f'✅ Update validation passed: {len(data)} events in data.json')
+            
+            # Sample a few events for basic validation
+            sample_events = data[:3]
+            for i, event in enumerate(sample_events):
+                if not all(field in event for field in ['title', 'rating', 'screenings']):
+                    print(f'❌ Error: Event {i+1} missing required fields')
+                    sys.exit(1)
+            
+            print('✅ Sample events have required fields')
+            
+        except json.JSONDecodeError as e:
+            print(f'❌ Error: Invalid JSON in data.json: {e}')
+            sys.exit(1)
+        except Exception as e:
+            print(f'❌ Error validating data.json: {e}')
+            sys.exit(1)
+        "
+        
+        echo "✅ All validation checks passed!"
         
     - name: Configure Git
       run: |
