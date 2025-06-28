@@ -1,0 +1,49 @@
+{
+  "url": "https://www.alienatedmajestybooks.com/book-clubs",
+  "html_length": 53140,
+  "text_length": 2136,
+  "headings": [
+    "BOOK CLUBS",
+    "NYRB Book Club",
+    "Subculture Lit",
+    "A Season Of",
+    "Voyage Out",
+    "Apricot Trees Exist"
+  ],
+  "relevant_paragraphs": [
+    "Book club titles are 15% off if you mention the book club at checkout (in-store only). All clubs are free to join \u2014 just show up!",
+    "Only the (NYRB) Classics.Meets the 1st Saturday of every month at 11am. Run by the Austin NYRB Book Club.Upcoming Meetings:Saturday, July 5 \u2014Nightmare Alleyby William Lindsey GreshamSaturday, August 2 \u2014High Wind in Jamaicaby Richard HughesSaturday, September 6 \u2014Great Granny Websterby Caroline Blackwood",
+    "Meets the 1st Saturday of every month at 11am. Run by the Austin NYRB Book Club.",
+    "Upcoming Meetings:",
+    "Small presses, experimental and transgressive writers and work.Meets the 2nd Sunday of every month at 3pm. Run by East Austin Writing Project. RSVPhere.Upcoming Meetings:Sunday, July 13 \u2014David Wojnarowicz: A Definitive History of Five or Six Years on the Lower East Sideby Sylv\u00e9re Lotringer",
+    "Meets the 2nd Sunday of every month at 3pm. Run by East Austin Writing Project. RSVPhere.",
+    "Upcoming Meetings:",
+    "Reading a single author or title for a season.Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club.Upcoming Meetings:Saturday, June 21 \u2014The Books of Jacobby Olga Tokarczuk (Part III)Saturday, July 29 \u2014Chrysalis Pastoral in B Minorby Susanna Rafart (from\u00a0Fum d'Estampa Press)Saturday, August 16 \u2014Through the Forestby Laura Alcoba\u00a0(from\u00a0Fum d'Estampa Press)",
+    "Reading a single author or title for a season.",
+    "Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club.",
+    "Upcoming Meetings:",
+    "Saturday, June 21 \u2014The Books of Jacobby Olga Tokarczuk (Part III)",
+    "A regional reading series.Meets the 3rd Sunday of every month at 5pm.Upcoming Meetings:Sunday, July 20 \u2014The Swan Bookby Alexis WrightSunday, August 17 \u2014Monkey Gripby Helen GarnerSunday, September 21 \u2014The Plainsby Gerald Murnane",
+    "Meets the 3rd Sunday of every month at 5pm.",
+    "Upcoming Meetings:",
+    "Sunday, July 20 \u2014The Swan Bookby Alexis Wright",
+    "Reading poems for generative inspiration.Meets the 4th Sunday of every month at 3pm.Upcoming Meetings:Sunday, June 22 \u2014The Descent of Aletteby Alice Notley",
+    "Meets the 4th Sunday of every month at 3pm.",
+    "Upcoming Meetings:",
+    "Alienated Majesty Books613 West 29th StreetAustin,  TXUSA \u00a078705Map & Hours",
+    "512-243-6679alienatedmajestybooks@gmail.com"
+  ],
+  "found_patterns": {
+    "book club": 9,
+    "author": 1,
+    "title": 2,
+    "meeting": 5,
+    "event": 1
+  },
+  "structure_counts": {
+    "lists": 3,
+    "articles": 0,
+    "sections": 0,
+    "divs_with_classes": 114
+  }
+}

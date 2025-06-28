@@ -1,0 +1,762 @@
+<!DOCTYPE html><html lang="en"><head><style data-rc-order="prepend" rc-util-key="@ant-design-icons">
+.anticon {
+  display: inline-block;
+  color: inherit;
+  font-style: normal;
+  line-height: 0;
+  text-align: center;
+  text-transform: none;
+  vertical-align: -0.125em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.anticon > * {
+  line-height: 1;
+}
+
+.anticon svg {
+  display: inline-block;
+}
+
+.anticon::before {
+  display: none;
+}
+
+.anticon .anticon-icon {
+  display: block;
+}
+
+.anticon[tabindex] {
+  cursor: pointer;
+}
+
+.anticon-spin::before,
+.anticon-spin {
+  display: inline-block;
+  -webkit-animation: loadingCircle 1s infinite linear;
+  animation: loadingCircle 1s infinite linear;
+}
+
+@-webkit-keyframes loadingCircle {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingCircle {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+</style><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=1"><meta name="description" content="Home of the leastsellers in Austin, Texas. Small presses, poetry, comics, translated works, and titles you can't find elsewhere."><meta name="keywords" content="bookstore, books, austin, texas, atx, small press, indie press"><meta property="og:type" content="website"><meta property="og:image" content="https://cdn1.bookmanager.com/i/9931376//LogoBlackOnWhite.png?mtime=1716328398"><meta property="og:title" content="Alienated Majesty Books"><meta property="og:description" content="Home of the leastsellers in Austin, Texas. Small presses, poetry, comics, translated works, and titles you can't find elsewhere."><meta name="google-site-verification" content=""><link rel="stylesheet" href="/shop.css?id=1072371&amp;cb=1749839266"><link rel="icon" href="https://cdn1.bookmanager.com/i/9931376/favicon.png?cb=1681919923"><script type="text/javascript" src="https://cdn1.bookmanager.com/js/jquery.js"></script><script type="text/javascript" id="clearent-hpp" src="https://hpp.clearent.net/js/clearent.js"></script><link rel="stylesheet" href="https://hpp.clearent.net/css/clearent.css"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""><title> Book Clubs | Alienated Majesty Books</title><script>var san="9931376",clearent_host="hpp.clearent.net";document.documentElement.clientWidth<360&&document.querySelector("meta[name=viewport]").setAttribute("content","width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=1")</script><link href="/static/css/main.a7a1c329.chunk.css" rel="stylesheet"></head><body style=""><noscript>You need to enable JavaScript to run this website.</noscript><div id="root"><style>
+
+
+/* Store Title*/
+
+
+.ant-menu-submenu-title:focus-visible {
+  box-shadow: inset 0 0 0 2px #808080 !important;
+  outline: 0px solid white !important;
+  border: 0px solid black !important;
+  outline-offset: 0px;
+}
+
+.ant-menu-item:focus-visible {
+  box-shadow: inset 0 0 0 2px #808080 !important;
+  outline: 0px solid white !important;
+  border: 0px solid black !important;
+  outline-offset: 0px;
+  transition: none !important;
+}
+
+
+.container{
+    box-shadow: none;
+}
+
+.store_name{
+color: #000000;
+}
+
+/* Sidebar */
+
+  .left_list_title{
+    background-color:#000000;
+    color: #ffffff;
+  }
+  a.left_list_title{
+    background-color:#000000;
+    color: #ffffff;
+  }
+
+  .left_list_title:hover{
+    color: #ffffff;
+  }
+
+/* Search */
+
+
+.header_border{
+    border: 1px solid #ddd;
+    
+  }
+
+
+.header_search .ant-input, .header_search .ant-input:hover, .header_search .ant-input:focus{
+    border-color: #ddd;
+   
+  }
+  
+  .header_search .ant-btn, .header_search .ant-btn:hover, .header_search .ant-btn:focus{
+    border-color: #ddd;
+    
+  }
+
+
+  
+
+.header_search{
+    border:; 
+    border-radius:none;
+}
+.ant-input-search > .ant-input-group > .ant-input-group-addon:last-child{
+    background-color:transparent;
+}
+
+.header_search .ant-input-group-addon{
+    border:;
+    background-color:#fff;
+}
+
+/* Button */
+
+.featured_btn{
+    background-color: #000000;
+}
+
+.featured_icon{
+   fill: #ffffff;
+}
+
+.featured_txt{
+    color: #ffffff;
+ }
+
+.styled_btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+}
+
+
+/* Contact Table */
+
+#contact_us_locations_wrapper{
+  background-color: #ffffff;
+  color: #000000;
+}
+
+#contact_us_locations_wrapper a{
+  color: #000000;
+
+}
+
+#contactTitle{
+    color:rgba(0, 0, 0, .8);
+    text-align:center; 
+    font-size : 2em;
+}
+
+.contact_table{
+  background-color: #1581E9;
+  color: #fff;
+}
+
+
+
+/* ARBITRARY */
+
+.ant-drawer-header{
+    border-bottom: 1px solid #ffffff;
+  }
+
+        .search_bar_colour{
+            color : #ffffff;
+        }
+
+
+        .main_text_colour{
+            color : #ffffff;
+        }
+        .main_text_colour_fill{
+            fill : #ffffff;
+        }
+
+        .main_text_colour_bg{
+            background-color : #ffffff;
+        }
+
+
+        .search_bar_text_colour{
+            color : #000000;
+        }
+        .search_bar_text_colour_fill{
+            fill : #000000;
+        }
+
+        .search_bar_text_colour_bg{
+            background-color : #000000;
+        }
+
+        .main_colour{
+            color : #000000;
+        }
+
+        .main_colour_bg{
+            background-color : #000000;
+        }
+
+        .main_text_colour{
+            color : #ffffff;
+        }
+        
+
+        .open_menu_background_colour{
+            color : #aad3fc;
+        }
+
+        .open_menu_text_colour{
+            color : #ffffff;
+        }
+
+        .ant-menu-dark.ant-menu-horizontal > .ant-menu-item, .ant-menu-dark.ant-menu-horizontal > .ant-menu-submenu a{
+            color : #ffffff
+        }
+
+        .ant-menu-submenu-title a{
+            color : #ffffff
+        }
+        
+
+        .ant-menu-dark.ant-menu-horizontal> .ant-menu-submenu-selected a{
+            color : #ffffff;
+        }
+
+        
+/* Calandar */
+
+.oldcal .eventCell{
+  background-color: #fff;
+  color: #000;
+  border:1px solid #000000;
+  aspect-ratio : 4/3;
+}
+
+.oldcal .eventCellActive{
+  color:  #ffffff;
+  background-color: #aad3fc;
+  border:1px solid #000000;
+  aspect-ratio : 4/3;
+}
+
+.oldcal .eventCellActive:hover{
+  border:1px solid #ffffff;
+}
+
+.oldcal .calHeader{
+  background-color: #000000;
+}
+
+.oldcal .calHeader svg{
+  fill:#ffffff;
+}
+
+.oldcal .calHeader h2{
+  color:#ffffff;
+}
+
+.oldcal .ant-picker-cell{
+  color: #fff;
+}
+
+.oldcal .ant-picker-cell-in-view{
+  color: #000000;
+}
+.oldcal.ant-picker-calendar .ant-picker-panel .ant-picker-body{
+  background-color: #000000 !important;
+}
+
+.oldcal .ant-picker-cell-inner{
+  background-color: #fff;
+}
+
+.oldcal .ant-picker-content thead{
+  background-color: #aad3fc;
+}
+
+.oldcal .ant-picker-content th{
+  color: #ffffff;
+}
+
+.oldcal.dateBox{
+    width: 50px;
+    height: 70px;
+    padding: 5px 0px;
+    background-color: #aad3fc !important;
+}
+
+.oldcal.dateBox span{
+    display: block;;
+    line-height: 20px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.oldcal .dot{
+    background-color: #ffffff;
+}
+  
+
+/* BACKGROUND */
+
+        body{
+            background:url(''); 
+            background-size : auto;
+            background-attachment : unset;
+            background-color: rgba(255,255,255,1);
+        }
+
+        @media only screen and (max-width: 992px) {
+           
+            body:after {
+                content: '';
+                width: 100%;
+                height: 100%;
+                background-position: inherit;
+                background-image: inherit;
+                background-size: 1000px;
+                background-attachment: inherit;
+                background-repeat: inherit;
+                position: fixed;
+                top: 0;
+                z-index: -1;
+            }
+
+        }
+
+/* HEADER/FOOTER*/
+
+
+        
+        .brand_color, .brand_color svg{
+           color: #ffffff;
+        }
+      
+        .header-wrap, .desktopLogoNav, .site-footer, .mobileLogoNav{
+            background-color:#ffffff;
+        }
+        .mobileSearchBG{
+            background-color:#ffffff;
+        }
+        .ant-drawer-header{
+            background:#ffffff;
+        }
+        
+
+/* HEADER/FOOTER ICON & TEXT  */
+
+
+        .icon-btn, .footer-btn, .site-footer h4,  .site-footer p, .site-footer span, .site-footer div{
+            color:#000000;
+            fill:#000000;
+        }
+
+        
+
+        .site-footer a, .site-footer a:hover{
+            color:#000000;
+        }
+        
+        .icon-btn:hover, .site-footer a:hover{
+          
+        }
+
+        .ant-drawer-title, .ant-drawer-close{
+            color:#000000;
+            transition:none; 
+        }
+
+        .ant-drawer-close:hover{
+            transition:none; 
+            color:#000000;
+        }
+        
+/* MENU & NAVIGATION */
+     
+        
+        .sitenav-wrap, .ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-menu.ant-menu-dark .ant-menu-sub{
+            background-color:#000000;
+        }
+
+        .ant-menu-dark .ant-menu-item, .ant-menu-submenu-vertical-left, .ant-menu-submenu-vertical-left, .ant-menu-dark .ant-menu-item-group-title, .ant-menu-dark .ant-menu-item > a, .ant-menu-dark .ant-menu-item > span > a{
+            color:#ffffff;
+            transition:none;
+        }
+
+        .ant-menu-dark .ant-menu-item > span > a:hover{
+            color:#ffffff;
+        }
+
+        .ant-menu-dark .ant-menu-item-selected > a, .ant-menu-dark .ant-menu-item-selected > span > a{
+            color:#ffffff;
+            transition:none;
+        }
+   
+
+        
+        .ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-menu.ant-menu-dark .ant-menu-sub{
+            color:#ffffff;
+        }
+      
+
+        .ant-menu-dark .ant-menu-item-active, .ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item:focus-within, .ant-menu-dark .ant-menu-submenu-active, .ant-menu-dark .ant-menu-submenu-open, .ant-menu-dark .ant-menu-submenu-selected, .ant-menu-dark .ant-menu-submenu-title:hover, .ant-menu-dark .ant-menu-submenu-title:focus-within{
+            color:#ffffff;
+            transition:none;
+        }
+
+        .ant-menu-dark .ant-menu-item:hover > a, .ant-menu-dark .ant-menu-item:focus-within > a, .ant-menu-dark .ant-menu-item-active > a, .ant-menu.ant-menu-dark .ant-menu-item-selected,  .ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-dark.ant-menu-horizontal > .ant-menu-item:focus-within{
+            color:#ffffff;
+            transition:none;
+            background-color:#aad3fc;
+            
+        }
+
+        .ant-menu-dark .ant-menu-item-selected > a{
+            color:#ffffff;
+            transition:none;
+        }
+        
+        .ant-menu-horizontal > .ant-menu-submenu > .ant-menu-submenu-title {
+            color:#ffffff;
+            transition:none;
+        }
+
+        .ant-menu-horizontal > .ant-menu-submenu-active > .ant-menu-submenu-title {
+            color:#ffffff;
+            transition:none;
+        }
+
+        
+        .ant-menu-submenu-title{
+            transition:none;
+        }
+        .ant-menu-horizontal > .ant-menu-submenu > .ant-menu-submenu-title .anticon{
+            transition:none;
+        }
+
+        .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu-active{
+            color:#ffffff;
+        }
+
+        .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu:hover, .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu:hover > a, .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu:focus-within, .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu:focus-within > a{
+            background-color:#aad3fc;
+            transition:none; 
+        }
+
+        .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover, .ant-menu-submenu-title:focus-within{
+            background-color:#aad3fc;
+            transition:none; 
+        }
+
+        .ant-menu-horizontal > .ant-menu-submenu:hover > .ant-menu-submenu-title, .ant-menu-horizontal > .ant-menu-submenu:focus-within > .ant-menu-submenu-title{
+            color:#ffffff;
+            transition:none; 
+        }
+
+        .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu-selected, .ant-menu-submenu .ant-menu-submenu-inline .ant-menu-submenu-selected{
+            transition:none;
+            background-color:#aad3fc;
+        }
+
+        .ant-menu-title-content a:focus{
+            color:#ffffff !important;
+        }
+        .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title{
+            color:#ffffff;
+            transition:none;
+        }
+        .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title{
+            color:#ffffff;
+            transition:none;
+        }
+
+        .ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item:focus-within, .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected{
+            background-color:#aad3fc;
+            transition:none;
+        }
+
+        .ant-menu-horizontal > .ant-menu-submenu{
+            transition:none;
+        }
+
+
+        
+
+        /* INLINE */
+
+        
+
+        
+        .ant-menu-dark .ant-menu-item:hover > a, .ant-menu-dark .ant-menu-item:focus-within > a, .ant-menu-dark .ant-menu-item-active > a, .ant-menu.ant-menu-dark .ant-menu-item-selected,  .ant-menu-dark.ant-menu-inline > .ant-menu-item:hover, .ant-menu-dark.ant-menu-inline > .ant-menu-item:focus-within{
+            color:#ffffff;
+            transition:none;
+            background-color:#aad3fc;
+            
+        }
+
+        .ant-menu-dark .ant-menu-item-selected > a{
+            color:#ffffff;
+            transition:none;
+        }
+        
+        .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+            color:#ffffff;
+            transition:none;
+        }
+
+        .ant-menu-dark.ant-menu-inline .ant-menu-submenu:hover, .ant-menu-dark.ant-menu-inline .ant-menu-submenu:hover > a, .ant-menu-dark.ant-menu-inline .ant-menu-submenu:focus-within, .ant-menu-dark.ant-menu-inline .ant-menu-submenu:focus-within > a{
+            background-color:#aad3fc;
+            transition:none; 
+        }
+
+        .ant-menu-inline > .ant-menu-submenu:hover > .ant-menu-submenu-title,  .ant-menu-inline > .ant-menu-submenu:focus-within > .ant-menu-submenu-title{
+            color:#ffffff;
+            transition:none; 
+        }
+
+
+        .ant-menu-dark.ant-menu-inline .ant-menu-submenu-selected{
+            transition:none;
+            background-color:#aad3fc;
+        }
+
+        .ant-menu-inline > .ant-menu-submenu-selected > .ant-menu-submenu-title{
+            color:#ffffff;
+            transition:none;
+        }
+        .ant-menu-inline > .ant-menu-submenu-selected > .ant-menu-submenu-title{
+            color:#ffffff;
+            transition:none;
+        }
+
+        .ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item:focus-within, .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected{
+            background-color:#aad3fc;
+            transition:none;
+        }
+
+        .ant-menu-inline > .ant-menu-submenu{
+            transition:none;
+        }
+
+
+/* DEFAULTS */     
+        
+
+        // .ant-btn-text, .ant-btn-text:hover, .ant-btn-text:focus{
+        //     color:#1890ff;
+        // }
+
+        // .ant-btn-dashed:active, .ant-btn-dashed:hover, .ant-btn-dashed:focus{
+        //     border-color:#1890ff;
+        // }
+
+
+        // a, a:hover, a:focus{
+        //     color:#1890ff;
+        // }
+
+        
+       
+
+        // button.ant-btn-primary, button.ant-btn-primary:hover, button.ant-btn-primary:focus{
+        //     background-color:#1890ff;
+        //     border:#1890ff;
+        //     color:#fff;
+        // }
+
+        // .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+        //     color:#1890ff;
+        // }
+
+        
+
+        
+        </style><div class="bm-background bm-background-color"><div id="bm-notification"><div class="bm-render no_p_margin bm-lnkin-0 bm-txt-9" style="background-color: rgb(193, 255, 114); cursor: pointer;"><div style="max-width: 100%; margin: 0px auto; text-align: center; padding: 20px 5px;"><p>Help design our next round of merch! Apply to our artist open call by July 15.</p></div></div></div><a href="#main-content" tabindex="0" class="skip-link asa-btn" aria-label="Skip to main content">Skip to main content</a><div style="position: relative; z-index: 12;"><style>
+    .search_bg {
+        background: rgba(255,255,255,1);
+        color:  rgba(193,255,114,1);
+        height: calc(20px + 84px)
+    }
+    .search_bg .logo {
+        max-width : 300px;
+        max-height : 80px;
+        width : auto; 
+        height : auto:
+    }
+    .search_bg .logo-mobile {
+        max-width : 100%;
+        max-height : 80px;
+        width : auto; 
+        height : auto:
+    }
+    .search_bg .float-flex{
+        align-items : center;
+        height: calc(20px + 84px)
+    }
+    .bm-search-icons .ant-btn:not(:hover), .search_bg h3 {
+        color:  rgba(193,255,114,1) !important;
+        border-color:  rgba(193,255,114,1) !important;
+        background: transparent;
+    }
+    .bm-search-icons .ant-btn:hover, .search_bg h3:hover {
+        color:  rgba(255,102,196,1) !important;
+        border-color:  rgba(255,102,196,1) !important;
+        background: transparent;
+    }
+    .bm-search-icons .bm-icon:not(:hover) {
+        color:  rgba(193,255,114,1) !important;
+        fill:  rgba(193,255,114,1) !important;
+    }
+    .bm-search-icons .bm-icon:hover {
+        color:  rgba(255,102,196,1) !important;
+        fill:  rgba(255,102,196,1) !important;
+    }
+    .bm-search-icons .ant-input-search-button{
+        width: 50px;
+    }
+    .bm-mobile-search {
+        background: rgba(255,255,255,1) !important;
+    }
+    .bm-mobile-search .ant-input-group-addon .ant-input-search-button {
+        width: 50px !important;
+    }</style><div style="margin-top: -2px;"><div class="search_bg bm-render" style="max-width: 100%;"><div class="float-flex" style="max-width: 100%; margin: 0px auto; padding: 0px 20px;"><div class="ant-space-compact ant-space-compact-block" style="align-items: center;"><div class="hide" style="padding: 2px 0px; cursor: pointer;"><div style="padding: 5px 0px;"><img alt="Alienated Majesty Books" class="logo" src="https://cdn1.bookmanager.com/i/9931376/LogoBlackOnWhite.png?cb=1716328398"></div></div><div class="show" style="padding: 2px 0px; cursor: pointer;"><div style="padding: 5px 0px;"><img alt="Alienated Majesty Books" class="logo" src="https://cdn1.bookmanager.com/i/9931376/LogoBlackOnWhite.png?cb=1716328398"></div></div><div class="hide" style="width: 30px;">&nbsp;</div><div class="hide" style="width: 100%; max-width: 618px;"><div style="display: flex; align-items: stretch; flex-direction: column;"><div style="display: flex; width: auto; border: 1px solid rgb(221, 221, 221); padding-right: 2px;"><label aria-label="Search" for="type_list"></label><div class="tab header_border" style="background-color: rgb(255, 255, 255); border: none; width: 114px;"><div class="ant-select ant-select-borderless ant-select-compact-item ant-select-single ant-select-show-arrow" aria-label="Select Search Type" aria-hidden="true" role="combobox" aria-haspopup="listbox" aria-expanded="false" style="border-right: 1px solid rgb(238, 238, 238); height: 38px; width: 115px;"><div class="ant-select-selector"><span class="ant-select-selection-search"><input type="search" id="type_list" autocomplete="off" class="ant-select-selection-search-input" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-owns="type_list_list" aria-autocomplete="list" aria-controls="type_list_list" aria-activedescendant="type_list_list_0" aria-label="Select Search Type" aria-hidden="true" readonly="" unselectable="on" value="" style="opacity: 0;"></span><span class="ant-select-selection-item" title="Keyword">Keyword</span></div><span class="ant-select-arrow" unselectable="on" aria-hidden="true" style="user-select: none;"><span role="img" aria-label="down" class="anticon anticon-down ant-select-suffix"><svg viewBox="64 64 896 896" focusable="false" data-icon="down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path></svg></span></span></div></div><div class="ant-select ant-select-compact-item ant-select-auto-complete header_search tab ant-select-single ant-select-customize-input ant-select-show-search" aria-label="Search by title, author, subject or ISBN" style="width: 100%; max-width: 500px; height: 40px; border: none;"><div class="ant-select-selector"><span class="ant-select-selection-search"><span class="ant-input-group-wrapper ant-input-search ant-input-search-20 ant-input-search-with-button ant-select-selection-search-input asa-search ant-input-compact-item" style="max-width: 100%; border: none;"><span class="ant-input-wrapper ant-input-group"><input autocomplete="off" aria-label="Search by title, author, subject or ISBN" placeholder="Search by title, author, subject, or ISBN" type="search" id="search" role="combobox" aria-haspopup="listbox" aria-owns="search_list" aria-autocomplete="list" aria-controls="search_list" aria-activedescendant="search_list_0" class="ant-input" value=""><span class="ant-input-group-addon"><button aria-label="Search" type="button" class="ant-btn ant-btn-default ant-input-search-button" style="border: none;"><div aria-hidden="true" style="margin-left: -2px;"><span role="img" aria-label="search" class="anticon anticon-search"><svg viewBox="64 64 896 896" focusable="false" data-icon="search" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"></path></svg></span></div></button></span></span></span></span><span class="ant-select-selection-placeholder"></span></div></div></div></div></div><div class="hide" style="width: 30px;">&nbsp;</div></div><div style="margin-right: 10px;"><div class="ant-space ant-space-horizontal ant-space-align-center bm-search-icons"><div class="ant-space-item" style="margin-right: 0px;"><div><button aria-expanded="false" aria-controls="login-popover" aria-label="Login" type="button" class="ant-btn ant-btn-primary styled_btn asa-btn hide"><span role="img" aria-label="user" aria-hidden="true" class="anticon anticon-user"><svg viewBox="64 64 896 896" focusable="false" data-icon="user" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M858.5 763.6a374 374 0 00-80.6-119.5 375.63 375.63 0 00-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 00-80.6 119.5A371.7 371.7 0 00136 901.8a8 8 0 008 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 008-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"></path></svg></span><span> Login</span></button><div class="show"><span role="img" aria-label="user" aria-expanded="false" aria-controls="login-drawer" tabindex="-1" class="anticon anticon-user icon-btn bm-icon"><svg viewBox="64 64 896 896" focusable="false" data-icon="user" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M858.5 763.6a374 374 0 00-80.6-119.5 375.63 375.63 0 00-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 00-80.6 119.5A371.7 371.7 0 00136 901.8a8 8 0 008 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 008-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"></path></svg></span></div></div></div><div class="ant-space-item" style="margin-right: 0px;"><div class="hide-block" style="width: 10px;">&nbsp;</div></div><div class="ant-space-item" style="margin-right: 0px;"><div style="width: 10px;">&nbsp;</div></div><div class="ant-space-item" style="margin-right: 0px;"><span role="img" aria-label="Search" name="searchtype" tabindex="-1" class="anticon anticon-search icon-btn bm-icon show"><svg viewBox="64 64 896 896" focusable="false" data-icon="search" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"></path></svg></span></div><div class="ant-space-item" style="margin-right: 0px;"><span role="img" aria-label="Menu" tabindex="-1" class="anticon anticon-menu icon-btn bm-icon show"><svg viewBox="64 64 896 896" focusable="false" data-icon="menu" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z"></path></svg></span></div><div class="ant-space-item" style="margin-right: 0px;"><div class="show">&nbsp;</div></div><div class="ant-space-item"><div class="show">&nbsp;</div></div></div></div></div></div></div><div class="close show-block" style="margin-top: -100px;"><div class="mobileSearchBG hide-block bm-mobile-search" style="padding: 10px; height: 60px;"></div></div></div><style>.ant-menu-horizontal > .ant-menu-submenu > .ant-menu-submenu-title{
+        color: rgba(0,0,0,1);
+    }.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title{
+        color: rgba(0,0,0,1);
+    }.ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title{
+        color: rgba(193,255,114,1);
+        
+    }.ant-menu-inline > .ant-menu-submenu-selected > .ant-menu-submenu-title{
+        color: rgba(193,255,114,1);
+        
+    }
+    .ant-menu-dark .ant-menu-item > span > a{
+        color: rgba(0,0,0,1);
+        transition: color .3s, border-color .3s, background .3s
+    }
+    .ant-menu-dark .ant-menu-item > span > a:hover{
+        color: rgba(193,255,114,1);
+        transition: color .3s, border-color .3s, background .3s
+    }
+    .ant-menu-dark .ant-menu-item-selected > span > a{
+        color: rgba(193,255,114,1);
+        transition: color .3s, border-color .3s, background .3s
+    }
+    .bm_nav .ant-menu-dark.ant-menu-horizontal > .ant-menu-item, .ant-menu-dark.ant-menu-horizontal > .ant-menu-submenu > .ant-menu-submenu-title{
+        padding: 0px 20px;
+    }
+    .ant-menu-dark.ant-menu-horizontal > .ant-menu-submenu{
+        padding : 0px !important;
+     }
+    .bm_nav, .bm_nav .ant-menu.ant-menu-dark, .bm_nav .ant-menu-item, .bm_nav .ant-menu-sub{
+        background: transparent;
+        color: rgba(0,0,0,1) !important;
+        font-family: 'Monospace Typewriter by Manfred Klein.woff';
+        text-transform : uppercase;
+        transition: color .3s, border-color .3s, background .3s;
+        font-size : 12px;
+    }
+    .bm_nav, .bm_nav .ant-menu.ant-menu-dark, bm_nav, .bm_nav .ant-menu.ant-menu{
+        background: rgba(255,255,255,1);
+    }
+    .bm_nav .ant-menu.ant-menu-dark .ant-menu-item-selected, .bm_nav .ant-menu.ant-menu-dark .ant-menu-submenu-active, .bm_nav .ant-menu.ant-menu-dark .ant-menu-submenu-selected, .bm_nav .ant-menu.ant-menu-dark .ant-menu-submenu-active .ant-menu-submenu-title, .bm_nav .ant-menu.ant-menu-dark .ant-menu-submenu-title:hover, .bm_nav .ant-menu.ant-menu-dark .ant-menu-item-active, .bm_nav .ant-menu-submenu-active, .bm_nav .ant-menu-submenu-selected {
+        background: rgba(255,255,255,1) !important;
+        color: rgba(193,255,114,1) !important;
+        transition: color 0s, border-color .0s, background .0s
+    }
+        .bm_nav .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu:hover, .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu:hover > a, .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu:focus-within, .ant-menu-dark.ant-menu-horizontal .ant-menu-submenu:focus-within > a{
+          background: rgba(255,255,255,1) !important;
+        }
+    
+        .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover, .ant-menu-submenu-title:focus-within{
+          background: rgba(255,255,255,1) !important;
+        }
+    
+        .ant-menu-horizontal > .ant-menu-submenu:focus-within > .ant-menu-submenu-title{
+           color: rgba(193,255,114,1) !important;
+        }
+    
+    .bm_nav, .bm_nav .ant-menu.ant-menu-dark, bm_nav, .bm_nav .ant-menu.ant-menu{
+        background: rgba(255,255,255,1);
+    }
+    .bm_nav .ant-menu.ant-menu-dark .ant-menu-submenu-title,  .bm_nav .ant-menu.ant-menu-dark .ant-menu-submenu-title:hover{
+        background:none !important;
+    }
+    
+    .bm_nav .ant-menu-vertical {
+        background: rgba(255,255,255,1) !important;
+        border-radius: 0px !important;
+        transition: color .3s, border-color .3s, background .3s
+    }
+    .bm_nav.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item {
+        margin: 0px;
+        transition: color .3s, border-color .3s, background .3s
+    }
+    .bm_nav.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected, .ant-menu-dark .ant-menu-submenu-title:hover,  .bm_nav.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item:hover, .bm_nav .ant-menu-item:focus-within{
+        background: rgba(255,255,255,1) !important;
+        color: rgba(193,255,114,1) !important;
+        transition: color .3s, border-color .3s, background .3s
+    }
+    .bm_nav.ant-menu-dark.ant-menu-inline .ant-menu-submenu:hover, .bm_nav.ant-menu-dark.ant-menu-inline .ant-menu-submenu:hover > a, .bm_nav.ant-menu-dark.ant-menu-inline .ant-menu-submenu:focus-within, .bm_nav.ant-menu-dark.ant-menu-inline .ant-menu-submenu:focus-within > a{
+        background: rgba(255,255,255,1) !important;
+        color: rgba(193,255,114,1) !important;
+        transition: color .3s, border-color .3s, background .3s
+    }
+    .bm_nav.ant-menu-inline > .ant-menu-submenu:hover > .ant-menu-submenu-title, .bm_nav.ant-menu-inline > .ant-menu-submenu:focus-within > .ant-menu-submenu-title{
+    color: rgba(193,255,114,1) !important;
+    
+    }
+    .bm_nav .ant-menu-item:focus-within > span > a {
+        color: rgba(193,255,114,1) !important;
+    }
+    .ant-drawer-header{
+        background: rgba(255,255,255,1) !important;
+        border-bottom: 1px solid rgba(255,255,255,1) !important;
+    }
+    
+    .ant-drawer-header .ant-drawer-title{
+        color : rgba(193,255,114,1) !important;
+    }
+    </style><nav class="bm_nav bm-render"><div class="menubg hide-block" style="max-width: 100%; height: 46px;"><ul class="ant-menu-overflow ant-menu ant-menu-root ant-menu-horizontal ant-menu-dark bm_nav bm_nav" role="menu" tabindex="0" data-menu-list="true" style="max-width: 100%; margin: 0px auto; min-height: inherit;"><li class="ant-menu-overflow-item ant-menu-item ant-menu-item-only-child tab" role="menuitem" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-tCDXi2g2dSE" style="opacity: 1; order: 0; padding: 0px;"><span class="ant-menu-title-content"><div style="padding: 0px 20px;">Home</div></span></li><li class="ant-menu-overflow-item ant-menu-item ant-menu-item-only-child tab" role="menuitem" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-qYe84K-YM9Y" style="opacity: 1; order: 1; padding: 0px;"><span class="ant-menu-title-content"><div style="padding: 0px 20px;">Browse</div></span></li><li class="ant-menu-overflow-item ant-menu-item ant-menu-item-only-child tab" role="menuitem" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-eOJOOgv8SGs" style="opacity: 1; order: 2; padding: 0px;"><span class="ant-menu-title-content"><div style="padding: 0px 20px;">Events</div></span></li><li class="ant-menu-overflow-item ant-menu-item ant-menu-item-selected ant-menu-item-only-child tab" role="menuitem" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-tHpTiZYxD1s" style="opacity: 1; order: 3; padding: 0px;"><span class="ant-menu-title-content"><div style="padding: 0px 20px;">Book Clubs</div></span></li><li class="ant-menu-overflow-item ant-menu-item ant-menu-item-only-child tab" role="menuitem" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-4Zi1XDrX-UE" style="opacity: 1; order: 4; padding: 0px;"><span class="ant-menu-title-content"><div style="padding: 0px 20px;">Signed Books</div></span></li><li class="ant-menu-overflow-item ant-menu-item ant-menu-item-only-child tab" role="menuitem" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-P7qOI3wCxIU" style="opacity: 1; order: 5; padding: 0px;"><span class="ant-menu-title-content"><div style="padding: 0px 20px;">Gallery</div></span></li><li class="ant-menu-overflow-item ant-menu-submenu ant-menu-submenu-horizontal tab" role="none" data-test="" style="opacity: 1; order: 6; padding: 0px 20px;"><div role="menuitem" class="ant-menu-submenu-title" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-AVjBiB9RqkU" aria-expanded="false" aria-haspopup="true" aria-controls="rc-menu-uuid-59311-1-AVjBiB9RqkU-popup"><span class="ant-menu-title-content"><div aria-hidden="true" class="notab">About&nbsp;<span role="img" aria-label="down" class="anticon anticon-down" style="font-size: 10px; margin-right: -5px;"><svg viewBox="64 64 896 896" focusable="false" data-icon="down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path></svg></span></div></span><i class="ant-menu-submenu-arrow"></i></div></li><li class="ant-menu-overflow-item ant-menu-overflow-item-rest ant-menu-submenu ant-menu-submenu-horizontal ant-menu-submenu-disabled" aria-hidden="true" role="none" style="opacity: 0; height: 0px; overflow-y: hidden; order: 2147483647; pointer-events: none; position: absolute;"><div role="menuitem" class="ant-menu-submenu-title" aria-expanded="false" aria-haspopup="true" data-menu-id="rc-menu-uuid-59311-1-rc-menu-more" aria-controls="rc-menu-uuid-59311-1-rc-menu-more-popup" aria-disabled="true">More Menus<i class="ant-menu-submenu-arrow"></i></div></li></ul><div aria-hidden="true" style="display: none;"></div></div></nav><main id="main-content" tabindex="-1" role="main" style="min-height: calc(100vh - 374px);"><div style="position: absolute; opacity: 0;"><div data-show="true" class="ant-alert ant-alert-info ant-alert-no-icon" role="alert"><div class="ant-alert-content"><div class="ant-alert-message"> Book Clubs</div></div></div></div><div class="bm-component"></div><div><div class="bm-component"></div><div class="bm-component"></div><div class="bm-component"></div> <div><div class="bm-component"><div class=""><div style="display: flex; flex-direction: column; background: rgb(255, 102, 196);"><div style="padding: 20px; max-width: 748.8px; align-self: center; text-align: center;"><h2 class="bm-txt-0" style="display: block;">BOOK CLUBS</h2><div class="bm-txt-0"><div class="bm-lnkin-1" style="overflow: hidden;"><p>Book club titles are 15% off if you mention the book club at checkout (in-store only). All clubs are free to join — just show up!</p></div></div></div></div></div></div><div class="bm-component"><div class=""><div class="shim" style="display: flex; flex-direction: column; justify-content: space-evenly; height: 12px; background: inherit;"></div></div></div><div class="bm-component"><div class="preview-container"><div style="background: inherit;"><div style="max-width: 915px; padding: 0px; margin: 0px auto;"><div class="bm-stack-flip" style="display: flex; width: 100%;"><div style="flex: 0 0 20%; display: flex; justify-content: center;"><div role="img" aria-label="NYRB" style="border-radius: 0px; background-repeat: no-repeat; background-position: 50% 50%; background-size: contain; min-height: 333px; background-image: url(&quot;https://cdn1.bookmanager.com/i/9931376/NIGHTMARE_ALLEY.jpg?cache_key=1750018115&quot;); cursor: inherit; width: 100%;"></div></div><div style="flex: 0 0 80%; display: flex; justify-content: center; background: inherit;"><div style="padding: 0px; max-width: 91%; align-self: center; text-align: center; flex-grow: 1;"><h2 class="bm-txt-1" style="display: block;">NYRB Book Club</h2><p class="bm-txt-6"><div class="bm-lnkin-1" style="overflow: hidden;"><p><strong><em>Only the (NYRB) Classics.</em></strong></p><p>Meets the 1st Saturday of every month at 11am. Run by the Austin NYRB Book Club.</p><p><strong>Upcoming Meetings:</strong></p><p>Saturday, July 5 — <em>Nightmare Alley</em> by William Lindsey Gresham</p><p>Saturday, August 2 — <em>High Wind in Jamaica</em> by Richard Hughes</p><p>Saturday, September 6 —&nbsp;<em>Great Granny Webster</em> by Caroline Blackwood&nbsp;</p></div></p></div></div></div></div></div></div></div><div class="bm-component"><div class="preview-container"><div class="shim" style="display: flex; flex-direction: column; justify-content: space-evenly; height: 30px; background: inherit;"><div style="margin: 0px auto; width: 100%; height: 0px; border-top: 3px dotted rgb(255, 102, 196);"></div></div></div></div><div class="bm-component"><div class="preview-container"><div style="background: inherit;"><div style="max-width: 915px; padding: 0px; margin: 0px auto;"><div class="bm-stack" style="display: flex; width: 100%;"><div style="flex: 0 0 20%; display: flex; justify-content: center;"><div role="img" aria-label="Subculture Lit" style="border-radius: 0px; background-repeat: no-repeat; background-position: 50% 50%; background-size: contain; min-height: 333px; background-image: url(&quot;https://cdn1.bookmanager.com/i/9931376/m__1_.jpeg?cache_key=1749499759&quot;); cursor: inherit; width: 100%;"></div></div><div style="flex: 0 0 80%; display: flex; justify-content: center; background: inherit;"><div style="padding: 0px; max-width: 86%; align-self: center; text-align: center; flex-grow: 1;"><h2 class="bm-txt-1" style="display: block;">Subculture Lit</h2><p class="bm-txt-6"><div class="bm-lnkin-1" style="overflow: hidden;"><p><strong><em>Small presses, experimental and transgressive writers and work.</em></strong></p><p>Meets the 2nd Sunday of every month at 3pm. Run by East Austin Writing Project. RSVP <a href="https://chat.whatsapp.com/DYPeUza2Whq5rhgd8W28wK" target="_blank">here</a>.</p><p>
+<strong>Upcoming Meetings:</strong>&nbsp;</p><p>Sunday, July 13 —&nbsp;<em>David Wojnarowicz: A Definitive History of Five or Six Years on the Lower East Side</em> by Sylvére Lotringer</p></div></p></div></div></div></div></div></div></div><div class="bm-component"><div class="preview-container"><div class="shim" style="display: flex; flex-direction: column; justify-content: space-evenly; height: 30px; background: inherit;"><div style="margin: 0px auto; width: 100%; height: 0px; border-top: 3px dotted rgb(255, 102, 196);"></div></div></div></div><div class="bm-component"><div class="preview-container"><div style="background: inherit;"><div style="max-width: 915px; padding: 0px; margin: 0px auto;"><div class="bm-stack-flip" style="display: flex; width: 100%;"><div style="flex: 0 0 20%; display: flex; justify-content: center;"><div role="img" aria-label="A Season Of" style="border-radius: 0px; background-repeat: no-repeat; background-position: 50% 50%; background-size: contain; min-height: 333px; background-image: url(&quot;https://cdn1.bookmanager.com/i/9931376/BOOKS_OF_JACOB.jpg?cache_key=1742156522&quot;); cursor: inherit; width: 100%;"></div></div><div style="flex: 0 0 80%; display: flex; justify-content: center; background: inherit;"><div style="padding: 0px; max-width: 86%; align-self: center; text-align: center; flex-grow: 1;"><h2 class="bm-txt-1" style="display: block;">A Season Of</h2><p class="bm-txt-6"><div class="bm-lnkin-1" style="overflow: hidden;"><p><strong><em>Reading a single author or title for a season.</em></strong></p><p>Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club.</p><p><strong>Upcoming Meetings:</strong>&nbsp;</p><p>Saturday, June 21 —&nbsp;<em>The Books of Jacob</em>&nbsp;by Olga Tokarczuk (Part III)</p><p>Saturday, July 29 —<em>&nbsp;Chrysalis Pastoral in B Minor</em> by Susanna Rafart (from&nbsp;Fum d'Estampa Press)</p><p>Saturday, August 16 —<em>&nbsp;Through the Forest </em>by Laura Alcoba&nbsp;(from&nbsp;Fum d'Estampa Press)</p></div></p></div></div></div></div></div></div></div><div class="bm-component"><div class="preview-container"><div class="shim" style="display: flex; flex-direction: column; justify-content: space-evenly; height: 30px; background: inherit;"><div style="margin: 0px auto; width: 100%; height: 0px; border-top: 3px dotted rgb(255, 102, 196);"></div></div></div></div><div class="bm-component"><div class="preview-container"><div style="background: inherit;"><div style="max-width: 915px; padding: 0px; margin: 0px auto;"><div class="bm-stack" style="display: flex; width: 100%;"><div style="flex: 0 0 20%; display: flex; justify-content: center;"><div role="img" aria-label="Voyage Out" style="border-radius: 0px; background-repeat: no-repeat; background-position: 50% 50%; background-size: contain; min-height: 333px; background-image: url(&quot;https://cdn1.bookmanager.com/i/9931376/the_swan_book.jpg?cache_key=1750438605&quot;); cursor: inherit; width: 100%;"></div></div><div style="flex: 0 0 80%; display: flex; justify-content: center; background: inherit;"><div style="padding: 0px; max-width: 86%; align-self: center; text-align: center; flex-grow: 1;"><h2 class="bm-txt-1" style="display: block;">Voyage Out</h2><p class="bm-txt-6"><div class="bm-lnkin-1" style="overflow: hidden;"><p><strong><em>A regional reading series.</em></strong></p><p>Meets the 3rd Sunday of every month at 5pm.</p><p><strong>Upcoming Meetings:</strong>&nbsp;</p><p>Sunday, July 20 —<em> The Swan Book</em> by Alexis Wright</p><p>Sunday, August 17 —&nbsp;<em>Monkey Grip</em> by Helen Garner</p><p>Sunday, September 21 —&nbsp;<em>The Plains </em>by Gerald Murnane</p></div></p></div></div></div></div></div></div></div><div class="bm-component"><div class="preview-container"><div class="shim" style="display: flex; flex-direction: column; justify-content: space-evenly; height: 30px; background: inherit;"><div style="margin: 0px auto; width: 100%; height: 0px; border-top: 3px dotted rgb(255, 102, 196);"></div></div></div></div><div class="bm-component"><div class="preview-container"><div style="background: inherit;"><div style="max-width: 915px; padding: 0px; margin: 0px auto;"><div class="bm-stack-flip" style="display: flex; width: 100%;"><div style="flex: 0 0 20%; display: flex; justify-content: center;"><div role="img" aria-label="Poetry Group" style="border-radius: 0px; background-repeat: no-repeat; background-position: 50% 50%; background-size: contain; min-height: 333px; background-image: url(&quot;https://cdn1.bookmanager.com/i/9931376/THE_DESCENT_OF_ALETTE.jpg?cache_key=1745790987&quot;); cursor: inherit; width: 100%;"></div></div><div style="flex: 0 0 80%; display: flex; justify-content: center; background: inherit;"><div style="padding: 0px; max-width: 86%; align-self: center; text-align: center; flex-grow: 1;"><h2 class="bm-txt-1" style="display: block;">Apricot Trees Exist</h2><p class="bm-txt-6"><div class="bm-lnkin-1" style="overflow: hidden;"><p><strong><em>Reading poems for generative inspiration.</em></strong></p><p><span style="background-color: initial; letter-spacing: 0px;">Meets the 4th Sunday of every month at 3pm.</span></p><p><strong>Upcoming Meetings:</strong> </p><p>Sunday, June 22 —&nbsp;<em>The Descent of Alette </em>by Alice Notley</p></div></p></div></div></div></div></div></div></div><div class="bm-component"><div class=""><div class="shim" style="display: flex; flex-direction: column; justify-content: space-evenly; height: 30px; background: inherit;"></div></div></div></div></div></main><footer><style>
+    .gov_color path, .gov_color rect{
+        fill: rgba(255,255,255,1);
+    } 
+    
+    .bm_footer {
+        background: rgba(0,0,0,1);
+        color: rgba(255,255,255,1);
+        font-size : 10px;
+    }
+    .bm_footer a, .bm_footer .footer-btn{
+        color: rgba(255,255,255,1);
+        transition: color 200ms;
+    }
+    .bm_footer a:hover, .bm_footer .footer-btn:hover{
+        color: rgba(255,102,196,1);
+        transition: color 200ms;
+    }</style><header class="bm_footer bm-render"><div style="max-width: 1110px; margin: 0px auto;"><div class="bm-footer-container"><div><div><div><big><strong>Find us at</strong></big></div><div class="shim"></div><div class="shim"></div><p>Alienated Majesty Books<br>613 West 29th Street<br>Austin,  TX<br>USA &nbsp;78705<br><a href="/contact-hours"><strong>Map &amp; Hours</strong></a></p><div class="shim"></div><div class="shim"></div><div class="shim"></div></div></div><div><div><div><big><strong>Contact us</strong></big></div><div class="shim"></div><div class="shim"></div><p><a aria-label="Store phone number" href="tel:512-243-6679">512-243-6679</a> <br><a aria-label="Store email address" href="mailto:alienatedmajestybooks@gmail.com">alienatedmajestybooks@gmail.com </a> <br></p><div class="shim"></div><div class="shim"></div><div class="shim"></div></div></div><div><div><div><big><strong>Social</strong></big></div><div class="shim"></div><div class="shim"></div><div class="ant-space ant-space-vertical"><div class="ant-space-item" style="margin-bottom: 8px;"><button aria-label="Visit Instagram account (opens in a new tab)" type="button" class="ant-btn ant-btn-text" style="padding: 0px;"><span role="img" aria-label="instagram" class="anticon anticon-instagram footer-btn" style="font-size: 27px;"><svg viewBox="64 64 896 896" focusable="false" data-icon="instagram" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 306.9c-113.5 0-205.1 91.6-205.1 205.1S398.5 717.1 512 717.1 717.1 625.5 717.1 512 625.5 306.9 512 306.9zm0 338.4c-73.4 0-133.3-59.9-133.3-133.3S438.6 378.7 512 378.7 645.3 438.6 645.3 512 585.4 645.3 512 645.3zm213.5-394.6c-26.5 0-47.9 21.4-47.9 47.9s21.4 47.9 47.9 47.9 47.9-21.3 47.9-47.9a47.84 47.84 0 00-47.9-47.9zM911.8 512c0-55.2.5-109.9-2.6-165-3.1-64-17.7-120.8-64.5-167.6-46.9-46.9-103.6-61.4-167.6-64.5-55.2-3.1-109.9-2.6-165-2.6-55.2 0-109.9-.5-165 2.6-64 3.1-120.8 17.7-167.6 64.5C132.6 226.3 118.1 283 115 347c-3.1 55.2-2.6 109.9-2.6 165s-.5 109.9 2.6 165c3.1 64 17.7 120.8 64.5 167.6 46.9 46.9 103.6 61.4 167.6 64.5 55.2 3.1 109.9 2.6 165 2.6 55.2 0 109.9.5 165-2.6 64-3.1 120.8-17.7 167.6-64.5 46.9-46.9 61.4-103.6 64.5-167.6 3.2-55.1 2.6-109.8 2.6-165zm-88 235.8c-7.3 18.2-16.1 31.8-30.2 45.8-14.1 14.1-27.6 22.9-45.8 30.2C695.2 844.7 570.3 840 512 840c-58.3 0-183.3 4.7-235.9-16.1-18.2-7.3-31.8-16.1-45.8-30.2-14.1-14.1-22.9-27.6-30.2-45.8C179.3 695.2 184 570.3 184 512c0-58.3-4.7-183.3 16.1-235.9 7.3-18.2 16.1-31.8 30.2-45.8s27.6-22.9 45.8-30.2C328.7 179.3 453.7 184 512 184s183.3-4.7 235.9 16.1c18.2 7.3 31.8 16.1 45.8 30.2 14.1 14.1 22.9 27.6 30.2 45.8C844.7 328.7 840 453.7 840 512c0 58.3 4.7 183.2-16.2 235.8z"></path></svg></span></button></div><div class="ant-space-item" style="margin-bottom: 8px;"></div><div class="ant-space-item" style="margin-bottom: 8px;"></div><div class="ant-space-item"></div></div><div class="shim"></div><div class="shim"></div><div class="shim"></div></div></div></div></div><div style="opacity: 0.2;"><div aria-hidden="true"><div class="ant-divider ant-divider-horizontal" role="separator" style="border-color: rgb(255, 255, 255); margin: 15px 0px;"></div></div></div><div style="text-align: center;"><div class="ant-space ant-space-horizontal ant-space-align-center bm-footer-flex"><div class="ant-space-item" style="margin-right: 8px;"><div style="text-align: center;">Prices in USD</div></div><div class="ant-space-item"><div class="poweredby" style="text-align: center;"><a href="https://bookmanager.com/"><span> Powered by </span><span>Bookmanager</span></a></div></div></div></div><div class="shim"></div> <div class="shim"></div> <div class="shim"></div> <div class="shim"></div></header></footer></div></div><script>!function(e){function r(r){for(var n,a,l=r[0],f=r[1],i=r[2],c=0,s=[];c<l.length;c++)a=l[c],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in f)Object.prototype.hasOwnProperty.call(f,n)&&(e[n]=f[n]);for(p&&p(r);s.length;)s.shift()();return u.push.apply(u,i||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,l=1;l<t.length;l++){var f=t[l];0!==o[f]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="/";var l=this.webpackJsonpbookmanager=this.webpackJsonpbookmanager||[],f=l.push.bind(l);l.push=r,l=l.slice();for(var i=0;i<l.length;i++)r(l[i]);var p=f;t()}([])</script><script src="https://cdn1.bookmanager.com/shop/static/js/2.5d2907fe.chunk.js"></script><script src="https://cdn1.bookmanager.com/shop/static/js/main.8c21b90c.chunk.js"></script><div style="position: absolute; top: 0px; left: 0px; width: 100%;"><div><div class="ant-menu-submenu ant-menu-submenu-popup ant-menu-dark bm_nav ant-menu-submenu-placement-bottomLeft " style="display: none; pointer-events: none; min-width: 119.688px; left: -999px; top: -946px;"><ul class="ant-menu ant-menu-sub ant-menu-vertical" role="menu" data-menu-list="true" id="rc-menu-uuid-59311-1-rc-menu-more-popup"></ul></div></div></div><div style="position: absolute; top: 0px; left: 0px; width: 100%;"><div><div class="ant-menu-submenu ant-menu-submenu-popup ant-menu ant-menu-dark bm_nav ant-menu-submenu-placement-bottomLeft " style="display: none; pointer-events: none; min-width: 93.3438px; left: -409px; top: -786px;"><ul class="ant-menu ant-menu-sub ant-menu-vertical" role="menu" id="rc-menu-uuid-59311-1-AVjBiB9RqkU-popup" data-menu-list="true"><li role="menuitem" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-6a9kIE1r3EU" class="ant-menu-item ant-menu-item-only-child tab" style="padding: 0px;"><span class="ant-menu-title-content"><div style="padding: 0px 20px;">Our History</div></span></li><li role="menuitem" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-eh4oLLFKGJ0" class="ant-menu-item ant-menu-item-only-child tab" style="padding: 0px;"><span class="ant-menu-title-content"><div style="padding: 0px 20px;">Our Booksellers</div></span></li><li role="menuitem" tabindex="-1" data-menu-id="rc-menu-uuid-59311-1-uBK1GD5G6RU" class="ant-menu-item ant-menu-item-only-child tab" style="padding: 0px;"><span class="ant-menu-title-content"><div style="padding: 0px 20px;">Contact &amp; Hours</div></span></li></ul></div></div></div></body></html>

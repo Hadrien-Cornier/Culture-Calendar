@@ -1,0 +1,155 @@
+{
+  "description": "Test database for Alienated Majesty Books scraper with real book club events extracted from rendered HTML",
+  "schema": {
+    "title": "string (required) - Book club name or event title",
+    "book": "string (required) - Book title being discussed",
+    "author": "string (required) - Book author name",
+    "date": "string (required) - Event date in YYYY-MM-DD format",
+    "time": "string (required) - Event time (e.g., '7:00 PM')",
+    "venue": "string (optional) - Venue name",
+    "host": "string (optional) - Host or facilitator name",
+    "description": "string (optional) - Event description",
+    "series": "string (optional) - Book club series name",
+    "url": "string - the original URL"
+  },
+  "test_cases": [
+    {
+      "test_id": 1,
+      "input": {
+        "html_file": "rendered_book_clubs.html",
+        "description": "Rendered book clubs page with all book club events",
+        "url": "https://www.alienatedmajestybooks.com/book-clubs"
+      },
+      "expected_output": [
+        {
+          "title": "NYRB Book Club - Nightmare Alley",
+          "book": "Nightmare Alley",
+          "author": "William Lindsey Gresham",
+          "date": "2025-07-05",
+          "time": "11:00 AM",
+          "venue": "Alienated Majesty Books",
+          "host": "Austin NYRB Book Club",
+          "description": "Only the (NYRB) Classics. Meets the 1st Saturday of every month at 11am. Run by the Austin NYRB Book Club.",
+          "series": "NYRB Book Club",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "NYRB Book Club - High Wind in Jamaica",
+          "book": "High Wind in Jamaica",
+          "author": "Richard Hughes",
+          "date": "2025-08-02",
+          "time": "11:00 AM",
+          "venue": "Alienated Majesty Books",
+          "host": "Austin NYRB Book Club",
+          "description": "Only the (NYRB) Classics. Meets the 1st Saturday of every month at 11am. Run by the Austin NYRB Book Club.",
+          "series": "NYRB Book Club",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "NYRB Book Club - Great Granny Webster",
+          "book": "Great Granny Webster",
+          "author": "Caroline Blackwood",
+          "date": "2025-09-06",
+          "time": "11:00 AM",
+          "venue": "Alienated Majesty Books",
+          "host": "Austin NYRB Book Club",
+          "description": "Only the (NYRB) Classics. Meets the 1st Saturday of every month at 11am. Run by the Austin NYRB Book Club.",
+          "series": "NYRB Book Club",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "Subculture Lit - David Wojnarowicz",
+          "book": "David Wojnarowicz: A Definitive History of Five or Six Years on the Lower East Side",
+          "author": "Sylvère Lotringer",
+          "date": "2025-07-13",
+          "time": "3:00 PM",
+          "venue": "Alienated Majesty Books",
+          "host": "East Austin Writing Project",
+          "description": "Small presses, experimental and transgressive writers and work. Meets the 2nd Sunday of every month at 3pm. Run by East Austin Writing Project.",
+          "series": "Subculture Lit",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "A Season Of - The Books of Jacob (Part III)",
+          "book": "The Books of Jacob (Part III)",
+          "author": "Olga Tokarczuk",
+          "date": "2025-06-21",
+          "time": "11:00 AM",
+          "venue": "Alienated Majesty Books",
+          "host": "Austin NYRB Book Club",
+          "description": "Reading a single author or title for a season. Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club.",
+          "series": "A Season Of",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "A Season Of - Chrysalis Pastoral in B Minor",
+          "book": "Chrysalis Pastoral in B Minor",
+          "author": "Susanna Rafart",
+          "date": "2025-07-29",
+          "time": "11:00 AM",
+          "venue": "Alienated Majesty Books",
+          "host": "Austin NYRB Book Club",
+          "description": "Reading a single author or title for a season. Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club. From Fum d'Estampa Press.",
+          "series": "A Season Of",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "A Season Of - Through the Forest",
+          "book": "Through the Forest",
+          "author": "Laura Alcoba",
+          "date": "2025-08-16",
+          "time": "11:00 AM",
+          "venue": "Alienated Majesty Books",
+          "host": "Austin NYRB Book Club",
+          "description": "Reading a single author or title for a season. Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club. From Fum d'Estampa Press.",
+          "series": "A Season Of",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "Voyage Out - The Swan Book",
+          "book": "The Swan Book",
+          "author": "Alexis Wright",
+          "date": "2025-07-20",
+          "time": "5:00 PM",
+          "venue": "Alienated Majesty Books",
+          "description": "A regional reading series. Meets the 3rd Sunday of every month at 5pm.",
+          "series": "Voyage Out",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "Voyage Out - Monkey Grip",
+          "book": "Monkey Grip",
+          "author": "Helen Garner",
+          "date": "2025-08-17",
+          "time": "5:00 PM",
+          "venue": "Alienated Majesty Books",
+          "description": "A regional reading series. Meets the 3rd Sunday of every month at 5pm.",
+          "series": "Voyage Out",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "Voyage Out - The Plains",
+          "book": "The Plains",
+          "author": "Gerald Murnane",
+          "date": "2025-09-21",
+          "time": "5:00 PM",
+          "venue": "Alienated Majesty Books",
+          "description": "A regional reading series. Meets the 3rd Sunday of every month at 5pm.",
+          "series": "Voyage Out",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        },
+        {
+          "title": "Apricot Trees Exist - The Descent of Alette",
+          "book": "The Descent of Alette",
+          "author": "Alice Notley",
+          "date": "2025-06-22",
+          "time": "3:00 PM",
+          "venue": "Alienated Majesty Books",
+          "description": "Reading poems for generative inspiration. Meets the 4th Sunday of every month at 3pm.",
+          "series": "Apricot Trees Exist",
+          "url": "https://www.alienatedmajestybooks.com/book-clubs"
+        }
+      ]
+    }
+  ]
+} 

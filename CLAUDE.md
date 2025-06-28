@@ -4,13 +4,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Culture Calendar is a comprehensive Python application that automatically scrapes Austin cultural events from multiple venues, enriches them with AI-powered ratings and personal preferences, and provides both ICS calendar files and a live website. The project has expanded beyond Phase 1 to include 7 major Austin cultural venues.
+Culture Calendar is a production-ready Python application that automatically scrapes Austin cultural events from 7 venues, enriches them with AI-powered analysis, and provides both ICS calendar files and a live GitHub Pages website. The system uses a modern LLM-powered architecture with comprehensive testing and schema-driven development.
 
 ## Common Commands
 
 ```bash
 # Activate virtual environment (required for all operations)
 source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up environment
+cp .env.example .env
+# Edit .env to add required API keys:
+# ANTHROPIC_API_KEY=your_key_here
+# PERPLEXITY_API_KEY=your_key_here  
+# FIRECRAWL_API_KEY=your_key_here
 
 # Update website data (incremental - new events only)
 python update_website_data.py --incremental
@@ -21,88 +31,105 @@ python update_website_data.py --full
 # Force re-rate all events (ignore cache)
 python update_website_data.py --full --force-reprocess
 
-# Update with specific number of days ahead
-python update_website_data.py --days 14
+# Run comprehensive test suite
+python run_tests.py              # All tests
+python run_tests.py unit         # Unit tests only
+python run_tests.py integration  # Integration tests
+python run_tests.py fast         # Fast tests (no API calls)
+python run_tests.py quality      # Data quality validation
 
-# Install dependencies
-pip install -r requirements.txt
+# Test individual venue scrapers
+python test_all_scrapers.py
 
-# Set up environment
-cp .env.example .env
-# Then edit .env to add required API keys:
-# PERPLEXITY_API_KEY=your_key_here
-# ANTHROPIC_API_KEY=your_key_here  
-# FIRECRAWL_API_KEY=your_key_here
-
-# Test individual components
-python src/scraper.py  # Test scrapers independently
-python src/processor.py  # Test AI processing
+# Generate new scraper from schema
+python -c "from src.scraper_generator import create_new_venue_scraper; create_new_venue_scraper('VenueName', 'film', base_url='https://venue.com')"
 ```
 
-## Virtual Environment
+## Development Workflow
 
-- Use the venv python environment to run anything in here
+### Adding New Venues
+1. **Define Schema**: Add venue-specific schema to `src/schemas.py` with extraction hints
+2. **Generate Scraper**: Use `ScraperGenerator.create_new_venue_scraper()` for 30-line boilerplate
+3. **Customize Logic**: Implement venue-specific `get_target_urls()` and `get_fallback_data()`
+4. **Add Tests**: Create tests in `tests/` following existing patterns
+5. **Update Registry**: Add venue to `VENUE_SCHEMAS` mapping
 
-## Future Scheduling
+### Key Architectural Patterns
+- **Progressive Fallback**: Always have 4 tiers (requests → pyppeteer → firecrawl → static)
+- **Real Data Only**: Use `None` for missing fields, never fake defaults
+- **Schema-First**: Define extraction patterns before implementation
+- **LLM Integration**: All data extraction goes through Claude API with structured prompts
+- **Comprehensive Testing**: Unit/Integration/E2E/Quality tests for all components
 
-The project will use GitHub Actions for automated scheduling instead of local cron jobs or the scheduler.py file.
+### Virtual Environment
+Always use the venv python environment: `source venv/bin/activate`
+
+## Automated Scheduling
+GitHub Actions handle all scheduling - no local cron jobs or scheduler.py needed.
 
 ## Architecture
 
-The application follows a multi-venue pipeline architecture with three main components:
+The system follows a modern LLM-powered architecture with three core layers:
 
-### 1. **Multi-Venue Scraper** (`src/scraper.py`): 
-Comprehensive web scraping for 7 Austin cultural venues:
+### 1. **Progressive Scraping Layer** (`src/base_scraper.py` + `src/scrapers/`)
+**Universal BaseScraper** with 4-tier progressive fallback system:
+- **Tier 1**: requests + LLM extraction (fastest, most reliable)
+- **Tier 2**: pyppeteer + LLM (handles JavaScript)
+- **Tier 3**: firecrawl + LLM (enterprise scraping service)
+- **Tier 4**: Static fallback data (ensures 100% uptime)
 
-**Film Venues:**
-- `AFSScraper` - Austin Film Society calendar and event details
-- `HyperrealFilmClubScraper` - Hyperreal Film Club events
+**Schema-Driven Individual Scrapers** (~30-40 lines each):
+- **Film**: AFS, Hyperreal (real-time web scraping)
+- **Music**: Symphony, Early Music, La Follia, Paramount (mix of static/dynamic)
+- **Books**: Alienated Majesty, First Light (intelligent parsing)
 
-**Music Venues:**  
-- `ParameterTheaterScraper` - Paramount Theater events
-- `AustinSymphonyOrchestraScraper` - Symphony season data (static)
-- `EarlyMusicAustinScraper` - Early music concerts (static)
-- `LaFolliaAustinScraper` - Chamber music events (static)
+**MultiVenueScraper** (`src/scraper.py`): Orchestrates all individual scrapers with error handling
 
-**Book Clubs:**
-- `AlienatedMajestyBooksScraper` - Real web scraping with fallback data
-- `FirstLightAustinScraper` - Real web scraping with fallback data
+### 2. **AI Processing Layer** (`src/processor.py` + `src/llm_service.py`)
+**LLMService**: Anthropic Claude API integration with caching and rate limiting
+**EventProcessor**: 
+- **Content-Aware Analysis**: Different AI prompts for films/concerts/books
+- **Preference Integration**: Personal taste scoring from `preferences.txt`
+- **Summary Generation**: One-line summaries for website cards
+- **Work Hours Filtering**: Removes 9am-6pm weekday events
 
-### 2. **AI Processor** (`src/processor.py`): 
-Event enrichment and intelligent rating:
-- **Movie Analysis**: Perplexity AI for cinematic critique and ratings
-- **Concert Analysis**: Classical music analysis for symphony/chamber events  
-- **Book Club Analysis**: Literary criticism for book discussions
-- **Preference Integration**: `preferences.txt` scoring (+2 points per match)
-- **Special Event Bonuses**: +3 points for special screenings
-- **Final Rating Calculation**: AI score + preferences + bonuses
+### 3. **Output Generation Layer**
+**Website Generator** (`update_website_data.py`): JSON data for GitHub Pages
+**Calendar Generator** (`src/calendar_generator.py`): ICS files for Google Calendar
+**Test Suite** (`tests/`): 85+ tests across unit/integration/e2e/quality validation
 
-### 3. **Website Generator** (`update_website_data.py`): 
-Modern web application creation:
-- **Event Aggregation**: Groups multiple screenings by movie/event
-- **JSON API**: Generates `docs/data.json` for website consumption
-- **ICS Calendars**: Multiple rating-filtered calendar files
-- **Incremental Updates**: Smart duplicate detection and merging
-- **Venue-Specific Processing**: Handles different event types appropriately
+## Schema-Driven Development
+
+The system uses **schemas** (`src/schemas.py`) to define data extraction patterns:
+- **FilmEventSchema**: director, year, country, duration, format extraction hints
+- **BookClubEventSchema**: book, author, host, discussion topic patterns  
+- **ConcertEventSchema**: composers, featured_artist, classical music terminology
+- **SchemaRegistry**: Central registry managing all venue-schema mappings
+
+**Auto-Generated Scrapers** (`src/scraper_generator.py`):
+- **Template System**: Generate 30-line scrapers from schemas vs 200+ line custom code
+- **Configuration-Driven**: New venues via JSON config, not Python code
+- **LLM Integration**: Automatic extraction hint incorporation
 
 ## Key Configuration Files
 
-- **`preferences.txt`**: Personal preferences (directors, genres, keywords) used for rating boosts
-- **`literature_preferences.txt`**: Book club preferences (authors, genres, themes)
-- **`.env`**: Environment variables for API keys (PERPLEXITY_API_KEY, ANTHROPIC_API_KEY, FIRECRAWL_API_KEY)
-- **`requirements.txt`**: Python dependencies including requests, beautifulsoup4, icalendar, anthropic, firecrawl-py
+- **`src/schemas.py`**: Schema definitions with LLM extraction hints and regex patterns
+- **`preferences.txt`**: Personal taste preferences for rating boosts
+- **`literature_preferences.txt`**: Book/author preferences for literary events
+- **`.env`**: API keys (ANTHROPIC_API_KEY, PERPLEXITY_API_KEY, FIRECRAWL_API_KEY)
 - **`cache/summary_cache.json`**: AI response cache to avoid reprocessing
-- **`docs/data.json`**: Generated website data consumed by the frontend
-- **`docs/source_update_times.json`**: Tracks last update times per venue
+- **`docs/data.json`**: Generated website data for GitHub Pages
+- **`tests/conftest.py`**: Pytest fixtures and test configuration
 
 ## Data Flow
 
-1. Scrape AFS calendar page for event links and basic info
-2. Follow each event link to get detailed descriptions
-3. Send movie titles to Perplexity AI for ratings and summaries
-4. Calculate preference scores based on user preferences file
-5. Generate final ratings combining AI scores + preference boosts + special screening bonuses
-6. Create ICS file with enriched event data
+1. **MultiVenueScraper** coordinates individual venue scrapers
+2. **BaseScraper** uses progressive fallback (requests → pyppeteer → firecrawl → static)
+3. **LLMService** extracts structured data using schema-specific prompts
+4. **EventProcessor** enriches events with AI analysis and preference scoring
+5. **SummaryGenerator** creates one-line summaries for website cards
+6. **CalendarGenerator** produces ICS files for Google Calendar integration
+7. **Website Generator** creates JSON data for GitHub Pages deployment
 
 ## Rate Limiting & API Usage
 
@@ -256,22 +283,43 @@ A simple GitHub Pages website to make the Austin Film Society calendar accessibl
 - Filters out work-hour screenings (9am-6pm weekdays)
 - Provides comprehensive data for calendar view display
 
-## Recent Website Improvements (Completed)
+## Production-Ready Architecture (June 2025)
 
-### Critical Fixes:
+The system has been fully transformed into a production-ready codebase with:
+
+- **82% Code Reduction**: src/scraper.py reduced from 1300+ lines to 234 lines
+- **Schema-Driven Development**: New venues via 30-line configuration vs 200+ line custom code  
+- **Comprehensive Testing**: 85+ tests across unit/integration/e2e/quality validation
+- **LLM-Powered Extraction**: Universal BaseScraper with progressive fallback system
+- **Auto-Generated Scrapers**: Template system for rapid venue addition
+
+### Core File Structure:
+```
+Culture-Calendar/
+├── src/
+│   ├── base_scraper.py          # Universal LLM scraper foundation
+│   ├── llm_service.py           # Anthropic Claude API integration  
+│   ├── schemas.py               # Schema definitions with extraction hints
+│   ├── scraper_generator.py     # Auto-generate scrapers from templates
+│   ├── scraper.py               # MultiVenueScraper orchestrator (234 lines)
+│   └── scrapers/                # Individual 30-40 line venue scrapers
+├── tests/                       # Comprehensive test suite (85+ tests)
+├── run_tests.py                 # Test runner with coverage reporting
+└── docs/                        # GitHub Pages website
+```
+
+### Completed Website Improvements:
 1. ✅ **Duplicate Events** - Fixed deduplication logic in `update_website_data.py` to merge screenings by movie title
 2. ✅ **Rating Extraction Bug** - Fixed decimal rating parsing (3.6/10 now correctly rounds to 4, not 6)
 3. ✅ **Truncated Descriptions** - Increased API token limit and removed truncation for complete evaluations
 4. ✅ **Movie Re-evaluation** - Successfully re-ran with all fixes applied
-
-### New Features Added:
-1. ✅ **Movie Metadata** - Added duration and director info scraped from AFS event pages
-2. ✅ **Smart Event Filtering** - Structure-based detection of movies vs festivals/events using AFS page format
-3. ✅ **Chrome Calendar Fix** - Fixed calendar width display issues in Chrome browser
-4. ✅ **Cult Classic Detection** - AI-powered cult classic detection with purple badges
-5. ✅ **French Movie Features** - French flag badges + 2 rating boost (capped at 10)
-6. ✅ **Genre Classification** - AI-powered genre detection and display
-7. ✅ **Genre Filtering** - Interactive genre toggle filters in website UI
+5. ✅ **Movie Metadata** - Added duration and director info scraped from AFS event pages
+6. ✅ **Smart Event Filtering** - Structure-based detection of movies vs festivals/events using AFS page format
+7. ✅ **Chrome Calendar Fix** - Fixed calendar width display issues in Chrome browser
+8. ✅ **Cult Classic Detection** - AI-powered cult classic detection with purple badges
+9. ✅ **French Movie Features** - French flag badges + 2 rating boost (capped at 10)
+10. ✅ **Genre Classification** - AI-powered genre detection and display
+11. ✅ **Genre Filtering** - Interactive genre toggle filters in website UI
 
 ### Enhanced Movie Cards Now Include:
 - Duration and director information
@@ -354,20 +402,31 @@ The system now uses **structure-based detection** instead of keyword matching:
 - **Virtual Environment**: Always activate `venv` before running scripts
 - **Python Version**: Requires Python 3.11+ for proper dependency compatibility
 
-### Common Debugging Commands
+### Testing & Debugging Commands
 ```bash
-# Check cache status and clear if needed
+# Run comprehensive test suite
+python run_tests.py              # All tests with coverage
+python run_tests.py unit         # Unit tests only  
+python run_tests.py integration  # Integration tests
+python run_tests.py fast         # Fast tests (no API calls)
+python run_tests.py quality      # Data quality validation
+python run_tests.py e2e          # End-to-end pipeline tests
+
+# Test individual venue scrapers
+python test_all_scrapers.py
+python -c "from src.scrapers import AFSScraper; s=AFSScraper(); print(f'AFS: {len(s.scrape_events())} events')"
+python -c "from src.scrapers import FirstLightAustinScraper; s=FirstLightAustinScraper(); print(f'FirstLight: {len(s.scrape_events())} events')"
+
+# Validate system components
+python -c "from src.schemas import SchemaRegistry; print('Available schemas:', SchemaRegistry.get_available_types())"
+python -c "from src.scraper_generator import ScraperGenerator; g=ScraperGenerator(); print('Generator ready')"
+python -c "import json; data=json.load(open('docs/data.json')); print(f'Total events: {len(data)}')"
+
+# Cache management
 ls -la cache/
 rm cache/summary_cache.json  # Clear AI cache to force re-processing
 
-# Test individual venue scrapers
-python -c "from src.scraper import AFSScraper; print(len(AFSScraper().scrape_calendar()))"
-python -c "from src.scraper import HyperrealFilmClubScraper; print(len(HyperrealFilmClubScraper().scrape_events()))"
-
-# Validate generated data
-python -c "import json; data=json.load(open('docs/data.json')); print(f'Total events: {len(data)}')"
-
-# Check GitHub Actions logs locally
+# GitHub Actions validation
 cat .github/workflows/update-calendar.yml
 cat .github/workflows/complete-data-wipe-reload.yml
 ```
@@ -377,3 +436,142 @@ cat .github/workflows/complete-data-wipe-reload.yml
 - **Web Scraping**: 0.5-second delays between page fetches
 - **Cache Usage**: AI responses cached to avoid redundant processing
 - **Incremental Updates**: Use `--incremental` flag for faster updates
+
+## Testing & Debugging
+
+### Comprehensive Test Suite (85+ Tests)
+
+**Unit Tests** (`tests/test_units.py`):
+```bash
+pytest tests/test_units.py -v -m unit
+```
+- LLMService API integration and error handling
+- BaseScraper progressive fallback system
+- Schema validation and registry functionality
+- SummaryGenerator caching and prompt building
+- CalendarGenerator ICS file creation
+- ScraperGenerator template system
+
+**Integration Tests** (`tests/test_integration.py`):
+```bash
+pytest tests/test_integration.py -v -m integration
+```
+- MultiVenueScraper coordination and error isolation
+- Individual scraper initialization and schema consistency
+- EventProcessor AI pipeline integration
+- Full scraping → processing → output workflows
+
+**Data Quality Tests** (`tests/test_data_quality.py`):
+```bash
+pytest tests/test_data_quality.py -v -m unit
+```
+- Schema validation and field consistency
+- Date/time format validation and business rules
+- Cross-venue data quality and duplicate detection
+- Data sanitization and None handling
+
+**End-to-End Tests** (`tests/test_e2e.py`):
+```bash
+pytest tests/test_e2e.py -v -m integration
+```
+- Complete pipeline testing from scraping to calendar generation
+- ICS calendar compatibility and JSON data validation
+- Performance requirements and memory usage
+- Error recovery and graceful degradation
+
+**Live Integration Tests** (`tests/test_live_integration.py`):
+```bash
+python run_live_tests.py
+# or
+pytest tests/test_live_integration.py -v -s -m live
+```
+- **Real API Keys**: Uses actual FIRECRAWL_API_KEY and ANTHROPIC_API_KEY
+- **Live Data**: Fetches real events from all venue websites
+- **Mini Refresh**: Simulates complete update_website_data.py process
+- **Validation**: Ensures at least one valid event per scraper
+- **Pipeline Testing**: Tests scraping → AI processing → calendar generation
+
+**Empty Extraction Tests** (`tests/test_empty_extraction.py`):
+```bash
+pytest tests/test_empty_extraction.py -v -m unit
+```
+- Edge cases where LLM returns no useful data
+- Error handling for invalid JSON responses
+- Validation of empty/null field handling
+
+**New Scrapers Tests** (`tests/test_new_scrapers.py`):
+```bash
+pytest tests/test_new_scrapers.py -v -s
+```
+- LLM-powered scraper architecture validation
+- Live website testing with real data
+- Schema-driven development verification
+
+### Live Testing with Real Data
+
+The **live integration tests** are the most valuable for ensuring production readiness:
+
+**What They Test:**
+- ✅ **Real Venue Scraping**: Each scraper fetches actual events from live websites
+- ✅ **Data Validation**: Events are validated against schemas and business rules
+- ✅ **AI Processing**: Real AI analysis with actual event descriptions
+- ✅ **Calendar Generation**: ICS files created with real event data
+- ✅ **Mini Refresh**: Complete pipeline simulation
+
+**Running Live Tests:**
+```bash
+# Quick start with API key checking
+python run_live_tests.py
+
+# Direct pytest with live marker
+pytest tests/test_live_integration.py -v -s -m live
+
+# Test specific venue
+pytest tests/test_live_integration.py::TestLiveScraperIntegration::test_all_venue_scrapers_live -v -s
+```
+
+**Expected Results:**
+- At least 3 venues should return events successfully
+- At least 5 total valid events across all venues
+- AI processing should work on sample events
+- Calendar generation should create valid ICS files
+
+**API Key Requirements:**
+- **FIRECRAWL_API_KEY**: Required for web scraping (Firecrawl service)
+- **ANTHROPIC_API_KEY**: Required for AI processing (Claude API)
+
+### Component Validation
+
+**Validate Individual Components:**
+```bash
+# Test specific scraper
+python -c "from src.scrapers.afs_scraper import AFSScraper; print(AFSScraper().scrape_events())"
+
+# Test schema validation
+python -c "from src.schemas import SchemaRegistry; print(SchemaRegistry.get_available_types())"
+
+# Test LLM service
+python -c "from src.llm_service import LLMService; print(LLMService().anthropic_api_key is not None)"
+```
+
+**Cache Management:**
+```bash
+# Clear summary cache
+rm cache/summary_cache.json
+
+# Clear all cache
+rm -rf cache/*
+
+# View cache contents
+cat cache/summary_cache.json | jq '.'
+```
+
+**GitHub Actions Validation:**
+```bash
+# Test workflow locally
+python update_website_data.py
+
+# Check generated files
+ls -la docs/
+cat docs/data.json | jq '.movies | length'
+```
