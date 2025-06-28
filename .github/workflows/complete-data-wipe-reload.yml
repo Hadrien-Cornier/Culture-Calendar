@@ -37,20 +37,117 @@ jobs:
         rm -rf cache/
         echo "All cached data wiped successfully (preserving classical_data.json)"
         
-    - name: Complete batch reload - All venues with fresh AI analysis
+    - name: Complete batch reload with comprehensive validation
       env:
         PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
       run: |
-        echo "🔄 Complete batch reload - regenerating everything from scratch"
+        echo "🔄 Complete batch reload with comprehensive validation"
         echo "This will:"
         echo "  🎬 Scrape movies from Austin Film Society & Hyperreal Film Club"
         echo "  🎼 Load classical music from Paramount, Symphony, Early Music, La Follia"
         echo "  📚 Scrape book clubs from Alienated Majesty & First Light Austin"
+        echo "  ✅ Validate each scraper's output with AI quality checks"
+        echo "  🚨 Fail fast if data quality is poor"
         echo "  🤖 Generate fresh AI ratings and summaries for all events"
         echo "  💾 Create new cache files and website data"
-        python update_website_data.py --full --force-reprocess
+        echo ""
+        echo "🔍 Starting comprehensive validation-enhanced reload..."
+        python update_website_data.py --full --force-reprocess --validate
+        
+    - name: Comprehensive validation check
+      run: |
+        echo "🔍 Running comprehensive validation checks..."
+        
+        # Check all expected files exist
+        files_to_check=("docs/data.json" "docs/source_update_times.json")
+        for file in "${files_to_check[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "❌ Error: $file not found"
+            exit 1
+          else
+            echo "✅ Found: $file"
+          fi
+        done
+        
+        # Comprehensive data validation
+        python -c "
+        import json
+        import sys
+        from datetime import datetime, timedelta
+        
+        try:
+            # Load and validate main data
+            with open('docs/data.json', 'r') as f:
+                data = json.load(f)
+            
+            print(f'📊 Loaded {len(data)} events from data.json')
+            
+            if len(data) < 10:
+                print(f'⚠️ Warning: Only {len(data)} events - expected more for full reload')
+            
+            # Validate event structure and content quality
+            venues_found = set()
+            event_types_found = set()
+            ratings_valid = 0
+            
+            for i, event in enumerate(data[:10]):  # Check first 10 events
+                # Check required fields
+                required_fields = ['title', 'rating', 'screenings', 'venue']
+                missing_fields = [f for f in required_fields if f not in event]
+                if missing_fields:
+                    print(f'❌ Event {i+1} missing fields: {missing_fields}')
+                    sys.exit(1)
+                
+                # Track venues and types
+                venues_found.add(event.get('venue', 'Unknown'))
+                
+                # Validate rating
+                rating = event.get('rating', 0)
+                if isinstance(rating, (int, float)) and 1 <= rating <= 10:
+                    ratings_valid += 1
+                
+                # Check screenings
+                screenings = event.get('screenings', [])
+                if not screenings:
+                    print(f'⚠️ Event {i+1} has no screenings')
+                else:
+                    for screening in screenings:
+                        if 'date' not in screening:
+                            print(f'❌ Event {i+1} screening missing date')
+                            sys.exit(1)
+            
+            print(f'✅ Event structure validation passed')
+            print(f'📍 Venues found: {sorted(venues_found)}')
+            print(f'⭐ Ratings valid: {ratings_valid}/10')
+            
+            # Load and validate update times
+            with open('docs/source_update_times.json', 'r') as f:
+                update_times = json.load(f)
+            
+            print(f'🕒 Update times tracked for: {list(update_times.keys())}')
+            
+            # Check that we have reasonable venue coverage
+            expected_venues = ['AFS', 'Hyperreal Film Club', 'Alienated Majesty Books', 'First Light Austin']
+            found_expected = [v for v in expected_venues if any(v in venue for venue in venues_found)]
+            
+            if len(found_expected) < 2:
+                print(f'⚠️ Warning: Only found {len(found_expected)}/4 expected venues')
+            else:
+                print(f'✅ Good venue coverage: {len(found_expected)}/4 expected venues')
+            
+            print('✅ Comprehensive validation completed successfully!')
+            
+        except json.JSONDecodeError as e:
+            print(f'❌ JSON decode error: {e}')
+            sys.exit(1)
+        except Exception as e:
+            print(f'❌ Validation error: {e}')
+            sys.exit(1)
+        "
+        
+        echo "✅ All comprehensive validation checks passed!"
         
     - name: Configure Git
       run: |

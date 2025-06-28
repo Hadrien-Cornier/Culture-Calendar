@@ -2,8 +2,7 @@
 Data schemas for different venue types in the Culture Calendar system
 """
 
-from typing import Dict, Any
-from dataclasses import dataclass
+from typing import Any, Dict
 
 
 class SchemaField:

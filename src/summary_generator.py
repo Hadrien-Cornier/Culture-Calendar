@@ -3,10 +3,11 @@ One-line summary generator for Culture Calendar events
 Uses Anthropic's Claude API to generate concise event summaries
 """
 
-import os
 import json
+import os
 import time
 from typing import Dict, Optional
+
 from anthropic import Anthropic
 from dotenv import load_dotenv
 
@@ -62,7 +63,7 @@ class SummaryGenerator:
         # Validate event data
         if not self._validate_event_data(event):
             print(
-                f"  Insufficient data for summary generation: {event.get('title', 'Unknown')}"
+                f"  Insufficient data for summary generation: {event.get( 'title','Unknown')}"
             )
             return None
 
@@ -109,7 +110,7 @@ class SummaryGenerator:
         event_type = event.get("type", "unknown")
         title = event.get("title", "Unknown")
         description = event.get("description", "")
-        venue = event.get("venue", "")
+        event.get("venue", "")
 
         # Craft prompt based on event type
         if event_type == "screening" or event.get("isMovie", False):
@@ -226,7 +227,8 @@ Your one-line summary (8-12 words):"""
 
 Title: {title}
 Venue: {venue}
-Composers: {', '.join(composers) if composers else 'Various'}
+Composers: {
+                ', '.join(composers) if composers else 'Various'}
 Featured Artist: {featured_artist}
 
 Detailed Analysis:
@@ -243,7 +245,8 @@ Your one-line summary (8-12 words):"""
 
 Title: {title}
 Venue: {venue}
-Composers: {', '.join(composers) if composers else 'Various'}
+Composers: {
+                ', '.join(composers) if composers else 'Various'}
 Featured Artist: {featured_artist}
 
 Write a compelling summary (8-12 words) that captures the musical experience. Examples:

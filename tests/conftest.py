@@ -2,15 +2,15 @@
 Pytest configuration and fixtures for Culture Calendar tests
 """
 
-import os
-import pytest
-import tempfile
 import json
-from unittest.mock import Mock, patch
-from typing import Dict, List
+import os
 
 # Ensure we can import from src
 import sys
+import tempfile
+from unittest.mock import Mock, patch
+
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 

@@ -23,7 +23,7 @@ cp .env.example .env
 # FIRECRAWL_API_KEY=your_key_here
 
 # Update website data (incremental - new events only)
-python update_website_data.py --incremental
+python update_website_data.py --days 14
 
 # Update website data (full refresh)
 python update_website_data.py --full
@@ -31,12 +31,26 @@ python update_website_data.py --full
 # Force re-rate all events (ignore cache)
 python update_website_data.py --full --force-reprocess
 
+# Update with smart validation (recommended for production)
+python update_website_data.py --full --validate
+
 # Run comprehensive test suite
-python run_tests.py              # All tests
+python run_tests.py              # All tests with coverage
 python run_tests.py unit         # Unit tests only
 python run_tests.py integration  # Integration tests
 python run_tests.py fast         # Fast tests (no API calls)
 python run_tests.py quality      # Data quality validation
+python run_tests.py live         # Live integration tests (requires API keys)
+
+# Test validation system
+python test_validation.py        # Test scraper validation system
+python test_validation.py --quick # Quick validation test (no live scraping)
+
+# Pre-commit code quality checks (run before committing!)
+python pre_commit_checks.py      # Auto-fix + quality checks + tests
+python pre_commit_checks.py --fix-only    # Only run auto-fixes (black, isort, etc.)
+python pre_commit_checks.py --check-only  # Only run quality checks
+python pre_commit_checks.py --no-tests    # Skip tests, only code quality
 
 # Test individual venue scrapers
 python test_all_scrapers.py
@@ -66,6 +80,111 @@ Always use the venv python environment: `source venv/bin/activate`
 
 ## Automated Scheduling
 GitHub Actions handle all scheduling - no local cron jobs or scheduler.py needed.
+
+## Smart Validation System
+
+The Culture Calendar now includes a comprehensive validation system that ensures data quality and prevents deployment of malformed events.
+
+### Validation Features
+- **Schema Validation**: Ensures all events have required fields (title, date, venue, type)
+- **LLM Content Validation**: AI-powered validation of event content quality
+- **Per-Scraper Health Checks**: Validates at least 1 event from each scraper
+- **Fail-Fast Mechanisms**: Stops pipeline immediately if >50% of scrapers fail
+- **Detailed Logging**: Structured logs for debugging extraction failures
+
+### Usage
+```bash
+# Enable validation during data refresh
+python update_website_data.py --full --validate
+
+# Test validation system manually
+python test_validation.py
+
+# Quick validation test (no live scraping)
+python test_validation.py --quick
+```
+
+### GitHub Actions Integration
+- **PR Validation**: Comprehensive testing on every pull request
+- **Data Refresh Validation**: Smart validation during weekly/monthly updates
+- **Automatic Failure Detection**: Workflows fail fast with detailed error reports
+
+### Validation Thresholds
+- **Minimum Scraper Success Rate**: 50% of scrapers must produce valid events
+- **Events per Scraper**: At least 1 valid event required per scraper
+- **Sample Size**: 3 events validated per scraper (adjustable)
+
+The validation system helps catch issues early including:
+- Website structure changes breaking scrapers
+- Network connectivity problems
+- LLM extraction failures  
+- Schema validation errors
+- Malformed or spam data
+
+## Pre-Commit Code Quality Workflow
+
+**Always run code quality checks before committing** to ensure your changes pass GitHub Actions:
+
+### 🚀 Quick Pre-Commit (Recommended)
+```bash
+# Run this before every commit
+python pre_commit_checks.py
+```
+This will:
+- **Auto-fix imports** (remove unused, sort with isort)
+- **Auto-fix formatting** (autopep8 + black)
+- **Run quality checks** (security audit)
+- **Run quick tests** (unit tests only)
+
+### 🔧 Auto-Fix Only Mode
+```bash
+# Just apply automatic fixes without running checks
+python pre_commit_checks.py --fix-only
+```
+Perfect for:
+- Cleaning up messy code quickly
+- Applying consistent formatting
+- Removing unused imports
+
+### 🔍 Check-Only Mode  
+```bash
+# Only run quality checks, no auto-fixes
+python pre_commit_checks.py --check-only
+```
+Use when:
+- You want to see what needs fixing
+- Code is already formatted
+- Just validating before commit
+
+### 📦 Installation
+```bash
+# Install all code quality tools
+python pre_commit_checks.py --install
+```
+
+### Tools Included
+- **black**: Code formatting (PEP8 compliant)
+- **isort**: Import sorting and organization
+- **autoflake**: Remove unused imports/variables
+- **autopep8**: Basic PEP8 fixes
+- **bandit**: Security vulnerability scanning
+- **safety**: Dependency vulnerability checking
+
+### Typical Workflow
+```bash
+# 1. Make your code changes
+# 2. Run pre-commit checks
+python pre_commit_checks.py
+
+# 3. Review any auto-fixes applied
+git diff
+
+# 4. Commit your changes
+git add .
+git commit -m "Your commit message"
+```
+
+**Note**: The pre-commit script runs the exact same checks as GitHub Actions, so if it passes locally, your PR will pass validation.
 
 ## Architecture
 
@@ -440,6 +559,16 @@ cat .github/workflows/complete-data-wipe-reload.yml
 ## Testing & Debugging
 
 ### Comprehensive Test Suite (85+ Tests)
+
+The test suite is organized into four categories:
+
+```
+tests/
+├── unit/           # Unit tests for individual components
+├── integration/    # Integration tests for system interactions
+├── live/          # Live tests with real API calls (optional)
+└── quality/       # Data quality validation tests
+```
 
 **Unit Tests** (`tests/test_units.py`):
 ```bash

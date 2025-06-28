@@ -5,16 +5,16 @@ Unified multi-venue scraper using the new LLM-powered architecture
 import json
 import os
 from datetime import datetime, timedelta
-from typing import List, Dict
+from typing import Dict, List
 
 # Import all new LLM-powered scrapers
 from .scrapers import (
-    AFSScraper,
-    HyperrealScraper,
     AlienatedMajestyBooksScraper,
-    FirstLightAustinScraper,
     AustinSymphonyScraper,
+    ComprehensiveAFSScraper,
     EarlyMusicAustinScraper,
+    FirstLightAustinScraper,
+    HyperrealScraper,
     LaFolliaAustinScraper,
 )
 
@@ -24,7 +24,7 @@ class MultiVenueScraper:
 
     def __init__(self):
         # Initialize all new scrapers
-        self.afs_scraper = AFSScraper()
+        self.afs_scraper = ComprehensiveAFSScraper()
         self.hyperreal_scraper = HyperrealScraper()
         self.alienated_majesty_scraper = AlienatedMajestyBooksScraper()
         self.first_light_scraper = FirstLightAustinScraper()

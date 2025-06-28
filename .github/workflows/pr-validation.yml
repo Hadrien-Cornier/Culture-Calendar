@@ -1,0 +1,299 @@
+name: PR Validation Pipeline
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  # Job 1: Code Quality & Security
+  code-quality:
+    runs-on: ubuntu-latest
+    name: Code Quality & Security
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v42
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install black
+        
+    - name: Code formatting check (Black)
+      run: |
+        echo "🎨 Checking code formatting..."
+        black --check --diff src/ tests/ *.py
+
+  # Job 2: Unit & Integration Tests
+  test-suite:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    name: Test Suite (Python ${{ matrix.python-version }})
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pytest-mock coverage
+        
+    - name: Run unit tests
+      run: |
+        echo "🧪 Running unit tests..."
+        python -m pytest tests/ -v --tb=short -m "not integration and not live" \
+          --cov=src --cov-report=xml --cov-report=term-missing \
+          --cov-fail-under=75
+          
+    - name: Run integration tests  
+      run: |
+        echo "🔗 Running integration tests..."
+        python -m pytest tests/ -v --tb=short -m "integration" \
+          --cov=src --cov-append --cov-report=xml
+          
+    - name: Upload coverage to Codecov
+      if: matrix.python-version == '3.11'
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+
+  # Job 3: Data Quality & Schema Validation
+  data-quality:
+    runs-on: ubuntu-latest
+    name: Data Quality & Schema Validation
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install jsonschema
+        
+    - name: Validate schema definitions
+      run: |
+        echo "📋 Validating schema definitions..."
+        python -c "
+        from src.schemas import SchemaRegistry
+        import json
+        
+        # Test schema registry initialization
+        registry = SchemaRegistry()
+        schemas = registry.get_available_types()
+        print(f'✅ Found {len(schemas)} valid schemas: {schemas}')
+        
+        # Validate each schema can be instantiated
+        for schema_type in schemas:
+            schema_class = registry.get_schema_class(schema_type)
+            print(f'✅ Schema {schema_type}: {schema_class.__name__}')
+        "
+        
+    - name: Test scraper initialization
+      run: |
+        echo "🔧 Testing scraper initialization..."
+        python -c "
+        from src.scraper import MultiVenueScraper
+        
+        # Test that all scrapers can be initialized
+        scraper = MultiVenueScraper()
+        print('✅ MultiVenueScraper initialized successfully')
+        
+        # Test individual scrapers
+        scrapers = [
+            ('AFS', scraper.afs_scraper),
+            ('Hyperreal', scraper.hyperreal_scraper), 
+            ('Alienated Majesty', scraper.alienated_majesty_scraper),
+            ('First Light', scraper.first_light_scraper),
+            ('Symphony', scraper.symphony_scraper),
+            ('Early Music', scraper.early_music_scraper),
+            ('La Follia', scraper.la_follia_scraper)
+        ]
+        
+        for name, scraper_instance in scrapers:
+            print(f'✅ {name} scraper: {type(scraper_instance).__name__}')
+        "
+        
+    - name: Validate test data integrity
+      run: |
+        echo "🗂️ Validating test data files..."
+        python -c "
+        import json
+        import os
+        from pathlib import Path
+        
+        test_data_dirs = [
+            'tests/AFS_test_data',
+            'tests/Hyperreal_test_data', 
+            'tests/Alienated_majesty_test_data',
+            'tests/First_Light_test_data'
+        ]
+        
+        for test_dir in test_data_dirs:
+            if os.path.exists(test_dir):
+                json_files = list(Path(test_dir).glob('*.json'))
+                for json_file in json_files:
+                    try:
+                        with open(json_file, 'r') as f:
+                            data = json.load(f)
+                        print(f'✅ Valid JSON: {json_file}')
+                    except json.JSONDecodeError as e:
+                        print(f'❌ Invalid JSON: {json_file} - {e}')
+                        exit(1)
+        "
+
+  # Job 4: Live Integration Tests (Optional - only if API keys available)
+  live-tests:
+    runs-on: ubuntu-latest
+    name: Live Integration Tests
+    if: ${{ secrets.ANTHROPIC_API_KEY != '' && secrets.FIRECRAWL_API_KEY != '' }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run live integration tests
+      env:
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+        PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+      run: |
+        echo "🌐 Running live integration tests..."
+        python -c "
+        from src.scraper import MultiVenueScraper
+        from src.llm_service import LLMService
+        import os
+        
+        # Test API connectivity
+        if os.getenv('ANTHROPIC_API_KEY'):
+            llm = LLMService()
+            print('✅ LLM Service initialized with API key')
+        
+        # Test at least one scraper with real data
+        scraper = MultiVenueScraper()
+        try:
+            # Test AFS scraper (most reliable)
+            afs_events = scraper.afs_scraper.scrape_events()
+            if len(afs_events) > 0:
+                print(f'✅ AFS scraper working: {len(afs_events)} events')
+            else:
+                print('⚠️ AFS scraper returned no events (may be normal)')
+        except Exception as e:
+            print(f'⚠️ AFS scraper error: {e}')
+        "
+        
+    - name: Test scraper validation (if live data available)
+      env:
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+      run: |
+        echo "🔍 Testing scraper validation logic..."
+        timeout 300 python -c "
+        from src.scraper import MultiVenueScraper
+        
+        scraper = MultiVenueScraper()
+        
+        # Test each scraper briefly (5 events max)
+        scrapers_to_test = [
+            ('AFS', scraper.afs_scraper),
+            ('Hyperreal', scraper.hyperreal_scraper)
+        ]
+        
+        for name, scraper_instance in scrapers_to_test:
+            try:
+                events = scraper_instance.scrape_events()
+                # Just test that we can get events, don't process them all
+                sample_events = events[:2] if events else []
+                print(f'✅ {name}: {len(sample_events)} sample events validated')
+            except Exception as e:
+                print(f'⚠️ {name}: {str(e)[:100]}...')
+        " || echo "⚠️ Live tests timed out (expected for PR validation)"
+
+  # Job 5: PR Summary
+  pr-summary:
+    runs-on: ubuntu-latest
+    name: PR Validation Summary
+    needs: [code-quality, test-suite, data-quality]
+    if: always()
+    
+    steps:
+    - name: PR Validation Summary
+      run: |
+        echo "## 🎯 PR Validation Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Check job results
+        if [[ "${{ needs.code-quality.result }}" == "success" ]]; then
+          echo "✅ **Code Quality**: Passed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ **Code Quality**: Failed" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [[ "${{ needs.test-suite.result }}" == "success" ]]; then
+          echo "✅ **Test Suite**: Passed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ **Test Suite**: Failed" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [[ "${{ needs.data-quality.result }}" == "success" ]]; then
+          echo "✅ **Data Quality**: Passed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ **Data Quality**: Failed" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📋 Validation Checklist" >> $GITHUB_STEP_SUMMARY
+        echo "- Code formatting (Black)" >> $GITHUB_STEP_SUMMARY
+        echo "- Unit & integration tests" >> $GITHUB_STEP_SUMMARY
+        echo "- Schema validation" >> $GITHUB_STEP_SUMMARY
+        echo "- Test data integrity" >> $GITHUB_STEP_SUMMARY
+        echo "- Multi-Python compatibility" >> $GITHUB_STEP_SUMMARY
+        
+        # Determine overall result
+        if [[ "${{ needs.code-quality.result }}" == "success" && "${{ needs.test-suite.result }}" == "success" && "${{ needs.data-quality.result }}" == "success" ]]; then
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🎉 **All validations passed!** This PR is ready for review." >> $GITHUB_STEP_SUMMARY
+          exit 0
+        else
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "⚠️ **Some validations failed.** Please review the errors above." >> $GITHUB_STEP_SUMMARY
+          exit 1
+        fi

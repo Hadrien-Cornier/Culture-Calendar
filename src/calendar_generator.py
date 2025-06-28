@@ -2,10 +2,11 @@
 ICS calendar file generator
 """
 
-from icalendar import Calendar, Event, Timezone
 from datetime import datetime, timedelta
-from typing import List, Dict
+from typing import Dict, List
+
 import pytz
+from icalendar import Calendar, Event, Timezone
 
 
 class CalendarGenerator:
@@ -34,7 +35,7 @@ class CalendarGenerator:
                     cal.add_component(event)
             except Exception as e:
                 print(
-                    f"Error creating calendar event for '{event_data.get('title', 'Unknown')}': {e}"
+                    f"Error creating calendar event for '{event_data.get( 'title','Unknown')}': {e}"
                 )
 
         # Write to file
@@ -95,7 +96,8 @@ class CalendarGenerator:
 
     def _generate_uid(self, event_data: Dict) -> str:
         """Generate unique identifier for event"""
-        # Create unique UID based on URL + date + time to handle multiple showings
+        # Create unique UID based on URL + date + time to handle multiple
+        # showings
         if event_data.get("url"):
             base_uid = event_data["url"]
         else:
@@ -191,7 +193,7 @@ class CalendarGenerator:
 
     def _create_timezone(self) -> Timezone:
         """Create VTIMEZONE component for America/Chicago"""
-        from icalendar import TimezoneStandard, TimezoneDaylight
+        from icalendar import TimezoneDaylight, TimezoneStandard
 
         tz = Timezone()
         tz.add("tzid", "America/Chicago")

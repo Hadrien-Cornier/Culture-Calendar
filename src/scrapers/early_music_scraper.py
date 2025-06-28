@@ -5,6 +5,7 @@ Texas Early Music Project scraper using JSON data loading
 import json
 import os
 from typing import Dict, List
+
 from src.base_scraper import BaseScraper
 
 

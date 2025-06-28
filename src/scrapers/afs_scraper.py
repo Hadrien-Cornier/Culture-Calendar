@@ -6,13 +6,13 @@ Step 2: Follow each URL to get detailed movie information
 Filters out film festivals and extracts structured data
 """
 
-from bs4 import BeautifulSoup
 import json
 import re
-import requests
-from datetime import datetime
-from typing import Dict, List, Optional
 import time
+from typing import Dict, List, Optional
+
+import requests
+from bs4 import BeautifulSoup
 
 
 class ComprehensiveAFSScraper:
@@ -284,10 +284,10 @@ class ComprehensiveAFSScraper:
                 # Normalize newlines and spaces
                 description = " ".join(description_parts)
                 # Replace multiple spaces with single space
-                description = re.sub(r'\s+', ' ', description)
+                description = re.sub(r"\s+", " ", description)
                 # Normalize quotes
                 description = description.replace('"', '"').replace('"', '"')
-                description = description.replace(''', "'").replace(''', "'")
+                description = description.replace(""", "'").replace(""", "'")
                 return description.strip()
 
         return None
@@ -359,7 +359,7 @@ class ComprehensiveAFSScraper:
         # Step 2: Follow URLs and parse movie pages
         for i, screening in enumerate(screenings[:max_movies]):
             print(
-                f"🔍 Fetching movie page {i+1}/{min(len(screenings), max_movies)}: {screening['url']}"
+                f"🔍 Fetching movie page {i + 1}/{min(len(screenings), max_movies)}: {screening['url']}"
             )
 
             try:

@@ -3,15 +3,17 @@ Alienated Majesty Books scraper using pyppeteer for JS rendering + LLM/Beautiful
 """
 
 import asyncio
+import os
 import re
-from datetime import datetime, timedelta
+import sys
 from typing import Dict, List, Optional
+
 from bs4 import BeautifulSoup
 from pyppeteer import launch
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from base_scraper import BaseScraper
+
+from ..base_scraper import BaseScraper
+
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 
 class AlienatedMajestyBooksScraper(BaseScraper):
@@ -60,9 +62,9 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                         "description": 'Meeting time in format like "11:00 AM" or "3:00 PM". Look for text like "Meets the 1st Saturday of every month at 11am" in each book club section description.',
                     },
                     "venue": {
-                        "type": "string", 
-                        "required": False, 
-                        "description": "Always 'Alienated Majesty Books' for this website."
+                        "type": "string",
+                        "required": False,
+                        "description": "Always 'Alienated Majesty Books' for this website.",
                     },
                     "host": {
                         "type": "string",
@@ -84,7 +86,7 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                         "required": True,
                         "description": "The source URL of the webpage",
                     },
-                }
+                },
             }
         }
 
@@ -100,38 +102,38 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             browser = await launch(
                 headless=True,
                 args=[
-                    '--no-sandbox',
-                    '--disable-setuid-sandbox',
-                    '--disable-dev-shm-usage',
-                    '--disable-gpu',
-                    '--disable-web-security',
-                    '--disable-features=VizDisplayCompositor'
-                ]
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-gpu",
+                    "--disable-web-security",
+                    "--disable-features=VizDisplayCompositor",
+                ],
             )
-            
+
             page = await browser.newPage()
-            
+
             # Set user agent
             await page.setUserAgent(
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             )
-            
+
             print(f"  Navigating to {url}")
-            await page.goto(url, {'waitUntil': 'networkidle0', 'timeout': 30000})
-            
+            await page.goto(url, {"waitUntil": "networkidle0", "timeout": 30000})
+
             # Wait for content to load
             print("  Waiting for content to load...")
             await asyncio.sleep(3)
-            
+
             # Get the rendered HTML
             html_content = await page.content()
             print(f"  Got {len(html_content)} characters of HTML")
-            
+
             # Extract events using both BeautifulSoup and LLM
             events = self._extract_book_club_events(html_content, url)
-            
+
             return events
-            
+
         except Exception as e:
             print(f"  Pyppeteer error: {e}")
             return []
@@ -151,61 +153,67 @@ class AlienatedMajestyBooksScraper(BaseScraper):
         finally:
             try:
                 loop.close()
-            except:
+            except BaseException:
                 pass
 
     def _extract_book_club_events(self, html_content: str, url: str) -> List[Dict]:
         """Extract book club events from rendered HTML using LLM"""
         events = []
-        
+
         try:
             # Use LLM extraction for dynamic content
             print("  Using LLM extraction...")
             events = self._extract_with_llm(html_content, url)
-            
+
             if events:
                 print(f"  ✓ LLM extracted {len(events)} events")
                 return events
             else:
                 print("  LLM extraction returned no events")
-            
+
         except Exception as e:
             print(f"  LLM extraction error: {e}")
-        
+
         return events
 
     def _extract_with_beautifulsoup(self, soup: BeautifulSoup, url: str) -> List[Dict]:
         """Extract events using BeautifulSoup pattern matching"""
         events = []
-        
+
         try:
             # Look for book club h2 headers
-            book_club_headers = soup.find_all('h2', class_='bm-txt-1')
-            
+            book_club_headers = soup.find_all("h2", class_="bm-txt-1")
+
             for header in book_club_headers:
                 series_name = header.get_text().strip()
-                
+
                 # Skip if not a book club series we recognize
-                if series_name not in ["NYRB Book Club", "Subculture Lit", "A Season Of", "Voyage Out", "Apricot Trees Exist"]:
+                if series_name not in [
+                    "NYRB Book Club",
+                    "Subculture Lit",
+                    "A Season Of",
+                    "Voyage Out",
+                    "Apricot Trees Exist",
+                ]:
                     continue
-                
+
                 # Find the parent container with the book club content
                 container = header.find_parent()
-                while container and not container.find_all('p'):
+                while container and not container.find_all("p"):
                     container = container.find_parent()
-                
+
                 if not container:
                     continue
-                
+
                 # Extract all text content from the container
                 text_content = container.get_text()
-                
+
                 # Parse meeting information from the text
                 meeting_events = self._parse_series_text(text_content, series_name, url)
                 events.extend(meeting_events)
-            
+
             return events
-            
+
         except Exception as e:
             print(f"  BeautifulSoup extraction error: {e}")
             return []
@@ -215,181 +223,181 @@ class AlienatedMajestyBooksScraper(BaseScraper):
         try:
             # First, let's simplify the HTML content for better LLM processing
             # Extract just the main content section
-            soup = BeautifulSoup(html_content, 'html.parser')
-            
+            soup = BeautifulSoup(html_content, "html.parser")
+
             # Find the main content area
-            main_content = soup.find('main')
+            main_content = soup.find("main")
             if main_content:
                 # Get text content from main area
-                simplified_content = main_content.get_text(separator=' ', strip=True)
+                simplified_content = main_content.get_text(separator=" ", strip=True)
             else:
                 # Fallback to full text but truncated
-                simplified_content = soup.get_text(separator=' ', strip=True)
-            
+                simplified_content = soup.get_text(separator=" ", strip=True)
+
             # Truncate if too long
             if len(simplified_content) > 6000:
                 simplified_content = simplified_content[:6000] + "..."
-            
+
             print(f"  Using simplified content ({len(simplified_content)} chars)")
-            
+
             # Use the exact schema that matches the test expectations
             schema = self.get_data_schema()
-            
+
             # Enhanced extraction with simplified content
             extraction_result = self.llm_service.extract_data(
-                content=simplified_content,
-                schema=schema,
-                url=url,
-                content_type="text"
+                content=simplified_content, schema=schema, url=url, content_type="text"
             )
-            
+
             print(f"  LLM service returned: success={extraction_result.get('success')}")
             if not extraction_result.get("success"):
-                print(f"  Error: {extraction_result.get('error', 'Unknown error')}")
-            
+                print(f"  Error: {extraction_result.get( 'error','Unknown error')}")
+
             if extraction_result.get("success", False):
                 data = extraction_result.get("data", {})
                 events = data.get("events", [])
-                
+
                 print(f"  Raw events from LLM: {len(events)}")
-                
+
                 # Debug: show what fields the LLM is actually returning
                 if events:
                     print(f"  Sample event fields: {list(events[0].keys())}")
                     print(f"  Sample event: {events[0]}")
-                
+
                 # Post-process events to ensure proper formatting
                 processed_events = []
                 for event in events:
                     # Map LLM field names to our expected schema
                     mapped_event = self._map_llm_fields(event)
-                    
+
                     # Ensure venue is set
                     if not mapped_event.get("venue"):
                         mapped_event["venue"] = "Alienated Majesty Books"
-                    
+
                     # Ensure URL is set
                     mapped_event["url"] = url
-                    
+
                     processed_events.append(mapped_event)
-                
+
                 return processed_events
-            
+
         except Exception as e:
             print(f"  LLM extraction error: {e}")
             import traceback
+
             traceback.print_exc()
-        
+
         return []
 
     def _map_llm_fields(self, event: Dict) -> Dict:
         """Intelligently map LLM field names to our expected schema"""
         mapped = {}
-        
+
         # Create a mapping of possible LLM field names to our schema fields
         field_mappings = {
             # Title field mappings
-            'title': 'title',
-            'event_title': 'title',
-            'name': 'title',
-            
+            "title": "title",
+            "event_title": "title",
+            "name": "title",
             # Book field mappings
-            'book': 'book',
-            'book_title': 'book',
-            
+            "book": "book",
+            "book_title": "book",
             # Author field mappings
-            'author': 'author',
-            'author_name': 'author',
-            'by': 'author',
-            
+            "author": "author",
+            "author_name": "author",
+            "by": "author",
             # Date field mappings
-            'date': 'date',
-            'meeting_date': 'date',
-            'event_date': 'date',
-            'when': 'date',
-            
+            "date": "date",
+            "meeting_date": "date",
+            "event_date": "date",
+            "when": "date",
             # Time field mappings
-            'time': 'time',
-            'meeting_time': 'time',
-            'event_time': 'time',
-            
+            "time": "time",
+            "meeting_time": "time",
+            "event_time": "time",
             # Series field mappings
-            'series': 'series',
-            'club': 'series',
-            'club_name': 'series',
-            'book_club': 'series',
-            'book_club_name': 'series',
-            
+            "series": "series",
+            "club": "series",
+            "club_name": "series",
+            "book_club": "series",
+            "book_club_name": "series",
             # Host field mappings
-            'host': 'host',
-            'organizer': 'host',
-            'run_by': 'host',
-            'facilitator': 'host',
-            
+            "host": "host",
+            "organizer": "host",
+            "run_by": "host",
+            "facilitator": "host",
             # Description field mappings
-            'description': 'description',
-            'summary': 'description',
-            'about': 'description',
-            
+            "description": "description",
+            "summary": "description",
+            "about": "description",
             # Venue field mappings
-            'venue': 'venue',
-            'location': 'venue',
-            'where': 'venue',
-            
+            "venue": "venue",
+            "location": "venue",
+            "where": "venue",
             # URL field mappings
-            'url': 'url',
-            'link': 'url',
-            'source': 'url'
+            "url": "url",
+            "link": "url",
+            "source": "url",
         }
-        
+
         # Map fields based on exact matches
         for llm_field, value in event.items():
             if llm_field.lower() in field_mappings:
                 schema_field = field_mappings[llm_field.lower()]
-                
+
                 # Special handling for date fields - ensure they're in 2025
-                if schema_field == 'date' and isinstance(value, str) and value.startswith('2024'):
-                    value = value.replace('2024', '2025')
-                
+                if (
+                    schema_field == "date"
+                    and isinstance(value, str)
+                    and value.startswith("2024")
+                ):
+                    value = value.replace("2024", "2025")
+
                 mapped[schema_field] = value
-        
-        # Generate missing required fields intelligently based on available data
-        if 'title' not in mapped and 'series' in mapped and 'book' in mapped:
-            mapped['title'] = f"{mapped['series']} - {mapped['book']}"
-        elif 'title' not in mapped and 'book' in mapped:
+
+        # Generate missing required fields intelligently based on available
+        # data
+        if "title" not in mapped and "series" in mapped and "book" in mapped:
+            mapped["title"] = f"{mapped['series']} - {mapped['book']}"
+        elif "title" not in mapped and "book" in mapped:
             # If no series but we have a book, use book as title
-            mapped['title'] = mapped['book']
-        
+            mapped["title"] = mapped["book"]
+
         return mapped
 
-    def _parse_series_text(self, text_content: str, series_name: str, url: str) -> List[Dict]:
+    def _parse_series_text(
+        self, text_content: str, series_name: str, url: str
+    ) -> List[Dict]:
         """Parse series text content to extract all meeting events"""
         events = []
-        
+
         try:
             # Find all meeting lines with day of week, month, and date
-            meeting_pattern = r'(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s*(\w+)\s*(\d+)\s*—\s*(.+?)\s*by\s+(.+?)(?=(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)|$)'
-            meetings = re.findall(meeting_pattern, text_content, re.IGNORECASE | re.DOTALL)
-            
+            meeting_pattern = r"(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s*(\w+)\s*(\d+)\s*—\s*(.+?)\s*by\s+(.+?)(?=(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)|$)"
+            meetings = re.findall(
+                meeting_pattern, text_content, re.IGNORECASE | re.DOTALL
+            )
+
             for day_name, month_name, day_num, book_title, author in meetings:
                 # Clean up book title and author
-                book_title = re.sub(r'<[^>]+>', '', book_title).strip()  # Remove HTML tags
+                book_title = re.sub(
+                    r"<[^>]+>", "", book_title
+                ).strip()  # Remove HTML tags
                 book_title = book_title.strip().strip('"').strip("'").strip()
-                
-                author = re.sub(r'<[^>]+>', '', author).strip()  # Remove HTML tags
+
+                author = re.sub(r"<[^>]+>", "", author).strip()  # Remove HTML tags
                 author = author.strip()
-                
+
                 # Remove any trailing text after author (like publisher info)
-                author = re.split(r'\s*\(', author)[0].strip()
-                
+                author = re.split(r"\s*\(", author)[0].strip()
+
                 # Convert to proper date format
                 date_str = self._convert_to_date_format(month_name, day_num)
                 if not date_str:
                     continue
-                
+
                 # Determine time and other details based on series
                 time_str, host, description = self._get_series_details(series_name)
-                
+
                 event = {
                     "title": f"{series_name} - {book_title}",
                     "book": book_title,
@@ -400,48 +408,54 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                     "host": host,
                     "description": description,
                     "series": series_name,
-                    "url": url
+                    "url": url,
                 }
                 events.append(event)
-                
+
         except Exception as e:
             print(f"  Error parsing series text for '{series_name}': {e}")
-        
+
         return events
 
-    def _parse_meeting_text(self, meeting_text: str, series_name: str, url: str) -> Optional[Dict]:
+    def _parse_meeting_text(
+        self, meeting_text: str, series_name: str, url: str
+    ) -> Optional[Dict]:
         """Parse individual meeting text to extract event details (legacy method)"""
         try:
             text = str(meeting_text).strip()
-            
+
             # Skip if not a meeting line
-            if not re.search(r'(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)', text, re.IGNORECASE):
+            if not re.search(
+                r"(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)",
+                text,
+                re.IGNORECASE,
+            ):
                 return None
-            
+
             # Extract date pattern
-            date_match = re.search(r'(\w+),\s*(\w+)\s*(\d+)', text)
+            date_match = re.search(r"(\w+),\s*(\w+)\s*(\d+)", text)
             if not date_match:
                 return None
-            
+
             day_name, month_name, day_num = date_match.groups()
-            
+
             # Extract book and author
-            book_match = re.search(r'—\s*(.+?)\s*by\s+(.+?)(?:\s*\(|$)', text)
+            book_match = re.search(r"—\s*(.+?)\s*by\s+(.+?)(?:\s*\(|$)", text)
             if not book_match:
                 return None
-            
+
             book_title, author = book_match.groups()
             book_title = book_title.strip().strip('"').strip("'")
             author = author.strip()
-            
+
             # Convert to proper date format
             date_str = self._convert_to_date_format(month_name, day_num)
             if not date_str:
                 return None
-            
+
             # Determine time and other details based on series
             time_str, host, description = self._get_series_details(series_name)
-            
+
             return {
                 "title": f"{series_name} - {book_title}",
                 "book": book_title,
@@ -452,9 +466,9 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                 "host": host,
                 "description": description,
                 "series": series_name,
-                "url": url
+                "url": url,
             }
-            
+
         except Exception as e:
             print(f"  Error parsing meeting text '{meeting_text}': {e}")
             return None
@@ -463,32 +477,49 @@ class AlienatedMajestyBooksScraper(BaseScraper):
         """Convert month name and day to YYYY-MM-DD format"""
         try:
             month_map = {
-                'january': 1, 'february': 2, 'march': 3, 'april': 4,
-                'may': 5, 'june': 6, 'july': 7, 'august': 8,
-                'september': 9, 'october': 10, 'november': 11, 'december': 12
+                "january": 1,
+                "february": 2,
+                "march": 3,
+                "april": 4,
+                "may": 5,
+                "june": 6,
+                "july": 7,
+                "august": 8,
+                "september": 9,
+                "october": 10,
+                "november": 11,
+                "december": 12,
             }
-            
+
             month_num = month_map.get(month_name.lower())
             if not month_num:
                 return None
-            
+
             # Assume 2025 for future dates
             year = 2025
             day = int(day_num)
-            
+
             return f"{year:04d}-{month_num:02d}-{day:02d}"
-            
-        except:
+
+        except BaseException:
             return None
 
     def _get_series_details(self, series_name: str) -> tuple:
         """Get time, host, and description for each series - basic info only"""
         series_info = {
-            "NYRB Book Club": ("11:00 AM", "Austin NYRB Book Club", "Book club meeting"),
-            "Subculture Lit": ("3:00 PM", "East Austin Writing Project", "Book club meeting"),
+            "NYRB Book Club": (
+                "11:00 AM",
+                "Austin NYRB Book Club",
+                "Book club meeting",
+            ),
+            "Subculture Lit": (
+                "3:00 PM",
+                "East Austin Writing Project",
+                "Book club meeting",
+            ),
             "A Season Of": ("11:00 AM", "Austin NYRB Book Club", "Book club meeting"),
             "Voyage Out": ("5:00 PM", None, "Book club meeting"),
-            "Apricot Trees Exist": ("3:00 PM", None, "Book club meeting")
+            "Apricot Trees Exist": ("3:00 PM", None, "Book club meeting"),
         }
-        
+
         return series_info.get(series_name, ("7:00 PM", None, "Book club meeting"))
