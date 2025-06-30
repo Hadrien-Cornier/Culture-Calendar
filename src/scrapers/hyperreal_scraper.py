@@ -24,19 +24,6 @@ class HyperrealScraper(BaseScraper):
         )
         self.venue_address = "301 Chicon Street, Austin, TX, 78702"
 
-    def get_target_urls(self) -> List[str]:
-        """Return the list of target URLs to scrape."""
-        # Scrape the current month
-        now = datetime.now()
-        return [self.get_calendar_url(now.year, now.month)]
-
-    def get_data_schema(self) -> Dict:
-        """Return the data schema for this scraper."""
-        return FilmEventSchema.get_schema()
-
-    def get_fallback_data(self) -> List[Dict]:
-        """Return fallback data if scraping fails."""
-        return []
 
     def get_calendar_url(self, year: int, month: int) -> str:
         """Generate calendar URL for a specific month."""
@@ -137,7 +124,7 @@ class HyperrealScraper(BaseScraper):
             }
 
         except Exception as e:
-            self.logger.error(f"Error extracting data from {url}: {e}")
+            print(f"Error extracting data from {url}: {e}")
             return None
 
     def _extract_movie_title(self, full_title: str) -> str:
@@ -234,10 +221,13 @@ class HyperrealScraper(BaseScraper):
 
         return any(indicator in title for indicator in special_indicators)
 
-    def scrape_events(self, year: int, month: int) -> List[Dict[str, Any]]:
-        """Main scraping method to get all events for a given month."""
+    def scrape_events(self) -> List[Dict[str, Any]]:
+        """Main scraping method to get all events for current month."""
+        now = datetime.now()
+        year, month = now.year, now.month
+        
         calendar_url = self.get_calendar_url(year, month)
-        self.logger.info(f"Scraping Hyperreal events for {year}-{month:02d}")
+        print(f"Scraping Hyperreal events for {year}-{month:02d}")
 
         try:
             # Get calendar page (may need JavaScript rendering)
@@ -245,7 +235,7 @@ class HyperrealScraper(BaseScraper):
 
             # Extract event links
             event_links = self._extract_event_links_from_calendar(calendar_html)
-            self.logger.info(f"Found {len(event_links)} event links")
+            print(f"Found {len(event_links)} event links")
 
             events = []
             for event_url in event_links:
@@ -258,20 +248,31 @@ class HyperrealScraper(BaseScraper):
                         event_html, event_url
                     )
                     if event_data:
-                        events.append(event_data)
-                        self.logger.info(f"Extracted: {event_data['title']}")
+                        # Convert to standard format
+                        standardized_event = {
+                            "title": event_data.get("title", ""),
+                            "date": event_data.get("dates", [None])[0],
+                            "time": event_data.get("times", [None])[0],
+                            "venue": "Hyperreal Film Club",
+                            "location": event_data.get("venue", "301 Chicon Street, Austin, TX"),
+                            "type": "film",
+                            "description": event_data.get("description", ""),
+                            "url": event_url,
+                            "presenter": event_data.get("presenter"),
+                            "trailer_url": event_data.get("trailer_url"),
+                            "is_special_screening": event_data.get("is_special_screening", False),
+                        }
+                        events.append(standardized_event)
+                        print(f"Extracted: {standardized_event['title']}")
 
                 except Exception as e:
-                    self.logger.error(f"Error scraping event {event_url}: {e}")
+                    print(f"Error scraping event {event_url}: {e}")
                     continue
 
-            self.logger.info(f"Successfully scraped {len(events)} events")
+            print(f"Successfully scraped {len(events)} Hyperreal events")
             return events
 
         except Exception as e:
-            self.logger.error(f"Error scraping calendar {calendar_url}: {e}")
+            print(f"Error scraping Hyperreal calendar {calendar_url}: {e}")
             return []
 
-    def get_schema(self) -> Dict:
-        """Return the schema for Hyperreal events."""
-        return FilmEventSchema.get_schema()
