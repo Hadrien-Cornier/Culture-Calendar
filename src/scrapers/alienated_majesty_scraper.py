@@ -273,6 +273,9 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                     if not mapped_event.get("venue"):
                         mapped_event["venue"] = "Alienated Majesty Books"
 
+                    # Ensure type is set
+                    mapped_event["type"] = "book_club"
+
                     # Ensure URL is set
                     mapped_event["url"] = url
 
@@ -437,6 +440,7 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                     "date": date_str,
                     "time": time_str,
                     "venue": "Alienated Majesty Books",
+                    "type": "book_club",
                     "host": host,
                     "description": description,
                     "series": series_name,
@@ -495,6 +499,7 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                 "date": date_str,
                 "time": time_str,
                 "venue": "Alienated Majesty Books",
+                "type": "book_club",
                 "host": host,
                 "description": description,
                 "series": series_name,

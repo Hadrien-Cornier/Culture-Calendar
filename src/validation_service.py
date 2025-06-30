@@ -99,7 +99,7 @@ class EventValidationService:
 
             # Validate event type
             event_type = event.get("type")
-            if event_type not in ["screening", "concert", "book_club"]:
+            if event_type not in ["screening", "film", "concert", "book_club"]:
                 return ValidationResult(
                     passed=False,
                     level=ValidationLevel.WARNING,
@@ -164,10 +164,14 @@ class EventValidationService:
             }}
             """
 
-            # Get LLM validation
-            response = self.llm_service.analyze_with_anthropic(
-                prompt, max_tokens=200, temperature=0.1
+            # Get LLM validation - use anthropic client directly
+            response = self.llm_service.anthropic.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=200,
+                temperature=0.1,
+                messages=[{"role": "user", "content": prompt}]
             )
+            response = response.content[0].text.strip()
 
             # Parse response
             try:

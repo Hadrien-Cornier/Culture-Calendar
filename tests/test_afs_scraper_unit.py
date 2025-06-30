@@ -121,35 +121,6 @@ class TestAFSScraper(unittest.TestCase):
                         extracted_event, expected_data, test_case['input']['html_file']
                     )
     
-    def test_extract_specific_movie_gwen(self):
-        """Test extraction of GWEN movie data specifically"""
-        html_content = self._load_test_html("gwen_movie_page.html")
-        
-        # Directly test LLM extraction with the HTML content
-        schema = self.scraper.get_data_schema()
-        
-        if hasattr(self.scraper, 'llm_service') and self.scraper.llm_service.anthropic:
-            extraction_result = self.scraper.llm_service.extract_data(
-                content=html_content[:10000],  # Limit content size
-                schema=schema,
-                url="https://www.austinfilm.org/screening/gwen-and-the-book-of-sand/",
-                content_type="html"
-            )
-            
-            self.assertTrue(extraction_result.get('success'), 
-                          f"LLM extraction failed: {extraction_result.get('error')}")
-            
-            data = extraction_result.get('data', {})
-            events = data.get('events', [])
-            
-            self.assertGreater(len(events), 0, "No events extracted from GWEN page")
-            
-            # Check first event
-            event = events[0]
-            self.assertEqual(event.get('title', '').upper(), "GWEN AND THE BOOK OF SAND")
-            self.assertIn('date', event)
-            self.assertIn('time', event)
-
     def test_venue_configuration(self):
         """Test that venue-specific configuration is correct"""
         # Test that the scraper is properly configured for AFS

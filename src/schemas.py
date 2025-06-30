@@ -42,10 +42,28 @@ class BaseEventSchema:
                 "string", required=True, description="Event title or name"
             ).to_dict(),
             "date": SchemaField(
-                "string", required=True, description="Event date in YYYY-MM-DD format"
+                "string", 
+                required=True, 
+                description="Event date in YYYY-MM-DD format. Look for dates in various formats and convert to YYYY-MM-DD.",
+                extraction_hints=["date", "showtime", "screening date", "event date", "calendar", "when", "on", "day"],
+                extraction_patterns=[
+                    r"\b\d{1,2}/\d{1,2}/\d{2,4}\b",  # MM/DD/YY or MM/DD/YYYY
+                    r"\b\d{4}-\d{1,2}-\d{1,2}\b",    # YYYY-MM-DD
+                    r"\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}\b",  # Month DD, YYYY
+                    r"\b(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}\b",  # Day, Month DD, YYYY
+                    r"\b\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\b",  # DD Month YYYY
+                ]
             ).to_dict(),
             "time": SchemaField(
-                "string", required=True, description='Event time (e.g., "7:30 PM")'
+                "string", 
+                required=True, 
+                description='Event time (e.g., "7:30 PM"). Look for showtimes in buttons, links, or time displays.',
+                extraction_hints=["time", "showtime", "screening time", "at", "starts", "begins", "pm", "am"],
+                extraction_patterns=[
+                    r"\b\d{1,2}:\d{2}\s*[APap][Mm]\b",  # 7:30 PM
+                    r"\b\d{1,2}[APap][Mm]\b",           # 7PM
+                    r"\b\d{1,2}:\d{2}\b",               # 19:30 (24h format)
+                ]
             ).to_dict(),
             "venue": SchemaField(
                 "string", required=False, description="Venue or location name"
