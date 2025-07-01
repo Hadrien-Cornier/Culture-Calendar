@@ -11,8 +11,11 @@ from typing import Dict, List
 from .scrapers import (
     AFSScraper,
     AlienatedMajestyBooksScraper,
+    AustinSymphonyScraper,
+    EarlyMusicAustinScraper,
     FirstLightAustinScraper,
     HyperrealScraper,
+    LaFolliaAustinScraper,
 )
 from .recurring_events import RecurringEventGenerator
 
@@ -26,6 +29,9 @@ class MultiVenueScraper:
         self.hyperreal_scraper = HyperrealScraper()
         self.alienated_majesty_scraper = AlienatedMajestyBooksScraper()
         self.first_light_scraper = FirstLightAustinScraper()
+        self.austin_symphony_scraper = AustinSymphonyScraper()
+        self.early_music_scraper = EarlyMusicAustinScraper()
+        self.la_follia_scraper = LaFolliaAustinScraper()
 
         # Initialize recurring events generator
         self.recurring_events_generator = RecurringEventGenerator()
@@ -93,6 +99,45 @@ class MultiVenueScraper:
         except Exception as e:
             print(f"Error loading First Light events: {e}")
             self.last_updated["FirstLight"] = None
+
+        # Scrape Austin Symphony
+        print("Loading Austin Symphony events...")
+        try:
+            symphony_events = self.austin_symphony_scraper.scrape_events()
+            for event in symphony_events:
+                event["venue"] = "Symphony"
+                all_events.append(event)
+            print(f"Found {len(symphony_events)} Symphony events")
+            self.last_updated["Symphony"] = datetime.now().isoformat()
+        except Exception as e:
+            print(f"Error loading Symphony events: {e}")
+            self.last_updated["Symphony"] = None
+
+        # Scrape Early Music Project
+        print("Loading Early Music Project events...")
+        try:
+            early_music_events = self.early_music_scraper.scrape_events()
+            for event in early_music_events:
+                event["venue"] = "EarlyMusic"
+                all_events.append(event)
+            print(f"Found {len(early_music_events)} Early Music events")
+            self.last_updated["EarlyMusic"] = datetime.now().isoformat()
+        except Exception as e:
+            print(f"Error loading Early Music events: {e}")
+            self.last_updated["EarlyMusic"] = None
+
+        # Scrape La Follia
+        print("Loading La Follia events...")
+        try:
+            la_follia_events = self.la_follia_scraper.scrape_events()
+            for event in la_follia_events:
+                event["venue"] = "LaFollia"
+                all_events.append(event)
+            print(f"Found {len(la_follia_events)} La Follia events")
+            self.last_updated["LaFollia"] = datetime.now().isoformat()
+        except Exception as e:
+            print(f"Error loading La Follia events: {e}")
+            self.last_updated["LaFollia"] = None
 
         # Generate recurring events
         print("Generating recurring events...")

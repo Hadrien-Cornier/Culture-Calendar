@@ -39,8 +39,8 @@ class EventProcessor:
 
         for i, event in enumerate(events, 1):
             try:
-                # Process screenings, concerts, and book clubs
-                if event.get("type") not in ["screening", "concert", "book_club"]:
+                # Process screenings, movies, concerts, and book clubs
+                if event.get("type") not in ["screening", "movie", "concert", "book_club"]:
                     continue
 
                 # Preserve work hours marking if it exists
