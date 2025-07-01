@@ -39,7 +39,9 @@ class MultiVenueScraper:
         self.existing_events_cache = set()  # Cache for duplicate detection
         self.last_updated = {}
 
-    def scrape_all_venues(self, target_week: bool = False) -> List[Dict]:
+    def scrape_all_venues(
+        self, target_week: bool = False, days_ahead: int = None
+    ) -> List[Dict]:
         """Scrape events from all supported venues using new architecture"""
         all_events = []
         self.last_updated = {}
@@ -60,7 +62,9 @@ class MultiVenueScraper:
         # Scrape Hyperreal
         print("Scraping Hyperreal Movie Club...")
         try:
-            hyperreal_events = self.hyperreal_scraper.scrape_events()
+            hyperreal_events = self.hyperreal_scraper.scrape_events(
+                days_ahead=days_ahead
+            )
             for event in hyperreal_events:
                 event["venue"] = "Hyperreal"
                 all_events.append(event)

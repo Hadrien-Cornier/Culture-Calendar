@@ -220,61 +220,89 @@ class HyperrealScraper(BaseScraper):
 
         return any(indicator in title for indicator in special_indicators)
 
-    def scrape_events(self) -> List[Dict[str, Any]]:
-        """Main scraping method to get all events for current month."""
+    def scrape_events(self, days_ahead: int = None) -> List[Dict[str, Any]]:
+        """Main scraping method to get all events for specified date range."""
         now = datetime.now()
-        year, month = now.year, now.month
+        all_events = []
 
-        calendar_url = self.get_calendar_url(year, month)
-        print(f"Scraping Hyperreal events for {year}-{month:02d}")
+        # Determine which months to scrape
+        if days_ahead:
+            # Calculate end date
+            end_date = now + timedelta(days=days_ahead)
+            months_to_scrape = []
 
-        try:
-            # Get calendar page (may need JavaScript rendering)
-            calendar_html = self._scrape_with_pyppeteer(calendar_url)
-
-            # Extract event links
-            event_links = self._extract_event_links_from_calendar(calendar_html)
-            print(f"Found {len(event_links)} event links")
-
-            events = []
-            for event_url in event_links:
-                try:
-                    # Get individual event page
-                    event_html = self.session.get(event_url).text
-
-                    # Extract event data
-                    event_data = self._extract_event_data_from_page(
-                        event_html, event_url
+            # Get all months between now and end_date
+            current_date = now.replace(day=1)  # Start of current month
+            while current_date <= end_date:
+                months_to_scrape.append((current_date.year, current_date.month))
+                # Move to next month
+                if current_date.month == 12:
+                    current_date = current_date.replace(
+                        year=current_date.year + 1, month=1
                     )
-                    if event_data:
-                        # Convert to standard format
-                        standardized_event = {
-                            "title": event_data.get("title", ""),
-                            "date": event_data.get("dates", [None])[0],
-                            "time": event_data.get("times", [None])[0],
-                            "venue": "Hyperreal Movie Club",
-                            "location": event_data.get(
-                                "venue", "301 Chicon Street, Austin, TX"
-                            ),
-                            "type": "movie",
-                            "description": event_data.get("description", ""),
-                            "url": event_url,
-                            "presenter": event_data.get("presenter"),
-                            "trailer_url": event_data.get("trailer_url"),
-                            "is_special_screening": event_data.get(
-                                "is_special_screening", False
-                            ),
-                        }
-                        events.append(standardized_event)
-                        print(f"Extracted: {standardized_event['title']}")
+                else:
+                    current_date = current_date.replace(month=current_date.month + 1)
 
-                except Exception as e:
-                    print(f"Error scraping event {event_url}: {e}")
-                    continue
+            print(
+                f"Scraping Hyperreal events for {len(months_to_scrape)} months (next {days_ahead} days)"
+            )
+        else:
+            # Default: just current month
+            months_to_scrape = [(now.year, now.month)]
+            print(
+                f"Scraping Hyperreal events for current month {now.year}-{now.month:02d}"
+            )
 
-            print(f"Successfully scraped {len(events)} Hyperreal events")
-            return events
+        for year, month in months_to_scrape:
+            calendar_url = self.get_calendar_url(year, month)
+            print(f"  Scraping {year}-{month:02d}...")
 
-        except Exception as e:
-            print(f"Error scraping Hyperreal calendar {calendar_url}: {e}")
-            return []
+            try:
+                # Get calendar page (may need JavaScript rendering)
+                calendar_html = self._scrape_with_pyppeteer(calendar_url)
+
+                # Extract event links
+                event_links = self._extract_event_links_from_calendar(calendar_html)
+                print(f"    Found {len(event_links)} event links")
+
+                for event_url in event_links:
+                    try:
+                        # Get individual event page
+                        event_html = self.session.get(event_url).text
+
+                        # Extract event data
+                        event_data = self._extract_event_data_from_page(
+                            event_html, event_url
+                        )
+                        if event_data:
+                            # Convert to standard format
+                            standardized_event = {
+                                "title": event_data.get("title", ""),
+                                "date": event_data.get("dates", [None])[0],
+                                "time": event_data.get("times", [None])[0],
+                                "venue": "Hyperreal Movie Club",
+                                "location": event_data.get(
+                                    "venue", "301 Chicon Street, Austin, TX"
+                                ),
+                                "type": "movie",
+                                "description": event_data.get("description", ""),
+                                "url": event_url,
+                                "presenter": event_data.get("presenter"),
+                                "trailer_url": event_data.get("trailer_url"),
+                                "is_special_screening": event_data.get(
+                                    "is_special_screening", False
+                                ),
+                            }
+                            all_events.append(standardized_event)
+                            print(f"    Extracted: {standardized_event['title']}")
+
+                    except Exception as e:
+                        print(f"    Error scraping event {event_url}: {e}")
+                        continue
+
+            except Exception as e:
+                print(f"    Error scraping Hyperreal calendar {calendar_url}: {e}")
+                continue
+
+        print(f"Successfully scraped {len(all_events)} Hyperreal events total")
+        return all_events

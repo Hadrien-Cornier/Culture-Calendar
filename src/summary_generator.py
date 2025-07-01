@@ -185,6 +185,9 @@ class SummaryGenerator:
 
         # For book clubs, make sure it's about a specific book
         if event.get("type") == "book_club":
+            # If it has a specific book and author, it's worth summarizing
+            if event.get("book") and event.get("author"):
+                return True
             # If no specific book is mentioned, don't summarize
             if not event.get("book") and not event.get("author"):
                 # Check if it's a general book club meeting
@@ -443,11 +446,15 @@ Your one-line summary (8-12 words):"""
     def _build_book_prompt(self, title: str, description: str, event: Dict) -> str:
         """Build prompt for book club events"""
         venue = event.get("venue", "")
+        book = event.get("book", "")
+        author = event.get("author", "")
 
         if description and len(description) > 100:
             return f"""Based on this detailed book analysis, create a compelling one-line summary that captures the book's essence in 8-12 words.
 
 Event: {title}
+Book: {book}
+Author: {author}
 Venue: {venue}
 
 Detailed Analysis:
@@ -463,6 +470,8 @@ Your one-line summary (8-12 words):"""
             return f"""Generate a one-line summary for this book club discussion.
 
 Event: {title}
+Book: {book}
+Author: {author}
 Venue: {venue}
 
 Write a compelling summary (8-12 words) that captures the book's appeal. Examples:

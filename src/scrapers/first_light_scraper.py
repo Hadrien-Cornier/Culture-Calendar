@@ -432,3 +432,7 @@ class FirstLightAustinScraper(BaseScraper):
         # Return empty list if scraping fails
         print("First Light Austin scraping failed, returning empty list")
         return []
+
+    def get_event_details(self, event: Dict) -> Dict:
+        """Get additional details for a book club event - returns empty dict since details are already complete"""
+        return {}

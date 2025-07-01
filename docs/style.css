@@ -772,6 +772,55 @@ main {
     border-color: #333;
 }
 
+/* Work Hours Filter */
+.work-hours-filter {
+    margin-bottom: 2rem;
+}
+
+.work-hours-filter h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+.work-hours-filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.work-hours-filter-btn {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 0.6rem 1.5rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.work-hours-filter-btn:hover {
+    background: #f5f5f5;
+    border-color: #999;
+}
+
+.work-hours-filter-btn.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.work-hours-filter-btn.active:hover {
+    background: #333;
+    border-color: #333;
+}
+
 /* View Toggle Section */
 .view-toggle-section {
     margin-bottom: 3rem;

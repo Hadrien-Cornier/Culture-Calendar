@@ -28,28 +28,37 @@ def save_update_info(info: dict, path: str = "docs/source_update_times.json") ->
 # scrapers from docs/classical_data.json
 
 
-def filter_work_hours(events):
-    """Filter out events during work hours (9am-6pm weekdays)"""
-    filtered_events = []
+def mark_work_hours(events):
+    """Mark events that occur during work hours (9am-6pm weekdays) with isWorkHours field"""
+    marked_events = []
 
     for event in events:
+        # Create a copy to avoid modifying the original
+        event_copy = event.copy()
+
         try:
             # Parse date
             date_str = event.get("date")
             if not date_str:
+                event_copy["isWorkHours"] = False  # No date, assume not work hours
+                marked_events.append(event_copy)
                 continue
 
             event_date = datetime.strptime(date_str, "%Y-%m-%d")
 
             # Skip weekends (Saturday=5, Sunday=6)
             if event_date.weekday() >= 5:
-                filtered_events.append(event)
+                event_copy["isWorkHours"] = False
+                marked_events.append(event_copy)
                 continue
 
             # Parse time
             time_str = event.get("time", "").strip()
             if not time_str:
-                filtered_events.append(event)  # Include if no time specified
+                event_copy["isWorkHours"] = (
+                    False  # No time specified, assume not work hours
+                )
+                marked_events.append(event_copy)
                 continue
 
             # Extract hour from time string like "2:30 PM"
@@ -57,7 +66,10 @@ def filter_work_hours(events):
 
             time_match = re.search(r"(\d{1,2}):(\d{2})\s*([AP]M)", time_str.upper())
             if not time_match:
-                filtered_events.append(event)  # Include if can't parse time
+                event_copy["isWorkHours"] = (
+                    False  # Can't parse time, assume not work hours
+                )
+                marked_events.append(event_copy)
                 continue
 
             hour, minute, ampm = time_match.groups()
@@ -69,22 +81,24 @@ def filter_work_hours(events):
             elif ampm == "AM" and hour == 12:
                 hour = 0
 
-            # Check if outside work hours (before 9am or after 6pm)
-            if hour < 9 or hour >= 18:
-                filtered_events.append(event)
-            else:
+            # Check if during work hours (9am to 6pm)
+            if hour >= 9 and hour < 18:
+                event_copy["isWorkHours"] = True
                 print(
-                    f"[WORK HOURS FILTER] Discarded: '{event.get('title', 'Unknown')}' | Venue: '{event.get('venue', 'Unknown')}' | Date: '{event.get('date', 'Unknown')}' | Time: '{event.get('time', 'Unknown')}' (hour: {hour})"
+                    f"[WORK HOURS MARKED] Marked as work hours: '{event.get('title', 'Unknown')}' | Venue: '{event.get('venue', 'Unknown')}' | Date: '{event.get('date', 'Unknown')}' | Time: '{event.get('time', 'Unknown')}' (hour: {hour})"
                 )
+            else:
+                event_copy["isWorkHours"] = False
+
+            marked_events.append(event_copy)
 
         except Exception as e:
-            print(
-                f"Error filtering work hours for {event.get( 'title','Unknown')}: {e}"
-            )
-            # Include event if there's an error parsing
-            filtered_events.append(event)
+            print(f"Error checking work hours for {event.get('title', 'Unknown')}: {e}")
+            # If there's an error parsing, assume not work hours
+            event_copy["isWorkHours"] = False
+            marked_events.append(event_copy)
 
-    return filtered_events
+    return marked_events
 
 
 def filter_upcoming_events(events, mode="month"):
@@ -116,12 +130,14 @@ def filter_upcoming_events(events, mode="month"):
 
         print(f"Filtering events from {start_date} to {end_date} (upcoming month)")
     else:
-        # Legacy mode: use days_ahead
+        # Days mode: look forward from today
         days_ahead = mode if isinstance(mode, int) else 30
         start_date = today
         end_date = today + timedelta(days=days_ahead)
 
-        print(f"Filtering events from {start_date} to {end_date} ({days_ahead} days)")
+        print(
+            f"Filtering events from {start_date} to {end_date} (next {days_ahead} days)"
+        )
 
     filtered_events = []
     for event in events:
@@ -279,6 +295,7 @@ def generate_website_data(events):
                 "isSpecialScreening": event.get("is_special_screening", False),
                 # From scraper detection
                 "isMovie": event.get("is_movie", True),
+                "isWorkHours": event.get("isWorkHours", False),  # Work hours marking
                 "duration": event.get("duration"),
                 "director": event.get("director"),
                 "country": event.get("country") if event.get("country") else "Unknown",
@@ -326,6 +343,7 @@ def generate_website_data(events):
             "url": event.get("url", ""),
             "isSpecialScreening": False,  # Classical events aren't "screenings"
             "isMovie": False,  # Classical events are concerts
+            "isWorkHours": event.get("isWorkHours", False),  # Work hours marking
             "duration": event.get("duration"),
             "director": None,  # Not applicable to concerts
             "country": event.get("country", "USA"),
@@ -365,6 +383,7 @@ def generate_website_data(events):
             "url": event.get("url", ""),
             "isSpecialScreening": False,  # Book clubs aren't "screenings"
             "isMovie": False,  # Book clubs are discussions
+            "isWorkHours": event.get("isWorkHours", False),  # Work hours marking
             "duration": event.get("duration"),
             "director": None,  # Not applicable to book clubs
             "country": event.get("country", "USA"),
@@ -446,7 +465,7 @@ def main(
 
         # Scrape all venues (including classical music from JSON)
         print("Fetching calendar data from all venues...")
-        events = scraper.scrape_all_venues(target_week=test_week)
+        events = scraper.scrape_all_venues(target_week=test_week, days_ahead=days)
         print(f"Found {len(events)} total events from all venues")
         print(
             "NOTE: Classical music venues load their events from docs/classical_data.json"
@@ -533,13 +552,15 @@ def main(
             upcoming_events = filter_upcoming_events(detailed_events, mode="month")
             print(f"Found {len(upcoming_events)} upcoming events")
 
-        # Filter out work-hour events
-        filtered_events = filter_work_hours(upcoming_events)
-        print(f"After filtering work hours: {len(filtered_events)} events")
+        # Mark work-hour events
+        marked_events = mark_work_hours(upcoming_events)
+        print(
+            f"Marked {len([e for e in marked_events if e.get('isWorkHours')])} work hour events out of {len(marked_events)} total events"
+        )
 
         # Process and enrich events
         print("Processing and enriching events...")
-        enriched_events = processor.process_events(filtered_events)
+        enriched_events = processor.process_events(marked_events)
         print(f"Processed {len(enriched_events)} events")
 
         # Generate website JSON data

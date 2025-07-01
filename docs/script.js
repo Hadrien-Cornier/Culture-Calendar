@@ -4,6 +4,7 @@ let filteredEvents = [];
 let selectedGenres = new Set();
 let selectedVenues = new Set();
 let showSpecialEventsOnly = false;
+let hideWorkHours = false;
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 let dateRangeStart = null;
@@ -22,6 +23,7 @@ const listView = document.getElementById('list-view');
 const calendarView = document.getElementById('calendar-view');
 const calendarContainer = document.getElementById('calendar-container');
 const specialEventsToggle = document.getElementById('special-events-toggle');
+const hideWorkHoursToggle = document.getElementById('hide-work-hours-toggle');
 const prevMonthBtn = document.getElementById('prev-month');
 const nextMonthBtn = document.getElementById('next-month');
 const monthYearDisplay = document.getElementById('month-year-display');
@@ -102,6 +104,10 @@ function setupEventListeners() {
 
     specialEventsToggle.addEventListener('click', function() {
         toggleSpecialEventsFilter();
+    });
+
+    hideWorkHoursToggle.addEventListener('click', function() {
+        toggleWorkHoursFilter();
     });
 
     prevMonthBtn.addEventListener('click', function() {
@@ -563,6 +569,26 @@ function toggleSpecialEventsFilter() {
     }
 }
 
+function toggleWorkHoursFilter() {
+    hideWorkHours = !hideWorkHours;
+    
+    if (hideWorkHours) {
+        hideWorkHoursToggle.classList.add('active');
+        hideWorkHoursToggle.textContent = 'Show Work Hours';
+    } else {
+        hideWorkHoursToggle.classList.remove('active');
+        hideWorkHoursToggle.textContent = 'Hide Work Hours (9am-6pm)';
+    }
+    
+    updateFilteredEvents();
+    renderEvents();
+    
+    // Re-render calendar if it's currently visible
+    if (calendarView.style.display !== 'none') {
+        renderCalendar();
+    }
+}
+
 // Toggle genre filter
 function toggleGenreFilter(genre) {
     if (genre === 'all') {
@@ -652,31 +678,36 @@ function updateFilteredEvents() {
     
     filteredEvents = eventsData.filter(movie => {
         // Rating filter
-        if (event.rating < minRating) return false;
+        if (movie.rating < minRating) return false;
         
         // Country filter
-        if (selectedGenres.size > 0 && !selectedGenres.has(event.country)) {
+        if (selectedGenres.size > 0 && !selectedGenres.has(movie.country)) {
             return false;
         }
         
         // Venue filter
-        if (selectedVenues.size > 0 && !selectedVenues.has(event.venue)) {
+        if (selectedVenues.size > 0 && !selectedVenues.has(movie.venue)) {
             return false;
         }
 
         // Special events filter
-        if (showSpecialEventsOnly && !event.isSpecialScreening) {
+        if (showSpecialEventsOnly && !movie.isSpecialScreening) {
+            return false;
+        }
+
+        // Work hours filter
+        if (hideWorkHours && movie.isWorkHours) {
             return false;
         }
 
         // Director filter
-        if (selectedDirector && event.director !== selectedDirector) {
+        if (selectedDirector && movie.director !== selectedDirector) {
             return false;
         }
 
         // Search filter (description)
         if (searchTerm) {
-            const haystack = (event.description || '').toLowerCase();
+            const haystack = (movie.description || '').toLowerCase();
             if (!haystack.includes(searchTerm)) {
                 return false;
             }
@@ -684,7 +715,7 @@ function updateFilteredEvents() {
 
         // Date range filter
         if (dateRangeStart && dateRangeEnd) {
-            const hasScreeningInRange = event.screenings.some(screening => {
+            const hasScreeningInRange = movie.screenings.some(screening => {
                 const screeningDate = parseLocalDate(screening.date);
                 return screeningDate >= dateRangeStart && screeningDate <= dateRangeEnd;
             });

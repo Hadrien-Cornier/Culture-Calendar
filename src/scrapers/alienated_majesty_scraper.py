@@ -574,22 +574,22 @@ class AlienatedMajestyBooksScraper(BaseScraper):
         return series_info.get(series_name, ("7:00 PM", None, "Book club meeting"))
 
     def scrape_events(self) -> List[Dict]:
-        """
-        Adhoc scraping implementation for Alienated Majesty Books.
-        Falls back to static data if scraping fails.
-        """
-        try:
-            # Try to scrape the book clubs page using pyppeteer
-            url = f"{self.base_url}/book-clubs"
-            events = self._scrape_with_pyppeteer(url)
+        """Scrape book club events from Alienated Majesty Books website"""
+        print("Loading Alienated Majesty Books club...")
+        events = []
 
-            if events:
-                print(f"Scraped {len(events)} events from Alienated Majesty")
-                return events
+        for url in self.get_target_urls():
+            try:
+                # Use pyppeteer for JavaScript rendering
+                events = self._scrape_with_pyppeteer(url)
+                if events:
+                    break
+            except Exception as e:
+                print(f"  Error scraping {url}: {e}")
 
-        except Exception as e:
-            print(f"Alienated Majesty scraping failed: {e}")
+        print(f"Scraped {len(events)} events from Alienated Majesty")
+        return events
 
-        # Return empty list if scraping fails
-        print("Alienated Majesty scraping failed, returning empty list")
-        return []
+    def get_event_details(self, event: Dict) -> Dict:
+        """Get additional details for a book club event - returns empty dict since details are already complete"""
+        return {}

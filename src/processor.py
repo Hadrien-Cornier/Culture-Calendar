@@ -43,10 +43,10 @@ class EventProcessor:
                 if event.get("type") not in ["screening", "concert", "book_club"]:
                     continue
 
-                # Skip work hours (9am-6pm) on weekdays
-                if self._is_during_work_hours(event):
-                    print(f"Skipping {event['title']} - during work hours")
-                    continue
+                # Preserve work hours marking if it exists
+                if "isWorkHours" in event:
+                    # Keep the field as-is from the input
+                    pass
 
                 processed_count += 1
                 print(f"Processing ({processed_count}): {event['title']}")
@@ -463,50 +463,3 @@ Focus on artistic merit and intellectual rigor. Reward complexity and innovation
             explanation_parts.append(f"Summary: {summary}")
 
         return " | ".join(explanation_parts)
-
-    def _is_during_work_hours(self, event: Dict) -> bool:
-        """Check if event is during work hours (9am-6pm weekdays)"""
-        try:
-            # Parse date
-            date_str = event.get("date")
-            if not date_str:
-                return False
-
-            event_date = datetime.strptime(date_str, "%Y-%m-%d")
-
-            # Skip weekends (Saturday=5, Sunday=6)
-            if event_date.weekday() >= 5:
-                return False
-
-            # Parse time
-            time_str = event.get("time", "").strip()
-            if not time_str:
-                return False
-
-            # Extract hour from time string like "2:30 PM"
-            import re
-
-            time_match = re.search(r"(\d{1,2}):(\d{2})\s*([AP]M)", time_str.upper())
-            if not time_match:
-                return False
-
-            hour, minute, ampm = time_match.groups()
-            hour = int(hour)
-            minute = int(minute)
-
-            # Convert to 24-hour format
-            if ampm == "PM" and hour != 12:
-                hour += 12
-            elif ampm == "AM" and hour == 12:
-                hour = 0
-
-            # Check if between 9am (9) and 6pm (18)
-            event_time_minutes = hour * 60 + minute
-            work_start = 9 * 60  # 9:00 AM
-            work_end = 18 * 60  # 6:00 PM
-
-            return work_start <= event_time_minutes <= work_end
-
-        except Exception as e:
-            print(f"Error checking work hours for {event.get( 'title','Unknown')}: {e}")
-            return False
