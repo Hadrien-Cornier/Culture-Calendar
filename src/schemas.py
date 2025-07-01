@@ -2,7 +2,7 @@
 Data schemas for different venue types in the Culture Calendar system
 """
 
-from typing import Any, Dict
+from typing import Any, Dict, Optional, List
 
 
 class SchemaField:
@@ -42,28 +42,46 @@ class BaseEventSchema:
                 "string", required=True, description="Event title or name"
             ).to_dict(),
             "date": SchemaField(
-                "string", 
-                required=True, 
+                "string",
+                required=True,
                 description="Event date in YYYY-MM-DD format. Look for dates in various formats and convert to YYYY-MM-DD.",
-                extraction_hints=["date", "showtime", "screening date", "event date", "calendar", "when", "on", "day"],
+                extraction_hints=[
+                    "date",
+                    "showtime",
+                    "screening date",
+                    "event date",
+                    "calendar",
+                    "when",
+                    "on",
+                    "day",
+                ],
                 extraction_patterns=[
                     r"\b\d{1,2}/\d{1,2}/\d{2,4}\b",  # MM/DD/YY or MM/DD/YYYY
-                    r"\b\d{4}-\d{1,2}-\d{1,2}\b",    # YYYY-MM-DD
+                    r"\b\d{4}-\d{1,2}-\d{1,2}\b",  # YYYY-MM-DD
                     r"\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}\b",  # Month DD, YYYY
                     r"\b(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}\b",  # Day, Month DD, YYYY
                     r"\b\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\b",  # DD Month YYYY
-                ]
+                ],
             ).to_dict(),
             "time": SchemaField(
-                "string", 
-                required=True, 
+                "string",
+                required=True,
                 description='Event time (e.g., "7:30 PM"). Look for showtimes in buttons, links, or time displays.',
-                extraction_hints=["time", "showtime", "screening time", "at", "starts", "begins", "pm", "am"],
+                extraction_hints=[
+                    "time",
+                    "showtime",
+                    "screening time",
+                    "at",
+                    "starts",
+                    "begins",
+                    "pm",
+                    "am",
+                ],
                 extraction_patterns=[
                     r"\b\d{1,2}:\d{2}\s*[APap][Mm]\b",  # 7:30 PM
-                    r"\b\d{1,2}[APap][Mm]\b",           # 7PM
-                    r"\b\d{1,2}:\d{2}\b",               # 19:30 (24h format)
-                ]
+                    r"\b\d{1,2}[APap][Mm]\b",  # 7PM
+                    r"\b\d{1,2}:\d{2}\b",  # 19:30 (24h format)
+                ],
             ).to_dict(),
             "venue": SchemaField(
                 "string", required=False, description="Venue or location name"
@@ -80,13 +98,14 @@ class BaseEventSchema:
             "type": SchemaField(
                 "string",
                 required=False,
-                description="Event type (film, concert, book_club, etc.)",
+                description="Event type (movie, concert, book_club, etc.)",
+                extraction_hints=["type", "category", "kind", "event type"],
             ).to_dict(),
         }
 
 
-class FilmEventSchema(BaseEventSchema):
-    """Schema for film/movie events (AFS, Hyperreal)"""
+class MovieEventSchema(BaseEventSchema):
+    """Schema for movie events (AFS, Hyperreal)"""
 
     @classmethod
     def get_schema(cls) -> Dict[str, Dict]:
@@ -101,7 +120,8 @@ class FilmEventSchema(BaseEventSchema):
                 "presenter": SchemaField(
                     "string",
                     required=False,
-                    description="Presenter of the film event",
+                    description="Presenter of the movie event",
+                    extraction_hints=["presenter", "host", "curator", "programmer"],
                 ).to_dict(),
                 "dates": SchemaField(
                     "array",
@@ -111,20 +131,14 @@ class FilmEventSchema(BaseEventSchema):
                 "director": SchemaField(
                     "string",
                     required=False,
-                    description="Film director name",
+                    description="Movie director name",
                     extraction_hints=["director", "directed by", "filmmaker"],
-                    extraction_patterns=[
-                        r"Directed by\s+(.+)",
-                        r"Director:\s*(.+)",
-                        r"Dir\.\s*(.+)",
-                    ],
                 ).to_dict(),
                 "year": SchemaField(
                     "integer",
                     required=False,
-                    description="Film release year",
-                    extraction_hints=["year", "release year", "made in"],
-                    extraction_patterns=[r"\b(19\d{2}|20\d{2})\b"],
+                    description="Movie release year",
+                    extraction_hints=["year", "released", "release date", "premiere"],
                 ).to_dict(),
                 "country": SchemaField(
                     "string",
@@ -136,31 +150,30 @@ class FilmEventSchema(BaseEventSchema):
                 "language": SchemaField(
                     "string",
                     required=False,
-                    description="Film language",
-                    extraction_hints=["language", "subtitles", "in language"],
-                    extraction_patterns=[
-                        r"In\s+([A-Z][a-z]+)\s+with",
-                        r"Language:\s*(.+)",
-                    ],
+                    description="Movie language",
+                    extraction_hints=["language", "in", "spoken in", "subtitles"],
                 ).to_dict(),
                 "duration": SchemaField(
                     "string",
                     required=False,
-                    description='Film duration (e.g., "120 min")',
-                    extraction_hints=["duration", "runtime", "length"],
-                    extraction_patterns=[r"(\d+h?\s*\d*m?i?n?)", r"Runtime:\s*(.+)"],
+                    description='Movie duration (e.g., "120 min")',
+                    extraction_hints=[
+                        "duration",
+                        "length",
+                        "runtime",
+                        "minutes",
+                        "min",
+                    ],
                 ).to_dict(),
                 "genre": SchemaField(
                     "array",
                     required=False,
-                    description="Film genres",
+                    description="Movie genres",
                     extraction_hints=[
                         "genre",
-                        "type",
-                        "style",
-                        "drama",
-                        "comedy",
-                        "thriller",
+                        "genres",
+                        "type of movie",
+                        "category",
                     ],
                 ).to_dict(),
                 "is_special_screening": SchemaField(
@@ -186,7 +199,7 @@ class FilmEventSchema(BaseEventSchema):
             }
         )
         schema["type"] = SchemaField(
-            "string", required=False, description='Should be "film"'
+            "string", required=False, description='Should be "movie"'
         ).to_dict()
         return schema
 
@@ -389,7 +402,7 @@ class SchemaRegistry:
     """Registry for managing different event schemas"""
 
     SCHEMAS = {
-        "film": FilmEventSchema,
+        "movie": MovieEventSchema,
         "concert": ConcertEventSchema,
         "book_club": BookClubEventSchema,
         "theater": TheaterEventSchema,
@@ -458,14 +471,14 @@ class SchemaRegistry:
 
 # Venue-specific schema mappings
 VENUE_SCHEMAS = {
-    "AFS": "film",
-    "Hyperreal": "film",
+    "AFS": "movie",
+    "Hyperreal": "movie",
     "Symphony": "concert",
     "EarlyMusic": "concert",
     "LaFollia": "concert",
     "AlienatedMajesty": "book_club",
     "FirstLight": "book_club",
-    "Paramount": "film",
+    "Paramount": "movie",
     "NewYorkerMeetup": "book_club",
 }
 

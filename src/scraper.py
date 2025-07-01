@@ -45,7 +45,7 @@ class MultiVenueScraper:
         self.last_updated = {}
 
         # Scrape AFS
-        print("Scraping Austin Film Society...")
+        print("Scraping Austin Movie Society...")
         try:
             afs_events = self.afs_scraper.scrape_events()
             for event in afs_events:
@@ -58,7 +58,7 @@ class MultiVenueScraper:
             self.last_updated["AFS"] = None
 
         # Scrape Hyperreal
-        print("Scraping Hyperreal Film Club...")
+        print("Scraping Hyperreal Movie Club...")
         try:
             hyperreal_events = self.hyperreal_scraper.scrape_events()
             for event in hyperreal_events:

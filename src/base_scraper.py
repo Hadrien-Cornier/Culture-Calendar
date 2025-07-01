@@ -45,7 +45,9 @@ class BaseScraper(ABC):
 
         print(f"Initialized {self.__class__.__name__} for {venue_name}")
         if not self.llm_service.anthropic:
-            print("  Warning: LLM service not configured - Smart extraction unavailable")
+            print(
+                "  Warning: LLM service not configured - Smart extraction unavailable"
+            )
 
     @abstractmethod
     def scrape_events(self) -> List[Dict]:

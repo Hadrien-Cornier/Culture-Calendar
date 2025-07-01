@@ -1,5 +1,5 @@
 """
-Hyperreal Film Club scraper for extracting movie screening events.
+Hyperreal Movie Club scraper for extracting movie screening events.
 """
 
 import asyncio
@@ -12,18 +12,17 @@ from bs4 import BeautifulSoup
 from pyppeteer import launch
 
 from ..base_scraper import BaseScraper
-from ..schemas import FilmEventSchema
+from ..schemas import MovieEventSchema
 
 
 class HyperrealScraper(BaseScraper):
-    """Scraper for Hyperreal Film Club events."""
+    """Scraper for Hyperreal Movie Club events."""
 
     def __init__(self):
         super().__init__(
-            base_url="https://hyperrealfilm.club", venue_name="Hyperreal Film Club"
+            base_url="https://hyperrealfilm.club", venue_name="Hyperreal Movie Club"
         )
         self.venue_address = "301 Chicon Street, Austin, TX, 78702"
-
 
     def get_calendar_url(self, year: int, month: int) -> str:
         """Generate calendar URL for a specific month."""
@@ -140,13 +139,13 @@ class HyperrealScraper(BaseScraper):
         elif " ~ " in title:
             title = title.split(" ~ ")[-1]
 
-        # Remove "at HYPERREAL FILM CLUB" suffix
-        if " at HYPERREAL FILM CLUB" in title:
-            title = title.replace(" at HYPERREAL FILM CLUB", "")
+        # Remove "at HYPERREAL MOVIE CLUB" suffix
+        if " at HYPERREAL MOVIE CLUB" in title:
+            title = title.replace(" at HYPERREAL MOVIE CLUB", "")
 
         # Remove other common suffixes
         suffixes_to_remove = [
-            " at Hyperreal Film Club",
+            " at Hyperreal Movie Club",
             " presented by Queertopia",
             " free screening",
         ]
@@ -225,7 +224,7 @@ class HyperrealScraper(BaseScraper):
         """Main scraping method to get all events for current month."""
         now = datetime.now()
         year, month = now.year, now.month
-        
+
         calendar_url = self.get_calendar_url(year, month)
         print(f"Scraping Hyperreal events for {year}-{month:02d}")
 
@@ -253,14 +252,18 @@ class HyperrealScraper(BaseScraper):
                             "title": event_data.get("title", ""),
                             "date": event_data.get("dates", [None])[0],
                             "time": event_data.get("times", [None])[0],
-                            "venue": "Hyperreal Film Club",
-                            "location": event_data.get("venue", "301 Chicon Street, Austin, TX"),
-                            "type": "film",
+                            "venue": "Hyperreal Movie Club",
+                            "location": event_data.get(
+                                "venue", "301 Chicon Street, Austin, TX"
+                            ),
+                            "type": "movie",
                             "description": event_data.get("description", ""),
                             "url": event_url,
                             "presenter": event_data.get("presenter"),
                             "trailer_url": event_data.get("trailer_url"),
-                            "is_special_screening": event_data.get("is_special_screening", False),
+                            "is_special_screening": event_data.get(
+                                "is_special_screening", False
+                            ),
                         }
                         events.append(standardized_event)
                         print(f"Extracted: {standardized_event['title']}")
@@ -275,4 +278,3 @@ class HyperrealScraper(BaseScraper):
         except Exception as e:
             print(f"Error scraping Hyperreal calendar {calendar_url}: {e}")
             return []
-

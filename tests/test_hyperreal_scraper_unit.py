@@ -1,5 +1,5 @@
 """
-Unit tests for Hyperreal Film Club scraper.
+Unit tests for Hyperreal Movie Club scraper.
 """
 
 import json
@@ -11,7 +11,7 @@ from src.scrapers.hyperreal_scraper import HyperrealScraper
 
 
 class TestHyperrealScraper:
-    """Test cases for Hyperreal Film Club scraper."""
+    """Test cases for Hyperreal Movie Club scraper."""
 
     def setup_method(self):
         """Set up test fixtures."""
@@ -74,27 +74,30 @@ class TestHyperrealScraper:
     def test_movie_title_extraction(self):
         """Test movie title extraction from full event titles."""
         test_cases = [
-            ("A Woman of Taste Presents ~ MERMAIDS at HYPERREAL FILM CLUB", "MERMAIDS"),
             (
-                "Sad Girl Cinema ~ HOUSE OF TOLERANCE at HYPERREAL FILM CLUB",
+                "A Woman of Taste Presents ~ MERMAIDS at HYPERREAL MOVIE CLUB",
+                "MERMAIDS",
+            ),
+            (
+                "Sad Girl Cinema ~ HOUSE OF TOLERANCE at HYPERREAL MOVIE CLUB",
                 "HOUSE OF TOLERANCE",
             ),
             (
-                "First Times ~ PLEASE BABY PLEASE at HYPERREAL FILM CLUB",
+                "First Times ~ PLEASE BABY PLEASE at HYPERREAL MOVIE CLUB",
                 "PLEASE BABY PLEASE",
             ),
-            ("Fangoria presents THE BURNING at HYPERREAL FILM CLUB", "THE BURNING"),
+            ("Fangoria presents THE BURNING at HYPERREAL MOVIE CLUB", "THE BURNING"),
             (
-                "KOKOMO CITY presented by Queertopia at HYPERREAL FILM CLUB",
+                "KOKOMO CITY presented by Queertopia at HYPERREAL MOVIE CLUB",
                 "KOKOMO CITY",
             ),
             (
-                "MISS JUNETEENTH free screening at HYPERREAL FILM CLUB",
+                "MISS JUNETEENTH free screening at HYPERREAL MOVIE CLUB",
                 "MISS JUNETEENTH",
             ),
-            ("Freaks Only ~ SEED OF CHUCKY at HYPERREAL FILM CLUB", "SEED OF CHUCKY"),
-            ("SAW at HYPERREAL FILM CLUB", "SAW"),
-            ("20TH CENTURY WOMEN at HYPERREAL FILM CLUB", "20TH CENTURY WOMEN"),
+            ("Freaks Only ~ SEED OF CHUCKY at HYPERREAL MOVIE CLUB", "SEED OF CHUCKY"),
+            ("SAW at HYPERREAL MOVIE CLUB", "SAW"),
+            ("20TH CENTURY WOMEN at HYPERREAL MOVIE CLUB", "20TH CENTURY WOMEN"),
         ]
 
         for full_title, expected_title in test_cases:
@@ -107,25 +110,25 @@ class TestHyperrealScraper:
         """Test presenter/series extraction from full event titles."""
         test_cases = [
             (
-                "A Woman of Taste Presents ~ MERMAIDS at HYPERREAL FILM CLUB",
+                "A Woman of Taste Presents ~ MERMAIDS at HYPERREAL MOVIE CLUB",
                 "A Woman of Taste",
             ),
             (
-                "Sad Girl Cinema ~ HOUSE OF TOLERANCE at HYPERREAL FILM CLUB",
+                "Sad Girl Cinema ~ HOUSE OF TOLERANCE at HYPERREAL MOVIE CLUB",
                 "Sad Girl Cinema",
             ),
-            ("First Times ~ PLEASE BABY PLEASE at HYPERREAL FILM CLUB", "First Times"),
+            ("First Times ~ PLEASE BABY PLEASE at HYPERREAL MOVIE CLUB", "First Times"),
             (
-                "Fangoria presents THE BURNING at HYPERREAL FILM CLUB",
+                "Fangoria presents THE BURNING at HYPERREAL MOVIE CLUB",
                 "Fangoria Presents",
             ),
             (
-                "KOKOMO CITY presented by Queertopia at HYPERREAL FILM CLUB",
+                "KOKOMO CITY presented by Queertopia at HYPERREAL MOVIE CLUB",
                 "Presented By Queertopia",
             ),
-            ("Freaks Only ~ SEED OF CHUCKY at HYPERREAL FILM CLUB", "Freaks Only"),
-            ("SAW at HYPERREAL FILM CLUB", None),
-            ("20TH CENTURY WOMEN at HYPERREAL FILM CLUB", None),
+            ("Freaks Only ~ SEED OF CHUCKY at HYPERREAL MOVIE CLUB", "Freaks Only"),
+            ("SAW at HYPERREAL MOVIE CLUB", None),
+            ("20TH CENTURY WOMEN at HYPERREAL MOVIE CLUB", None),
         ]
 
         for full_title, expected_presenter in test_cases:
@@ -147,15 +150,15 @@ class TestHyperrealScraper:
     def test_special_screening_detection(self):
         """Test detection of special screenings."""
         test_cases = [
-            ("A Woman of Taste Presents ~ MERMAIDS at HYPERREAL FILM CLUB", True),
-            ("Sad Girl Cinema ~ HOUSE OF TOLERANCE at HYPERREAL FILM CLUB", True),
-            ("First Times ~ PLEASE BABY PLEASE at HYPERREAL FILM CLUB", True),
-            ("Fangoria presents THE BURNING at HYPERREAL FILM CLUB", True),
-            ("MISS JUNETEENTH free screening at HYPERREAL FILM CLUB", True),
-            ("Freaks Only ~ SEED OF CHUCKY at HYPERREAL FILM CLUB", True),
-            ("SAW at HYPERREAL FILM CLUB", False),
-            ("20TH CENTURY WOMEN at HYPERREAL FILM CLUB", False),
-            ("PAST LIVES at HYPERREAL FILM CLUB", False),
+            ("A Woman of Taste Presents ~ MERMAIDS at HYPERREAL MOVIE CLUB", True),
+            ("Sad Girl Cinema ~ HOUSE OF TOLERANCE at HYPERREAL MOVIE CLUB", True),
+            ("First Times ~ PLEASE BABY PLEASE at HYPERREAL MOVIE CLUB", True),
+            ("Fangoria presents THE BURNING at HYPERREAL MOVIE CLUB", True),
+            ("MISS JUNETEENTH free screening at HYPERREAL MOVIE CLUB", True),
+            ("Freaks Only ~ SEED OF CHUCKY at HYPERREAL MOVIE CLUB", True),
+            ("SAW at HYPERREAL MOVIE CLUB", False),
+            ("20TH CENTURY WOMEN at HYPERREAL MOVIE CLUB", False),
+            ("PAST LIVES at HYPERREAL MOVIE CLUB", False),
         ]
 
         for title, expected_special in test_cases:
@@ -201,7 +204,7 @@ class TestHyperrealScraper:
         """Test that the scraper returns a proper schema."""
         schema = self.scraper.get_schema()
 
-        # Verify schema has expected fields that align with FilmEventSchema
+        # Verify schema has expected fields that align with MovieEventSchema
         expected_fields = [
             "title",
             "full_title",
@@ -224,7 +227,7 @@ class TestHyperrealScraper:
 
     def test_venue_and_address_constants(self):
         """Test that venue information is properly set."""
-        assert self.scraper.venue_name == "Hyperreal Film Club"
+        assert self.scraper.venue_name == "Hyperreal Movie Club"
         assert self.scraper.venue_address == "301 Chicon Street, Austin, TX, 78702"
         assert self.scraper.base_url == "https://hyperrealfilm.club"
 

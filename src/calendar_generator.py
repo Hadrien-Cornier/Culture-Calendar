@@ -18,12 +18,12 @@ class CalendarGenerator:
         cal = Calendar()
 
         # Set calendar properties
-        cal.add("prodid", "-//Culture Calendar//Austin Film Society Events//EN")
+        cal.add("prodid", "-//Culture Calendar//Austin Movie Society Events//EN")
         cal.add("version", "2.0")
         cal.add("calscale", "GREGORIAN")
         cal.add("method", "PUBLISH")
-        cal.add("x-wr-calname", "Austin Film Society Events")
-        cal.add("x-wr-caldesc", "Curated film screenings from Austin Film Society")
+        cal.add("x-wr-calname", "Austin Movie Society Events")
+        cal.add("x-wr-caldesc", "Curated movie screenings from Austin Movie Society")
 
         # Add timezone component
         cal.add_component(self._create_timezone())
@@ -78,7 +78,7 @@ class CalendarGenerator:
             if event_data.get("venue") == "NewYorkerMeetup":
                 location = "Central Market, 4001 N Lamar Blvd, Austin, TX 78752"
             else:
-                location = "Austin Film Society Cinema, 6226 Middle Fiskville Rd, Austin, TX 78752"
+                location = "Austin Movie Society Cinema, 6226 Middle Fiskville Rd, Austin, TX 78752"
         event.add("location", location)
 
         # Description
@@ -95,7 +95,7 @@ class CalendarGenerator:
         elif event_data.get("type") == "concert":
             categories = ["Concert", "Music", "Classical"]
         else:
-            categories = ["Film", "Entertainment"]
+            categories = ["Movie", "Entertainment"]
 
         if event_data.get("is_special_screening"):
             categories.append("Special Event")
@@ -198,7 +198,7 @@ class CalendarGenerator:
             description_parts.append(f"More info: {event_data['url']}")
 
         # Venue info
-        description_parts.append("📍 Austin Film Society Cinema")
+        description_parts.append("📍 Austin Movie Society Cinema")
         description_parts.append("🎟️ Tickets: https://www.austinfilm.org/")
 
         return "\n\n".join(description_parts)

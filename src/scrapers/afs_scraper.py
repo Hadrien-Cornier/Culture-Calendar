@@ -1,5 +1,5 @@
 """
-Austin Film Society scraper - scrapes events from website
+Austin Movie Society scraper - scrapes events from website
 """
 
 import re
@@ -10,28 +10,28 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
 from ..base_scraper import BaseScraper
-from ..schemas import FilmEventSchema
+from ..schemas import MovieEventSchema
 
 
 class AFSScraper(BaseScraper):
-    """Austin Film Society scraper - extracts film screenings from website."""
+    """Austin Movie Society scraper - extracts movie screenings from website."""
 
     def __init__(self):
         super().__init__(
-            base_url="https://www.austinfilm.org", venue_name="Austin Film Society"
+            base_url="https://www.austinfilm.org", venue_name="Austin Movie Society"
         )
-        # Set better headers to bypass anti-bot protection  
+        # Set better headers to bypass anti-bot protection
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'DNT': '1',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            'Sec-Fetch-Dest': 'document',
-            'Sec-Fetch-Mode': 'navigate',
-            'Sec-Fetch-Site': 'none',
-            'Cache-Control': 'max-age=0'
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "DNT": "1",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Cache-Control": "max-age=0",
         }
         self.session.headers.update(headers)
 
@@ -43,8 +43,8 @@ class AFSScraper(BaseScraper):
         ]
 
     def get_data_schema(self) -> Dict:
-        """Return the expected data schema for AFS film events"""
-        return FilmEventSchema.get_schema()
+        """Return the expected data schema for AFS movie events"""
+        return MovieEventSchema.get_schema()
 
     def scrape_events(self) -> List[Dict]:
         """
@@ -62,32 +62,40 @@ class AFSScraper(BaseScraper):
                 try:
                     response = self.session.get(url, timeout=15, allow_redirects=True)
                     if response.status_code == 200:
-                        soup = BeautifulSoup(response.text, 'html.parser')
+                        soup = BeautifulSoup(response.text, "html.parser")
                         # If this is a movie page (contains showtime selectors/displays), extract events directly
-                        if soup.select('.c-showtime-select__trigger') or soup.select('div.c-showtime-display'):
+                        if soup.select(".c-showtime-select__trigger") or soup.select(
+                            "div.c-showtime-display"
+                        ):
                             # --- BEGIN MOVIE PAGE EXTRACTION ---
                             movie_soup = soup
                             # Title
-                            title_elem = movie_soup.find('h1')
+                            title_elem = movie_soup.find("h1")
                             if not title_elem:
-                                title_elem = movie_soup.find('h2')
-                            title = title_elem.get_text(strip=True) if title_elem else None
+                                title_elem = movie_soup.find("h2")
+                            title = (
+                                title_elem.get_text(strip=True) if title_elem else None
+                            )
                             # Director
                             director = None
-                            director_elem = movie_soup.find(string=re.compile(r"Directed by ", re.I))
+                            director_elem = movie_soup.find(
+                                string=re.compile(r"Directed by ", re.I)
+                            )
                             if director_elem:
-                                match = re.search(r"Directed by ([^\n\r<]+)", director_elem)
+                                match = re.search(
+                                    r"Directed by ([^\n\r<]+)", director_elem
+                                )
                                 if match:
                                     director = match.group(1).strip()
                             # Year, Country, Language, Duration
-                            info_elem = movie_soup.find('p', class_='t-smaller')
+                            info_elem = movie_soup.find("p", class_="t-smaller")
                             year = None
                             country = None
                             language = None
                             duration = None
                             if info_elem:
                                 info_text = info_elem.get_text()
-                                parts = [p.strip() for p in info_text.split(',')]
+                                parts = [p.strip() for p in info_text.split(",")]
                                 if len(parts) > 0:
                                     country = parts[0]
                                 if len(parts) > 1:
@@ -98,48 +106,69 @@ class AFSScraper(BaseScraper):
                                 if len(parts) > 2:
                                     duration = parts[2]
                                 for part in parts:
-                                    if 'English' in part or 'French' in part or 'Spanish' in part:
-                                        language = part.replace('In ', '').replace('with English subtitles', '').strip()
+                                    if (
+                                        "English" in part
+                                        or "French" in part
+                                        or "Spanish" in part
+                                    ):
+                                        language = (
+                                            part.replace("In ", "")
+                                            .replace("with English subtitles", "")
+                                            .strip()
+                                        )
                             # Description
-                            desc_elem = movie_soup.find('div', class_='c-screening-content')
-                            description = desc_elem.get_text(separator=' ', strip=True) if desc_elem else None
+                            desc_elem = movie_soup.find(
+                                "div", class_="c-screening-content"
+                            )
+                            description = (
+                                desc_elem.get_text(separator=" ", strip=True)
+                                if desc_elem
+                                else None
+                            )
                             # Showtimes
                             date_map = {}
-                            for li in movie_soup.select('.c-showtime-select__trigger'):
-                                data_target = li.get('data-target')
+                            for li in movie_soup.select(".c-showtime-select__trigger"):
+                                data_target = li.get("data-target")
                                 if data_target and len(data_target) == 8:
                                     date_fmt = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
                                     date_map[data_target] = date_fmt
                             if not date_map:
-                                for div in movie_soup.select('div.c-showtime-display'):
-                                    div_id = div.get('id', '')
-                                    if div_id.startswith('showtime-') and len(div_id) == 17:
-                                        data_target = div_id.replace('showtime-', '')
+                                for div in movie_soup.select("div.c-showtime-display"):
+                                    div_id = div.get("id", "")
+                                    if (
+                                        div_id.startswith("showtime-")
+                                        and len(div_id) == 17
+                                    ):
+                                        data_target = div_id.replace("showtime-", "")
                                         if len(data_target) == 8:
                                             date_fmt = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
                                             date_map[data_target] = date_fmt
                             events = []
                             for data_target, date_fmt in date_map.items():
-                                showtime_div = movie_soup.find('div', id=f'showtime-{data_target}')
+                                showtime_div = movie_soup.find(
+                                    "div", id=f"showtime-{data_target}"
+                                )
                                 if showtime_div:
-                                    time_buttons = showtime_div.find_all('a', class_='c-button')
+                                    time_buttons = showtime_div.find_all(
+                                        "a", class_="c-button"
+                                    )
                                     for btn in time_buttons:
                                         time_str = btn.get_text(strip=True)
                                         if not time_str:
                                             continue
                                         event = {
-                                            'title': title,
-                                            'director': director,
-                                            'year': year,
-                                            'country': country,
-                                            'language': language,
-                                            'duration': duration,
-                                            'date': date_fmt,
-                                            'time': time_str,
-                                            'venue': 'AFS Cinema',
-                                            'type': 'film',
-                                            'description': description,
-                                            'url': url,
+                                            "title": title,
+                                            "director": director,
+                                            "year": year,
+                                            "country": country,
+                                            "language": language,
+                                            "duration": duration,
+                                            "date": date_fmt,
+                                            "time": time_str,
+                                            "venue": "AFS Cinema",
+                                            "type": "movie",
+                                            "description": description,
+                                            "url": url,
                                         }
                                         events.append(event)
                             if events:
@@ -147,14 +176,14 @@ class AFSScraper(BaseScraper):
                                 break
                             # --- END MOVIE PAGE EXTRACTION ---
                         # Otherwise, treat as calendar/screenings page and find movie links
-                        event_links = soup.find_all('a', href=True)
+                        event_links = soup.find_all("a", href=True)
                         movie_urls = []
                         for link in event_links:
-                            href = link.get('href', '')
-                            if '/screening/' in href:
-                                if href.startswith('/'):
+                            href = link.get("href", "")
+                            if "/screening/" in href:
+                                if href.startswith("/"):
                                     href = f"{self.base_url}{href}"
-                                elif not href.startswith('http'):
+                                elif not href.startswith("http"):
                                     href = f"{self.base_url}/{href}"
                                 if href not in movie_urls:
                                     movie_urls.append(href)
@@ -162,25 +191,37 @@ class AFSScraper(BaseScraper):
                             try:
                                 movie_response = self.session.get(movie_url, timeout=10)
                                 if movie_response.status_code == 200:
-                                    movie_soup = BeautifulSoup(movie_response.text, 'html.parser')
-                                    title_elem = movie_soup.find('h1')
+                                    movie_soup = BeautifulSoup(
+                                        movie_response.text, "html.parser"
+                                    )
+                                    title_elem = movie_soup.find("h1")
                                     if not title_elem:
-                                        title_elem = movie_soup.find('h2')
-                                    title = title_elem.get_text(strip=True) if title_elem else None
+                                        title_elem = movie_soup.find("h2")
+                                    title = (
+                                        title_elem.get_text(strip=True)
+                                        if title_elem
+                                        else None
+                                    )
                                     director = None
-                                    director_elem = movie_soup.find(string=re.compile(r"Directed by ", re.I))
+                                    director_elem = movie_soup.find(
+                                        string=re.compile(r"Directed by ", re.I)
+                                    )
                                     if director_elem:
-                                        match = re.search(r"Directed by ([^\n\r<]+)", director_elem)
+                                        match = re.search(
+                                            r"Directed by ([^\n\r<]+)", director_elem
+                                        )
                                         if match:
                                             director = match.group(1).strip()
-                                    info_elem = movie_soup.find('p', class_='t-smaller')
+                                    info_elem = movie_soup.find("p", class_="t-smaller")
                                     year = None
                                     country = None
                                     language = None
                                     duration = None
                                     if info_elem:
                                         info_text = info_elem.get_text()
-                                        parts = [p.strip() for p in info_text.split(',')]
+                                        parts = [
+                                            p.strip() for p in info_text.split(",")
+                                        ]
                                         if len(parts) > 0:
                                             country = parts[0]
                                         if len(parts) > 1:
@@ -191,46 +232,75 @@ class AFSScraper(BaseScraper):
                                         if len(parts) > 2:
                                             duration = parts[2]
                                         for part in parts:
-                                            if 'English' in part or 'French' in part or 'Spanish' in part:
-                                                language = part.replace('In ', '').replace('with English subtitles', '').strip()
-                                    desc_elem = movie_soup.find('div', class_='c-screening-content')
-                                    description = desc_elem.get_text(separator=' ', strip=True) if desc_elem else None
+                                            if (
+                                                "English" in part
+                                                or "French" in part
+                                                or "Spanish" in part
+                                            ):
+                                                language = (
+                                                    part.replace("In ", "")
+                                                    .replace(
+                                                        "with English subtitles", ""
+                                                    )
+                                                    .strip()
+                                                )
+                                    desc_elem = movie_soup.find(
+                                        "div", class_="c-screening-content"
+                                    )
+                                    description = (
+                                        desc_elem.get_text(separator=" ", strip=True)
+                                        if desc_elem
+                                        else None
+                                    )
                                     date_map = {}
-                                    for li in movie_soup.select('.c-showtime-select__trigger'):
-                                        data_target = li.get('data-target')
+                                    for li in movie_soup.select(
+                                        ".c-showtime-select__trigger"
+                                    ):
+                                        data_target = li.get("data-target")
                                         if data_target and len(data_target) == 8:
                                             date_fmt = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
                                             date_map[data_target] = date_fmt
                                     if not date_map:
-                                        for div in movie_soup.select('div.c-showtime-display'):
-                                            div_id = div.get('id', '')
-                                            if div_id.startswith('showtime-') and len(div_id) == 17:
-                                                data_target = div_id.replace('showtime-', '')
+                                        for div in movie_soup.select(
+                                            "div.c-showtime-display"
+                                        ):
+                                            div_id = div.get("id", "")
+                                            if (
+                                                div_id.startswith("showtime-")
+                                                and len(div_id) == 17
+                                            ):
+                                                data_target = div_id.replace(
+                                                    "showtime-", ""
+                                                )
                                                 if len(data_target) == 8:
                                                     date_fmt = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
                                                     date_map[data_target] = date_fmt
                                     events = []
                                     for data_target, date_fmt in date_map.items():
-                                        showtime_div = movie_soup.find('div', id=f'showtime-{data_target}')
+                                        showtime_div = movie_soup.find(
+                                            "div", id=f"showtime-{data_target}"
+                                        )
                                         if showtime_div:
-                                            time_buttons = showtime_div.find_all('a', class_='c-button')
+                                            time_buttons = showtime_div.find_all(
+                                                "a", class_="c-button"
+                                            )
                                             for btn in time_buttons:
                                                 time_str = btn.get_text(strip=True)
                                                 if not time_str:
                                                     continue
                                                 event = {
-                                                    'title': title,
-                                                    'director': director,
-                                                    'year': year,
-                                                    'country': country,
-                                                    'language': language,
-                                                    'duration': duration,
-                                                    'date': date_fmt,
-                                                    'time': time_str,
-                                                    'venue': 'AFS Cinema',
-                                                    'type': 'film',
-                                                    'description': description,
-                                                    'url': movie_url,
+                                                    "title": title,
+                                                    "director": director,
+                                                    "year": year,
+                                                    "country": country,
+                                                    "language": language,
+                                                    "duration": duration,
+                                                    "date": date_fmt,
+                                                    "time": time_str,
+                                                    "venue": "AFS Cinema",
+                                                    "type": "movie",
+                                                    "description": description,
+                                                    "url": movie_url,
                                                 }
                                                 events.append(event)
                                     if events:

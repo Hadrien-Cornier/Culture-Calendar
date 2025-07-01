@@ -184,23 +184,23 @@ class EventProcessor:
             )
 
             prompt = f"""
-You are a ruthless film critic grading with uncompromising academic standards. Assess the film described below using a 0–10 scale where
+You are a ruthless movie critic grading with uncompromising academic standards. Assess the movie described below using a 0–10 scale where
 0–4 = weak or derivative,
 5–6 = competent but unremarkable,
 7–8 = strong,
 9–10 = exceptional masterpieces. Scores above 5 must be justified with specific evidence.
 
-Film Details:
+Movie Details:
 {details}
 
 Provide a concise report with these sections:
 ★ Rating: [X/10] (integer only)
-🎬 Originality & Surprise – does the film avoid clichés and deliver unpredictable storytelling?
+🎬 Originality & Surprise – does the movie avoid clichés and deliver unpredictable storytelling?
 🎥 Artistic Craft – evaluate narrative structure, character depth, cinematography, sound and pacing.
 🎭 Thematic Depth – discuss universal human experiences explored with nuance.
 🏛️ Comparative Excellence – compare against landmark works in its genre, referencing broad critical consensus if relevant.
 
-Focus solely on artistic merit and complexity. Reward innovation and high entropy; ignore ideological framing. Ensure you are reviewing the specific film described above and not a different work with a similar title.
+Focus solely on artistic merit and complexity. Reward innovation and high entropy; ignore ideological framing. Ensure you are reviewing the specific movie described above and not a different work with a similar title.
 """
 
             data = {

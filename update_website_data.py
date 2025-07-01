@@ -2,7 +2,7 @@
 """
 Website data updater for Culture Calendar
 Generates JSON data for the GitHub Pages website
-Supports multiple venues: AFS, Hyperreal Film Club, and others
+Supports multiple venues: AFS, Hyperreal Movie Club, and others
 """
 
 import json
@@ -72,6 +72,10 @@ def filter_work_hours(events):
             # Check if outside work hours (before 9am or after 6pm)
             if hour < 9 or hour >= 18:
                 filtered_events.append(event)
+            else:
+                print(
+                    f"[WORK HOURS FILTER] Discarded: '{event.get('title', 'Unknown')}' | Venue: '{event.get('venue', 'Unknown')}' | Date: '{event.get('date', 'Unknown')}' | Time: '{event.get('time', 'Unknown')}' (hour: {hour})"
+                )
 
         except Exception as e:
             print(
@@ -125,7 +129,14 @@ def filter_upcoming_events(events, mode="month"):
             event_date = datetime.strptime(event["date"], "%Y-%m-%d").date()
             if start_date <= event_date <= end_date:
                 filtered_events.append(event)
+            else:
+                print(
+                    f"[DATE FILTER] Discarded: '{event.get('title', 'Unknown')}' | Venue: '{event.get('venue', 'Unknown')}' | Date: '{event.get('date', 'Unknown')}'"
+                )
         except (ValueError, KeyError):
+            print(
+                f"[DATE FILTER] Discarded (parse error): '{event.get('title', 'Unknown')}' | Venue: '{event.get('venue', 'Unknown')}' | Date: '{event.get('date', 'Unknown')}'"
+            )
             continue
 
     return filtered_events
@@ -158,7 +169,7 @@ def is_movie_event(title, description=""):
     """Determine if an event is a movie screening vs festival/discussion/other event"""
     # Non-movie event indicators
     non_movie_indicators = [
-        "film festival",
+        "movie festival",
         "festival",
         "symposium",
         "conference",
@@ -235,7 +246,7 @@ def generate_website_data(events):
         elif event.get("type") == "book_club":
             book_club_events.append(event)
             website_events.append(event)
-        elif event.get("is_movie", True):
+        elif event.get("type") == "movie" or event.get("is_movie", True):
             movie_events.append(event)
             website_events.append(event)
 
@@ -498,8 +509,8 @@ def main(
                     print(
                         f"Error getting details for {event.get( 'title','Unknown')}: {e}"
                     )
-            elif event.get("type") == "concert":
-                # Classical events already have complete details from JSON
+            elif event.get("type") in ["concert", "movie"]:
+                # Classical events and movie events already have complete details
                 detailed_events.append(event)
 
         print(f"Processing {len(detailed_events)} total events")

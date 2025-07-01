@@ -121,7 +121,7 @@ class SummaryGenerator:
 
         # Events that should NOT be summarized
         non_specific_indicators = [
-            "film festival",
+            "movie festival",
             "festival",
             "symposium",
             "conference",
@@ -168,24 +168,20 @@ class SummaryGenerator:
             if indicator in description:
                 return False
 
-        # For film events, check if it's actually a specific film
+        # For movie events, check if it's actually a specific movie
         if event.get("type") == "screening" or event.get("isMovie", False):
-            # If it doesn't have a director and year, it might not be a specific film
-            if not event.get("director") and not event.get("year"):
-                # Check if title suggests it's not a specific film
-                vague_film_indicators = [
-                    "various films",
-                    "multiple films",
-                    "selection of",
-                    "collection of",
-                    "featuring films",
-                    "film series",
-                    "movie series",
-                    "cinema series",
-                ]
-                for indicator in vague_film_indicators:
-                    if indicator in title or indicator in description:
-                        return False
+            # If it doesn't have a director and year, it might not be a specific movie
+            # Check if title suggests it's not a specific movie
+            vague_movie_indicators = [
+                "various movies",
+                "multiple movies",
+                "movie collection",
+                "featuring movies",
+                "movie series",
+            ]
+            for indicator in vague_movie_indicators:
+                if indicator in title or indicator in description:
+                    return False
 
         # For book clubs, make sure it's about a specific book
         if event.get("type") == "book_club":
@@ -249,13 +245,13 @@ class SummaryGenerator:
                 "i'm unable to",
                 "cannot summarize",
                 "not a single",
-                "not a single film",
+                "not a single movie",
                 "is an event",
                 "is a festival",
                 "is a series",
-                "multiple films",
+                "multiple movies",
                 "collection of",
-                "various films",
+                "various movies",
             ]
 
             for indicator in refusal_indicators:
@@ -277,7 +273,7 @@ class SummaryGenerator:
                 "Summary:",
                 "The summary is:",
                 "This is a",
-                "This film is",
+                "This movie is",
                 "Your one-line summary:",
                 "One-line summary:",
             ]
@@ -364,7 +360,7 @@ class SummaryGenerator:
 
         # Extract key information from the AI description if available
         if description and len(description) > 100:
-            prompt = f"""Create a compelling one-line summary (8-12 words) that captures this film's essence.
+            prompt = f"""Create a compelling one-line summary (8-12 words) that captures this movie's essence.
 
 Title: {title}
 Director: {director}
@@ -374,26 +370,26 @@ Year: {year}
 Analysis:
 {description}
 
-IMPORTANT: Only summarize if this is a specific individual film. If this is a film festival, series, collection, or multiple films, respond with "CANNOT SUMMARIZE - NOT A SINGLE FILM".
+IMPORTANT: Only summarize if this is a specific individual movie. If this is a movie festival, series, collection, or multiple movies, respond with "CANNOT SUMMARIZE - NOT A SINGLE MOVIE".
 
-Based on this analysis, provide ONLY a concise summary that captures the film's mood, genre, and key themes. No explanations or introductions - just the summary.
+Based on this analysis, provide ONLY a concise summary that captures the movie's mood, genre, and key themes. No explanations or introductions - just the summary.
 
 Examples:
-- "Bleak UK road film about obsession and loneliness"
+- "Bleak UK road movie about obsession and loneliness"
 - "Haunting Japanese adaptation exploring ambition and betrayal"
 - "Surreal Lynch thriller diving into Hollywood's dark underbelly"
 
 Summary:"""
         else:
             # Fallback for events without rich descriptions
-            prompt = f"""Generate a one-line summary for this film screening based on available information.
+            prompt = f"""Generate a one-line summary for this movie screening based on available information.
 
 Title: {title}
 Director: {director}
 Country: {country}
 Year: {year}
 
-IMPORTANT: Only summarize if this is a specific individual film. If this is a film festival, series, collection, or multiple films, respond with "CANNOT SUMMARIZE - NOT A SINGLE FILM".
+IMPORTANT: Only summarize if this is a specific individual movie. If this is a movie festival, series, collection, or multiple movies, respond with "CANNOT SUMMARIZE - NOT A SINGLE MOVIE".
 
 Write a compelling summary (8-12 words) that captures what viewers can expect. Examples:
 - "Classic Kurosawa samurai epic with stunning cinematography"
