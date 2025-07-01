@@ -64,8 +64,7 @@ class EventValidationService:
             self.logger.addHandler(handler)
             self.logger.setLevel(logging.INFO)
 
-        # Validation thresholds
-        self.min_scraper_success_rate = 0.5  # 50% of scrapers must succeed
+        # Validation settings
         self.min_events_per_scraper = 1  # At least 1 valid event per scraper
         self.validation_sample_size = 3  # Sample 3 events per scraper
 
@@ -290,17 +289,23 @@ class EventValidationService:
         """
         health_checks = []
         successful_scrapers = 0
+        failed_scrapers = 0
 
         self.logger.info("🔍 Starting comprehensive scraper validation...")
 
         for scraper_name, events in scraper_results.items():
             self.logger.info(f"Validating {scraper_name}: {len(events)} events")
 
+            # Skip validation if scraper returned no events
+            if not events:
+                self.logger.info(f"⏭️ {scraper_name}: No events to validate")
+                continue
+
             health_check = self.validate_scraper_health(scraper_name, events)
             health_checks.append(health_check)
 
             # Log results
-            if health_check.success_rate >= 0.5:  # 50% success threshold
+            if health_check.success_rate >= 0.5:  # 50% success threshold for individual scrapers
                 successful_scrapers += 1
                 self.logger.info(
                     f"✅ {scraper_name}: {health_check.events_validated}/"
@@ -308,6 +313,7 @@ class EventValidationService:
                     f"({health_check.success_rate:.1%})"
                 )
             else:
+                failed_scrapers += 1
                 self.logger.warning(
                     f"⚠️ {scraper_name}: {health_check.events_validated}/"
                     f"{len(health_check.sample_events)} events valid "
@@ -318,25 +324,24 @@ class EventValidationService:
                 for error in health_check.errors[:3]:  # First 3 errors
                     self.logger.warning(f"   - {error}")
 
-        # Determine if pipeline should continue
-        total_scrapers = len(scraper_results)
-        scraper_success_rate = (
-            successful_scrapers / total_scrapers if total_scrapers > 0 else 0
-        )
+        # Pipeline should continue if no scrapers failed validation
+        # (scrapers with 0 events are not counted as failures)
+        should_continue = failed_scrapers == 0
 
-        should_continue = scraper_success_rate >= self.min_scraper_success_rate
-
-        self.logger.info(
-            f"📊 Validation Summary: {successful_scrapers}/{total_scrapers} scrapers passed "
-            f"({scraper_success_rate:.1%})"
-        )
+        total_validated = successful_scrapers + failed_scrapers
+        
+        if total_validated > 0:
+            self.logger.info(
+                f"📊 Validation Summary: {successful_scrapers}/{total_validated} scrapers passed"
+            )
+        else:
+            self.logger.info("📊 Validation Summary: No scrapers had events to validate")
 
         if should_continue:
             self.logger.info("✅ Pipeline validation passed - continuing...")
         else:
             self.logger.error(
-                f"❌ Pipeline validation failed - only {scraper_success_rate:.1%} "
-                f"of scrapers succeeded (minimum: {self.min_scraper_success_rate:.1%})"
+                f"❌ Pipeline validation failed - {failed_scrapers} scraper(s) returned invalid events"
             )
 
         return should_continue, health_checks

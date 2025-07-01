@@ -4,7 +4,7 @@ Hyperreal Movie Club scraper for extracting movie screening events.
 
 import asyncio
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
 from urllib.parse import urljoin
 
@@ -50,11 +50,15 @@ class HyperrealScraper(BaseScraper):
         """Extract individual event page links from calendar HTML."""
         soup = BeautifulSoup(html_content, "html.parser")
         event_links = []
+        
+        # Get current year for dynamic filtering
+        current_year = datetime.now().year
 
         # Find all event links in the calendar
         for link in soup.find_all("a", href=True):
             href = link.get("href", "")
-            if "/events/2025/" in href and "movie-screening" in href:
+            # Check for events with current year in URL
+            if f"/events/{current_year}/" in href:
                 full_url = urljoin(self.base_url, href)
                 event_links.append(full_url)
 

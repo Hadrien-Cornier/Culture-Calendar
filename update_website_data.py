@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 
 from src.processor import EventProcessor
 from src.scraper import MultiVenueScraper
+from src.summary_generator import SummaryGenerator
 from src.validation_service import EventValidationService
 
 
@@ -302,6 +303,7 @@ def generate_website_data(events):
                 "year": event.get("year"),
                 "language": event.get("language"),
                 "venue": event.get("venue", "AFS"),  # Venue tag
+                "type": event.get("type", "screening"),  # Preserve event type
                 "screenings": [],
             }
 
@@ -355,6 +357,7 @@ def generate_website_data(events):
             "works": event.get("works", []),
             "featured_artist": event.get("featured_artist"),
             "program": event.get("program"),
+            "type": event.get("type", "concert"),  # Preserve event type
             "screenings": [
                 {  # Using "screenings" terminology for consistency with website
                     "date": event["date"],
@@ -394,6 +397,7 @@ def generate_website_data(events):
             "book": event.get("book"),
             "author": event.get("author"),
             "host": event.get("host"),
+            "type": event.get("type", "book_club"),  # Preserve event type
             "screenings": [
                 {  # Using "screenings" terminology for consistency with website
                     "date": event["date"],
@@ -562,6 +566,17 @@ def main(
         print("Processing and enriching events...")
         enriched_events = processor.process_events(marked_events)
         print(f"Processed {len(enriched_events)} events")
+        
+        # Generate one-line summaries for events
+        print("\nGenerating one-line summaries...")
+        summary_generator = SummaryGenerator()
+        for event in enriched_events:
+            if not event.get('oneLinerSummary'):
+                summary = summary_generator.generate_summary(event)
+                if summary:
+                    event['oneLinerSummary'] = summary
+                    print(f"  Generated summary for: {event.get('title', 'Unknown')}")
+        print("Completed summary generation")
 
         # Generate website JSON data
         print("Generating website data...")
@@ -571,7 +586,7 @@ def main(
         with open("docs/data.json", "w") as f:
             json.dump(website_data, f, indent=2)
 
-        print(f"Generated docs/data.json with {len(website_data)} movies")
+        print(f"Generated docs/data.json with {len(website_data)} events")
         # Save per-source update timestamps
         save_update_info(scraper.last_updated)
 

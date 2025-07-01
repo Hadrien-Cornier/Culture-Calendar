@@ -119,20 +119,21 @@ class SummaryGenerator:
         title = event.get("title", "").lower()
         description = event.get("description", "").lower()
 
-        # Events that should NOT be summarized
-        non_specific_indicators = [
+        # Events that should NOT be summarized - only in TITLES
+        title_non_specific_indicators = [
             "movie festival",
-            "festival",
+            " festival",  # Add space to avoid false matches
             "symposium",
             "conference",
             "workshop",
             "discussion panel",
-            "panel",
-            "conversation",
-            "talk",
+            "panel discussion",
+            " talk ",  # Standalone talk events
+            "lecture",
             "seminar",
             "masterclass",
-            "awards",
+            "awards ceremony",
+            "awards show",
             "ceremony",
             "gala",
             "fundraiser",
@@ -144,27 +145,48 @@ class SummaryGenerator:
             "opening night",
             "closing night",
             "auteur festival",
-            "series",
-            "season",
-            "program",
-            "showcase",
-            "retrospective",
-            "tribute",
-            "celebration",
             "event series",
             "monthly meeting",
             "weekly meeting",
-            "club meeting",
             "group meeting",
+        ]
+        
+        # Very specific patterns that indicate series/seasons (not specific events)
+        series_indicators = [
+            "series",
+            " season ",  # Add spaces to be more specific
+            "program",
+            "showcase", 
+            "retrospective",
+            "tribute",
+            "celebration"
         ]
 
         # Check title for non-specific indicators
-        for indicator in non_specific_indicators:
+        for indicator in title_non_specific_indicators:
             if indicator in title:
+                print(f"DEBUG: Title '{title}' rejected for title indicator: '{indicator}'")
+                return False
+                
+        # Only reject for series indicators if they're clearly part of the title structure
+        for indicator in series_indicators:
+            if indicator in title:
+                # Skip "A Season Of" series titles - they're about specific books
+                if "season of" in title and (event.get("book") or event.get("author")):
+                    continue
+                print(f"DEBUG: Title '{title}' rejected for series indicator: '{indicator}'")
                 return False
 
-        # Check description for non-specific indicators
-        for indicator in non_specific_indicators:
+        # Don't check description for most indicators to avoid false positives like "gutter talk"
+        # Only check for very obvious non-event words in description
+        description_indicators = [
+            "movie festival",
+            " festival ",
+            "symposium",
+            "conference",
+            "awards ceremony"
+        ]
+        for indicator in description_indicators:
             if indicator in description:
                 return False
 
@@ -192,13 +214,12 @@ class SummaryGenerator:
             if not event.get("book") and not event.get("author"):
                 # Check if it's a general book club meeting
                 general_book_indicators = [
-                    "book club meeting",
-                    "monthly book",
-                    "weekly book",
+                    "meeting",
+                    "monthly meeting",
+                    "weekly meeting",
                     "discussion group",
                     "reading group",
                     "literature group",
-                    "book discussion",
                 ]
                 for indicator in general_book_indicators:
                     if indicator in title:
