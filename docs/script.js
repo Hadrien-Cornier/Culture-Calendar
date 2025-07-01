@@ -380,36 +380,41 @@ async function loadEventsData() {
     try {
         console.log('Starting data load process...'); // Debug log
         console.log('Current URL:', window.location.href); // Debug log
-        
-        // Try absolute URL first, then relative
-        let dataUrl = 'data.json';
-        if (window.location.hostname === 'hadrien-cornier.github.io') {
-            dataUrl = '/Culture-Calendar/data.json';
-        }
-        
-        console.log('Attempting to load:', dataUrl); // Debug log
-        const response = await fetch(dataUrl);
-        console.log('Fetch response status:', response.status, response.statusText); // Debug log
-        console.log('Response headers:', response.headers); // Debug log
-        
-        if (!response.ok) {
-            // Try fallback URL
-            if (dataUrl !== 'data.json') {
-                console.log('Trying fallback URL: data.json');
-                const fallbackResponse = await fetch('data.json');
-                if (!fallbackResponse.ok) {
+
+        // Use embedded data if available (for file:// compatibility)
+        if (window.EMBEDDED_EVENTS_DATA && Array.isArray(window.EMBEDDED_EVENTS_DATA)) {
+            eventsData = window.EMBEDDED_EVENTS_DATA;
+            console.log('Loaded events data from embedded variable:', eventsData.length, 'events');
+        } else {
+            // Try absolute URL first, then relative
+            let dataUrl = 'data.json';
+            if (window.location.hostname === 'hadrien-cornier.github.io') {
+                dataUrl = '/Culture-Calendar/data.json';
+            }
+
+            console.log('Attempting to load:', dataUrl); // Debug log
+            const response = await fetch(dataUrl);
+            console.log('Fetch response status:', response.status, response.statusText); // Debug log
+            console.log('Response headers:', response.headers); // Debug log
+
+            if (!response.ok) {
+                // Try fallback URL
+                if (dataUrl !== 'data.json') {
+                    console.log('Trying fallback URL: data.json');
+                    const fallbackResponse = await fetch('data.json');
+                    if (!fallbackResponse.ok) {
+                        throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                    }
+                    const fallbackData = await fallbackResponse.json();
+                    eventsData = fallbackData;
+                } else {
                     throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
                 }
-                const fallbackData = await fallbackResponse.json();
-                eventsData = fallbackData;
             } else {
-                throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                eventsData = await response.json();
             }
-        } else {
-            eventsData = await response.json();
+            console.log('Loaded events data:', eventsData?.length, 'events'); // Debug log
         }
-        
-        console.log('Loaded events data:', eventsData?.length, 'events'); // Debug log
         
         // Validate data structure
         if (!Array.isArray(eventsData)) {
