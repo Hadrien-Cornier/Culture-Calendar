@@ -6,35 +6,88 @@
     <title>How It Works - Culture Calendar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/edwardtufte/et-book/et-book.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="global-header container">
-        <div class="header-left">
-            <span class="brand">Culture Calendar</span>
-            <span class="divider"></span>
-            <span class="location">Austin</span>
+    <header class="masthead">
+        <div class="masthead-border-top"></div>
+        <div class="container">
+            <div class="masthead-content">
+                <div class="masthead-date">
+                    <time id="masthead-date"></time>
+                    <span class="masthead-location">Austin, Texas</span>
+                </div>
+                <h1 class="masthead-title">Culture Calendar</h1>
+                <p class="masthead-tagline">A curated guide to film, music, and literary events</p>
+            </div>
         </div>
+        <div class="masthead-border-bottom"></div>
     </header>
-
-    <main class="container">
-        <section class="info-section">
-            <h3>How It Works</h3>
-            <p>Event data is scraped from major Austin venues and rated using the Perplexity AI API. Screenings during standard work hours are automatically filtered out.</p>
-
-            <h4>Venues</h4>
-            <ul class="venue-links">
-                <li><a href="https://www.austinfilm.org" target="_blank">Austin Film Society</a></li>
-                <li><a href="https://hyperrealfilm.club" target="_blank">Hyperreal Film Club</a></li>
-                <li><a href="https://www.austinparamount.com" target="_blank">Paramount Theatre</a></li>
-                <li><a href="https://austinsymphony.org" target="_blank">Austin Symphony Orchestra</a></li>
-                <li><a href="https://www.early-music.org" target="_blank">Texas Early Music Project</a></li>
-                <li><a href="https://www.lafolliaaustin.org" target="_blank">La Follia Austin</a></li>
-                <li><a href="https://www.alienatedmajestybooks.com" target="_blank">Alienated Majesty Books</a></li>
-                <li><a href="https://www.firstlightaustin.com" target="_blank">First Light Austin</a></li>
+    
+    <nav class="primary-nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">← Back to Events</a></li>
+                <li class="nav-separator"></li>
+                <li><a href="index.html" class="nav-link">Today</a></li>
+                <li><a href="index.html" class="nav-link">This Week</a></li>
+                <li><a href="index.html" class="nav-link">Calendar</a></li>
             </ul>
-        </section>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <article class="article-content">
+                    <header class="section-header">
+                        <h2 class="section-title">How It Works</h2>
+                    </header>
+                    
+                    <div class="article-body">
+                        <p class="lead-paragraph">Culture Calendar automatically collects and curates cultural events from Austin's premier venues, providing AI-powered ratings and personalized recommendations.</p>
+                        
+                        <h3>The Process</h3>
+                        <p>Every week, our system scrapes event listings from eight major Austin cultural venues. Each event is analyzed using advanced AI technology to provide ratings, summaries, and critical assessments. Events scheduled during standard work hours (9am-6pm weekdays) are automatically filtered out to focus on accessible cultural experiences.</p>
+                        
+                        <h3>Data Sources</h3>
+                        <p>We aggregate events from the following venues:</p>
+                        
+                        <h4>Film Venues</h4>
+                        <ul class="venue-list">
+                            <li><a href="https://www.austinfilm.org" target="_blank" rel="noopener">Austin Film Society</a> — Art house and repertory cinema</li>
+                            <li><a href="https://hyperrealfilm.club" target="_blank" rel="noopener">Hyperreal Film Club</a> — Experimental and avant-garde screenings</li>
+                            <li><a href="https://www.austinparamount.com" target="_blank" rel="noopener">Paramount Theatre</a> — Classic films and special events</li>
+                        </ul>
+                        
+                        <h4>Music Venues</h4>
+                        <ul class="venue-list">
+                            <li><a href="https://austinsymphony.org" target="_blank" rel="noopener">Austin Symphony Orchestra</a> — Classical symphonic performances</li>
+                            <li><a href="https://www.early-music.org" target="_blank" rel="noopener">Texas Early Music Project</a> — Medieval, Renaissance, and Baroque music</li>
+                            <li><a href="https://www.lafolliaaustin.org" target="_blank" rel="noopener">La Follia Austin</a> — Chamber music ensemble</li>
+                        </ul>
+                        
+                        <h4>Literary Venues</h4>
+                        <ul class="venue-list">
+                            <li><a href="https://www.alienatedmajestybooks.com" target="_blank" rel="noopener">Alienated Majesty Books</a> — Book club and author events</li>
+                            <li><a href="https://www.firstlightaustin.com" target="_blank" rel="noopener">First Light Austin</a> — Multiple book clubs and literary discussions</li>
+                        </ul>
+                        
+                        <h3>AI Analysis</h3>
+                        <p>Each event is evaluated using Claude, an advanced AI system that considers artistic merit, historical significance, and cultural relevance. The system provides ratings on a 10-point scale along with detailed critical assessments written in an engaging, knowledgeable style.</p>
+                        
+                        <h3>Updates</h3>
+                        <p>The calendar updates automatically:</p>
+                        <ul>
+                            <li><strong>Weekly:</strong> Every Saturday at 9 PM UTC for incremental updates</li>
+                            <li><strong>Monthly:</strong> First of each month at 6 AM UTC for comprehensive refresh</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
     </main>
 
     <footer class="site-footer">
@@ -73,5 +126,15 @@
             </div>
         </div>
     </footer>
+    
+    <script>
+        // Update masthead date
+        const mastheadDate = document.getElementById('masthead-date');
+        if (mastheadDate) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date();
+            mastheadDate.textContent = today.toLocaleDateString('en-US', options);
+        }
+    </script>
 </body>
 </html>

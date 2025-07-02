@@ -6,102 +6,127 @@
     <title>Culture Calendar - Austin Cultural Events</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/edwardtufte/et-book/et-book.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="global-header container">
-        <div class="header-content">
-            <div class="header-brand">
-                <span class="brand">🎭 Culture Calendar</span>
-                <span class="tagline">⬤ Film ⬤ Music ⬤ Books — All Events</span>
+    <header class="masthead">
+        <div class="masthead-border-top"></div>
+        <div class="container">
+            <div class="masthead-content">
+                <div class="masthead-date">
+                    <time id="masthead-date"></time>
+                    <span class="masthead-location">Austin, Texas</span>
+                </div>
+                <h1 class="masthead-title">Culture Calendar</h1>
+                <p class="masthead-tagline">A curated guide to film, music, and literary events</p>
             </div>
-            <nav class="nav-tabs">
-                <a href="#" class="nav-tab active" data-view="today">Today</a>
-                <a href="#" class="nav-tab" data-view="weekend">This Weekend</a>
-                <a href="#" class="nav-tab" data-view="week">This Week</a>
-                <a href="#" class="nav-tab" data-view="all">All Events</a>
-                <a href="#" class="nav-tab" data-view="calendar">Calendar View</a>
-            </nav>
         </div>
+        <div class="masthead-border-bottom"></div>
     </header>
+    
+    <nav class="primary-nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#" class="nav-link active" data-view="today">Today</a></li>
+                <li><a href="#" class="nav-link" data-view="weekend">This Weekend</a></li>
+                <li><a href="#" class="nav-link" data-view="week">This Week</a></li>
+                <li><a href="#" class="nav-link" data-view="all">All Events</a></li>
+                <li><a href="#" class="nav-link" data-view="calendar">Calendar</a></li>
+                <li class="nav-separator"></li>
+                <li><a href="#" class="nav-link nav-secondary" id="show-filters-link">Filters</a></li>
+                <li><a href="#" class="nav-link nav-secondary" id="download-link">Download</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <main class="container">
+    <main class="main-content">
+        <div class="container">
 
         <!-- Classical Music Data Warning -->
         <section id="classical-data-warning" class="classical-warning" style="display: none;">
             <!-- Warning content will be populated by JavaScript -->
         </section>
 
-        <!-- Filter Section -->
-        <section class="filter-section">
-            <div class="filter-main-controls">
-                <button id="show-filters-btn" class="show-filters-button">Show Filters ▸</button>
-                <div class="download-buttons">
-                    <button id="download-btn" class="download-button">Download Calendar</button>
-                </div>
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar" id="filter-sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Refine Results</h2>
+                <button class="sidebar-close" id="close-filters" aria-label="Close filters">×</button>
             </div>
-            
-            <!-- Collapsible Filter Drawer -->
-            <div id="filter-drawer" class="filter-drawer" style="display: none;">
-                <div class="filter-drawer-content">
+            <div class="sidebar-content">
+                <section class="filter-section">
+                    <h3 class="filter-title">Rating</h3>
                     <div class="rating-control">
-                        <label for="rating-slider">Minimum Rating: <span id="rating-value">1</span>/10</label>
-                        <input type="range" id="rating-slider" min="1" max="10" value="1" class="slider">
+                        <label for="rating-slider" class="rating-label">
+                            Minimum: <span id="rating-value" class="rating-value">1</span>/10
+                        </label>
+                        <input type="range" id="rating-slider" min="1" max="10" value="1" class="rating-slider">
                     </div>
+                </section>
                     
-                    <div class="search-filter">
-                        <label for="search-input">Search Reviews</label>
-                        <input type="text" id="search-input" placeholder="Enter keywords...">
+                <section class="filter-section">
+                    <h3 class="filter-title">Search</h3>
+                    <div class="search-control">
+                        <input type="text" id="search-input" placeholder="Search events..." class="search-input">
                     </div>
+                </section>
                     
-                    <div class="genre-filters" id="genre-filters">
-                        <h3>Filter by Country</h3>
-                        <div class="genre-buttons" id="genre-buttons">
-                            <!-- Country filter buttons will be populated by JavaScript -->
-                        </div>
+                <section class="filter-section" id="genre-filters">
+                    <h3 class="filter-title">Country</h3>
+                    <div class="filter-options" id="genre-buttons">
+                        <!-- Country filter buttons will be populated by JavaScript -->
                     </div>
+                </section>
                     
-                    <div class="venue-filters" id="venue-filters">
-                        <h3>Filter by Venue</h3>
-                        <div class="venue-buttons" id="venue-buttons">
-                            <!-- Venue filter buttons will be populated by JavaScript -->
-                        </div>
+                <section class="filter-section" id="venue-filters">
+                    <h3 class="filter-title">Venues</h3>
+                    <div class="filter-options" id="venue-buttons">
+                        <!-- Venue filter buttons will be populated by JavaScript -->
                     </div>
+                </section>
                     
-                    <div class="special-events-filter" id="special-events-filter">
-                        <h3>Special Events</h3>
-                        <div class="special-filter-buttons">
-                            <button id="special-events-toggle" class="special-filter-btn">
-                                Show Special Events Only
-                            </button>
-                        </div>
+                <section class="filter-section">
+                    <h3 class="filter-title">Display Options</h3>
+                    <div class="toggle-options">
+                        <label class="toggle-option">
+                            <input type="checkbox" id="special-events-toggle" class="toggle-checkbox">
+                            <span class="toggle-label">Special Events Only</span>
+                        </label>
+                        <label class="toggle-option">
+                            <input type="checkbox" id="hide-work-hours-toggle" class="toggle-checkbox">
+                            <span class="toggle-label">Hide Work Hours</span>
+                        </label>
                     </div>
-                    
-                    <div class="work-hours-filter" id="work-hours-filter">
-                        <h3>Work Hours</h3>
-                        <div class="work-hours-filter-buttons">
-                            <button id="hide-work-hours-toggle" class="work-hours-filter-btn">
-                                Hide Work Hours (9am-6pm)
-                            </button>
-                        </div>
-                    </div>
+                </section>
+                
+                <div class="sidebar-actions">
+                    <button id="download-btn" class="btn btn-primary">Download Calendar</button>
                 </div>
             </div>
-        </section>
+        </aside>
 
 
-        <!-- Events List Section -->
-        <section class="events-section" id="list-view">
-            <h2 id="events-heading">Today's Events</h2>
-            <div id="loading" class="loading">Loading event data...</div>
-            <div id="events-list" class="events-list"></div>
-        </section>
+        <!-- Main Content Area -->
+        <div class="content-wrapper">
+            <!-- Events List Section -->
+            <section class="events-section" id="list-view">
+                <header class="section-header">
+                    <h2 id="events-heading" class="section-title">Today's Events</h2>
+                    <div class="section-meta">
+                        <span id="event-count" class="event-count"></span>
+                    </div>
+                </header>
+                <div id="loading" class="loading">Loading event data...</div>
+                <div id="events-list" class="events-list"></div>
+            </section>
 
-        <!-- Calendar View Section -->
-        <section class="calendar-section" id="calendar-view" style="display: none;">
-            <h2>Calendar View</h2>
+            <!-- Calendar View Section -->
+            <section class="calendar-section" id="calendar-view" style="display: none;">
+                <header class="section-header">
+                    <h2 class="section-title">Calendar View</h2>
+                </header>
             <div class="calendar-navigation">
                 <button id="prev-month" class="nav-btn">← Previous</button>
                 <div class="month-year-display" id="month-year-display"></div>
@@ -120,44 +145,59 @@
         </section>
 
 
-        <section class="update-info">
-            <p id="code-updated">Data last updated: loading...</p>
-        </section>
+            <section class="update-info">
+                <p id="code-updated" class="update-timestamp">Data last updated: loading...</p>
+            </section>
+        </div>
+        </div>
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <h4>Culture Calendar</h4>
-                <p class="mission">A curated, AI-powered guide…</p>
-            </div>
-            <div class="footer-col">
-                <h5>Discover</h5>
-                <ul>
-                    <li><a href="#">Today's Events</a></li>
-                    <li><a href="#">This Week</a></li>
-                    <li><a href="#">Calendar View</a></li>
-                    <li><a href="#">Top Rated</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h5>Venues</h5>
-                <ul>
-                    <li><a href="https://www.austinfilm.org" target="_blank">Austin Film Society</a></li>
-                    <li><a href="https://hyperrealfilm.club" target="_blank">Hyperreal Film Club</a></li>
-                    <li><a href="https://www.austinparamount.com" target="_blank">Paramount Theatre</a></li>
-                    <li><a href="https://austinsymphony.org" target="_blank">Austin Symphony Orchestra</a></li>
-                    <li><a href="https://www.early-music.org" target="_blank">Texas Early Music Project</a></li>
-                    <li><a href="https://www.lafolliaaustin.org" target="_blank">La Follia Austin</a></li>
-                    <li><a href="https://www.alienatedmajestybooks.com" target="_blank">Alienated Majesty Books</a></li>
-                    <li><a href="https://www.firstlightaustin.com" target="_blank">First Light Austin</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h5>About</h5>
-                <ul>
-                    <li><a href="how-it-works.html">How It Works</a></li>
-                </ul>
+        <div class="footer-border"></div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-about">
+                    <h2 class="footer-logo">Culture Calendar</h2>
+                    <p class="footer-mission">A curated guide to Austin's cultural landscape, powered by artificial intelligence and editorial sensibility.</p>
+                    <p class="footer-copyright">© 2025 Culture Calendar. All rights reserved.</p>
+                </div>
+                
+                <nav class="footer-section">
+                    <h3 class="footer-heading">Sections</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-view="today">Today's Events</a></li>
+                        <li><a href="#" data-view="weekend">This Weekend</a></li>
+                        <li><a href="#" data-view="week">This Week</a></li>
+                        <li><a href="#" data-view="calendar">Calendar</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                    </ul>
+                </nav>
+                
+                <nav class="footer-section">
+                    <h3 class="footer-heading">Film Venues</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://www.austinfilm.org" target="_blank" rel="noopener">Austin Film Society</a></li>
+                        <li><a href="https://hyperrealfilm.club" target="_blank" rel="noopener">Hyperreal Film Club</a></li>
+                        <li><a href="https://www.austinparamount.com" target="_blank" rel="noopener">Paramount Theatre</a></li>
+                    </ul>
+                </nav>
+                
+                <nav class="footer-section">
+                    <h3 class="footer-heading">Music Venues</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://austinsymphony.org" target="_blank" rel="noopener">Austin Symphony</a></li>
+                        <li><a href="https://www.early-music.org" target="_blank" rel="noopener">Early Music Project</a></li>
+                        <li><a href="https://www.lafolliaaustin.org" target="_blank" rel="noopener">La Follia Austin</a></li>
+                    </ul>
+                </nav>
+                
+                <nav class="footer-section">
+                    <h3 class="footer-heading">Literary Venues</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://www.alienatedmajestybooks.com" target="_blank" rel="noopener">Alienated Majesty</a></li>
+                        <li><a href="https://www.firstlightaustin.com" target="_blank" rel="noopener">First Light Austin</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </footer>

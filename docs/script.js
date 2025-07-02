@@ -18,6 +18,7 @@ const ratingValue = document.getElementById('rating-value');
 const downloadBtn = document.getElementById('download-btn');
 const eventsList = document.getElementById('events-list');
 const eventsHeading = document.getElementById('events-heading');
+const eventCountElement = document.getElementById('event-count');
 const loadingElement = document.getElementById('loading');
 const listView = document.getElementById('list-view');
 const calendarView = document.getElementById('calendar-view');
@@ -34,15 +35,12 @@ const clearDateFilterBtn = document.getElementById('clear-date-filter');
 const updateList = document.getElementById('update-list');
 const searchInput = document.getElementById('search-input');
 const codeUpdatedElement = document.getElementById('code-updated');
-const showFiltersBtn = document.getElementById('show-filters-btn');
-const filterDrawer = document.getElementById('filter-drawer');
-const navTabs = document.querySelectorAll('.nav-tab');
-const sortBtn = document.getElementById('sort-btn');
-const sortMenu = document.getElementById('sort-menu');
+const filterSidebar = document.getElementById('filter-sidebar');
+const showFiltersLink = document.getElementById('show-filters-link');
+const downloadLink = document.getElementById('download-link');
+const closeFiltersBtn = document.getElementById('close-filters');
 const navLinks = document.querySelectorAll('.nav-link');
-const refineBtn = document.getElementById('refine-btn');
-const listViewBtn = document.getElementById('list-view-btn');
-const calendarViewBtn = document.getElementById('calendar-view-btn');
+const mastheadDate = document.getElementById('masthead-date');
 
 let searchTerm = '';
 let selectedDirector = null;
@@ -62,11 +60,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     console.log('All critical elements found, proceeding...'); // Debug log
+    updateMastheadDate();
     setupEventListeners();
     loadEventsData();
     loadUpdateInfo();
     loadCodeUpdateTime();
 });
+
+// Update masthead date
+function updateMastheadDate() {
+    if (mastheadDate) {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const today = new Date();
+        mastheadDate.textContent = today.toLocaleDateString('en-US', options);
+    }
+}
+
+// Update event count
+function updateEventCount() {
+    if (eventCountElement) {
+        const count = filteredEvents.length;
+        eventCountElement.textContent = `${count} event${count !== 1 ? 's' : ''}`;
+    }
+}
 
 // Set up event listeners
 function setupEventListeners() {
@@ -86,29 +102,64 @@ function setupEventListeners() {
         downloadFilteredCalendar(minRating);
     });
 
-    // Navigation tabs
-    navTabs.forEach(tab => {
-        tab.addEventListener('click', function(e) {
+    // Navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
             const newView = this.dataset.view;
-            switchView(newView);
+            if (newView) {
+                switchView(newView);
+                // Update active state
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            }
         });
     });
 
     // Show/hide filters
-    if (showFiltersBtn) {
-        showFiltersBtn.addEventListener('click', function() {
-            toggleFilterDrawer();
+    if (showFiltersLink) {
+        showFiltersLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleFilterSidebar();
+        });
+    }
+    
+    if (closeFiltersBtn) {
+        closeFiltersBtn.addEventListener('click', function() {
+            toggleFilterSidebar();
+        });
+    }
+    
+    // Download link
+    if (downloadLink) {
+        downloadLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const minRating = parseInt(ratingSlider.value);
+            downloadFilteredCalendar(minRating);
         });
     }
 
-    specialEventsToggle.addEventListener('click', function() {
-        toggleSpecialEventsFilter();
-    });
+    if (specialEventsToggle) {
+        specialEventsToggle.addEventListener('change', function() {
+            showSpecialEventsOnly = this.checked;
+            updateFilteredEvents();
+            renderEvents();
+            if (currentView === 'calendar') {
+                renderCalendar();
+            }
+        });
+    }
 
-    hideWorkHoursToggle.addEventListener('click', function() {
-        toggleWorkHoursFilter();
-    });
+    if (hideWorkHoursToggle) {
+        hideWorkHoursToggle.addEventListener('change', function() {
+            hideWorkHours = this.checked;
+            updateFilteredEvents();
+            renderEvents();
+            if (currentView === 'calendar') {
+                renderCalendar();
+            }
+        });
+    }
 
     prevMonthBtn.addEventListener('click', function() {
         navigateMonth(-1);
@@ -137,116 +188,44 @@ function setupEventListeners() {
         });
     }
 
-    // Sort functionality
-    if (sortBtn) {
-        sortBtn.addEventListener('click', function() {
-            toggleSortMenu();
-        });
-    }
-
-    // Navigation functionality
-    if (navLinks && navLinks.length > 0) {
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const linkText = this.textContent.toLowerCase();
-                handleNavClick(linkText, this);
-            });
-        });
-    }
-
-    // Sort options
+    // Click outside to close filter sidebar
     document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('sort-option')) {
-            handleSortChange(e.target.dataset.sort);
-        }
-        // Close sort menu if clicking outside
-        if (!e.target.closest('.sort-dropdown')) {
-            closeSortMenu();
+        if (filterSidebar && filterSidebar.classList.contains('active')) {
+            if (!filterSidebar.contains(e.target) && 
+                !showFiltersLink.contains(e.target) &&
+                !e.target.classList.contains('sidebar-backdrop')) {
+                toggleFilterSidebar();
+            }
         }
     });
 }
 
-// Sort menu functions
-function toggleSortMenu() {
-    if (sortMenu) {
-        sortMenu.classList.toggle('open');
-    }
-}
 
-function closeSortMenu() {
-    if (sortMenu) {
-        sortMenu.classList.remove('open');
-    }
-}
-
-function handleSortChange(sortType) {
-    currentSort = sortType;
+// Switch view
+function switchView(view) {
+    currentView = view;
     
-    // Update active sort option
-    document.querySelectorAll('.sort-option').forEach(option => {
-        option.classList.remove('active');
-    });
-    document.querySelector(`[data-sort="${sortType}"]`).classList.add('active');
-    
-    // Re-render movies with new sort
-    renderEvents();
-    closeSortMenu();
-}
-
-// Navigation functions
-function handleNavClick(linkText, element) {
-    // Update active nav link
-    if (navLinks && navLinks.length > 0) {
-        navLinks.forEach(link => link.classList.remove('active'));
-    }
-    element.classList.add('active');
-    
-    // Set navigation filter
-    currentNavFilter = linkText;
-    
-    // Handle different navigation types
-    switch (linkText) {
+    switch (view) {
         case 'today':
             filterToday();
             break;
-        case 'this week':
+        case 'weekend':
+            filterThisWeekend();
+            break;
+        case 'week':
             filterThisWeek();
             break;
-        case 'weekend':
-        case 'this weekend':
-            filterThisWeekend();
+        case 'all':
+            clearDateRangeFilter();
+            updateFilteredEvents();
+            renderEvents();
+            eventsHeading.textContent = 'All Upcoming Events';
+            switchToListView();
             break;
         case 'calendar':
             clearDateRangeFilter();
             switchToCalendarView();
             break;
-        case 'venues':
-            // Show venue filter in drawer
-            if (!filterDrawer.classList.contains('open')) {
-                toggleFilterDrawer();
-            }
-            break;
-        case 'all events':
-            currentNavFilter = 'all';
-            clearDateRangeFilter();
-            updateFilteredEvents();
-            renderEvents();
-            const allHeader = document.querySelector('#list-view h2');
-            if (allHeader) {
-                allHeader.textContent = 'All Upcoming Events';
-            }
-            break;
-        default:
-            currentNavFilter = 'all';
-            clearDateRangeFilter();
-            updateFilteredEvents();
-            renderEvents();
-            // Reset section header
-            const sectionHeader = document.querySelector('#list-view h2');
-            if (sectionHeader) {
-                sectionHeader.textContent = 'All Upcoming Events';
-            }
     }
 }
 
@@ -255,6 +234,7 @@ function filterToday() {
     today.setHours(0, 0, 0, 0);
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
     
     dateRangeStart = today;
     dateRangeEnd = tomorrow;
@@ -263,10 +243,8 @@ function filterToday() {
     renderEvents();
     
     // Update section header
-    const sectionHeader = document.querySelector('#list-view h2');
-    if (sectionHeader) {
-        sectionHeader.textContent = `Today's Events (${filteredEvents.length})`;
-    }
+    eventsHeading.textContent = "Today's Events";
+    updateEventCount();
     
     // Switch to list view for better readability
     switchToListView();
@@ -285,10 +263,8 @@ function filterThisWeek() {
     renderEvents();
     
     // Update section header
-    const sectionHeader = document.querySelector('#list-view h2');
-    if (sectionHeader) {
-        sectionHeader.textContent = `This Week's Events (${filteredEvents.length})`;
-    }
+    eventsHeading.textContent = "This Week's Events";
+    updateEventCount();
     
     // Switch to list view for better readability
     switchToListView();
@@ -324,22 +300,26 @@ function filterThisWeekend() {
     updateFilteredEvents();
     renderEvents();
 
-    const sectionHeader = document.querySelector('#list-view h2');
-    if (sectionHeader) {
-        sectionHeader.textContent = `This Weekend's Events (${filteredEvents.length})`;
-    }
+    eventsHeading.textContent = "This Weekend's Events";
+    updateEventCount();
 
     switchToListView();
 }
 
-// Toggle filter drawer
-function toggleFilterDrawer() {
-    if (filterDrawer && filterDrawer.classList.contains('open')) {
-        filterDrawer.classList.remove('open');
-        if (refineBtn) refineBtn.textContent = 'Refine Selection';
-    } else if (filterDrawer) {
-        filterDrawer.classList.add('open');
-        if (refineBtn) refineBtn.textContent = 'Hide Options';
+// Toggle filter sidebar
+function toggleFilterSidebar() {
+    if (filterSidebar) {
+        filterSidebar.classList.toggle('active');
+        // Add backdrop for mobile
+        if (filterSidebar.classList.contains('active')) {
+            const backdrop = document.createElement('div');
+            backdrop.className = 'sidebar-backdrop';
+            backdrop.addEventListener('click', toggleFilterSidebar);
+            document.body.appendChild(backdrop);
+        } else {
+            const backdrop = document.querySelector('.sidebar-backdrop');
+            if (backdrop) backdrop.remove();
+        }
     }
 }
 
@@ -347,8 +327,6 @@ function toggleFilterDrawer() {
 function switchToListView() {
     listView.style.display = 'block';
     calendarView.style.display = 'none';
-    if (listViewBtn) listViewBtn.classList.add('active');
-    if (calendarViewBtn) calendarViewBtn.classList.remove('active');
 }
 
 // Switch to calendar view
@@ -358,8 +336,6 @@ function switchToCalendarView() {
     try {
         listView.style.display = 'none';
         calendarView.style.display = 'block';
-        if (listViewBtn) listViewBtn.classList.remove('active');
-        if (calendarViewBtn) calendarViewBtn.classList.add('active');
         
         console.log('Events data length:', eventsData.length); // Debug log
         
@@ -427,9 +403,7 @@ async function loadEventsData() {
         console.log('Setting up filters...'); // Debug log
         setupGenreFilters();
         setupVenueFilters();
-        updateFilteredEvents();
-        renderEvents();
-        // Start with Today's Events view
+        // Start with Today's Events view (this will call updateFilteredEvents and renderEvents)
         switchView('today');
         
         // Check for outdated classical music data
@@ -715,9 +689,17 @@ function updateFilteredEvents() {
 
         // Date range filter
         if (dateRangeStart && dateRangeEnd) {
+            if (!movie.screenings || !Array.isArray(movie.screenings)) return false;
             const hasScreeningInRange = movie.screenings.some(screening => {
                 const screeningDate = parseLocalDate(screening.date);
-                return screeningDate >= dateRangeStart && screeningDate <= dateRangeEnd;
+                // Compare dates at same time of day
+                screeningDate.setHours(0, 0, 0, 0);
+                const startCompare = new Date(dateRangeStart);
+                startCompare.setHours(0, 0, 0, 0);
+                const endCompare = new Date(dateRangeEnd);
+                endCompare.setHours(0, 0, 0, 0);  // Changed to start of end day
+                const inRange = screeningDate >= startCompare && screeningDate < endCompare;
+                return inRange;
             });
             if (!hasScreeningInRange) return false;
         }
@@ -742,20 +724,22 @@ function updateDownloadButton() {
 
 // Helper function to get earliest screening date for sorting
 function getEarliestScreeningDate(movie) {
-    if (!event.screenings || event.screenings.length === 0) {
+    if (!movie.screenings || movie.screenings.length === 0) {
         return new Date('2099-12-31'); // Far future date for events without screenings
     }
 
-    const dates = event.screenings.map(screening => new Date(screening.date));
+    const dates = movie.screenings.map(screening => new Date(screening.date));
     return new Date(Math.min(...dates.map(d => d.getTime())));
 }
 
 // Render movies list
 function renderEvents() {
-    let moviesToRender = filteredEvents.length > 0 ? filteredEvents : eventsData;
+    // Always use filteredEvents when filters are active
+    let moviesToRender = filteredEvents;
     
     if (moviesToRender.length === 0) {
-        eventsList.innerHTML = '<p class="no-movies">No events match the current filters.</p>';
+        eventsList.innerHTML = '<p class="no-events">No events match the current filters.</p>';
+        updateEventCount();
         return;
     }
 
@@ -773,106 +757,83 @@ function renderEvents() {
     });
 
     eventsList.innerHTML = moviesToRender.map(event => createEventCard(event)).join('');
-
-    // Add event listeners for description toggle buttons
-    document.querySelectorAll('.toggle-button').forEach(button => {
-        button.addEventListener('click', function() {
-            const eventId = this.dataset.eventId;
-            toggleDescription(eventId);
-        });
-    });
-
-    // Add click handlers for director badges
-    document.querySelectorAll('.director-badge').forEach(span => {
-        span.addEventListener('click', function() {
-            const dir = this.dataset.director;
-            if (selectedDirector === dir) {
-                selectedDirector = null;
-            } else {
-                selectedDirector = dir;
-            }
-            updateFilteredEvents();
-            renderEvents();
-            if (calendarView.style.display !== 'none') {
-                renderCalendar();
-            }
-        });
-    });
+    
+    // Update the event count
+    updateEventCount();
 }
 
-// Create HTML for a movie card
+// Create HTML for a movie card (newspaper style)
 function createEventCard(event) {
     // Safety checks for required properties
     if (!event || !event.title) {
         console.error('Invalid event object:', event);
-        return '<div class="event-card error">Invalid event data</div>';
+        return '<article class="event-card error">Invalid event data</article>';
     }
     
-    const description = event.description || 'No description available';
-    const shortDescription = truncateText(stripHtmlTags(description), 200);
-    const needsExpansion = stripHtmlTags(description).length > shortDescription.length;
-
+    // Extract key data
     const finalRating = event.final_rating ?? event.rating ?? (event.ai_rating ? event.ai_rating.score : null);
-    const aiRating = event.ai_rating ? event.ai_rating.score : finalRating;
-    let boostHtml = '';
-    if (finalRating && aiRating && finalRating > aiRating) {
-        const boost = finalRating - aiRating;
-        boostHtml = `<span class="preference-boost">+${boost}</span>`;
-    }
-    let stampHtml = '';
-    if (finalRating && finalRating >= 8) {
-        stampHtml = '<span class="quality-stamp">★</span>';
-    }
-
-    const metaParts = [];
-    if (event.director) metaParts.push(`Dir. ${escapeHtml(event.director)}`);
-    if (event.country) metaParts.push(event.country);
-    if (event.year) metaParts.push(event.year);
-    if (event.language && event.language !== 'English') metaParts.push(event.language);
-    if (event.duration) metaParts.push(event.duration);
-    if (event.venue) metaParts.push(getVenueName(event.venue));
-    const metaHtml = metaParts.length ? `<div class="movie-subtitle">${metaParts.join(' • ')}</div>` : '';
-
-    // Create screening tags with safety check
-    const screeningsText = (event.screenings && Array.isArray(event.screenings))
-        ? event.screenings.map(screening => {
-            const formattedDate = formatDate(screening.date);
-            const formattedTime = screening.time || 'Time TBA';
-            return `${formattedDate} • ${formattedTime}`;
-        }).join(' | ')
-        : 'No screenings available';
-
     const eventUrl = event.screenings && event.screenings[0] ? event.screenings[0].url : (event.url || '#');
     
+    // Format date and venue (newspaper dateline style)
+    let datelineText = '';
+    if (event.screenings && event.screenings.length > 0) {
+        const firstScreening = event.screenings[0];
+        const date = parseLocalDate(firstScreening.date);
+        // Ensure we're using local timezone for display
+        const dateOptions = { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'America/Chicago' };
+        const formattedDate = date.toLocaleDateString('en-US', dateOptions).toUpperCase();
+        const time = firstScreening.time || '';
+        const venue = getVenueName(event.venue).toUpperCase();
+        datelineText = `${venue} — ${formattedDate}${time ? ' AT ' + time : ''}`;
+    }
+    
+    // Get oneLinerSummary or truncated description
+    const summary = event.oneLinerSummary || truncateText(stripHtmlTags(event.description || ''), 150);
+    
+    // Build metadata string
+    const metaParts = [];
+    if (event.director) metaParts.push(event.director);
+    if (event.year) metaParts.push(event.year);
+    if (event.duration) metaParts.push(event.duration);
+    const metadata = metaParts.join(' | ');
+    
+    // Check if we have full review
+    const hasReview = event.description && event.description.length > 200;
+    
     return `
-        <div class="event-card">
-            ${stampHtml}
-            <div class="event-header">
-                <h3 class="event-title"><a href="${eventUrl}" target="_blank">${escapeHtml(event.title)}</a></h3>
-                <div class="event-rating">${finalRating || 'N/A'}/10 ${boostHtml}</div>
-                ${needsExpansion ? `<button class="collapse-button toggle-button" data-event-id="${event.id || 'unknown'}" style="display:none">Hide</button>` : ''}
-            </div>
-            ${metaHtml}
-            <div class="screenings-container">
-                <div class="screenings-text">${screeningsText}</div>
-                ${event.isSpecialScreening ? '<span class="special-screening-indicator">Special Screening</span>' : ''}
-            </div>
-
-            <div class="event-description">
-                <div class="description-preview" id="preview-${event.id || 'unknown'}">
-                    ${formatDescription(shortDescription)}
+        <article class="event-card">
+            <div class="event-time-venue">${datelineText}</div>
+            <h3 class="event-title">${escapeHtml(event.title)}</h3>
+            ${finalRating ? `<div class="event-rating">★ ${finalRating}/10</div>` : ''}
+            ${summary ? `<p class="event-summary">${escapeHtml(summary)}</p>` : ''}
+            ${metadata ? `<div class="event-metadata">${escapeHtml(metadata)}</div>` : ''}
+            ${hasReview ? `
+                <button class="read-review-btn" onclick="toggleReview('${event.id || 'unknown'}')">
+                    Read Review →
+                </button>
+                <div class="review-content" id="review-${event.id || 'unknown'}" style="display: none;">
+                    <div class="review-text">
+                        ${formatDescription(event.description)}
+                    </div>
                 </div>
-                <div class="description-full" id="full-${event.id || 'unknown'}">
-                    ${formatDescription(description)}
-                </div>
-                ${needsExpansion ? `
-                    <button class="expand-button toggle-button" data-event-id="${event.id || 'unknown'}">
-                        Show More
-                    </button>
-                ` : ''}
-            </div>
-        </div>
+            ` : ''}
+        </article>
     `;
+}
+
+// Toggle review visibility
+function toggleReview(eventId) {
+    const reviewContent = document.getElementById(`review-${eventId}`);
+    if (reviewContent) {
+        const isVisible = reviewContent.style.display !== 'none';
+        reviewContent.style.display = isVisible ? 'none' : 'block';
+        
+        // Update button text
+        const button = reviewContent.previousElementSibling;
+        if (button && button.classList.contains('read-review-btn')) {
+            button.textContent = isVisible ? 'Read Review →' : 'Hide Review';
+        }
+    }
 }
 
 // Toggle description expansion
@@ -971,16 +932,16 @@ function renderCalendar() {
     const moviesToUse = filteredEvents.length > 0 ? filteredEvents : eventsData;
     const allScreenings = [];
     moviesToUse.forEach(movie => {
-        if (event.screenings && Array.isArray(event.screenings)) {
-            event.screenings.forEach(screening => {
+        if (movie.screenings && Array.isArray(movie.screenings)) {
+            movie.screenings.forEach(screening => {
                 allScreenings.push({
                     date: screening.date,
                     time: screening.time,
                     url: screening.url,
-                    title: event.title,
-                    rating: event.rating,
-                    venue: event.venue,
-                    id: event.id
+                    title: movie.title,
+                    rating: movie.rating,
+                    venue: movie.venue,
+                    id: movie.id
                 });
             });
         }
@@ -1112,6 +1073,7 @@ function getFilteredEventsForDownload(minRating) {
 
         // Date range filter
         if (dateRangeStart && dateRangeEnd) {
+            if (!event.screenings || !Array.isArray(event.screenings)) return false;
             const hasScreeningInRange = event.screenings.some(screening => {
                 const screeningDate = parseLocalDate(screening.date);
                 return screeningDate >= dateRangeStart && screeningDate <= dateRangeEnd;
@@ -1135,21 +1097,21 @@ function downloadFilteredCalendar(minRating) {
     // Convert aggregated movies back to individual screenings for ICS
     const screenings = [];
     filteredEvents.forEach(movie => {
-        if (Array.isArray(event.screenings)) {
-            event.screenings.forEach(screening => {
+        if (movie.screenings && Array.isArray(movie.screenings)) {
+            movie.screenings.forEach(screening => {
                 // Guard against missing screening data
                 if (!screening || !screening.date) return;
 
                 const timeString = screening.time || '';
 
                 screenings.push({
-                    title: event.title,
+                    title: movie.title,
                     date: screening.date,
                     time: timeString,
-                    description: event.description,
-                    rating: event.rating,
+                    description: movie.description,
+                    rating: movie.rating,
                     url: screening.url,
-                    id: `${event.id || 'event'}-${screening.date}-${timeString.replace(/[^0-9]/g, '')}`
+                    id: `${movie.id || 'event'}-${screening.date}-${timeString.replace(/[^0-9]/g, '')}`
                 });
             });
         }
@@ -1296,7 +1258,8 @@ function formatDescriptionForICS(text) {
 
 function parseLocalDate(dateStr) {
     const parts = dateStr.split('-').map(Number);
-    return new Date(parts[0], parts[1] - 1, parts[2]);
+    // Create date at noon to avoid timezone issues
+    return new Date(parts[0], parts[1] - 1, parts[2], 12, 0, 0);
 }
 
 function formatDate(dateStr) {
@@ -1420,285 +1383,4 @@ function showClassicalDataWarning() {
     console.log('Classical music data warning displayed');
 }
 
-// ===== NEW REDESIGN FUNCTIONS =====
-
-// Switch between different views
-function switchView(viewType) {
-    currentView = viewType;
-    
-    // Update active tab
-    navTabs.forEach(tab => {
-        tab.classList.remove('active');
-        if (tab.dataset.view === viewType) {
-            tab.classList.add('active');
-        }
-    });
-    
-    // Show/hide appropriate sections
-    if (viewType === 'calendar') {
-        listView.style.display = 'none';
-        calendarView.style.display = 'block';
-        renderCalendar();
-    } else {
-        listView.style.display = 'block';
-        calendarView.style.display = 'none';
-        
-        // Update events based on view type
-        switch (viewType) {
-            case 'today':
-                filterToday();
-                eventsHeading.textContent = "Today's Events";
-                break;
-            case 'weekend':
-                filterWeekend();
-                eventsHeading.textContent = "This Weekend";
-                break;
-            case 'week':
-                filterWeek();
-                eventsHeading.textContent = "This Week";
-                break;
-            case 'all':
-                filterAll();
-                eventsHeading.textContent = "All Upcoming Events";
-                break;
-        }
-        
-        updateFilteredEvents();
-        renderEvents();
-    }
-}
-
-// Filter events for today
-function filterToday() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    
-    dateRangeStart = today;
-    dateRangeEnd = tomorrow;
-}
-
-// Filter events for this weekend (Saturday and Sunday)
-function filterWeekend() {
-    const today = new Date();
-    const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
-    
-    // Find next Saturday
-    const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
-    const saturday = new Date(today);
-    saturday.setDate(today.getDate() + daysUntilSaturday);
-    saturday.setHours(0, 0, 0, 0);
-    
-    // Weekend ends Sunday night
-    const sunday = new Date(saturday);
-    sunday.setDate(saturday.getDate() + 1);
-    sunday.setHours(23, 59, 59, 999);
-    
-    dateRangeStart = saturday;
-    dateRangeEnd = sunday;
-}
-
-// Filter events for this week (next 7 days)
-function filterWeek() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const nextWeek = new Date(today);
-    nextWeek.setDate(today.getDate() + 7);
-
-    dateRangeStart = today;
-    dateRangeEnd = nextWeek;
-}
-
-// Clear date filtering to show all upcoming events
-function filterAll() {
-    dateRangeStart = null;
-    dateRangeEnd = null;
-}
-
-// Update filtered events based on current filters
-function updateFilteredEvents() {
-    const minRating = parseInt(ratingSlider.value);
-    
-    filteredEvents = eventsData.filter(event => {
-        // Rating filter
-        if (event.rating < minRating) return false;
-        
-        // Search filter
-        if (searchTerm && !eventMatchesSearch(event, searchTerm)) return false;
-        
-        // Genre filter
-        if (selectedGenres.size > 0 && !eventMatchesGenres(event, selectedGenres)) return false;
-        
-        // Venue filter
-        if (selectedVenues.size > 0 && !selectedVenues.has(event.venue)) return false;
-        
-        // Special events filter
-        if (showSpecialEventsOnly && !event.isSpecialScreening) return false;
-        
-        // Date range filter (for time-based views)
-        if (dateRangeStart && dateRangeEnd) {
-            if (!eventInDateRange(event, dateRangeStart, dateRangeEnd)) return false;
-        }
-        
-        return true;
-    });
-    
-    // Sort events
-    if (currentSort === 'rating') {
-        filteredEvents.sort((a, b) => b.rating - a.rating);
-    } else {
-        // Chronological sort
-        filteredEvents.sort((a, b) => {
-            const aDate = getEarliestEventDate(a);
-            const bDate = getEarliestEventDate(b);
-            return aDate - bDate;
-        });
-    }
-}
-
-// Render events list in the new design
-function renderEvents() {
-    if (!eventsList) return;
-    
-    if (filteredEvents.length === 0) {
-        eventsList.innerHTML = '<div class="no-events">No events found matching your criteria.</div>';
-        return;
-    }
-    
-    eventsList.innerHTML = filteredEvents.map(event => renderEventCard(event)).join('');
-    
-    // Add event listeners for expandable reviews
-    document.querySelectorAll('.read-review-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const eventCard = this.closest('.event-card');
-            const reviewContent = eventCard.querySelector('.review-content');
-            const isExpanded = reviewContent.style.display === 'block';
-            
-            if (isExpanded) {
-                reviewContent.style.display = 'none';
-                this.textContent = 'Read Review ▼';
-            } else {
-                reviewContent.style.display = 'block';
-                this.textContent = 'Collapse ▲';
-            }
-        });
-    });
-}
-
-// Render a single event card
-function renderEventCard(event) {
-    const icon = getEventIcon(event);
-    const rating = formatRating(event.rating);
-    const oneLinerSummary = event.oneLinerSummary || 'Cultural event with unique appeal';
-    const metadata = formatEventMetadata(event);
-    
-    return `
-        <div class="event-card">
-            <div class="event-header">
-                <h3 class="event-title">${icon} ${event.title}</h3>
-                <div class="event-time-venue">${formatEventDateTime(event)} — ${event.venue}</div>
-                <div class="event-rating">${rating}</div>
-                <div class="event-summary">${oneLinerSummary}</div>
-                <div class="event-metadata">${metadata}</div>
-                <button class="read-review-btn">Read Review ▼</button>
-            </div>
-            <div class="review-content" style="display: none;">
-                <div class="review-text">${event.description || 'Full review content...'}</div>
-            </div>
-        </div>
-    `;
-}
-
-// Get appropriate icon for event type
-function getEventIcon(event) {
-    if (event.isMovie || event.type === 'screening') return '🎬';
-    if (event.type === 'concert') return '🎻';
-    if (event.type === 'book_club') return '📚';
-    return '🎭';
-}
-
-// Format rating with stars
-function formatRating(rating) {
-    if (rating >= 9) return '★★★★★ MUST-SEE';
-    if (rating >= 7) return '★★★★☆ RECOMMENDED';
-    if (rating >= 5) return '★★★☆☆ GOOD';
-    return '★★☆☆☆ FAIR';
-}
-
-// Format event metadata tags
-function formatEventMetadata(event) {
-    const tags = [];
-    
-    if (event.country) tags.push(event.country);
-    if (event.year) tags.push(event.year);
-    if (event.duration) tags.push(event.duration);
-    if (event.language && event.language !== 'English') tags.push(event.language);
-    
-    return `(${tags.join(' · ')})`;
-}
-
-// Format event date and time
-function formatEventDateTime(event) {
-    if (event.screenings && event.screenings.length > 0) {
-        const screening = event.screenings[0];
-        const date = new Date(screening.date + 'T00:00:00');
-        const timeStr = screening.time || '';
-        return `${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} ${timeStr}`;
-    }
-    return 'Date TBD';
-}
-
-// Check if event matches search term
-function eventMatchesSearch(event, searchTerm) {
-    const searchFields = [
-        event.title,
-        event.description,
-        event.director,
-        event.country,
-        event.oneLinerSummary
-    ].join(' ').toLowerCase();
-    
-    return searchFields.includes(searchTerm);
-}
-
-// Check if event matches selected genres
-function eventMatchesGenres(event, selectedGenres) {
-    if (!event.country) return false;
-    return selectedGenres.has(event.country);
-}
-
-// Check if event is in date range
-function eventInDateRange(event, startDate, endDate) {
-    if (!event.screenings || event.screenings.length === 0) return false;
-    
-    return event.screenings.some(screening => {
-        const eventDate = new Date(screening.date + 'T00:00:00');
-        return eventDate >= startDate && eventDate <= endDate;
-    });
-}
-
-// Get earliest date for an event
-function getEarliestEventDate(event) {
-    if (!event.screenings || event.screenings.length === 0) {
-        return new Date('2099-12-31'); // Far future for events without dates
-    }
-    
-    const dates = event.screenings.map(s => new Date(s.date + 'T00:00:00'));
-    return new Date(Math.min(...dates));
-}
-
-// Toggle filter drawer
-function toggleFilterDrawer() {
-    const isOpen = filterDrawer.classList.contains('open');
-
-    if (isOpen) {
-        filterDrawer.classList.remove('open');
-        filterDrawer.style.display = 'none';
-        showFiltersBtn.textContent = 'Show Filters ▸';
-    } else {
-        filterDrawer.style.display = 'block';
-        filterDrawer.classList.add('open');
-        showFiltersBtn.textContent = 'Hide Filters ▾';
-    }
-}
+// Removed duplicate functions - these are already defined earlier in the file
