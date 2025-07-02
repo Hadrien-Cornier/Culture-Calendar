@@ -285,6 +285,26 @@ a:visited {
     color: #000000;
 }
 
+.event-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.event-title a:hover {
+    color: #326891;
+    text-decoration: none;
+}
+
+.event-title a:visited {
+    color: inherit;
+}
+
+.event-title a:focus {
+    outline: 2px solid #000000;
+    outline-offset: 2px;
+}
+
 .event-time-venue {
     font-family: 'Libre Franklin', 'Franklin Gothic', 'Helvetica Neue', sans-serif;
     font-size: 0.6875rem; /* 11px */

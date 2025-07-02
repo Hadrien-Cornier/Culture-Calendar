@@ -803,7 +803,7 @@ function createEventCard(event) {
     return `
         <article class="event-card">
             <div class="event-time-venue">${datelineText}</div>
-            <h3 class="event-title">${escapeHtml(event.title)}</h3>
+            <h3 class="event-title"><a href="${event.url}" target="_blank" rel="noopener">${escapeHtml(event.title)}</a></h3>
             ${finalRating ? `<div class="event-rating">★ ${finalRating}/10</div>` : ''}
             ${summary ? `<p class="event-summary">${escapeHtml(summary)}</p>` : ''}
             ${metadata ? `<div class="event-metadata">${escapeHtml(metadata)}</div>` : ''}
