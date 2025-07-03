@@ -23,6 +23,7 @@ class EventProcessor:
         self.literature_preferences = self._load_literature_preferences()
         self.movie_cache = {}  # Cache AI ratings to avoid reprocessing
         self.force_reprocess = force_reprocess
+        self.reprocessed_titles = set()  # Track titles already reprocessed in this run
 
         # Initialize summary generator
         try:
@@ -68,12 +69,21 @@ class EventProcessor:
 
                 # Get AI rating (with caching)
                 event_title = event["title"].upper().strip()
-                if event_title in self.movie_cache and not self.force_reprocess:
-                    print(f"  Using cached rating for {event_title}")
-                    ai_rating = self.movie_cache[event_title]
-                else:
-                    if self.force_reprocess and event_title in self.movie_cache:
-                        print(f"  Force re-processing {event_title} (ignoring cache)")
+                
+                # Check if we need to process this title
+                should_process = False
+                is_first_time_reprocessing = False
+                if event_title not in self.movie_cache:
+                    # Not in cache, need to process
+                    should_process = True
+                elif self.force_reprocess and event_title not in self.reprocessed_titles:
+                    # Force reprocess enabled and we haven't reprocessed this title yet
+                    should_process = True
+                    is_first_time_reprocessing = True
+                    print(f"  Force re-processing {event_title} (ignoring cache)")
+                
+                if should_process:
+                    # Process the event
                     if event.get("type") == "concert":
                         ai_rating = self._get_classical_rating(event)
                     elif event.get("type") == "book_club":
@@ -81,6 +91,10 @@ class EventProcessor:
                     else:
                         ai_rating = self._get_ai_rating(event)
                     self.movie_cache[event_title] = ai_rating
+                else:
+                    # Use cached rating
+                    print(f"  Using cached rating for {event_title}")
+                    ai_rating = self.movie_cache[event_title]
 
                 # Calculate personal preference score
                 preference_score = self._calculate_preference_score(event, ai_rating)
@@ -104,14 +118,19 @@ class EventProcessor:
                 one_liner_summary = None
                 if self.summary_generator:
                     try:
+                        # Force regenerate summary only if this is the first time reprocessing
                         one_liner_summary = self.summary_generator.generate_summary(
-                            event, self.force_reprocess
+                            event, force_regenerate=is_first_time_reprocessing
                         )
                     except Exception as e:
                         print(f"  Error generating summary: {e}")
                         one_liner_summary = None
 
                 event["oneLinerSummary"] = one_liner_summary
+
+                # Mark as reprocessed AFTER both AI rating and summary are done
+                if is_first_time_reprocessing:
+                    self.reprocessed_titles.add(event_title)
 
                 enriched_events.append(event)
 
