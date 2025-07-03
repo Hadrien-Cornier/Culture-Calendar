@@ -16,6 +16,8 @@ from .scrapers import (
     FirstLightAustinScraper,
     HyperrealScraper,
     LaFolliaAustinScraper,
+    ParamountScraper,
+    BalletAustinScraper,
 )
 from .recurring_events import RecurringEventGenerator
 
@@ -27,11 +29,13 @@ class MultiVenueScraper:
         # Initialize all new scrapers
         self.afs_scraper = AFSScraper()
         self.hyperreal_scraper = HyperrealScraper()
+        self.paramount_scraper = ParamountScraper()
         self.alienated_majesty_scraper = AlienatedMajestyBooksScraper()
         self.first_light_scraper = FirstLightAustinScraper()
         self.austin_symphony_scraper = AustinSymphonyScraper()
         self.early_music_scraper = EarlyMusicAustinScraper()
         self.la_follia_scraper = LaFolliaAustinScraper()
+        self.ballet_austin_scraper = BalletAustinScraper()
 
         # Initialize recurring events generator
         self.recurring_events_generator = RecurringEventGenerator()
@@ -73,6 +77,19 @@ class MultiVenueScraper:
         except Exception as e:
             print(f"Error scraping Hyperreal: {e}")
             self.last_updated["Hyperreal"] = None
+
+        # Scrape Paramount Theatre
+        print("Scraping Paramount Theatre...")
+        try:
+            paramount_events = self.paramount_scraper.scrape_events()
+            for event in paramount_events:
+                event["venue"] = "Paramount"
+                all_events.append(event)
+            print(f"Found {len(paramount_events)} Paramount events")
+            self.last_updated["Paramount"] = datetime.now().isoformat()
+        except Exception as e:
+            print(f"Error scraping Paramount: {e}")
+            self.last_updated["Paramount"] = None
 
         # Scrape Alienated Majesty Books
         print("Loading Alienated Majesty Books club...")
@@ -138,6 +155,19 @@ class MultiVenueScraper:
         except Exception as e:
             print(f"Error loading La Follia events: {e}")
             self.last_updated["LaFollia"] = None
+
+        # Scrape Ballet Austin
+        print("Loading Ballet Austin events...")
+        try:
+            ballet_events = self.ballet_austin_scraper.scrape_events()
+            for event in ballet_events:
+                event["venue"] = "BalletAustin"
+                all_events.append(event)
+            print(f"Found {len(ballet_events)} Ballet Austin events")
+            self.last_updated["BalletAustin"] = datetime.now().isoformat()
+        except Exception as e:
+            print(f"Error loading Ballet Austin events: {e}")
+            self.last_updated["BalletAustin"] = None
 
         # Generate recurring events
         print("Generating recurring events...")
@@ -278,5 +308,7 @@ class MultiVenueScraper:
             return self.alienated_majesty_scraper.get_event_details(event)
         elif venue == "FirstLight":
             return self.first_light_scraper.get_event_details(event)
+        elif venue == "Paramount":
+            return self.paramount_scraper.get_event_details(event)
         else:
             return self.afs_scraper.get_event_details(event["url"])

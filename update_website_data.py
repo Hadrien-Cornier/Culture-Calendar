@@ -2,7 +2,7 @@
 """
 Website data updater for Culture Calendar
 Generates JSON data for the GitHub Pages website
-Supports multiple venues: AFS, Hyperreal Movie Club, and others
+Supports multiple venues: AFS, Hyperreal Movie Club, Paramount Theatre, and others
 """
 
 import json

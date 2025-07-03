@@ -1,0 +1,113 @@
+{
+  "balletAustin": [
+    {
+      "title": "GRIMM TALES",
+      "program": "A bold reimagining of 19th-century fairy tales with original music by Graham Reynolds.",
+      "dates": [
+        "2025-09-26",
+        "2025-09-27",
+        "2025-09-28"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2025/26 Season",
+      "type": "dance"
+    },
+    {
+      "title": "THE NUTCRACKER",
+      "program": "Ballet Austin's beloved holiday tradition.",
+      "dates": [
+        "2025-12-05",
+        "2025-12-06",
+        "2025-12-06",
+        "2025-12-07",
+        "2025-12-12",
+        "2025-12-13",
+        "2025-12-13",
+        "2025-12-14",
+        "2025-12-18",
+        "2025-12-19",
+        "2025-12-20",
+        "2025-12-20",
+        "2025-12-21",
+        "2025-12-22",
+        "2025-12-23"
+      ],
+      "times": [
+        "7:30 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "2:00 PM",
+        "2:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2025/26 Season",
+      "type": "dance"
+    },
+    {
+      "title": "IN MOTION / An Evening with Stephen Mills",
+      "program": "A curated selection of three deeply personal works by Stephen Mills.",
+      "dates": [
+        "2026-02-13",
+        "2026-02-14",
+        "2026-02-15"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2025/26 Season",
+      "type": "dance"
+    },
+    {
+      "title": "MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES",
+      "program": "World premiere exploring the darker side of the infamous queen.",
+      "dates": [
+        "2026-03-27",
+        "2026-03-28",
+        "2026-03-29"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2025/26 Season",
+      "type": "dance"
+    },
+    {
+      "title": "THE MAGIC FLUTE",
+      "program": "An enchanting adaptation of Mozart's opera with Cambodian shadow puppetry.",
+      "dates": [
+        "2026-05-08",
+        "2026-05-09",
+        "2026-05-10"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2025/26 Season",
+      "type": "dance"
+    }
+  ]
+} 

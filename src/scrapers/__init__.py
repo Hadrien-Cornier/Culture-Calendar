@@ -9,6 +9,8 @@ from .early_music_scraper import EarlyMusicAustinScraper
 from .first_light_scraper import FirstLightAustinScraper
 from .hyperreal_scraper import HyperrealScraper
 from .la_follia_scraper import LaFolliaAustinScraper
+from .paramount_scraper import ParamountScraper
+from .ballet_austin_scraper import BalletAustinScraper
 
 __all__ = [
     "FirstLightAustinScraper",
@@ -18,4 +20,6 @@ __all__ = [
     "AustinSymphonyScraper",
     "EarlyMusicAustinScraper",
     "LaFolliaAustinScraper",
+    "ParamountScraper",
+    "BalletAustinScraper",
 ]
