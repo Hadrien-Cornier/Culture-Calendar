@@ -1,8 +1,72 @@
 [
   {
+    "title": "REMEMBER MY NAME",
+    "rating": 7,
+    "description": "<p><strong>Rating: 7/10</strong></p><p>\ud83c\udfac Originality & Surprise<br>The movie \"Remember My Name\" (1978) directed by Alan Rudolph shows some originality in its approach to character development and narrative structure. The film's use of ambiguity and unpredictability keeps the viewer engaged, as noted by Jonathan Rosenbaum in his 1979 review. However, the movie's reliance on subtle hints of violence and its failure to fully explore these themes can be seen as a missed opportunity for more impactful storytelling.</p><p>\ud83c\udfa5 Artistic Craft<br>The artistic craft in \"Remember My Name\" is competent but unremarkable. The narrative structure is minimalistic, focusing on the complex and often enigmatic character of Emily, played by Geraldine Chaplin. The cinematography and sound design are noteworthy for their ability to encapsulate the character's emotional state through visual and auditory cues, such as the use of windows and doorways as visual corollaries to prison bars. The pacing is well-balanced, allowing the viewer to absorb the nuances of the characters and their interactions.</p><p>\ud83c\udfad Thematic Depth<br>The thematic depth of \"Remember My Name\" lies in its exploration of universal human experiences, particularly the search for love and the complexities of human relationships. The film delves into the emotional struggles of its characters, making it an emotionally strong piece of cinema. However, the thematic exploration is not as nuanced as it could be, often feeling more like a series of vignettes rather than a cohesive narrative.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br>In comparison to landmark works in its genre, \"Remember My Name\" stands as a competent but unremarkable film. It lacks the dramatic impact and strong pay-off that some viewers might expect, particularly in its handling of violence and tension. The film's style and character development are reminiscent of other works from the 1970s, but it does not surpass them in terms of originality or thematic complexity.</p><p>Overall, while \"Remember My Name\" shows some artistic merit and complexity, it falls short of being an exceptional masterpiece due to its unfulfilled potential in certain areas.</p>",
+    "oneLinerSummary": "A haunting 1978 psychological drama exploring obsession through enigmatic, unpredictable characters.",
+    "url": "https://www.austinfilm.org/screening/remember-my-name/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "1h 35min",
+    "director": "Alan Rudolph",
+    "country": "USA",
+    "year": 1978,
+    "language": null,
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-02",
+        "time": "6:00 PM",
+        "url": "https://www.austinfilm.org/screening/remember-my-name/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-07-05",
+        "time": "6:50 PM",
+        "url": "https://www.austinfilm.org/screening/remember-my-name/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "remember-my-name"
+  },
+  {
+    "title": "CONTEMPT",
+    "rating": 7,
+    "description": "<p><strong>Rating: 7/10</strong></p><p>Originality & Surprise<br><strong>6/10</strong>: While \"Contempt\" (1963) by Jean-Luc Godard does not entirely avoid clich\u00e9s, it does deliver a unique and provocative take on the dynamics of a failing marriage. The film's exploration of the complexities of relationships, particularly the passive-aggressive interactions between Paul and Camille, offers a fresh perspective on the subject. However, the narrative structure, while formally conventional, does not entirely surprise in its execution, sticking somewhat to the expectations of a drama about marital strife.</p><p>Artistic Craft<br><strong>8/10</strong>: The artistic craft in \"Contempt\" is commendable. The film's narrative structure, though conventional, is skillfully weaponized to highlight the tension and breakdowns in communication between the characters. The cinematography, particularly in its use of mise-en-sc\u00e8ne, creates a strikingly credible portrait of a couple on the brink of collapse. The sound design and pacing are also noteworthy, capturing the exhausting stops-and-starts of their arguments with precision.</p><p>Thematic Depth<br><strong>8/10</strong>: The thematic depth of \"Contempt\" is substantial. The film explores universal human experiences such as the complexities of relationships, the fragility of communication, and the destructive nature of unaddressed insecurities. These themes are nuanced and deeply human, making the film relatable to audiences who have experienced similar breakdowns in their own relationships. The character development, particularly in the portrayal of Paul and Camille, is rich and multifaceted, revealing the intricate dynamics of their marriage.</p><p>Comparative Excellence<br><strong>7/10</strong>: In comparison to landmark works in its genre, \"Contempt\" stands as a strong but not exceptional film. While it does not reach the heights of Godard's other works like \"Breathless\" or \"Vivre sa vie,\" it remains a significant contribution to the French New Wave movement. The tension between Godard's artistic vision and the commercial pressures he faced during its production is palpable, making it a fascinating case study in the challenges of maintaining artistic integrity in the face of financial constraints.</p><p>In summary, \"Contempt\" is a strong film that excels in its thematic depth and artistic craft, but falls short in terms of originality and surprise. Its nuanced exploration of human relationships and its skillful use of cinematic elements make it a compelling watch, even if it does not entirely break new ground.</p>",
+    "oneLinerSummary": "Godard's complex marital drama unfolds through unpredictable storytelling and mythic imagery.",
+    "url": "https://www.austinfilm.org/screening/contempt/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "1h 42min",
+    "director": "Jean-Luc Godard",
+    "country": "France",
+    "year": 1963,
+    "language": "French with English Subtitles",
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-02",
+        "time": "8:30 PM",
+        "url": "https://www.austinfilm.org/screening/contempt/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-07-05",
+        "time": "5:45 PM",
+        "url": "https://www.austinfilm.org/screening/contempt/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "contempt"
+  },
+  {
     "title": "JANE AUSTEN WRECKED MY LIFE",
     "rating": 5,
-    "description": "<p><strong>Rating: 5/10</strong></p><p>Originality & Surprise<br>The movie \"Jane Austen Wrecked My Life\" does not particularly stand out in terms of originality and surprise. The title suggests a unique blend of Jane Austen's literary legacy with modern romantic comedy elements, but the execution feels more like a familiar trope than a bold departure. The film's narrative does not avoid clich\u00e9s, and the storytelling is predictable, lacking the unexpected twists that would make it truly memorable.</p><p>Artistic Craft<br>The artistic craft of the film is competent but unremarkable. The narrative structure is straightforward, with a clear beginning, middle, and end. However, the character development is shallow, and the characters lack depth. The cinematography is standard, neither particularly impressive nor distracting. The sound design and pacing are also unremarkable, failing to elevate the film beyond its generic romantic comedy framework.</p><p>Thematic Depth<br>The thematic depth of \"Jane Austen Wrecked My Life\" is limited. The film touches on universal human experiences such as love, heartbreak, and self-discovery, but it does so in a superficial manner. The themes are not explored with nuance, and the film's attempt to blend Austen's literary style with modern romance feels more like a gimmick than a thoughtful exploration of human nature.</p><p>Comparative Excellence<br>In comparison to landmark works in the romantic comedy genre, \"Jane Austen Wrecked My Life\" falls short. Films like \"Am\u00e9lie\" or \"The Big Sick\" offer more complex characters, nuanced storytelling, and a deeper exploration of human emotions. \"Jane Austen Wrecked My Life\" lacks the sophistication and emotional resonance that makes these films exceptional. The broad critical consensus would likely view this film as a competent but unremarkable entry in the genre.</p><p>In summary, while \"Jane Austen Wrecked My Life\" is a technically proficient film, it fails to excel in terms of originality, thematic depth, and artistic craft. It remains a derivative work that does not significantly contribute to the genre.</p>",
+    "description": "<p><strong>Rating: 5/10</strong></p><p>Originality & Surprise<br>The movie \"Jane Austen Wrecked My Life\" by Laura Piani lacks significant originality and surprise. The title itself suggests a creative take on Jane Austen's works, but the execution falls short of delivering truly unpredictable storytelling. The film's narrative is more of a romantic comedy with some nods to Austen's style, but it does not venture far from familiar tropes and clich\u00e9s. The story is predictable, and the character arcs are not particularly complex or surprising.</p><p>Artistic Craft<br>The artistic craft of the film is competent but unremarkable. The narrative structure is straightforward, and while it maintains a decent pace, it does not excel in terms of complexity or innovation. The character depth is adequate, but the characters feel somewhat one-dimensional and lack the richness that would make them memorable. The cinematography is standard for a romantic comedy, with no standout moments that elevate the film beyond its genre. The sound design is also unremarkable, failing to contribute significantly to the overall experience.</p><p>Thematic Depth<br>The thematic depth of \"Jane Austen Wrecked My Life\" is limited. The film explores some universal human experiences like love, heartbreak, and self-discovery, but it does so in a way that feels shallow and unnuanced. The themes are not deeply explored, and the film does not offer any profound insights or new perspectives on these experiences.</p><p>Comparative Excellence<br>In comparison to landmark works in the romantic comedy genre, \"Jane Austen Wrecked My Life\" falls short. Films like \"Am\u00e9lie\" or \"The Grand Budapest Hotel\" showcase a much higher level of artistic merit and thematic depth. These films are not only entertaining but also offer complex narratives and rich character development. \"Jane Austen Wrecked My Life,\" on the other hand, is a more generic take on the genre that fails to stand out.</p><p>In summary, while \"Jane Austen Wrecked My Life\" is a competent but unremarkable film, it lacks the originality, artistic complexity, and thematic depth that would elevate it to a higher rating.</p>",
     "oneLinerSummary": "A predictable romantic comedy that disappointingly fails to honor Austen's wit.",
     "url": "https://www.austinfilm.org/screening/jane-austen-wrecked-my-life/",
     "isSpecialScreening": false,
@@ -16,18 +80,6 @@
     "venue": "AFS",
     "type": "movie",
     "screenings": [
-      {
-        "date": "2025-07-01",
-        "time": "5:00 PM",
-        "url": "https://www.austinfilm.org/screening/jane-austen-wrecked-my-life/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-02",
-        "time": "4:30 PM",
-        "url": "https://www.austinfilm.org/screening/jane-austen-wrecked-my-life/",
-        "venue": "AFS"
-      },
       {
         "date": "2025-07-03",
         "time": "3:30 PM",
@@ -74,99 +126,9 @@
     "id": "jane-austen-wrecked-my-life"
   },
   {
-    "title": "Everything is Terrible! THE MEMORY HOLE Presents ANIMALS ARE OVER",
-    "rating": 3,
-    "description": "<p><strong>Rating: 3/10</strong></p><p>Originality & Surprise<br>The movie \"Everything is Terrible THE MEMORY HOLE Presents ANIMALS ARE OVER\" lacks originality and surprise. It appears to be a compilation of bizarre and humorous clips found in long-forgotten VHS tapes, which is a concept that has been explored before in similar projects like \"Everything Is Terrible: The Movie\" (2009). The lack of a clear narrative or any significant departure from the format of its predecessor suggests a derivative approach to storytelling.</p><p>Artistic Craft<br>The artistic craft of this movie is minimal. The compilation nature of the film means there is no cohesive narrative structure, and character development is non-existent. The cinematography and sound design are likely to be haphazard and unpolished, given the nature of the source material (archive footage). Pacing is also a concern, as the film's structure is more akin to a montage than a cohesive cinematic experience.</p><p>Thematic Depth<br>There is no thematic depth to speak of in this movie. The compilation of clips seems to be more focused on entertainment value rather than exploring any universal human experiences. The lack of a clear narrative or character development means that any potential themes are superficial and not explored with nuance.</p><p>Comparative Excellence<br>Comparing this movie to landmark works in its genre, such as \"Everything Is Terrible: The Movie,\" which also compiles bizarre clips but does so with a clear artistic vision and a sense of chaos, suggests that \"ANIMALS ARE OVER\" falls short. The earlier work had a more defined aesthetic and a sense of purpose, making it more engaging and memorable. This compilation lacks the sugar-fueled celebration and chaotic energy that made its predecessor stand out.</p><p>In summary, \"Everything is Terrible THE MEMORY HOLE Presents ANIMALS ARE OVER\" is a weak and derivative film that fails to deliver on artistic merit and complexity. Its lack of originality, poor artistic craft, and superficial themes make it a film that does not stand out in its genre.</p>",
-    "oneLinerSummary": "Experimental VHS collage explores humanity's destructive obsession with animals and dopamine.",
-    "url": "https://www.austinfilm.org/screening/everything-is-terrible-the-memory-hole-presents-animals-are-over/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "1h 30min",
-    "year": null,
-    "language": null,
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-01",
-        "time": "8:00 PM",
-        "url": "https://www.austinfilm.org/screening/everything-is-terrible-the-memory-hole-presents-animals-are-over/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "everything-is-terrible!-the-memory-hole-presents-animals-are-over"
-  },
-  {
-    "title": "REMEMBER MY NAME",
-    "rating": 6,
-    "description": "<p><strong>Rating: 6/10</strong></p><p>\ud83c\udfac Originality & Surprise<br>The movie \"Remember My Name\" (1978) directed by Alan Rudolph shows some originality in its exploration of the complexities of human relationships and the search for love. However, it does not entirely avoid clich\u00e9s, particularly in its portrayal of a troubled woman returning to her past. The film's narrative is somewhat predictable, especially given its minimal plot, which can make it feel less surprising than other works in the same genre. Despite this, the character of Emily, played by Geraldine Chaplin, is intriguing and multifaceted, adding a layer of unpredictability to the story.</p><p>\ud83c\udfa5 Artistic Craft<br>The artistic craft in \"Remember My Name\" is competent but unremarkable. The narrative structure is straightforward and minimalistic, which can make the film feel somewhat flat at times. The cinematography is not particularly noteworthy, and the sound design is similarly unremarkable. The pacing is well-balanced, but it does not contribute to any significant tension or emotional depth. The film's use of visual elements like windows and doorways to symbolize prison bars is an interesting touch, adding a layer of depth to the character's emotional state.</p><p>\ud83c\udfad Thematic Depth<br>The thematic depth of \"Remember My Name\" lies in its exploration of universal human experiences such as the search for love, the struggle with identity, and the complexities of human relationships. The film delves into these themes with a certain nuance, particularly through Emily's character, who is portrayed as a force of nature struggling to find normalcy. The film's portrayal of Emily's interactions with other characters, like Neil (Anthony Perkins) and Barbara (Berry Berenson), adds to this thematic depth. However, the exploration of these themes is not particularly profound or innovative, which limits the film's thematic impact.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br>In comparison to landmark works in its genre, \"Remember My Name\" does not stand out as a masterpiece. It lacks the complexity and innovation seen in films like those by directors such as Terrence Malick or Martin Scorsese. While it shares some elements with other films of the 1970s, such as its focus on character-driven storytelling, it does not elevate these elements to a level of exceptional mastery. The broad critical consensus on the film is generally positive, but it is often noted for its unique style and character portrayals rather than its groundbreaking storytelling or thematic depth.</p><p>In summary, \"Remember My Name\" is a competent but unremarkable film that shows some originality in its character portrayals and thematic exploration. However, it lacks the complexity and innovation that would elevate it to a higher rating.</p>",
-    "oneLinerSummary": "A haunting 1978 psychological drama exploring obsession through enigmatic, unpredictable characters.",
-    "url": "https://www.austinfilm.org/screening/remember-my-name/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 35min",
-    "director": "Alan Rudolph",
-    "country": "USA",
-    "year": 1978,
-    "language": null,
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-02",
-        "time": "6:00 PM",
-        "url": "https://www.austinfilm.org/screening/remember-my-name/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-05",
-        "time": "6:50 PM",
-        "url": "https://www.austinfilm.org/screening/remember-my-name/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "remember-my-name"
-  },
-  {
-    "title": "CONTEMPT",
-    "rating": 8,
-    "description": "<p><strong>Rating: 8/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>Score: 9/10</strong><br>\"Contempt\" by Jean-Luc Godard is a groundbreaking film that avoids clich\u00e9s and delivers unpredictable storytelling. The movie's narrative structure, which includes three distinct acts, is formal and orderly yet weaponized to convey the complexities of a failing marriage. The film's ability to switch between different tones and styles, from the initial romanticism to the eventual breakdown, keeps the viewer engaged and surprised. The character dynamics, particularly the relationship between Paul and Camille, are richly nuanced and full of exhausting stops-and-starts, making their interactions feel both familiar and uniquely portrayed.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>Score: 8/10</strong><br>The artistic craft in \"Contempt\" is exceptional. The cinematography is striking, capturing the Mediterranean setting in a way that complements the emotional turmoil of the characters. The sound design is equally impressive, with dialogue that feels both natural and deliberate, reflecting the tension between Paul and Camille. The pacing is well-balanced, moving seamlessly from moments of tenderness to explosive arguments. The film's mise-en-sc\u00e8ne is meticulously crafted to reflect the characters' inner states, making each scene feel both visually stunning and emotionally resonant.</p><p>\ud83c\udfad Thematic Depth<br><strong>Score: 9/10</strong><br>\"Contempt\" explores universal human experiences with remarkable nuance. The film delves into the complexities of marriage, the corrosive effects of money and power, and the fragility of relationships. Paul's soliloquy about accepting what others want and the role of money in relationships is a poignant commentary on modern society. The characters' struggles are deeply relatable, making the film a powerful exploration of universal themes. The portrayal of passive-aggression and its escalation into aggression is particularly insightful, offering a credible and exhausting portrayal of a couple on the brink of collapse.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>Score: 8/10</strong><br>While \"Contempt\" is not a landmark work in the same league as some of Godard's other films (like \"Breathless\" or \"Vivre sa vie\"), it stands out as a significant work within the New Wave movement. The film's formal structure and artistic craft set it apart from many of its contemporaries. The broad critical consensus praises Godard's ability to turn a big-budget production into something challenging and beautiful, despite the commercial pressures he faced. In comparison to other films of its time, \"Contempt\" holds its own as a strong example of innovative filmmaking and thematic depth.</p><p>In conclusion, \"Contempt\" is a strong film that excels in originality, artistic craft, and thematic depth. Its ability to deliver unpredictable storytelling, coupled with its meticulous artistic execution and nuanced exploration of universal human experiences, makes it an exceptional work within the context of its time.</p>",
-    "oneLinerSummary": "Godard's complex marital drama unfolds through unpredictable storytelling and mythic imagery.",
-    "url": "https://www.austinfilm.org/screening/contempt/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 42min",
-    "director": "Jean-Luc Godard",
-    "country": "France",
-    "year": 1963,
-    "language": "French with English Subtitles",
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-02",
-        "time": "8:30 PM",
-        "url": "https://www.austinfilm.org/screening/contempt/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-05",
-        "time": "5:45 PM",
-        "url": "https://www.austinfilm.org/screening/contempt/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "contempt"
-  },
-  {
     "title": "PAVEMENTS",
     "rating": 7,
-    "description": "<p><strong>Rating: 7/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>6/10</strong><br>While \"PAVEMENTS\" does not entirely avoid clich\u00e9s, it successfully weaves together multiple narrative threads and timelines, creating a unique viewing experience. The film's structure, which jumps between the band's past and present, is innovative and engaging. However, the development of the fictional biopic segment, particularly the \"Slanted Enchanted\" musical, feels less substantial compared to other aspects of the film.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>8/10</strong><br>The artistic craft of \"PAVEMENTS\" is commendable. The film's use of recurring, intertwined segments is well-executed, making the viewing experience smooth and easy to follow despite unique editing choices like shifting aspect ratios and split-screen presentations. The cinematography and sound design are also noteworthy, capturing the essence of the band's legacy and the emotional depth of its members.</p><p>\ud83c\udfad Thematic Depth<br><strong>7/10</strong><br>The thematic depth of \"PAVEMENTS\" explores universal human experiences such as friendship, love, memory, trust, and loyalty. The film effectively captures the public's fractured view of Pavement, showcasing the band members' comfort and happiness in their legacy. However, some themes, like the development of the fictional biopic segment, feel less nuanced and less impactful compared to other aspects of the film.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>6/10</strong><br>Comparing \"PAVEMENTS\" to landmark works in its genre is challenging due to its unique blend of documentary and fictional elements. However, it stands out for its innovative storytelling and its ability to balance multiple narrative threads. While it may not surpass the complexity of some other films in its genre, it is a strong contender for those interested in music documentaries and biopics.</p><p>In summary, \"PAVEMENTS\" is a competent and engaging film that excels in its artistic craft and thematic depth. While it may not be exceptional in every aspect, its innovative storytelling and nuanced exploration of human experiences make it a strong addition to the music documentary genre.</p>",
+    "description": "<p><strong>Rating: 7/10</strong></p><p>Originality & Surprise<br>The movie \"PAVEMENTS\" by Alex Ross Perry avoids clich\u00e9s by employing a non-linear narrative structure that interweaves past and present segments. This approach creates an unpredictable viewing experience, as the audience is constantly shifted between different eras and perspectives. The use of recurring, intertwined segments, along with unique editing choices like shifting aspect ratios and split-screen presentations, adds to the film's originality and keeps the viewer engaged. However, the development of the fictional musical sequences, while novel, feels less substantial compared to the rest of the film, which is a minor drawback in an otherwise innovative storytelling approach.</p><p>Artistic Craft<br>The narrative structure of \"PAVEMENTS\" is well-crafted, seamlessly integrating the band's history with the present-day musicians. The film's use of parallel themes builds an imperfect but representative mosaic of Pavement's impact on the underground music scene in the '90s and their enduring legacy. The cinematography and sound design are competent, capturing the band members' personalities and the emotional truth of their experiences. The pacing is smooth, despite the complexity of the narrative, making it easy to follow even with unique editing choices.</p><p>Thematic Depth<br>The film explores universal human experiences such as the band members' comfort and happiness in their legacy, as well as the emotional truth of their past and present. It delves into how the band's music represents a significant part of their lives and how they have come to terms with their influence. The thematic depth is nuanced, capturing the complexities of artistic legacy and personal growth. The portrayal of the band members' relationships and individual personalities adds depth to the narrative, making it more relatable and emotionally resonant.</p><p>Comparative Excellence<br>In comparison to landmark works in its genre, \"PAVEMENTS\" stands out for its innovative storytelling and nuanced thematic exploration. While it may not reach the level of exceptional masterpieces like \"The Last Picture Show\" or \"2001: A Space Odyssey,\" it demonstrates a strong artistic merit and complexity. The film's ability to balance its various elements, including non-linear storytelling and unique editing choices, sets it apart from more conventional biographical films. The broad critical consensus, as seen in reviews from Third Coast Review and Roger Ebert, praises the film's sincerity and emotional truth, further solidifying its place as a strong work in the genre.</p>",
     "oneLinerSummary": "A creatively structured film weaving Pavement's musical legacy through multiple timelines.",
     "url": "https://www.austinfilm.org/screening/pavements/",
     "isSpecialScreening": false,
@@ -192,7 +154,7 @@
   {
     "title": "HEARTWORN HIGHWAYS",
     "rating": 6,
-    "description": "<p><strong>Rating: 6/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>Score: 4/10</strong><br>While \"Heartworn Highways\" captures a pivotal moment in the Outlaw Country movement, its narrative structure is somewhat meandering and unfocused. The documentary's reliance on interviews and observational footage, while authentic, does not necessarily avoid clich\u00e9s. The film's storytelling is more observational than narrative-driven, which limits its ability to surprise or engage viewers in a deeply unpredictable way.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>Score: 5/10</strong><br>The cinematography in \"Heartworn Highways\" is notable for its freewheeling style, capturing the raw, unpolished essence of the Outlaw Country scene. However, the editing can be choppy at times, which detracts from the overall coherence of the film. The soundtrack is enjoyable and adds to the documentary's charm, but it is not particularly innovative or groundbreaking. The film's use of time-lapse and montage sequences is impressive, but these moments are not enough to elevate the entire film to a higher artistic level.</p><p>\ud83c\udfad Thematic Depth<br><strong>Score: 5/10</strong><br>The documentary explores the universal human experiences of creativity, rebellion, and the pursuit of artistic authenticity. However, these themes are not deeply nuanced or complex. The film primarily serves as a historical document of the Outlaw Country movement rather than a deeply introspective exploration of human nature. The focus on the lives and careers of specific artists like Guy Clark and Townes Van Zandt provides some depth, but it is largely surface-level.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>Score: 6/10</strong><br>In comparison to landmark works in its genre, \"Heartworn Highways\" holds its own as a significant document of the Outlaw Country movement. It shares some qualities with Martin Scorsese's \"The Last Waltz,\" another influential music documentary. However, while \"The Last Waltz\" is more polished and narrative-driven, \"Heartworn Highways\" captures a raw, unfiltered moment in music history. The film's influence on country music enthusiasts is undeniable, but it does not reach the same level of excellence as more refined documentaries like \"The Last Waltz\".</p><p>In summary, \"Heartworn Highways\" is a competent but unremarkable documentary that captures an important moment in music history. While it has some artistic merit and thematic depth, it falls short in terms of originality and overall artistic craft.</p>",
+    "description": "<p><strong>Rating: 6/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>6/10</strong>: While \"Heartworn Highways\" captures a unique moment in the Outlaw Country music movement, its storytelling is somewhat predictable and lacks significant surprises. The documentary follows a series of interviews and performances by emerging artists, which, although historically significant, does not offer a particularly innovative narrative structure. The film's focus on the rise of Outlaw Country is well-documented, but it does not break new ground in terms of storytelling.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>6/10</strong>: The artistic craft of \"Heartworn Highways\" is competent but unremarkable. The cinematography is rough around the edges, reflecting the documentary's scrappy and low-budget nature. While there are some impressive moments like the time-lapse of an audience shuffling to their seats and the montage of pickup trucks, these are not enough to elevate the film beyond its basic documentary format. The editing is occasionally choppy, which detracts from the overall viewing experience.</p><p>\ud83c\udfad Thematic Depth<br><strong>6/10</strong>: The thematic depth of \"Heartworn Highways\" lies in its portrayal of the Outlaw Country movement and the artists involved. The film captures the essence of a bygone era in American music, highlighting themes of rebellion and innovation within the country music genre. However, these themes are explored with a level of superficiality, lacking the nuance and depth that would elevate it to a higher rating.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>6/10</strong>: When compared to landmark works in its genre, \"Heartworn Highways\" falls short. While it shares some similarities with Martin Scorsese's \"The Last Waltz\" in its documentation of an important moment in Americana, it lacks the cohesion and narrative drive that makes \"The Last Waltz\" a standout documentary. Despite its historical significance, \"Heartworn Highways\" remains a competent but unremarkable film within the context of music documentaries.</p><p>In summary, \"Heartworn Highways\" is a solid, if unremarkable, documentary that captures an important moment in American music history. While it lacks innovation and thematic depth, it remains a valuable historical record of the Outlaw Country movement.</p>",
     "oneLinerSummary": "An intimate documentary capturing the raw spirit of Outlaw Country music.",
     "url": "https://www.austinfilm.org/screening/heartworn-highways/",
     "isSpecialScreening": false,
@@ -230,7 +192,7 @@
   {
     "title": "GRAND TOUR",
     "rating": 8,
-    "description": "<p><strong>Rating: 8/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>7/10</strong><br>\"Grand Tour\" by Miguel Gomes avoids many clich\u00e9s by employing an unconventional production approach. Gomes shoots contemporary footage across Asia before writing the script, combining this documentary material with studio-shot narrative scenes. This method creates a unique narrative structure that is both captivating and thought-provoking. However, the predictability of Edward's journey and Molly's relentless pursuit, while well-executed, slightly detracts from the overall surprise factor.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>9/10</strong><br>The artistic craft in \"Grand Tour\" is exceptional. The use of luminous 16mm monochrome cinematography adds a timeless quality to the film, effectively mediating on time and memory. The narrative structure, blending documentary and fiction, is innovative and well-executed. The pacing is deliberate and measured, allowing the audience to absorb the melancholic atmosphere and the complex relationships between characters. The sound design complements the visuals, enhancing the emotional impact of key scenes.</p><p>\ud83c\udfad Thematic Depth<br><strong>8/10</strong><br>The thematic depth of \"Grand Tour\" is nuanced and multifaceted. The film explores universal human experiences such as love, loss, and the passage of time. The characters' emotional journeys are deeply humanized, making their struggles relatable. However, some themes, like the colonial undertones, could be more explicitly developed to add greater depth to the narrative.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>8/10</strong><br>Comparing \"Grand Tour\" to landmark works in its genre, it stands out for its unique blend of documentary and fiction. While it may not surpass the complexity of Gomes' earlier works like \"Arabian Nights,\" it demonstrates a similar level of innovation and artistic merit. The film's ability to collapse temporal and spatial boundaries, as mentioned in the director's notes, sets it apart from more conventional period dramas.</p><p>Overall, \"Grand Tour\" is a strong film that excels in its artistic craft and thematic depth, making it an exceptional work within its genre. Its originality and surprise elements, while commendable, are slightly tempered by some predictability in the narrative. Nonetheless, it is a masterpiece that rewards close attention and reflection.</p>",
+    "description": "<p><strong>Rating: 8/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>7/10</strong><br>\"Grand Tour\" by Miguel Gomes avoids many clich\u00e9s by blending documentary and fiction elements in an unconventional manner. The film's narrative structure, which begins to take shape after reading Somerset Maugham's book and is influenced by the director's personal connection to the story, adds a layer of unpredictability. However, while it is innovative, it may not entirely surprise viewers familiar with Gomes' previous works, which often experiment with narrative structures.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>9/10</strong><br>The artistic craft of \"Grand Tour\" is exceptional. The film's use of contemporary footage shot in Asia, combined with studio-shot narrative scenes in luminous 16mm monochrome, creates a visually striking and cohesive cinematic experience. The cinematography is meticulously planned to evoke a sense of timelessness and melancholy, perfectly capturing the essence of Edward's journey. The pacing is well-balanced, allowing the audience to absorb the complex themes and emotions without feeling rushed or dragged out. The combination of documentary material with narrative scenes adds depth to the storytelling, making it a standout in terms of artistic merit.</p><p>\ud83c\udfad Thematic Depth<br><strong>8/10</strong><br>\"Grand Tour\" explores universal human experiences with nuance. The film delves into themes of time, memory, and the relationship between past and present. The character of Edward, who flees on the eve of his wedding, serves as a metaphor for the fragility of human connections and the passage of time. The determined Molly, who follows his trail, adds a layer of resilience and determination to the narrative. These themes are explored with a level of sophistication that resonates with audiences, making the film more than just a historical drama.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>8/10</strong><br>In comparison to landmark works in its genre, \"Grand Tour\" stands out for its innovative approach to storytelling. While it may not surpass the thematic depth of films like \"The Face You Deserve\" or \"Arabian Nights,\" which also showcased Gomes' ability to blend documentary and fiction, \"Grand Tour\" excels in its visual and narrative craftsmanship. The film's use of 16mm monochrome and its blend of documentary and narrative elements make it a unique addition to the genre, comparable to other innovative works by Gomes that push cinematic boundaries.</p><p>Overall, \"Grand Tour\" is a strong film that excels in its artistic craft and thematic depth, making it a standout in the genre. Its originality and surprise elements, while not entirely new for Gomes, are still compelling and contribute to its overall excellence.</p>",
     "oneLinerSummary": "Miguel Gomes crafts an unconventional Asian journey exploring time, memory, and storytelling.",
     "url": "https://www.austinfilm.org/screening/grand-tour/",
     "isSpecialScreening": false,
@@ -268,7 +230,7 @@
   {
     "title": "DOGTOOTH 4K Restoration",
     "rating": 8,
-    "description": "<p><strong>Rating: 8/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>8/10</strong><br>DOGTOOTH stands out for its bold and unconventional storytelling. The film avoids clich\u00e9s by presenting a family trapped in a world of their own making, where the boundaries between reality and fantasy are blurred. The children's perceptions of the world are distorted, and their games and interactions are both fascinating and unsettling. This level of originality is evident in how the film manipulates language and reality, creating an unpredictable narrative that keeps viewers on edge.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>9/10</strong><br>The artistic craft in DOGTOOTH is exceptional. The narrative structure is meticulously crafted to reveal the family's dysfunction gradually, using a combination of subtle hints and stark revelations. Character depth is profound, particularly in the portrayal of the children who are both naive and precariously close to adulthood. The cinematography is stark and deliberate, emphasizing the claustrophobic atmosphere of the house. The sound design is equally effective in capturing the eerie silence and sudden bursts of violence. The pacing is well-balanced, maintaining tension throughout the film.</p><p>\ud83c\udfad Thematic Depth<br><strong>8/10</strong><br>Thematic depth is a significant strength of DOGTOOTH. The film explores universal human experiences such as the manipulation of language, the power dynamics within families, and the consequences of isolation. The themes are nuanced and complex, inviting multiple interpretations. The film raises questions about the nature of reality and how it can be shaped by those in power. This thematic depth is evident in how the parents' control over the children's lives is both subtle and brutal, reflecting broader societal issues.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>8/10</strong><br>Comparatively, DOGTOOTH stands out as a landmark work in the art-house genre. It has been praised for its unflinching direction and its ability to create a visual myth that puts Greek cinema on the map. The film's influence can be seen in later works by Lanthimos, who continues to push the boundaries of storytelling. While it may not be as widely acclaimed as some other art-house films, its impact and originality place it among the most exceptional works in its genre.</p>",
+    "description": "<p><strong>Rating: 8/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>Score: 9/10</strong><br>\"Dogtooth\" is a masterclass in original storytelling. The film's premise, where a family of six is isolated and manipulated by their parents, is both bizarre and thought-provoking. The children's perceptions of the world are warped, and their games and interactions are a testament to the director's ability to create an unpredictable narrative. The film's use of language and the children's naivety add layers of complexity, making it a standout in terms of originality and surprise.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>Score: 8/10</strong><br>The artistic craft in \"Dogtooth\" is exceptional. The narrative structure is tightly woven, with each scene contributing to the overall sense of claustrophobia and manipulation. The character depth is remarkable, particularly in how the children's innocence and the parents' control are portrayed. The cinematography is stark and deliberate, emphasizing the isolation and artificiality of the family's world. The sound design is equally impressive, with the use of silence and muted tones adding to the film's unsettling atmosphere. However, the pacing can feel somewhat deliberate and slow, which might detract from some viewers' experience.</p><p>\ud83c\udfad Thematic Depth<br><strong>Score: 9/10</strong><br>\"Dogtooth\" explores universal human experiences with remarkable nuance. The film delves into themes of control, manipulation, and the impact of isolation on human development. The portrayal of the family's dynamics raises questions about the nature of reality and how it can be distorted by external influences. The film's exploration of language and its power to shape perceptions is particularly insightful, adding depth to the narrative.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>Score: 8/10</strong><br>Comparing \"Dogtooth\" to landmark works in its genre, it stands out for its unflinching direction and its ability to balance the bizarre with the disturbing. While it may not be as widely known as some other films in the art-house genre, it has earned critical acclaim and recognition, including the Un Certain Regard award at Cannes in 2009. The film's influence can be seen in later works by Yorgos Lanthimos, further solidifying its place in the cinematic canon.</p><p>In summary, \"Dogtooth\" is a strong film that excels in originality, artistic craft, and thematic depth. While it may have some minor drawbacks in pacing, its overall impact and complexity make it a standout in the art-house genre.</p>",
     "oneLinerSummary": "A disturbing 4K restoration exploring psychological manipulation within an isolated dysfunctional...",
     "url": "https://www.austinfilm.org/screening/dogtooth-4k-restoration/",
     "isSpecialScreening": false,
@@ -305,8 +267,8 @@
   },
   {
     "title": "THE PHOENICIAN SCHEME",
-    "rating": 7,
-    "description": "<p><strong>Rating: 7/10</strong></p><p>\ud83c\udfac Originality & Surprise<br>The Phoenician Scheme shows a moderate level of originality and surprise. While it incorporates elements of espionage and dark comedy, the plot is not entirely unpredictable. The twist involving Nubar's true intentions and his role in the assassination attempts adds a layer of surprise, but it is not groundbreaking. The film's reliance on familiar tropes, such as the eccentric tycoon and the complex business scheme, keeps it from being truly innovative (Source: ).</p><p>\ud83c\udfa5 Artistic Craft<br>The artistic craft in The Phoenician Scheme is competent but unremarkable. The narrative structure is well-organized, with a clear progression from Korda's near-death experiences to his decision to change his ways. However, the character development is somewhat one-dimensional, particularly with Liesl, who transitions from a nun to accepting her father without much depth (Source: ). The cinematography and sound design are not particularly noteworthy, but they serve the story adequately. The pacing is well-balanced, keeping the viewer engaged throughout the film.</p><p>\ud83c\udfad Thematic Depth<br>The thematic depth of The Phoenician Scheme explores universal human experiences with some nuance. The film delves into themes of mortality, redemption, and the search for meaning. Korda's visions of a higher world and his decision to convert to Catholicism add a layer of introspection, but these themes are not fully developed. The film also touches on the complexities of family relationships and the power dynamics within them, particularly with Liesl's acceptance of her father (Source: ).</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br>Comparing The Phoenician Scheme to landmark works in its genre, it falls short of being exceptional. While it shares some elements with Wes Anderson's previous films, such as the intricate plot and quirky characters, it lacks the unique visual style and thematic complexity that makes his other works stand out. For example, films like \"The Grand Budapest Hotel\" or \"Moonrise Kingdom\" have more distinctive narratives and character arcs. The Phoenician Scheme, while enjoyable, does not reach the same level of artistic excellence (Source: ).</p><p>In summary, The Phoenician Scheme is a competent but unremarkable film that showcases some original elements but ultimately relies on familiar tropes. Its artistic craft is solid, but it lacks the depth and innovation that would elevate it to exceptional status.</p>",
+    "rating": 6,
+    "description": "<p><strong>Rating: 6/10</strong></p><p>Originality & Surprise<br>The movie <strong>THE PHOENICIAN SCHEME</strong> attempts to avoid clich\u00e9s by incorporating elements of espionage, dark comedy, and personal transformation. However, it does not entirely succeed in delivering unpredictable storytelling. The plot, while convoluted, follows a somewhat predictable trajectory, with the main character's transformation from a ruthless tycoon to a more compassionate individual being somewhat clich\u00e9d. The film's reliance on a \"Phoenician Scheme\" as its central plot device, while elaborate, does not entirely surprise or innovate within the espionage genre (Score: 4/10).</p><p>Artistic Craft<br><strong>Narrative Structure:</strong> The film's narrative structure is complex and layered, with multiple plot threads that intersect in unexpected ways. However, the pacing can be uneven, sometimes feeling overly elaborate and meandering. The use of a secret council of bureaucrats as a Greek chorus adds an interesting layer of complexity to the story (Score: 5/10).</p><p><strong>Character Depth:</strong> The main character, Anatole 'Zsa Zsa' Korda, is well-developed, showcasing a nuanced transformation from a ruthless tycoon to a more compassionate individual. His visions of a higher world and his interactions with his estranged daughter Liesl add depth to the character. However, some supporting characters feel somewhat one-dimensional (Score: 6/10).</p><p><strong>Cinematography & Sound:</strong> The film's cinematography is visually striking, particularly in its use of black-and-white tableaux reminiscent of Powell-Pressburger and Parajanov. The inclusion of Willem Dafoe and Bill Murray in these scenes adds to the film's artistic merit. The sound design is also noteworthy, with a mix of diegetic and non-diegetic elements that enhance the film's atmosphere (Score: 7/10).</p><p><strong>Pacing:</strong> The pacing is sometimes uneven, with long stretches of exposition that slow down the narrative. However, the film's climax is well-executed, providing a satisfying conclusion to the story (Score: 5/10).</p><p>Thematic Depth<br>The film explores universal human experiences such as the search for meaning and redemption. Korda's transformation from a self-centered tycoon to someone who values relationships and legacy is a compelling theme. However, the exploration of these themes is not particularly nuanced, often relying on familiar tropes (Score: 5/10).</p><p>Comparative Excellence<br>In comparison to landmark works in the espionage genre, <strong>THE PHOENICIAN SCHEME</strong> does not stand out as particularly exceptional. Films like <strong>The Grand Budapest Hotel</strong> by Wes Anderson, while also elaborate and visually stunning, offer more cohesive and innovative storytelling. However, <strong>THE PHOENICIAN SCHEME</strong> does show some promise in its unique blend of espionage and dark comedy, making it a competent but unremarkable addition to the genre (Score: 6/10).</p><p>In summary, while <strong>THE PHOENICIAN SCHEME</strong> shows some artistic merit and complexity, it falls short of being exceptional due to its predictable plot and uneven pacing. It is a competent but unremarkable film that could benefit from more innovative storytelling and thematic depth.</p>",
     "oneLinerSummary": "A convoluted business thriller featuring ruthless dealings and complex personal entanglements.",
     "url": "https://www.austinfilm.org/screening/the-phoenician-scheme/",
     "isSpecialScreening": false,
@@ -368,7 +330,7 @@
   {
     "title": "THE DAMNED",
     "rating": 7,
-    "description": "<p><strong>Rating: 7/10</strong></p><p>Originality & Surprise<br>The movie \"The Damned\" by Roberto Minervini does not avoid clich\u00e9s entirely, as it explores the monotony and deconstruction of war heroism, a theme that, while nuanced, is not entirely new. However, the film's approach to depicting the mundane aspects of war, such as soldiers doing laundry and hunting, adds a layer of realism that is often missing in more action-oriented war movies. The tension builds gradually, culminating in a tense 10-minute shootout, which is a notable moment of surprise in an otherwise downbeat film. <strong>Score: 6/10</strong></p><p>Artistic Craft<br>The artistic craft of \"The Damned\" is competent but unremarkable. The narrative structure is straightforward, focusing on the daily lives of a volunteer Union unit during the winter of 1862. The character depth is also notable, as the soldiers are portrayed as ordinary people trying to survive rather than heroic figures. The cinematography, handled by Carlos Alfonso Corra, effectively captures the bleak landscape and the cold, making the viewer feel the harsh conditions. The score is offbeat and interesting, adding to the film's atmosphere. The pacing is well-balanced, maintaining a sense of unease and tension throughout. <strong>Score: 7/10</strong></p><p>Thematic Depth<br>The thematic depth of \"The Damned\" is strong. The film explores universal human experiences such as the futility of war, the importance of family, and the moral dilemmas faced by soldiers. The notion that \"you end up realizing your family is a whole lot more important than your country\" underscores the personal costs of war. The discussion of biblical good and evil, as well as the soldier's quote from Matthew's gospel, adds depth to the narrative. <strong>Score: 8/10</strong></p><p>Comparative Excellence<br>Comparing \"The Damned\" to landmark works in its genre, it stands out for its realistic portrayal of war. While it does not match the bold, blood-and-thunder action of typical war movies, it aligns more with Kelly Reichardt\u2019s \"Meek\u2019s Cutoff\" in its focus on the mundane aspects of survival. The film's ability to create a convincing atmosphere and its nuanced exploration of human experiences make it a strong contender in the genre. However, it does not reach the exceptional level of masterpieces like \"All Quiet on the Western Front\" or \"Apocalypse Now,\" which are more iconic and influential. <strong>Score: 7/10</strong></p><p>Overall Assessment<br>\"The Damned\" is a strong film that excels in its thematic depth and artistic craft. While it may not be exceptional or groundbreaking, it offers a unique perspective on the monotony and deconstruction of war heroism. The film's ability to make the viewer feel the cold and the unease is commendable, and its nuanced exploration of human experiences is noteworthy. However, it falls short of being exceptional due to its lack of innovation and surprise in its storytelling. <strong>Overall Score: 7/10</strong></p>",
+    "description": "<p><strong>Rating: 7/10</strong></p><p>\ud83c\udfac Originality & Surprise<br>The Damned avoids clich\u00e9s in its portrayal of war by focusing on the mundane aspects of soldier life, creating a sense of monotony and unease. The film's decision to visually isolate characters, even in group settings, adds to this sense of isolation and tension. However, the narrative does not deliver unpredictable storytelling; instead, it builds towards a tense and well-executed battle set piece, which, while intense, is somewhat predictable in its execution.</p><p>\ud83c\udfa5 Artistic Craft<br>The artistic craft of The Damned is strong. The cinematography effectively captures the cold and the sense of unease, making the viewer feel the environment as the soldiers do. The score, composed by Carlos Alfonso Corra, is offbeat and interesting, adding to the film's atmosphere. The narrative structure is well-balanced, moving from the mundane to the intense without feeling abrupt. The pacing is well-managed, building tension gradually before the climactic battle.</p><p>\ud83c\udfad Thematic Depth<br>The Damned explores universal human experiences with nuance. It delves into the futility of war, the importance of family, and the deconstruction of heroism. The film's themes are conveyed through the soldiers' conversations and actions, particularly in the quote from Matthew's gospel, \"All they that take the sword shall perish with the sword,\" which underscores the soldiers' realization that they have crossed a line. The thematic depth is evident in how the film humanizes the soldiers, making them relatable and vulnerable.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br>In comparison to landmark war films, The Damned stands out for its unique approach to storytelling. Unlike films that focus on action and heroism, The Damned emphasizes the monotony and psychological toll of war. This approach is reminiscent of Kelly Reichardt's \"Meek's Cutoff,\" which also deconstructs the heroism associated with its genre. The Damned's strength lies in its ability to put the viewer in the shoes of the soldiers, creating a sense of realism and unease that is characteristic of Minervini's previous work, such as \"The Other Side\". However, it does not reach the level of exceptional masterpieces like \"All Quiet on the Western Front\" or \"Apocalypse Now,\" which are more iconic and influential in the genre.</p><p>Overall, The Damned is a competent but unremarkable film that excels in its artistic craft and thematic depth. While it avoids clich\u00e9s and delivers a nuanced portrayal of war, it does not surprise or innovate significantly in its storytelling.</p>",
     "oneLinerSummary": "Roberto Minervini's war film explores monotony and fear through realistic soldier experiences.",
     "url": "https://www.austinfilm.org/screening/the-damned/",
     "isSpecialScreening": false,
@@ -398,606 +360,36 @@
     "id": "the-damned"
   },
   {
-    "title": "Masterworks 1: Stefan Jackiw, violin",
-    "rating": 8,
-    "description": "<p>Program: Gabriela Ortiz - Kauyumari | Prokofiev - Violin Concerto No. 2 in G Minor | Saint-Sa\u00ebns - Symphony No. 3 in C Minor (Organ Symphony)</p>",
-    "oneLinerSummary": "Gabriela Ortiz - Kauyumari | Prokofiev - Violin Concerto No. 2 in G Minor | Sain...",
-    "url": "https://austinsymphony.org",
+    "title": "GWEN AND THE BOOK OF SAND",
+    "rating": 7,
+    "description": "<p><strong>Rating: 7/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>6/10</strong><br>While \"Gwen and the Book of Sand\" does offer some unique elements, such as its surreal desert landscape and the juxtaposition of everyday items with a nomadic motif, it also relies heavily on vague and mysterious storytelling. The narrative can be confusing, which might deter viewers who prefer clear plots. However, fans of surreal animation may find the unique landscape intriguing and open to interpretation.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>7/10</strong><br>The movie showcases simple yet serenely beautiful visuals. The cinematography effectively captures the strange and often disturbing elements of the desert world, particularly in the depiction of the characters' interactions with everyday items that seem to dwarf them. The pacing is necessarily slow to allow for the surreal journey, which can be both a strength and a weakness depending on the viewer's preference. The narrative structure is not overly complex but is well-suited to the film's themes.</p><p>\ud83c\udfad Thematic Depth<br><strong>8/10</strong><br>The film delves into questions of religion and the purpose and desire of \"God,\" exploring universal human experiences with some nuance. The themes of loss, search, and the human condition are woven into the story, adding depth to the narrative. However, the execution can be somewhat ambiguous, which may limit its impact for some viewers.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>7/10</strong><br>In comparison to landmark works in the genre of surreal animation, \"Gwen and the Book of Sand\" holds its own. While it may not reach the same level of complexity or innovation as some other works, it maintains a unique and captivating atmosphere. The film's ability to evoke a sense of mystery and exploration aligns it with other notable surreal animations, even if it does not surpass them in terms of sheer artistic merit.</p><p>Overall, \"Gwen and the Book of Sand\" is a competent but unremarkable work in the realm of surreal animation. It offers some unique visual and thematic elements but falls short in terms of narrative clarity and overall impact. Its artistic merit is evident in its ability to create a captivating and thought-provoking atmosphere, even if it does not reach exceptional levels of mastery.</p>",
+    "oneLinerSummary": "A surreal post-apocalyptic animated journey through mysterious desert landscapes and vague storyt...",
+    "url": "https://www.austinfilm.org/screening/gwen-and-the-book-of-sand/",
     "isSpecialScreening": false,
-    "isMovie": false,
+    "isMovie": true,
     "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Masterworks",
-    "composers": [
-      "Gabriela Ortiz",
-      "Sergei Prokofiev",
-      "Camille Saint-Sa\u00ebns"
-    ],
-    "works": [
-      "Kauyumari",
-      "Violin Concerto No. 2 in G Minor",
-      "Symphony No. 3 in C Minor (Organ Symphony)"
-    ],
-    "featured_artist": "Stefan Jackiw (violin)",
-    "program": "Gabriela Ortiz - Kauyumari | Prokofiev - Violin Concerto No. 2 in G Minor | Saint-Sa\u00ebns - Symphony No. 3 in C Minor (Organ Symphony)",
+    "duration": "1h 7min",
+    "director": "Jean-Fran\u00e7ois Laguionie",
+    "country": "France",
+    "year": 1985,
+    "language": "French",
+    "venue": "AFS",
+    "type": "movie",
     "screenings": [
       {
-        "date": "2025-09-12",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2025-09-13",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
+        "date": "2025-07-04",
+        "time": "8:25 PM",
+        "url": "https://www.austinfilm.org/screening/gwen-and-the-book-of-sand/",
+        "venue": "AFS"
       }
     ],
-    "id": "masterworks-1-stefan-jackiw-violin"
-  },
-  {
-    "title": "Masterworks 2: Emanuel Ax, piano",
-    "rating": 8,
-    "description": "<p>Program: Valerie Coleman - Seven O'Clock Shout | Beethoven - Piano Concerto No. 3 in C Minor | Tchaikovsky - Symphony No. 3 in D Major (Polish)</p>",
-    "oneLinerSummary": "Valerie Coleman - Seven O'Clock Shout | Beethoven - Piano Concerto No. 3 in C Mi...",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Masterworks",
-    "composers": [
-      "Valerie Coleman",
-      "Ludwig van Beethoven",
-      "Pyotr Ilyich Tchaikovsky"
-    ],
-    "works": [
-      "Seven O'Clock Shout",
-      "Piano Concerto No. 3 in C Minor",
-      "Symphony No. 3 in D Major (Polish)"
-    ],
-    "featured_artist": "Emanuel Ax (piano)",
-    "program": "Valerie Coleman - Seven O'Clock Shout | Beethoven - Piano Concerto No. 3 in C Minor | Tchaikovsky - Symphony No. 3 in D Major (Polish)",
-    "screenings": [
-      {
-        "date": "2025-10-24",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2025-10-25",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "masterworks-2-emanuel-ax-piano"
-  },
-  {
-    "title": "Masterworks 3: Rhapsody Spectacular",
-    "rating": 8,
-    "description": "<p>Program: Liszt/Doppler - Hungarian Rhapsody No. 2 | Debussy - Premi\u00e8re rapsodie for Clarinet and Orchestra | Enescu - Romanian Rhapsody No. 1 | Gershwin - Second Rhapsody for Piano and Orchestra | Beethoven - Symphony No. 5 in C Minor</p>",
-    "oneLinerSummary": "Liszt/Doppler - Hungarian Rhapsody No. 2 | Debussy - Premi\u00e8re rapsodie for Clari...",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Masterworks",
-    "composers": [
-      "Franz Liszt",
-      "Claude Debussy",
-      "George Enescu",
-      "George Gershwin",
-      "Ludwig van Beethoven"
-    ],
-    "works": [
-      "Hungarian Rhapsody No. 2",
-      "Premi\u00e8re rapsodie for Clarinet and Orchestra",
-      "Romanian Rhapsody No. 1",
-      "Second Rhapsody for Piano and Orchestra",
-      "Symphony No. 5 in C Minor"
-    ],
-    "featured_artist": "Stephen Girko (clarinet), Alex Maynegre-Torra (piano)",
-    "program": "Liszt/Doppler - Hungarian Rhapsody No. 2 | Debussy - Premi\u00e8re rapsodie for Clarinet and Orchestra | Enescu - Romanian Rhapsody No. 1 | Gershwin - Second Rhapsody for Piano and Orchestra | Beethoven - Symphony No. 5 in C Minor",
-    "screenings": [
-      {
-        "date": "2025-11-21",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2025-11-22",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "masterworks-3-rhapsody-spectacular"
-  },
-  {
-    "title": "Masterworks 4: Miguel Espinoza Fusion",
-    "rating": 8,
-    "description": "<p>Program: Aaron Copland - El Sal\u00f3n M\u00e9xico | Miguel Espinoza - New Work (World Premiere) | Gustav Holst - The Planets</p>",
-    "oneLinerSummary": "Aaron Copland - El Sal\u00f3n M\u00e9xico | Miguel Espinoza - New Work (World Premiere) | ...",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Masterworks",
-    "composers": [
-      "Aaron Copland",
-      "Miguel Espinoza",
-      "Gustav Holst"
-    ],
-    "works": [
-      "El Sal\u00f3n M\u00e9xico",
-      "New Work (World Premiere)",
-      "The Planets"
-    ],
-    "featured_artist": "Miguel Espinoza Fusion ensemble",
-    "program": "Aaron Copland - El Sal\u00f3n M\u00e9xico | Miguel Espinoza - New Work (World Premiere) | Gustav Holst - The Planets",
-    "screenings": [
-      {
-        "date": "2026-01-16",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2026-01-17",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "masterworks-4-miguel-espinoza-fusion"
-  },
-  {
-    "title": "Masterworks 5: Annie Jacobs-Perkins, cello",
-    "rating": 8,
-    "description": "<p>Program: Felix Mendelssohn - The Hebrides Overture | Ernest Bloch - Schelomo | Jarom\u00edr Weinberger - Schwanda the Bagpiper Suite | Leonard Bernstein - Symphonic Dances from West Side Story</p>",
-    "oneLinerSummary": "Felix Mendelssohn - The Hebrides Overture | Ernest Bloch - Schelomo | Jarom\u00edr We...",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Masterworks",
-    "composers": [
-      "Felix Mendelssohn",
-      "Ernest Bloch",
-      "Jarom\u00edr Weinberger",
-      "Leonard Bernstein"
-    ],
-    "works": [
-      "The Hebrides Overture",
-      "Schelomo",
-      "Schwanda the Bagpiper Suite",
-      "Symphonic Dances from West Side Story"
-    ],
-    "featured_artist": "Annie Jacobs-Perkins (cello)",
-    "program": "Felix Mendelssohn - The Hebrides Overture | Ernest Bloch - Schelomo | Jarom\u00edr Weinberger - Schwanda the Bagpiper Suite | Leonard Bernstein - Symphonic Dances from West Side Story",
-    "screenings": [
-      {
-        "date": "2026-02-20",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2026-02-21",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "masterworks-5-annie-jacobs-perkins-cello"
-  },
-  {
-    "title": "Masterworks 6: Nancy Zhou, violin",
-    "rating": 8,
-    "description": "<p>Program: Bernard Herrmann/Palmer - Psycho Suite | Erich Wolfgang Korngold - Violin Concerto in D Major | Richard Strauss - Also sprach Zarathustra</p>",
-    "oneLinerSummary": "Bernard Herrmann/Palmer - Psycho Suite | Erich Wolfgang Korngold - Violin Concer...",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Masterworks",
-    "composers": [
-      "Bernard Herrmann",
-      "Erich Wolfgang Korngold",
-      "Richard Strauss"
-    ],
-    "works": [
-      "Psycho Suite",
-      "Violin Concerto in D Major",
-      "Also sprach Zarathustra"
-    ],
-    "featured_artist": "Nancy Zhou (violin)",
-    "program": "Bernard Herrmann/Palmer - Psycho Suite | Erich Wolfgang Korngold - Violin Concerto in D Major | Richard Strauss - Also sprach Zarathustra",
-    "screenings": [
-      {
-        "date": "2026-03-13",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2026-03-14",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "masterworks-6-nancy-zhou-violin"
-  },
-  {
-    "title": "Masterworks 7: Grisha Goryachev, guitar & Mozart Requiem",
-    "rating": 8,
-    "description": "<p>Program: Perttu - New Guitar Concerto | Joaqu\u00edn Rodrigo - Concierto de Aranjuez | Wolfgang Amadeus Mozart - Requiem in D Minor</p>",
-    "oneLinerSummary": "Perttu - New Guitar Concerto | Joaqu\u00edn Rodrigo - Concierto de Aranjuez | Wolfgan...",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Masterworks",
-    "composers": [
-      "Perttu",
-      "Joaqu\u00edn Rodrigo",
-      "Wolfgang Amadeus Mozart"
-    ],
-    "works": [
-      "New Guitar Concerto",
-      "Concierto de Aranjuez",
-      "Requiem in D Minor"
-    ],
-    "featured_artist": "Grisha Goryachev (guitar), Chorus Austin",
-    "program": "Perttu - New Guitar Concerto | Joaqu\u00edn Rodrigo - Concierto de Aranjuez | Wolfgang Amadeus Mozart - Requiem in D Minor",
-    "screenings": [
-      {
-        "date": "2026-04-10",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2026-04-11",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "masterworks-7-grisha-goryachev-guitar-&-mozart-requiem"
-  },
-  {
-    "title": "Masterworks 8: Steinway Spirio featuring \"George Gershwin\"",
-    "rating": 8,
-    "description": "<p>Program: Morton Gould - American Salute | George Gershwin - Piano Concerto in F | Charles Ives - Symphony No. 2 | Aaron Copland - Fanfare for the Common Man</p>",
-    "oneLinerSummary": "Morton Gould - American Salute | George Gershwin - Piano Concerto in F | Charles...",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Masterworks",
-    "composers": [
-      "Morton Gould",
-      "George Gershwin",
-      "Charles Ives",
-      "Aaron Copland"
-    ],
-    "works": [
-      "American Salute",
-      "Piano Concerto in F",
-      "Symphony No. 2",
-      "Fanfare for the Common Man"
-    ],
-    "featured_artist": "Steinway Spirio featuring \"George Gershwin\"",
-    "program": "Morton Gould - American Salute | George Gershwin - Piano Concerto in F | Charles Ives - Symphony No. 2 | Aaron Copland - Fanfare for the Common Man",
-    "screenings": [
-      {
-        "date": "2026-05-15",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2026-05-16",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "masterworks-8-steinway-spirio-featuring-\"george-gershwin\""
-  },
-  {
-    "title": "Star Wars: Return of the Jedi in Concert",
-    "rating": 8,
-    "description": "<p>Program: John Williams - Star Wars: Return of the Jedi (complete film with live orchestra)</p>",
-    "oneLinerSummary": "John Williams - Star Wars: Return of the Jedi (complete film with live orchestra...",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Butler Pops",
-    "composers": [
-      "John Williams"
-    ],
-    "works": [
-      "Star Wars: Return of the Jedi (film score)"
-    ],
-    "featured_artist": "Austin Symphony Orchestra",
-    "program": "John Williams - Star Wars: Return of the Jedi (complete film with live orchestra)",
-    "screenings": [
-      {
-        "date": "2025-10-17",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2025-10-18",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "star-wars-return-of-the-jedi-in-concert"
-  },
-  {
-    "title": "Home Alone in Concert",
-    "rating": 8,
-    "description": "<p>Program: John Williams - Home Alone (complete film with live orchestra)</p>",
-    "oneLinerSummary": "John Williams - Home Alone (complete film with live orchestra)",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Butler Pops",
-    "composers": [
-      "John Williams"
-    ],
-    "works": [
-      "Home Alone (film score)"
-    ],
-    "featured_artist": "Austin Symphony Orchestra",
-    "program": "John Williams - Home Alone (complete film with live orchestra)",
-    "screenings": [
-      {
-        "date": "2025-12-16",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2025-12-17",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "home-alone-in-concert"
-  },
-  {
-    "title": "Pirates of the Caribbean in Concert",
-    "rating": 8,
-    "description": "<p>Program: Klaus Badelt - Pirates of the Caribbean: The Curse of the Black Pearl (complete film with live orchestra)</p>",
-    "oneLinerSummary": "Klaus Badelt - Pirates of the Caribbean: The Curse of the Black Pearl (complete ...",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Butler Pops",
-    "composers": [
-      "Klaus Badelt"
-    ],
-    "works": [
-      "Pirates of the Caribbean: The Curse of the Black Pearl (film score)"
-    ],
-    "featured_artist": "Austin Symphony Orchestra",
-    "program": "Klaus Badelt - Pirates of the Caribbean: The Curse of the Black Pearl (complete film with live orchestra)",
-    "screenings": [
-      {
-        "date": "2026-02-27",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      },
-      {
-        "date": "2026-02-28",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "pirates-of-the-caribbean-in-concert"
-  },
-  {
-    "title": "Video Games Live",
-    "rating": 8,
-    "description": "<p>Program: Various composers - Video game music orchestral concert experience</p>",
-    "oneLinerSummary": "Various composers - Video game music orchestral concert experience",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Butler Pops",
-    "composers": [
-      "Various"
-    ],
-    "works": [
-      "Video game music selection"
-    ],
-    "featured_artist": "Austin Symphony Orchestra",
-    "program": "Various composers - Video game music orchestral concert experience",
-    "screenings": [
-      {
-        "date": "2026-05-29",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "video-games-live"
-  },
-  {
-    "title": "Halloween Children's Concert",
-    "rating": 8,
-    "description": "<p>Program: Family-friendly Halloween themed classical music concert</p>",
-    "oneLinerSummary": "Family-friendly Halloween themed classical music concert",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Special Events",
-    "composers": [
-      "Various"
-    ],
-    "works": [
-      "Halloween themed classical selections"
-    ],
-    "featured_artist": "Austin Symphony Orchestra",
-    "program": "Family-friendly Halloween themed classical music concert",
-    "screenings": [
-      {
-        "date": "2025-10-26",
-        "time": "3:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "halloween-children's-concert"
-  },
-  {
-    "title": "Handel's Messiah",
-    "rating": 8,
-    "description": "<p>Program: George Frideric Handel - Messiah (complete oratorio)</p>",
-    "oneLinerSummary": "George Frideric Handel - Messiah (complete oratorio)",
-    "url": "https://austinsymphony.org",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": null,
-    "venue": "Symphony",
-    "type": "concert",
-    "series": "Special Events",
-    "composers": [
-      "George Frideric Handel"
-    ],
-    "works": [
-      "Messiah"
-    ],
-    "featured_artist": "Austin Symphony Orchestra, Chorus Austin",
-    "program": "George Frideric Handel - Messiah (complete oratorio)",
-    "screenings": [
-      {
-        "date": "2025-12-02",
-        "time": "8:00 PM",
-        "url": "https://austinsymphony.org",
-        "venue": "Symphony"
-      }
-    ],
-    "id": "handel's-messiah"
+    "id": "gwen-and-the-book-of-sand"
   },
   {
     "title": "NYRB Book Club - Nightmare Alley",
     "rating": 8,
-    "description": "<p>Discussion of William Lindsay Gresham's dark carnival novel exploring American themes.</p>",
-    "oneLinerSummary": "Dark carnival novel exploring American themes and human nature.",
+    "description": "<p><strong>Rating: 8/10</strong></p><p>Literary Craft \u2013 Assess Narrative Structure, Prose Quality, and Character Complexity</p><p><strong>Narrative Structure:</strong> The novel's narrative structure is complex and layered, mirroring the intricate world of carnival shows and the psychological games played by its characters. Gresham masterfully weaves together multiple storylines, creating a sense of depth and complexity that keeps the reader engaged. The non-linear progression of events, particularly in the latter part of the book, adds to the narrative's richness and intrigue.</p><p><strong>Prose Quality:</strong> Gresham's prose is a blend of gutter talk and lyrical language, which not only captures the gritty reality of the carnival world but also adds a layer of poetic depth to the narrative. His use of slang and idioms creates a vivid, immersive atmosphere that draws the reader into the world of the carnival. The writing is both brutal and beautiful, reflecting the dual nature of human experience explored in the novel.</p><p><strong>Character Complexity:</strong> The characters in Nightmare Alley are multidimensional and complex, each with their own set of motivations and flaws. Stan, the protagonist, is particularly well-developed, as his dreams of success are rooted in exploiting human fear. His character evolves significantly throughout the novel, revealing a deeper psychological complexity that makes him both relatable and pitiful. The supporting characters, like Dr. Lilith Ritter, add another layer of depth to the narrative, exploring themes of manipulation and control.</p><p>Originality & Entropy \u2013 Does the Work Subvert Clich\u00e9 and Introduce Surprising Ideas?</p><p><strong>Originality:</strong> Nightmare Alley is a seminal work in the noir genre, but it also subverts many clich\u00e9s associated with it. Gresham's exploration of human nature and the exploitation of fear is both timely and timeless. The novel's focus on the psychological games played by con artists and their marks introduces a level of complexity that was rare in its genre at the time of its publication. The use of tarot and other forms of mysticism adds a layer of originality, making the novel more than just a straightforward crime story.</p><p>Thematic Depth \u2013 Which Universal Human Experiences Are Explored with Nuance?</p><p><strong>Thematic Depth:</strong> The novel explores several universal human experiences with nuance, including fear, greed, manipulation, and the human desire for control. Fear is particularly highlighted as the key to human nature, with Stan and other characters using it to exploit others for their own gain. The novel also delves into the theme of morality, suggesting that the nicety of morality has little to do with the darker aspects of human nature. This exploration is nuanced and thought-provoking, making the novel more than just a simple tale of crime and deception.</p><p>Discussion Value \u2013 How Richly Does the Book Support Thoughtful Conversation?</p><p><strong>Discussion Value:</strong> Nightmare Alley is rich in themes and motifs that support thoughtful conversation. The complex characters, layered narrative, and nuanced exploration of human nature all contribute to a book that can be discussed from multiple angles. The novel's blend of gritty realism and poetic language ensures that readers will find plenty to analyze and debate, making it an excellent choice for a book club. The themes of fear, manipulation, and the human condition are particularly ripe for discussion, encouraging readers to reflect on their own experiences and the broader implications of these themes.</p><p>Comparative Excellence \u2013 Compare to Seminal Works in Its Genre, Noting Broad Critical Reception Where Relevant</p><p><strong>Comparative Excellence:</strong> Nightmare Alley is a seminal work in the noir genre, often compared to other classics like The Big Sleep by Raymond Chandler and The Maltese Falcon by Dashiell Hammett. However, its unique blend of gutter talk and lyrical prose sets it apart from its contemporaries. The novel's focus on psychological manipulation and the exploitation of fear adds a layer of complexity that was not typically seen in noir fiction at the time. The critical reception of Nightmare Alley has been largely positive, with many critics praising its originality and thematic depth.</p><p>In conclusion, Nightmare Alley by William Lindsay Gresham is a strong literary work that excels in narrative structure, prose quality, and character complexity. Its originality, thematic depth, and discussion value make it an exceptional choice for a book club. While it may not be as widely recognized as some other noir classics, its unique blend of gritty realism and poetic language sets it apart as a masterpiece of the genre.</p>",
+    "oneLinerSummary": "Dark noir exploring human ambition and exploitation through carnival mysticism.",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "isSpecialScreening": false,
     "isMovie": false,
@@ -1005,13 +397,14 @@
     "duration": null,
     "director": null,
     "country": "USA",
-    "year": 2025,
+    "year": null,
     "language": "English",
     "venue": "AlienatedMajesty",
-    "type": "book_club",
     "series": "NYRB Book Club",
     "book": "Nightmare Alley",
-    "author": "William Lindsay Gresham",
+    "author": "William Lindsey Gresham",
+    "host": "Austin NYRB Book Club",
+    "type": "book_club",
     "screenings": [
       {
         "date": "2025-07-05",
@@ -1020,100 +413,13 @@
         "venue": "AlienatedMajesty"
       }
     ],
-    "id": "nyrb-book-club-nightmare-alley"
+    "id": "nyrb-book-club---nightmare-alley---2025-07-05-1100-am"
   },
   {
-    "title": "A Season Of - The Books of Jacob",
-    "rating": 8,
-    "description": "<p>Literary discussion of Olga Tokarczuk's complex historical fiction exploring Jewish identity.</p>",
-    "oneLinerSummary": "Complex historical fiction exploring Jewish identity and tradition.",
-    "url": "https://www.alienatedmajestybooks.com/book-clubs",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": "English",
-    "venue": "AlienatedMajesty",
-    "type": "book_club",
-    "series": "A Season Of",
-    "book": "The Books of Jacob",
-    "author": "Olga Tokarczuk",
-    "screenings": [
-      {
-        "date": "2025-07-12",
-        "time": "7:00 PM",
-        "url": "https://www.alienatedmajestybooks.com/book-clubs",
-        "venue": "AlienatedMajesty"
-      }
-    ],
-    "id": "a-season-of-the-books-of-jacob"
-  },
-  {
-    "title": "Voyage Out - The Swan Book",
-    "rating": 8,
-    "description": "<p>Indigenous Australian climate fiction blending myth with environmental themes.</p>",
-    "oneLinerSummary": "Indigenous climate fiction blending myth with environmental sovereignty.",
-    "url": "https://www.alienatedmajestybooks.com/book-clubs",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": "English",
-    "venue": "AlienatedMajesty",
-    "type": "book_club",
-    "series": "Voyage Out",
-    "book": "The Swan Book",
-    "author": "Alexis Wright",
-    "screenings": [
-      {
-        "date": "2025-07-19",
-        "time": "7:00 PM",
-        "url": "https://www.alienatedmajestybooks.com/book-clubs",
-        "venue": "AlienatedMajesty"
-      }
-    ],
-    "id": "voyage-out-the-swan-book"
-  },
-  {
-    "title": "World Wide What Book Club - Caribbean Literature",
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - This Week's Story",
     "rating": 7,
-    "description": "<p>Contemporary Caribbean poetry and cultural exploration.</p>",
-    "oneLinerSummary": "Contemporary Caribbean poetry and cultural exploration.",
-    "url": "https://www.firstlightaustin.com/book-club",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": 2025,
-    "language": "English",
-    "venue": "FirstLight",
-    "type": "book_club",
-    "series": "World Wide What",
-    "book": "The Jamaica Kollection",
-    "author": "Various",
-    "screenings": [
-      {
-        "date": "2025-07-08",
-        "time": "7:00 PM",
-        "url": "https://www.firstlightaustin.com/book-club",
-        "venue": "FirstLight"
-      }
-    ],
-    "id": "world-wide-what-caribbean-literature"
-  },
-  {
-    "title": "The New Yorker Weekly Short Story Club",
-    "rating": 7,
-    "description": "<p>Weekly discussion of The New Yorker short stories. Free copies provided for first hour of reading.</p>",
-    "oneLinerSummary": "Weekly literary discussion exploring contemporary short fiction.",
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "oneLinerSummary": "Weekly literary discussion group",
     "url": "https://www.meetup.com/atxstories/",
     "isSpecialScreening": false,
     "isMovie": false,
@@ -1121,38 +427,377 @@
     "duration": null,
     "director": null,
     "country": "USA",
-    "year": 2025,
+    "year": null,
     "language": "English",
     "venue": "NewYorkerMeetup",
+    "series": "The New Yorker Weekly Short Story Club",
+    "book": null,
+    "author": null,
+    "host": "Nabeel K. and others",
     "type": "book_club",
-    "series": "The New Yorker Weekly",
-    "book": "Weekly Short Stories",
-    "author": "Various New Yorker Authors",
     "screenings": [
-      {
-        "date": "2025-07-01",
-        "time": "7:00 PM",
-        "url": "https://www.meetup.com/atxstories/",
-        "venue": "NewYorkerMeetup"
-      },
       {
         "date": "2025-07-08",
         "time": "7:00 PM",
         "url": "https://www.meetup.com/atxstories/",
         "venue": "NewYorkerMeetup"
-      },
+      }
+    ],
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---this-weeks-story---2025-07-08-700-pm"
+  },
+  {
+    "title": "Subculture Lit - David Wojnarowicz",
+    "rating": 8,
+    "description": "<p><strong>Rating: 8/10</strong></p><p>Literary Craft \u2013 Assess narrative structure, prose quality, and character complexity.<br>The book \"David Wojnarowicz: A Definitive History of Five or Six Years on the Lower East Side\" by Sylv\u00e8re Lotringer is a collection of interviews and dialogues rather than a traditional narrative. It excels in its non-linear structure, which mirrors the fragmented and dynamic nature of Wojnarowicz's life and work. The prose is engaging and insightful, offering a deeply personal and political perspective on Wojnarowicz's career. The character complexity is high, as the book delves into the multifaceted personality of Wojnarowicz through his own words and those of his collaborators and friends. This complexity is evident in the way Lotringer weaves together various testimonies to create a rich tapestry of Wojnarowicz's artistic and personal journey.</p><p>Originality & Entropy \u2013 Does the work subvert clich\u00e9 and introduce surprising ideas?<br>The book is highly original in its approach to documenting an artist's life. By using a dialogue format and incorporating personal testimonies from those close to Wojnarowicz, it subverts the traditional biographical narrative. The work introduces surprising ideas about the collaborative nature of artistic creation, highlighting how Wojnarowicz's work was deeply intertwined with the lives and contributions of his peers. This approach challenges the common perception of artists as solitary geniuses, instead revealing a complex web of influences and collaborations.</p><p>Thematic Depth \u2013 Which universal human experiences are explored with nuance?<br>The book explores several universal human experiences with nuance, including the struggle for artistic identity, the impact of AIDS on personal and professional life, and the tension between creative expression and societal censorship. These themes are explored through Wojnarowicz's own words and the reflections of those who knew him, providing a deeply personal and relatable perspective. The thematic depth is enhanced by the historical context of the time, which adds a layer of urgency and relevance to the discussions.</p><p>Discussion Value \u2013 How richly does the book support thoughtful conversation?<br>The book is highly conducive to thoughtful conversation due to its multifaceted nature. The dialogue format and the diverse perspectives of the contributors ensure that there are multiple angles and insights to explore. The book's focus on the collaborative aspects of art and the personal struggles of an artist make it a rich source for discussions about creativity, identity, and the role of art in society. The East Austin Writing Project's focus on experimental and transgressive writers and work aligns well with the themes and content of this book, making it an excellent choice for a book club.</p><p>Comparative Excellence \u2013 Compare to seminal works in its genre, noting broad critical reception where relevant.<br>In comparison to other biographical works about artists, \"David Wojnarowicz: A Definitive History of Five or Six Years on the Lower East Side\" stands out for its unique approach and depth. It is comparable to works like \"The Artist's Way\" by Julia Cameron, which also explores the creative process and personal struggles of artists. However, this book excels in its specificity and intimacy, offering a detailed look at the life and work of a particular artist through a unique blend of personal testimony and historical context. The critical reception of this book is likely to be positive due to its innovative structure and the insights it provides into the life and work of David Wojnarowicz.</p><p>In summary, the book's strong narrative structure, engaging prose, and nuanced exploration of universal human experiences make it a standout work. Its originality in approach and thematic depth ensure that it will support rich and thoughtful discussions. Therefore, it deserves a rating of 8/10 for its artistic merit and intellectual rigor.</p>",
+    "oneLinerSummary": "Definitive biography chronicling artist's turbulent years in downtown arts scene.",
+    "url": "https://www.alienatedmajestybooks.com/book-clubs",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "AlienatedMajesty",
+    "series": "Subculture Lit",
+    "book": "David Wojnarowicz: A Definitive History of Five or Six Years on the Lower East Side",
+    "author": "Sylv\u00e8re Lotringer",
+    "host": "East Austin Writing Project",
+    "type": "book_club",
+    "screenings": [
+      {
+        "date": "2025-07-13",
+        "time": "3:00 PM",
+        "url": "https://www.alienatedmajestybooks.com/book-clubs",
+        "venue": "AlienatedMajesty"
+      }
+    ],
+    "id": "subculture-lit---david-wojnarowicz---2025-07-13-300-pm"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 2",
+    "rating": 7,
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "oneLinerSummary": "Weekly literary discussion group",
+    "url": "https://www.meetup.com/atxstories/",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "NewYorkerMeetup",
+    "series": "The New Yorker Weekly Short Story Club",
+    "book": null,
+    "author": null,
+    "host": "Nabeel K. and others",
+    "type": "book_club",
+    "screenings": [
       {
         "date": "2025-07-15",
         "time": "7:00 PM",
         "url": "https://www.meetup.com/atxstories/",
         "venue": "NewYorkerMeetup"
-      },
+      }
+    ],
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-2---2025-07-15-700-pm"
+  },
+  {
+    "title": "BABY CAT",
+    "rating": 3,
+    "description": "<p><strong>Rating: 3/10</strong></p><p>Originality & Surprise<br>The movie \"Baby Cat\" lacks originality and surprise. The plot is straightforward and heavily reliant on clich\u00e9s, particularly in its use of a cat as a disguise for an adult woman. The narrative does not avoid common tropes, such as a young woman falling in love with an enigmatic figure, and the inclusion of a drug war subplot feels tacked on and unconnected to the main storyline. The film's predictability and reliance on familiar elements detract from its ability to deliver unpredictable storytelling.</p><p>Artistic Craft<br>The artistic craft of \"Baby Cat\" is subpar. The narrative structure is simplistic and lacks depth, with characters that are underdeveloped and one-dimensional. The cinematography and sound design are unremarkable, failing to elevate the film beyond its basic premise. The pacing is uneven, often feeling slow and meandering as it tries to incorporate multiple plot threads without integrating them cohesively. The overall execution of the film's elements does not demonstrate a high level of artistic merit.</p><p>Thematic Depth<br>The thematic depth of \"Baby Cat\" is shallow. The film attempts to explore universal human experiences but does so with little nuance. The central theme of love and identity is handled superficially, with the character of Lori (the cat) being more of a caricature than a fully fleshed-out individual. The exploration of relationships and personal growth is underwhelming, failing to provide any meaningful insights or reflections.</p><p>Comparative Excellence<br>In comparison to landmark works in its genre, \"Baby Cat\" falls short. The film's reliance on familiar tropes and lack of originality make it unremarkable in a crowded field of similar movies. It does not bring anything new or innovative to the table, failing to stand out against more critically acclaimed works. The broad critical consensus would likely view \"Baby Cat\" as a derivative and unremarkable film, lacking the complexity and artistic merit of more exceptional works in its genre.</p><p>Overall, \"Baby Cat\" is a weak and derivative film that fails to impress on multiple fronts. Its lack of originality, poor artistic craft, and shallow thematic depth make it a film that is best avoided by those seeking a compelling cinematic experience.</p>",
+    "oneLinerSummary": "A bizarre romantic comedy about loving someone in cat costume.",
+    "url": "https://hyperrealfilm.club/events/2025/7-18/baby-cat",
+    "isSpecialScreening": true,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "Unknown",
+    "year": null,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-18",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-18/baby-cat",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "baby-cat"
+  },
+  {
+    "title": "Voyage Out - The Swan Book",
+    "rating": 8,
+    "description": "<p><strong>Rating: 8/10</strong></p><p>\ud83d\udcda Literary Craft<br><strong>Narrative Structure:</strong> The Swan Book employs a complex and innovative narrative structure, blending elements of stream-of-consciousness with omniscient narration. This approach challenges readers to untangle the various narrative strands, which adds to the book's depth and complexity. The use of non-linear storytelling and unconventional syntax (as noted in ) makes the narrative structure both unique and thought-provoking.</p><p><strong>Prose Quality:</strong> The prose in The Swan Book is rich and evocative, often blurring the lines between reality and fiction. Wright's writing style is characterized by vivid imagery and a deep connection to the natural world, which is particularly evident in her descriptions of the Australian landscape and its indigenous culture (as discussed in ).</p><p><strong>Character Complexity:</strong> The characters in The Swan Book are multifaceted and enigmatic, reflecting the complexities of human experience under the pressure of climate change. The protagonist's journey is deeply intertwined with the natural world, and her interactions with the environment and other characters are rich in symbolism and metaphor.</p><p>\u2728 Originality & Entropy<br><strong>Subverting Clich\u00e9s:</strong> The Swan Book subverts traditional narrative conventions by dissolving the strict division between nature and culture. Wright's animist realist approach (as explored in ) introduces surprising ideas about the interconnectedness of all living beings and the fallibility of human exceptionalism. This perspective challenges readers to reconsider their relationship with the environment.</p><p>\ud83c\udfad Thematic Depth<br><strong>Universal Human Experiences:</strong> The book explores universal human experiences such as the struggle for sovereignty, the impact of climate change, and the power of storytelling. These themes are nuanced and deeply embedded in the narrative, reflecting both the personal and collective struggles of Indigenous Australians. The novel highlights the importance of indigenous knowledge and the interconnectedness of human and non-human environments (as discussed in ).</p><p>\ud83d\udde3\ufe0f Discussion Value<br><strong>Supporting Thoughtful Conversation:</strong> The Swan Book offers a rich tapestry of themes and narrative structures that support thoughtful conversation. The book's complexity and innovative storytelling make it an excellent choice for book clubs, encouraging readers to engage deeply with the text and explore its multiple layers of meaning. The surreal and often dreamlike quality of the narrative (as noted in ) invites readers to interpret and discuss the book in various ways.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>Seminal Works in Genre:</strong> While The Swan Book is not a seminal work in the traditional sense of being a foundational text, it is certainly a significant contribution to climate change fiction and Indigenous Australian literature. Its innovative narrative structure and thematic depth place it alongside other notable works in the genre, such as Margaret Atwood's Oryx and Crake, which also explore the intersection of human and environmental narratives.</p><p>In summary, The Swan Book is a strong and exceptional work of literature that excels in its literary craft, originality, thematic depth, and discussion value. Its innovative narrative structure, rich prose, and complex characters make it a compelling choice for book clubs seeking to engage with intellectually rigorous and artistically meritorious literature.</p>",
+    "oneLinerSummary": "Indigenous climate fiction weaving mythology through stream-of-consciousness environmental storyt...",
+    "url": "https://www.alienatedmajestybooks.com/book-clubs",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "AlienatedMajesty",
+    "series": "Voyage Out",
+    "book": "The Swan Book",
+    "author": "Alexis Wright",
+    "host": null,
+    "type": "book_club",
+    "screenings": [
+      {
+        "date": "2025-07-20",
+        "time": "5:00 PM",
+        "url": "https://www.alienatedmajestybooks.com/book-clubs",
+        "venue": "AlienatedMajesty"
+      }
+    ],
+    "id": "voyage-out---the-swan-book---2025-07-20-500-pm"
+  },
+  {
+    "title": "VIVA",
+    "rating": 6,
+    "description": "<p><strong>Rating: 6/10</strong></p><p>\ud83c\udfac Originality & Surprise<br>The movie \"Viva\" by Anna Biller attempts to avoid clich\u00e9s by delving into the complexities of a 1970s suburban housewife's journey into the sexual revolution. While it does deliver some unpredictable moments, such as Barbi's transformation into Viva and her encounters with various characters, the narrative is not entirely surprising. The film's exploration of themes like identity, desire, and the constraints of societal expectations is somewhat predictable, especially given the context of the 1970s. However, the execution and the director's vision add a layer of originality that keeps the story engaging.</p><p>\ud83c\udfa5 Artistic Craft<br>The narrative structure of \"Viva\" is well-crafted, with a clear progression from Barbi's mundane life to her transformation into Viva. The character depth is notable, particularly in Barbi/Viva and Sheila, whose complexities are explored through their relationships and choices. The cinematography is visually appealing, capturing the vibrant colors and aesthetic of the 1970s. The pacing is generally well-balanced, though some scenes feel slightly dragged out, particularly those involving the orgy. The sound design is effective in enhancing the mood and atmosphere of each scene.</p><p>\ud83c\udfad Thematic Depth<br>The film explores universal human experiences such as the search for identity, the constraints of societal expectations, and the complexities of desire. These themes are nuanced, particularly in how they are intertwined with the characters' personal struggles. The portrayal of women's liberation and the exploration of different facets of womanhood are significant thematic elements. However, the depth could be further enhanced by more nuanced exploration of these themes.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br>Comparing \"Viva\" to landmark works in its genre, such as \"The Last Picture Show\" or \"American Graffiti,\" it holds its own in terms of capturing the essence of 1970s suburban life. However, it does not quite reach the same level of cultural impact or cinematic mastery as these films. The broad critical consensus would likely praise \"Viva\" for its unique vision and strong performances, but it might be seen as more of a niche film rather than a mainstream classic.</p><p>In summary, while \"Viva\" is a competent film with strong artistic elements, it falls short of being exceptional due to its somewhat predictable narrative and lack of profound thematic depth. It is a well-crafted, visually appealing film that explores interesting themes, but it does not transcend its genre in a groundbreaking way.</p>",
+    "oneLinerSummary": "A 1970s housewife's unpredictable journey into bohemian sexual liberation unfolds stylishly.",
+    "url": "https://hyperrealfilm.club/events/2025/7-21/viva",
+    "isSpecialScreening": true,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": "Anna Biller",
+    "country": "Unknown",
+    "year": null,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-21",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-21/viva",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "viva"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 3",
+    "rating": 7,
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "oneLinerSummary": "Weekly literary discussion group",
+    "url": "https://www.meetup.com/atxstories/",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "NewYorkerMeetup",
+    "series": "The New Yorker Weekly Short Story Club",
+    "book": null,
+    "author": null,
+    "host": "Nabeel K. and others",
+    "type": "book_club",
+    "screenings": [
       {
         "date": "2025-07-22",
         "time": "7:00 PM",
         "url": "https://www.meetup.com/atxstories/",
         "venue": "NewYorkerMeetup"
-      },
+      }
+    ],
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-3---2025-07-22-700-pm"
+  },
+  {
+    "title": "TROOP BEVERLY HILLS",
+    "rating": 5,
+    "description": "<p><strong>Rating: 5/10</strong></p><p>Originality & Surprise<br>The movie <strong>Troop Beverly Hills</strong> largely adheres to familiar tropes of the 1980s comedy genre. While it attempts to subvert expectations by setting a Girl Scout troop in Beverly Hills, the narrative remains predictable and reliant on clich\u00e9s. The character of Phyllis Nefler, a wealthy housewife turned troop leader, is a standard comedic archetype. The film's attempts at surprise, such as the cookie sales campaign and the camping trip, are not particularly innovative or unexpected given the context of the story.</p><p>Artistic Craft<br>The narrative structure of <strong>Troop Beverly Hills</strong> is straightforward and lacks complexity. The story is driven by Phyllis's personal growth and her efforts to prove herself to her husband and daughter. The character development is competent but shallow, with Phyllis being the primary character of focus. The cinematography and sound design are typical for a 1980s film, with no standout elements that elevate the movie beyond its genre. The pacing is generally well-balanced, but the film's reliance on slapstick humor and comedic misunderstandings makes it feel somewhat unremarkable.</p><p>Thematic Depth<br>The movie explores universal themes such as identity, self-worth, and the importance of relationships. However, these themes are not explored with nuance. Phyllis's journey from a vapid housewife to a more engaged parent is portrayed in a simplistic manner, with her growth being largely driven by external events rather than internal transformation. The film's message about the value of being a good human over material wealth is well-intentioned but not particularly complex or thought-provoking.</p><p>Comparative Excellence<br>In comparison to landmark works in its genre, <strong>Troop Beverly Hills</strong> falls short. Films like <strong>The Parent Trap</strong> (1961) and <strong>Freaky Friday</strong> (1976) offer more sophisticated and enduring explorations of family dynamics and personal growth. While <strong>Troop Beverly Hills</strong> has its moments of charm and humor, it does not stand out as a particularly exceptional work within the comedy genre.</p><p>In summary, <strong>Troop Beverly Hills</strong> is a competent but unremarkable film. It lacks originality and surprise, and its artistic craft and thematic depth are not particularly noteworthy. While it has some enjoyable moments, it does not rise above the level of a standard 1980s comedy.</p>",
+    "oneLinerSummary": "A predictable but charming comedy about proving yourself through unexpected leadership.",
+    "url": "https://hyperrealfilm.club/events/2025/7-22/troop-beverly-hills",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "Unknown",
+    "year": null,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-22",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-22/troop-beverly-hills",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "troop-beverly-hills"
+  },
+  {
+    "title": "PICNIC AT HANGING ROCK",
+    "rating": 8,
+    "description": "<p><strong>Rating: 8/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>7/10</strong><br>\"Picnic at Hanging Rock\" avoids many clich\u00e9s by presenting a mysterious and unexplained disappearance of four teenage girls during a school outing. The film's refusal to provide a clear explanation for their vanishing adds to its originality and surprise. However, the narrative structure, while intriguing, can be seen as somewhat predictable in its setup and resolution. The mystery itself is not entirely unpredictable, but the execution and the way it is woven into the broader themes of the film make it stand out.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>9/10</strong><br>The artistic craft of \"Picnic at Hanging Rock\" is exceptional. The cinematography by Russell Boyd is lush and intimate, capturing the Australian landscape in a way that is both beautiful and unsettling. The camera work often suggests that the rock itself is alive, watching the characters, which adds to the sense of unease and mystery. The pacing is deliberate and measured, allowing the audience to absorb the tension and the emotional states of the characters. The sound design complements the visuals perfectly, enhancing the overall atmosphere of the film.</p><p>\ud83c\udfad Thematic Depth<br><strong>8/10</strong><br>The thematic depth of \"Picnic at Hanging Rock\" is rich and nuanced. The film explores universal human experiences such as the transition from adolescence to adulthood, the repression of emotions, and the connection between nature and human psychology. The heightened and repressed sexuality of the young students is a central theme, suggesting that their emotional states interlocked with the living presence of the land. The character development, particularly of Miranda, Irma, and Edith, is well-crafted and adds depth to the narrative. However, some characters, like Edith, feel somewhat one-dimensional compared to the others.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>8/10</strong><br>In comparison to landmark works in its genre, \"Picnic at Hanging Rock\" stands out for its unique blend of mystery, psychological insight, and atmospheric cinematography. It has been compared to Michelangelo Antonioni\u2019s \"L'Avventura\" for its enigmatic disappearance plot and to E.M. Forster\u2019s novels for its exploration of social mores and emotional states. While it may not surpass the complexity of some other films in its genre, its innovative storytelling and artistic execution make it a standout work.</p><p>Overall, \"Picnic at Hanging Rock\" is a strong film that excels in its artistic craft and thematic depth, making it a compelling and unsettling watch. Its originality and surprise elements, while not entirely unpredictable, are expertly woven into the narrative, contributing to its overall excellence.</p>",
+    "oneLinerSummary": "A haunting mystery exploring unexplained disappearances with dreamlike, unsettling atmosphere.",
+    "url": "https://hyperrealfilm.club/events/2025/7-23/picnic-at-hanging-rock",
+    "isSpecialScreening": true,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "Australia",
+    "year": null,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-23",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-23/picnic-at-hanging-rock",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "picnic-at-hanging-rock"
+  },
+  {
+    "title": "SEXY BEAST",
+    "rating": 7,
+    "description": "<p><strong>Rating: 7/10</strong></p><p>Originality & Surprise<br><strong>6/10</strong><br>While \"Sexy Beast\" does not entirely avoid clich\u00e9s, it manages to deliver a unique blend of tension and dark humor. The film's use of an unassuming retired criminal as its protagonist and the menacing presence of Ben Kingsley's character add an element of unpredictability to the narrative. However, the overall structure of the caper flick remains somewhat conventional, which prevents it from achieving full originality.</p><p>Artistic Craft<br><strong>8/10</strong><br>The artistic craft in \"Sexy Beast\" is commendable. Director Jonathan Glazer's debut showcases robust characterization, particularly in the performances of Ray Winstone and Ben Kingsley. The tension is effectively maintained through the use of atmosphere and the threat of violence rather than explicit violence itself. The cinematography and sound design contribute to a pulsating rhythm that enhances the film's overall impact. The pacing is well-balanced, with a mix of intense moments and lighter comedic relief that keeps the tone from becoming too harrowing.</p><p>Thematic Depth<br><strong>7/10</strong><br>The thematic depth of \"Sexy Beast\" explores universal human experiences such as the struggle between personal freedom and the inevitability of one's past. The film delves into the psychological dynamics of a retired criminal being coerced back into his old life, highlighting the complexities of human relationships and the consequences of one's actions. However, the themes are not overly nuanced, and the exploration is somewhat straightforward.</p><p>Comparative Excellence<br><strong>8/10</strong><br>In comparison to landmark works in its genre, \"Sexy Beast\" holds its own. It stands alongside other crime dramas like \"The Usual Suspects\" and \"Lock, Stock and Two Smoking Barrels\" in terms of its gripping narrative and strong performances. While it may not reach the same level of complexity as some of these films, it maintains a high level of artistic merit and complexity, particularly in its use of tension and character development.</p><p>Overall, \"Sexy Beast\" is a strong film that excels in its artistic craft and thematic exploration, even if it does not entirely avoid clich\u00e9s or achieve full originality. Its unique blend of tension and dark humor, coupled with outstanding performances, makes it a compelling watch within the crime drama genre.</p>",
+    "oneLinerSummary": "Dark crime thriller blending tension and humor with stellar performances.",
+    "url": "https://hyperrealfilm.club/events/2025/7-24/sexy-beast",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": "Jonathan Glazer",
+    "country": "Unknown",
+    "year": 2000,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-24",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-24/sexy-beast",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "sexy-beast"
+  },
+  {
+    "title": "TROPIC THUNDER",
+    "rating": 8,
+    "description": "<p><strong>Rating: 8/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>7/10</strong><br>Tropic Thunder avoids some clich\u00e9s by its meta approach to filmmaking, where the line between fiction and reality is hilariously blurred. The film's use of satire to critique the entertainment industry is innovative, but it does rely on some familiar tropes of absurd comedy and war movie parodies. The unexpected twists, such as the actors being dropped into the jungle and their subsequent real-life struggles, add to the surprise factor, making it more than just a derivative comedy.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>8/10</strong><br>The narrative structure is well-crafted, with a clear setup that quickly escalates into chaos. The character depth is strong, particularly in the portrayal of Tugg Speedman (Ben Stiller) and Kirk Lazarus (Robert Downey Jr.), who are both complex and nuanced. The cinematography and sound design are effective in capturing the jungle environment and the absurdity of the situation. The pacing is well-balanced, moving seamlessly between action, comedy, and drama.</p><p>\ud83c\udfad Thematic Depth<br><strong>7/10</strong><br>Tropic Thunder explores several universal human experiences, including the struggle for identity and credibility in the entertainment industry. The film critiques the superficiality of Hollywood and the dangers of method acting. However, these themes are not explored with the same level of nuance as some other films. The satire is biting but often relies on broad strokes rather than deep character development.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>8/10</strong><br>In comparison to landmark works in its genre, Tropic Thunder stands out for its unique blend of action, absurdity, and satire. While it may not reach the same level of complexity as films like \"Dr. Strangelove\" or \"The Producers,\" it is certainly on par with other notable comedies like \"Airplane!\" or \"The Naked Gun.\" The broad critical consensus is that Tropic Thunder is a standout in the annals of Hollywood comedies, praised for its biting satire and outrageous humor.</p><p>Overall, Tropic Thunder is a strong film that excels in its originality, artistic craft, and thematic exploration, even if it falls short in some areas of nuance and complexity. Its innovative approach to filmmaking and its well-crafted narrative make it an exceptional work within the genre of comedy.</p>",
+    "oneLinerSummary": "A meta war-movie satire where Hollywood actors face real jungle danger.",
+    "url": "https://hyperrealfilm.club/events/2025/7-25/tropic-thunder",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "Unknown",
+    "year": null,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-25",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-25/tropic-thunder",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "tropic-thunder"
+  },
+  {
+    "title": "HARD TICKET TO HAWAII",
+    "rating": 4,
+    "description": "<p><strong>Rating: 4/10</strong></p><p>Originality & Surprise<br>The movie <strong>Hard Ticket to Hawaii</strong> relies heavily on action film clich\u00e9s, particularly in its plot and character development. The story revolves around two female DEA agents who inadvertently interrupt a drug deal and must fight off villains while dealing with a deadly snake. This setup is overly familiar and lacks significant surprises. The characters, while somewhat memorable, are not particularly well-developed beyond their roles as action heroes. The film's reliance on a four-barrel rocket launcher and a giant snake as plot devices further underscores its lack of originality.</p><p>Artistic Craft<br>The narrative structure of <strong>Hard Ticket to Hawaii</strong> is straightforward and predictable. The pacing is fast, which is typical for an action film, but it does not contribute to any deeper thematic exploration. The cinematography is standard for its time, with no notable visual flair. The sound design is adequate but not exceptional. The film's reliance on over-the-top action sequences and minimal character development detracts from its overall artistic merit.</p><p>Thematic Depth<br>The movie explores some universal human experiences, such as friendship and loyalty, but these themes are not nuanced or deeply explored. The film primarily focuses on action and spectacle rather than delving into complex human emotions or moral dilemmas. The female protagonists are portrayed as capable agents but lack significant character depth beyond their roles as action heroes.</p><p>Comparative Excellence<br>In comparison to landmark works in the action genre, <strong>Hard Ticket to Hawaii</strong> falls short. Films like <strong>Die Hard</strong> (1988) or <strong>Commando</strong> (1985) offer more complex narratives and character development. While <strong>Hard Ticket to Hawaii</strong> has its moments of excitement, it does not stand out in terms of artistic merit or thematic depth. The broad critical consensus would likely view this film as a competent but unremarkable entry in the action genre.</p><p>Overall, <strong>Hard Ticket to Hawaii</strong> is a derivative action film that fails to deliver significant surprises or artistic innovation. Its reliance on familiar plot devices and lack of nuanced character development make it a weak entry in the genre.</p>",
+    "oneLinerSummary": "A predictably campy action-exploitation flick with deadly snakes and familiar tropes.",
+    "url": "https://hyperrealfilm.club/events/2025/7-28/hard-ticket-to-hawaii",
+    "isSpecialScreening": true,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "Unknown",
+    "year": null,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-28",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-28/hard-ticket-to-hawaii",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "hard-ticket-to-hawaii"
+  },
+  {
+    "title": "A Season Of - Chrysalis Pastoral in B Minor",
+    "rating": 6,
+    "description": "<p><strong>Rating: 6/10</strong></p><p>Literary Craft<br><strong>Narrative Structure:</strong> The book's narrative structure is competent but not particularly innovative. It follows a traditional pastoral theme, which, while well-executed, does not break new ground in terms of storytelling techniques. (Score: 5/10)</p><p><strong>Prose Quality:</strong> The prose is clear and evocative, but it lacks the lyrical quality that would elevate it to a higher level. The writing is descriptive and engaging, but it does not stand out in terms of style or originality. (Score: 5.5/10)</p><p><strong>Character Complexity:</strong> The characters in \"Chrysalis Pastoral in B Minor\" are well-developed and nuanced, particularly in their emotional depth. However, their complexity is somewhat limited by the traditional pastoral genre, which often focuses on universal themes rather than complex character arcs. (Score: 6/10)</p><p>Originality & Entropy<br><strong>Subverting Clich\u00e9:</strong> The book does not significantly subvert the clich\u00e9s of the pastoral genre. It adheres to traditional themes and structures, which, while well-executed, do not introduce surprising or innovative ideas. (Score: 4/10)</p><p><strong>Introducing Surprising Ideas:</strong> The work does not introduce any particularly surprising or groundbreaking ideas. It stays within the established boundaries of the pastoral genre, which limits its originality. (Score: 4/10)</p><p>Thematic Depth<br><strong>Universal Human Experiences:</strong> The book explores universal human experiences such as the relationship between nature and humanity, the search for meaning, and the struggle with identity. These themes are explored with a certain level of nuance, but they are not particularly complex or deeply layered. (Score: 6/10)</p><p>Discussion Value<br><strong>Supporting Thoughtful Conversation:</strong> The book provides a rich foundation for thoughtful conversation, particularly around its themes and character development. However, the lack of significant innovation in its narrative and ideas might limit the depth of discussions. (Score: 6.5/10)</p><p>Comparative Excellence<br><strong>Seminal Works in Genre:</strong> Compared to seminal works in the pastoral genre, such as Virgil's \"Eclogues\" or Andrew Marvell's \"The Garden,\" \"Chrysalis Pastoral in B Minor\" is competent but not exceptional. It does not significantly contribute to the genre in terms of innovation or critical reception. (Score: 5/10)</p><p>Overall Evaluation<br>Given the above assessments, \"Chrysalis Pastoral in B Minor\" is a competent work that excels in its thematic depth and character complexity. However, it falls short in terms of originality and narrative innovation. It is a solid addition to the pastoral genre but does not stand out as exceptional.</p><p><strong>Final Rating: 6/10</strong></p>",
+    "oneLinerSummary": "Competent pastoral fiction exploring nature and meaning without innovation.",
+    "url": "https://www.alienatedmajestybooks.com/book-clubs",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": true,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "AlienatedMajesty",
+    "series": "A Season Of",
+    "book": "Chrysalis Pastoral in B Minor",
+    "author": "Susanna Rafart",
+    "host": "Austin NYRB Book Club",
+    "type": "book_club",
+    "screenings": [
+      {
+        "date": "2025-07-29",
+        "time": "11:00 AM",
+        "url": "https://www.alienatedmajestybooks.com/book-clubs",
+        "venue": "AlienatedMajesty"
+      }
+    ],
+    "id": "a-season-of---chrysalis-pastoral-in-b-minor---2025-07-29-1100-am"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 4",
+    "rating": 7,
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "oneLinerSummary": "Weekly literary discussion group",
+    "url": "https://www.meetup.com/atxstories/",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "NewYorkerMeetup",
+    "series": "The New Yorker Weekly Short Story Club",
+    "book": null,
+    "author": null,
+    "host": "Nabeel K. and others",
+    "type": "book_club",
+    "screenings": [
       {
         "date": "2025-07-29",
         "time": "7:00 PM",
@@ -1160,6 +805,204 @@
         "venue": "NewYorkerMeetup"
       }
     ],
-    "id": "new-yorker-weekly-short-story-club"
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-4---2025-07-29-700-pm"
+  },
+  {
+    "title": "THE SWIMMER",
+    "rating": 6,
+    "description": "<p><strong>Rating: 6/10</strong></p><p>\ud83c\udfac Originality & Surprise<br>The movie \"The Swimmer\" (1968) does not avoid clich\u00e9s entirely. The central plot device of swimming through a series of backyard pools to return home is somewhat predictable and lacks significant surprises. However, the character's interactions and the subtle hints of his personal struggles add a layer of complexity that keeps the narrative engaging.</p><p>\ud83c\udfa5 Artistic Craft<br>The film's artistic craft is competent but unremarkable. The narrative structure is straightforward, following Ned Merrill's journey as he swims through various pools. The character depth is nuanced, particularly in Ned's interactions with his acquaintances, which reveal his declining social status and personal issues. The cinematography is notable for its use of natural light and the depiction of suburban life, but it does not stand out as exceptional. The pacing is generally well-balanced, though it can feel slow at times.</p><p>\ud83c\udfad Thematic Depth<br>The movie explores universal human experiences with nuance, particularly themes of identity, social status, and the decline of middle-class America. The film subtly critiques the superficiality of suburban life and the fragility of relationships. However, these themes are not deeply explored, and the movie does not delve into them with the same level of complexity as some other films of its era.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br>In comparison to landmark works in its genre, \"The Swimmer\" does not stand out as a masterpiece. Films like \"The Graduate\" (1967) or \"Bonnie and Clyde\" (1967) better capture the essence of 1960s American cinema with their innovative storytelling and thematic depth. While \"The Swimmer\" has its moments of insight into the human condition, it remains a competent but unremarkable film.</p><p>In summary, \"The Swimmer\" is a competent film that explores nuanced themes but lacks significant originality and artistic innovation. Its artistic merit is solid but not exceptional, making it a 6/10 rating.</p>",
+    "oneLinerSummary": "A haunting suburban odyssey exploring isolation through one man's pool-hopping journey.",
+    "url": "https://hyperrealfilm.club/events/2025/7-29/the-swimmer",
+    "isSpecialScreening": true,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "Unknown",
+    "year": null,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-29",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-29/the-swimmer",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "the-swimmer"
+  },
+  {
+    "title": "YOUNG ADULT",
+    "rating": 6,
+    "description": "<p><strong>Rating: 6/10</strong></p><p>Originality & Surprise<br>The movie <strong>Young Adult</strong> does not particularly avoid clich\u00e9s. The narrative follows a familiar arc of a self-absorbed protagonist trying to rekindle a past romance, which is a common trope in romantic comedies. While the character of Mavis Gary (Charlize Theron) is well-developed, her motivations and actions are somewhat predictable, lacking significant surprise or originality. The storyline, though engaging, does not break new ground in terms of plot twists or unexpected turns.</p><p>Artistic Craft<br>The narrative structure of <strong>Young Adult</strong> is competent but unremarkable. The film's pacing is well-balanced, moving seamlessly between Mavis's interactions with her ex-boyfriend Buddy and her encounters with Matt Freehauf (Patton Oswalt). The cinematography is straightforward and does not stand out as particularly noteworthy. However, the character development is strong, particularly in the portrayal of Mavis's inner turmoil and her complex relationships with both Buddy and Matt. The dialogue is sharp and insightful, capturing the nuances of their interactions.</p><p>Thematic Depth<br>The thematic depth of <strong>Young Adult</strong> lies in its exploration of universal human experiences such as loneliness, self-deception, and the complexities of relationships. The film delves into Mavis's inner world, revealing her struggles with identity and her desperate attempts to cling to a past that is rapidly slipping away. The character of Matt adds another layer to the themes, highlighting the long-lasting impact of trauma and the resilience of human spirit. These themes are explored with nuance, making the film more than just a surface-level romantic comedy.</p><p>Comparative Excellence<br>In comparison to landmark works in its genre, <strong>Young Adult</strong> holds its own but does not surpass them in terms of artistic merit. Films like <strong>The Perks of Being a Wallflower</strong> or <strong>Lady Bird</strong> offer more complex and innovative storytelling. However, <strong>Young Adult</strong> remains a strong contender within the realm of contemporary romantic dramas, particularly in its portrayal of flawed yet relatable characters.</p><p>In summary, while <strong>Young Adult</strong> does not excel in originality or surprise, it demonstrates strong artistic craft and thematic depth, making it a competent but unremarkable film in the genre.</p>",
+    "oneLinerSummary": "A darkly comedic exploration of a delusional woman's misguided romantic obsession.",
+    "url": "https://hyperrealfilm.club/events/2025/7-30/young-adult",
+    "isSpecialScreening": true,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "Unknown",
+    "year": null,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-30",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-30/young-adult",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "young-adult"
+  },
+  {
+    "title": "CHALLENGERS",
+    "rating": 7,
+    "description": "<p><strong>Rating: 7/10</strong></p><p>\ud83c\udfac Originality & Surprise<br><strong>6/10</strong><br>While \"Challengers\" does not entirely avoid clich\u00e9s, it manages to deliver a compelling narrative by exploring the intricate dynamics of a love triangle among three tennis professionals over 13 years. The film's central premise, though familiar, is executed with a level of nuance that keeps the story engaging. However, the predictability of the love triangle and the eventual match between the two men on the ATP Challenger Tour slightly detracts from its originality.</p><p>\ud83c\udfa5 Artistic Craft<br><strong>8/10</strong><br>The artistic craft of \"Challengers\" is commendable. The narrative structure is well-balanced, moving seamlessly between the past and present to reveal the complexities of the characters' relationships. The cinematography, handled by Sayombhu Mukdeeprom, adds a visually appealing layer to the film. The sound design and pacing are also noteworthy, effectively capturing the tension and drama of the tennis matches. The performances by Zendaya, Josh O'Connor, and Mike Faist are strong, particularly Zendaya's portrayal of Tashi Duncan, which has received critical acclaim.</p><p>\ud83c\udfad Thematic Depth<br><strong>8/10</strong><br>The thematic depth of \"Challengers\" is significant. The film explores universal human experiences such as ambition, rivalry, and the complexities of love within a competitive environment. These themes are nuanced and multifaceted, allowing for a rich exploration of character motivations and emotional arcs. The film delves into the personal costs of professional ambition and the fragility of relationships under pressure, making it a thoughtful and emotionally resonant watch.</p><p>\ud83c\udfdb\ufe0f Comparative Excellence<br><strong>7/10</strong><br>Comparing \"Challengers\" to landmark works in its genre, it holds its own against other romantic sports dramas. While it may not reach the heights of exceptional masterpieces like \"A Star is Born\" or \"Rocky,\" it is certainly a strong contender in its own right. The film's ability to balance romance, sports, and drama makes it a compelling watch, especially given its positive reception and critical acclaim. However, it falls short of being exceptional due to its reliance on familiar tropes and predictable plot developments.</p><p>In summary, \"Challengers\" is a competent but unremarkable film that excels in its artistic craft and thematic depth. While it may not surprise or innovate significantly, it delivers a strong narrative with engaging performances and nuanced exploration of human experiences.</p>",
+    "oneLinerSummary": "A gripping tennis drama exploring love, ambition, and rivalry's complex dynamics.",
+    "url": "https://hyperrealfilm.club/events/2025/7-31/challengers",
+    "isSpecialScreening": true,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": null,
+    "director": "Luca Guadagnino",
+    "country": "Unknown",
+    "year": null,
+    "language": null,
+    "venue": "Hyperreal",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-31",
+        "time": "7:30 PM",
+        "url": "https://hyperrealfilm.club/events/2025/7-31/challengers",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "challengers"
+  },
+  {
+    "title": "NYRB Book Club - High Wind in Jamaica",
+    "rating": 8,
+    "description": "<p><strong>Rating: 8/10</strong></p><p>Literary Craft</p><p><strong>Narrative Structure:</strong> The novel's narrative structure is strong, weaving together the Bas-Thornton children's journey from their plantation in Jamaica to their harrowing adventures with pirates. The transition from a tranquil plantation life to the chaos of piracy is expertly managed, creating a sense of escalating tension and emotional depth. The use of multiple perspectives, particularly Emily's evolving sense of self, adds complexity to the narrative.</p><p><strong>Prose Quality:</strong> Richard Hughes's prose is rich and evocative, capturing the vivid settings of Jamaica and the high seas. His writing style is descriptive without being overly verbose, which enhances the reader's immersion in the story. The prose quality is competent, but it could be more exceptional in terms of lyrical beauty and depth of characterization.</p><p><strong>Character Complexity:</strong> The characters in \"A High Wind in Jamaica\" are well-developed and complex. Emily, in particular, undergoes significant psychological growth as she navigates the moral dilemmas posed by her experiences. The other children also exhibit distinct personalities, and their interactions reveal nuanced relationships and emotional arcs. However, some characters, like Captain Marpole, feel somewhat one-dimensional, which slightly detracts from the overall character complexity.</p><p>Originality & Entropy</p><p><strong>Subverting Clich\u00e9:</strong> The novel does subvert some clich\u00e9s associated with pirate stories by focusing on the psychological and emotional experiences of the children rather than the typical swashbuckling adventures. The exploration of innocence and maturity through Emily's journey adds a layer of depth that is not commonly found in pirate narratives. However, the overall plot structure remains somewhat predictable, which prevents it from being truly exceptional in terms of originality.</p><p>Thematic Depth</p><p><strong>Universal Human Experiences:</strong> The novel explores universal human experiences with nuance, particularly the loss of innocence and the harsh realities of human nature. Emily's evolving sense of self and her moral dilemmas serve as a powerful exploration of childhood and the complexities of growing up. The themes are well-integrated into the narrative, making the book rich in thematic depth.</p><p>Discussion Value</p><p><strong>Supporting Thoughtful Conversation:</strong> \"A High Wind in Jamaica\" offers a wealth of material for thoughtful conversation. The novel's themes, character development, and historical context provide ample opportunities for discussion. The book club selection is particularly well-suited for a group like the Austin NYRB Book Club, which values nuanced literary analysis. The novel's complexity and depth ensure that discussions will be rich and engaging, making it an excellent choice for a book club.</p><p>Comparative Excellence</p><p><strong>Seminal Works in Genre:</strong> Compared to other seminal works in the genre, \"A High Wind in Jamaica\" stands out for its psychological depth and thematic nuance. While it may not be as widely recognized as some other classics, it is a significant work in early 20th-century literature. The novel's exploration of childhood and the loss of innocence places it alongside works like \"The Secret Garden\" by Frances Hodgson Burnett, but with a more mature and complex approach.</p><p>In conclusion, \"A High Wind in Jamaica\" by Richard Hughes is a strong literary work that excels in thematic depth and supports rich discussion. While it may not be exceptional in terms of originality or prose quality, its narrative structure, character complexity, and exploration of universal human experiences make it a compelling and thought-provoking read.</p>",
+    "oneLinerSummary": "Children's psychological adventure exploring innocence lost through pirate captivity trauma.",
+    "url": "https://www.alienatedmajestybooks.com/book-clubs",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "AlienatedMajesty",
+    "series": "NYRB Book Club",
+    "book": "High Wind in Jamaica",
+    "author": "Richard Hughes",
+    "host": "Austin NYRB Book Club",
+    "type": "book_club",
+    "screenings": [
+      {
+        "date": "2025-08-02",
+        "time": "11:00 AM",
+        "url": "https://www.alienatedmajestybooks.com/book-clubs",
+        "venue": "AlienatedMajesty"
+      }
+    ],
+    "id": "nyrb-book-club---high-wind-in-jamaica---2025-08-02-1100-am"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 5",
+    "rating": 7,
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "oneLinerSummary": "Weekly literary discussion group",
+    "url": "https://www.meetup.com/atxstories/",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "NewYorkerMeetup",
+    "series": "The New Yorker Weekly Short Story Club",
+    "book": null,
+    "author": null,
+    "host": "Nabeel K. and others",
+    "type": "book_club",
+    "screenings": [
+      {
+        "date": "2025-08-05",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-5---2025-08-05-700-pm"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 6",
+    "rating": 7,
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "oneLinerSummary": "Weekly literary discussion group",
+    "url": "https://www.meetup.com/atxstories/",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "NewYorkerMeetup",
+    "series": "The New Yorker Weekly Short Story Club",
+    "book": null,
+    "author": null,
+    "host": "Nabeel K. and others",
+    "type": "book_club",
+    "screenings": [
+      {
+        "date": "2025-08-12",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-6---2025-08-12-700-pm"
+  },
+  {
+    "title": "A Season Of - Through the Forest",
+    "rating": 7,
+    "description": "<p><strong>Rating: 7/10</strong></p><p>Literary Craft<br><strong>Narrative Structure:</strong> The book's narrative structure is competent, as it effectively delves into the tragic events of Griselda's past and their impact on the survivors. The non-linear approach, jumping between the past and present, adds complexity to the story without becoming overly convoluted.</p><p><strong>Prose Quality:</strong> Laura Alcoba's writing is subtle and gentle, capturing the humanity of her characters without resorting to overwrought sentiment. This approach maintains a level of emotional authenticity, even in the face of horrific facts.</p><p><strong>Character Complexity:</strong> The characters in \"Through the Forest\" are well-developed, particularly Griselda, whose motivations and actions are shrouded in mystery. The narrator's attempts to understand Griselda's act add depth to the character, making her both relatable and enigmatic.</p><p>Originality & Entropy<br><strong>Subverting Clich\u00e9s:</strong> While \"Through the Forest\" does not necessarily subvert clich\u00e9s in the traditional sense, it introduces a unique perspective on family tragedy and the enduring impact of such events. The exploration of love and life amidst darkness is a nuanced approach that adds originality to the narrative.</p><p>Thematic Depth<br><strong>Universal Human Experiences:</strong> The book explores universal human experiences such as the complexities of family dynamics, the enduring power of love, and the unanswerable mysteries of human behavior. These themes are explored with nuance, particularly in the way the narrator grapples with understanding Griselda's actions.</p><p>Discussion Value<br><strong>Supporting Thoughtful Conversation:</strong> The book offers rich material for discussion, particularly around the themes of family, trauma, and the human condition. The subtle yet powerful writing style encourages readers to reflect on the characters' experiences and the broader implications of their stories.</p><p>Comparative Excellence<br><strong>Seminal Works:</strong> While \"Through the Forest\" does not surpass seminal works in its genre in terms of broad critical reception, it holds its own in terms of artistic merit and intellectual rigor. The book's ability to balance emotional authenticity with narrative complexity makes it a strong contender in the literary landscape.</p><p>In summary, \"Through the Forest\" by Laura Alcoba is a strong literary work that excels in its narrative structure, prose quality, and thematic depth. While it may not introduce entirely new ideas, its execution and exploration of universal human experiences make it a compelling read that supports thoughtful conversation.</p>",
+    "oneLinerSummary": "Haunting literary fiction exploring family tragedy and unanswerable human mysteries.",
+    "url": "https://www.alienatedmajestybooks.com/book-clubs",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "AlienatedMajesty",
+    "series": "A Season Of",
+    "book": "Through the Forest",
+    "author": "Laura Alcoba",
+    "host": "Austin NYRB Book Club",
+    "type": "book_club",
+    "screenings": [
+      {
+        "date": "2025-08-16",
+        "time": "11:00 AM",
+        "url": "https://www.alienatedmajestybooks.com/book-clubs",
+        "venue": "AlienatedMajesty"
+      }
+    ],
+    "id": "a-season-of---through-the-forest---2025-08-16-1100-am"
   }
 ]
