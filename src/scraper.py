@@ -11,13 +11,15 @@ from typing import Dict, List
 from .scrapers import (
     AFSScraper,
     AlienatedMajestyBooksScraper,
+    AustinChamberMusicScraper,
+    AustinOperaScraper,
     AustinSymphonyScraper,
+    BalletAustinScraper,
     EarlyMusicAustinScraper,
     FirstLightAustinScraper,
     HyperrealScraper,
     LaFolliaAustinScraper,
     ParamountScraper,
-    BalletAustinScraper,
 )
 from .recurring_events import RecurringEventGenerator
 
@@ -33,6 +35,8 @@ class MultiVenueScraper:
         self.alienated_majesty_scraper = AlienatedMajestyBooksScraper()
         self.first_light_scraper = FirstLightAustinScraper()
         self.austin_symphony_scraper = AustinSymphonyScraper()
+        self.austin_opera_scraper = AustinOperaScraper()
+        self.austin_chamber_music_scraper = AustinChamberMusicScraper()
         self.early_music_scraper = EarlyMusicAustinScraper()
         self.la_follia_scraper = LaFolliaAustinScraper()
         self.ballet_austin_scraper = BalletAustinScraper()
@@ -129,6 +133,32 @@ class MultiVenueScraper:
         except Exception as e:
             print(f"Error loading Symphony events: {e}")
             self.last_updated["Symphony"] = None
+
+        # Scrape Austin Opera
+        print("Loading Austin Opera events...")
+        try:
+            opera_events = self.austin_opera_scraper.scrape_events()
+            for event in opera_events:
+                event["venue"] = "Opera"
+                all_events.append(event)
+            print(f"Found {len(opera_events)} Opera events")
+            self.last_updated["Opera"] = datetime.now().isoformat()
+        except Exception as e:
+            print(f"Error loading Opera events: {e}")
+            self.last_updated["Opera"] = None
+
+        # Scrape Austin Chamber Music
+        print("Loading Austin Chamber Music Festival events...")
+        try:
+            chamber_music_events = self.austin_chamber_music_scraper.scrape_events()
+            for event in chamber_music_events:
+                event["venue"] = "Chamber Music"
+                all_events.append(event)
+            print(f"Found {len(chamber_music_events)} Chamber Music events")
+            self.last_updated["Chamber Music"] = datetime.now().isoformat()
+        except Exception as e:
+            print(f"Error loading Chamber Music events: {e}")
+            self.last_updated["Chamber Music"] = None
 
         # Scrape Early Music Project
         print("Loading Early Music Project events...")

@@ -489,6 +489,8 @@ def main(
                 ],
                 "FirstLight": [e for e in events if e.get("venue") == "FirstLight"],
                 "Symphony": [e for e in events if e.get("venue") == "Symphony"],
+                "Opera": [e for e in events if e.get("venue") == "Opera"],
+                "Chamber Music": [e for e in events if e.get("venue") == "Chamber Music"],
                 "EarlyMusic": [e for e in events if e.get("venue") == "EarlyMusic"],
                 "LaFollia": [e for e in events if e.get("venue") == "LaFollia"],
                 "Paramount": [e for e in events if e.get("venue") == "Paramount"],

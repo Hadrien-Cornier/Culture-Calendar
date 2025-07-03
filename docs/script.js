@@ -1203,6 +1203,7 @@ function getVenueName(venue) {
         'Symphony': 'Austin Symphony',
         'EarlyMusic': 'Early Music Project',
         'LaFollia': 'La Follia Austin',
+        'BalletAustin': 'Ballet Austin',
         'AlienatedMajesty': 'Alienated Majesty Books',
         'FirstLight': 'First Light Austin',
         'NewYorkerMeetup': 'New Yorker Book Club'
@@ -1218,6 +1219,7 @@ function getVenueAbbr(venue) {
         'Symphony': 'ASO',
         'EarlyMusic': 'EMP',
         'LaFollia': 'LFA',
+        'BalletAustin': 'BAL',
         'AlienatedMajesty': 'AMB',
         'FirstLight': 'FLA',
         'NewYorkerMeetup': 'NYR'

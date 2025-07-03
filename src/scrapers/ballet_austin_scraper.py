@@ -74,7 +74,7 @@ class BalletAustinScraper(BaseScraper):
                         "time": time,
                         "venue": self.venue_name,
                         "location": event.get("venue_name", "The Long Center"),
-                        "type": event.get("type", "dance"),
+                        "type": "concert",  # Treat ballet performances as concerts for pipeline
                         "url": self.base_url,
                     }
                     standardized_events.append(standardized_event)
