@@ -72,7 +72,7 @@ class HyperrealScraper(BaseScraper):
                 
                 # If we found individual event pages, scrape them
                 if event_links:
-                    for event_url in event_links[:10]:  # Limit to 10 events to avoid overload
+                    for event_url in event_links:
                         try:
                             event_response = self.session.get(event_url, timeout=10)
                             if event_response.status_code == 200:
