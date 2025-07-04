@@ -679,9 +679,18 @@ function updateFilteredEvents() {
             return false;
         }
 
-        // Search filter (description)
+        // Search filter (title, director, one-liner, description)
         if (searchTerm) {
-            const haystack = (movie.description || '').toLowerCase();
+            const fields = [
+                movie.title,
+                movie.director,
+                movie.oneLinerSummary,
+                movie.description,
+            ];
+            const haystack = fields
+                .filter(Boolean)
+                .join(' ') // combine fields
+                .toLowerCase();
             if (!haystack.includes(searchTerm)) {
                 return false;
             }
@@ -1065,7 +1074,16 @@ function getFilteredEventsForDownload(minRating) {
 
         // Search filter
         if (searchTerm) {
-            const haystack = (event.description || '').toLowerCase();
+            const fields = [
+                event.title,
+                event.director,
+                event.oneLinerSummary,
+                event.description,
+            ];
+            const haystack = fields
+                .filter(Boolean)
+                .join(' ')
+                .toLowerCase();
             if (!haystack.includes(searchTerm)) {
                 return false;
             }
