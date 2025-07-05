@@ -29,11 +29,11 @@
     <nav class="primary-nav">
         <div class="container">
             <ul class="nav-list">
-                <li><a href="#" class="nav-link active" data-view="today">Today</a></li>
-                <li><a href="#" class="nav-link" data-view="weekend">This Weekend</a></li>
-                <li><a href="#" class="nav-link" data-view="week">This Week</a></li>
-                <li><a href="#" class="nav-link" data-view="all">All Events</a></li>
-                <li><a href="#" class="nav-link" data-view="calendar">Calendar</a></li>
+                <li><a href="#" class="nav-link active" data-view="today" data-label="Today">Today</a></li>
+                <li><a href="#" class="nav-link" data-view="weekend" data-label="This Weekend">This Weekend</a></li>
+                <li><a href="#" class="nav-link" data-view="week" data-label="This Week">This Week</a></li>
+                <li><a href="#" class="nav-link" data-view="all" data-label="All Events">All Events</a></li>
+                <li><a href="#" class="nav-link" data-view="calendar" data-label="Calendar">Calendar</a></li>
                 <li class="nav-separator"></li>
                 <li><a href="#" class="nav-link nav-secondary" id="show-filters-link">Filters</a></li>
                 <li><a href="#" class="nav-link nav-secondary" id="download-link">Download</a></li>
@@ -112,11 +112,8 @@
         <div class="content-wrapper">
             <!-- Events List Section -->
             <section class="events-section" id="list-view">
-                <header class="section-header">
-                    <h2 id="events-heading" class="section-title">Today's Events</h2>
-                    <div class="section-meta">
-                        <span id="event-count" class="event-count"></span>
-                    </div>
+                <header class="section-header" id="events-header" style="display: none;">
+                    <h2 id="events-heading" class="section-title">Events</h2>
                 </header>
                 <div id="loading" class="loading">Loading event data...</div>
                 <div id="events-list" class="events-list"></div>
