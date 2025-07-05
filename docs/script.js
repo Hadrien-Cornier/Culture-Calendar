@@ -18,7 +18,6 @@ const ratingValue = document.getElementById('rating-value');
 const downloadBtn = document.getElementById('download-btn');
 const eventsList = document.getElementById('events-list');
 const eventsHeading = document.getElementById('events-heading');
-const eventCountElement = document.getElementById('event-count');
 const loadingElement = document.getElementById('loading');
 const listView = document.getElementById('list-view');
 const calendarView = document.getElementById('calendar-view');
@@ -41,6 +40,7 @@ const downloadLink = document.getElementById('download-link');
 const closeFiltersBtn = document.getElementById('close-filters');
 const navLinks = document.querySelectorAll('.nav-link');
 const mastheadDate = document.getElementById('masthead-date');
+const eventsHeader = document.getElementById('events-header');
 
 let searchTerm = '';
 let selectedDirector = null;
@@ -78,10 +78,19 @@ function updateMastheadDate() {
 
 // Update event count
 function updateEventCount() {
-    if (eventCountElement) {
-        const count = filteredEvents.length;
-        eventCountElement.textContent = `${count} event${count !== 1 ? 's' : ''}`;
-    }
+    const count = filteredEvents.length;
+
+    navLinks.forEach(link => {
+        const label = link.dataset.label;
+        if (!label) return;
+        if (link.dataset.view === currentView) {
+            link.textContent = `${label} (${count})`;
+            link.classList.add('active');
+        } else {
+            link.textContent = label;
+            link.classList.remove('active');
+        }
+    });
 }
 
 // Set up event listeners
@@ -109,9 +118,6 @@ function setupEventListeners() {
             const newView = this.dataset.view;
             if (newView) {
                 switchView(newView);
-                // Update active state
-                navLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
             }
         });
     });
@@ -219,11 +225,17 @@ function switchView(view) {
             clearDateRangeFilter();
             updateFilteredEvents();
             renderEvents();
+            if (eventsHeader) {
+                eventsHeader.style.display = 'block';
+            }
             eventsHeading.textContent = 'All Upcoming Events';
             switchToListView();
             break;
         case 'calendar':
             clearDateRangeFilter();
+            if (eventsHeader) {
+                eventsHeader.style.display = 'none';
+            }
             switchToCalendarView();
             break;
     }
@@ -242,7 +254,9 @@ function filterToday() {
     updateFilteredEvents();
     renderEvents();
     
-    // Update section header
+    if (eventsHeader) {
+        eventsHeader.style.display = 'none';
+    }
     eventsHeading.textContent = "Today's Events";
     updateEventCount();
     
@@ -262,7 +276,9 @@ function filterThisWeek() {
     updateFilteredEvents();
     renderEvents();
     
-    // Update section header
+    if (eventsHeader) {
+        eventsHeader.style.display = 'block';
+    }
     eventsHeading.textContent = "This Week's Events";
     updateEventCount();
     
@@ -300,6 +316,9 @@ function filterThisWeekend() {
     updateFilteredEvents();
     renderEvents();
 
+    if (eventsHeader) {
+        eventsHeader.style.display = 'block';
+    }
     eventsHeading.textContent = "This Weekend's Events";
     updateEventCount();
 
@@ -810,16 +829,14 @@ function createEventCard(event) {
     const hasReview = event.description && event.description.length > 200;
     
     return `
-        <article class="event-card">
-            <div class="event-time-venue">${datelineText}</div>
-            <h3 class="event-title"><a href="${event.url}" target="_blank" rel="noopener">${escapeHtml(event.title)}</a></h3>
-            ${finalRating ? `<div class="event-rating">★ ${finalRating}/10</div>` : ''}
+        <article class="event-card" onclick="toggleReview('${event.id || 'unknown'}')">
+            <div class="event-header">
+                <span class="event-title"><a href="${event.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${escapeHtml(event.title)}</a></span>
+                ${finalRating ? `<span class="event-rating">★ ${finalRating}/10</span>` : ''}
+            </div>
+            <div class="event-metadata">${datelineText}${metadata ? ' — ' + escapeHtml(metadata) : ''}</div>
             ${summary ? `<p class="event-summary">${escapeHtml(summary)}</p>` : ''}
-            ${metadata ? `<div class="event-metadata">${escapeHtml(metadata)}</div>` : ''}
             ${hasReview ? `
-                <button class="read-review-btn" onclick="toggleReview('${event.id || 'unknown'}')">
-                    Read Review →
-                </button>
                 <div class="review-content" id="review-${event.id || 'unknown'}" style="display: none;">
                     <div class="review-text">
                         ${formatDescription(event.description)}
@@ -836,12 +853,6 @@ function toggleReview(eventId) {
     if (reviewContent) {
         const isVisible = reviewContent.style.display !== 'none';
         reviewContent.style.display = isVisible ? 'none' : 'block';
-        
-        // Update button text
-        const button = reviewContent.previousElementSibling;
-        if (button && button.classList.contains('read-review-btn')) {
-            button.textContent = isVisible ? 'Read Review →' : 'Hide Review';
-        }
     }
 }
 
