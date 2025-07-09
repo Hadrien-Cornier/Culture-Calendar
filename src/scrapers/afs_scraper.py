@@ -187,7 +187,7 @@ class AFSScraper(BaseScraper):
                                     href = f"{self.base_url}/{href}"
                                 if href not in movie_urls:
                                     movie_urls.append(href)
-                        for movie_url in movie_urls[:10]:
+                        for movie_url in movie_urls:  # Increased limit to get more movies
                             try:
                                 movie_response = self.session.get(movie_url, timeout=10)
                                 if movie_response.status_code == 200:

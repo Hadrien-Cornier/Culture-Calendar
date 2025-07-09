@@ -60,6 +60,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     console.log('All critical elements found, proceeding...'); // Debug log
+    
+    // Initialize compact mode as default
+    document.body.classList.add('compact-mode');
+    
     updateMastheadDate();
     setupEventListeners();
     loadEventsData();
@@ -67,12 +71,13 @@ document.addEventListener('DOMContentLoaded', function() {
     loadCodeUpdateTime();
 });
 
-// Update masthead date
+// Update masthead date to match wireframe format
 function updateMastheadDate() {
     if (mastheadDate) {
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const today = new Date();
-        mastheadDate.textContent = today.toLocaleDateString('en-US', options);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('en-US', options);
+        mastheadDate.textContent = `Culture Calendar · ${formattedDate} · Austin, TX`;
     }
 }
 
@@ -84,12 +89,106 @@ function updateEventCount() {
     }
 }
 
+// Calculate event counts for navigation tabs
+function updateNavigationCounts() {
+    if (!eventsData || eventsData.length === 0) return;
+    
+    // Helper function to count events with current filters
+    function countEventsForDateRange(startDate, endDate) {
+        return eventsData.filter(event => {
+            // Apply all current filters
+            const minRating = parseInt(ratingSlider.value);
+            if (event.rating < minRating) return false;
+            
+            if (selectedGenres.size > 0 && !selectedGenres.has(event.country)) return false;
+            if (selectedVenues.size > 0 && !selectedVenues.has(event.venue)) return false;
+            if (showSpecialEventsOnly && !event.isSpecialScreening) return false;
+            if (hideWorkHours && event.isWorkHours) return false;
+            if (selectedDirector && event.director !== selectedDirector) return false;
+            
+            if (searchTerm) {
+                const fields = [event.title, event.director, event.oneLinerSummary, event.description];
+                const haystack = fields.filter(Boolean).join(' ').toLowerCase();
+                if (!haystack.includes(searchTerm)) return false;
+            }
+            
+            // Check date range
+            if (!event.screenings || !Array.isArray(event.screenings)) return false;
+            return event.screenings.some(screening => {
+                const screeningDate = parseLocalDate(screening.date);
+                screeningDate.setHours(0, 0, 0, 0);
+                startDate.setHours(0, 0, 0, 0);
+                endDate.setHours(0, 0, 0, 0);
+                return screeningDate >= startDate && screeningDate < endDate;
+            });
+        }).length;
+    }
+    
+    // Calculate counts for each view
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    // Weekend calculation
+    const friday = new Date(today);
+    const day = friday.getDay();
+    let diffToFriday = day === 0 ? -2 : 5 - day;
+    friday.setDate(friday.getDate() + diffToFriday);
+    const sunday = new Date(friday);
+    sunday.setDate(friday.getDate() + 3); // Through end of Sunday
+    
+    // Week calculation
+    const nextWeek = new Date(today);
+    nextWeek.setDate(nextWeek.getDate() + 7);
+    
+    // Get counts
+    const todayCount = countEventsForDateRange(today, tomorrow);
+    const weekendCount = countEventsForDateRange(friday, sunday);
+    const weekCount = countEventsForDateRange(today, nextWeek);
+    const allCount = eventsData.filter(event => {
+        const minRating = parseInt(ratingSlider.value);
+        if (event.rating < minRating) return false;
+        if (selectedGenres.size > 0 && !selectedGenres.has(event.country)) return false;
+        if (selectedVenues.size > 0 && !selectedVenues.has(event.venue)) return false;
+        if (showSpecialEventsOnly && !event.isSpecialScreening) return false;
+        if (hideWorkHours && event.isWorkHours) return false;
+        if (selectedDirector && event.director !== selectedDirector) return false;
+        if (searchTerm) {
+            const fields = [event.title, event.director, event.oneLinerSummary, event.description];
+            const haystack = fields.filter(Boolean).join(' ').toLowerCase();
+            if (!haystack.includes(searchTerm)) return false;
+        }
+        return true;
+    }).length;
+    
+    // Update nav links with counts - only show count for active tab
+    navLinks.forEach(link => {
+        const view = link.dataset.view;
+        if (!view) return;
+        
+        let count = 0;
+        switch(view) {
+            case 'today': count = todayCount; break;
+            case 'weekend': count = weekendCount; break;
+            case 'week': count = weekCount; break;
+            case 'all': count = allCount; break;
+            case 'calendar': count = allCount; break; // Calendar shows all events
+        }
+        
+        // Update link text with count for all tabs
+        const baseText = link.textContent.replace(/\s*\(\d+\)/, ''); // Remove existing count
+        link.textContent = `${baseText} (${count})`;
+    });
+}
+
 // Set up event listeners
 function setupEventListeners() {
     ratingSlider.addEventListener('input', function() {
         ratingValue.textContent = this.value;
         updateFilteredEvents();
         renderEvents();
+        updateNavigationCounts();
         
         // Re-render calendar if it's currently visible
         if (currentView === 'calendar') {
@@ -144,6 +243,7 @@ function setupEventListeners() {
             showSpecialEventsOnly = this.checked;
             updateFilteredEvents();
             renderEvents();
+            updateNavigationCounts();
             if (currentView === 'calendar') {
                 renderCalendar();
             }
@@ -155,9 +255,23 @@ function setupEventListeners() {
             hideWorkHours = this.checked;
             updateFilteredEvents();
             renderEvents();
+            updateNavigationCounts();
             if (currentView === 'calendar') {
                 renderCalendar();
             }
+        });
+    }
+
+    // Compact mode toggle
+    const compactModeToggle = document.getElementById('compact-mode-toggle');
+    if (compactModeToggle) {
+        compactModeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                document.body.classList.add('compact-mode');
+            } else {
+                document.body.classList.remove('compact-mode');
+            }
+            renderEvents();
         });
     }
 
@@ -182,6 +296,7 @@ function setupEventListeners() {
             searchTerm = this.value.toLowerCase();
             updateFilteredEvents();
             renderEvents();
+            updateNavigationCounts();
             if (currentView === 'calendar') {
                 renderCalendar();
             }
@@ -204,6 +319,9 @@ function setupEventListeners() {
 // Switch view
 function switchView(view) {
     currentView = view;
+    
+    // Add data attribute to body for current view
+    document.body.setAttribute('data-view', view);
     
     switch (view) {
         case 'today':
@@ -406,6 +524,9 @@ async function loadEventsData() {
         // Start with Today's Events view (this will call updateFilteredEvents and renderEvents)
         switchView('today');
         
+        // Update navigation counts after data loads
+        updateNavigationCounts();
+        
         // Check for outdated classical music data
         checkClassicalDataFreshness();
         
@@ -536,6 +657,7 @@ function toggleSpecialEventsFilter() {
     
     updateFilteredEvents();
     renderEvents();
+    updateNavigationCounts();
     
     // Re-render calendar if it's currently visible
     if (calendarView.style.display !== 'none') {
@@ -556,6 +678,7 @@ function toggleWorkHoursFilter() {
     
     updateFilteredEvents();
     renderEvents();
+    updateNavigationCounts();
     
     // Re-render calendar if it's currently visible
     if (calendarView.style.display !== 'none') {
@@ -594,6 +717,7 @@ function toggleGenreFilter(genre) {
     
     updateFilteredEvents();
     renderEvents();
+    updateNavigationCounts();
     
     // Re-render calendar if it's currently visible
     if (calendarView.style.display !== 'none') {
@@ -639,6 +763,7 @@ function toggleVenueFilter(venue) {
     
     updateFilteredEvents();
     renderEvents();
+    updateNavigationCounts();
     
     // Re-render calendar if it's currently visible
     if (calendarView.style.display !== 'none') {
@@ -779,12 +904,16 @@ function createEventCard(event) {
         return '<article class="event-card error">Invalid event data</article>';
     }
     
+    // Check if compact mode is enabled
+    const isCompact = document.body.classList.contains('compact-mode');
+    
     // Extract key data
     const finalRating = event.final_rating ?? event.rating ?? (event.ai_rating ? event.ai_rating.score : null);
     const eventUrl = event.screenings && event.screenings[0] ? event.screenings[0].url : (event.url || '#');
     
-    // Format date and venue (newspaper dateline style)
+    // Format date and venue
     let datelineText = '';
+    let compactDateTime = '';
     if (event.screenings && event.screenings.length > 0) {
         const firstScreening = event.screenings[0];
         const date = parseLocalDate(firstScreening.date);
@@ -794,6 +923,11 @@ function createEventCard(event) {
         const time = firstScreening.time || '';
         const venue = getVenueName(event.venue).toUpperCase();
         datelineText = `${venue} — ${formattedDate}${time ? ' AT ' + time : ''}`;
+        
+        // Compact format: "Thu, Jul 3 · 3:30 PM · Austin Film Society"
+        const compactDateOptions = { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'America/Chicago' };
+        const compactDate = date.toLocaleDateString('en-US', compactDateOptions);
+        compactDateTime = `${compactDate} · ${time} · ${getVenueName(event.venue)}`;
     }
     
     // Get oneLinerSummary or truncated description
@@ -809,6 +943,31 @@ function createEventCard(event) {
     // Check if we have full review
     const hasReview = event.description && event.description.length > 200;
     
+    // Return compact card if in compact mode - exact wireframe format
+    if (isCompact) {
+        return `
+            <article class="event-card compact" onclick="toggleEventDetails('${event.id || 'unknown'}')">
+                <div class="wireframe-line1">
+                    <strong><a href="${eventUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${escapeHtml(event.title)}</a></strong>
+                </div>
+                <div class="wireframe-line2">
+                    ${compactDateTime} — ${metadata}
+                </div>
+                <div class="wireframe-line3">
+                    ${escapeHtml(summary)} ${finalRating ? `(★ ${finalRating}/10)` : ''}
+                </div>
+                ${hasReview ? `
+                <div class="event-details" id="details-${event.id || 'unknown'}" style="display: none;">
+                    <div class="review-text">
+                        ${formatDescription(event.description)}
+                    </div>
+                </div>
+                ` : ''}
+            </article>
+        `;
+    }
+    
+    // Original expanded card format
     return `
         <article class="event-card">
             <div class="event-time-venue">${datelineText}</div>
@@ -842,6 +1001,15 @@ function toggleReview(eventId) {
         if (button && button.classList.contains('read-review-btn')) {
             button.textContent = isVisible ? 'Read Review →' : 'Hide Review';
         }
+    }
+}
+
+// Toggle event details for compact cards
+function toggleEventDetails(eventId) {
+    const detailsContent = document.getElementById(`details-${eventId}`);
+    if (detailsContent) {
+        const isVisible = detailsContent.style.display !== 'none';
+        detailsContent.style.display = isVisible ? 'none' : 'block';
     }
 }
 
@@ -906,6 +1074,7 @@ function applyDateRangeFilter() {
         dateRangeEnd = parseLocalDate(endDate);
         updateFilteredEvents();
         renderEvents();
+        updateNavigationCounts();
         if (calendarView.style.display !== 'none') {
             renderCalendar();
         }
@@ -919,6 +1088,7 @@ function clearDateRangeFilter() {
     endDateInput.value = '';
     updateFilteredEvents();
     renderEvents();
+    updateNavigationCounts();
     if (calendarView.style.display !== 'none') {
         renderCalendar();
     }

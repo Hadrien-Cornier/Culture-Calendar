@@ -15,12 +15,7 @@
         <div class="masthead-border-top"></div>
         <div class="container">
             <div class="masthead-content">
-                <div class="masthead-date">
-                    <time id="masthead-date"></time>
-                    <span class="masthead-location">Austin, Texas</span>
-                </div>
-                <h1 class="masthead-title">Culture Calendar</h1>
-                <p class="masthead-tagline">A curated guide to film, music, and literary events</p>
+                <h1 class="masthead-title" id="masthead-date">Culture Calendar</h1>
             </div>
         </div>
         <div class="masthead-border-bottom"></div>
@@ -90,6 +85,10 @@
                 <section class="filter-section">
                     <h3 class="filter-title">Display Options</h3>
                     <div class="toggle-options">
+                        <label class="toggle-option">
+                            <input type="checkbox" id="compact-mode-toggle" class="toggle-checkbox" checked>
+                            <span class="toggle-label">Compact View</span>
+                        </label>
                         <label class="toggle-option">
                             <input type="checkbox" id="special-events-toggle" class="toggle-checkbox">
                             <span class="toggle-label">Special Events Only</span>
