@@ -1,491 +1,5 @@
 [
   {
-    "title": "A Season Of - Chrysalis Pastoral in B Minor",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Competent pastoral fiction exploring nature and meaning without innovation.",
-    "url": "https://www.alienatedmajestybooks.com/book-clubs",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": null,
-    "language": "English",
-    "venue": "AlienatedMajesty",
-    "series": "A Season Of",
-    "book": "Chrysalis Pastoral in B Minor",
-    "author": "Susanna Rafart",
-    "host": "Austin NYRB Book Club",
-    "type": "book_club",
-    "screenings": [
-      {
-        "date": "2025-07-19",
-        "time": "11:00 AM",
-        "url": "https://www.alienatedmajestybooks.com/book-clubs",
-        "venue": "AlienatedMajesty"
-      }
-    ],
-    "id": "a-season-of---chrysalis-pastoral-in-b-minor---2025-07-19-1100-am"
-  },
-  {
-    "title": "VULCANIZADORA",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "A compelling cinematic experience exploring industrial themes at AFS venue.",
-    "url": "https://www.austinfilm.org/screening/vulcanizadora/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 25min",
-    "director": "Joel Potrykus",
-    "country": "USA",
-    "year": 2024,
-    "language": null,
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-19",
-        "time": "4:00 PM",
-        "url": "https://www.austinfilm.org/screening/vulcanizadora/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "vulcanizadora"
-  },
-  {
-    "title": "KILL THE JOCKEY",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Intense drama exploring the dark, competitive world of horse racing.",
-    "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 36min",
-    "director": "Luis Ortega",
-    "country": "Argentina/Mexico/Spain/Denmark",
-    "year": 2024,
-    "language": "Spanish",
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-19",
-        "time": "5:15 PM",
-        "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-21",
-        "time": "3:45 PM",
-        "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-21",
-        "time": "8:30 PM",
-        "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-23",
-        "time": "7:30 PM",
-        "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-24",
-        "time": "5:30 PM",
-        "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "kill-the-jockey"
-  },
-  {
-    "title": "PLAY IT AS IT LAYS",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Classic psychological drama screening exploring fractured identity and existential despair.",
-    "url": "https://www.austinfilm.org/screening/play-it-as-it-lays/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 39min",
-    "director": "Frank Perry",
-    "country": "USA",
-    "year": 1972,
-    "language": null,
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-19",
-        "time": "6:15 PM",
-        "url": "https://www.austinfilm.org/screening/play-it-as-it-lays/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "play-it-as-it-lays"
-  },
-  {
-    "title": "IN THE MOOD FOR LOVE w/ IN THE MOOD FOR LOVE 2001",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "A haunting tale of forbidden love and unspoken longing in 1960s Hong Kong.",
-    "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 47min",
-    "director": "Wong Kar Wai",
-    "country": "Hong Kong",
-    "year": null,
-    "language": "Cantonese and Shanghainese with English subtitle",
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-19",
-        "time": "8:00 PM",
-        "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-20",
-        "time": "1:30 PM",
-        "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-21",
-        "time": "6:10 PM",
-        "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-23",
-        "time": "5:00 PM",
-        "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "in-the-mood-for-love-w/-in-the-mood-for-love-2001"
-  },
-  {
-    "title": "THE ISLAND CLOSEST TO HEAVEN",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "A cinematic journey exploring paradise, isolation, and the search for transcendence.",
-    "url": "https://www.austinfilm.org/screening/the-island-closest-to-heaven/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 42min",
-    "director": "Nobuhiko Obayashi",
-    "country": "Japan",
-    "year": 1984,
-    "language": "Japanese with English",
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-19",
-        "time": "8:45 PM",
-        "url": "https://www.austinfilm.org/screening/the-island-closest-to-heaven/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-20",
-        "time": "5:15 PM",
-        "url": "https://www.austinfilm.org/screening/the-island-closest-to-heaven/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "the-island-closest-to-heaven"
-  },
-  {
-    "title": "JANE AUSTEN WRECKED MY LIFE",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "A predictable romantic comedy that disappointingly squanders Jane Austen's literary legacy.",
-    "url": "https://www.austinfilm.org/screening/jane-austen-wrecked-my-life/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 38min",
-    "director": "Laura Piani",
-    "country": "France",
-    "year": 2024,
-    "language": "French and English",
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-20",
-        "time": "12:45 PM",
-        "url": "https://www.austinfilm.org/screening/jane-austen-wrecked-my-life/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-21",
-        "time": "4:15 PM",
-        "url": "https://www.austinfilm.org/screening/jane-austen-wrecked-my-life/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "jane-austen-wrecked-my-life"
-  },
-  {
-    "title": "PINK NARCISSUS",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Avant-garde queer cinema exploring desire and identity through dreamlike visuals.",
-    "url": "https://www.austinfilm.org/screening/pink-narcissus/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 10min",
-    "director": "James Bidgood",
-    "country": "USA",
-    "year": 1971,
-    "language": null,
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-20",
-        "time": "3:00 PM",
-        "url": "https://www.austinfilm.org/screening/pink-narcissus/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-23",
-        "time": "8:30 PM",
-        "url": "https://www.austinfilm.org/screening/pink-narcissus/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "pink-narcissus"
-  },
-  {
-    "title": "WHO FRAMED ROGER RABBIT?",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Groundbreaking blend of live-action and animation in this noir-comedy classic.",
-    "url": "https://www.austinfilm.org/screening/who-framed-roger-rabbit/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 44min",
-    "director": "Robert Zemeckis",
-    "country": "USA",
-    "year": 1988,
-    "language": null,
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-20",
-        "time": "4:00 PM",
-        "url": "https://www.austinfilm.org/screening/who-framed-roger-rabbit/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-23",
-        "time": "6:00 PM",
-        "url": "https://www.austinfilm.org/screening/who-framed-roger-rabbit/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-25",
-        "time": "3:45 PM",
-        "url": "https://www.austinfilm.org/screening/who-framed-roger-rabbit/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-26",
-        "time": "5:30 PM",
-        "url": "https://www.austinfilm.org/screening/who-framed-roger-rabbit/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2025-07-27",
-        "time": "1:30 PM",
-        "url": "https://www.austinfilm.org/screening/who-framed-roger-rabbit/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "who-framed-roger-rabbit?"
-  },
-  {
-    "title": "Voyage Out - The Swan Book",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Indigenous climate fiction weaving mythology through stream-of-consciousness environmental storyt...",
-    "url": "https://www.alienatedmajestybooks.com/book-clubs",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": null,
-    "language": "English",
-    "venue": "AlienatedMajesty",
-    "series": "Voyage Out",
-    "book": "The Swan Book",
-    "author": "Alexis Wright",
-    "host": null,
-    "type": "book_club",
-    "screenings": [
-      {
-        "date": "2025-07-20",
-        "time": "5:00 PM",
-        "url": "https://www.alienatedmajestybooks.com/book-clubs",
-        "venue": "AlienatedMajesty"
-      }
-    ],
-    "id": "voyage-out---the-swan-book---2025-07-20-500-pm"
-  },
-  {
-    "title": "SILVER BULLET with Kingcast Live",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Horror film screening with live podcast commentary creates interactive cinematic experience.",
-    "url": "https://www.austinfilm.org/screening/silver-bullet-with-kingcast-live/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": "1h 35min",
-    "director": "Dan Attias",
-    "country": "USA",
-    "year": 1985,
-    "language": null,
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-21",
-        "time": "7:00 PM",
-        "url": "https://www.austinfilm.org/screening/silver-bullet-with-kingcast-live/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "silver-bullet-with-kingcast-live"
-  },
-  {
-    "title": "VIVA",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Anna Biller's \"Viva\" explores 1970s sexual liberation through stylized suburban transformation.",
-    "url": "https://hyperrealfilm.club/events/2025/7-21/viva",
-    "isSpecialScreening": true,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": null,
-    "director": "Anna Biller",
-    "country": "Unknown",
-    "year": null,
-    "language": null,
-    "venue": "Hyperreal",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-21",
-        "time": "7:30 PM",
-        "url": "https://hyperrealfilm.club/events/2025/7-21/viva",
-        "venue": "Hyperreal"
-      }
-    ],
-    "id": "viva"
-  },
-  {
-    "title": "THE PHOENICIAN SCHEME",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Wes Anderson's stylish espionage comedy weaves intricate plots with dark humor.",
-    "url": "https://www.austinfilm.org/screening/the-phoenician-scheme/",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": true,
-    "duration": "1h 45min",
-    "director": "Wes Anderson",
-    "country": "USA/Germany",
-    "year": 2025,
-    "language": null,
-    "venue": "AFS",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-22",
-        "time": "5:15 PM",
-        "url": "https://www.austinfilm.org/screening/the-phoenician-scheme/",
-        "venue": "AFS"
-      }
-    ],
-    "id": "the-phoenician-scheme"
-  },
-  {
-    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - This Week's Story",
-    "rating": 7,
-    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
-    "oneLinerSummary": "Weekly literary discussion group",
-    "url": "https://www.meetup.com/atxstories/",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": null,
-    "language": "English",
-    "venue": "NewYorkerMeetup",
-    "series": "The New Yorker Weekly Short Story Club",
-    "book": null,
-    "author": null,
-    "host": "Nabeel K. and others",
-    "type": "book_club",
-    "screenings": [
-      {
-        "date": "2025-07-22",
-        "time": "7:00 PM",
-        "url": "https://www.meetup.com/atxstories/",
-        "venue": "NewYorkerMeetup"
-      }
-    ],
-    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---this-weeks-story---2025-07-22-700-pm"
-  },
-  {
-    "title": "TROOP BEVERLY HILLS",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "A campy '80s comedy about a Beverly Hills socialite leading scouts.",
-    "url": "https://hyperrealfilm.club/events/2025/7-22/troop-beverly-hills",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "Unknown",
-    "year": null,
-    "language": null,
-    "venue": "Hyperreal",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-22",
-        "time": "7:30 PM",
-        "url": "https://hyperrealfilm.club/events/2025/7-22/troop-beverly-hills",
-        "venue": "Hyperreal"
-      }
-    ],
-    "id": "troop-beverly-hills"
-  },
-  {
     "title": "CLAUDINE",
     "rating": 5,
     "description": "<p>API error</p>",
@@ -503,12 +17,6 @@
     "type": "movie",
     "screenings": [
       {
-        "date": "2025-07-22",
-        "time": "7:45 PM",
-        "url": "https://www.austinfilm.org/screening/claudine/",
-        "venue": "AFS"
-      },
-      {
         "date": "2025-07-26",
         "time": "4:30 PM",
         "url": "https://www.austinfilm.org/screening/claudine/",
@@ -518,56 +26,36 @@
     "id": "claudine"
   },
   {
-    "title": "PICNIC AT HANGING ROCK",
+    "title": "WHO FRAMED ROGER RABBIT?",
     "rating": 5,
     "description": "<p>API error</p>",
-    "oneLinerSummary": "A haunting mystery where schoolgirls vanish without explanation, leaving questions unanswered.",
-    "url": "https://hyperrealfilm.club/events/2025/7-23/picnic-at-hanging-rock",
-    "isSpecialScreening": true,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "Australia",
-    "year": null,
-    "language": null,
-    "venue": "Hyperreal",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-23",
-        "time": "7:30 PM",
-        "url": "https://hyperrealfilm.club/events/2025/7-23/picnic-at-hanging-rock",
-        "venue": "Hyperreal"
-      }
-    ],
-    "id": "picnic-at-hanging-rock"
-  },
-  {
-    "title": "SEXY BEAST",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "A darkly humorous crime thriller featuring compelling character dynamics and unpredictable tension.",
-    "url": "https://hyperrealfilm.club/events/2025/7-24/sexy-beast",
+    "oneLinerSummary": "Classic animation-live action hybrid mystery comedy screening at AFS Cinema.",
+    "url": "https://www.austinfilm.org/screening/who-framed-roger-rabbit/",
     "isSpecialScreening": false,
     "isMovie": true,
     "isWorkHours": false,
-    "duration": null,
-    "director": "Jonathan Glazer",
-    "country": "Unknown",
-    "year": 2000,
+    "duration": "1h 44min",
+    "director": "Robert Zemeckis",
+    "country": "USA",
+    "year": 1988,
     "language": null,
-    "venue": "Hyperreal",
+    "venue": "AFS",
     "type": "movie",
     "screenings": [
       {
-        "date": "2025-07-24",
-        "time": "7:30 PM",
-        "url": "https://hyperrealfilm.club/events/2025/7-24/sexy-beast",
-        "venue": "Hyperreal"
+        "date": "2025-07-26",
+        "time": "5:30 PM",
+        "url": "https://www.austinfilm.org/screening/who-framed-roger-rabbit/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-07-27",
+        "time": "1:30 PM",
+        "url": "https://www.austinfilm.org/screening/who-framed-roger-rabbit/",
+        "venue": "AFS"
       }
     ],
-    "id": "sexy-beast"
+    "id": "who-framed-roger-rabbit?"
   },
   {
     "title": "CRASH",
@@ -586,12 +74,6 @@
     "venue": "AFS",
     "type": "movie",
     "screenings": [
-      {
-        "date": "2025-07-24",
-        "time": "8:00 PM",
-        "url": "https://www.austinfilm.org/screening/crash/",
-        "venue": "AFS"
-      },
       {
         "date": "2025-07-26",
         "time": "7:00 PM",
@@ -625,8 +107,8 @@
     "type": "movie",
     "screenings": [
       {
-        "date": "2025-07-25",
-        "time": "6:15 PM",
+        "date": "2025-07-26",
+        "time": "8:00 PM",
         "url": "https://www.austinfilm.org/screening/the-hidden-fortress/",
         "venue": "AFS"
       },
@@ -646,32 +128,6 @@
     "id": "the-hidden-fortress"
   },
   {
-    "title": "TROPIC THUNDER",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "A satirical war comedy where actors become real soldiers unexpectedly.",
-    "url": "https://hyperrealfilm.club/events/2025/7-25/tropic-thunder",
-    "isSpecialScreening": false,
-    "isMovie": true,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "Unknown",
-    "year": null,
-    "language": null,
-    "venue": "Hyperreal",
-    "type": "movie",
-    "screenings": [
-      {
-        "date": "2025-07-25",
-        "time": "7:30 PM",
-        "url": "https://hyperrealfilm.club/events/2025/7-25/tropic-thunder",
-        "venue": "Hyperreal"
-      }
-    ],
-    "id": "tropic-thunder"
-  },
-  {
     "title": "HIS MOTORBIKE, HER ISLAND",
     "rating": 5,
     "description": "<p>API error</p>",
@@ -689,12 +145,6 @@
     "type": "movie",
     "screenings": [
       {
-        "date": "2025-07-25",
-        "time": "9:30 PM",
-        "url": "https://www.austinfilm.org/screening/his-motorbike-her-island/",
-        "venue": "AFS"
-      },
-      {
         "date": "2025-07-26",
         "time": "9:30 PM",
         "url": "https://www.austinfilm.org/screening/his-motorbike-her-island/",
@@ -702,6 +152,120 @@
       }
     ],
     "id": "his-motorbike-her-island"
+  },
+  {
+    "title": "IN THE MOOD FOR LOVE w/ IN THE MOOD FOR LOVE 2001",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "Wong Kar-wai's romantic masterpiece explores forbidden love through stunning cinematography.",
+    "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "1h 47min",
+    "director": "Wong Kar Wai",
+    "country": "Hong Kong",
+    "year": null,
+    "language": "Cantonese and Shanghainese with English subtitle",
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-27",
+        "time": "4:00 PM",
+        "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-07-29",
+        "time": "4:55 PM",
+        "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-07-30",
+        "time": "4:45 PM",
+        "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-07-31",
+        "time": "4:15 PM",
+        "url": "https://www.austinfilm.org/screening/in-the-mood-for-love/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "in-the-mood-for-love-w/-in-the-mood-for-love-2001"
+  },
+  {
+    "title": "KILL THE JOCKEY",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "Intense drama exploring the dark, competitive world of horse racing.",
+    "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "1h 36min",
+    "director": "Luis Ortega",
+    "country": "Argentina/Mexico/Spain/Denmark",
+    "year": 2024,
+    "language": "Spanish",
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-27",
+        "time": "6:30 PM",
+        "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-07-28",
+        "time": "4:40 PM",
+        "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-07-29",
+        "time": "4:30 PM",
+        "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-07-31",
+        "time": "3:40 PM",
+        "url": "https://www.austinfilm.org/screening/kill-the-jockey/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "kill-the-jockey"
+  },
+  {
+    "title": "THE PHOENICIAN SCHEME",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "Wes Anderson's stylish espionage comedy weaves intricate plots with dark humor.",
+    "url": "https://www.austinfilm.org/screening/the-phoenician-scheme/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": true,
+    "duration": "1h 45min",
+    "director": "Wes Anderson",
+    "country": "USA/Germany",
+    "year": 2025,
+    "language": null,
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-07-28",
+        "time": "4:15 PM",
+        "url": "https://www.austinfilm.org/screening/the-phoenician-scheme/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "the-phoenician-scheme"
   },
   {
     "title": "STRAY DOG",
@@ -721,12 +285,6 @@
     "type": "movie",
     "screenings": [
       {
-        "date": "2025-07-26",
-        "time": "1:30 PM",
-        "url": "https://www.austinfilm.org/screening/stray-dog/",
-        "venue": "AFS"
-      },
-      {
         "date": "2025-07-28",
         "time": "7:00 PM",
         "url": "https://www.austinfilm.org/screening/stray-dog/",
@@ -734,36 +292,6 @@
       }
     ],
     "id": "stray-dog"
-  },
-  {
-    "title": "Apricot Trees Exist - Lightning Falls in Love",
-    "rating": 5,
-    "description": "<p>API error</p>",
-    "oneLinerSummary": "Poetic contemporary fiction exploring love, loss, and human connection.",
-    "url": "https://www.alienatedmajestybooks.com/book-clubs",
-    "isSpecialScreening": false,
-    "isMovie": false,
-    "isWorkHours": false,
-    "duration": null,
-    "director": null,
-    "country": "USA",
-    "year": null,
-    "language": "English",
-    "venue": "AlienatedMajesty",
-    "series": "Apricot Trees Exist",
-    "book": "Lightning Falls in Love",
-    "author": "Laura Kasischke",
-    "host": null,
-    "type": "book_club",
-    "screenings": [
-      {
-        "date": "2025-07-27",
-        "time": "3:00 PM",
-        "url": "https://www.alienatedmajestybooks.com/book-clubs",
-        "venue": "AlienatedMajesty"
-      }
-    ],
-    "id": "apricot-trees-exist---lightning-falls-in-love---2025-07-27-300-pm"
   },
   {
     "title": "HARD TICKET TO HAWAII",
@@ -792,7 +320,7 @@
     "id": "hard-ticket-to-hawaii"
   },
   {
-    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 2",
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - This Week's Story",
     "rating": 7,
     "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
     "oneLinerSummary": "Weekly literary discussion group",
@@ -819,7 +347,7 @@
         "venue": "NewYorkerMeetup"
       }
     ],
-    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-2---2025-07-29-700-pm"
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---this-weeks-story---2025-07-29-700-pm"
   },
   {
     "title": "A WOMAN UNDER THE INFLUENCE",
@@ -995,7 +523,7 @@
     "description": "<p>API error</p>",
     "oneLinerSummary": "A gripping tennis drama exploring love, rivalry, and ambition's complex entanglements.",
     "url": "https://hyperrealfilm.club/events/2025/7-31/challengers",
-    "isSpecialScreening": true,
+    "isSpecialScreening": false,
     "isMovie": true,
     "isWorkHours": false,
     "duration": null,
@@ -1093,6 +621,24 @@
       {
         "date": "2025-08-01",
         "time": "8:00 PM",
+        "url": "https://www.austinfilm.org/screening/yojimbo/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-08-03",
+        "time": "2:00 PM",
+        "url": "https://www.austinfilm.org/screening/yojimbo/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-08-04",
+        "time": "7:00 PM",
+        "url": "https://www.austinfilm.org/screening/yojimbo/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-08-07",
+        "time": "8:30 PM",
         "url": "https://www.austinfilm.org/screening/yojimbo/",
         "venue": "AFS"
       }
@@ -1232,5 +778,241 @@
       }
     ],
     "id": "sun-ra-do-the-impossible"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 2",
+    "rating": 7,
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "oneLinerSummary": "Weekly literary discussion group",
+    "url": "https://www.meetup.com/atxstories/",
+    "isSpecialScreening": false,
+    "isMovie": false,
+    "isWorkHours": false,
+    "duration": null,
+    "director": null,
+    "country": "USA",
+    "year": null,
+    "language": "English",
+    "venue": "NewYorkerMeetup",
+    "series": "The New Yorker Weekly Short Story Club",
+    "book": null,
+    "author": null,
+    "host": "Nabeel K. and others",
+    "type": "book_club",
+    "screenings": [
+      {
+        "date": "2025-08-05",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-2---2025-08-05-700-pm"
+  },
+  {
+    "title": "ALICE DOESN\u2019T LIVE HERE ANYMORE",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "Classic drama about a widow's journey toward independence and self-discovery.",
+    "url": "https://www.austinfilm.org/screening/alice-doesnt-live-here-anymore/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "1h 52min",
+    "director": "Martin Scorsese",
+    "country": "USA",
+    "year": 1974,
+    "language": null,
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-08-05",
+        "time": "7:30 PM",
+        "url": "https://www.austinfilm.org/screening/alice-doesnt-live-here-anymore/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-08-09",
+        "time": "6:00 PM",
+        "url": "https://www.austinfilm.org/screening/alice-doesnt-live-here-anymore/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "alice-doesn\u2019t-live-here-anymore"
+  },
+  {
+    "title": "HIGH AND LOW",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "Classic Kurosawa thriller exploring class divide through kidnapping moral dilemma.",
+    "url": "https://www.austinfilm.org/screening/high-and-low-2025/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "2h 2min",
+    "director": "Akira Kurosawa",
+    "country": "Japan",
+    "year": 1963,
+    "language": "Japanese with English Subtitlesp",
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-08-06",
+        "time": "7:15 PM",
+        "url": "https://www.austinfilm.org/screening/high-and-low-2025/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-08-09",
+        "time": "3:00 PM",
+        "url": "https://www.austinfilm.org/screening/high-and-low-2025/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "high-and-low"
+  },
+  {
+    "title": "SHANGHAI BLUES",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "A nostalgic cinematic journey through Shanghai's cultural and emotional landscape.",
+    "url": "https://www.austinfilm.org/screening/shanghai-blues/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "1h 43min",
+    "director": "Tsui Hark",
+    "country": "Hong Kong",
+    "year": 1984,
+    "language": "Mandarin and Cantonese",
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-08-06",
+        "time": "8:15 PM",
+        "url": "https://www.austinfilm.org/screening/shanghai-blues/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-08-09",
+        "time": "8:00 PM",
+        "url": "https://www.austinfilm.org/screening/shanghai-blues/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "shanghai-blues"
+  },
+  {
+    "title": "AMERICANA",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "American stories and culture explored through compelling cinema at AFS.",
+    "url": "https://www.austinfilm.org/screening/americana/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "1h 50min",
+    "director": "Tony Tost",
+    "country": "USA",
+    "year": 2023,
+    "language": null,
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-08-07",
+        "time": "7:00 PM",
+        "url": "https://www.austinfilm.org/screening/americana/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "americana"
+  },
+  {
+    "title": "THRONE OF BLOOD",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "Kurosawa's haunting samurai adaptation of Macbeth blends Shakespeare with Japanese cinema.",
+    "url": "https://www.austinfilm.org/screening/throne-of-blood/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "1h 50min",
+    "director": "Akira Kurosawa",
+    "country": "Japan",
+    "year": 1957,
+    "language": "Japanese with English Subtitles",
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-08-08",
+        "time": "6:15 PM",
+        "url": "https://www.austinfilm.org/screening/throne-of-blood/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "throne-of-blood"
+  },
+  {
+    "title": "HARVEST",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "A compelling harvest-themed film screening at AFS exploring seasonal transformation.",
+    "url": "https://www.austinfilm.org/screening/harvest/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "2h 11min",
+    "director": "Athina Rachel Tsangari",
+    "country": "UK/Germany/USA",
+    "year": 2024,
+    "language": null,
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-08-08",
+        "time": "8:00 PM",
+        "url": "https://www.austinfilm.org/screening/harvest/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "harvest"
+  },
+  {
+    "title": "DONNIE DARKO",
+    "rating": 5,
+    "description": "<p>API error</p>",
+    "oneLinerSummary": "Cult sci-fi thriller exploring time travel, teenage angst, and existential dread.",
+    "url": "https://www.austinfilm.org/screening/donnie-darko/",
+    "isSpecialScreening": false,
+    "isMovie": true,
+    "isWorkHours": false,
+    "duration": "1h 53min",
+    "director": "Richard Kelly",
+    "country": "USA",
+    "year": 2001,
+    "language": null,
+    "venue": "AFS",
+    "type": "movie",
+    "screenings": [
+      {
+        "date": "2025-08-08",
+        "time": "9:00 PM",
+        "url": "https://www.austinfilm.org/screening/donnie-darko/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2025-08-09",
+        "time": "9:00 PM",
+        "url": "https://www.austinfilm.org/screening/donnie-darko/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "donnie-darko"
   }
 ]
