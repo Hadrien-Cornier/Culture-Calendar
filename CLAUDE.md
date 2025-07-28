@@ -1,671 +1,1185 @@
-# CLAUDE.md
+# Claude Code Configuration - SPARC Development Environment (Batchtools Optimized)
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## 🚨 CRITICAL: CONCURRENT EXECUTION FOR ALL ACTIONS
+
+**ABSOLUTE RULE**: ALL operations MUST be concurrent/parallel in a single message:
+
+### 🔴 MANDATORY CONCURRENT PATTERNS:
+1. **TodoWrite**: ALWAYS batch ALL todos in ONE call (5-10+ todos minimum)
+2. **Task tool**: ALWAYS spawn ALL agents in ONE message with full instructions
+3. **File operations**: ALWAYS batch ALL reads/writes/edits in ONE message
+4. **Bash commands**: ALWAYS batch ALL terminal operations in ONE message
+5. **Memory operations**: ALWAYS batch ALL memory store/retrieve in ONE message
+
+### ⚡ GOLDEN RULE: "1 MESSAGE = ALL RELATED OPERATIONS"
+
+**Examples of CORRECT concurrent execution:**
+```javascript
+// ✅ CORRECT: Everything in ONE message
+[Single Message]:
+  - TodoWrite { todos: [10+ todos with all statuses/priorities] }
+  - Task("Agent 1 with full instructions and hooks")
+  - Task("Agent 2 with full instructions and hooks")
+  - Task("Agent 3 with full instructions and hooks")
+  - Read("file1.js")
+  - Read("file2.js")
+  - Write("output1.js", content)
+  - Write("output2.js", content)
+  - Bash("npm install")
+  - Bash("npm test")
+  - Bash("npm run build")
+```
+
+**Examples of WRONG sequential execution:**
+```javascript
+// ❌ WRONG: Multiple messages (NEVER DO THIS)
+Message 1: TodoWrite { todos: [single todo] }
+Message 2: Task("Agent 1")
+Message 3: Task("Agent 2")
+Message 4: Read("file1.js")
+Message 5: Write("output1.js")
+Message 6: Bash("npm install")
+// This is 6x slower and breaks coordination!
+```
+
+### 🎯 CONCURRENT EXECUTION CHECKLIST:
+
+Before sending ANY message, ask yourself:
+- ✅ Are ALL related TodoWrite operations batched together?
+- ✅ Are ALL Task spawning operations in ONE message?
+- ✅ Are ALL file operations (Read/Write/Edit) batched together?
+- ✅ Are ALL bash commands grouped in ONE message?
+- ✅ Are ALL memory operations concurrent?
+
+If ANY answer is "No", you MUST combine operations into a single message!
 
 ## Project Overview
+This project uses the SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) methodology for systematic Test-Driven Development with AI assistance through Claude-Flow orchestration.
 
-Culture Calendar is a production-ready Python application that automatically scrapes Austin cultural events from 7 venues, enriches them with AI-powered analysis, and provides both ICS calendar files and a live GitHub Pages website. The system uses a modern LLM-powered architecture with comprehensive testing and schema-driven development.
+**🚀 Batchtools Optimization Enabled**: This configuration includes optimized prompts and parallel processing capabilities for improved performance and efficiency.
 
-## Common Commands
+## SPARC Development Commands
+
+### Core SPARC Commands
+- `npx claude-flow sparc modes`: List all available SPARC development modes
+- `npx claude-flow sparc run <mode> "<task>"`: Execute specific SPARC mode for a task
+- `npx claude-flow sparc tdd "<feature>"`: Run complete TDD workflow using SPARC methodology
+- `npx claude-flow sparc info <mode>`: Get detailed information about a specific mode
+
+### Batchtools Commands (Optimized)
+- `npx claude-flow sparc batch <modes> "<task>"`: Execute multiple SPARC modes in parallel
+- `npx claude-flow sparc pipeline "<task>"`: Execute full SPARC pipeline with parallel processing
+- `npx claude-flow sparc concurrent <mode> "<tasks-file>"`: Process multiple tasks concurrently
+
+### Standard Build Commands
+- `npm run build`: Build the project
+- `npm run test`: Run the test suite
+- `npm run lint`: Run linter and format checks
+- `npm run typecheck`: Run TypeScript type checking
+
+## SPARC Methodology Workflow (Batchtools Enhanced)
+
+### 1. Specification Phase (Parallel Analysis)
+```bash
+# Create detailed specifications with concurrent requirements analysis
+npx claude-flow sparc run spec-pseudocode "Define user authentication requirements" --parallel
+```
+**Batchtools Optimization**: Simultaneously analyze multiple requirement sources, validate constraints in parallel, and generate comprehensive specifications.
+
+### 2. Pseudocode Phase (Concurrent Logic Design)
+```bash
+# Develop algorithmic logic with parallel pattern analysis
+npx claude-flow sparc run spec-pseudocode "Create authentication flow pseudocode" --batch-optimize
+```
+**Batchtools Optimization**: Process multiple algorithm patterns concurrently, validate logic flows in parallel, and optimize data structures simultaneously.
+
+### 3. Architecture Phase (Parallel Component Design)
+```bash
+# Design system architecture with concurrent component analysis
+npx claude-flow sparc run architect "Design authentication service architecture" --parallel
+```
+**Batchtools Optimization**: Generate multiple architectural alternatives simultaneously, validate integration points in parallel, and create comprehensive documentation concurrently.
+
+### 4. Refinement Phase (Parallel TDD Implementation)
+```bash
+# Execute Test-Driven Development with parallel test generation
+npx claude-flow sparc tdd "implement user authentication system" --batch-tdd
+```
+**Batchtools Optimization**: Generate multiple test scenarios simultaneously, implement and validate code in parallel, and optimize performance concurrently.
+
+### 5. Completion Phase (Concurrent Integration)
+```bash
+# Integration with parallel validation and documentation
+npx claude-flow sparc run integration "integrate authentication with user management" --parallel
+```
+**Batchtools Optimization**: Run integration tests in parallel, generate documentation concurrently, and validate requirements simultaneously.
+
+## Batchtools Integration Features
+
+### Parallel Processing Capabilities
+- **Concurrent File Operations**: Read, analyze, and modify multiple files simultaneously
+- **Parallel Code Analysis**: Analyze dependencies, patterns, and architecture concurrently
+- **Batch Test Generation**: Create comprehensive test suites in parallel
+- **Concurrent Documentation**: Generate multiple documentation formats simultaneously
+
+### Performance Optimizations
+- **Smart Batching**: Group related operations for optimal performance
+- **Pipeline Processing**: Chain dependent operations with parallel stages
+- **Resource Management**: Efficient utilization of system resources
+- **Error Resilience**: Robust error handling with parallel recovery
+
+## Performance Benchmarks
+
+### Batchtools Performance Improvements
+- **File Operations**: Up to 300% faster with parallel processing
+- **Code Analysis**: 250% improvement with concurrent pattern recognition
+- **Test Generation**: 400% faster with parallel test creation
+- **Documentation**: 200% improvement with concurrent content generation
+- **Memory Operations**: 180% faster with batched read/write operations
+
+## Code Style and Best Practices (Batchtools Enhanced)
+
+### SPARC Development Principles with Batchtools
+- **Modular Design**: Keep files under 500 lines, optimize with parallel analysis
+- **Environment Safety**: Never hardcode secrets, validate with concurrent checks
+- **Test-First**: Always write tests before implementation using parallel generation
+- **Clean Architecture**: Separate concerns with concurrent validation
+- **Parallel Documentation**: Maintain clear, up-to-date documentation with concurrent updates
+
+### Batchtools Best Practices
+- **Parallel Operations**: Use batchtools for independent tasks
+- **Concurrent Validation**: Validate multiple aspects simultaneously
+- **Batch Processing**: Group similar operations for efficiency
+- **Pipeline Optimization**: Chain operations with parallel stages
+- **Resource Management**: Monitor and optimize resource usage
+
+## Important Notes (Enhanced)
+
+- Always run tests before committing with parallel execution (`npm run test --parallel`)
+- Use SPARC memory system with concurrent operations to maintain context across sessions
+- Follow the Red-Green-Refactor cycle with parallel test generation during TDD phases
+- Document architectural decisions with concurrent validation in memory
+- Regular security reviews with parallel analysis for authentication or data handling code
+- Claude Code slash commands provide quick access to batchtools-optimized SPARC modes
+- Monitor system resources during parallel operations for optimal performance
+
+## Available Agents (54 Total)
+
+### 🚀 Concurrent Agent Usage
+
+**CRITICAL**: Always spawn multiple agents concurrently using the Task tool in a single message:
+
+```javascript
+// ✅ CORRECT: Concurrent agent deployment
+[Single Message]:
+  - Task("Agent 1", "full instructions", "agent-type-1")
+  - Task("Agent 2", "full instructions", "agent-type-2") 
+  - Task("Agent 3", "full instructions", "agent-type-3")
+  - Task("Agent 4", "full instructions", "agent-type-4")
+  - Task("Agent 5", "full instructions", "agent-type-5")
+```
+
+### 📋 Agent Categories & Concurrent Patterns
+
+#### **Core Development Agents**
+- `coder` - Implementation specialist
+- `reviewer` - Code quality assurance
+- `tester` - Test creation and validation
+- `planner` - Strategic planning
+- `researcher` - Information gathering
+
+**Concurrent Usage:**
+```bash
+# Deploy full development swarm
+Task("Research requirements", "...", "researcher")
+Task("Plan architecture", "...", "planner") 
+Task("Implement features", "...", "coder")
+Task("Create tests", "...", "tester")
+Task("Review code", "...", "reviewer")
+```
+
+#### **Swarm Coordination Agents**
+- `hierarchical-coordinator` - Queen-led coordination
+- `mesh-coordinator` - Peer-to-peer networks
+- `adaptive-coordinator` - Dynamic topology
+- `collective-intelligence-coordinator` - Hive-mind intelligence
+- `swarm-memory-manager` - Distributed memory
+
+**Concurrent Swarm Deployment:**
+```bash
+# Deploy multi-topology coordination
+Task("Hierarchical coordination", "...", "hierarchical-coordinator")
+Task("Mesh network backup", "...", "mesh-coordinator")
+Task("Adaptive optimization", "...", "adaptive-coordinator")
+```
+
+#### **Consensus & Distributed Systems**
+- `byzantine-coordinator` - Byzantine fault tolerance
+- `raft-manager` - Leader election protocols
+- `gossip-coordinator` - Epidemic dissemination
+- `consensus-builder` - Decision-making algorithms
+- `crdt-synchronizer` - Conflict-free replication
+- `quorum-manager` - Dynamic quorum management
+- `security-manager` - Cryptographic security
+
+#### **Performance & Optimization**
+- `perf-analyzer` - Bottleneck identification
+- `performance-benchmarker` - Performance testing
+- `task-orchestrator` - Workflow optimization
+- `memory-coordinator` - Memory management
+- `smart-agent` - Intelligent coordination
+
+#### **GitHub & Repository Management**
+- `github-modes` - Comprehensive GitHub integration
+- `pr-manager` - Pull request management
+- `code-review-swarm` - Multi-agent code review
+- `issue-tracker` - Issue management
+- `release-manager` - Release coordination
+- `workflow-automation` - CI/CD automation
+- `project-board-sync` - Project tracking
+- `repo-architect` - Repository optimization
+- `multi-repo-swarm` - Cross-repository coordination
+
+#### **SPARC Methodology Agents**
+- `sparc-coord` - SPARC orchestration
+- `sparc-coder` - TDD implementation
+- `specification` - Requirements analysis
+- `pseudocode` - Algorithm design
+- `architecture` - System design
+- `refinement` - Iterative improvement
+
+#### **Specialized Development**
+- `backend-dev` - API development
+- `mobile-dev` - React Native development
+- `ml-developer` - Machine learning
+- `cicd-engineer` - CI/CD pipelines
+- `api-docs` - OpenAPI documentation
+- `system-architect` - High-level design
+- `code-analyzer` - Code quality analysis
+- `base-template-generator` - Boilerplate creation
+
+#### **Testing & Validation**
+- `tdd-london-swarm` - Mock-driven TDD
+- `production-validator` - Real implementation validation
+
+#### **Migration & Planning**
+- `migration-planner` - System migrations
+- `swarm-init` - Topology initialization
+
+### 🎯 Concurrent Agent Patterns
+
+#### **Full-Stack Development Swarm (8 agents)**
+```bash
+Task("System architecture", "...", "system-architect")
+Task("Backend APIs", "...", "backend-dev") 
+Task("Frontend mobile", "...", "mobile-dev")
+Task("Database design", "...", "coder")
+Task("API documentation", "...", "api-docs")
+Task("CI/CD pipeline", "...", "cicd-engineer")
+Task("Performance testing", "...", "performance-benchmarker")
+Task("Production validation", "...", "production-validator")
+```
+
+#### **Distributed System Swarm (6 agents)**
+```bash
+Task("Byzantine consensus", "...", "byzantine-coordinator")
+Task("Raft coordination", "...", "raft-manager")
+Task("Gossip protocols", "...", "gossip-coordinator") 
+Task("CRDT synchronization", "...", "crdt-synchronizer")
+Task("Security management", "...", "security-manager")
+Task("Performance monitoring", "...", "perf-analyzer")
+```
+
+#### **GitHub Workflow Swarm (5 agents)**
+```bash
+Task("PR management", "...", "pr-manager")
+Task("Code review", "...", "code-review-swarm")
+Task("Issue tracking", "...", "issue-tracker")
+Task("Release coordination", "...", "release-manager")
+Task("Workflow automation", "...", "workflow-automation")
+```
+
+#### **SPARC TDD Swarm (7 agents)**
+```bash
+Task("Requirements spec", "...", "specification")
+Task("Algorithm design", "...", "pseudocode")
+Task("System architecture", "...", "architecture") 
+Task("TDD implementation", "...", "sparc-coder")
+Task("London school tests", "...", "tdd-london-swarm")
+Task("Iterative refinement", "...", "refinement")
+Task("Production validation", "...", "production-validator")
+```
+
+### ⚡ Performance Optimization
+
+**Agent Selection Strategy:**
+- **High Priority**: Use 3-5 agents max for critical path
+- **Medium Priority**: Use 5-8 agents for complex features
+- **Large Projects**: Use 8+ agents with proper coordination
+
+**Memory Management:**
+- Use `memory-coordinator` for cross-agent state
+- Implement `swarm-memory-manager` for distributed coordination
+- Apply `collective-intelligence-coordinator` for decision-making
+
+For more information about SPARC methodology and batchtools optimization, see: 
+- SPARC Guide: https://github.com/ruvnet/claude-code-flow/docs/sparc.md
+- Batchtools Documentation: https://github.com/ruvnet/claude-code-flow/docs/batchtools.md
+
+# important-instruction-reminders
+Message 3: Task("Agent 2")
+Message 4: Read("file1.js")
+Message 5: Write("output1.js")
+Message 6: Bash("npm install")
+// This is 6x slower and breaks coordination!
+```
+
+### 🎯 CONCURRENT EXECUTION CHECKLIST:
+
+Before sending ANY message, ask yourself:
+
+- ✅ Are ALL related TodoWrite operations batched together?
+- ✅ Are ALL Task spawning operations in ONE message?
+- ✅ Are ALL file operations (Read/Write/Edit) batched together?
+- ✅ Are ALL bash commands grouped in ONE message?
+- ✅ Are ALL memory operations concurrent?
+
+If ANY answer is "No", you MUST combine operations into a single message!
+
+## 🚀 CRITICAL: Claude Code Does ALL Real Work
+
+### 🎯 CLAUDE CODE IS THE ONLY EXECUTOR
+
+**ABSOLUTE RULE**: Claude Code performs ALL actual work:
+
+### ✅ Claude Code ALWAYS Handles:
+
+- 🔧 **ALL file operations** (Read, Write, Edit, MultiEdit, Glob, Grep)
+- 💻 **ALL code generation** and programming tasks
+- 🖥️ **ALL bash commands** and system operations
+- 🏗️ **ALL actual implementation** work
+- 🔍 **ALL project navigation** and code analysis
+- 📝 **ALL TodoWrite** and task management
+- 🔄 **ALL git operations** (commit, push, merge)
+- 📦 **ALL package management** (npm, pip, etc.)
+- 🧪 **ALL testing** and validation
+- 🔧 **ALL debugging** and troubleshooting
+
+### 🧠 Claude Flow MCP Tools ONLY Handle:
+
+- 🎯 **Coordination only** - Planning Claude Code's actions
+- 💾 **Memory management** - Storing decisions and context
+- 🤖 **Neural features** - Learning from Claude Code's work
+- 📊 **Performance tracking** - Monitoring Claude Code's efficiency
+- 🐝 **Swarm orchestration** - Coordinating multiple Claude Code instances
+- 🔗 **GitHub integration** - Advanced repository coordination
+
+### 🚨 CRITICAL SEPARATION OF CONCERNS:
+
+**❌ MCP Tools NEVER:**
+
+- Write files or create content
+- Execute bash commands
+- Generate code
+- Perform file operations
+- Handle TodoWrite operations
+- Execute system commands
+- Do actual implementation work
+
+**✅ MCP Tools ONLY:**
+
+- Coordinate and plan
+- Store memory and context
+- Track performance
+- Orchestrate workflows
+- Provide intelligence insights
+
+### ⚠️ Key Principle:
+
+**MCP tools coordinate, Claude Code executes.** Think of MCP tools as the "brain" that plans and coordinates, while Claude Code is the "hands" that do all the actual work.
+
+### 🔄 WORKFLOW EXECUTION PATTERN:
+
+**✅ CORRECT Workflow:**
+
+1. **MCP**: `mcp__claude-flow__swarm_init` (coordination setup)
+2. **MCP**: `mcp__claude-flow__agent_spawn` (planning agents)
+3. **MCP**: `mcp__claude-flow__task_orchestrate` (task coordination)
+4. **Claude Code**: `Task` tool to spawn agents with coordination instructions
+5. **Claude Code**: `TodoWrite` with ALL todos batched (5-10+ in ONE call)
+6. **Claude Code**: `Read`, `Write`, `Edit`, `Bash` (actual work)
+7. **MCP**: `mcp__claude-flow__memory_usage` (store results)
+
+**❌ WRONG Workflow:**
+
+1. **MCP**: `mcp__claude-flow__terminal_execute` (DON'T DO THIS)
+2. **MCP**: File creation via MCP (DON'T DO THIS)
+3. **MCP**: Code generation via MCP (DON'T DO THIS)
+4. **Claude Code**: Sequential Task calls (DON'T DO THIS)
+5. **Claude Code**: Individual TodoWrite calls (DON'T DO THIS)
+
+### 🚨 REMEMBER:
+
+- **MCP tools** = Coordination, planning, memory, intelligence
+- **Claude Code** = All actual execution, coding, file operations
+
+## 🚀 CRITICAL: Parallel Execution & Batch Operations
+
+### 🚨 MANDATORY RULE #1: BATCH EVERYTHING
+
+**When using swarms, you MUST use BatchTool for ALL operations:**
+
+1. **NEVER** send multiple messages for related operations
+2. **ALWAYS** combine multiple tool calls in ONE message
+3. **PARALLEL** execution is MANDATORY, not optional
+
+### ⚡ THE GOLDEN RULE OF SWARMS
+
+```
+If you need to do X operations, they should be in 1 message, not X messages
+```
+
+### 🚨 MANDATORY TODO AND TASK BATCHING
+
+**CRITICAL RULE FOR TODOS AND TASKS:**
+
+1. **TodoWrite** MUST ALWAYS include ALL todos in ONE call (5-10+ todos)
+2. **Task** tool calls MUST be batched - spawn multiple agents in ONE message
+3. **NEVER** update todos one by one - this breaks parallel coordination
+4. **NEVER** spawn agents sequentially - ALL agents spawn together
+
+### 📦 BATCH TOOL EXAMPLES
+
+**✅ CORRECT - Everything in ONE Message:**
+
+```javascript
+[Single Message with BatchTool]:
+  // MCP coordination setup
+  mcp__claude-flow__swarm_init { topology: "mesh", maxAgents: 6 }
+  mcp__claude-flow__agent_spawn { type: "researcher" }
+  mcp__claude-flow__agent_spawn { type: "coder" }
+  mcp__claude-flow__agent_spawn { type: "analyst" }
+  mcp__claude-flow__agent_spawn { type: "tester" }
+  mcp__claude-flow__agent_spawn { type: "coordinator" }
+
+  // Claude Code execution - ALL in parallel
+  Task("You are researcher agent. MUST coordinate via hooks...")
+  Task("You are coder agent. MUST coordinate via hooks...")
+  Task("You are analyst agent. MUST coordinate via hooks...")
+  Task("You are tester agent. MUST coordinate via hooks...")
+  TodoWrite { todos: [5-10 todos with all priorities and statuses] }
+
+  // File operations in parallel
+  Bash "mkdir -p app/{src,tests,docs}"
+  Write "app/package.json"
+  Write "app/README.md"
+  Write "app/src/index.js"
+```
+
+**❌ WRONG - Multiple Messages (NEVER DO THIS):**
+
+```javascript
+Message 1: mcp__claude-flow__swarm_init
+Message 2: Task("researcher agent")
+Message 3: Task("coder agent")
+Message 4: TodoWrite({ todo: "single todo" })
+Message 5: Bash "mkdir src"
+Message 6: Write "package.json"
+// This is 6x slower and breaks parallel coordination!
+```
+
+### 🎯 BATCH OPERATIONS BY TYPE
+
+**Todo and Task Operations (Single Message):**
+
+- **TodoWrite** → ALWAYS include 5-10+ todos in ONE call
+- **Task agents** → Spawn ALL agents with full instructions in ONE message
+- **Agent coordination** → ALL Task calls must include coordination hooks
+- **Status updates** → Update ALL todo statuses together
+- **NEVER** split todos or Task calls across messages!
+
+**File Operations (Single Message):**
+
+- Read 10 files? → One message with 10 Read calls
+- Write 5 files? → One message with 5 Write calls
+- Edit 1 file many times? → One MultiEdit call
+
+**Swarm Operations (Single Message):**
+
+- Need 8 agents? → One message with swarm_init + 8 agent_spawn calls
+- Multiple memories? → One message with all memory_usage calls
+- Task + monitoring? → One message with task_orchestrate + swarm_monitor
+
+**Command Operations (Single Message):**
+
+- Multiple directories? → One message with all mkdir commands
+- Install + test + lint? → One message with all npm commands
+- Git operations? → One message with all git commands
+
+## 🚀 Quick Setup (Stdio MCP - Recommended)
+
+### 1. Add MCP Server (Stdio - No Port Needed)
 
 ```bash
-# Activate virtual environment (required for all operations)
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up environment
-cp .env.example .env
-# Edit .env to add required API keys:
-# ANTHROPIC_API_KEY=your_key_here
-# PERPLEXITY_API_KEY=your_key_here  
-# FIRECRAWL_API_KEY=your_key_here
-# Note: ANTHROPIC_API_KEY must be added manually to .env (not in .env.example)
-
-# Update website data (incremental - new events only)
-python update_website_data.py --days 14
-
-# Update website data (full refresh)
-python update_website_data.py --full
-
-# Force re-rate all events (ignore cache)
-python update_website_data.py --full --force-reprocess
-
-# Update with smart validation (recommended for production)
-python update_website_data.py --full --validate
-
-# Run test suite (uses standard Python unittest)
-python -m unittest discover tests/ -v    # All unit tests
-python tests/test_afs_scraper_unit.py     # Individual scraper tests
-python tests/test_validation_integration.py  # Validation system tests
-
-# Alternative with pytest (if installed)
-python -m pytest tests/ -v
-
-# Pre-commit code quality checks (run before committing!)
-python pre_commit_checks.py      # Auto-fix + quality checks + tests
-python pre_commit_checks.py --fix-only    # Only run auto-fixes (black, isort, etc.)
-python pre_commit_checks.py --check-only  # Only run quality checks
-python pre_commit_checks.py --no-tests    # Skip tests, only code quality
-
-# Test individual venue scrapers manually
-python -c "from src.scrapers import AFSScraper; s=AFSScraper(); print(f'AFS: {len(s.scrape_events())} events')"
-python -c "from src.scrapers import FirstLightAustinScraper; s=FirstLightAustinScraper(); print(f'FirstLight: {len(s.scrape_events())} events')"
+# Add Claude Flow MCP server to Claude Code using stdio
+claude mcp add claude-flow npx claude-flow@alpha mcp start
 ```
 
-## Development Workflow
+### 2. Use MCP Tools for Coordination in Claude Code
 
-### Adding New Venues
-1. **Define Schema**: Add venue-specific schema to `src/schemas.py` with extraction hints
-2. **Create Scraper**: Implement new scraper in `src/scrapers/` following existing patterns (typically 30-40 lines)
-3. **Customize Logic**: Implement venue-specific `get_target_urls()` and `get_fallback_data()`
-4. **Add Tests**: Create unit tests in `tests/` following existing patterns
-5. **Update Registry**: Add venue to scraper imports and MultiVenueScraper
+Once configured, Claude Flow MCP tools enhance Claude Code's coordination:
 
-### Key Architectural Patterns
-- **Progressive Fallback**: Always have 4 tiers (requests → pyppeteer → firecrawl → static)
-- **Real Data Only**: Use `None` for missing fields, never fake defaults
-- **Schema-First**: Define extraction patterns before implementation
-- **LLM Integration**: All data extraction goes through Claude API with structured prompts
-- **Comprehensive Testing**: Unit/Integration/E2E/Quality tests for all components
+**Initialize a swarm:**
 
-### Virtual Environment
-Always use the venv python environment: `source venv/bin/activate`
+- Use the `mcp__claude-flow__swarm_init` tool to set up coordination topology
+- Choose: mesh, hierarchical, ring, or star
+- This creates a coordination framework for Claude Code's work
 
-## Automated Scheduling
-GitHub Actions handle all scheduling - no local cron jobs or scheduler.py needed.
+**Spawn agents:**
 
-## Smart Validation System
+- Use `mcp__claude-flow__agent_spawn` tool to create specialized coordinators
+- Agent types represent different thinking patterns, not actual coders
+- They help Claude Code approach problems from different angles
 
-The Culture Calendar now includes a comprehensive validation system that ensures data quality and prevents deployment of malformed events.
+**Orchestrate tasks:**
 
-### Validation Features
-- **Schema Validation**: Ensures all events have required fields (title, date, venue, type)
-- **LLM Content Validation**: AI-powered validation of event content quality
-- **Per-Scraper Health Checks**: Validates at least 1 event from each scraper
-- **Fail-Fast Mechanisms**: Stops pipeline immediately if >50% of scrapers fail
-- **Detailed Logging**: Structured logs for debugging extraction failures
+- Use `mcp__claude-flow__task_orchestrate` tool to coordinate complex workflows
+- This breaks down tasks for Claude Code to execute systematically
+- The agents don't write code - they coordinate Claude Code's actions
 
-### Usage
+## Available MCP Tools for Coordination
+
+### Coordination Tools:
+
+- `mcp__claude-flow__swarm_init` - Set up coordination topology for Claude Code
+- `mcp__claude-flow__agent_spawn` - Create cognitive patterns to guide Claude Code
+- `mcp__claude-flow__task_orchestrate` - Break down and coordinate complex tasks
+
+### Monitoring Tools:
+
+- `mcp__claude-flow__swarm_status` - Monitor coordination effectiveness
+- `mcp__claude-flow__agent_list` - View active cognitive patterns
+- `mcp__claude-flow__agent_metrics` - Track coordination performance
+- `mcp__claude-flow__task_status` - Check workflow progress
+- `mcp__claude-flow__task_results` - Review coordination outcomes
+
+### Memory & Neural Tools:
+
+- `mcp__claude-flow__memory_usage` - Persistent memory across sessions
+- `mcp__claude-flow__neural_status` - Neural pattern effectiveness
+- `mcp__claude-flow__neural_train` - Improve coordination patterns
+- `mcp__claude-flow__neural_patterns` - Analyze thinking approaches
+
+### GitHub Integration Tools (NEW!):
+
+- `mcp__claude-flow__github_swarm` - Create specialized GitHub management swarms
+- `mcp__claude-flow__repo_analyze` - Deep repository analysis with AI
+- `mcp__claude-flow__pr_enhance` - AI-powered pull request improvements
+- `mcp__claude-flow__issue_triage` - Intelligent issue classification
+- `mcp__claude-flow__code_review` - Automated code review with swarms
+
+### System Tools:
+
+- `mcp__claude-flow__benchmark_run` - Measure coordination efficiency
+- `mcp__claude-flow__features_detect` - Available capabilities
+- `mcp__claude-flow__swarm_monitor` - Real-time coordination tracking
+
+## Workflow Examples (Coordination-Focused)
+
+### Research Coordination Example
+
+**Context:** Claude Code needs to research a complex topic systematically
+
+**Step 1:** Set up research coordination
+
+- Tool: `mcp__claude-flow__swarm_init`
+- Parameters: `{"topology": "mesh", "maxAgents": 5, "strategy": "balanced"}`
+- Result: Creates a mesh topology for comprehensive exploration
+
+**Step 2:** Define research perspectives
+
+- Tool: `mcp__claude-flow__agent_spawn`
+- Parameters: `{"type": "researcher", "name": "Literature Review"}`
+- Tool: `mcp__claude-flow__agent_spawn`
+- Parameters: `{"type": "analyst", "name": "Data Analysis"}`
+- Result: Different cognitive patterns for Claude Code to use
+
+**Step 3:** Coordinate research execution
+
+- Tool: `mcp__claude-flow__task_orchestrate`
+- Parameters: `{"task": "Research neural architecture search papers", "strategy": "adaptive"}`
+- Result: Claude Code systematically searches, reads, and analyzes papers
+
+**What Actually Happens:**
+
+1. The swarm sets up a coordination framework
+2. Each agent MUST use Claude Flow hooks for coordination:
+   - `npx claude-flow@alpha hooks pre-task` before starting
+   - `npx claude-flow@alpha hooks post-edit` after each file operation
+   - `npx claude-flow@alpha hooks notification` to share decisions
+3. Claude Code uses its native Read, WebSearch, and Task tools
+4. The swarm coordinates through shared memory and hooks
+5. Results are synthesized by Claude Code with full coordination history
+
+### Development Coordination Example
+
+**Context:** Claude Code needs to build a complex system with multiple components
+
+**Step 1:** Set up development coordination
+
+- Tool: `mcp__claude-flow__swarm_init`
+- Parameters: `{"topology": "hierarchical", "maxAgents": 8, "strategy": "specialized"}`
+- Result: Hierarchical structure for organized development
+
+**Step 2:** Define development perspectives
+
+- Tool: `mcp__claude-flow__agent_spawn`
+- Parameters: `{"type": "architect", "name": "System Design"}`
+- Result: Architectural thinking pattern for Claude Code
+
+**Step 3:** Coordinate implementation
+
+- Tool: `mcp__claude-flow__task_orchestrate`
+- Parameters: `{"task": "Implement user authentication with JWT", "strategy": "parallel"}`
+- Result: Claude Code implements features using its native tools
+
+**What Actually Happens:**
+
+1. The swarm creates a development coordination plan
+2. Each agent coordinates using mandatory hooks:
+   - Pre-task hooks for context loading
+   - Post-edit hooks for progress tracking
+   - Memory storage for cross-agent coordination
+3. Claude Code uses Write, Edit, Bash tools for implementation
+4. Agents share progress through Claude Flow memory
+5. All code is written by Claude Code with full coordination
+
+### GitHub Repository Management Example (NEW!)
+
+**Context:** Claude Code needs to manage a complex GitHub repository
+
+**Step 1:** Initialize GitHub swarm
+
+- Tool: `mcp__claude-flow__github_swarm`
+- Parameters: `{"repository": "owner/repo", "agents": 5, "focus": "maintenance"}`
+- Result: Specialized swarm for repository management
+
+**Step 2:** Analyze repository health
+
+- Tool: `mcp__claude-flow__repo_analyze`
+- Parameters: `{"deep": true, "include": ["issues", "prs", "code"]}`
+- Result: Comprehensive repository analysis
+
+**Step 3:** Enhance pull requests
+
+- Tool: `mcp__claude-flow__pr_enhance`
+- Parameters: `{"pr_number": 123, "add_tests": true, "improve_docs": true}`
+- Result: AI-powered PR improvements
+
+## Best Practices for Coordination
+
+### ✅ DO:
+
+- Use MCP tools to coordinate Claude Code's approach to complex tasks
+- Let the swarm break down problems into manageable pieces
+- Use memory tools to maintain context across sessions
+- Monitor coordination effectiveness with status tools
+- Train neural patterns for better coordination over time
+- Leverage GitHub tools for repository management
+
+### ❌ DON'T:
+
+- Expect agents to write code (Claude Code does all implementation)
+- Use MCP tools for file operations (use Claude Code's native tools)
+- Try to make agents execute bash commands (Claude Code handles this)
+- Confuse coordination with execution (MCP coordinates, Claude executes)
+
+## Memory and Persistence
+
+The swarm provides persistent memory that helps Claude Code:
+
+- Remember project context across sessions
+- Track decisions and rationale
+- Maintain consistency in large projects
+- Learn from previous coordination patterns
+- Store GitHub workflow preferences
+
+## Performance Benefits
+
+When using Claude Flow coordination with Claude Code:
+
+- **84.8% SWE-Bench solve rate** - Better problem-solving through coordination
+- **32.3% token reduction** - Efficient task breakdown reduces redundancy
+- **2.8-4.4x speed improvement** - Parallel coordination strategies
+- **27+ neural models** - Diverse cognitive approaches
+- **GitHub automation** - Streamlined repository management
+
+## Claude Code Hooks Integration
+
+Claude Flow includes powerful hooks that automate coordination:
+
+### Pre-Operation Hooks
+
+- **Auto-assign agents** before file edits based on file type
+- **Validate commands** before execution for safety
+- **Prepare resources** automatically for complex operations
+- **Optimize topology** based on task complexity analysis
+- **Cache searches** for improved performance
+- **GitHub context** loading for repository operations
+
+### Post-Operation Hooks
+
+- **Auto-format code** using language-specific formatters
+- **Train neural patterns** from successful operations
+- **Update memory** with operation context
+- **Analyze performance** and identify bottlenecks
+- **Track token usage** for efficiency metrics
+- **Sync GitHub** state for consistency
+
+### Session Management
+
+- **Generate summaries** at session end
+- **Persist state** across Claude Code sessions
+- **Track metrics** for continuous improvement
+- **Restore previous** session context automatically
+- **Export workflows** for reuse
+
+### Advanced Features (v2.0.0!)
+
+- **🚀 Automatic Topology Selection** - Optimal swarm structure for each task
+- **⚡ Parallel Execution** - 2.8-4.4x speed improvements
+- **🧠 Neural Training** - Continuous learning from operations
+- **📊 Bottleneck Analysis** - Real-time performance optimization
+- **🤖 Smart Auto-Spawning** - Zero manual agent management
+- **🛡️ Self-Healing Workflows** - Automatic error recovery
+- **💾 Cross-Session Memory** - Persistent learning & context
+- **🔗 GitHub Integration** - Repository-aware swarms
+
+### Configuration
+
+Hooks are pre-configured in `.claude/settings.json`. Key features:
+
+- Automatic agent assignment for different file types
+- Code formatting on save
+- Neural pattern learning from edits
+- Session state persistence
+- Performance tracking and optimization
+- Intelligent caching and token reduction
+- GitHub workflow automation
+
+See `.claude/commands/` for detailed documentation on all features.
+
+## Integration Tips
+
+1. **Start Simple**: Begin with basic swarm init and single agent
+2. **Scale Gradually**: Add more agents as task complexity increases
+3. **Use Memory**: Store important decisions and context
+4. **Monitor Progress**: Regular status checks ensure effective coordination
+5. **Train Patterns**: Let neural agents learn from successful coordinations
+6. **Enable Hooks**: Use the pre-configured hooks for automation
+7. **GitHub First**: Use GitHub tools for repository management
+
+## 🧠 SWARM ORCHESTRATION PATTERN
+
+### You are the SWARM ORCHESTRATOR. **IMMEDIATELY SPAWN AGENTS IN PARALLEL** to execute tasks
+
+### 🚨 CRITICAL INSTRUCTION: You are the SWARM ORCHESTRATOR
+
+**MANDATORY**: When using swarms, you MUST:
+
+1. **SPAWN ALL AGENTS IN ONE BATCH** - Use multiple tool calls in a SINGLE message
+2. **EXECUTE TASKS IN PARALLEL** - Never wait for one task before starting another
+3. **USE BATCHTOOL FOR EVERYTHING** - Multiple operations = Single message with multiple tools
+4. **ALL AGENTS MUST USE COORDINATION TOOLS** - Every spawned agent MUST use claude-flow hooks and memory
+
+### 🎯 AGENT COUNT CONFIGURATION
+
+**CRITICAL: Dynamic Agent Count Rules**
+
+1. **Check CLI Arguments First**: If user runs `npx claude-flow@alpha --agents 5`, use 5 agents
+2. **Auto-Decide if No Args**: Without CLI args, analyze task complexity:
+   - Simple tasks (1-3 components): 3-4 agents
+   - Medium tasks (4-6 components): 5-7 agents
+   - Complex tasks (7+ components): 8-12 agents
+3. **Agent Type Distribution**: Balance agent types based on task:
+   - Always include 1 coordinator
+   - For code-heavy tasks: more coders
+   - For design tasks: more architects/analysts
+   - For quality tasks: more testers/reviewers
+
+**Example Auto-Decision Logic:**
+
+```javascript
+// If CLI args provided: npx claude-flow@alpha --agents 6
+maxAgents = CLI_ARGS.agents || determineAgentCount(task);
+
+function determineAgentCount(task) {
+  // Analyze task complexity
+  if (task.includes(['API', 'database', 'auth', 'tests'])) return 8;
+  if (task.includes(['frontend', 'backend'])) return 6;
+  if (task.includes(['simple', 'script'])) return 3;
+  return 5; // default
+}
+```
+
+## 📋 MANDATORY AGENT COORDINATION PROTOCOL
+
+### 🔴 CRITICAL: Every Agent MUST Follow This Protocol
+
+When you spawn an agent using the Task tool, that agent MUST:
+
+**1️⃣ BEFORE Starting Work:**
+
 ```bash
-# Enable validation during data refresh
-python update_website_data.py --full --validate
-
-# Test validation system manually
-python test_validation.py
-
-# Quick validation test (no live scraping)
-python test_validation.py --quick
+# Check previous work and load context
+npx claude-flow@alpha hooks pre-task --description "[agent task]" --auto-spawn-agents false
+npx claude-flow@alpha hooks session-restore --session-id "swarm-[id]" --load-memory true
 ```
 
-### GitHub Actions Integration
-- **PR Validation**: Comprehensive testing on every pull request
-- **Data Refresh Validation**: Smart validation during weekly/monthly updates
-- **Automatic Failure Detection**: Workflows fail fast with detailed error reports
+**2️⃣ DURING Work (After EVERY Major Step):**
 
-### Validation Thresholds
-- **Minimum Scraper Success Rate**: 50% of scrapers must produce valid events
-- **Events per Scraper**: At least 1 valid event required per scraper
-- **Sample Size**: 3 events validated per scraper (adjustable)
-
-The validation system helps catch issues early including:
-- Website structure changes breaking scrapers
-- Network connectivity problems
-- LLM extraction failures  
-- Schema validation errors
-- Malformed or spam data
-
-## Pre-Commit Code Quality Workflow
-
-**Always run code quality checks before committing** to ensure your changes pass GitHub Actions:
-
-### 🚀 Quick Pre-Commit (Recommended)
 ```bash
-# Run this before every commit
-python pre_commit_checks.py
-```
-This will:
-- **Auto-fix imports** (remove unused, sort with isort)
-- **Auto-fix formatting** (autopep8 + black)
-- **Run quality checks** (security audit)
-- **Run quick tests** (unit tests only)
+# Store progress in memory after each file operation
+npx claude-flow@alpha hooks post-edit --file "[filepath]" --memory-key "swarm/[agent]/[step]"
 
-### 🔧 Auto-Fix Only Mode
+# Store decisions and findings
+npx claude-flow@alpha hooks notification --message "[what was done]" --telemetry true
+
+# Check coordination with other agents
+npx claude-flow@alpha hooks pre-search --query "[what to check]" --cache-results true
+```
+
+**3️⃣ AFTER Completing Work:**
+
 ```bash
-# Just apply automatic fixes without running checks
-python pre_commit_checks.py --fix-only
-```
-Perfect for:
-- Cleaning up messy code quickly
-- Applying consistent formatting
-- Removing unused imports
-
-### 🔍 Check-Only Mode  
-```bash
-# Only run quality checks, no auto-fixes
-python pre_commit_checks.py --check-only
-```
-Use when:
-- You want to see what needs fixing
-- Code is already formatted
-- Just validating before commit
-
-### 📦 Installation
-```bash
-# Install all code quality tools
-python pre_commit_checks.py --install
+# Save all results and learnings
+npx claude-flow@alpha hooks post-task --task-id "[task]" --analyze-performance true
+npx claude-flow@alpha hooks session-end --export-metrics true --generate-summary true
 ```
 
-### Tools Included
-- **black**: Code formatting (PEP8 compliant)
-- **isort**: Import sorting and organization
-- **autoflake**: Remove unused imports/variables
-- **autopep8**: Basic PEP8 fixes
-- **bandit**: Security vulnerability scanning
-- **safety**: Dependency vulnerability checking
+### 🎯 AGENT PROMPT TEMPLATE
 
-### Typical Workflow
-```bash
-# 1. Make your code changes
-# 2. Run pre-commit checks
-python pre_commit_checks.py
-
-# 3. Review any auto-fixes applied
-git diff
-
-# 4. Commit your changes
-git add .
-git commit -m "Your commit message"
-```
-
-**Note**: The pre-commit script runs the exact same checks as GitHub Actions, so if it passes locally, your PR will pass validation.
-
-## Architecture
-
-The system follows a modern LLM-powered architecture with three core layers:
-
-### 1. **Progressive Scraping Layer** (`src/base_scraper.py` + `src/scrapers/`)
-**Universal BaseScraper** with 4-tier progressive fallback system:
-- **Tier 1**: requests + LLM extraction (fastest, most reliable)
-- **Tier 2**: pyppeteer + LLM (handles JavaScript)
-- **Tier 3**: firecrawl + LLM (enterprise scraping service)
-- **Tier 4**: Static fallback data (ensures 100% uptime)
-
-**Schema-Driven Individual Scrapers** (~30-40 lines each):
-- **Film**: AFS, Hyperreal (real-time web scraping)
-- **Music**: Symphony, Early Music, La Follia, Paramount (mix of static/dynamic)
-- **Books**: Alienated Majesty, First Light (intelligent parsing)
-
-**MultiVenueScraper** (`src/scraper.py`): Orchestrates all individual scrapers with error handling
-
-### 2. **AI Processing Layer** (`src/processor.py` + `src/llm_service.py`)
-**LLMService**: Anthropic Claude API integration with caching and rate limiting
-**EventProcessor**: 
-- **Content-Aware Analysis**: Different AI prompts for films/concerts/books
-- **Preference Integration**: Personal taste scoring from `preferences.txt`
-- **Summary Generation**: One-line summaries for website cards
-- **Work Hours Filtering**: Removes 9am-6pm weekday events
-
-### 3. **Output Generation Layer**
-**Website Generator** (`update_website_data.py`): JSON data for GitHub Pages
-**Calendar Generator** (`src/calendar_generator.py`): ICS files for Google Calendar
-**Test Suite** (`tests/`): 85+ tests across unit/integration/e2e/quality validation
-
-## Schema-Driven Development
-
-The system uses **schemas** (`src/schemas.py`) to define data extraction patterns:
-- **FilmEventSchema**: director, year, country, duration, format extraction hints
-- **BookClubEventSchema**: book, author, host, discussion topic patterns  
-- **ConcertEventSchema**: composers, featured_artist, classical music terminology
-- **SchemaRegistry**: Central registry managing all venue-schema mappings
-
-**Individual Venue Scrapers** (`src/scrapers/`):
-- **Consistent Architecture**: All scrapers follow BaseScraper pattern (~30-40 lines each)
-- **Schema-Driven**: Use schemas from `src/schemas.py` for extraction hints
-- **LLM Integration**: All data extraction through structured Claude API prompts
-
-## Key Configuration Files
-
-- **`src/schemas.py`**: Schema definitions with LLM extraction hints and regex patterns
-- **`preferences.txt`**: Personal taste preferences for rating boosts
-- **`literature_preferences.txt`**: Book/author preferences for literary events
-- **`.env`**: API keys (ANTHROPIC_API_KEY, PERPLEXITY_API_KEY, FIRECRAWL_API_KEY)
-- **`cache/summary_cache.json`**: AI response cache to avoid reprocessing
-- **`docs/data.json`**: Generated website data for GitHub Pages
-- **`tests/conftest.py`**: Pytest fixtures and test configuration
-
-## Data Flow
-
-1. **MultiVenueScraper** coordinates individual venue scrapers
-2. **BaseScraper** uses progressive fallback (requests → pyppeteer → firecrawl → static)
-3. **LLMService** extracts structured data using schema-specific prompts
-4. **EventProcessor** enriches events with AI analysis and preference scoring
-5. **SummaryGenerator** creates one-line summaries for website cards
-6. **CalendarGenerator** produces ICS files for Google Calendar integration
-7. **Website Generator** creates JSON data for GitHub Pages deployment
-
-## Rate Limiting & API Usage
-
-- 1-second delay between Perplexity API calls to respect rate limits
-- 0.5-second delay between event detail page fetches
-- Uses session with proper User-Agent headers for web scraping
-
-## Output Format
-
-Generated ICS files are named `afs_calendar_YYYYMMDD_HHMM.ics` and include:
-- Star ratings in event titles
-- Comprehensive descriptions with AI summaries and rating explanations
-- Special screening indicators (✨)
-- Direct links to original event pages
-
-## Phase 2: Website Project
-
-### Overview
-A simple GitHub Pages website to make the Austin Film Society calendar accessible to the public. The site will provide downloadable .ics calendar files with rating-based filtering and display curated movie recommendations.
-
-### Website Requirements
-
-**Structure & Hosting:**
-- Host on GitHub Pages using `docs/` folder structure in same repository
-- Single-page website with clean, minimal design
-- Mobile-responsive layout
-
-**Content Display:**
-- Date-organized list view of upcoming events (next 30 days)
-- Movie cards with clear rating display (⭐X/10 format)
-- Expandable descriptions (click to show full French cinéaste analysis)
-- Movies sorted by highest rating first
-- Filter out work-hour events (9am-6pm weekdays)
-
-**Interactive Features:**
-- Rating filter slider (1-10 range) for calendar downloads
-- Generate filtered .ics files based on user's minimum rating selection
-- Download button for filtered calendar files
-
-**Disclaimers:**
-- Personal disclaimer that ratings reflect individual preferences
-- Clear attribution to Austin Film Society as source
-- Statement about excluding work-hour screenings
-
-**Automated Updates:**
-- **Weekly Updates**: Every Saturday at 9 PM UTC (collects upcoming month)
-- **Monthly Updates**: 1st of each month at 6 AM UTC (full month refresh)
-- Generate fresh JSON data file for website consumption
-- Update .ics calendar files for all rating thresholds
-
-### Technical Implementation
-
-**Data Pipeline:**
-1. Weekly GitHub Action triggers scraper
-2. Generate JSON file with: movie titles, ratings, dates, descriptions, URLs
-3. Create base calendar file and filtered versions
-4. Deploy updated data to GitHub Pages
-
-**Website Files:**
-- `docs/index.html` - Main single-page application
-- `docs/how-it-works.html` - Separate "How It Works" explanation page
-- `docs/style.css` - Styling and responsive design
-- `docs/script.js` - Interactive features and filtering
-- `docs/data.json` - Main event data for display
-- `docs/classical_data.json` - Separate classical music event data
-- `docs/source_update_times.json` - Data source update tracking
-- `.ics` files generated dynamically on the client
-
-**Key Features:**
-- Client-side filtering and calendar generation
-- Responsive design for mobile and desktop
-- Accessible interface with clear typography
-- Fast loading with minimal dependencies
-
-### Phase 2.1: Website Enhancements
-
-**Completed Features:**
-
-1. **Markdown Rendering Fix:** ✅
-   - Remove hashtag symbols and other markdown syntax from descriptions
-   - Properly render markdown formatting (bold, headers, etc.) as HTML
-   - Clean display of French cinéaste analyses
-
-2. **Calendar View:** ✅
-   - Add calendar widget/view to display events by date
-   - Toggle between list view and calendar view
-   - Visual calendar grid showing movie screenings
-   - Click events to open AFS screening pages
-   - Color-coded by rating (green=8+, yellow=6-7, gray=<6)
-   - Chrome compatibility with improved date handling
-
-3. **Movie Aggregation:** ✅
-   - Group multiple screenings of same movie into single card
-   - Display multiple date/time tags for each movie
-   - Show all screening times and dates for each unique film
-   - Reduce redundancy in movie list display
-
-**Technical Improvements:**
-- Robust error handling for calendar rendering
-- Debug logging for troubleshooting
-- Improved date formatting for cross-browser compatibility
-- Responsive design for mobile calendar view
-- Clickable calendar events linking to AFS pages
-
-### GitHub Pages Setup Instructions
-
-1. **Enable GitHub Pages:**
-   - Go to repository Settings > Pages
-   - Set Source to "Deploy from a branch"
-   - Select "main" branch and "/docs" folder
-   - Save settings
-
-2. **Configure Repository Permissions:**
-   - Go to repository Settings > Actions > General
-   - Under "Workflow permissions", select "Read and write permissions"
-   - Check "Allow GitHub Actions to create and approve pull requests"
-   - Save settings
-
-3. **Configure Secrets:**
-   - Go to repository Settings > Secrets and variables > Actions
-   - Add `PERPLEXITY_API_KEY` secret with your API key
-
-4. **Manual Workflow Triggers:**
-   - Go to Actions tab
-   - **Weekly Incremental Update**: "Weekly Incremental Update" workflow 
-   - **Complete Batch Reload**: "Complete Batch Reload" workflow (full refresh)
-   - **PR Validation**: "PR Validation Pipeline" (runs on pull requests)
-   - Click "Run workflow" to test any workflow
-
-5. **View Website:**
-   - Website will be available at: `https://[username].github.io/Culture-Calendar/`
-   - Updates automatically:
-     - **Weekly**: Every Saturday at 9 PM UTC
-     - **Monthly**: 1st of each month at 6 AM UTC
-
-### Troubleshooting GitHub Actions
-
-**Permission Denied Error (403):**
-- Ensure "Read and write permissions" is enabled in Settings > Actions > General
-- The workflow now includes proper `permissions: contents: write` and uses `GITHUB_TOKEN`
-
-**API Rate Limiting:**
-- The script processes all filtered events (no artificial limit)
-- Built-in 1-second delay between API calls to respect rate limits
-- Movie ratings are cached to avoid reprocessing the same films
-
-**Update Frequency:**
-- **Weekly**: Maintains fresh data for immediate upcoming events
-- **Monthly**: Ensures complete coverage when AFS releases new month's schedule
-- Both workflows collect events for "current month + next month" to fill calendar view
-
-**Data Collection Range:**
-- Collects events from 1st of current month through end of next month
-- Filters out work-hour screenings (9am-6pm weekdays)
-- Provides comprehensive data for calendar view display
-
-## Production-Ready Architecture (June 2025)
-
-The system has been fully transformed into a production-ready codebase with:
-
-- **82% Code Reduction**: src/scraper.py reduced from 1300+ lines to 234 lines
-- **Schema-Driven Development**: New venues via 30-line configuration vs 200+ line custom code  
-- **Comprehensive Testing**: 85+ tests across unit/integration/e2e/quality validation
-- **LLM-Powered Extraction**: Universal BaseScraper with progressive fallback system
-- **Auto-Generated Scrapers**: Template system for rapid venue addition
-
-### Core File Structure:
-```
-Culture-Calendar/
-├── src/
-│   ├── base_scraper.py          # Universal LLM scraper foundation
-│   ├── llm_service.py           # Anthropic Claude API integration  
-│   ├── schemas.py               # Schema definitions with extraction hints
-│   ├── scraper_generator.py     # Auto-generate scrapers from templates
-│   ├── scraper.py               # MultiVenueScraper orchestrator (234 lines)
-│   └── scrapers/                # Individual 30-40 line venue scrapers
-├── tests/                       # Comprehensive test suite (85+ tests)
-├── run_tests.py                 # Test runner with coverage reporting
-└── docs/                        # GitHub Pages website
-```
-
-### Completed Website Improvements:
-1. ✅ **Duplicate Events** - Fixed deduplication logic in `update_website_data.py` to merge screenings by movie title
-2. ✅ **Rating Extraction Bug** - Fixed decimal rating parsing (3.6/10 now correctly rounds to 4, not 6)
-3. ✅ **Truncated Descriptions** - Increased API token limit and removed truncation for complete evaluations
-4. ✅ **Movie Re-evaluation** - Successfully re-ran with all fixes applied
-5. ✅ **Movie Metadata** - Added duration and director info scraped from AFS event pages
-6. ✅ **Smart Event Filtering** - Structure-based detection of movies vs festivals/events using AFS page format
-7. ✅ **Chrome Calendar Fix** - Fixed calendar width display issues in Chrome browser
-8. ✅ **Cult Classic Detection** - AI-powered cult classic detection with purple badges
-9. ✅ **French Movie Features** - French flag badges + 2 rating boost (capped at 10)
-10. ✅ **Genre Classification** - AI-powered genre detection and display
-11. ✅ **Genre Filtering** - Interactive genre toggle filters in website UI
-
-### Enhanced Movie Cards Now Include:
-- Duration and director information
-- Cult classic badges (🎭)
-- French movie flags (🇫🇷) with rating boost
-- Genre classification and filtering
-- Improved Chrome compatibility
-- Explicit `isMovie` field for accurate filtering
-
-### Smart Movie Detection System:
-The system now uses **structure-based detection** instead of keyword matching:
-- Detects movies by looking for "Directed by [Name]" pattern
-- Validates with "Country, Year, Duration, Format" pattern
-- Much more reliable than keyword filtering
-- Prevents false filtering of movies with words like "festival" in title
-- Adds explicit `isMovie: true/false` field to data schema
-
-## Current Multi-Venue Status (Phase 3)
-
-### Completed Venue Integration ✅
-
-**🎬 Film Venues (2/2)**
-1. **Austin Film Society** - Full web scraping with event details
-2. **Hyperreal Film Club** - Complete integration with AI analysis
-
-**🎼 Music Venues (4/4)**  
-1. **Paramount Theater** - Full web scraping and event processing
-2. **Austin Symphony Orchestra** - Season-based static data with concert analysis
-3. **Texas Early Music Project** - Season-based with classical music AI reviews
-4. **La Follia Austin** - Chamber music events with sophisticated analysis
-
-**📚 Book Club Venues (2/2)**
-1. **Alienated Majesty Books** - Real web scraper with intelligent fallbacks
-2. **First Light Austin** - Multiple book clubs with dynamic date parsing
-
-### Live Website Features ✅
-
-**📱 Interactive Web Application**
-- **URL**: https://hadrien-cornier.github.io/Culture-Calendar/
-- **Total Events**: 117 cultural events across 7 venues
-- **List View**: Sortable by rating with expandable descriptions
-- **Calendar View**: Visual month-by-month event calendar
-- **Venue Filtering**: Toggle venues on/off with visual indicators
-- **Rating Filtering**: 1-10 slider for minimum rating threshold
-- **Google Calendar**: One-click export to personal calendars
-- **Download ICS**: Rating-filtered calendar files
-
-**🔧 Technical Infrastructure**
-- **Auto-Updates**: Weekly (Saturdays 9PM UTC) + Monthly (1st 6AM UTC)
-- **GitHub Actions**: Automated scraping and deployment
-- **Error Handling**: Graceful fallbacks for all scrapers
-- **Mobile Responsive**: Works on all device sizes
-- **Fast Loading**: Client-side filtering with minimal dependencies
-
-### Book Club Scraper Architecture
-
-**Dynamic Web Scraping with Fallbacks:**
-
-1. **Real Web Scraping**: Attempts to extract current book information from venue websites
-2. **Intelligent Parsing**: Extracts book titles, authors, dates, and hosts from HTML
-3. **Date Generation**: Automatically creates future dates when scraping fails
-4. **Fallback Data**: Provides sensible defaults with proper venue attribution
-5. **Monthly Auto-Updates**: No manual intervention required
-
-**Alienated Majesty Books Scraper:**
-- Primary: Scrapes `/book-clubs` page for current selections
-- Fallback: Generates monthly discussion dates with TBA book info
-- Handles: JavaScript-heavy sites gracefully
-
-**First Light Austin Scraper:**
-- Primary: Parses 4 different book clubs from `/book-club` page
-- Extracts: "World Wide What", "About Motherhood", "Small & Indie", "Future Greats"
-- Date Parsing: Converts "Friday, June 27th" to proper date format
-- Fallback: Host-specific defaults for each book club series
-
-## Local Development & Debugging
-
-### Environment Setup Issues
-- **Missing API Keys**: Ensure all three API keys are set in `.env` file
-- **Virtual Environment**: Always activate `venv` before running scripts
-- **Python Version**: Requires Python 3.11+ for proper dependency compatibility
-
-### Testing & Debugging Commands
-```bash
-# Run test suite (uses standard unittest framework)
-python -m unittest discover tests/ -v    # All unit tests
-python tests/test_afs_scraper_unit.py     # Individual scraper tests
-python tests/test_validation_integration.py  # Validation system tests
-
-# Alternative with pytest (if installed)
-python -m pytest tests/ -v
-
-# Test individual venue scrapers
-python -c "from src.scrapers import AFSScraper; s=AFSScraper(); print(f'AFS: {len(s.scrape_events())} events')"
-python -c "from src.scrapers import FirstLightAustinScraper; s=FirstLightAustinScraper(); print(f'FirstLight: {len(s.scrape_events())} events')"
-
-# Validate system components
-python -c "from src.schemas import SchemaRegistry; print('Available schemas:', SchemaRegistry.get_available_types())"
-python -c "from src.validation_service import ValidationService; v=ValidationService(); print('Validation service ready')"
-python -c "import json; data=json.load(open('docs/data.json')); print(f'Total events: {len(data)}')"
-
-# Cache management
-ls -la cache/
-rm cache/summary_cache.json  # Clear AI cache to force re-processing
-
-# GitHub Actions validation
-cat .github/workflows/update-calendar.yml
-cat .github/workflows/complete-data-wipe-reload.yml
-```
-
-### Performance & Rate Limiting
-- **API Delays**: Built-in 1-second delays between AI API calls
-- **Web Scraping**: 0.5-second delays between page fetches
-- **Cache Usage**: AI responses cached to avoid redundant processing
-- **Incremental Updates**: Use `--incremental` flag for faster updates
-
-## Testing & Debugging
-
-### Test Suite Architecture
-
-The test suite uses standard Python unittest framework:
+When spawning agents, ALWAYS include these coordination instructions:
 
 ```
-tests/
-├── test_afs_scraper_unit.py          # AFS scraper unit tests
-├── test_validation_integration.py    # Validation system integration tests
-└── test_*.py                         # Additional individual component tests
+You are the [Agent Type] agent in a coordinated swarm.
+
+MANDATORY COORDINATION:
+1. START: Run `npx claude-flow@alpha hooks pre-task --description "[your task]"`
+2. DURING: After EVERY file operation, run `npx claude-flow@alpha hooks post-edit --file "[file]" --memory-key "agent/[step]"`
+3. MEMORY: Store ALL decisions using `npx claude-flow@alpha hooks notification --message "[decision]"`
+4. END: Run `npx claude-flow@alpha hooks post-task --task-id "[task]" --analyze-performance true`
+
+Your specific task: [detailed task description]
+
+REMEMBER: Coordinate with other agents by checking memory BEFORE making decisions!
 ```
 
-**Unit Tests** (individual test files):
-```bash
-python tests/test_afs_scraper_unit.py
-python -m unittest tests.test_afs_scraper_unit -v
+### ⚡ PARALLEL EXECUTION IS MANDATORY
+
+**THIS IS WRONG ❌ (Sequential - NEVER DO THIS):**
+
 ```
-- Individual scraper functionality and error handling
-- Schema validation and data extraction
-- LLMService integration testing
-- Fallback data generation
-
-**Integration Tests**:
-```bash
-python tests/test_validation_integration.py
-python -m unittest tests.test_validation_integration -v
-```
-- Validation service testing with real data
-- Multi-venue scraper coordination
-- Complete data pipeline testing
-- AI processing integration
-
-**Manual Testing Commands**:
-```bash
-# Test full pipeline manually
-python update_website_data.py --days 7 --validate
-
-# Test validation service manually  
-python -c "from src.validation_service import ValidationService; v=ValidationService(); print('Testing validation...')"
-
-# Test individual scrapers with error handling
-python -c "from src.scrapers import AFSScraper; s=AFSScraper(); events=s.scrape_events(); print(f'Scraped {len(events)} events')"
-```
-- Complete pipeline validation
-- Individual component testing
-- Error handling verification
-
-### Live Testing with Real Data
-
-The **live integration tests** are the most valuable for ensuring production readiness:
-
-**What They Test:**
-- ✅ **Real Venue Scraping**: Each scraper fetches actual events from live websites
-- ✅ **Data Validation**: Events are validated against schemas and business rules
-- ✅ **AI Processing**: Real AI analysis with actual event descriptions
-- ✅ **Calendar Generation**: ICS files created with real event data
-- ✅ **Mini Refresh**: Complete pipeline simulation
-
-**Running Live Tests:**
-```bash
-# Quick start with API key checking
-python run_live_tests.py
-
-# Direct pytest with live marker
-pytest tests/test_live_integration.py -v -s -m live
-
-# Test specific venue
-pytest tests/test_live_integration.py::TestLiveScraperIntegration::test_all_venue_scrapers_live -v -s
+Message 1: Initialize swarm
+Message 2: Spawn agent 1
+Message 3: Spawn agent 2
+Message 4: TodoWrite (single todo)
+Message 5: Create file 1
+Message 6: TodoWrite (another single todo)
 ```
 
-**Expected Results:**
-- At least 3 venues should return events successfully
-- At least 5 total valid events across all venues
-- AI processing should work on sample events
-- Calendar generation should create valid ICS files
+**THIS IS CORRECT ✅ (Parallel - ALWAYS DO THIS):**
 
-**API Key Requirements:**
-- **FIRECRAWL_API_KEY**: Required for web scraping (Firecrawl service)
-- **ANTHROPIC_API_KEY**: Required for AI processing (Claude API)
+```
+Message 1: [BatchTool]
+  // MCP coordination setup
+  - mcp__claude-flow__swarm_init
+  - mcp__claude-flow__agent_spawn (researcher)
+  - mcp__claude-flow__agent_spawn (coder)
+  - mcp__claude-flow__agent_spawn (analyst)
+  - mcp__claude-flow__agent_spawn (tester)
+  - mcp__claude-flow__agent_spawn (coordinator)
 
-### Component Validation
+Message 2: [BatchTool - Claude Code execution]
+  // Task agents with full coordination instructions
+  - Task("You are researcher agent. MANDATORY: Run hooks pre-task, post-edit, post-task. Task: Research API patterns")
+  - Task("You are coder agent. MANDATORY: Run hooks pre-task, post-edit, post-task. Task: Implement REST endpoints")
+  - Task("You are analyst agent. MANDATORY: Run hooks pre-task, post-edit, post-task. Task: Analyze performance")
+  - Task("You are tester agent. MANDATORY: Run hooks pre-task, post-edit, post-task. Task: Write comprehensive tests")
 
-**Validate Individual Components:**
-```bash
-# Test specific scraper
-python -c "from src.scrapers.afs_scraper import AFSScraper; print(AFSScraper().scrape_events())"
+  // TodoWrite with ALL todos batched
+  - TodoWrite { todos: [
+      {id: "research", content: "Research API patterns", status: "in_progress", priority: "high"},
+      {id: "design", content: "Design database schema", status: "pending", priority: "high"},
+      {id: "implement", content: "Build REST endpoints", status: "pending", priority: "high"},
+      {id: "test", content: "Write unit tests", status: "pending", priority: "medium"},
+      {id: "docs", content: "Create API documentation", status: "pending", priority: "low"},
+      {id: "deploy", content: "Setup deployment", status: "pending", priority: "medium"}
+    ]}
 
-# Test schema validation
-python -c "from src.schemas import SchemaRegistry; print(SchemaRegistry.get_available_types())"
-
-# Test LLM service
-python -c "from src.llm_service import LLMService; print(LLMService().anthropic_api_key is not None)"
+  // File operations in parallel
+  - Write "api/package.json"
+  - Write "api/server.js"
+  - Write "api/routes/users.js"
+  - Bash "mkdir -p api/{routes,models,tests}"
 ```
 
-**Cache Management:**
-```bash
-# Clear summary cache
-rm cache/summary_cache.json
+### 🎯 MANDATORY SWARM PATTERN
 
-# Clear all cache
-rm -rf cache/*
+When given ANY complex task with swarms:
 
-# View cache contents
-cat cache/summary_cache.json | jq '.'
+```
+STEP 1: IMMEDIATE PARALLEL SPAWN (Single Message!)
+[BatchTool]:
+  // IMPORTANT: Check CLI args for agent count, otherwise auto-decide based on task complexity
+  - mcp__claude-flow__swarm_init {
+      topology: "hierarchical",
+      maxAgents: CLI_ARGS.agents || AUTO_DECIDE(task_complexity), // Use CLI args or auto-decide
+      strategy: "parallel"
+    }
+
+  // Spawn agents based on maxAgents count and task requirements
+  // If CLI specifies 3 agents, spawn 3. If no args, auto-decide optimal count (3-12)
+  - mcp__claude-flow__agent_spawn { type: "architect", name: "System Designer" }
+  - mcp__claude-flow__agent_spawn { type: "coder", name: "API Developer" }
+  - mcp__claude-flow__agent_spawn { type: "coder", name: "Frontend Dev" }
+  - mcp__claude-flow__agent_spawn { type: "analyst", name: "DB Designer" }
+  - mcp__claude-flow__agent_spawn { type: "tester", name: "QA Engineer" }
+  - mcp__claude-flow__agent_spawn { type: "researcher", name: "Tech Lead" }
+  - mcp__claude-flow__agent_spawn { type: "coordinator", name: "PM" }
+  - TodoWrite { todos: [multiple todos at once] }
+
+STEP 2: PARALLEL TASK EXECUTION (Single Message!)
+[BatchTool]:
+  - mcp__claude-flow__task_orchestrate { task: "main task", strategy: "parallel" }
+  - mcp__claude-flow__memory_usage { action: "store", key: "init", value: {...} }
+  - Multiple Read operations
+  - Multiple Write operations
+  - Multiple Bash commands
+
+STEP 3: CONTINUE PARALLEL WORK (Never Sequential!)
 ```
 
-**GitHub Actions Validation:**
-```bash
-# Test workflow locally
-python update_website_data.py
+### 📊 VISUAL TASK TRACKING FORMAT
 
-# Check generated files
-ls -la docs/
-cat docs/data.json | jq '.movies | length'
+Use this format when displaying task progress:
+
 ```
+📊 Progress Overview
+   ├── Total Tasks: X
+   ├── ✅ Completed: X (X%)
+   ├── 🔄 In Progress: X (X%)
+   ├── ⭕ Todo: X (X%)
+   └── ❌ Blocked: X (X%)
+
+📋 Todo (X)
+   └── 🔴 001: [Task description] [PRIORITY] ▶
+
+🔄 In progress (X)
+   ├── 🟡 002: [Task description] ↳ X deps ▶
+   └── 🔴 003: [Task description] [PRIORITY] ▶
+
+✅ Completed (X)
+   ├── ✅ 004: [Task description]
+   └── ... (more completed tasks)
+
+Priority indicators: 🔴 HIGH/CRITICAL, 🟡 MEDIUM, 🟢 LOW
+Dependencies: ↳ X deps | Actionable: ▶
+```
+
+### 🎯 REAL EXAMPLE: Full-Stack App Development
+
+**Task**: "Build a complete REST API with authentication, database, and tests"
+
+**🚨 MANDATORY APPROACH - Everything in Parallel:**
+
+```javascript
+// ✅ CORRECT: SINGLE MESSAGE with ALL operations
+[BatchTool - Message 1]:
+  // Initialize and spawn ALL agents at once
+  mcp__claude-flow__swarm_init { topology: "hierarchical", maxAgents: 8, strategy: "parallel" }
+  mcp__claude-flow__agent_spawn { type: "architect", name: "System Designer" }
+  mcp__claude-flow__agent_spawn { type: "coder", name: "API Developer" }
+  mcp__claude-flow__agent_spawn { type: "coder", name: "Auth Expert" }
+  mcp__claude-flow__agent_spawn { type: "analyst", name: "DB Designer" }
+  mcp__claude-flow__agent_spawn { type: "tester", name: "Test Engineer" }
+  mcp__claude-flow__agent_spawn { type: "coordinator", name: "Lead" }
+
+  // Update ALL todos at once - NEVER split todos!
+  TodoWrite { todos: [
+    { id: "design", content: "Design API architecture", status: "in_progress", priority: "high" },
+    { id: "auth", content: "Implement authentication", status: "pending", priority: "high" },
+    { id: "db", content: "Design database schema", status: "pending", priority: "high" },
+    { id: "api", content: "Build REST endpoints", status: "pending", priority: "high" },
+    { id: "tests", content: "Write comprehensive tests", status: "pending", priority: "medium" },
+    { id: "docs", content: "Document API endpoints", status: "pending", priority: "low" },
+    { id: "deploy", content: "Setup deployment pipeline", status: "pending", priority: "medium" },
+    { id: "monitor", content: "Add monitoring", status: "pending", priority: "medium" }
+  ]}
+
+  // Start orchestration
+  mcp__claude-flow__task_orchestrate { task: "Build REST API", strategy: "parallel" }
+
+  // Store initial memory
+  mcp__claude-flow__memory_usage { action: "store", key: "project/init", value: { started: Date.now() } }
+
+[BatchTool - Message 2]:
+  // Create ALL directories at once
+  Bash("mkdir -p test-app/{src,tests,docs,config}")
+  Bash("mkdir -p test-app/src/{models,routes,middleware,services}")
+  Bash("mkdir -p test-app/tests/{unit,integration}")
+
+  // Write ALL base files at once
+  Write("test-app/package.json", packageJsonContent)
+  Write("test-app/.env.example", envContent)
+  Write("test-app/README.md", readmeContent)
+  Write("test-app/src/server.js", serverContent)
+  Write("test-app/src/config/database.js", dbConfigContent)
+
+[BatchTool - Message 3]:
+  // Read multiple files for context
+  Read("test-app/package.json")
+  Read("test-app/src/server.js")
+  Read("test-app/.env.example")
+
+  // Run multiple commands
+  Bash("cd test-app && npm install")
+  Bash("cd test-app && npm run lint")
+  Bash("cd test-app && npm test")
+```
+
+### 🚫 NEVER DO THIS (Sequential = WRONG):
+
+```javascript
+// ❌ WRONG: Multiple messages, one operation each
+Message 1: mcp__claude-flow__swarm_init
+Message 2: mcp__claude-flow__agent_spawn (just one agent)
+Message 3: mcp__claude-flow__agent_spawn (another agent)
+Message 4: TodoWrite (single todo)
+Message 5: Write (single file)
+// This is 5x slower and wastes swarm coordination!
+```
+
+### 🔄 MEMORY COORDINATION PATTERN
+
+Every agent coordination step MUST use memory:
+
+```
+// After each major decision or implementation
+mcp__claude-flow__memory_usage
+  action: "store"
+  key: "swarm-{id}/agent-{name}/{step}"
+  value: {
+    timestamp: Date.now(),
+    decision: "what was decided",
+    implementation: "what was built",
+    nextSteps: ["step1", "step2"],
+    dependencies: ["dep1", "dep2"]
+  }
+
+// To retrieve coordination data
+mcp__claude-flow__memory_usage
+  action: "retrieve"
+  key: "swarm-{id}/agent-{name}/{step}"
+
+// To check all swarm progress
+mcp__claude-flow__memory_usage
+  action: "list"
+  pattern: "swarm-{id}/*"
+```
+
+### ⚡ PERFORMANCE TIPS
+
+1. **Batch Everything**: Never operate on single files when multiple are needed
+2. **Parallel First**: Always think "what can run simultaneously?"
+3. **Memory is Key**: Use memory for ALL cross-agent coordination
+4. **Monitor Progress**: Use mcp**claude-flow**swarm_monitor for real-time tracking
+5. **Auto-Optimize**: Let hooks handle topology and agent selection
+
+### 🎨 VISUAL SWARM STATUS
+
+When showing swarm status, use this format:
+
+```
+🐝 Swarm Status: ACTIVE
+├── 🏗️ Topology: hierarchical
+├── 👥 Agents: 6/8 active
+├── ⚡ Mode: parallel execution
+├── 📊 Tasks: 12 total (4 complete, 6 in-progress, 2 pending)
+└── 🧠 Memory: 15 coordination points stored
+
+Agent Activity:
+├── 🟢 architect: Designing database schema...
+├── 🟢 coder-1: Implementing auth endpoints...
+├── 🟢 coder-2: Building user CRUD operations...
+├── 🟢 analyst: Optimizing query performance...
+├── 🟡 tester: Waiting for auth completion...
+└── 🟢 coordinator: Monitoring progress...
+```
+
+## 📝 CRITICAL: TODOWRITE AND TASK TOOL BATCHING
+
+### 🚨 MANDATORY BATCHING RULES FOR TODOS AND TASKS
+
+**TodoWrite Tool Requirements:**
+
+1. **ALWAYS** include 5-10+ todos in a SINGLE TodoWrite call
+2. **NEVER** call TodoWrite multiple times in sequence
+3. **BATCH** all todo updates together - status changes, new todos, completions
+4. **INCLUDE** all priority levels (high, medium, low) in one call
+
+**Task Tool Requirements:**
+
+1. **SPAWN** all agents using Task tool in ONE message
+2. **NEVER** spawn agents one by one across multiple messages
+3. **INCLUDE** full task descriptions and coordination instructions
+4. **BATCH** related Task calls together for parallel execution
+
+**Example of CORRECT TodoWrite usage:**
+
+```javascript
+// ✅ CORRECT - All todos in ONE call
+TodoWrite { todos: [
+  { id: "1", content: "Initialize system", status: "completed", priority: "high" },
+  { id: "2", content: "Analyze requirements", status: "in_progress", priority: "high" },
+  { id: "3", content: "Design architecture", status: "pending", priority: "high" },
+  { id: "4", content: "Implement core", status: "pending", priority: "high" },
+  { id: "5", content: "Build features", status: "pending", priority: "medium" },
+  { id: "6", content: "Write tests", status: "pending", priority: "medium" },
+  { id: "7", content: "Add monitoring", status: "pending", priority: "medium" },
+  { id: "8", content: "Documentation", status: "pending", priority: "low" },
+  { id: "9", content: "Performance tuning", status: "pending", priority: "low" },
+  { id: "10", content: "Deploy to production", status: "pending", priority: "high" }
+]}
+```
+
+**Example of WRONG TodoWrite usage:**
+
+```javascript
+// ❌ WRONG - Multiple TodoWrite calls
+Message 1: TodoWrite { todos: [{ id: "1", content: "Task 1", ... }] }
+Message 2: TodoWrite { todos: [{ id: "2", content: "Task 2", ... }] }
+Message 3: TodoWrite { todos: [{ id: "3", content: "Task 3", ... }] }
+// This breaks parallel coordination!
+```
+
+## Claude Flow v2.0.0 Features
+
+Claude Flow extends the base coordination with:
+
+- **🔗 GitHub Integration** - Deep repository management
+- **🎯 Project Templates** - Quick-start for common projects
+- **📊 Advanced Analytics** - Detailed performance insights
+- **🤖 Custom Agent Types** - Domain-specific coordinators
+- **🔄 Workflow Automation** - Reusable task sequences
+- **🛡️ Enhanced Security** - Safer command execution
+
+## Support
+
+- Documentation: https://github.com/ruvnet/claude-flow
+- Issues: https://github.com/ruvnet/claude-flow/issues
+- Examples: https://github.com/ruvnet/claude-flow/tree/main/examples
+
+---
+
+Remember: **Claude Flow coordinates, Claude Code creates!** Start with `mcp__claude-flow__swarm_init` to enhance your development workflow.

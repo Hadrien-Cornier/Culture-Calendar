@@ -223,7 +223,7 @@ Focus solely on artistic merit and complexity. Reward innovation and high entrop
 """
 
             data = {
-                "model": "llama-3.1-sonar-small-128k-online",
+                "model": "sonar",
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": 2000,
             }
@@ -290,7 +290,7 @@ Focus solely on musical artistry and surprise. Reward innovation and high entrop
 """
 
             data = {
-                "model": "llama-3.1-sonar-small-128k-online",
+                "model": "sonar",
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": 2000,
             }
@@ -357,7 +357,7 @@ Focus on artistic merit and intellectual rigor. Reward complexity and innovation
 """
 
             data = {
-                "model": "llama-3.1-sonar-small-128k-online",
+                "model": "sonar",
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": 2000,
             }

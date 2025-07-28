@@ -61,8 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('All critical elements found, proceeding...'); // Debug log
     
-    // Initialize compact mode as default
-    document.body.classList.add('compact-mode');
+    // Unified compact layout is now the default and only mode
     
     updateMastheadDate();
     setupEventListeners();
@@ -262,18 +261,7 @@ function setupEventListeners() {
         });
     }
 
-    // Compact mode toggle
-    const compactModeToggle = document.getElementById('compact-mode-toggle');
-    if (compactModeToggle) {
-        compactModeToggle.addEventListener('change', function() {
-            if (this.checked) {
-                document.body.classList.add('compact-mode');
-            } else {
-                document.body.classList.remove('compact-mode');
-            }
-            renderEvents();
-        });
-    }
+    // Compact mode toggle removed - unified layout only
 
     prevMonthBtn.addEventListener('click', function() {
         navigateMonth(-1);
@@ -904,12 +892,14 @@ function createEventCard(event) {
         return '<article class="event-card error">Invalid event data</article>';
     }
     
-    // Check if compact mode is enabled
-    const isCompact = document.body.classList.contains('compact-mode');
+    // Always use unified compact layout
     
-    // Extract key data
+    // Extract key data with improved rating handling
     const finalRating = event.final_rating ?? event.rating ?? (event.ai_rating ? event.ai_rating.score : null);
     const eventUrl = event.screenings && event.screenings[0] ? event.screenings[0].url : (event.url || '#');
+    
+    // Debug rating values to identify issues
+    console.log(`Event: ${event.title}, final_rating: ${event.final_rating}, rating: ${event.rating}, ai_rating: ${event.ai_rating ? JSON.stringify(event.ai_rating) : 'null'}, finalRating: ${finalRating}`);
     
     // Format date and venue
     let datelineText = '';
@@ -940,51 +930,21 @@ function createEventCard(event) {
     if (event.duration) metaParts.push(event.duration);
     const metadata = metaParts.join(' | ');
     
-    // Check if we have full review
-    const hasReview = event.description && event.description.length > 200;
+    // Always allow review access - every event is clickable
     
-    // Return compact card if in compact mode - exact wireframe format
-    if (isCompact) {
-        return `
-            <article class="event-card compact" onclick="toggleEventDetails('${event.id || 'unknown'}')">
-                <div class="wireframe-line1">
-                    <strong><a href="${eventUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${escapeHtml(event.title)}</a></strong>
-                </div>
-                <div class="wireframe-line2">
-                    ${compactDateTime} — ${metadata}
-                </div>
-                <div class="wireframe-line3">
-                    ${escapeHtml(summary)} ${finalRating ? `(★ ${finalRating}/10)` : ''}
-                </div>
-                ${hasReview ? `
-                <div class="event-details" id="details-${event.id || 'unknown'}" style="display: none;">
-                    <div class="review-text">
-                        ${formatDescription(event.description)}
-                    </div>
-                </div>
-                ` : ''}
-            </article>
-        `;
-    }
-    
-    // Original expanded card format
+    // Unified compact layout with premium typography
     return `
-        <article class="event-card">
-            <div class="event-time-venue">${datelineText}</div>
-            <h3 class="event-title"><a href="${event.url}" target="_blank" rel="noopener">${escapeHtml(event.title)}</a></h3>
-            ${finalRating ? `<div class="event-rating">★ ${finalRating}/10</div>` : ''}
-            ${summary ? `<p class="event-summary">${escapeHtml(summary)}</p>` : ''}
-            ${metadata ? `<div class="event-metadata">${escapeHtml(metadata)}</div>` : ''}
-            ${hasReview ? `
-                <button class="read-review-btn" onclick="toggleReview('${event.id || 'unknown'}')">
-                    Read Review →
-                </button>
-                <div class="review-content" id="review-${event.id || 'unknown'}" style="display: none;">
-                    <div class="review-text">
-                        ${formatDescription(event.description)}
-                    </div>
-                </div>
-            ` : ''}
+        <article class="event-card" onclick="openReviewModal('${event.id || 'unknown'}')" style="cursor: pointer;">
+            <div class="wireframe-line1">
+                <h3 class="event-card-title"><a href="${eventUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${escapeHtml(event.title)}</a></h3>
+            </div>
+            <div class="wireframe-line2">
+                <div class="event-meta">${compactDateTime} — ${metadata}</div>
+            </div>
+            <div class="wireframe-line3">
+                <div class="event-summary">${escapeHtml(summary)} ${finalRating && finalRating > 0 ? `(★ ${finalRating}/10)` : '(Rating: N/A)'}</div>
+                <button class="premium-review-link" onclick="event.stopPropagation(); openReviewModal('${event.id || 'unknown'}')" aria-label="Read detailed review for ${escapeHtml(event.title)}" style="background: none; border: none; color: #2563eb; cursor: pointer; text-decoration: underline; font-style: italic; margin-left: 0.5rem;">Read Review</button>
+            </div>
         </article>
     `;
 }
@@ -1573,4 +1533,276 @@ function showClassicalDataWarning() {
     console.log('Classical music data warning displayed');
 }
 
-// Removed duplicate functions - these are already defined earlier in the file
+// Premium Review Modal System
+// =============================================================================
+
+class ReviewModal {
+    constructor(config = {}) {
+        this.config = {
+            backdrop: 'blur',
+            closeOnBackdrop: true,
+            closeOnEscape: true,
+            animation: 'scale',
+            duration: 300,
+            ...config
+        };
+        
+        this.isModalOpen = false;
+        this.focusedElementBeforeModal = null;
+        this.modal = null;
+        this.focusableElements = [];
+        
+        // Bind methods
+        this.handleKeydown = this.handleKeydown.bind(this);
+        this.handleBackdropClick = this.handleBackdropClick.bind(this);
+    }
+
+    async open(eventData) {
+        if (this.isModalOpen) return;
+        
+        console.log('Opening modal for event:', eventData.title);
+        
+        // Store focus reference
+        this.focusedElementBeforeModal = document.activeElement;
+        
+        // Create and inject modal
+        this.createModal(eventData);
+        document.body.appendChild(this.modal);
+        
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+        
+        // Setup event listeners
+        this.setupEventListeners();
+        
+        // Trigger opening animation
+        await this.animateOpen();
+        
+        // Setup focus trap
+        this.setupFocusTrap();
+        
+        this.isModalOpen = true;
+        
+        // Announce to screen readers
+        this.announceToScreenReader(`Review modal opened for ${eventData.title}`);
+    }
+
+    async close() {
+        if (!this.isModalOpen) return;
+        
+        console.log('Closing modal');
+        
+        // Animate close
+        await this.animateClose();
+        
+        // Cleanup
+        this.cleanup();
+        
+        this.isModalOpen = false;
+        
+        // Announce to screen readers
+        this.announceToScreenReader('Review modal closed');
+    }
+
+    createModal(eventData) {
+        this.modal = document.createElement('div');
+        this.modal.className = 'review-modal';
+        this.modal.setAttribute('role', 'dialog');
+        this.modal.setAttribute('aria-modal', 'true');
+        this.modal.setAttribute('aria-labelledby', 'modal-title');
+        
+        this.modal.innerHTML = this.getModalHTML(eventData);
+    }
+
+    getModalHTML(eventData) {
+        const rating = eventData.final_rating ?? eventData.rating ?? (eventData.ai_rating ? eventData.ai_rating.score : null);
+        const ratingDisplay = rating ? `★${rating}/10` : '';
+        
+        return `
+            <div class="review-modal-container">
+                <div class="review-modal-content">
+                    <div class="review-modal-header">
+                        <h2 id="modal-title" class="review-modal-title">${escapeHtml(eventData.title)}</h2>
+                        <div class="review-modal-actions">
+                            <button class="review-modal-close" aria-label="Close review modal">×</button>
+                        </div>
+                    </div>
+                    <div class="review-modal-body">
+                        ${rating ? `<div class="event-rating" style="margin-bottom: 1.5rem;">
+                            <span class="star">★</span>${rating}/10
+                        </div>` : ''}
+                        <div class="review-content">
+                            ${eventData.description ? formatDescription(eventData.description) : 'No detailed review available for this event.'}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    async animateOpen() {
+        return new Promise(resolve => {
+            // Start invisible but present
+            this.modal.style.opacity = '0';
+            this.modal.style.visibility = 'visible';
+            
+            requestAnimationFrame(() => {
+                this.modal.classList.add('active');
+                setTimeout(resolve, this.config.duration);
+            });
+        });
+    }
+
+    async animateClose() {
+        return new Promise(resolve => {
+            this.modal.classList.remove('active');
+            
+            setTimeout(() => {
+                resolve();
+            }, this.config.duration);
+        });
+    }
+
+    setupEventListeners() {
+        // Close button
+        const closeButton = this.modal.querySelector('.review-modal-close');
+        closeButton.addEventListener('click', () => this.close());
+        
+        // Backdrop click
+        this.modal.addEventListener('click', this.handleBackdropClick);
+        
+        // Keyboard events
+        document.addEventListener('keydown', this.handleKeydown);
+    }
+
+    handleBackdropClick(event) {
+        if (this.config.closeOnBackdrop && event.target === this.modal) {
+            this.close();
+        }
+    }
+
+    handleKeydown(event) {
+        if (!this.isModalOpen) return;
+        
+        if (event.key === 'Escape' && this.config.closeOnEscape) {
+            this.close();
+            return;
+        }
+        
+        if (event.key === 'Tab') {
+            this.trapFocus(event);
+        }
+    }
+
+    setupFocusTrap() {
+        this.focusableElements = Array.from(
+            this.modal.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            )
+        );
+        
+        if (this.focusableElements.length > 0) {
+            this.focusableElements[0].focus();
+        }
+    }
+
+    trapFocus(event) {
+        if (this.focusableElements.length === 0) return;
+        
+        const firstFocusable = this.focusableElements[0];
+        const lastFocusable = this.focusableElements[this.focusableElements.length - 1];
+        
+        if (event.shiftKey) {
+            if (document.activeElement === firstFocusable) {
+                lastFocusable.focus();
+                event.preventDefault();
+            }
+        } else {
+            if (document.activeElement === lastFocusable) {
+                firstFocusable.focus();
+                event.preventDefault();
+            }
+        }
+    }
+
+    cleanup() {
+        // Remove event listeners
+        document.removeEventListener('keydown', this.handleKeydown);
+        
+        // Restore body scroll
+        document.body.style.overflow = '';
+        
+        // Remove modal from DOM
+        if (this.modal && this.modal.parentNode) {
+            document.body.removeChild(this.modal);
+        }
+        
+        // Restore focus
+        if (this.focusedElementBeforeModal) {
+            this.focusedElementBeforeModal.focus();
+        }
+        
+        this.modal = null;
+        this.focusableElements = [];
+    }
+
+    announceToScreenReader(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = message;
+        
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+            if (document.body.contains(announcement)) {
+                document.body.removeChild(announcement);
+            }
+        }, 1000);
+    }
+}
+
+// Global modal instance
+const globalReviewModal = new ReviewModal();
+
+// Enhanced review modal trigger function
+function openReviewModal(eventId) {
+    console.log('Opening modal for event ID:', eventId);
+    console.log('Available events:', eventsData.map(e => ({ id: e.id, title: e.title })));
+    
+    const event = eventsData.find(e => e.id === eventId);
+    if (event) {
+        console.log('Found event:', event.title);
+        // Always open modal - it will show whatever content is available
+        globalReviewModal.open(event);
+    } else {
+        console.error('Event not found for ID:', eventId);
+        console.log('Available event IDs:', eventsData.map(e => e.id));
+        // Show a fallback modal with error message
+        alert(`Sorry, could not find review for event ID: ${eventId}`);
+    }
+}
+
+// Keep the existing toggleReview function for backward compatibility
+// But enhance it to use the modal for long reviews
+function toggleReview(eventId) {
+    const event = eventsData.find(e => e.id === eventId);
+    if (event && event.description && event.description.length > 200) {
+        // Use modal for long reviews
+        globalReviewModal.open(event);
+    } else {
+        // Use original inline toggle for short reviews
+        const reviewContent = document.getElementById(`review-${eventId}`);
+        if (reviewContent) {
+            const isVisible = reviewContent.style.display !== 'none';
+            reviewContent.style.display = isVisible ? 'none' : 'block';
+            
+            // Update button text
+            const button = reviewContent.previousElementSibling;
+            if (button && button.classList.contains('read-review-btn')) {
+                button.textContent = isVisible ? 'Read Review →' : 'Hide Review';
+            }
+        }
+    }
+}
