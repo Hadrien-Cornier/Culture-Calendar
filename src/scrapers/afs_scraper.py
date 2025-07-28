@@ -9,8 +9,8 @@ from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 
-from ..base_scraper import BaseScraper
-from ..schemas import MovieEventSchema
+from src.base_scraper import BaseScraper
+from src.schemas import MovieEventSchema
 
 
 class AFSScraper(BaseScraper):

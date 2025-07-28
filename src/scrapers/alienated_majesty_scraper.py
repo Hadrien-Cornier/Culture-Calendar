@@ -11,7 +11,7 @@ from typing import Dict, List, Optional
 from bs4 import BeautifulSoup
 from pyppeteer import launch
 
-from ..base_scraper import BaseScraper
+from src.base_scraper import BaseScraper
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 

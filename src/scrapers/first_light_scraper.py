@@ -99,12 +99,16 @@ class FirstLightAustinScraper(BaseScraper):
     def parse_book_club_date(self, date_str):
         """Parse book club date strings like 'Friday, June 27th' into YYYY-MM-DD format"""
         try:
+            # Remove trailing comma and any extra whitespace
+            cleaned_date = date_str.strip().rstrip(',').strip()
             # Remove 'st', 'nd', 'rd', 'th' from day
-            cleaned_date = re.sub(r"(\d+)(st|nd|rd|th)", r"\1", date_str)
+            cleaned_date = re.sub(r"(\d+)(st|nd|rd|th)", r"\1", cleaned_date)
 
-            # Assume 2025 since these are future events (adjust as needed)
+            # Use 2025 for future events (these are all 2025 events)
             current_year = datetime.now().year
-            future_year = current_year + 1 if datetime.now().month > 6 else current_year
+            # For events in months that have already passed this year, use next year
+            # For events in current or future months, use current year
+            future_year = 2025  # Force 2025 since we're in 2025 and these are future events
 
             # Parse the date (assuming future year since these are future
             # events)

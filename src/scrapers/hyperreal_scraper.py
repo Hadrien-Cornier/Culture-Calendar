@@ -6,8 +6,8 @@ from datetime import datetime
 from typing import Dict, List
 from bs4 import BeautifulSoup
 
-from ..base_scraper import BaseScraper
-from ..schemas import MovieEventSchema
+from src.base_scraper import BaseScraper
+from src.schemas import MovieEventSchema
 
 
 class HyperrealScraper(BaseScraper):
