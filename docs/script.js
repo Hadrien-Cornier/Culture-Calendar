@@ -1558,33 +1558,43 @@ class ReviewModal {
     }
 
     async open(eventData) {
-        if (this.isModalOpen) return;
+        if (this.isModalOpen) {
+            console.log('Modal already open, closing first');
+            await this.close();
+        }
         
         console.log('Opening modal for event:', eventData.title);
         
-        // Store focus reference
-        this.focusedElementBeforeModal = document.activeElement;
-        
-        // Create and inject modal
-        this.createModal(eventData);
-        document.body.appendChild(this.modal);
-        
-        // Prevent body scroll
-        document.body.style.overflow = 'hidden';
-        
-        // Setup event listeners
-        this.setupEventListeners();
-        
-        // Trigger opening animation
-        await this.animateOpen();
-        
-        // Setup focus trap
-        this.setupFocusTrap();
-        
-        this.isModalOpen = true;
-        
-        // Announce to screen readers
-        this.announceToScreenReader(`Review modal opened for ${eventData.title}`);
+        try {
+            // Store focus reference
+            this.focusedElementBeforeModal = document.activeElement;
+            
+            // Create and inject modal
+            this.createModal(eventData);
+            document.body.appendChild(this.modal);
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+            
+            // Setup event listeners
+            this.setupEventListeners();
+            
+            // Trigger opening animation
+            await this.animateOpen();
+            
+            // Setup focus trap
+            this.setupFocusTrap();
+            
+            this.isModalOpen = true;
+            
+            // Announce to screen readers
+            this.announceToScreenReader(`Review modal opened for ${eventData.title}`);
+        } catch (error) {
+            console.error('Error opening modal:', error);
+            // Cleanup on error
+            this.cleanup();
+            throw error;
+        }
     }
 
     async close() {
@@ -1641,25 +1651,40 @@ class ReviewModal {
     }
 
     async animateOpen() {
-        return new Promise(resolve => {
-            // Start invisible but present
-            this.modal.style.opacity = '0';
-            this.modal.style.visibility = 'visible';
-            
-            requestAnimationFrame(() => {
-                this.modal.classList.add('active');
-                setTimeout(resolve, this.config.duration);
-            });
+        return new Promise((resolve, reject) => {
+            try {
+                // Start invisible but present
+                this.modal.style.opacity = '0';
+                this.modal.style.visibility = 'visible';
+                
+                requestAnimationFrame(() => {
+                    try {
+                        this.modal.classList.add('active');
+                        setTimeout(resolve, this.config.duration || 300);
+                    } catch (error) {
+                        console.error('Error in animateOpen animation frame:', error);
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                console.error('Error in animateOpen:', error);
+                reject(error);
+            }
         });
     }
 
     async animateClose() {
-        return new Promise(resolve => {
-            this.modal.classList.remove('active');
-            
-            setTimeout(() => {
-                resolve();
-            }, this.config.duration);
+        return new Promise((resolve, reject) => {
+            try {
+                this.modal.classList.remove('active');
+                
+                setTimeout(() => {
+                    resolve();
+                }, this.config.duration || 300);
+            } catch (error) {
+                console.error('Error in animateClose:', error);
+                reject(error);
+            }
         });
     }
 
@@ -1769,13 +1794,29 @@ const globalReviewModal = new ReviewModal();
 // Enhanced review modal trigger function
 function openReviewModal(eventId) {
     console.log('Opening modal for event ID:', eventId);
+    
+    // Check if eventsData is loaded
+    if (!eventsData || !Array.isArray(eventsData) || eventsData.length === 0) {
+        console.error('Events data not loaded yet');
+        alert('Events are still loading. Please try again in a moment.');
+        return;
+    }
+    
     console.log('Available events:', eventsData.map(e => ({ id: e.id, title: e.title })));
     
     const event = eventsData.find(e => e.id === eventId);
     if (event) {
         console.log('Found event:', event.title);
-        // Always open modal - it will show whatever content is available
-        globalReviewModal.open(event);
+        try {
+            // Always open modal - it will show whatever content is available
+            globalReviewModal.open(event).catch(error => {
+                console.error('Error opening modal:', error);
+                alert('Sorry, there was an error opening the review. Please try again.');
+            });
+        } catch (error) {
+            console.error('Error in openReviewModal:', error);
+            alert('Sorry, there was an error opening the review. Please try again.');
+        }
     } else {
         console.error('Event not found for ID:', eventId);
         console.log('Available event IDs:', eventsData.map(e => e.id));

@@ -35,3 +35,4 @@ hive-mind-prompt-*.txt
 .roo/
 .roomodes
 memory/
+node_modules/
