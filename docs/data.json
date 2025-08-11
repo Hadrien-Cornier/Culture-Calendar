@@ -833,7 +833,7 @@
     "isMovie": true,
     "isWorkHours": false,
     "duration": null,
-    "director": null,
+    "director": "Chris Molina",
     "country": "Unknown",
     "year": null,
     "language": null,
@@ -1203,7 +1203,7 @@
     "country": "Unknown",
     "year": null,
     "language": null,
-    "venue": "Hyperreal",
+    "venue": "AFS",
     "type": "movie",
     "screenings": [
       {
@@ -1405,6 +1405,8 @@
     "language": null,
     "venue": "Hyperreal",
     "type": "movie",
+    "venue": "Hyperreal",
+    "type": "movie",
     "screenings": [
       {
         "date": "2025-08-25",
@@ -1489,7 +1491,7 @@
     "country": "USA",
     "year": 1978,
     "language": null,
-    "venue": "AFS",
+    "venue": "Hyperreal",
     "type": "movie",
     "screenings": [
       {
@@ -1696,7 +1698,7 @@
     "isWorkHours": false,
     "duration": null,
     "director": null,
-    "country": "USA",
+    "country": "Unknown",
     "year": null,
     "language": "English",
     "venue": "FirstLight",
@@ -1913,7 +1915,7 @@
     "country": "USA",
     "year": 2025,
     "language": null,
-    "venue": "AFS",
+    "venue": "Hyperreal",
     "type": "movie",
     "screenings": [
       {
