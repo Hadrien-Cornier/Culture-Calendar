@@ -31,10 +31,21 @@ class AlienatedMajestyBooksScraper(BaseScraper):
 
     def get_data_schema(self) -> Dict:
         """Return the expected data schema for book club events"""
+        from datetime import datetime
+        
+        # Get current date information
+        now = datetime.now()
+        current_year = now.year
+        current_month = now.month
+        current_month_name = now.strftime("%B")
+        
+        # Generate dynamic date guidance
+        date_guidance = f"IMPORTANT: We are currently in {current_month_name} {current_year}. All book club events are future events. For dates without years: use {current_year} for {current_month_name}-December, use {current_year + 1} for January-{now.strftime('%B')}."
+        
         return {
             "events": {
                 "type": "array",
-                "description": "List of book club events extracted from Alienated Majesty Books webpage. Look for book club sections with headers like 'NYRB Book Club', 'Subculture Lit', 'A Season Of', 'Voyage Out', 'Apricot Trees Exist'. For each section, extract the book meetings listed under 'Upcoming Meetings'. Each event should include the book club name, book title, author, meeting date, and meeting time from the description.",
+                "description": f"List of book club events extracted from Alienated Majesty Books webpage. Look for book club sections with headers like 'NYRB Book Club', 'Subculture Lit', 'A Season Of', 'Voyage Out', 'Apricot Trees Exist'. For each section, extract the book meetings listed under 'Upcoming Meetings'. Each event should include the book club name, book title, author, meeting date, and meeting time from the description. {date_guidance}",
                 "items": {
                     "title": {
                         "type": "string",
@@ -54,7 +65,7 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                     "date": {
                         "type": "string",
                         "required": True,
-                        "description": "Event date in YYYY-MM-DD format. Convert dates like 'Saturday, July 5' to '2025-07-05'.",
+                        "description": f"Event date in YYYY-MM-DD format. {date_guidance} Examples: 'Saturday, October 4' → '{current_year}-10-04', 'Saturday, January 3' → '{current_year + 1}-01-03', 'Sunday, {current_month_name} 14' → '{current_year}-{current_month:02d}-14'.",
                     },
                     "time": {
                         "type": "string",
@@ -228,8 +239,8 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             # Find the main content area
             main_content = soup.find("main")
             if main_content:
-                # Get text content from main area
-                simplified_content = main_content.get_text(separator=" ", strip=True)
+                # Get text content from main area with section separators preserved
+                simplified_content = self._extract_content_with_separators(main_content)
             else:
                 # Fallback to full text but truncated
                 simplified_content = soup.get_text(separator=" ", strip=True)
@@ -238,7 +249,10 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             if len(simplified_content) > 6000:
                 simplified_content = simplified_content[:6000] + "..."
 
-            print(f"  Using simplified content ({len(simplified_content)} chars)")
+            print(f"  Using simplified content with separators ({len(simplified_content)} chars)")
+            
+            # Save the content with separators for debugging
+            # self._save_content_with_separators(simplified_content, url)
 
             # Use the exact schema that matches the test expectations
             schema = self.get_data_schema()
@@ -261,13 +275,17 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                 # Debug: show what fields the LLM is actually returning
                 if events:
                     print(f"  Sample event fields: {list(events[0].keys())}")
-                    print(f"  Sample event: {events[0]}")
+                    print(f"  Raw LLM event: {events[0]}")
 
                 # Post-process events to ensure proper formatting
                 processed_events = []
                 for event in events:
                     # Map LLM field names to our expected schema
                     mapped_event = self._map_llm_fields(event)
+                    
+                    # Debug: show corrected event after mapping
+                    if len(processed_events) == 0:  # Only show first event
+                        print(f"  Corrected event: {mapped_event}")
 
                     # Ensure venue is set
                     if not mapped_event.get("venue"):
@@ -290,6 +308,71 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             traceback.print_exc()
 
         return []
+
+    def _extract_content_with_separators(self, main_content) -> str:
+        """Extract content while preserving section separators between book clubs"""
+        try:
+            # Look for book club headers to identify sections
+            book_club_headers = main_content.find_all("h2", class_="bm-txt-1")
+            
+            if not book_club_headers:
+                # Fallback to regular text extraction
+                return main_content.get_text(separator=" ", strip=True)
+            
+            sections = []
+            
+            # Process each book club section
+            for i, header in enumerate(book_club_headers):
+                
+                # Find the container for this section
+                container = header.find_parent()
+                while container and not container.find_all("p"):
+                    container = container.find_parent()
+                
+                if container:
+                    # Extract text from this section
+                    section_text = container.get_text(separator=" ", strip=True)
+                    sections.append(section_text)
+            
+            # Join sections with clear separators
+            if sections:
+                separator = "\n\n" + "=" * 50 + "\n\n"
+                return separator.join(sections)
+            else:
+                # Fallback to regular extraction
+                return main_content.get_text(separator=" ", strip=True)
+                
+        except Exception as e:
+            print(f"  Error extracting content with separators: {e}")
+            # Fallback to regular extraction
+            return main_content.get_text(separator=" ", strip=True)
+
+    def _save_content_with_separators(self, content: str, url: str) -> None:
+        """Save the content with separators to a file for debugging"""
+        try:
+            import os
+            from datetime import datetime
+            
+            # Create a debug directory if it doesn't exist
+            debug_dir = "debug_content"
+            if not os.path.exists(debug_dir):
+                os.makedirs(debug_dir)
+            
+            # Generate filename with timestamp
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"{debug_dir}/alienated_majesty_content_with_separators_{timestamp}.txt"
+            
+            # Save the content
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(f"URL: {url}\n")
+                f.write(f"Timestamp: {datetime.now().isoformat()}\n")
+                f.write("=" * 80 + "\n\n")
+                f.write(content)
+            
+            print(f"  Saved content with separators to: {filename}")
+            
+        except Exception as e:
+            print(f"  Error saving content with separators: {e}")
 
     def _map_llm_fields(self, event: Dict) -> Dict:
         """Intelligently map LLM field names to our expected schema"""
@@ -347,13 +430,40 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             if llm_field.lower() in field_mappings:
                 schema_field = field_mappings[llm_field.lower()]
 
-                # Special handling for date fields - ensure they're in 2025
+                # Special handling for date fields - fix incorrect years
                 if (
                     schema_field == "date"
                     and isinstance(value, str)
-                    and value.startswith("2024")
+                    and len(value) >= 10
+                    and value[4] == "-"
+                    and value[7] == "-"
                 ):
-                    value = value.replace("2024", "2025")
+                    # Check if this looks like a date with an incorrect year
+                    try:
+                        date_parts = value.split("-")
+                        if len(date_parts) == 3:
+                            year_part = int(date_parts[0])
+                            month_num = int(date_parts[1])
+                            day_num = int(date_parts[2])
+                            
+                            # If year is clearly wrong (not current year or next year), fix it
+                            from datetime import datetime
+                            now = datetime.now()
+                            current_year = now.year
+                            current_month = now.month
+                            
+                            # Determine correct year based on month
+                            if month_num >= current_month:
+                                correct_year = current_year
+                            else:
+                                correct_year = current_year + 1
+                            
+                            # Only fix if the year is clearly wrong
+                            if year_part != correct_year and year_part != correct_year + 1:
+                                value = f"{correct_year:04d}-{month_num:02d}-{day_num:02d}"
+                    except (ValueError, IndexError):
+                        # If parsing fails, leave the value as is
+                        pass
 
                 mapped[schema_field] = value
 
@@ -394,7 +504,7 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                 mapped["description"] = description
 
         # Fix specific author name issues
-        if "author" in mapped and "Sylvére Lotringer" in mapped["author"]:
+        if "author" in mapped and mapped["author"] and "Sylvére Lotringer" in mapped["author"]:
             mapped["author"] = "Sylvère Lotringer"
 
         return mapped
@@ -511,8 +621,10 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             return None
 
     def _convert_to_date_format(self, month_name: str, day_num: str) -> Optional[str]:
-        """Convert month name and day to YYYY-MM-DD format"""
+        """Convert month name and day to YYYY-MM-DD format with smart year detection"""
         try:
+            from datetime import datetime
+            
             month_map = {
                 "january": 1,
                 "february": 2,
@@ -532,10 +644,21 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             if not month_num:
                 return None
 
-            # Assume 2025 for future dates
-            year = 2025
             day = int(day_num)
-
+            
+            # Get current date
+            now = datetime.now()
+            current_year = now.year
+            current_month = now.month
+            
+            # Determine the correct year for the event
+            if month_num >= current_month:
+                # If the event month is >= current month, it's likely this year
+                year = current_year
+            else:
+                # If the event month is < current month, it's likely next year
+                year = current_year + 1
+            
             return f"{year:04d}-{month_num:02d}-{day:02d}"
 
         except BaseException:

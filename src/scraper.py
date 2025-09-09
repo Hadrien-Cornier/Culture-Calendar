@@ -59,10 +59,7 @@ class MultiVenueScraper:
         Scrape events from all supported venues using new architecture
         🚀 NOW WITH PARALLEL PROCESSING for 5-10x performance improvement!
         """
-        if use_parallel:
-            return self._scrape_venues_parallel(target_week, days_ahead)
-        else:
-            return self._scrape_venues_sequential(target_week, days_ahead)
+        return self._scrape_venues_parallel(target_week, days_ahead)
     
     def _scrape_venues_parallel(self, target_week: bool = False, days_ahead: int = None) -> List[Dict]:
         """🚀 PARALLEL PROCESSING - Scrape all venues simultaneously for 5-10x speed improvement"""
@@ -74,56 +71,50 @@ class MultiVenueScraper:
         
         # Define all venue scrapers with their configurations
         venue_configs = [
-            ("AFS", self.afs_scraper, "Austin Movie Society", {}),
-            ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
-            ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
+            # ("AFS", self.afs_scraper, "Austin Movie Society", {}),
+            # ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
+            # ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
             ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
             ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
-            ("Symphony", self.austin_symphony_scraper, "Austin Symphony", {}),
-            ("Opera", self.austin_opera_scraper, "Austin Opera", {}),
-            ("Chamber Music", self.austin_chamber_music_scraper, "Austin Chamber Music", {}),
-            ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
-            ("LaFollia", self.la_follia_scraper, "La Follia", {}),
-            ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
+            # ("Symphony", self.austin_symphony_scraper, "Austin Symphony", {}),
+            # ("Opera", self.austin_opera_scraper, "Austin Opera", {}),
+            # ("Chamber Music", self.austin_chamber_music_scraper, "Austin Chamber Music", {}),
+            # ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
+            # ("LaFollia", self.la_follia_scraper, "La Follia", {}),
+            # ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
         ]
         
-        # Execute all venue scrapers in parallel using ThreadPoolExecutor
-        with ThreadPoolExecutor(max_workers=8, thread_name_prefix="VenueScraper") as executor:
-            # Submit all scraping tasks
-            future_to_venue = {}
-            for venue_code, scraper, display_name, kwargs in venue_configs:
-                future = executor.submit(self._scrape_single_venue, venue_code, scraper, display_name, kwargs)
-                future_to_venue[future] = (venue_code, display_name)
-            
-            # Collect results as they complete
-            completed_venues = 0
-            total_venues = len(venue_configs)
-            
-            for future in as_completed(future_to_venue):
-                venue_code, display_name = future_to_venue[future]
-                completed_venues += 1
-                
-                try:
-                    events, success = future.result(timeout=30)  # 30-second timeout per venue
-                    
-                    # Add venue information to events
-                    for event in events:
-                        event["venue"] = venue_code
-                        all_events.append(event)
-                    
-                    print(f"✅ [{completed_venues}/{total_venues}] {display_name}: {len(events)} events")
-                    self.last_updated[venue_code] = datetime.now().isoformat() if success else None
-                    
-                except Exception as e:
-                    print(f"❌ [{completed_venues}/{total_venues}] {display_name}: Failed - {e}")
-                    self.last_updated[venue_code] = None
+        # Execute all venue scrapers sequentially (no threading)
+        start_time = datetime.now()
+        all_events = []
+        self.last_updated = {}
+
+        completed_venues = 0
+        total_venues = len(venue_configs)
+
+        for venue_code, scraper, display_name, kwargs in venue_configs:
+            completed_venues += 1
+            try:
+                events, success = self._scrape_single_venue(venue_code, scraper, display_name, kwargs)
+
+                # Add venue information to events
+                for event in events:
+                    event["venue"] = venue_code
+                    all_events.append(event)
+
+                print(f"✅ [{completed_venues}/{total_venues}] {display_name}: {len(events)} events")
+                self.last_updated[venue_code] = datetime.now().isoformat() if success else None
+
+            except Exception as e:
+                print(f"❌ [{completed_venues}/{total_venues}] {display_name}: Failed - {e}")
+                self.last_updated[venue_code] = None
 
         elapsed_time = (datetime.now() - start_time).total_seconds()
-        print(f"🎯 PARALLEL SCRAPING COMPLETE: {len(all_events)} events in {elapsed_time:.1f}s")
-        
+        print(f"🎯 SEQUENTIAL SCRAPING COMPLETE: {len(all_events)} events in {elapsed_time:.1f}s")
+
         # Add recurring events
         all_events.extend(self._get_recurring_events(target_week))
-        
+
         # Filter to current week if requested
         if target_week:
             all_events = self._filter_to_current_week(all_events)
@@ -161,52 +152,6 @@ class MultiVenueScraper:
             print(f"Error generating recurring events: {e}")
             self.last_updated["RecurringEvents"] = None
             return []
-
-    def _scrape_venues_sequential(self, target_week: bool = False, days_ahead: int = None) -> List[Dict]:
-        """🐌 SEQUENTIAL PROCESSING - Original method (kept for compatibility)"""
-        print("🐌 Using sequential scraping (slower, for compatibility only)...")
-        all_events = []
-        self.last_updated = {}
-        
-        # [Continue with original sequential scraping for compatibility]
-        # This is kept for backward compatibility but users should use parallel mode
-
-        # Add all original sequential scraping code here if needed
-        # For now, parallel mode is the primary method
-        
-        # Generate recurring events
-        all_events.extend(self._get_recurring_events(target_week))
-        
-        # Filter to current week if requested
-        if target_week:
-            all_events = self._filter_to_current_week(all_events)
-            print(f"Filtered to {len(all_events)} events for current week")
-
-        return all_events
-
-        # Generate recurring events
-        print("Generating recurring events...")
-        try:
-            # Generate events for next 8 weeks by default, or 2 weeks for target_week mode
-            weeks_ahead = 2 if target_week else 8
-            recurring_events = (
-                self.recurring_events_generator.generate_all_recurring_events(
-                    weeks_ahead
-                )
-            )
-            all_events.extend(recurring_events)
-            print(f"Generated {len(recurring_events)} recurring events")
-            self.last_updated["RecurringEvents"] = datetime.now().isoformat()
-        except Exception as e:
-            print(f"Error generating recurring events: {e}")
-            self.last_updated["RecurringEvents"] = None
-
-        # Filter to current week if requested
-        if target_week:
-            all_events = self._filter_to_current_week(all_events)
-            print(f"Filtered to {len(all_events)} events for current week")
-
-        return all_events
 
     def _filter_to_current_week(self, events: List[Dict]) -> List[Dict]:
         """Filter events to current week only"""

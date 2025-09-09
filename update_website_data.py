@@ -469,7 +469,7 @@ def main(
 
         # Scrape all venues (including classical music from JSON)
         print("Fetching calendar data from all venues...")
-        events = scraper.scrape_all_venues(target_week=test_week, days_ahead=days)
+        events = scraper.scrape_all_venues(target_week=test_week, days_ahead=days, use_parallel=False)
         print(f"Found {len(events)} total events from all venues")
         print(
             "NOTE: Classical music venues load their events from docs/classical_data.json"

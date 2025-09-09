@@ -84,7 +84,7 @@ class LaFolliaAustinScraper(BaseScraper):
             with open(self.data_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            la_follia_events = data.get("laFollia", [])
+            la_follia_events = data.get("laFolliaAustin", [])
             standardized_events = []
 
             for event in la_follia_events:

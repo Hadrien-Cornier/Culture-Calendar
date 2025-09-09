@@ -267,3 +267,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **🤖 Technology:**
 - [Perplexity AI](https://www.perplexity.ai/) for intelligent cultural analysis
 - Built with ❤️ for Austin culture enthusiasts
+
+___
+
+Problems : 
+
+- not all scrapers work in parallel because of 'pyppeteer link extraction error: signal only works in main thread of the main interpreter'
+- read review button crasher site
+- ratings are not very customized and spread out enough

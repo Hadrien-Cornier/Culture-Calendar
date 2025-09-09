@@ -84,7 +84,7 @@ class EarlyMusicAustinScraper(BaseScraper):
             with open(self.data_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            early_music_events = data.get("earlyMusic", [])
+            early_music_events = data.get("earlyMusicAustin", [])
             standardized_events = []
 
             for event in early_music_events:
