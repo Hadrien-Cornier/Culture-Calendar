@@ -11,7 +11,6 @@ from datetime import datetime, timedelta
 
 from src.processor import EventProcessor
 from src.scraper import MultiVenueScraper
-from src.summary_generator import SummaryGenerator
 from src.validation_service import EventValidationService
 
 
@@ -571,14 +570,18 @@ def main(
         
         # Generate one-line summaries for events
         print("\nGenerating one-line summaries...")
-        summary_generator = SummaryGenerator()
-        for event in enriched_events:
-            if not event.get('oneLinerSummary'):
-                summary = summary_generator.generate_summary(event)
-                if summary:
-                    event['oneLinerSummary'] = summary
-                    print(f"  Generated summary for: {event.get('title', 'Unknown')}")
-        print("Completed summary generation")
+        # Use the summary generator from the processor to maintain cache consistency
+        summary_generator = processor.summary_generator
+        if summary_generator:
+            for event in enriched_events:
+                if not event.get('oneLinerSummary'):
+                    summary = summary_generator.generate_summary(event)
+                    if summary:
+                        event['oneLinerSummary'] = summary
+                        print(f"  Generated summary for: {event.get('title', 'Unknown')}")
+            print("Completed summary generation")
+        else:
+            print("Warning: Summary generator not available, skipping summary generation")
 
         # Generate website JSON data
         print("Generating website data...")
