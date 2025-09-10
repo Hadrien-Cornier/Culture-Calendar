@@ -270,31 +270,36 @@ class FirstLightAustinScraper(BaseScraper):
                 else:
                     full_club_name = f"{club_short_name} Book Club"
 
-                # Extract book title and author from links and text
-                # Look for patterns like "selection: [Book Title] by Author"
-                book_info_match = re.search(
-                    r"selection:\s*([^b]+?)\s*by\s+([^.()]+?)(?:\s*\([^)]+\))?\.\s*Meets",
-                    description_text,
-                )
+                # Extract book title and author - simple approach
+                # Look for " by " surrounded by spaces, then extract what's before and after
+                by_match = re.search(r"\s+by\s+", description_text)
+                if by_match:
+                    # Split the text at " by "
+                    parts = description_text.split(" by ")
+                    if len(parts) >= 2:
+                        # Book title is everything after "selection:" up to " by "
+                        book_part = parts[0]
+                        selection_match = re.search(r"selection:\s*(.+)$", book_part)
+                        if selection_match:
+                            book_title = selection_match.group(1).strip()
+                        else:
+                            book_title = book_part.strip()
+                        
+                        # Author is everything after " by " up to ". Meets"
+                        author_part = parts[1]
+                        author_match = re.search(r"^(.+?)(?=\s*\.\s*Meets)", author_part)
+                        if author_match:
+                            author = author_match.group(1).strip()
+                        else:
+                            author = author_part.strip()
+                    else:
+                        book_title = None
+                        author = None
+                else:
+                    book_title = None
+                    author = None
 
-                book_title = None
-                author = None
-
-                if book_info_match:
-                    book_title = book_info_match.group(1).strip()
-                    author = book_info_match.group(2).strip()
-
-                    # Clean up book title (remove extra text like month info)
-                    book_title = re.sub(
-                        r"^[A-Za-z]+/[A-Za-z]+\s+selection:\s*", "", book_title
-                    )
-                    book_title = re.sub(r"^\w+\s+selection:\s*", "", book_title)
-
-                    # Remove any HTML artifacts or links
-                    book_title = re.sub(r"<[^>]+>", "", book_title)
-
-                # If we didn't find book/author in the expected pattern, try
-                # link text
+                # If we didn't find book/author with the simple approach, try link text
                 if not book_title:
                     book_link = description_elem.find("a")
                     if book_link:
@@ -302,16 +307,15 @@ class FirstLightAustinScraper(BaseScraper):
                         # Try to find author after "by" in the text
                         link_text = book_link.get_text()
                         remaining_text = description_text.split(link_text)[-1]
-                        author_match = re.search(
-                            r"\s*by\s+([^.()]+?)(?:\s*\([^)]+\))?\.\s*Meets",
-                            remaining_text,
-                        )
-                        if author_match:
-                            author = author_match.group(1).strip()
+                        by_match = re.search(r"\s+by\s+", remaining_text)
+                        if by_match:
+                            author_part = remaining_text.split(" by ")[1]
+                            author_match = re.search(r"^(.+?)(?=\s*\.\s*Meets)", author_part)
+                            if author_match:
+                                author = author_match.group(1).strip()
 
-                # Extract meeting date and time
-                # Look for patterns like "Meets Friday, June 27th at 7pm" or
-                # "Meets Wednesday, July 30th at 7pm"
+                # Extract meeting date and time - simple approach
+                # Look for sentences that start with "Meets"
                 meeting_match = re.search(
                     r"Meets\s+([^.]+?)\s+at\s+(\d+)(?::\d+)?\s*([ap]m)",
                     description_text,
