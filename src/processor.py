@@ -18,9 +18,6 @@ load_dotenv()
 class EventProcessor:
     def __init__(self, force_reprocess: bool = False):
         self.perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
-        self.preferences = self._load_preferences()
-        # Separate preference list for literature events
-        self.literature_preferences = self._load_literature_preferences()
         self.movie_cache = {}  # Cache AI ratings to avoid reprocessing
         self.force_reprocess = force_reprocess
         self.reprocessed_titles = set()  # Track titles already reprocessed in this run
@@ -58,11 +55,8 @@ class EventProcessor:
                     # Set simple defaults for recurring events
                     event["ai_rating"] = {
                         "score": 7,
-                        "summary": event.get("description", ""),
+                        "summary": event.get("description", "Weekly recurring event"),
                     }
-                    event["preference_score"] = 0
-                    event["final_rating"] = 7
-                    event["rating_explanation"] = "Weekly recurring event"
                     event["oneLinerSummary"] = "Weekly literary discussion group"
                     enriched_events.append(event)
                     continue
@@ -96,20 +90,8 @@ class EventProcessor:
                     print(f"  Using cached rating for {event_title}")
                     ai_rating = self.movie_cache[event_title]
 
-                # Calculate personal preference score
-                # why is it so dumb ? (string inclusion)
-                preference_score = self._calculate_preference_score(event, ai_rating)
-
                 # Add enriched data
                 event["ai_rating"] = ai_rating
-                event["preference_score"] = preference_score
-                event["final_rating"] = self._calculate_final_rating(
-                    ai_rating, preference_score
-                )
-                ## why is it not the final rating that we put in here ? 
-                event["rating_explanation"] = self._generate_rating_explanation(
-                    event, ai_rating, preference_score
-                )
 
                 # Add the AI-generated description to the event for summary
                 # generation
@@ -148,40 +130,10 @@ class EventProcessor:
                 print(f"Error processing event '{event.get( 'title','Unknown')}': {e}")
                 # Add event with minimal data
                 event["ai_rating"] = {"score": 5, "summary": "Unable to rate"}
-                event["preference_score"] = 0
-                event["final_rating"] = 5
-                event["rating_explanation"] = "Rating unavailable"
                 enriched_events.append(event)
 
         return enriched_events
 
-    def _load_preferences(self) -> List[str]:
-        """Load user preferences from file"""
-        preferences = []
-        try:
-            with open("preferences.txt", "r") as f:
-                for line in f:
-                    line = line.strip()
-                    if line and not line.startswith("#"):
-                        preferences.append(line.lower())
-        except FileNotFoundError:
-            print("Warning: preferences.txt not found")
-
-        return preferences
-
-    def _load_literature_preferences(self) -> List[str]:
-        """Load literature-specific preferences from file"""
-        preferences = []
-        try:
-            with open("literature_preferences.txt", "r") as f:
-                for line in f:
-                    line = line.strip()
-                    if line and not line.startswith("#"):
-                        preferences.append(line.lower())
-        except FileNotFoundError:
-            print("Warning: literature_preferences.txt not found")
-
-        return preferences
 
     def _get_ai_rating(self, event: Dict) -> Dict:
         """Get movie rating and info from Perplexity API using detailed metadata"""
@@ -210,7 +162,7 @@ class EventProcessor:
             )
 
             prompt = f"""
-You are a ruthless movie critic grading with uncompromising academic standards. Assess the movie described below using a 0–10 scale where
+You are a rigorous cultural critic evaluating with uncompromising academic standards. Assess the movie described below using a 0–10 scale where
 0–4 = weak or derivative,
 5–6 = competent but unremarkable,
 7–8 = strong,
@@ -219,14 +171,14 @@ You are a ruthless movie critic grading with uncompromising academic standards. 
 Movie Details:
 {details}
 
-Provide a concise report with these sections:
+Provide a concise report with these standardized sections:
 ★ Rating: [X/10] (integer only)
-🎬 Originality & Surprise – does the movie avoid clichés and deliver unpredictable storytelling?
-🎥 Artistic Craft – evaluate narrative structure, character depth, cinematography, sound and pacing.
-🎭 Thematic Depth – discuss universal human experiences explored with nuance.
-🏛️ Comparative Excellence – compare against landmark works in its genre, referencing broad critical consensus if relevant.
+🎭 Artistic Merit – evaluate craft, execution, technical mastery and aesthetic achievement
+✨ Originality – assess innovation, unpredictability, and avoidance of cliché
+📚 Cultural Significance – discuss relevance, impact, and contribution to the art form
+💡 Intellectual Depth – examine complexity of ideas, themes, and universal human experiences explored
 
-Focus solely on artistic merit and complexity. Reward innovation and high entropy; ignore ideological framing. Ensure you are reviewing the specific movie described above and not a different work with a similar title.
+Focus solely on artistic merit and complexity. Reward innovation and high entropy. Ensure you are reviewing the specific work described above.
 """
 
             data = {
@@ -277,23 +229,23 @@ Focus solely on artistic merit and complexity. Reward innovation and high entrop
             concert_description = f"Concert: {concert_title}\nSeries: {series}\nProgram: {program}\nFeatured Artist: {featured_artist}"
 
             prompt = f"""
-You are a demanding classical music critic. Evaluate the concert below using a 0–10 scale where
+You are a rigorous cultural critic evaluating with uncompromising academic standards. Assess the concert described below using a 0–10 scale where
 0–4 = weak or derivative,
-5–6 = adequate,
+5–6 = competent but unremarkable,
 7–8 = strong,
-9–10 = exceptional. Justify any score above 5 with concrete evidence.
+9–10 = exceptional masterpieces. Scores above 5 must be justified with specific evidence.
 
 Concert Details:
 {concert_description}
 
-Provide:
+Provide a concise report with these standardized sections:
 ★ Rating: [X/10] (integer only)
-🎼 Program & Interpretation – assess selection of works and interpretive originality; does it avoid predictable programming?
-🎻 Performance Quality – evaluate technical execution, ensemble cohesion and expressive depth.
-🎨 Thematic Depth – how effectively does the music convey universal emotions and ideas?
-🏛️ Comparative Excellence – compare with landmark performances in the repertoire and note critical consensus when relevant.
+🎭 Artistic Merit – evaluate performance quality, technical execution, and interpretive depth
+✨ Originality – assess programming choices, interpretive freshness, and avoidance of predictable repertoire
+📚 Cultural Significance – discuss the concert's contribution to the classical music tradition
+💡 Intellectual Depth – examine how effectively the music conveys complex emotions and ideas
 
-Focus solely on musical artistry and surprise. Reward innovation and high entropy, not ideological framing.
+Focus solely on artistic merit and complexity. Reward innovation and high entropy. Ensure you are reviewing the specific concert described above.
 """
 
             data = {
@@ -343,24 +295,23 @@ Focus solely on musical artistry and surprise. Reward innovation and high entrop
             book_description = f"Book: {book_title} by {author}\nHost: {host}\nVenue: {venue}\nDescription: {description}"
 
             prompt = f"""
-You are a rigorous literary critic. Evaluate the following book club selection using a 0–10 scale where
+You are a rigorous cultural critic evaluating with uncompromising academic standards. Assess the book club selection described below using a 0–10 scale where
 0–4 = weak or derivative,
-5–6 = competent,
+5–6 = competent but unremarkable,
 7–8 = strong,
-9–10 = exceptional. Scores above 5 must be justified with specific evidence.
+9–10 = exceptional masterpieces. Scores above 5 must be justified with specific evidence.
 
 Book Club Details:
 {book_description}
 
-Provide:
+Provide a concise report with these standardized sections:
 ★ Rating: [X/10] (integer only)
-📚 Literary Craft – assess narrative structure, prose quality and character complexity.
-✨ Originality & Entropy – does the work subvert cliché and introduce surprising ideas?
-🎭 Thematic Depth – which universal human experiences are explored with nuance?
-🗣️ Discussion Value – how richly does the book support thoughtful conversation?
-🏛️ Comparative Excellence – compare to seminal works in its genre, noting broad critical reception where relevant.
+🎭 Artistic Merit – evaluate literary craft, prose quality, narrative structure and character development
+✨ Originality – assess innovation in form or content, subversion of genre expectations
+📚 Cultural Significance – discuss the work's place in literary tradition and contemporary relevance
+💡 Intellectual Depth – examine complexity of themes, ideas, and human experiences explored
 
-Focus on artistic merit and intellectual rigor. Reward complexity and innovation, not ideological framing.
+Focus solely on artistic merit and complexity. Reward innovation and high entropy. Ensure you are reviewing the specific book described above.
 """
 
             data = {
@@ -423,69 +374,3 @@ Focus on artistic merit and intellectual rigor. Reward complexity and innovation
             print(f"Error parsing AI response: {e}")
             return {"score": 5, "summary": content[:2000]}
 
-    def _calculate_preference_score(self, event: Dict, ai_rating: Dict) -> int:
-        """Calculate preference score based on user preferences"""
-        score = 0
-
-        # Check title, description, and AI summary for preferences
-        text_to_check = (
-            event.get("title", "")
-            + " "
-            + event.get("description", "")
-            + " "
-            + ai_rating.get("summary", "")
-        ).lower()
-
-        # Combine general preferences with literature-specific ones for book
-        # clubs
-        preferences_to_use = list(self.preferences)
-        if event.get("type") == "book_club":
-            preferences_to_use += self.literature_preferences
-
-        # Add points for matching preferences
-        for preference in preferences_to_use:
-            if preference in text_to_check:
-                score += 2
-
-        # Bonus for special screenings
-        if event.get("is_special_screening"):
-            score += 3
-
-        return score
-
-    def _calculate_final_rating(self, ai_rating: Dict, preference_score: int) -> int:
-        """Calculate final rating combining AI and preference scores"""
-        base_rating = ai_rating.get("score", 5)
-
-        # Apply preference boost (max +3 points)
-        boost = min(3, preference_score // 2)
-
-        final_rating = min(10, base_rating + boost)
-
-        return final_rating
-
-    def _generate_rating_explanation(
-        self, event: Dict, ai_rating: Dict, preference_score: int
-    ) -> str:
-        """Generate explanation for the rating"""
-        explanation_parts = []
-
-        # AI rating part
-        ai_score = ai_rating.get("score", 5)
-        explanation_parts.append(f"AI Rating: {ai_score}/10")
-
-        # Preference boost
-        if preference_score > 0:
-            boost = min(3, preference_score // 2)
-            explanation_parts.append(f"Personal preference boost: +{boost}")
-
-        # Special screening bonus
-        if event.get("is_special_screening"):
-            explanation_parts.append("✨ Special screening")
-
-        # AI summary
-        summary = ai_rating.get("summary", "").strip()
-        if summary:
-            explanation_parts.append(f"Summary: {summary}")
-
-        return " | ".join(explanation_parts)
