@@ -97,6 +97,7 @@ class EventProcessor:
                     ai_rating = self.movie_cache[event_title]
 
                 # Calculate personal preference score
+                # why is it so dumb ? (string inclusion)
                 preference_score = self._calculate_preference_score(event, ai_rating)
 
                 # Add enriched data
@@ -105,6 +106,7 @@ class EventProcessor:
                 event["final_rating"] = self._calculate_final_rating(
                     ai_rating, preference_score
                 )
+                ## why is it not the final rating that we put in here ? 
                 event["rating_explanation"] = self._generate_rating_explanation(
                     event, ai_rating, preference_score
                 )
@@ -122,7 +124,12 @@ class EventProcessor:
                         one_liner_summary = self.summary_generator.generate_summary(
                             event, force_regenerate=is_first_time_reprocessing
                         )
+                    except RuntimeError as e:
+                        # Critical validation failure - this should stop processing
+                        print(f"CRITICAL: Summary generation failed for '{event.get('title', 'Unknown')}': {e}")
+                        raise
                     except Exception as e:
+                        # Other errors (API failures, etc.) - log but continue
                         print(f"  Error generating summary: {e}")
                         one_liner_summary = None
 

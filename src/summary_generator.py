@@ -87,7 +87,12 @@ class SummaryGenerator:
                 self.summary_cache[cache_key] = summary
                 self._save_cache()
             return summary
+        except RuntimeError as e:
+            # Re-raise validation failures - these are critical errors that should stop processing
+            print(f"CRITICAL: Summary generation failed for {event.get('title')}: {e}")
+            raise
         except Exception as e:
+            # Handle other API/network errors gracefully
             print(f"Error generating summary for {event.get('title')}: {e}")
             return None
 
@@ -236,15 +241,20 @@ class SummaryGenerator:
         description = event.get("description", "")
         event.get("venue", "")
 
-        # Craft prompt based on event type
-        if event_type == "screening" or event.get("isMovie", False):
-            prompt = self._build_movie_prompt(title, description, event)
-        elif event_type == "concert":
-            prompt = self._build_concert_prompt(title, description, event)
-        elif event_type == "book_club":
-            prompt = self._build_book_prompt(title, description, event)
-        else:
-            prompt = self._build_generic_prompt(title, description, event)
+        # Craft prompt based on event type - validation failures will raise exceptions
+        try:
+            if event_type == "screening" or event.get("isMovie", False):
+                prompt = self._build_movie_prompt(title, description, event)
+            elif event_type == "concert":
+                prompt = self._build_concert_prompt(title, description, event)
+            elif event_type == "book_club":
+                prompt = self._build_book_prompt(title, description, event)
+            else:
+                prompt = self._build_generic_prompt(title, description, event)
+        except ValueError as e:
+            # Re-raise validation errors with clear context
+            print(f"  Validation failed for {title}: {e}")
+            raise RuntimeError(f"Summary generation failed for event '{title}': {e}") from e
 
         try:
             # Add rate limiting
@@ -378,13 +388,29 @@ class SummaryGenerator:
 
     def _build_movie_prompt(self, title: str, description: str, event: Dict) -> str:
         """Build prompt for movie events"""
+        
+        # Fail fast - validate required inputs
+        if not title or not title.strip():
+            raise ValueError("Movie event missing required title - cannot generate summary without movie name")
+        
+        if not description or not description.strip():
+            raise ValueError(f"Movie event '{title}' missing required AI analysis description - summary generation requires movie analysis from Perplexity API")
+        
+        if len(description.strip()) < 50:
+            raise ValueError(f"Movie event '{title}' has insufficient AI analysis (only {len(description.strip())} characters) - need at least 50 characters of movie analysis for quality summary")
+        
+        if not event:
+            raise ValueError(f"Movie event '{title}' missing event data dictionary - cannot extract director, country, year information")
+        
         director = event.get("director", "")
         country = event.get("country", "")
         year = event.get("year", "")
+        
+        # Validate that we have at least some movie metadata
+        if not director and not year:
+            raise ValueError(f"Movie event '{title}' missing essential metadata - need at least director or year to generate meaningful summary")
 
-        # Extract key information from the AI description if available
-        if description and len(description) > 100:
-            prompt = f"""Create a compelling one-line summary (8-12 words) that captures this movie's essence.
+        prompt = f"""Create a compelling one-line summary (8-12 words) that captures this movie's essence.
 
 Title: {title}
 Director: {director}
@@ -404,34 +430,34 @@ Examples:
 - "Surreal Lynch thriller diving into Hollywood's dark underbelly"
 
 Summary:"""
-        else:
-            # Fallback for events without rich descriptions
-            prompt = f"""Generate a one-line summary for this movie screening based on available information.
-
-Title: {title}
-Director: {director}
-Country: {country}
-Year: {year}
-
-IMPORTANT: Only summarize if this is a specific individual movie. If this is a movie festival, series, collection, or multiple movies, respond with "CANNOT SUMMARIZE - NOT A SINGLE MOVIE".
-
-Write a compelling summary (8-12 words) that captures what viewers can expect. Examples:
-- "Classic Kurosawa samurai epic with stunning cinematography"
-- "French New Wave romance set in 1960s Paris"
-- "Contemporary indie drama exploring family dynamics"
-
-Your one-line summary (8-12 words):"""
 
         return prompt
 
     def _build_concert_prompt(self, title: str, description: str, event: Dict) -> str:
         """Build prompt for concert events"""
+        
+        # Fail fast - validate required inputs
+        if not title or not title.strip():
+            raise ValueError("Concert event missing required title - cannot generate summary without concert name")
+        
+        if not description or not description.strip():
+            raise ValueError(f"Concert event '{title}' missing required AI analysis description - summary generation requires concert analysis from Perplexity API")
+        
+        if len(description.strip()) < 50:
+            raise ValueError(f"Concert event '{title}' has insufficient AI analysis (only {len(description.strip())} characters) - need at least 50 characters of concert analysis for quality summary")
+        
+        if not event:
+            raise ValueError(f"Concert event '{title}' missing event data dictionary - cannot extract venue, composers, featured artist information")
+        
         venue = event.get("venue", "")
         composers = event.get("composers", [])
         featured_artist = event.get("featured_artist", "")
+        
+        # Validate that we have at least some concert metadata
+        if not venue and not composers and not featured_artist:
+            raise ValueError(f"Concert event '{title}' missing essential metadata - need at least venue, composers, or featured artist to generate meaningful summary")
 
-        if description and len(description) > 100:
-            return f"""Based on this detailed concert analysis, create a compelling one-line summary that captures the concert's essence in 8-12 words.
+        return f"""Based on this detailed concert analysis, create a compelling one-line summary that captures the concert's essence in 8-12 words.
 
 Title: {title}
 Venue: {venue}
@@ -448,30 +474,32 @@ Extract the core musical style, period, and atmosphere from this analysis. Examp
 - "Haunting medieval chants performed by virtuoso ensemble"
 
 Your one-line summary (8-12 words):"""
-        else:
-            return f"""Generate a one-line summary for this classical music concert.
-
-Title: {title}
-Venue: {venue}
-Composers: {
-                ', '.join(composers) if composers else 'Various'}
-Featured Artist: {featured_artist}
-
-Write a compelling summary (8-12 words) that captures the musical experience. Examples:
-- "Symphony orchestra performing Beethoven's most beloved works"
-- "Chamber ensemble exploring Bach's intricate counterpoint"
-- "Contemporary classical featuring innovative string arrangements"
-
-Your one-line summary (8-12 words):"""
 
     def _build_book_prompt(self, title: str, description: str, event: Dict) -> str:
         """Build prompt for book club events"""
+        
+        # Fail fast - validate required inputs
+        if not title or not title.strip():
+            raise ValueError("Book club event missing required title - cannot generate summary without event name")
+        
+        if not description or not description.strip():
+            raise ValueError(f"Book club event '{title}' missing required AI analysis description - summary generation requires book analysis from Perplexity API")
+        
+        if len(description.strip()) < 50:
+            raise ValueError(f"Book club event '{title}' has insufficient AI analysis (only {len(description.strip())} characters) - need at least 50 characters of book analysis for quality summary")
+        
+        if not event:
+            raise ValueError(f"Book club event '{title}' missing event data dictionary - cannot extract venue, book, author information")
+        
         venue = event.get("venue", "")
         book = event.get("book", "")
         author = event.get("author", "")
+        
+        # Validate that we have at least some book metadata
+        if not book and not author:
+            raise ValueError(f"Book club event '{title}' missing essential metadata - need at least book title or author to generate meaningful summary")
 
-        if description and len(description) > 100:
-            return f"""Based on this detailed book analysis, create a compelling one-line summary that captures the book's essence in 8-12 words.
+        return f"""Based on this detailed book analysis, create a compelling one-line summary that captures the book's essence in 8-12 words.
 
 Event: {title}
 Book: {book}
@@ -487,23 +515,23 @@ Extract the core themes, genre, and literary significance from this analysis. Ex
 - "Powerful memoir chronicling immigration and cultural identity"
 
 Your one-line summary (8-12 words):"""
-        else:
-            return f"""Generate a one-line summary for this book club discussion.
-
-Event: {title}
-Book: {book}
-Author: {author}
-Venue: {venue}
-
-Write a compelling summary (8-12 words) that captures the book's appeal. Examples:
-- "Contemporary novel examining modern relationships and technology"
-- "Classic literature exploring themes of justice and morality"
-- "Thought-provoking nonfiction about social change"
-
-Your one-line summary (8-12 words):"""
 
     def _build_generic_prompt(self, title: str, description: str, event: Dict) -> str:
         """Build prompt for other event types"""
+        
+        # Fail fast - validate required inputs
+        if not title or not title.strip():
+            raise ValueError("Generic event missing required title - cannot generate summary without event name")
+        
+        if not description or not description.strip():
+            raise ValueError(f"Generic event '{title}' missing required description - summary generation requires event details")
+        
+        if len(description.strip()) < 20:
+            raise ValueError(f"Generic event '{title}' has insufficient description (only {len(description.strip())} characters) - need at least 20 characters for quality summary")
+        
+        if not event:
+            raise ValueError(f"Generic event '{title}' missing event data dictionary - cannot extract venue, type information")
+        
         venue = event.get("venue", "")
         event_type = event.get("type", "event")
 

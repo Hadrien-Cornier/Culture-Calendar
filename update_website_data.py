@@ -575,10 +575,18 @@ def main(
         if summary_generator:
             for event in enriched_events:
                 if not event.get('oneLinerSummary'):
-                    summary = summary_generator.generate_summary(event)
-                    if summary:
-                        event['oneLinerSummary'] = summary
-                        print(f"  Generated summary for: {event.get('title', 'Unknown')}")
+                    try:
+                        summary = summary_generator.generate_summary(event)
+                        if summary:
+                            event['oneLinerSummary'] = summary
+                            print(f"  Generated summary for: {event.get('title', 'Unknown')}")
+                    except RuntimeError as e:
+                        # Critical validation failure - this should stop the entire process
+                        print(f"CRITICAL ERROR: Cannot generate summary for '{event.get('title', 'Unknown')}': {e}")
+                        raise
+                    except Exception as e:
+                        # Other errors (API failures, etc.) - log but continue
+                        print(f"  Warning: Failed to generate summary for '{event.get('title', 'Unknown')}': {e}")
             print("Completed summary generation")
         else:
             print("Warning: Summary generator not available, skipping summary generation")
