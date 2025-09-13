@@ -1,8 +1,3 @@
-"""
-Unified multi-venue scraper using the new LLM-powered architecture
-🚀 NOW WITH PARALLEL PROCESSING for 5-10x performance improvement!
-"""
-
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -51,19 +46,9 @@ class MultiVenueScraper:
 
         self.existing_events_cache = set()  # Cache for duplicate detection
         self.last_updated = {}
-
-    def scrape_all_venues(
-        self, target_week: bool = False, days_ahead: int = None, use_parallel: bool = True
-    ) -> List[Dict]:
-        """
-        Scrape events from all supported venues using new architecture
-        🚀 NOW WITH PARALLEL PROCESSING for 5-10x performance improvement!
-        """
-        return self._scrape_venues_parallel(target_week, days_ahead)
     
-    def _scrape_venues_parallel(self, target_week: bool = False, days_ahead: int = None) -> List[Dict]:
+    def scrape_all_venues(self, target_week: bool = False, days_ahead: int = None) -> List[Dict]:
         """🚀 PARALLEL PROCESSING - Scrape all venues simultaneously for 5-10x speed improvement"""
-        print("🚀 Starting PARALLEL venue scraping (5-10x faster)...")
         start_time = datetime.now()
         
         all_events = []
@@ -72,7 +57,7 @@ class MultiVenueScraper:
         # Define all venue scrapers with their configurations
         venue_configs = [
             # ("AFS", self.afs_scraper, "Austin Movie Society", {}),
-            # ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
+            ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
             # ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
             ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
             ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
@@ -95,7 +80,7 @@ class MultiVenueScraper:
         for venue_code, scraper, display_name, kwargs in venue_configs:
             completed_venues += 1
             try:
-                events, success = self._scrape_single_venue(venue_code, scraper, display_name, kwargs)
+                events = scraper.scrape_events(**kwargs)
 
                 # Add venue information to events
                 for event in events:
@@ -103,7 +88,7 @@ class MultiVenueScraper:
                     all_events.append(event)
 
                 print(f"✅ [{completed_venues}/{total_venues}] {display_name}: {len(events)} events")
-                self.last_updated[venue_code] = datetime.now().isoformat() if success else None
+                self.last_updated[venue_code] = datetime.now().isoformat()
 
             except Exception as e:
                 print(f"❌ [{completed_venues}/{total_venues}] {display_name}: Failed - {e}")
@@ -122,23 +107,6 @@ class MultiVenueScraper:
 
         return all_events
 
-    def _scrape_single_venue(self, venue_code: str, scraper, display_name: str, kwargs: dict) -> tuple:
-        """Scrape a single venue and return (events, success_status)"""
-        try:
-            if hasattr(scraper, 'scrape_events'):
-                if kwargs:
-                    events = scraper.scrape_events(**kwargs)
-                else:
-                    events = scraper.scrape_events()
-            else:
-                events = []
-            
-            return events or [], True
-            
-        except Exception as e:
-            print(f"  Error in {display_name}: {e}")
-            return [], False
-    
     def _get_recurring_events(self, target_week: bool = False) -> List[Dict]:
         """Generate recurring events"""
         try:
