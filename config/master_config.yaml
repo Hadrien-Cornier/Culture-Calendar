@@ -1,0 +1,297 @@
+version: 1
+
+style:
+  field_naming: snake_case
+
+date_time_spec:
+  date_field: dates
+  time_field: times
+  date_format: "YYYY-MM-DD"
+  time_format: "HH:mm"
+  zip_rule: pairwise_equal_length
+  timezone: local
+
+validation:
+  fail_fast: true
+  error_on_missing_required_on_publish: true
+  error_on_mismatched_dates_times_length: true
+
+ontology:
+  labels:
+    - Movie
+    - BookClub
+    - Concert
+    - Opera
+    - Dance
+    - Other
+
+templates:
+  Movie:
+    fields:
+      - title
+      - dates
+      - times
+      - director
+      - runtime_minutes
+      - release_year
+      - country
+      - language
+      - rating
+      - one_liner_summary
+      - description
+      - url
+      - venue
+    required_on_publish:
+      - title
+      - dates
+      - times
+      - rating
+      - one_liner_summary
+      - description
+      - director
+      - runtime_minutes
+      - release_year
+      - country
+
+  BookClub:
+    fields:
+      - title
+      - dates
+      - times
+      - book
+      - author
+      - publication_year
+      - series
+      - host
+      - rating
+      - one_liner_summary
+      - description
+      - url
+      - venue
+    required_on_publish:
+      - title
+      - dates
+      - times
+      - rating
+      - one_liner_summary
+      - description
+      - book
+      - author
+
+  Concert:
+    fields:
+      - title
+      - dates
+      - times
+      - program
+      - series
+      - featured_artist
+      - composers
+      - works
+      - venue
+      - rating
+      - one_liner_summary
+      - description
+      - url
+    required_on_publish:
+      - title
+      - dates
+      - times
+      - rating
+      - one_liner_summary
+      - description
+      - program
+
+  Opera:
+    fields:
+      - title
+      - dates
+      - times
+      - program
+      - series
+      - featured_artist
+      - composers
+      - works
+      - venue
+      - rating
+      - one_liner_summary
+      - description
+      - url
+    required_on_publish:
+      - title
+      - dates
+      - times
+      - rating
+      - one_liner_summary
+      - description
+      - program
+
+  Dance:
+    fields:
+      - title
+      - dates
+      - times
+      - program
+      - series
+      - venue
+      - rating
+      - one_liner_summary
+      - description
+      - url
+    required_on_publish:
+      - title
+      - dates
+      - times
+      - rating
+      - one_liner_summary
+      - description
+      - program
+
+  Other:
+    fields:
+      - title
+      - dates
+      - times
+      - venue
+      - rating
+      - one_liner_summary
+      - description
+      - url
+    required_on_publish:
+      - title
+      - dates
+      - times
+      - rating
+      - one_liner_summary
+      - description
+      - venue
+
+pipeline_defaults:
+  classification:
+    enabled: true
+  enrichment:
+    enabled: true
+  scrape:
+    frequency: daily   # daily | weekly | monthly | manual
+
+venues:
+  afs:
+    display_name: Austin Film Society
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: Movie
+    enrichment:
+      enabled: false
+
+  hyperreal:
+    display_name: Hyperreal
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: true
+    enrichment:
+      enabled: true
+
+  paramount:
+    display_name: Paramount
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: true
+    enrichment:
+      enabled: true
+
+  alienated_majesty:
+    display_name: Alienated Majesty (Book Clubs)
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: BookClub
+    enrichment:
+      enabled: true
+
+  first_light:
+    display_name: First Light (Book Clubs)
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: BookClub
+    enrichment:
+      enabled: true
+
+  austin_symphony:
+    display_name: Austin Symphony
+    scrape:
+      enabled: true
+      frequency: yearly
+    classification:
+      enabled: false
+      assumed_event_category: Concert
+    enrichment:
+      enabled: false
+
+  early_music_austin:
+    display_name: Early Music Austin
+    scrape:
+      enabled: true
+      frequency: yearly
+    classification:
+      enabled: false
+      assumed_event_category: Concert
+    enrichment:
+      enabled: false
+
+  la_follia:
+    display_name: La Follia
+    scrape:
+      enabled: true
+      frequency: yearly
+    classification:
+      enabled: false
+      assumed_event_category: Concert
+    enrichment:
+      enabled: false
+
+  austin_chamber_music:
+    display_name: Austin Chamber Music
+    scrape:
+      enabled: true
+      frequency: yearly
+    classification:
+      enabled: false
+      assumed_event_category: Concert
+    enrichment:
+      enabled: false
+
+  austin_opera:
+    display_name: Austin Opera
+    scrape:
+      enabled: true
+      frequency: yearly
+    classification:
+      enabled: false
+      assumed_event_category: Opera
+    enrichment:
+      enabled: false
+
+  ballet_austin:
+    display_name: Ballet Austin
+    scrape:
+      enabled: true
+      frequency: yearly
+    classification:
+      enabled: false
+      assumed_event_category: Dance
+    enrichment:
+      enabled: false
+
+
