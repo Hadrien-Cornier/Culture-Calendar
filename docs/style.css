@@ -205,9 +205,9 @@ a:visited {
 }
 
 .masthead-title {
-    font-family: 'Libre Franklin', 'Franklin Gothic', 'Helvetica Neue', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
+    font-family: 'et-book', 'Georgia', serif;
+    font-size: 3rem;
+    font-weight: 400;
     letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
     text-transform: uppercase;
@@ -1145,7 +1145,7 @@ a:visited {
     }
     
     .masthead-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     
     .nav-list {

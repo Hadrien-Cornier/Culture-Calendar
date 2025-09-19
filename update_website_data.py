@@ -101,61 +101,6 @@ def mark_work_hours(events):
     return marked_events
 
 
-def filter_upcoming_events(events, mode="month"):
-    """Filter events based on mode: 'month' for upcoming month, or number of days"""
-    today = datetime.now().date()
-
-    if mode == "month":
-        # Get events for the current month and next month
-        current_month_start = today.replace(day=1)
-
-        # Calculate next month
-        if today.month == 12:
-            next_month = today.replace(year=today.year + 1, month=1, day=1)
-        else:
-            next_month = today.replace(month=today.month + 1, day=1)
-
-        # End of next month
-        if next_month.month == 12:
-            end_of_next_month = next_month.replace(
-                year=next_month.year + 1, month=1, day=1
-            ) - timedelta(days=1)
-        else:
-            end_of_next_month = next_month.replace(
-                month=next_month.month + 1, day=1
-            ) - timedelta(days=1)
-
-        start_date = current_month_start
-        end_date = end_of_next_month
-
-        print(f"Filtering events from {start_date} to {end_date} (upcoming month)")
-    else:
-        # Days mode: look forward from today
-        days_ahead = mode if isinstance(mode, int) else 30
-        start_date = today
-        end_date = today + timedelta(days=days_ahead)
-
-        print(
-            f"Filtering events from {start_date} to {end_date} (next {days_ahead} days)"
-        )
-
-    filtered_events = []
-    for event in events:
-        try:
-            event_date = datetime.strptime(event["date"], "%Y-%m-%d").date()
-            if start_date <= event_date <= end_date:
-                filtered_events.append(event)
-            else:
-                print(
-                    f"[DATE FILTER] Discarded: '{event.get('title', 'Unknown')}' | Venue: '{event.get('venue', 'Unknown')}' | Date: '{event.get('date', 'Unknown')}'"
-                )
-        except (ValueError, KeyError):
-            print(
-                f"[DATE FILTER] Discarded (parse error): '{event.get('title', 'Unknown')}' | Venue: '{event.get('venue', 'Unknown')}' | Date: '{event.get('date', 'Unknown')}'"
-            )
-            continue
-
-    return filtered_events
 
 
 def clean_markdown_text(text):
@@ -454,9 +399,9 @@ def main(
 
     Args:
         test_week: If True, limit scraping to current week for testing.
-        full: If True, include all events without date filtering.
+        full: Deprecated parameter (no longer used - all events are always included).
         force_reprocess: If True, force re-processing of all events (ignore cache).
-        days: If specified, collect events for this many days from today.
+        days: Deprecated parameter (no longer used - all events are always included).
         validate: If True, enable smart validation with fail-fast mechanisms.
     """
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
@@ -537,25 +482,9 @@ def main(
                 # Classical events and movie events already have complete details
                 detailed_events.append(event)
 
-        print(f"Processing {len(detailed_events)} total events")
-
-        # Filter to desired time range
-        if full:
-            # No date filtering - include all events
-            upcoming_events = detailed_events
-            print(f"Using all {len(upcoming_events)} events for full update")
-        elif test_week:
-            # For testing, use all events from current week
-            upcoming_events = detailed_events
-            print(f"Using all {len(upcoming_events)} events for test week")
-        elif days:
-            # Filter to specific number of days
-            upcoming_events = filter_upcoming_events(detailed_events, mode=days)
-            print(f"Found {len(upcoming_events)} events for next {days} days")
-        else:
-            # Filter to upcoming events (current month + next month)
-            upcoming_events = filter_upcoming_events(detailed_events, mode="month")
-            print(f"Found {len(upcoming_events)} upcoming events")
+        # Keep all events - no date filtering applied
+        upcoming_events = detailed_events
+        print(f"Processing {len(upcoming_events)} total events")
 
         # Mark work-hour events
         marked_events = mark_work_hours(upcoming_events)

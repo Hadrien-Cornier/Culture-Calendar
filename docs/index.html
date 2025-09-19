@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culture Calendar - Austin Cultural Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/edwardtufte/et-book/et-book.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="masthead">
+        <div class="masthead-border-top"></div>
+        <div class="container">
+            <div class="masthead-content">
+                <h1 class="masthead-title" id="masthead-date">Culture Calendar</h1>
+            </div>
+        </div>
+        <div class="masthead-border-bottom"></div>
+    </header>
+    
+    <nav class="primary-nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#" class="nav-link active" data-view="today">Today</a></li>
+                <li><a href="#" class="nav-link" data-view="weekend">This Weekend</a></li>
+                <li><a href="#" class="nav-link" data-view="week">This Week</a></li>
+                <li><a href="#" class="nav-link" data-view="all">All Events</a></li>
+                <li><a href="#" class="nav-link" data-view="calendar">Calendar</a></li>
+                <li class="nav-separator"></li>
+                <li><a href="#" class="nav-link nav-secondary" id="show-filters-link">Filters</a></li>
+                <li><a href="#" class="nav-link nav-secondary" id="download-link">Download</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+
+        <!-- Classical Music Data Warning -->
+        <section id="classical-data-warning" class="classical-warning" style="display: none;">
+            <!-- Warning content will be populated by JavaScript -->
+        </section>
+
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar" id="filter-sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Refine Results</h2>
+                <button class="sidebar-close" id="close-filters" aria-label="Close filters">×</button>
+            </div>
+            <div class="sidebar-content">
+                <section class="filter-section">
+                    <h3 class="filter-title">Rating</h3>
+                    <div class="rating-control">
+                        <label for="rating-slider" class="rating-label">
+                            Minimum: <span id="rating-value" class="rating-value">1</span>/10
+                        </label>
+                        <input type="range" id="rating-slider" min="1" max="10" value="1" class="rating-slider">
+                    </div>
+                </section>
+                    
+                <section class="filter-section">
+                    <h3 class="filter-title">Search</h3>
+                    <div class="search-control">
+                        <input type="text" id="search-input" placeholder="Search events..." class="search-input">
+                    </div>
+                </section>
+                    
+                <section class="filter-section" id="genre-filters">
+                    <h3 class="filter-title">Country</h3>
+                    <div class="filter-options" id="genre-buttons">
+                        <!-- Country filter buttons will be populated by JavaScript -->
+                    </div>
+                </section>
+                    
+                <section class="filter-section" id="venue-filters">
+                    <h3 class="filter-title">Venues</h3>
+                    <div class="filter-options" id="venue-buttons">
+                        <!-- Venue filter buttons will be populated by JavaScript -->
+                    </div>
+                </section>
+                    
+                <section class="filter-section">
+                    <h3 class="filter-title">Display Options</h3>
+                    <div class="toggle-options">
+                        <label class="toggle-option">
+                            <input type="checkbox" id="special-events-toggle" class="toggle-checkbox">
+                            <span class="toggle-label">Special Events Only</span>
+                        </label>
+                        <label class="toggle-option">
+                            <input type="checkbox" id="hide-work-hours-toggle" class="toggle-checkbox">
+                            <span class="toggle-label">Hide Work Hours</span>
+                        </label>
+                    </div>
+                </section>
+                
+                <div class="sidebar-actions">
+                    <button id="download-btn" class="btn btn-primary">Download Calendar</button>
+                </div>
+            </div>
+        </aside>
+
+
+        <!-- Main Content Area -->
+        <div class="content-wrapper">
+            <!-- Events List Section -->
+            <section class="events-section" id="list-view">
+                <header class="section-header">
+                    <h2 id="events-heading" class="section-title">Today's Events</h2>
+                    <div class="section-meta">
+                        <span id="event-count" class="event-count"></span>
+                    </div>
+                </header>
+                <div id="loading" class="loading">Loading event data...</div>
+                <div id="events-list" class="events-list"></div>
+            </section>
+
+            <!-- Calendar View Section -->
+            <section class="calendar-section" id="calendar-view" style="display: none;">
+                <header class="section-header">
+                    <h2 class="section-title">Calendar View</h2>
+                </header>
+            <div class="calendar-navigation">
+                <button id="prev-month" class="nav-btn">← Previous</button>
+                <div class="month-year-display" id="month-year-display"></div>
+                <button id="next-month" class="nav-btn">Next →</button>
+            </div>
+            <div class="date-range-filter">
+                <label for="start-date">Date Range:</label>
+                <input type="date" id="start-date" class="date-input">
+                <span>to</span>
+                <input type="date" id="end-date" class="date-input">
+                <button id="apply-date-filter" class="filter-btn">Apply Filter</button>
+                <button id="clear-date-filter" class="filter-btn">Clear</button>
+            </div>
+            <div id="calendar-loading" class="loading" style="display: none;">Loading calendar...</div>
+            <div id="calendar-container" class="calendar-container"></div>
+        </section>
+
+
+            <section class="update-info">
+                <p id="code-updated" class="update-timestamp">Data last updated: loading...</p>
+            </section>
+        </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-border"></div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-about">
+                    <h2 class="footer-logo">Culture Calendar</h2>
+                    <p class="footer-mission">A curated guide to Austin's cultural landscape, powered by artificial intelligence and editorial sensibility.</p>
+                    <p class="footer-copyright">© 2025 Culture Calendar. All rights reserved.</p>
+                </div>
+                
+                <nav class="footer-section">
+                    <h3 class="footer-heading">Sections</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-view="today">Today's Events</a></li>
+                        <li><a href="#" data-view="weekend">This Weekend</a></li>
+                        <li><a href="#" data-view="week">This Week</a></li>
+                        <li><a href="#" data-view="calendar">Calendar</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                    </ul>
+                </nav>
+                
+                <nav class="footer-section">
+                    <h3 class="footer-heading">Film Venues</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://www.austinfilm.org" target="_blank" rel="noopener">Austin Film Society</a></li>
+                        <li><a href="https://hyperrealfilm.club" target="_blank" rel="noopener">Hyperreal Film Club</a></li>
+                        <li><a href="https://www.austinparamount.com" target="_blank" rel="noopener">Paramount Theatre</a></li>
+                    </ul>
+                </nav>
+                
+                <nav class="footer-section">
+                    <h3 class="footer-heading">Music Venues</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://austinsymphony.org" target="_blank" rel="noopener">Austin Symphony</a></li>
+                        <li><a href="https://www.early-music.org" target="_blank" rel="noopener">Early Music Project</a></li>
+                        <li><a href="https://www.lafolliaaustin.org" target="_blank" rel="noopener">La Follia Austin</a></li>
+                    </ul>
+                </nav>
+                
+                <nav class="footer-section">
+                    <h3 class="footer-heading">Literary Venues</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://www.alienatedmajestybooks.com" target="_blank" rel="noopener">Alienated Majesty</a></li>
+                        <li><a href="https://www.firstlightaustin.com" target="_blank" rel="noopener">First Light Austin</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
