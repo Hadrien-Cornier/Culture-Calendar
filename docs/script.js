@@ -1628,6 +1628,61 @@ class ReviewModal {
         
         const description = eventData.description || eventData.ai_summary || 'No review available for this event.';
         
+        // Extract time and place information from occurrences or screenings
+        let timeAndPlaceHTML = '';
+        const eventTimes = eventData.occurrences || eventData.screenings || [];
+        
+        if (eventTimes.length > 0) {
+            // Format the first occurrence/screening for display
+            const firstEvent = eventTimes[0];
+            const date = parseLocalDate(firstEvent.date);
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Chicago' };
+            const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+            const time = firstEvent.time || '';
+            const venue = getVenueName(eventData.venue || firstEvent.venue);
+            
+            // Format time (convert 24-hour to 12-hour if needed)
+            let displayTime = '';
+            if (time) {
+                if (time.includes(':') && !time.includes('AM') && !time.includes('PM')) {
+                    // Convert 24-hour format to 12-hour
+                    const [hours, minutes] = time.split(':');
+                    const hour12 = parseInt(hours) % 12 || 12;
+                    const ampm = parseInt(hours) >= 12 ? 'PM' : 'AM';
+                    displayTime = `${hour12}:${minutes} ${ampm}`;
+                } else {
+                    displayTime = time;
+                }
+            }
+            
+            timeAndPlaceHTML = `
+                <div style="
+                    margin-top: 1rem !important;
+                    padding: 1rem !important;
+                    background: #f8fafc !important;
+                    border-radius: 8px !important;
+                    border-left: 4px solid #3b82f6 !important;
+                ">
+                    <div style="
+                        font-size: 0.875rem !important;
+                        color: #374151 !important;
+                        margin-bottom: 0.25rem !important;
+                        font-weight: 500 !important;
+                    ">📅 Event Details</div>
+                    <div style="
+                        font-size: 1rem !important;
+                        color: #1f2937 !important;
+                        line-height: 1.5 !important;
+                    ">
+                        <div><strong>Date:</strong> ${formattedDate}</div>
+                        ${displayTime ? `<div><strong>Time:</strong> ${displayTime}</div>` : ''}
+                        <div><strong>Venue:</strong> ${venue}</div>
+                        ${eventTimes.length > 1 ? `<div style="font-size: 0.875rem; color: #6b7280; margin-top: 0.5rem;">+ ${eventTimes.length - 1} more showing${eventTimes.length > 2 ? 's' : ''}</div>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+        
         return `
             <div style="
                 background: white !important;
@@ -1682,6 +1737,7 @@ class ReviewModal {
                         display: inline-block !important;
                         margin-top: 0.75rem !important;
                     ">${ratingDisplay}</div>` : ''}
+                    ${timeAndPlaceHTML}
                 </div>
                 <div style="
                     padding: 2rem !important;
