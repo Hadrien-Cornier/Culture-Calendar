@@ -4,6 +4,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
 from typing import Dict, List
 
+# Import config loader
+from .config_loader import ConfigLoader
+
 # Import all new LLM-powered scrapers
 from .scrapers import (
     AFSScraper,
@@ -23,23 +26,26 @@ from .recurring_events import RecurringEventGenerator
 
 class MultiVenueScraper:
     """
-    Unified scraper for all supported venues using new LLM-powered architecture
-    NOW WITH PARALLEL PROCESSING - automatically uses high-performance parallel scraping!
+    Unified scraper for all supported venues using LLM-powered architecture
     """
 
     def __init__(self):
-        # Initialize all scrapers
-        self.afs_scraper = AFSScraper()
-        self.hyperreal_scraper = HyperrealScraper()
-        self.paramount_scraper = ParamountScraper()
-        self.alienated_majesty_scraper = AlienatedMajestyBooksScraper()
-        self.first_light_scraper = FirstLightAustinScraper()
-        self.austin_symphony_scraper = AustinSymphonyScraper()
-        self.austin_opera_scraper = AustinOperaScraper()
-        self.austin_chamber_music_scraper = AustinChamberMusicScraper()
-        self.early_music_scraper = EarlyMusicAustinScraper()
-        self.la_follia_scraper = LaFolliaAustinScraper()
-        self.ballet_austin_scraper = BalletAustinScraper()
+        # Load configuration
+        self.config = ConfigLoader()
+        print("Loaded master configuration")
+
+        # Initialize all scrapers with config
+        self.afs_scraper = AFSScraper(config=self.config, venue_key='afs')
+        self.hyperreal_scraper = HyperrealScraper(config=self.config, venue_key='hyperreal')
+        self.paramount_scraper = ParamountScraper(config=self.config, venue_key='paramount')
+        self.alienated_majesty_scraper = AlienatedMajestyBooksScraper(config=self.config, venue_key='alienated_majesty')
+        self.first_light_scraper = FirstLightAustinScraper(config=self.config, venue_key='first_light')
+        self.austin_symphony_scraper = AustinSymphonyScraper(config=self.config, venue_key='austin_symphony')
+        self.austin_opera_scraper = AustinOperaScraper(config=self.config, venue_key='austin_opera')
+        self.austin_chamber_music_scraper = AustinChamberMusicScraper(config=self.config, venue_key='austin_chamber_music')
+        self.early_music_scraper = EarlyMusicAustinScraper(config=self.config, venue_key='early_music_austin')
+        self.la_follia_scraper = LaFolliaAustinScraper(config=self.config, venue_key='la_follia')
+        self.ballet_austin_scraper = BalletAustinScraper(config=self.config, venue_key='ballet_austin')
 
         # Initialize recurring events generator
         self.recurring_events_generator = RecurringEventGenerator()
@@ -48,7 +54,7 @@ class MultiVenueScraper:
         self.last_updated = {}
     
     def scrape_all_venues(self, target_week: bool = False, days_ahead: int = None) -> List[Dict]:
-        """🚀 PARALLEL PROCESSING - Scrape all venues simultaneously for 5-10x speed improvement"""
+        """Scrape all venues sequentially"""
         start_time = datetime.now()
         
         all_events = []
@@ -56,17 +62,17 @@ class MultiVenueScraper:
         
         # Define all venue scrapers with their configurations
         venue_configs = [
-            # ("AFS", self.afs_scraper, "Austin Movie Society", {}),
-            ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
+            ("AFS", self.afs_scraper, "Austin Movie Society", {}),
+            # ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
             # ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
-            ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
-            ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
-            # ("Symphony", self.austin_symphony_scraper, "Austin Symphony", {}),
-            # ("Opera", self.austin_opera_scraper, "Austin Opera", {}),
-            # ("Chamber Music", self.austin_chamber_music_scraper, "Austin Chamber Music", {}),
-            # ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
-            # ("LaFollia", self.la_follia_scraper, "La Follia", {}),
-            # ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
+            # ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
+            # ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
+            ("Symphony", self.austin_symphony_scraper, "Austin Symphony", {}),
+            ("Opera", self.austin_opera_scraper, "Austin Opera", {}),
+            ("Chamber Music", self.austin_chamber_music_scraper, "Austin Chamber Music", {}),
+            ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
+            ("LaFollia", self.la_follia_scraper, "La Follia", {}),
+            ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
         ]
         
         # Execute all venue scrapers sequentially (no threading)
@@ -82,10 +88,23 @@ class MultiVenueScraper:
             try:
                 events = scraper.scrape_events(**kwargs)
 
-                # Add venue information to events
+                # Format and validate events according to config
+                formatted_events = []
                 for event in events:
-                    event["venue"] = venue_code
-                    all_events.append(event)
+                    try:
+                        # Format event according to config
+                        formatted_event = scraper.format_event(event)
+                        # Validate event
+                        scraper.validate_event(formatted_event)
+                        # Add venue information
+                        formatted_event["venue"] = venue_code
+                        formatted_events.append(formatted_event)
+                    except ValueError as e:
+                        print(f"  ⚠️  Event validation error for {venue_code}: {e}")
+                        # Skip invalid events in Phase One
+                        continue
+                
+                all_events.extend(formatted_events)
 
                 print(f"✅ [{completed_venues}/{total_venues}] {display_name}: {len(events)} events")
                 self.last_updated[venue_code] = datetime.now().isoformat()
@@ -100,10 +119,7 @@ class MultiVenueScraper:
         # Add recurring events
         all_events.extend(self._get_recurring_events(target_week))
 
-        # Filter to current week if requested
-        if target_week:
-            all_events = self._filter_to_current_week(all_events)
-            print(f"Filtered to {len(all_events)} events for current week")
+        # No date filtering applied - all events preserved
 
         return all_events
 
@@ -121,31 +137,9 @@ class MultiVenueScraper:
             self.last_updated["RecurringEvents"] = None
             return []
 
-    def _filter_to_current_week(self, events: List[Dict]) -> List[Dict]:
-        """Filter events to current week only"""
-        now = datetime.now()
-        # Get start of current week (Monday)
-        start_of_week = now - timedelta(days=now.weekday())
-        end_of_week = start_of_week + timedelta(days=6)
-
-        filtered_events = []
-        for event in events:
-            try:
-                event_date = datetime.strptime(event["date"], "%Y-%m-%d")
-                if start_of_week <= event_date <= end_of_week:
-                    filtered_events.append(event)
-            except (ValueError, KeyError):
-                continue
-
-        return filtered_events
 
     def load_existing_events(self, existing_data_path: str = None) -> None:
         """Load existing events to cache for duplicate detection"""
-        if self.use_parallel:
-            # Delegate to parallel scraper
-            self._parallel_scraper.load_existing_events(existing_data_path)
-            return
-            
         # Original sequential implementation
         if not existing_data_path:
             existing_data_path = (
@@ -195,15 +189,7 @@ class MultiVenueScraper:
     ) -> List[Dict]:
         """
         Scrape only new events that don't already exist
-        🚀 AUTOMATICALLY USES PARALLEL PROCESSING for maximum performance!
         """
-        if self.use_parallel:
-            # Use high-performance parallel scraper with duplicate detection
-            print("🚀 Using PARALLEL new events scraping for maximum speed!")
-            return self._parallel_scraper.scrape_new_events_only_parallel(target_week, existing_data_path)
-        
-        # Fallback to original sequential method
-        print("⚠️ Using SEQUENTIAL new events scraping - this will be slower")
         # Load existing events for duplicate detection
         self.load_existing_events(existing_data_path)
 
@@ -215,15 +201,35 @@ class MultiVenueScraper:
         duplicate_count = 0
 
         for event in all_events:
-            if not self._is_duplicate_event(
-                event["title"], event["date"], event["time"], event.get("venue", "")
-            ):
+            # Handle both array and singular formats
+            dates = event.get("dates", [])
+            times = event.get("times", [])
+            
+            # Fallback to singular format
+            if not dates and "date" in event:
+                dates = [event["date"]]
+            if not times and "time" in event:
+                times = [event["time"]]
+            
+            # Check each date/time combination for duplicates
+            is_duplicate = False
+            for i, date in enumerate(dates):
+                time = times[i] if i < len(times) else times[0] if times else "TBD"
+                if self._is_duplicate_event(
+                    event["title"], date, time, event.get("venue", "")
+                ):
+                    is_duplicate = True
+                    break
+            
+            if not is_duplicate:
                 new_events.append(event)
-                # Add to cache to prevent duplicates within this run
-                event_id = self._create_event_id(
-                    event["title"], event["date"], event["time"], event.get("venue", "")
-                )
-                self.existing_events_cache.add(event_id)
+                # Add all date/time combinations to cache
+                for i, date in enumerate(dates):
+                    time = times[i] if i < len(times) else times[0] if times else "TBD"
+                    event_id = self._create_event_id(
+                        event["title"], date, time, event.get("venue", "")
+                    )
+                    self.existing_events_cache.add(event_id)
             else:
                 duplicate_count += 1
 

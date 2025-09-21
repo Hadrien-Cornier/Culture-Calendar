@@ -4,7 +4,6 @@ let filteredEvents = [];
 let selectedGenres = new Set();
 let selectedVenues = new Set();
 let showSpecialEventsOnly = false;
-let hideWorkHours = false;
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 let dateRangeStart = null;
@@ -24,7 +23,6 @@ const listView = document.getElementById('list-view');
 const calendarView = document.getElementById('calendar-view');
 const calendarContainer = document.getElementById('calendar-container');
 const specialEventsToggle = document.getElementById('special-events-toggle');
-const hideWorkHoursToggle = document.getElementById('hide-work-hours-toggle');
 const prevMonthBtn = document.getElementById('prev-month');
 const nextMonthBtn = document.getElementById('next-month');
 const monthYearDisplay = document.getElementById('month-year-display');
@@ -102,7 +100,6 @@ function updateNavigationCounts() {
             if (selectedGenres.size > 0 && !selectedGenres.has(event.country)) return false;
             if (selectedVenues.size > 0 && !selectedVenues.has(event.venue)) return false;
             if (showSpecialEventsOnly && !event.isSpecialScreening) return false;
-            if (hideWorkHours && event.isWorkHours) return false;
             if (selectedDirector && event.director !== selectedDirector) return false;
             
             if (searchTerm) {
@@ -151,7 +148,6 @@ function updateNavigationCounts() {
         if (selectedGenres.size > 0 && !selectedGenres.has(event.country)) return false;
         if (selectedVenues.size > 0 && !selectedVenues.has(event.venue)) return false;
         if (showSpecialEventsOnly && !event.isSpecialScreening) return false;
-        if (hideWorkHours && event.isWorkHours) return false;
         if (selectedDirector && event.director !== selectedDirector) return false;
         if (searchTerm) {
             const fields = [event.title, event.director, event.oneLinerSummary, event.description];
@@ -249,17 +245,6 @@ function setupEventListeners() {
         });
     }
 
-    if (hideWorkHoursToggle) {
-        hideWorkHoursToggle.addEventListener('change', function() {
-            hideWorkHours = this.checked;
-            updateFilteredEvents();
-            renderEvents();
-            updateNavigationCounts();
-            if (currentView === 'calendar') {
-                renderCalendar();
-            }
-        });
-    }
 
     // Compact mode toggle removed - unified layout only
 
@@ -653,26 +638,6 @@ function toggleSpecialEventsFilter() {
     }
 }
 
-function toggleWorkHoursFilter() {
-    hideWorkHours = !hideWorkHours;
-    
-    if (hideWorkHours) {
-        hideWorkHoursToggle.classList.add('active');
-        hideWorkHoursToggle.textContent = 'Show Work Hours';
-    } else {
-        hideWorkHoursToggle.classList.remove('active');
-        hideWorkHoursToggle.textContent = 'Hide Work Hours (9am-6pm)';
-    }
-    
-    updateFilteredEvents();
-    renderEvents();
-    updateNavigationCounts();
-    
-    // Re-render calendar if it's currently visible
-    if (calendarView.style.display !== 'none') {
-        renderCalendar();
-    }
-}
 
 // Toggle genre filter
 function toggleGenreFilter(genre) {
@@ -762,8 +727,23 @@ function toggleVenueFilter(venue) {
 // Update filtered movies based on current rating and genre filters
 function updateFilteredEvents() {
     const minRating = parseInt(ratingSlider.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);  // Start of today
     
     filteredEvents = eventsData.filter(movie => {
+        // Filter out past events in list view (but keep them in calendar view)
+        if (currentView !== 'calendar') {
+            // Check if all screenings are in the past
+            if (movie.screenings && Array.isArray(movie.screenings)) {
+                const hasFutureScreening = movie.screenings.some(screening => {
+                    const screeningDate = parseLocalDate(screening.date);
+                    screeningDate.setHours(0, 0, 0, 0);
+                    return screeningDate >= today;
+                });
+                if (!hasFutureScreening) return false;  // All screenings are past
+            }
+        }
+        
         // Rating filter
         if (movie.rating < minRating) return false;
         
@@ -782,10 +762,6 @@ function updateFilteredEvents() {
             return false;
         }
 
-        // Work hours filter
-        if (hideWorkHours && movie.isWorkHours) {
-            return false;
-        }
 
         // Director filter
         if (selectedDirector && movie.director !== selectedDirector) {
@@ -1130,6 +1106,12 @@ function renderCalendar() {
             const ratingClass = screening.rating >= 8 ? 'high-rating' : 
                               screening.rating >= 6 ? 'medium-rating' : 'low-rating';
             
+            // Check if event is in the past
+            const eventDate = parseLocalDate(screening.date);
+            eventDate.setHours(0, 0, 0, 0);
+            const isPastEvent = eventDate < today;
+            const pastClass = isPastEvent ? 'past-event' : '';
+            
             // Get venue abbreviation and CSS class for visual indication
             const venueAbbr = getVenueAbbr(screening.venue);
             const venueClass = screening.venue ? `venue-${screening.venue.toLowerCase()}` : '';
@@ -1139,7 +1121,7 @@ function renderCalendar() {
                 screening.title.substring(0, 12) + '...' : screening.title;
             
             eventsHTML += `
-                <div class="calendar-event ${ratingClass} ${venueClass}" 
+                <div class="calendar-event ${ratingClass} ${venueClass} ${pastClass}" 
                      title="${escapeHtml(screening.title)} - ${screening.time} - Rating: ${screening.rating}/10 - ${getVenueName(screening.venue)}"
                      onclick="window.open('${screening.url}', '_blank')">
                     ${venueAbbr} ★${screening.rating} ${escapeHtml(displayTitle)}
@@ -1579,8 +1561,8 @@ class ReviewModal {
             // Setup event listeners
             this.setupEventListeners();
             
-            // Trigger opening animation
-            await this.animateOpen();
+            // The modal is already visible due to inline styles in createModal
+            // No need for additional animation
             
             // Setup focus trap
             this.setupFocusTrap();
@@ -1616,12 +1598,104 @@ class ReviewModal {
 
     createModal(eventData) {
         this.modal = document.createElement('div');
-        this.modal.className = 'review-modal';
+        this.modal.className = 'modal-overlay-new'; // Use completely different class names
         this.modal.setAttribute('role', 'dialog');
         this.modal.setAttribute('aria-modal', 'true');
         this.modal.setAttribute('aria-labelledby', 'modal-title');
         
-        this.modal.innerHTML = this.getModalHTML(eventData);
+        // Apply styles directly to bypass CSS conflicts
+        this.modal.style.cssText = `
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0, 0, 0, 0.8) !important;
+            z-index: 9999 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        `;
+        
+        this.modal.innerHTML = this.getNewModalHTML(eventData);
+    }
+
+    getNewModalHTML(eventData) {
+        const rating = eventData.final_rating ?? eventData.rating ?? (eventData.ai_rating ? eventData.ai_rating.score : null);
+        const ratingDisplay = rating ? `★${rating}/10` : '';
+        
+        const description = eventData.description || eventData.ai_summary || 'No review available for this event.';
+        
+        return `
+            <div style="
+                background: white !important;
+                border-radius: 16px !important;
+                box-shadow: 0 25px 50px rgba(0,0,0,0.15) !important;
+                width: 90% !important;
+                max-width: 800px !important;
+                max-height: 90vh !important;
+                overflow: hidden !important;
+                position: relative !important;
+                display: flex !important;
+                flex-direction: column !important;
+            ">
+                <div style="
+                    padding: 2rem 2rem 1.5rem 2rem !important;
+                    border-bottom: 1px solid #e5e7eb !important;
+                    position: relative !important;
+                    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%) !important;
+                    border-radius: 16px 16px 0 0 !important;
+                ">
+                    <h2 id="modal-title" style="
+                        font-family: 'et-book', Georgia, serif !important;
+                        font-size: 1.75rem !important;
+                        font-weight: 600 !important;
+                        color: #111827 !important;
+                        margin: 0 !important;
+                        padding-right: 4rem !important;
+                        line-height: 1.3 !important;
+                    ">${escapeHtml(eventData.title)}</h2>
+                    <div style="position: absolute !important; top: 1.5rem !important; right: 1.5rem !important;">
+                        <button class="modal-close-new" style="
+                            background: #f3f4f6 !important;
+                            border: none !important;
+                            border-radius: 8px !important;
+                            width: 2.5rem !important;
+                            height: 2.5rem !important;
+                            display: flex !important;
+                            align-items: center !important;
+                            justify-content: center !important;
+                            cursor: pointer !important;
+                            font-size: 1.25rem !important;
+                            color: #6b7280 !important;
+                        " aria-label="Close review modal">×</button>
+                    </div>
+                    ${ratingDisplay ? `<div style="
+                        background: #1f2937 !important;
+                        color: white !important;
+                        padding: 0.25rem 0.75rem !important;
+                        border-radius: 12px !important;
+                        font-size: 0.875rem !important;
+                        font-weight: 500 !important;
+                        display: inline-block !important;
+                        margin-top: 0.75rem !important;
+                    ">${ratingDisplay}</div>` : ''}
+                </div>
+                <div style="
+                    padding: 2rem !important;
+                    overflow-y: auto !important;
+                    flex: 1 !important;
+                    font-family: 'et-book', Georgia, serif !important;
+                    font-size: 1.125rem !important;
+                    line-height: 1.7 !important;
+                    color: #6b7280 !important;
+                ">
+                    ${description}
+                </div>
+            </div>
+        `;
     }
 
     getModalHTML(eventData) {
@@ -1653,18 +1727,27 @@ class ReviewModal {
     async animateOpen() {
         return new Promise((resolve, reject) => {
             try {
-                // Start invisible but present
-                this.modal.style.opacity = '0';
-                this.modal.style.visibility = 'visible';
+                // Clear any inline styles that could interfere with CSS transitions
+                this.modal.style.opacity = '';
+                this.modal.style.visibility = '';
                 
+                // Ensure the modal starts in the correct initial state
+                this.modal.classList.remove('active');
+                
+                // Force browser to apply initial CSS state (opacity: 0 from .review-modal)
+                this.modal.offsetHeight;
+                
+                // Use double requestAnimationFrame to ensure proper timing
                 requestAnimationFrame(() => {
-                    try {
-                        this.modal.classList.add('active');
-                        setTimeout(resolve, this.config.duration || 300);
-                    } catch (error) {
-                        console.error('Error in animateOpen animation frame:', error);
-                        reject(error);
-                    }
+                    requestAnimationFrame(() => {
+                        try {
+                            this.modal.classList.add('active');
+                            setTimeout(resolve, this.config.duration || 300);
+                        } catch (error) {
+                            console.error('Error in animateOpen animation frame:', error);
+                            reject(error);
+                        }
+                    });
                 });
             } catch (error) {
                 console.error('Error in animateOpen:', error);
@@ -1689,9 +1772,11 @@ class ReviewModal {
     }
 
     setupEventListeners() {
-        // Close button
-        const closeButton = this.modal.querySelector('.review-modal-close');
-        closeButton.addEventListener('click', () => this.close());
+        // Close button (check both old and new class names)
+        const closeButton = this.modal.querySelector('.review-modal-close') || this.modal.querySelector('.modal-close-new');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => this.close());
+        }
         
         // Backdrop click
         this.modal.addEventListener('click', this.handleBackdropClick);

@@ -12,66 +12,17 @@ from src.base_scraper import BaseScraper
 class EarlyMusicAustinScraper(BaseScraper):
     """Simple scraper for Early Music events - loads from JSON data"""
 
-    def __init__(self):
+    def __init__(self, config=None, venue_key="early_music_austin"):
         super().__init__(
-            base_url="https://www.early-music.org", venue_name="EarlyMusic"
+            base_url="https://www.early-music.org",
+            venue_name="EarlyMusic",
+            venue_key=venue_key,
+            config=config,
         )
-        self.data_file = (
-            "/Users/HCornier/Documents/Github/Culture-Calendar/docs/classical_data.json"
-        )
+        self.data_file = self.get_project_path("docs", "classical_data.json")
 
     def get_target_urls(self) -> List[str]:
         """Return empty list - we load from JSON file"""
-        return []
-
-    def get_data_schema(self) -> Dict:
-        """Return the expected data schema for concert events"""
-        return {
-            "title": {
-                "type": "string",
-                "required": True,
-                "description": "Concert title",
-            },
-            "program": {
-                "type": "string",
-                "required": False,
-                "description": "Concert program",
-            },
-            "featured_artist": {
-                "type": "string",
-                "required": False,
-                "description": "Featured artist or ensemble",
-            },
-            "composers": {
-                "type": "array",
-                "required": False,
-                "description": "List of composer names",
-            },
-            "works": {
-                "type": "array",
-                "required": False,
-                "description": "List of musical works",
-            },
-            "series": {
-                "type": "string",
-                "required": False,
-                "description": "Concert series name",
-            },
-            "date": {
-                "type": "string",
-                "required": True,
-                "description": "Event date in YYYY-MM-DD format",
-            },
-            "time": {
-                "type": "string",
-                "required": True,
-                "description": 'Event time (e.g., "7:30 PM")',
-            },
-            "venue": {"type": "string", "required": False, "description": "Venue name"},
-        }
-
-    def get_fallback_data(self) -> List[Dict]:
-        """Return empty list - we only want real data"""
         return []
 
     def scrape_events(self, use_cache: bool = True) -> List[Dict]:

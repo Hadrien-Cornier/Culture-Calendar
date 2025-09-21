@@ -18,15 +18,15 @@ validation:
 
 ontology:
   labels:
-    - Movie
-    - BookClub
-    - Concert
-    - Opera
-    - Dance
-    - Other
+    - movie
+    - book_club
+    - concert
+    - opera
+    - dance
+    - other
 
 templates:
-  Movie:
+  movie:
     fields:
       - title
       - dates
@@ -41,6 +41,7 @@ templates:
       - description
       - url
       - venue
+      - occurrences
     required_on_publish:
       - title
       - dates
@@ -52,8 +53,33 @@ templates:
       - runtime_minutes
       - release_year
       - country
+      - occurrences
+    field_definitions:
+      occurrences:
+        type: array
+        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        item_schema:
+          type: object
+          properties:
+            date:
+              type: string
+              description: "Event date in YYYY-MM-DD format"
+            time:
+              type: string  
+              description: "Event time (e.g., '11:00', '7:00 PM', 'TBD')"
+            url:
+              type: string
+              description: "Source URL for this occurrence"
+            venue:
+              type: string
+              description: "Venue name for this occurrence"
+          required:
+            - date
+            - time
+            - url
+            - venue
 
-  BookClub:
+  book_club:
     fields:
       - title
       - dates
@@ -68,6 +94,7 @@ templates:
       - description
       - url
       - venue
+      - occurrences
     required_on_publish:
       - title
       - dates
@@ -77,8 +104,72 @@ templates:
       - description
       - book
       - author
+      - occurrences
+    field_definitions:
+      title:
+        type: string
+        description: "Format as '[Series Name] - [Book Title]' (e.g., 'NYRB Book Club - Nightmare Alley'). Extract the series name from headers and combine with the book title."
+      book:
+        type: string
+        description: "ONLY the book title being discussed (e.g., 'Nightmare Alley'). Extract from patterns like 'Nightmare Alley by William Lindsey Gresham' - keep only the title part before 'by'."
+      author:
+        type: string
+        description: "ONLY the author's name (e.g., 'William Lindsey Gresham'). Extract from patterns like 'Nightmare Alley by William Lindsey Gresham' - keep only the name part after 'by'."
+      dates:
+        type: array
+        description: "Event dates in YYYY-MM-DD format. For dates without years: use current year for current month-December, use next year for January-current month."
+      times:
+        type: array
+        description: "Meeting times in 24-hour format like '11:00' or '15:00'. Look for text like 'Meets the 1st Saturday of every month at 11am' in each book club section description."
+      venue:
+        type: string
+        description: "The location where the book club meets (e.g., 'Alienated Majesty Books', 'First Light Books')."
+      host:
+        type: string
+        description: "Organization running the book club (e.g., 'Austin NYRB Book Club', 'East Austin Writing Project'). Look for text like 'Run by [Organization Name]' in descriptions."
+      description:
+        type: string
+        description: "Full description of the book club series. Include the tagline, meeting schedule, and organizer information."
+      series:
+        type: string
+        description: "Book club series name exactly as shown in section headers (e.g., 'NYRB Book Club', 'Subculture Lit', 'A Season Of', 'Voyage Out', 'Apricot Trees Exist')."
+      url:
+        type: string
+        description: "The source URL of the webpage where the event was found."
+      publication_year:
+        type: integer
+        description: "The year the book was published."
+      rating:
+        type: float
+        description: "Rating score for the event (1.0-5.0)."
+      one_liner_summary:
+        type: string
+        description: "A brief, compelling summary of the book club event."
+      occurrences:
+        type: array
+        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        item_schema:
+          type: object
+          properties:
+            date:
+              type: string
+              description: "Event date in YYYY-MM-DD format"
+            time:
+              type: string  
+              description: "Event time (e.g., '11:00', '7:00 PM', 'TBD')"
+            url:
+              type: string
+              description: "Source URL for this occurrence"
+            venue:
+              type: string
+              description: "Venue name for this occurrence"
+          required:
+            - date
+            - time
+            - url
+            - venue
 
-  Concert:
+  concert:
     fields:
       - title
       - dates
@@ -93,6 +184,7 @@ templates:
       - one_liner_summary
       - description
       - url
+      - occurrences
     required_on_publish:
       - title
       - dates
@@ -101,8 +193,33 @@ templates:
       - one_liner_summary
       - description
       - program
+      - occurrences
+    field_definitions:
+      occurrences:
+        type: array
+        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        item_schema:
+          type: object
+          properties:
+            date:
+              type: string
+              description: "Event date in YYYY-MM-DD format"
+            time:
+              type: string  
+              description: "Event time (e.g., '11:00', '7:00 PM', 'TBD')"
+            url:
+              type: string
+              description: "Source URL for this occurrence"
+            venue:
+              type: string
+              description: "Venue name for this occurrence"
+          required:
+            - date
+            - time
+            - url
+            - venue
 
-  Opera:
+  opera:
     fields:
       - title
       - dates
@@ -117,6 +234,7 @@ templates:
       - one_liner_summary
       - description
       - url
+      - occurrences
     required_on_publish:
       - title
       - dates
@@ -125,8 +243,33 @@ templates:
       - one_liner_summary
       - description
       - program
+      - occurrences
+    field_definitions:
+      occurrences:
+        type: array
+        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        item_schema:
+          type: object
+          properties:
+            date:
+              type: string
+              description: "Event date in YYYY-MM-DD format"
+            time:
+              type: string  
+              description: "Event time (e.g., '11:00', '7:00 PM', 'TBD')"
+            url:
+              type: string
+              description: "Source URL for this occurrence"
+            venue:
+              type: string
+              description: "Venue name for this occurrence"
+          required:
+            - date
+            - time
+            - url
+            - venue
 
-  Dance:
+  dance:
     fields:
       - title
       - dates
@@ -138,6 +281,7 @@ templates:
       - one_liner_summary
       - description
       - url
+      - occurrences
     required_on_publish:
       - title
       - dates
@@ -146,8 +290,33 @@ templates:
       - one_liner_summary
       - description
       - program
+      - occurrences
+    field_definitions:
+      occurrences:
+        type: array
+        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        item_schema:
+          type: object
+          properties:
+            date:
+              type: string
+              description: "Event date in YYYY-MM-DD format"
+            time:
+              type: string  
+              description: "Event time (e.g., '11:00', '7:00 PM', 'TBD')"
+            url:
+              type: string
+              description: "Source URL for this occurrence"
+            venue:
+              type: string
+              description: "Venue name for this occurrence"
+          required:
+            - date
+            - time
+            - url
+            - venue
 
-  Other:
+  other:
     fields:
       - title
       - dates
@@ -157,6 +326,7 @@ templates:
       - one_liner_summary
       - description
       - url
+      - occurrences
     required_on_publish:
       - title
       - dates
@@ -165,6 +335,31 @@ templates:
       - one_liner_summary
       - description
       - venue
+      - occurrences
+    field_definitions:
+      occurrences:
+        type: array
+        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        item_schema:
+          type: object
+          properties:
+            date:
+              type: string
+              description: "Event date in YYYY-MM-DD format"
+            time:
+              type: string  
+              description: "Event time (e.g., '11:00', '7:00 PM', 'TBD')"
+            url:
+              type: string
+              description: "Source URL for this occurrence"
+            venue:
+              type: string
+              description: "Venue name for this occurrence"
+          required:
+            - date
+            - time
+            - url
+            - venue
 
 pipeline_defaults:
   classification:
@@ -174,6 +369,14 @@ pipeline_defaults:
   scrape:
     frequency: daily   # daily | weekly | monthly | manual
 
+field_defaults:
+  rating: -1  # Unrated
+  description: "No description available"
+  country: "USA"
+  language: "English"
+  url: ""
+  venue: ""
+
 venues:
   afs:
     display_name: Austin Film Society
@@ -182,7 +385,7 @@ venues:
       frequency: monthly
     classification:
       enabled: false
-      assumed_event_category: Movie
+      assumed_event_category: movie
     enrichment:
       enabled: false
 
@@ -213,9 +416,25 @@ venues:
       frequency: monthly
     classification:
       enabled: false
-      assumed_event_category: BookClub
+      assumed_event_category: book_club
     enrichment:
       enabled: true
+    extraction:
+      batch_description: "List of book club events extracted from Alienated Majesty Books webpage. Look for book club sections with headers like 'NYRB Book Club', 'Subculture Lit', 'A Season Of', 'Voyage Out', 'Apricot Trees Exist'. For each section, extract the book meetings listed under 'Upcoming Meetings'."
+    field_overrides:
+      venue:
+        required: false
+        description: "Always 'Alienated Majesty Books' for this website."
+        default_value: "Alienated Majesty Books"
+      series:
+        required: true
+        description_append: " This is REQUIRED - find which book club section each meeting belongs to."
+      url:
+        required: true
+        description: "The source URL of the webpage"
+      dates:
+        dynamic_guidance: true  # Add date inference guidance at runtime
+        description_append: " Examples: 'Saturday, October 4' → 'YYYY-10-04', 'Saturday, January 3' → 'YYYY-01-03'. Return as array of dates."
 
   first_light:
     display_name: First Light (Book Clubs)
@@ -224,7 +443,7 @@ venues:
       frequency: monthly
     classification:
       enabled: false
-      assumed_event_category: BookClub
+      assumed_event_category: book_club
     enrichment:
       enabled: true
 
@@ -235,7 +454,7 @@ venues:
       frequency: yearly
     classification:
       enabled: false
-      assumed_event_category: Concert
+      assumed_event_category: concert
     enrichment:
       enabled: false
 
@@ -246,7 +465,7 @@ venues:
       frequency: yearly
     classification:
       enabled: false
-      assumed_event_category: Concert
+      assumed_event_category: concert
     enrichment:
       enabled: false
 
@@ -257,7 +476,7 @@ venues:
       frequency: yearly
     classification:
       enabled: false
-      assumed_event_category: Concert
+      assumed_event_category: concert
     enrichment:
       enabled: false
 
@@ -268,7 +487,7 @@ venues:
       frequency: yearly
     classification:
       enabled: false
-      assumed_event_category: Concert
+      assumed_event_category: concert
     enrichment:
       enabled: false
 
@@ -279,7 +498,7 @@ venues:
       frequency: yearly
     classification:
       enabled: false
-      assumed_event_category: Opera
+      assumed_event_category: opera
     enrichment:
       enabled: false
 
@@ -290,7 +509,7 @@ venues:
       frequency: yearly
     classification:
       enabled: false
-      assumed_event_category: Dance
+      assumed_event_category: dance
     enrichment:
       enabled: false
 

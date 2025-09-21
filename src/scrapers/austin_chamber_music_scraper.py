@@ -12,64 +12,17 @@ from src.base_scraper import BaseScraper
 class AustinChamberMusicScraper(BaseScraper):
     """Simple scraper for Austin Chamber Music Festival events - loads from JSON data"""
 
-    def __init__(self):
-        super().__init__(base_url="https://austinchambermusic.org", venue_name="Chamber Music")
-        self.data_file = (
-            "/Users/HCornier/Documents/Github/Culture-Calendar/docs/classical_data.json"
+    def __init__(self, config=None, venue_key="austin_chamber_music"):
+        super().__init__(
+            base_url="https://austinchambermusic.org",
+            venue_name="Chamber Music",
+            venue_key=venue_key,
+            config=config,
         )
+        self.data_file = self.get_project_path("docs", "classical_data.json")
 
     def get_target_urls(self) -> List[str]:
         """Return empty list - we load from JSON file"""
-        return []
-
-    def get_data_schema(self) -> Dict:
-        """Return the expected data schema for chamber music events"""
-        return {
-            "title": {
-                "type": "string",
-                "required": True,
-                "description": "Concert title",
-            },
-            "program": {
-                "type": "string",
-                "required": False,
-                "description": "Concert program description",
-            },
-            "featured_artist": {
-                "type": "string",
-                "required": False,
-                "description": "Featured artist or ensemble",
-            },
-            "composers": {
-                "type": "array",
-                "required": False,
-                "description": "List of composer names",
-            },
-            "works": {
-                "type": "array",
-                "required": False,
-                "description": "List of musical works",
-            },
-            "series": {
-                "type": "string",
-                "required": False,
-                "description": "Concert series name",
-            },
-            "date": {
-                "type": "string",
-                "required": True,
-                "description": "Event date in YYYY-MM-DD format",
-            },
-            "time": {
-                "type": "string",
-                "required": True,
-                "description": 'Event time (e.g., "7:30 PM")',
-            },
-            "venue": {"type": "string", "required": False, "description": "Venue name"},
-        }
-
-    def get_fallback_data(self) -> List[Dict]:
-        """Return empty list - we only want real data"""
         return []
 
     def scrape_events(self, use_cache: bool = True) -> List[Dict]:
@@ -105,7 +58,9 @@ class AustinChamberMusicScraper(BaseScraper):
                         "date": date,
                         "time": time,
                         "venue": self.venue_name,
-                        "location": event.get("venue_name", "Austin Chamber Music Center"),
+                        "location": event.get(
+                            "venue_name", "Austin Chamber Music Center"
+                        ),
                         "type": "concert",
                         "url": self.base_url,
                     }

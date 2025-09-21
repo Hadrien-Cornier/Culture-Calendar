@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 from src.processor import EventProcessor
 from src.scraper import MultiVenueScraper
 from src.validation_service import EventValidationService
+from src.config_loader import ConfigLoader
 
 
 def save_update_info(info: dict, path: str = "docs/source_update_times.json") -> None:
@@ -26,81 +27,6 @@ def save_update_info(info: dict, path: str = "docs/source_update_times.json") ->
 
 # Classical music events are now loaded directly by the individual
 # scrapers from docs/classical_data.json
-
-
-def mark_work_hours(events):
-    """Mark events that occur during work hours (9am-6pm weekdays) with isWorkHours field"""
-    marked_events = []
-
-    for event in events:
-        # Create a copy to avoid modifying the original
-        event_copy = event.copy()
-
-        try:
-            # Parse date
-            date_str = event.get("date")
-            if not date_str:
-                event_copy["isWorkHours"] = False  # No date, assume not work hours
-                marked_events.append(event_copy)
-                continue
-
-            event_date = datetime.strptime(date_str, "%Y-%m-%d")
-
-            # Skip weekends (Saturday=5, Sunday=6)
-            if event_date.weekday() >= 5:
-                event_copy["isWorkHours"] = False
-                marked_events.append(event_copy)
-                continue
-
-            # Parse time
-            time_str = event.get("time", "").strip()
-            if not time_str:
-                event_copy["isWorkHours"] = (
-                    False  # No time specified, assume not work hours
-                )
-                marked_events.append(event_copy)
-                continue
-
-            # Extract hour from time string like "2:30 PM"
-            import re
-
-            time_match = re.search(r"(\d{1,2}):(\d{2})\s*([AP]M)", time_str.upper())
-            if not time_match:
-                event_copy["isWorkHours"] = (
-                    False  # Can't parse time, assume not work hours
-                )
-                marked_events.append(event_copy)
-                continue
-
-            hour, minute, ampm = time_match.groups()
-            hour = int(hour)
-
-            # Convert to 24-hour format
-            if ampm == "PM" and hour != 12:
-                hour += 12
-            elif ampm == "AM" and hour == 12:
-                hour = 0
-
-            # Check if during work hours (9am to 6pm)
-            if hour >= 9 and hour < 18:
-                event_copy["isWorkHours"] = True
-                print(
-                    f"[WORK HOURS MARKED] Marked as work hours: '{event.get('title', 'Unknown')}' | Venue: '{event.get('venue', 'Unknown')}' | Date: '{event.get('date', 'Unknown')}' | Time: '{event.get('time', 'Unknown')}' (hour: {hour})"
-                )
-            else:
-                event_copy["isWorkHours"] = False
-
-            marked_events.append(event_copy)
-
-        except Exception as e:
-            print(f"Error checking work hours for {event.get('title', 'Unknown')}: {e}")
-            # If there's an error parsing, assume not work hours
-            event_copy["isWorkHours"] = False
-            marked_events.append(event_copy)
-
-    return marked_events
-
-
 
 
 def clean_markdown_text(text):
@@ -191,170 +117,145 @@ def is_movie_event(title, description=""):
     return True
 
 
-def generate_website_data(events):
-    """Generate JSON data for the website with movie aggregation and venue tags"""
-    # Include movies, classical music events, and book club events for the
-    # website
-    website_events = []
-    movie_events = []
-    classical_events = []
-    book_club_events = []
+def determine_event_type(event: dict) -> str:
+    """Determine event type from event data, defaulting to 'other'"""
+    return event.get("type", "other")
 
-    for event in events:
-        if event.get("type") == "concert":
-            classical_events.append(event)
-            website_events.append(event)
-        elif event.get("type") == "book_club":
-            book_club_events.append(event)
-            website_events.append(event)
-        elif event.get("type") == "movie" or event.get("is_movie", True):
-            movie_events.append(event)
-            website_events.append(event)
 
-    print(
-        f"Generating website data: { len(movie_events)} movies, {len(classical_events)} classical events, { len(book_club_events)} book clubs, {len(website_events)} total"
-    )
+def build_event_from_template(
+    event: dict, template: dict, config: ConfigLoader
+) -> dict:
+    """Build event output using template configuration"""
+    output = {}
 
-    # Group movie events by title, add classical events directly
-    combined_data = {}
+    # Get template fields
+    template_fields = template.get("fields", [])
 
-    # Process movies (group by title)
-    for event in movie_events:
-        title = event["title"]
+    # Get AI rating for special processing
+    ai_rating = event.get("ai_rating", {})
 
-        if title not in combined_data:
-            # Create new movie entry
-            ai_rating = event.get("ai_rating", {})
-            combined_data[title] = {
-                "title": title,
-                "rating": ai_rating.get(
-                    "score", 5
-                ),  # Use base AI rating for consistency
-                "description": clean_markdown_text(
-                    ai_rating.get("summary", "No description available")
-                ),
-                "oneLinerSummary": event.get(
-                    "oneLinerSummary"
-                ),  # Preserve AI-generated summary
-                "url": event.get("url", ""),
-                "isSpecialScreening": event.get("is_special_screening", False),
-                # From scraper detection
-                "isMovie": event.get("is_movie", True),
-                "isWorkHours": event.get("isWorkHours", False),  # Work hours marking
-                "duration": event.get("duration"),
-                "director": event.get("director"),
-                "country": event.get("country") if event.get("country") else "Unknown",
-                "year": event.get("year"),
-                "language": event.get("language"),
-                "venue": event.get("venue", "AFS"),  # Venue tag
-                "type": event.get("type", "screening"),  # Preserve event type
-                "screenings": [],
-            }
+    # Process only fields defined in template
+    for field in template_fields:
+        if field == "description":
+            # Special handling for description - prefer AI rating summary
+            if ai_rating.get("summary"):
+                output[field] = clean_markdown_text(ai_rating.get("summary", ""))
+            elif field in event:
+                output[field] = clean_markdown_text(event[field])
+            else:
+                output[field] = config.get_field_defaults().get(
+                    "description", "No description available"
+                )
+        elif field == "rating":
+            # Special handling for rating - use AI rating score
+            output[field] = ai_rating.get("score", -1)
+        elif field == "one_liner_summary":
+            # Special handling for one_liner_summary - prefer AI-generated version
+            if event.get("oneLinerSummary"):
+                output[field] = event.get("oneLinerSummary")
+            else:
+                output[field] = ""
+        elif field in event:
+            # Use event value if present
+            output[field] = event[field]
+        else:
+            # Apply config-defined defaults
+            output[field] = get_default_value(field, config)
 
-        # Add screening info (avoid duplicates)
-        screening = {
-            "date": event["date"],
-            "time": event.get("time", "TBD"),
-            "url": event.get("url", ""),
-            "venue": event.get("venue", "AFS"),  # Add venue to each screening
-        }
+    # Ensure type field is preserved
+    if "type" not in output:
+        output["type"] = event.get("type", "other")
 
-        # Check if this exact screening already exists
-        existing_screenings = combined_data[title]["screenings"]
-        screening_exists = any(
-            s["date"] == screening["date"]
-            and s["time"] == screening["time"]
-            and s["url"] == screening["url"]
-            for s in existing_screenings
+    return output
+
+
+def get_default_value(field_name: str, config: ConfigLoader):
+    """Get default value for a field from configuration"""
+    defaults = config.get_field_defaults()
+
+    # Map template field names to config field names
+    field_mapping = {
+        "one_liner_summary": "description",
+        "runtime_minutes": "duration",
+        "release_year": "year",
+        "publication_year": "year",
+    }
+
+    config_field = field_mapping.get(field_name, field_name)
+    return defaults.get(config_field, "")
+
+
+def create_occurrences_from_arrays(event: dict, date_time_spec: dict) -> list:
+    """Create occurrences array from date/time arrays with validation"""
+    dates = event.get(date_time_spec["date_field"], [])
+    times = event.get(date_time_spec["time_field"], [])
+
+    # Handle legacy singular format
+    if not dates and "date" in event:
+        dates = [event["date"]]
+    if not times and "time" in event:
+        times = [event["time"]]
+
+    # Fail fast per config validation rules
+    if not dates:
+        raise ValueError(
+            f"Event missing required '{date_time_spec['date_field']}' field: {event.get('title', 'Unknown')}"
         )
 
-        if not screening_exists:
-            combined_data[title]["screenings"].append(screening)
+    # Create occurrences based on zip_rule
+    occurrences = []
+    zip_rule = date_time_spec.get("zip_rule", "pairwise_equal_length")
 
-    # Process classical music events (each event is unique)
-    for event in classical_events:
-        # Create unique key for each classical event
-        event_key = f"{event['title']} - {event['date']} {event['time']}"
-
-        ai_rating = event.get("ai_rating", {})
-        combined_data[event_key] = {
-            "title": event["title"],
-            "rating": ai_rating.get("score", 5),
-            "description": clean_markdown_text(
-                ai_rating.get("summary", "No description available")
-            ),
-            "oneLinerSummary": event.get(
-                "oneLinerSummary"
-            ),  # Preserve AI-generated summary
-            "url": event.get("url", ""),
-            "isSpecialScreening": False,  # Classical events aren't "screenings"
-            "isMovie": False,  # Classical events are concerts
-            "isWorkHours": event.get("isWorkHours", False),  # Work hours marking
-            "duration": event.get("duration"),
-            "director": None,  # Not applicable to concerts
-            "country": event.get("country", "USA"),
-            "year": event.get("year"),
-            "language": None,  # Not applicable to instrumental music
-            "venue": event.get("venue"),
-            "series": event.get("series"),
-            "composers": event.get("composers", []),
-            "works": event.get("works", []),
-            "featured_artist": event.get("featured_artist"),
-            "program": event.get("program"),
-            "type": event.get("type", "concert"),  # Preserve event type
-            "screenings": [
-                {  # Using "screenings" terminology for consistency with website
-                    "date": event["date"],
-                    "time": event.get("time", "TBD"),
+    if zip_rule == "pairwise_equal_length":
+        # Pair dates and times by index
+        for i, date in enumerate(dates):
+            time = times[i] if i < len(times) else times[0] if times else "TBD"
+            occurrences.append(
+                {
+                    "date": date,
+                    "time": time,
                     "url": event.get("url", ""),
-                    "venue": event.get("venue"),
+                    "venue": event.get("venue", ""),
                 }
-            ],
-        }
-
-    # Process book club events (each event is unique)
-    for event in book_club_events:
-        # Create unique key for each book club event
-        event_key = f"{event['title']} - {event['date']} {event['time']}"
-
-        ai_rating = event.get("ai_rating", {})
-        combined_data[event_key] = {
-            "title": event["title"],
-            "rating": ai_rating.get("score", 5),
-            "description": clean_markdown_text(
-                ai_rating.get("summary", "No description available")
-            ),
-            "oneLinerSummary": event.get(
-                "oneLinerSummary"
-            ),  # Preserve AI-generated summary
-            "url": event.get("url", ""),
-            "isSpecialScreening": False,  # Book clubs aren't "screenings"
-            "isMovie": False,  # Book clubs are discussions
-            "isWorkHours": event.get("isWorkHours", False),  # Work hours marking
-            "duration": event.get("duration"),
-            "director": None,  # Not applicable to book clubs
-            "country": event.get("country", "USA"),
-            "year": event.get("year"),
-            "language": event.get("language", "English"),
-            "venue": event.get("venue"),
-            "series": event.get("series"),
-            "book": event.get("book"),
-            "author": event.get("author"),
-            "host": event.get("host"),
-            "type": event.get("type", "book_club"),  # Preserve event type
-            "screenings": [
-                {  # Using "screenings" terminology for consistency with website
-                    "date": event["date"],
-                    "time": event.get("time", "TBD"),
+            )
+    else:
+        # Use first time for all dates
+        default_time = times[0] if times else "TBD"
+        for date in dates:
+            occurrences.append(
+                {
+                    "date": date,
+                    "time": default_time,
                     "url": event.get("url", ""),
-                    "venue": event.get("venue"),
+                    "venue": event.get("venue", ""),
                 }
-            ],
-        }
+            )
 
-    # Convert to list and add unique IDs
+    return occurrences
+
+
+def should_group_by_title(event_type: str) -> bool:
+    """Determine if events of this type should be grouped by title (movies)"""
+    return event_type == "movie"
+
+
+def create_unique_key(event: dict) -> str:
+    """Create unique key for non-movie events to avoid duplicates"""
+    dates = event.get("dates", [])
+    times = event.get("times", [])
+
+    dates_str = ",".join(dates) if dates else "TBD"
+    times_str = ",".join(times) if times else "TBD"
+
+    return f"{event.get('title', 'Unknown')} - {dates_str} {times_str}"
+
+
+def finalize_website_data(combined_data: dict) -> list:
+    """Convert combined data dict to final website list with IDs and sorting"""
     website_data = []
+
     for title, event_data in combined_data.items():
+        # Create ID from title
         event_id = (
             title.lower()
             .replace(" ", "-")
@@ -365,27 +266,84 @@ def generate_website_data(events):
         )
         event_data["id"] = event_id
 
-        # Sort screenings by date and time (handle None values)
-        event_data["screenings"].sort(
+        # Sort occurrences by date and time (handle None values)
+        event_data["occurrences"].sort(
             key=lambda x: (x.get("date") or "9999-12-31", x.get("time") or "23:59")
         )
 
         website_data.append(event_data)
 
-    # Sort by the earliest screening date/time so upcoming events appear first
-    def first_screening_key(item):
-        screenings = item.get("screenings", [])
-        if not screenings:
+    # Sort by the earliest occurrence date/time so upcoming events appear first
+    def first_occurrence_key(item):
+        occurrences = item.get("occurrences", [])
+        if not occurrences:
             return ("9999-12-31", "23:59")
         first = min(
-            screenings,
+            occurrences,
             key=lambda s: (s.get("date") or "9999-12-31", s.get("time") or "23:59"),
         )
         return (first.get("date") or "9999-12-31", first.get("time") or "23:59")
 
-    website_data.sort(key=first_screening_key)
+    website_data.sort(key=first_occurrence_key)
 
     return website_data
+
+
+def generate_website_data(events):
+    """Generate JSON data for the website using master_config.yaml templates"""
+    print("Generating website data using config-driven approach...")
+
+    # Load configuration
+    config = ConfigLoader()
+    templates = config._config.get("templates", {})
+    date_time_spec = config.get_date_time_spec()
+
+    # Group events by type using ontology
+    events_by_type = {}
+    for event in events:
+        event_type = determine_event_type(event)
+        if event_type not in events_by_type:
+            events_by_type[event_type] = []
+        events_by_type[event_type].append(event)
+
+    print(
+        f"Processing events by type: { {k: len(v) for k, v in events_by_type.items()} }"
+    )
+
+    # Process events using templates
+    combined_data = {}
+
+    for event_type, type_events in events_by_type.items():
+        template = templates.get(event_type, templates.get("other", {}))
+        print(
+            f"Processing {len(type_events)} {event_type} events with template: {template.get('fields', [])}"
+        )
+
+        for event in type_events:
+            # Build output using template
+            output_event = build_event_from_template(event, template, config)
+
+            # Handle grouping (movies vs unique events)
+            if should_group_by_title(event_type):
+                # Group movies by title
+                group_key = event["title"]
+                if group_key not in combined_data:
+                    combined_data[group_key] = output_event
+                    combined_data[group_key]["occurrences"] = []
+                # Add occurrence
+                combined_data[group_key]["occurrences"].extend(
+                    create_occurrences_from_arrays(event, date_time_spec)
+                )
+            else:
+                # Unique event (concert, book_club, etc.)
+                unique_key = create_unique_key(event)
+                combined_data[unique_key] = output_event
+                combined_data[unique_key]["occurrences"] = (
+                    create_occurrences_from_arrays(event, date_time_spec)
+                )
+
+    # Finalize and return website data
+    return finalize_website_data(combined_data)
 
 
 def main(
@@ -434,7 +392,9 @@ def main(
                 "FirstLight": [e for e in events if e.get("venue") == "FirstLight"],
                 "Symphony": [e for e in events if e.get("venue") == "Symphony"],
                 "Opera": [e for e in events if e.get("venue") == "Opera"],
-                "Chamber Music": [e for e in events if e.get("venue") == "Chamber Music"],
+                "Chamber Music": [
+                    e for e in events if e.get("venue") == "Chamber Music"
+                ],
                 "EarlyMusic": [e for e in events if e.get("venue") == "EarlyMusic"],
                 "LaFollia": [e for e in events if e.get("venue") == "LaFollia"],
                 "Paramount": [e for e in events if e.get("venue") == "Paramount"],
@@ -486,39 +446,41 @@ def main(
         upcoming_events = detailed_events
         print(f"Processing {len(upcoming_events)} total events")
 
-        # Mark work-hour events
-        marked_events = mark_work_hours(upcoming_events)
-        print(
-            f"Marked {len([e for e in marked_events if e.get('isWorkHours')])} work hour events out of {len(marked_events)} total events"
-        )
-
         # Process and enrich events
         print("Processing and enriching events...")
-        enriched_events = processor.process_events(marked_events)
+        enriched_events = processor.process_events(upcoming_events)
         print(f"Processed {len(enriched_events)} events")
-        
+
         # Generate one-line summaries for events
         print("\nGenerating one-line summaries...")
         # Use the summary generator from the processor to maintain cache consistency
         summary_generator = processor.summary_generator
         if summary_generator:
             for event in enriched_events:
-                if not event.get('oneLinerSummary'):
+                if not event.get("oneLinerSummary"):
                     try:
                         summary = summary_generator.generate_summary(event)
                         if summary:
-                            event['oneLinerSummary'] = summary
-                            print(f"  Generated summary for: {event.get('title', 'Unknown')}")
+                            event["oneLinerSummary"] = summary
+                            print(
+                                f"  Generated summary for: {event.get('title', 'Unknown')}"
+                            )
                     except RuntimeError as e:
                         # Critical validation failure - this should stop the entire process
-                        print(f"CRITICAL ERROR: Cannot generate summary for '{event.get('title', 'Unknown')}': {e}")
+                        print(
+                            f"CRITICAL ERROR: Cannot generate summary for '{event.get('title', 'Unknown')}': {e}"
+                        )
                         raise
                     except Exception as e:
                         # Other errors (API failures, etc.) - log but continue
-                        print(f"  Warning: Failed to generate summary for '{event.get('title', 'Unknown')}': {e}")
+                        print(
+                            f"  Warning: Failed to generate summary for '{event.get('title', 'Unknown')}': {e}"
+                        )
             print("Completed summary generation")
         else:
-            print("Warning: Summary generator not available, skipping summary generation")
+            print(
+                "Warning: Summary generator not available, skipping summary generation"
+            )
 
         # Generate website JSON data
         print("Generating website data...")

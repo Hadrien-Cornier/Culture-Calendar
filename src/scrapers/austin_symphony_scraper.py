@@ -12,64 +12,17 @@ from src.base_scraper import BaseScraper
 class AustinSymphonyScraper(BaseScraper):
     """Simple scraper for Austin Symphony events - loads from JSON data"""
 
-    def __init__(self):
-        super().__init__(base_url="https://austinsymphony.org", venue_name="Symphony")
-        self.data_file = (
-            "/Users/HCornier/Documents/Github/Culture-Calendar/docs/classical_data.json"
+    def __init__(self, config=None, venue_key="austin_symphony"):
+        super().__init__(
+            base_url="https://austinsymphony.org",
+            venue_name="Symphony",
+            venue_key=venue_key,
+            config=config,
         )
+        self.data_file = self.get_project_path("docs", "classical_data.json")
 
     def get_target_urls(self) -> List[str]:
         """Return empty list - we load from JSON file"""
-        return []
-
-    def get_data_schema(self) -> Dict:
-        """Return the expected data schema for concert events"""
-        return {
-            "title": {
-                "type": "string",
-                "required": True,
-                "description": "Concert title",
-            },
-            "program": {
-                "type": "string",
-                "required": False,
-                "description": "Concert program",
-            },
-            "featured_artist": {
-                "type": "string",
-                "required": False,
-                "description": "Featured artist or soloist",
-            },
-            "composers": {
-                "type": "array",
-                "required": False,
-                "description": "List of composer names",
-            },
-            "works": {
-                "type": "array",
-                "required": False,
-                "description": "List of musical works",
-            },
-            "series": {
-                "type": "string",
-                "required": False,
-                "description": "Concert series name",
-            },
-            "date": {
-                "type": "string",
-                "required": True,
-                "description": "Event date in YYYY-MM-DD format",
-            },
-            "time": {
-                "type": "string",
-                "required": True,
-                "description": 'Event time (e.g., "8:00 PM")',
-            },
-            "venue": {"type": "string", "required": False, "description": "Venue name"},
-        }
-
-    def get_fallback_data(self) -> List[Dict]:
-        """Return empty list - we only want real data"""
         return []
 
     def scrape_events(self, use_cache: bool = True) -> List[Dict]:
@@ -86,30 +39,35 @@ class AustinSymphonyScraper(BaseScraper):
             standardized_events = []
 
             for event in symphony_events:
-                # Handle multiple dates for the same concert
+                # Keep dates and times as arrays for consistency
                 dates = event.get("dates", [])
                 times = event.get("times", [])
 
-                for i, date in enumerate(dates):
-                    time = (
-                        times[i] if i < len(times) else times[0] if times else "8:00 PM"
-                    )
+                # Ensure dates and times are always arrays
+                if not isinstance(dates, list):
+                    dates = [dates] if dates else []
+                if not isinstance(times, list):
+                    times = [times] if times else []
 
-                    standardized_event = {
-                        "title": event.get("title"),
-                        "program": event.get("program"),
-                        "featured_artist": event.get("featured_artist"),
-                        "composers": event.get("composers", []),
-                        "works": event.get("works", []),
-                        "series": event.get("series"),
-                        "date": date,
-                        "time": time,
-                        "venue": self.venue_name,
-                        "location": event.get("venue_name", "Dell Hall at Long Center"),
-                        "type": "concert",
-                        "url": self.base_url,
-                    }
-                    standardized_events.append(standardized_event)
+                # If no times provided, default to 8:00 PM for all dates
+                if not times and dates:
+                    times = ["8:00 PM"] * len(dates)
+
+                standardized_event = {
+                    "title": event.get("title"),
+                    "program": event.get("program"),
+                    "featured_artist": event.get("featured_artist"),
+                    "composers": event.get("composers", []),
+                    "works": event.get("works", []),
+                    "series": event.get("series"),
+                    "dates": dates,  # Keep as array
+                    "times": times,  # Keep as array
+                    "venue": self.venue_name,
+                    "location": event.get("venue_name", "Dell Hall at Long Center"),
+                    "type": "concert",
+                    "url": self.base_url,
+                }
+                standardized_events.append(standardized_event)
 
             print(f"Loaded {len(standardized_events)} Symphony events from JSON")
             return standardized_events

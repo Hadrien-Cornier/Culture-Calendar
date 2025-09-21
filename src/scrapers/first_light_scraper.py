@@ -14,9 +14,12 @@ from src.base_scraper import BaseScraper
 class FirstLightAustinScraper(BaseScraper):
     """Scraper for First Light Austin events and book club events"""
 
-    def __init__(self):
+    def __init__(self, config=None, venue_key="first_light"):
         super().__init__(
-            base_url="https://www.firstlightaustin.com", venue_name="FirstLight"
+            base_url="https://www.firstlightaustin.com",
+            venue_name="FirstLight",
+            venue_key=venue_key,
+            config=config,
         )
 
     def get_target_urls(self) -> List[str]:
@@ -26,51 +29,6 @@ class FirstLightAustinScraper(BaseScraper):
             f"{self.base_url}/events",
             # Main events page - individual pages will be scraped separately
         ]
-
-    def get_data_schema(self) -> Dict:
-        """Return the expected data schema for events and book clubs"""
-        return {
-            "title": {
-                "type": "string",
-                "required": True,
-                "description": "Event title or book club name",
-            },
-            "author": {
-                "type": "string",
-                "required": False,
-                "description": "Author name",
-            },
-            "book": {
-                "type": "string",
-                "required": False,
-                "description": "Book title if applicable",
-            },
-            "date": {
-                "type": "string",
-                "required": True,
-                "description": "Event date in YYYY-MM-DD format",
-            },
-            "time": {
-                "type": "string",
-                "required": True,
-                "description": 'Event time (e.g., "7:30 PM")',
-            },
-            "venue": {"type": "string", "required": False, "description": "Venue name"},
-            "host": {
-                "type": "string",
-                "required": False,
-                "description": "Host or facilitator name",
-            },
-            "description": {
-                "type": "string",
-                "required": False,
-                "description": "Event description",
-            },
-        }
-
-    def get_fallback_data(self) -> List[Dict]:
-        """Return empty list - we only want real data"""
-        return []
 
     def parse_date_time(self, date_time_str):
         """Parse date/time string like '6/30/25 7:00 pm' into separate date and time"""
@@ -100,7 +58,7 @@ class FirstLightAustinScraper(BaseScraper):
         """Parse book club date strings like 'Friday, June 27th' into YYYY-MM-DD format"""
         try:
             # Remove trailing comma and any extra whitespace
-            cleaned_date = date_str.strip().rstrip(',').strip()
+            cleaned_date = date_str.strip().rstrip(",").strip()
             # Remove 'st', 'nd', 'rd', 'th' from day
             cleaned_date = re.sub(r"(\d+)(st|nd|rd|th)", r"\1", cleaned_date)
 
@@ -108,7 +66,9 @@ class FirstLightAustinScraper(BaseScraper):
             current_year = datetime.now().year
             # For events in months that have already passed this year, use next year
             # For events in current or future months, use current year
-            future_year = 2025  # Force 2025 since we're in 2025 and these are future events
+            future_year = (
+                2025  # Force 2025 since we're in 2025 and these are future events
+            )
 
             # Parse the date (assuming future year since these are future
             # events)
@@ -217,10 +177,9 @@ class FirstLightAustinScraper(BaseScraper):
                     "title": title,
                     "author": author,
                     "book": book,
-                    "date": date_str,
-                    "time": time_str,
+                    "dates": [date_str],  # Use dates array
+                    "times": [time_str],  # Use times array
                     "venue": venue,
-                    "type": "book_club",
                     "description": description,
                     "rsvp_url": rsvp_url,
                     "url": url,
@@ -284,10 +243,12 @@ class FirstLightAustinScraper(BaseScraper):
                             book_title = selection_match.group(1).strip()
                         else:
                             book_title = book_part.strip()
-                        
+
                         # Author is everything after " by " up to ". Meets"
                         author_part = parts[1]
-                        author_match = re.search(r"^(.+?)(?=\s*\.\s*Meets)", author_part)
+                        author_match = re.search(
+                            r"^(.+?)(?=\s*\.\s*Meets)", author_part
+                        )
                         if author_match:
                             author = author_match.group(1).strip()
                         else:
@@ -310,7 +271,9 @@ class FirstLightAustinScraper(BaseScraper):
                         by_match = re.search(r"\s+by\s+", remaining_text)
                         if by_match:
                             author_part = remaining_text.split(" by ")[1]
-                            author_match = re.search(r"^(.+?)(?=\s*\.\s*Meets)", author_part)
+                            author_match = re.search(
+                                r"^(.+?)(?=\s*\.\s*Meets)", author_part
+                            )
                             if author_match:
                                 author = author_match.group(1).strip()
 
@@ -391,10 +354,9 @@ class FirstLightAustinScraper(BaseScraper):
                         "title": f"{full_club_name} - {book_title}",
                         "author": author,
                         "book": book_title,
-                        "date": date_str,
-                        "time": time_str,
+                        "dates": [date_str],  # Use dates array
+                        "times": [time_str],  # Use times array
                         "venue": "First Light Books",
-                        "type": "book_club",
                         "host": host,
                         "series": full_club_name,
                         "description": main_description,

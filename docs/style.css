@@ -775,6 +775,36 @@ a:visited {
     border-top: 1px solid #e6e6e6;
 }
 
+/* Past Event Styling
+   ================================================================== */
+.past-event {
+    opacity: 0.5;
+    filter: grayscale(50%);
+}
+
+.past-event:hover {
+    opacity: 0.7;
+    filter: grayscale(30%);
+}
+
+.calendar-event.past-event {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+.calendar-event.past-event:hover {
+    background-color: #e0e0e0;
+    transform: none;  /* Reduce hover effect for past events */
+}
+
+.event-card.past-event {
+    opacity: 0.6;
+}
+
+.event-card.past-event .event-metadata {
+    color: #999;
+}
+
 /* Calendar View
    ================================================================== */
 .calendar-navigation {
@@ -1241,8 +1271,8 @@ a:visited {
 }
 
 .review-modal.active {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .review-modal-container {

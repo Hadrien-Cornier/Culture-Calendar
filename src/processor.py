@@ -4,6 +4,7 @@ Event processor for enriching and rating events
 
 import os
 import time
+import json
 from datetime import datetime
 from typing import Dict, List
 
@@ -22,12 +23,46 @@ class EventProcessor:
         self.force_reprocess = force_reprocess
         self.reprocessed_titles = set()  # Track titles already reprocessed in this run
 
+        # Load existing data into cache
+        self._load_existing_data()
+
         # Initialize summary generator
         try:
             self.summary_generator = SummaryGenerator()
         except ValueError as e:
             print(f"Warning: Could not initialize summary generator: {e}")
             self.summary_generator = None
+
+    def _load_existing_data(self):
+        """Load existing event data from docs/data.json into movie cache"""
+        try:
+            # Get the project root directory (assuming this file is in src/)
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            project_root = os.path.dirname(current_dir)
+            data_file_path = os.path.join(project_root, "docs", "data.json")
+
+            if not os.path.exists(data_file_path):
+                print(f"Warning: data.json not found at {data_file_path}")
+                return
+
+            with open(data_file_path, "r", encoding="utf-8") as f:
+                events_data = json.load(f)
+
+            # Load data into cache
+            loaded_count = 0
+            for event in events_data:
+                title = event.get("title", "").upper().strip()
+                rating = event.get("rating")
+                description = event.get("description", "")
+
+                if title and rating is not None:
+                    self.movie_cache[title] = {"score": rating, "summary": description}
+                    loaded_count += 1
+
+            print(f"Loaded {loaded_count} cached event ratings from data.json")
+
+        except Exception as e:
+            print(f"Warning: Could not load existing data from data.json: {e}")
 
     def process_events(self, events: List[Dict]) -> List[Dict]:
         """Process and enrich all events"""
@@ -38,13 +73,13 @@ class EventProcessor:
         for i, event in enumerate(events, 1):
             try:
                 # Process screenings, movies, concerts, and book clubs
-                if event.get("type") not in ["screening", "movie", "concert", "book_club"]:
+                if event.get("type") not in [
+                    "screening",
+                    "movie",
+                    "concert",
+                    "book_club",
+                ]:
                     continue
-
-                # Preserve work hours marking if it exists
-                if "isWorkHours" in event:
-                    # Keep the field as-is from the input
-                    pass
 
                 processed_count += 1
                 print(f"Processing ({processed_count}): {event['title']}")
@@ -63,21 +98,26 @@ class EventProcessor:
 
                 # Get AI rating (with caching)
                 event_title = event["title"].upper().strip()
-                
+
                 # Check if we need to process this title
                 should_process = False
                 is_first_time_reprocessing = False
+                made_ai_api_call = False
+
                 if event_title not in self.movie_cache:
                     # Not in cache, need to process
                     should_process = True
-                elif self.force_reprocess and event_title not in self.reprocessed_titles:
+                elif (
+                    self.force_reprocess and event_title not in self.reprocessed_titles
+                ):
                     # Force reprocess enabled and we haven't reprocessed this title yet
                     should_process = True
                     is_first_time_reprocessing = True
                     print(f"  Force re-processing {event_title} (ignoring cache)")
-                
+
                 if should_process:
                     # Process the event
+                    made_ai_api_call = True
                     if event.get("type") == "concert":
                         ai_rating = self._get_classical_rating(event)
                     elif event.get("type") == "book_club":
@@ -100,15 +140,22 @@ class EventProcessor:
                 # Generate one-line summary using Claude API (AFTER AI
                 # description is available)
                 one_liner_summary = None
+                made_summary_api_call = False
+
                 if self.summary_generator:
                     try:
                         # Force regenerate summary only if this is the first time reprocessing
-                        one_liner_summary = self.summary_generator.generate_summary(
-                            event, force_regenerate=is_first_time_reprocessing
+                        one_liner_summary, summary_was_generated = (
+                            self.summary_generator.generate_summary_with_cache_info(
+                                event, force_regenerate=is_first_time_reprocessing
+                            )
                         )
+                        made_summary_api_call = summary_was_generated
                     except RuntimeError as e:
                         # Critical validation failure - this should stop processing
-                        print(f"CRITICAL: Summary generation failed for '{event.get('title', 'Unknown')}': {e}")
+                        print(
+                            f"CRITICAL: Summary generation failed for '{event.get('title', 'Unknown')}': {e}"
+                        )
                         raise
                     except Exception as e:
                         # Other errors (API failures, etc.) - log but continue
@@ -123,8 +170,14 @@ class EventProcessor:
 
                 enriched_events.append(event)
 
-                # Rate limiting for API calls
-                time.sleep(1)
+                # Rate limiting ONLY when API calls were made
+                if made_ai_api_call or made_summary_api_call:
+                    time.sleep(1)
+                    print(
+                        f"  Applied rate limiting (AI API: {made_ai_api_call}, Summary API: {made_summary_api_call})"
+                    )
+                else:
+                    print(f"  Using cached data for {event_title}")
 
             except Exception as e:
                 print(f"Error processing event '{event.get( 'title','Unknown')}': {e}")
@@ -133,7 +186,6 @@ class EventProcessor:
                 enriched_events.append(event)
 
         return enriched_events
-
 
     def _get_ai_rating(self, event: Dict) -> Dict:
         """Get movie rating and info from Perplexity API using detailed metadata"""
@@ -373,4 +425,3 @@ Focus solely on artistic merit and complexity. Reward innovation and high entrop
         except Exception as e:
             print(f"Error parsing AI response: {e}")
             return {"score": 5, "summary": content[:2000]}
-

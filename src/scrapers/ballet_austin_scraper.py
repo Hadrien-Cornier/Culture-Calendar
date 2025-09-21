@@ -13,34 +13,21 @@ from src.base_scraper import BaseScraper
 class BalletAustinScraper(BaseScraper):
     """Simple scraper for Ballet Austin season events – loads from JSON data"""
 
-    def __init__(self):
-        super().__init__(base_url="https://balletaustin.org", venue_name="BalletAustin")
-        # Hard-coded JSON file (slow-changing, edited manually)
-        self.data_file = (
-            "/Users/HCornier/Documents/Github/Culture-Calendar/docs/ballet_data.json"
+    def __init__(self, config=None, venue_key="ballet_austin"):
+        super().__init__(
+            base_url="https://balletaustin.org",
+            venue_name="BalletAustin",
+            venue_key=venue_key,
+            config=config,
         )
+        # Load from JSON file relative to project root
+        self.data_file = self.get_project_path("docs", "ballet_data.json")
 
     # ---------------------------------------------------------------------
     # Nothing to scrape – we just read the static JSON
     # ---------------------------------------------------------------------
     def get_target_urls(self) -> List[str]:  # noqa: D401
         """Return empty list – we load from JSON file"""
-        return []
-
-    def get_data_schema(self) -> Dict:  # noqa: D401
-        """Return the expected data schema for Ballet Austin events"""
-        return {
-            "title": {"type": "string", "required": True},
-            "program": {"type": "string", "required": False},
-            "dates": {"type": "array", "required": True},
-            "times": {"type": "array", "required": True},
-            "venue_name": {"type": "string", "required": False},
-            "series": {"type": "string", "required": False},
-            "type": {"type": "string", "required": False},
-        }
-
-    def get_fallback_data(self) -> List[Dict]:  # noqa: D401
-        """Return empty list – we only want real data"""
         return []
 
     # ------------------------------------------------------------------
@@ -64,7 +51,9 @@ class BalletAustinScraper(BaseScraper):
                 times = event.get("times", [])
 
                 for i, date in enumerate(dates):
-                    time = times[i] if i < len(times) else times[0] if times else "7:30 PM"
+                    time = (
+                        times[i] if i < len(times) else times[0] if times else "7:30 PM"
+                    )
 
                     standardized_event = {
                         "title": event.get("title"),
@@ -84,4 +73,4 @@ class BalletAustinScraper(BaseScraper):
 
         except Exception as e:
             print(f"Error loading Ballet Austin events from JSON: {e}")
-            return [] 
+            return []

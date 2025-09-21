@@ -558,45 +558,74 @@
   "austinChamberMusic": [
     {
       "title": "Kodak Quartet with Michelle Schumann",
-      "program": "Grand prize winners of Austin's own national Coltman Chamber Music Competition kick off weekend two of the Austin Chamber Music Festival! Kodak Quartet is highly regarded for their work with contemporary composers and for presenting traditional works with a contemporary flavor; their July 19 program features Johannes Brahms, John Zorn, and Ernst von Dohnányi. Joining the energetic ensemble is pianist Michelle Schumann, named \"Best Classical Musician\" in the Best of Austin Readers Poll by the Austin Chronicle.",
-      "dates": ["2025-07-19"],
-      "times": ["7:30 PM"],
+      "program": "Grand prize winners of Austin's own national Coltman Chamber Music Competition kick off weekend two of the Austin Chamber Music Festival! Kodak Quartet is highly regarded for their work with contemporary composers and for presenting traditional works with a contemporary flavor; their July 19 program features Johannes Brahms, John Zorn, and Ernst von Dohn\u00e1nyi. Joining the energetic ensemble is pianist Michelle Schumann, named \"Best Classical Musician\" in the Best of Austin Readers Poll by the Austin Chronicle.",
+      "dates": [
+        "2025-07-19"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
       "venue_name": "Austin Chamber Music Center",
       "series": "Austin Chamber Music Festival",
       "featured_artist": "Kodak Quartet, Michelle Schumann (piano)",
-      "composers": ["Johannes Brahms", "John Zorn", "Ernst von Dohnányi"],
+      "composers": [
+        "Johannes Brahms",
+        "John Zorn",
+        "Ernst von Dohn\u00e1nyi"
+      ],
       "works": [],
       "type": "concert"
     },
     {
       "title": "Carnival of the Animals",
-      "program": "A family-friendly concert featuring Camille Saint-Saëns's beloved Carnival of the Animals invites young listeners and their families into the vibrant world of chamber music, with interactive activities and games that create an engaging, playful environment. Music fans of all ages will enjoy an inspiring, accessible experience that bridges generations and sparks a lifelong love for music. Narrated in both English and Spanish by Armstrong Community Music School's Monica Salas. Featured performers include Coltman Competition grand prize winners Kodak Quartet, acclaimed pianists Michelle Schumann and Sohee Kwon, and musicians from the Butler School of Music and the Austin Symphony.",
-      "dates": ["2025-07-20", "2025-07-20"],
-      "times": ["12:00 PM", "2:00 PM"],
+      "program": "A family-friendly concert featuring Camille Saint-Sa\u00ebns's beloved Carnival of the Animals invites young listeners and their families into the vibrant world of chamber music, with interactive activities and games that create an engaging, playful environment. Music fans of all ages will enjoy an inspiring, accessible experience that bridges generations and sparks a lifelong love for music. Narrated in both English and Spanish by Armstrong Community Music School's Monica Salas. Featured performers include Coltman Competition grand prize winners Kodak Quartet, acclaimed pianists Michelle Schumann and Sohee Kwon, and musicians from the Butler School of Music and the Austin Symphony.",
+      "dates": [
+        "2025-07-20",
+        "2025-07-20"
+      ],
+      "times": [
+        "12:00 PM",
+        "2:00 PM"
+      ],
       "venue_name": "Austin Chamber Music Center",
       "series": "Austin Chamber Music Festival",
       "featured_artist": "Kodak Quartet, Michelle Schumann, Sohee Kwon, Monica Salas (narrator)",
-      "composers": ["Camille Saint-Saëns"],
-      "works": ["Carnival of the Animals"],
+      "composers": [
+        "Camille Saint-Sa\u00ebns"
+      ],
+      "works": [
+        "Carnival of the Animals"
+      ],
       "type": "concert"
     },
     {
       "title": "Twelfth Night",
       "program": "Described as \"an absolute gift to see live\" (The Nevada Sagebrush), Twelfth Night is a refreshingly new ensemble of historical performance specialists led by keyboardist David Belkovski and violinist Rachell Ellen Wong, formed with the firm belief that art is best explored as a meeting place of the past, present, and future. Their Austin Chamber Music Festival performance shows off their spirit and boundless revelry with a program featuring Georg Philipp Telemann, Antonio Vivaldi, and more.",
-      "dates": ["2025-08-01"],
-      "times": ["7:30 PM"],
+      "dates": [
+        "2025-08-01"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
       "venue_name": "Austin Chamber Music Center",
       "series": "Austin Chamber Music Festival",
       "featured_artist": "Twelfth Night (David Belkovski, Rachell Ellen Wong)",
-      "composers": ["Georg Philipp Telemann", "Antonio Vivaldi"],
+      "composers": [
+        "Georg Philipp Telemann",
+        "Antonio Vivaldi"
+      ],
       "works": [],
       "type": "concert"
     },
     {
       "title": "Poiesis Quartet & Friends",
-      "program": "An emerging young \"ensemble to watch,\" the Poiesis Quartet already has a long list of prizes under their belt, including winning last year's Concert Artists Guild Competition. Lauded as \"agile collaborators,\" they'll be perfoming with Miró Quartet's violist John Largess and cellist Joshua Gindele.",
-      "dates": ["2025-08-02"],
-      "times": ["7:30 PM"],
+      "program": "An emerging young \"ensemble to watch,\" the Poiesis Quartet already has a long list of prizes under their belt, including winning last year's Concert Artists Guild Competition. Lauded as \"agile collaborators,\" they'll be perfoming with Mir\u00f3 Quartet's violist John Largess and cellist Joshua Gindele.",
+      "dates": [
+        "2025-08-02"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
       "venue_name": "Austin Chamber Music Center",
       "series": "Austin Chamber Music Festival",
       "featured_artist": "Poiesis Quartet, John Largess (viola), Joshua Gindele (cello)",
@@ -605,27 +634,45 @@
       "type": "concert"
     },
     {
-      "title": "Miró Quartet & Poiesis Quartet",
-      "program": "Join the renowned Miró Quartet in celebration of the 200th anniversary of Beethoven's Quartet Opus 132. This masterpiece takes us through the journey of Beethoven's illness, from facing mortality to spiritual healing. The concert continues with the Miró Quartet joining forces with the prize-winning Poiesis Quartet to perform Felix Mendelssohn's masterful String Octet. Enjoy the blending of two extraordinary ensembles of established and emerging talent, delivering an exhilarating and richly textured interpretation of one of chamber music's most beloved works.",
-      "dates": ["2025-08-03"],
-      "times": ["3:00 PM"],
+      "title": "Mir\u00f3 Quartet & Poiesis Quartet",
+      "program": "Join the renowned Mir\u00f3 Quartet in celebration of the 200th anniversary of Beethoven's Quartet Opus 132. This masterpiece takes us through the journey of Beethoven's illness, from facing mortality to spiritual healing. The concert continues with the Mir\u00f3 Quartet joining forces with the prize-winning Poiesis Quartet to perform Felix Mendelssohn's masterful String Octet. Enjoy the blending of two extraordinary ensembles of established and emerging talent, delivering an exhilarating and richly textured interpretation of one of chamber music's most beloved works.",
+      "dates": [
+        "2025-08-03"
+      ],
+      "times": [
+        "3:00 PM"
+      ],
       "venue_name": "Austin Chamber Music Center",
       "series": "Austin Chamber Music Festival",
-      "featured_artist": "Miró Quartet, Poiesis Quartet",
-      "composers": ["Ludwig van Beethoven", "Felix Mendelssohn"],
-      "works": ["String Quartet Op. 132", "String Octet"],
+      "featured_artist": "Mir\u00f3 Quartet, Poiesis Quartet",
+      "composers": [
+        "Ludwig van Beethoven",
+        "Felix Mendelssohn"
+      ],
+      "works": [
+        "String Quartet Op. 132",
+        "String Octet"
+      ],
       "type": "concert"
     },
     {
       "title": "Gil Shaham & Akira Eguchi",
       "program": "Grammy award-winning violinist Gil Shaham and acclaimed pianist Akira Eguchi bring Beethoven's iconic Sonatas for Piano and Violin to life in the grand finale of the 2025 Austin Chamber Music Festival. This special event promises an unforgettable evening of profound artistry.",
-      "dates": ["2025-08-09"],
-      "times": ["7:30 PM"],
+      "dates": [
+        "2025-08-09"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
       "venue_name": "Austin Chamber Music Center",
       "series": "Austin Chamber Music Festival",
       "featured_artist": "Gil Shaham (violin), Akira Eguchi (piano)",
-      "composers": ["Ludwig van Beethoven"],
-      "works": ["Sonatas for Piano and Violin"],
+      "composers": [
+        "Ludwig van Beethoven"
+      ],
+      "works": [
+        "Sonatas for Piano and Violin"
+      ],
       "type": "concert"
     }
   ],
@@ -687,7 +734,7 @@
       "type": "opera"
     },
     {
-      "title": "La Bohème",
+      "title": "La Boh\u00e8me",
       "program": "Puccini's masterpiece follows the lives of young people living in the Latin Quarter of Paris. One of the most beloved operas of all time, with soaring melodies that capture the emotion of young love and heartbreak",
       "dates": [
         "2026-04-30",
@@ -703,12 +750,12 @@
       ],
       "venue_name": "Long Center for the Performing Arts",
       "series": "Austin Opera 2025-26 Season",
-      "featured_artist": "Joshua Blue/Demetrious Sampson Jr. (Rodolfo), Hailey Clark (Mimì), Troy Cook (Marcello), Jasmine Habersham (Musetta)",
+      "featured_artist": "Joshua Blue/Demetrious Sampson Jr. (Rodolfo), Hailey Clark (Mim\u00ec), Troy Cook (Marcello), Jasmine Habersham (Musetta)",
       "composers": [
         "Giacomo Puccini"
       ],
       "works": [
-        "La Bohème"
+        "La Boh\u00e8me"
       ],
       "type": "opera"
     }

@@ -19,91 +19,17 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 class AlienatedMajestyBooksScraper(BaseScraper):
     """Scraper for Alienated Majesty Books events using pyppeteer for JS rendering"""
 
-    def __init__(self):
+    def __init__(self, config=None, venue_key="alienated_majesty"):
         super().__init__(
             base_url="https://www.alienatedmajestybooks.com",
             venue_name="AlienatedMajesty",
+            venue_key=venue_key,
+            config=config,
         )
 
     def get_target_urls(self) -> List[str]:
         """Return list of URLs to scrape"""
         return [f"{self.base_url}/book-clubs"]
-
-    def get_data_schema(self) -> Dict:
-        """Return the expected data schema for book club events"""
-        from datetime import datetime
-        
-        # Get current date information
-        now = datetime.now()
-        current_year = now.year
-        current_month = now.month
-        current_month_name = now.strftime("%B")
-        
-        # Generate dynamic date guidance
-        date_guidance = f"IMPORTANT: We are currently in {current_month_name} {current_year}. All book club events are future events. For dates without years: use {current_year} for {current_month_name}-December, use {current_year + 1} for January-{now.strftime('%B')}."
-        
-        return {
-            "events": {
-                "type": "array",
-                "description": f"List of book club events extracted from Alienated Majesty Books webpage. Look for book club sections with headers like 'NYRB Book Club', 'Subculture Lit', 'A Season Of', 'Voyage Out', 'Apricot Trees Exist'. For each section, extract the book meetings listed under 'Upcoming Meetings'. Each event should include the book club name, book title, author, meeting date, and meeting time from the description. {date_guidance}",
-                "items": {
-                    "title": {
-                        "type": "string",
-                        "required": True,
-                        "description": "Format as '[Series Name] - [Book Title]' (e.g., 'NYRB Book Club - Nightmare Alley'). Extract the series name from headers like 'NYRB Book Club', 'Subculture Lit', etc. and combine with the book title.",
-                    },
-                    "book": {
-                        "type": "string",
-                        "required": True,
-                        "description": "ONLY the book title being discussed (e.g., 'Nightmare Alley'). Extract from patterns like 'Nightmare Alley by William Lindsey Gresham' - keep only the title part before 'by'.",
-                    },
-                    "author": {
-                        "type": "string",
-                        "required": True,
-                        "description": "ONLY the author's name (e.g., 'William Lindsey Gresham'). Extract from patterns like 'Nightmare Alley by William Lindsey Gresham' - keep only the name part after 'by'.",
-                    },
-                    "date": {
-                        "type": "string",
-                        "required": True,
-                        "description": f"Event date in YYYY-MM-DD format. {date_guidance} Examples: 'Saturday, October 4' → '{current_year}-10-04', 'Saturday, January 3' → '{current_year + 1}-01-03', 'Sunday, {current_month_name} 14' → '{current_year}-{current_month:02d}-14'.",
-                    },
-                    "time": {
-                        "type": "string",
-                        "required": True,
-                        "description": 'Meeting time in format like "11:00 AM" or "3:00 PM". Look for text like "Meets the 1st Saturday of every month at 11am" in each book club section description.',
-                    },
-                    "venue": {
-                        "type": "string",
-                        "required": False,
-                        "description": "Always 'Alienated Majesty Books' for this website.",
-                    },
-                    "host": {
-                        "type": "string",
-                        "required": False,
-                        "description": "Organization running the book club (e.g., 'Austin NYRB Book Club', 'East Austin Writing Project'). Look for text like 'Run by [Organization Name]' in each book club section description.",
-                    },
-                    "description": {
-                        "type": "string",
-                        "required": False,
-                        "description": "Full description of the book club series from the section text. Include the tagline, meeting schedule, and organizer information as shown in each book club section.",
-                    },
-                    "series": {
-                        "type": "string",
-                        "required": True,
-                        "description": "Book club series name exactly as shown in the section headers (e.g., 'NYRB Book Club', 'Subculture Lit', 'A Season Of', 'Voyage Out', 'Apricot Trees Exist'). This is REQUIRED - find which book club section each meeting belongs to.",
-                    },
-                    "url": {
-                        "type": "string",
-                        "required": True,
-                        "description": "The source URL of the webpage",
-                    },
-                },
-            }
-        }
-
-    def get_fallback_data(self) -> List[Dict]:
-        """Return empty list - we only want real data"""
-        return []
 
     async def _scrape_with_pyppeteer_async(self, url: str) -> List[Dict]:
         """Use pyppeteer to render JavaScript and extract book club events"""
@@ -157,7 +83,26 @@ class AlienatedMajestyBooksScraper(BaseScraper):
         try:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-            return loop.run_until_complete(self._scrape_with_pyppeteer_async(url))
+            result = loop.run_until_complete(self._scrape_with_pyppeteer_async(url))
+
+            # Wait for all pending tasks to complete before closing the loop
+            pending = asyncio.all_tasks(loop)
+            if pending:
+                print(f"  Waiting for {len(pending)} pending tasks to complete...")
+                # Cancel all remaining tasks
+                for task in pending:
+                    if not task.done():
+                        task.cancel()
+
+                # Wait for cancellation to complete
+                try:
+                    loop.run_until_complete(
+                        asyncio.gather(*pending, return_exceptions=True)
+                    )
+                except Exception:
+                    pass
+
+            return result
         except Exception as e:
             print(f"  Pyppeteer wrapper error: {e}")
             return []
@@ -249,13 +194,61 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             if len(simplified_content) > 6000:
                 simplified_content = simplified_content[:6000] + "..."
 
-            print(f"  Using simplified content with separators ({len(simplified_content)} chars)")
-            
-            # Save the content with separators for debugging
-            # self._save_content_with_separators(simplified_content, url)
+            print(
+                f"  Using simplified content with separators ({len(simplified_content)} chars)"
+            )
 
-            # Use the exact schema that matches the test expectations
-            schema = self.get_data_schema()
+            from datetime import datetime
+
+            # Get current date information
+            now = datetime.now()
+            current_year = now.year
+            current_month = now.month
+            current_month_name = now.strftime("%B")
+
+            # Generate dynamic date guidance
+            date_guidance = f"IMPORTANT: We are currently in {current_month_name} {current_year}. All book club events are future events. For dates without years: use {current_year} for {current_month_name}-December, use {current_year + 1} for January-{now.strftime('%B')}."
+
+            # Get extraction schema from ConfigLoader (handles all overrides)
+            if not self.config:
+                raise ValueError("Configuration is required for scraper operation")
+
+            # Get complete extraction schema with all overrides applied
+            extraction_schema = self.config.get_extraction_schema(self.venue_key)
+
+            # Build items schema for LLM extraction
+            items_schema = {}
+            for field_name, field_def in extraction_schema["fields"].items():
+                field_schema = {
+                    "type": field_def.get("type", "string"),
+                    "required": field_def.get("required", False),
+                    "description": field_def.get("description", ""),
+                }
+
+                # Handle dynamic date guidance
+                if field_name == "dates" and field_def.get("dynamic_guidance"):
+                    # Replace YYYY placeholder and add runtime date guidance
+                    field_schema["description"] = field_schema["description"].replace(
+                        "YYYY", str(current_year)
+                    )
+                    field_schema["description"] += f" {date_guidance}"
+
+                items_schema[field_name] = field_schema
+
+            # Get batch description and add dynamic date guidance
+            batch_description = extraction_schema.get(
+                "batch_description", "List of events extracted from the webpage."
+            )
+            if date_guidance:
+                batch_description = f"{batch_description} {date_guidance}"
+
+            schema = {
+                "events": {
+                    "type": "array",
+                    "description": batch_description,
+                    "items": items_schema,
+                }
+            }
 
             # Enhanced extraction with simplified content
             extraction_result = self.llm_service.extract_data(
@@ -279,24 +272,30 @@ class AlienatedMajestyBooksScraper(BaseScraper):
 
                 # Post-process events to ensure proper formatting
                 processed_events = []
+
                 for event in events:
-                    # Map LLM field names to our expected schema
-                    mapped_event = self._map_llm_fields(event)
-                    
+                    # Apply default values from configuration
+                    if self.config:
+                        mapped_event = self.config.apply_default_values(
+                            event, self.venue_key
+                        )
+                    else:
+                        mapped_event = event
+
                     # Debug: show corrected event after mapping
                     if len(processed_events) == 0:  # Only show first event
                         print(f"  Corrected event: {mapped_event}")
 
-                    # Ensure venue is set
-                    if not mapped_event.get("venue"):
-                        mapped_event["venue"] = "Alienated Majesty Books"
+                    # Ensure URL is set (this is runtime data, not config)
+                    if not mapped_event.get("url"):
+                        mapped_event["url"] = url
 
-                    # Ensure type is set
-                    mapped_event["type"] = "book_club"
-
-                    # Ensure URL is set
-                    mapped_event["url"] = url
-
+                    # Set event type based on venue's assumed category from config
+                    mapped_event["type"] = (
+                        self.config.get_assumed_event_category(self.venue_key)
+                        if self.config
+                        else None
+                    )
                     processed_events.append(mapped_event)
 
                 return processed_events
@@ -314,26 +313,26 @@ class AlienatedMajestyBooksScraper(BaseScraper):
         try:
             # Look for book club headers to identify sections
             book_club_headers = main_content.find_all("h2", class_="bm-txt-1")
-            
+
             if not book_club_headers:
                 # Fallback to regular text extraction
                 return main_content.get_text(separator=" ", strip=True)
-            
+
             sections = []
-            
+
             # Process each book club section
             for i, header in enumerate(book_club_headers):
-                
+
                 # Find the container for this section
                 container = header.find_parent()
                 while container and not container.find_all("p"):
                     container = container.find_parent()
-                
+
                 if container:
                     # Extract text from this section
                     section_text = container.get_text(separator=" ", strip=True)
                     sections.append(section_text)
-            
+
             # Join sections with clear separators
             if sections:
                 separator = "\n\n" + "=" * 50 + "\n\n"
@@ -341,173 +340,11 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             else:
                 # Fallback to regular extraction
                 return main_content.get_text(separator=" ", strip=True)
-                
+
         except Exception as e:
             print(f"  Error extracting content with separators: {e}")
             # Fallback to regular extraction
             return main_content.get_text(separator=" ", strip=True)
-
-    def _save_content_with_separators(self, content: str, url: str) -> None:
-        """Save the content with separators to a file for debugging"""
-        try:
-            import os
-            from datetime import datetime
-            
-            # Create a debug directory if it doesn't exist
-            debug_dir = "debug_content"
-            if not os.path.exists(debug_dir):
-                os.makedirs(debug_dir)
-            
-            # Generate filename with timestamp
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"{debug_dir}/alienated_majesty_content_with_separators_{timestamp}.txt"
-            
-            # Save the content
-            with open(filename, 'w', encoding='utf-8') as f:
-                f.write(f"URL: {url}\n")
-                f.write(f"Timestamp: {datetime.now().isoformat()}\n")
-                f.write("=" * 80 + "\n\n")
-                f.write(content)
-            
-            print(f"  Saved content with separators to: {filename}")
-            
-        except Exception as e:
-            print(f"  Error saving content with separators: {e}")
-
-    def _map_llm_fields(self, event: Dict) -> Dict:
-        """Intelligently map LLM field names to our expected schema"""
-        mapped = {}
-
-        # Create a mapping of possible LLM field names to our schema fields
-        field_mappings = {
-            # Title field mappings
-            "title": "title",
-            "event_title": "title",
-            "name": "title",
-            # Book field mappings
-            "book": "book",
-            "book_title": "book",
-            # Author field mappings
-            "author": "author",
-            "author_name": "author",
-            "by": "author",
-            # Date field mappings
-            "date": "date",
-            "meeting_date": "date",
-            "event_date": "date",
-            "when": "date",
-            # Time field mappings
-            "time": "time",
-            "meeting_time": "time",
-            "event_time": "time",
-            # Series field mappings
-            "series": "series",
-            "club": "series",
-            "club_name": "series",
-            "book_club": "series",
-            "book_club_name": "series",
-            # Host field mappings
-            "host": "host",
-            "organizer": "host",
-            "run_by": "host",
-            "facilitator": "host",
-            # Description field mappings
-            "description": "description",
-            "summary": "description",
-            "about": "description",
-            # Venue field mappings
-            "venue": "venue",
-            "location": "venue",
-            "where": "venue",
-            # URL field mappings
-            "url": "url",
-            "link": "url",
-            "source": "url",
-        }
-
-        # Map fields based on exact matches
-        for llm_field, value in event.items():
-            if llm_field.lower() in field_mappings:
-                schema_field = field_mappings[llm_field.lower()]
-
-                # Special handling for date fields - fix incorrect years
-                if (
-                    schema_field == "date"
-                    and isinstance(value, str)
-                    and len(value) >= 10
-                    and value[4] == "-"
-                    and value[7] == "-"
-                ):
-                    # Check if this looks like a date with an incorrect year
-                    try:
-                        date_parts = value.split("-")
-                        if len(date_parts) == 3:
-                            year_part = int(date_parts[0])
-                            month_num = int(date_parts[1])
-                            day_num = int(date_parts[2])
-                            
-                            # If year is clearly wrong (not current year or next year), fix it
-                            from datetime import datetime
-                            now = datetime.now()
-                            current_year = now.year
-                            current_month = now.month
-                            
-                            # Determine correct year based on month
-                            if month_num >= current_month:
-                                correct_year = current_year
-                            else:
-                                correct_year = current_year + 1
-                            
-                            # Only fix if the year is clearly wrong
-                            if year_part != correct_year and year_part != correct_year + 1:
-                                value = f"{correct_year:04d}-{month_num:02d}-{day_num:02d}"
-                    except (ValueError, IndexError):
-                        # If parsing fails, leave the value as is
-                        pass
-
-                mapped[schema_field] = value
-
-        # Generate missing required fields intelligently based on available data
-        if "title" not in mapped and "series" in mapped and "book" in mapped:
-            mapped["title"] = f"{mapped['series']} - {mapped['book']}"
-        elif "title" not in mapped and "book" in mapped:
-            # If no series but we have a book, use book as title
-            mapped["title"] = mapped["book"]
-
-        # Handle title field for Subculture Lit books - need to shorten long book titles
-        if "title" in mapped and "book" in mapped and "series" in mapped:
-            if (
-                mapped["series"] == "Subculture Lit"
-                and "David Wojnarowicz" in mapped["book"]
-            ):
-                # Shorten the long book title to just "David Wojnarowicz" for the title
-                mapped["title"] = f"{mapped['series']} - David Wojnarowicz"
-
-        # Add missing host and description based on series from _get_series_details
-        if "series" in mapped:
-            time_str, host, description = self._get_series_details(mapped["series"])
-
-            # Only set host if not already present and host exists for this series
-            if ("host" not in mapped or not mapped["host"]) and host is not None:
-                mapped["host"] = host
-
-            # Only set description if not already present
-            if "description" not in mapped or not mapped["description"]:
-                # Special handling for "A Season Of" series with publisher info
-                if mapped["series"] == "A Season Of" and "book" in mapped:
-                    if (
-                        "Chrysalis Pastoral" in mapped["book"]
-                        or "Through the Forest" in mapped["book"]
-                    ):
-                        description = "Reading a single author or title for a season. Meets the 3rd Saturday of every month at 11am. Run by the Austin NYRB Book Club. From Fum d'Estampa Press."
-
-                mapped["description"] = description
-
-        # Fix specific author name issues
-        if "author" in mapped and mapped["author"] and "Sylvére Lotringer" in mapped["author"]:
-            mapped["author"] = "Sylvère Lotringer"
-
-        return mapped
 
     def _parse_series_text(
         self, text_content: str, series_name: str, url: str
@@ -547,10 +384,9 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                     "title": f"{series_name} - {book_title}",
                     "book": book_title,
                     "author": author,
-                    "date": date_str,
-                    "time": time_str,
+                    "dates": [date_str],  # Use dates array
+                    "times": [time_str],  # Use times array
                     "venue": "Alienated Majesty Books",
-                    "type": "book_club",
                     "host": host,
                     "description": description,
                     "series": series_name,
@@ -624,7 +460,7 @@ class AlienatedMajestyBooksScraper(BaseScraper):
         """Convert month name and day to YYYY-MM-DD format with smart year detection"""
         try:
             from datetime import datetime
-            
+
             month_map = {
                 "january": 1,
                 "february": 2,
@@ -645,12 +481,12 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                 return None
 
             day = int(day_num)
-            
+
             # Get current date
             now = datetime.now()
             current_year = now.year
             current_month = now.month
-            
+
             # Determine the correct year for the event
             if month_num >= current_month:
                 # If the event month is >= current month, it's likely this year
@@ -658,7 +494,7 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             else:
                 # If the event month is < current month, it's likely next year
                 year = current_year + 1
-            
+
             return f"{year:04d}-{month_num:02d}-{day:02d}"
 
         except BaseException:

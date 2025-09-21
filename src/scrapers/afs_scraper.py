@@ -10,15 +10,17 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
 from src.base_scraper import BaseScraper
-from src.schemas import MovieEventSchema
 
 
 class AFSScraper(BaseScraper):
     """Austin Movie Society scraper - extracts movie screenings from website."""
 
-    def __init__(self):
+    def __init__(self, config=None, venue_key='afs'):
         super().__init__(
-            base_url="https://www.austinfilm.org", venue_name="Austin Movie Society"
+            base_url="https://www.austinfilm.org", 
+            venue_name="Austin Movie Society",
+            venue_key=venue_key,
+            config=config
         )
         # Set better headers to bypass anti-bot protection
         headers = {
@@ -41,10 +43,6 @@ class AFSScraper(BaseScraper):
             f"{self.base_url}/screenings/",
             f"{self.base_url}/calendar/",
         ]
-
-    def get_data_schema(self) -> Dict:
-        """Return the expected data schema for AFS movie events"""
-        return MovieEventSchema.get_schema()
 
     def scrape_events(self) -> List[Dict]:
         """
@@ -105,17 +103,8 @@ class AFSScraper(BaseScraper):
                                         year = None
                                 if len(parts) > 2:
                                     duration = parts[2]
-                                for part in parts:
-                                    if (
-                                        "English" in part
-                                        or "French" in part
-                                        or "Spanish" in part
-                                    ):
-                                        language = (
-                                            part.replace("In ", "")
-                                            .replace("with English subtitles", "")
-                                            .strip()
-                                        )
+                                # Extract languages from the full info text (handles multi-language entries)
+                                language = self._parse_languages_from_info(info_text, country)
                             # Description
                             desc_elem = movie_soup.find(
                                 "div", class_="c-screening-content"
@@ -156,17 +145,17 @@ class AFSScraper(BaseScraper):
                                         time_str = btn.get_text(strip=True)
                                         if not time_str:
                                             continue
+                                        # Build event in snake_case format
                                         event = {
                                             "title": title,
                                             "director": director,
-                                            "year": year,
+                                            "release_year": year,  # Changed from "year" to "release_year" per template
                                             "country": country,
                                             "language": language,
-                                            "duration": duration,
-                                            "date": date_fmt,
-                                            "time": time_str,
+                                            "runtime_minutes": self._parse_duration_to_minutes(duration),  # Convert to minutes
+                                            "dates": [date_fmt],  # Use dates array
+                                            "times": [time_str],  # Use times array
                                             "venue": "AFS Cinema",
-                                            "type": "movie",
                                             "description": description,
                                             "url": url,
                                         }
@@ -231,19 +220,8 @@ class AFSScraper(BaseScraper):
                                                 year = None
                                         if len(parts) > 2:
                                             duration = parts[2]
-                                        for part in parts:
-                                            if (
-                                                "English" in part
-                                                or "French" in part
-                                                or "Spanish" in part
-                                            ):
-                                                language = (
-                                                    part.replace("In ", "")
-                                                    .replace(
-                                                        "with English subtitles", ""
-                                                    )
-                                                    .strip()
-                                                )
+                                        # Extract languages from the full info text (handles multi-language entries)
+                                        language = self._parse_languages_from_info(info_text, country)
                                     desc_elem = movie_soup.find(
                                         "div", class_="c-screening-content"
                                     )
@@ -288,17 +266,17 @@ class AFSScraper(BaseScraper):
                                                 time_str = btn.get_text(strip=True)
                                                 if not time_str:
                                                     continue
+                                                # Build event in snake_case format
                                                 event = {
                                                     "title": title,
                                                     "director": director,
-                                                    "year": year,
+                                                    "release_year": year,  # Changed from "year" to "release_year" per template
                                                     "country": country,
                                                     "language": language,
-                                                    "duration": duration,
-                                                    "date": date_fmt,
-                                                    "time": time_str,
+                                                    "runtime_minutes": self._parse_duration_to_minutes(duration),  # Convert to minutes
+                                                    "dates": [date_fmt],  # Use dates array
+                                                    "times": [time_str],  # Use times array
                                                     "venue": "AFS Cinema",
-                                                    "type": "movie",
                                                     "description": description,
                                                     "url": movie_url,
                                                 }
@@ -314,3 +292,154 @@ class AFSScraper(BaseScraper):
             return all_events
         except Exception as e:
             return []
+    
+    def _parse_duration_to_minutes(self, duration_str):
+        """Parse duration string into total minutes.
+
+        Supports common formats found on AFS pages, including:
+        - "1h 38min", "2h 8min", "1 h 38 m"
+        - "1 hr 50 min", "2 hrs, 5 mins"
+        - "90 min", "105m", "120 minutes"
+        - "1:50" (hh:mm)
+        - "2h" (hours only) or "45m" (minutes only)
+        Returns an integer number of minutes, or None when unparseable.
+        """
+        if duration_str is None:
+            return None
+
+        text = str(duration_str).strip()
+        if not text:
+            return None
+
+        s = text.lower()
+        # Normalize punctuation/abbreviations
+        s = s.replace("\u00A0", " ")  # non-breaking space
+        s = s.replace(".", "")
+        s = s.replace("mins", "min")
+        s = s.replace("minutes", "min")
+        s = s.replace("hrs", "hr")
+
+        # 1) hh:mm format
+        m = re.fullmatch(r"\s*(\d{1,2})\s*:\s*(\d{1,2})\s*", s)
+        if m:
+            hours = int(m.group(1))
+            minutes = int(m.group(2))
+            return hours * 60 + minutes
+
+        # 2) Explicit hours and/or minutes tokens
+        hours = 0
+        minutes = 0
+
+        mh = re.search(r"(\d+)\s*(?:h|hr|hour)\b", s)
+        if mh:
+            hours = int(mh.group(1))
+
+        mm = re.search(r"(\d+)\s*(?:m|min)\b", s)
+        if mm:
+            minutes = int(mm.group(1))
+
+        if mh or mm:
+            return hours * 60 + minutes
+
+        # 3) Compact hour-minute without trailing unit on minutes (e.g., "1h 50")
+        m = re.search(r"(\d+)\s*h\s*(\d{1,2})\b", s)
+        if m:
+            return int(m.group(1)) * 60 + int(m.group(2))
+
+        # 4) Bare number interpreted as minutes (e.g., "90")
+        m = re.fullmatch(r"\s*(\d{2,3})\s*", s)
+        if m:
+            return int(m.group(1))
+
+        return None
+
+    def _parse_languages_from_info(self, info_text: str, country: str | None) -> str | None:
+        """Extract language(s) from the info text.
+
+        Examples handled:
+        - "In French with English subtitles" -> "French"
+        - "In German, English, and Romany with English subtitles." -> "German, English, Romany"
+        - "In Spanish" -> "Spanish"
+        If no language is specified and the country is USA/UK, default to English
+        as an explicit business requirement.
+        """
+        if not info_text:
+            # Business requirement: default language to English for USA/UK when unspecified
+            if country and str(country).strip().lower() in {
+                "usa",
+                "united states",
+                "us",
+                "u.s.",
+                "u.s.a.",
+                "united states of america",
+                "america",
+                "uk",
+                "u.k.",
+                "united kingdom",
+                "england",
+                "great britain",
+                "britain",
+            }:
+                return "English"
+            return None
+
+        s = info_text.replace("\u00A0", " ")
+        # Look for a segment beginning with "In "
+        m = re.search(r"\bIn\s+(.+)$", s, re.IGNORECASE)
+        lang_segment = None
+        if m:
+            lang_segment = m.group(1)
+            # Cut off subtitles or trailing punctuation after languages
+            lang_segment = re.split(r"\s+with\s+[^.]*?subtitles?", lang_segment, flags=re.IGNORECASE)[0]
+            lang_segment = re.split(r"[.;\n\r]", lang_segment)[0]
+
+        if lang_segment:
+            # Tokenize on commas, slashes, ampersands and the word 'and'
+            tokens = re.split(r",|/|&|\band\b", lang_segment, flags=re.IGNORECASE)
+            cleaned: list[str] = []
+            for token in tokens:
+                t = token.strip()
+                if not t:
+                    continue
+                # Remove leading 'In '
+                t = re.sub(r"^in\s+", "", t, flags=re.IGNORECASE)
+                # Remove residual punctuation
+                t = t.strip(" .")
+                if not t:
+                    continue
+                # Skip known non-language tokens
+                if t.lower() in {"dcp"}:
+                    continue
+                cleaned.append(t)
+            if cleaned:
+                # Title-case languages and deduplicate preserving order
+                result: list[str] = []
+                seen: set[str] = set()
+                for t in cleaned:
+                    name = re.sub(r"\s+", " ", t).strip().title()
+                    key = name.lower()
+                    if key not in seen:
+                        seen.add(key)
+                        result.append(name)
+                if result:
+                    return ", ".join(result)
+
+        # Business requirement: default English for USA/UK when language not specified
+        if country and str(country).strip().lower() in {
+            "usa",
+            "united states",
+            "us",
+            "u.s.",
+            "u.s.a.",
+            "united states of america",
+            "america",
+            "uk",
+            "u.k.",
+            "united kingdom",
+            "england",
+            "great britain",
+            "britain",
+        }:
+            return "English"
+
+        return None
