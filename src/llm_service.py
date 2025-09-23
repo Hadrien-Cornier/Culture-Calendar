@@ -7,7 +7,8 @@ import os
 import re
 import time
 from datetime import datetime
-from typing import Dict
+from typing import Dict, Optional
+import requests
 
 from anthropic import Anthropic
 from dotenv import load_dotenv
@@ -25,14 +26,19 @@ class LLMService:
             if self.anthropic_api_key
             else None
         )
+        
+        # Perplexity API configuration
+        self.perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
+        self.perplexity_base_url = "https://api.perplexity.ai"
 
         # Cache for extraction and validation results
         self.extraction_cache = {}
         self.validation_cache = {}
+        self.classification_cache = {}
 
-        if not self.anthropic:
+        if not self.anthropic and not self.perplexity_api_key:
             print(
-                "Warning: ANTHROPIC_API_KEY not found. LLM features will be disabled."
+                "Warning: No LLM API keys found. LLM features will be disabled."
             )
 
     def extract_data(
@@ -465,3 +471,126 @@ Focus on whether the data represents a plausible real-world event.
         schema_hash = hashlib.md5(str(schema).encode("utf-8")).hexdigest()[:16]
 
         return f"{operation}_{content_hash}_{schema_hash}"
+    
+    def call_perplexity(
+        self, 
+        prompt: str, 
+        temperature: float = 0.2,
+        model: str = "sonar",
+        search_domain_filter: Optional[list] = None,
+        search_recency_filter: Optional[str] = None
+    ) -> Optional[Dict]:
+        """
+        Call Perplexity API for classification and enrichment
+        
+        Args:
+            prompt: User prompt for the query
+            temperature: Temperature for response generation (0.0-2.0)
+            model: Perplexity model to use
+            search_domain_filter: List of domains to restrict search to
+            search_recency_filter: Time filter for search results (e.g., "day", "week", "month", "year")
+            
+        Returns:
+            Parsed response or None if error
+        """
+        if not self.perplexity_api_key:
+            # Fall back to Anthropic if available
+            if self.anthropic:
+                return self._call_anthropic_json(prompt, temperature)
+            return None
+        
+        try:
+            # Build request payload
+            payload = {
+                "model": model,
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": "You are a precise event classification and data extraction assistant. Always respond in valid JSON format only."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                "temperature": temperature,
+                "top_p": 0.9,
+                "frequency_penalty": 1
+            }
+            
+            # Add search filters if provided
+            if search_domain_filter:
+                payload["search_domain_filter"] = search_domain_filter
+            if search_recency_filter:
+                payload["search_recency_filter"] = search_recency_filter
+            
+            # Make API request
+            headers = {
+                "Authorization": f"Bearer {self.perplexity_api_key}",
+                "Content-Type": "application/json"
+            }
+            
+            response = requests.post(
+                f"{self.perplexity_base_url}/chat/completions",
+                headers=headers,
+                json=payload,
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+                
+                # Parse JSON from response
+                json_start = content.find("{")
+                json_end = content.rfind("}") + 1
+                
+                if json_start != -1 and json_end > json_start:
+                    json_str = content[json_start:json_end]
+                    return json.loads(json_str)
+            else:
+                print(f"Perplexity API error: {response.status_code} - {response.text}")
+                
+        except Exception as e:
+            print(f"Error calling Perplexity API: {e}")
+        
+        return None
+    
+    def _call_anthropic_json(self, prompt: str, temperature: float = 0.2) -> Optional[Dict]:
+        """
+        Internal method to call Anthropic and get JSON response
+        
+        Args:
+            prompt: User prompt
+            temperature: Temperature setting
+            
+        Returns:
+            Parsed JSON response or None
+        """
+        if not self.anthropic:
+            return None
+        
+        try:
+            time.sleep(1)  # Rate limiting
+            
+            response = self.anthropic.messages.create(
+                model="claude-3-5-sonnet-20241022",
+                max_tokens=2000,
+                temperature=temperature,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            
+            content_text = response.content[0].text.strip()
+            
+            # Parse JSON
+            json_start = content_text.find("{")
+            json_end = content_text.rfind("}") + 1
+            
+            if json_start != -1 and json_end > json_start:
+                json_str = content_text[json_start:json_end]
+                return json.loads(json_str)
+                
+        except Exception as e:
+            print(f"Anthropic API error: {e}")
+        
+        return None

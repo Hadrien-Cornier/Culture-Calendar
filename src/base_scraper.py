@@ -11,6 +11,8 @@ from datetime import datetime
 
 from dotenv import load_dotenv
 from src.llm_service import LLMService
+from src.enrichment_layer import EnrichmentLayer
+from src.config_loader import ConfigLoader
 
 load_dotenv()
 
@@ -52,9 +54,15 @@ class BaseScraper(ABC):
 
         # Initialize LLM service
         self.llm_service = LLMService()
+        
+        # Initialize enrichment layer if config is available
+        if self.config and isinstance(self.config, ConfigLoader):
+            self.enrichment_layer = EnrichmentLayer(config_loader=self.config)
+        else:
+            self.enrichment_layer = None
 
         print(f"Initialized {self.__class__.__name__} for {venue_name}")
-        if not self.llm_service.anthropic:
+        if not self.llm_service.anthropic and not self.llm_service.perplexity_api_key:
             print(
                 "  Warning: LLM service not configured - Smart extraction unavailable"
             )
@@ -83,6 +91,44 @@ class BaseScraper(ABC):
         Returns list of events in standard format.
         """
         pass
+    
+    def scrape_and_enrich(self) -> List[Dict]:
+        """
+        Scrape events and apply Phase Two enrichment if configured.
+        
+        Returns:
+            List of events, potentially enriched with classification and extracted fields
+        """
+        # First scrape events (Phase One)
+        events = self.scrape_events()
+        
+        # If enrichment layer is configured and venue_key is set, apply enrichment
+        if self.enrichment_layer and self.venue_key:
+            enriched_events = []
+            for event in events:
+                try:
+                    # Apply enrichment (Phase Two)
+                    enriched_event = self.enrichment_layer.run_enrichment(
+                        event, self.venue_key
+                    )
+                    enriched_events.append(enriched_event)
+                except Exception as e:
+                    print(f"Enrichment failed for event: {event.get('title', 'Unknown')}")
+                    print(f"  Error: {e}")
+                    # Add event without enrichment if it fails
+                    enriched_events.append(event)
+            
+            # Print telemetry summary
+            telemetry = self.enrichment_layer.get_telemetry()
+            print(f"\nEnrichment Summary for {self.venue_name}:")
+            print(f"  Classifications: {telemetry['total_classifications']}")
+            print(f"  Abstentions: {telemetry['abstentions']}")
+            print(f"  Fields accepted: {telemetry['fields_accepted']}")
+            print(f"  Fields rejected: {telemetry['fields_rejected']}")
+            
+            return enriched_events
+        
+        return events
 
     def format_event(self, raw_event: Dict) -> Dict:
         """

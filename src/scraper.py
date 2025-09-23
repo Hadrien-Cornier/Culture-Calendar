@@ -63,16 +63,16 @@ class MultiVenueScraper:
         # Define all venue scrapers with their configurations
         venue_configs = [
             ("AFS", self.afs_scraper, "Austin Movie Society", {}),
-            # ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
+            ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
             # ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
             # ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
             # ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
-            ("Symphony", self.austin_symphony_scraper, "Austin Symphony", {}),
-            ("Opera", self.austin_opera_scraper, "Austin Opera", {}),
-            ("Chamber Music", self.austin_chamber_music_scraper, "Austin Chamber Music", {}),
-            ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
-            ("LaFollia", self.la_follia_scraper, "La Follia", {}),
-            ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
+            # ("Symphony", self.austin_symphony_scraper, "Austin Symphony", {}),
+            # ("Opera", self.austin_opera_scraper, "Austin Opera", {}),
+            # ("Chamber Music", self.austin_chamber_music_scraper, "Austin Chamber Music", {}),
+            # ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
+            # ("LaFollia", self.la_follia_scraper, "La Follia", {}),
+            # ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
         ]
         
         # Execute all venue scrapers sequentially (no threading)
