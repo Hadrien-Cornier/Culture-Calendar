@@ -27,6 +27,7 @@ ontology:
 
 templates:
   movie:
+    grouping: by_title
     fields:
       - title
       - dates
@@ -80,6 +81,7 @@ templates:
             - venue
 
   book_club:
+    grouping: unique
     fields:
       - title
       - dates
@@ -170,6 +172,7 @@ templates:
             - venue
 
   concert:
+    grouping: unique
     fields:
       - title
       - dates
@@ -220,6 +223,7 @@ templates:
             - venue
 
   opera:
+    grouping: unique
     fields:
       - title
       - dates
@@ -270,6 +274,7 @@ templates:
             - venue
 
   dance:
+    grouping: unique
     fields:
       - title
       - dates
@@ -317,6 +322,7 @@ templates:
             - venue
 
   other:
+    grouping: unique
     fields:
       - title
       - dates
@@ -510,6 +516,17 @@ venues:
     classification:
       enabled: false
       assumed_event_category: dance
+    enrichment:
+      enabled: false
+
+  arts_on_alexander:
+    display_name: Arts on Alexander
+    scrape:
+      enabled: false
+      frequency: yearly
+    classification:
+      enabled: false
+      assumed_event_category: concert
     enrichment:
       enabled: false
 
