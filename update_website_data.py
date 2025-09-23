@@ -234,11 +234,6 @@ def create_occurrences_from_arrays(event: dict, date_time_spec: dict) -> list:
     return occurrences
 
 
-def should_group_by_title(event_type: str) -> bool:
-    """Determine if events of this type should be grouped by title (movies)"""
-    return event_type == "movie"
-
-
 def create_unique_key(event: dict) -> str:
     """Create unique key for non-movie events to avoid duplicates"""
     dates = event.get("dates", [])
@@ -324,7 +319,7 @@ def generate_website_data(events):
             output_event = build_event_from_template(event, template, config)
 
             # Handle grouping (movies vs unique events)
-            if should_group_by_title(event_type):
+            if config.should_group_by_title(event_type):
                 # Group movies by title
                 group_key = event["title"]
                 if group_key not in combined_data:

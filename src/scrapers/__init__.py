@@ -4,6 +4,7 @@ Simplified LLM-powered scrapers module
 
 from .afs_scraper import AFSScraper
 from .alienated_majesty_scraper import AlienatedMajestyBooksScraper
+from .arts_on_alexander_scraper import ArtsOnAlexanderScraper
 from .austin_chamber_music_scraper import AustinChamberMusicScraper
 from .austin_opera_scraper import AustinOperaScraper
 from .austin_symphony_scraper import AustinSymphonyScraper
@@ -19,6 +20,7 @@ __all__ = [
     "AFSScraper",
     "HyperrealScraper",
     "AlienatedMajestyBooksScraper",
+    "ArtsOnAlexanderScraper",
     "AustinChamberMusicScraper",
     "AustinOperaScraper",
     "AustinSymphonyScraper",

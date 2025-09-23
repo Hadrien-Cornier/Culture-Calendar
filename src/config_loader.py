@@ -279,21 +279,36 @@ class ConfigLoader:
 
         return event
 
+    def get_grouping_behavior(self, event_type: str) -> str:
+        """
+        Get grouping behavior for an event type
+
+        Args:
+            event_type: Event type (e.g., 'movie', 'concert')
+
+        Returns:
+            Grouping behavior ('by_title' or 'unique')
+        """
+        template = self.get_template(event_type)
+        return template.get("grouping", "unique")
+
+    def should_group_by_title(self, event_type: str) -> bool:
+        """
+        Determine if events of this type should be grouped by title
+
+        Args:
+            event_type: Event type (e.g., 'movie', 'concert')
+
+        Returns:
+            True if events should be grouped by title, False otherwise
+        """
+        return self.get_grouping_behavior(event_type) == "by_title"
+
     def get_field_defaults(self) -> Dict[str, Any]:
         """
         Get field default values from configuration
 
         Returns:
-            Dictionary of field default values
+            Dictionary mapping field names to default values
         """
-        return self._config.get(
-            "field_defaults",
-            {
-                "rating": -1,
-                "description": "No description available",
-                "country": "USA",
-                "language": "English",
-                "url": "",
-                "venue": "",
-            },
-        )
+        return self._config.get("field_defaults", {})
