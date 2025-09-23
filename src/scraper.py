@@ -11,6 +11,7 @@ from .config_loader import ConfigLoader
 from .scrapers import (
     AFSScraper,
     AlienatedMajestyBooksScraper,
+    ArtsOnAlexanderScraper,
     AustinChamberMusicScraper,
     AustinOperaScraper,
     AustinSymphonyScraper,
@@ -35,31 +36,56 @@ class MultiVenueScraper:
         print("Loaded master configuration")
 
         # Initialize all scrapers with config
-        self.afs_scraper = AFSScraper(config=self.config, venue_key='afs')
-        self.hyperreal_scraper = HyperrealScraper(config=self.config, venue_key='hyperreal')
-        self.paramount_scraper = ParamountScraper(config=self.config, venue_key='paramount')
-        self.alienated_majesty_scraper = AlienatedMajestyBooksScraper(config=self.config, venue_key='alienated_majesty')
-        self.first_light_scraper = FirstLightAustinScraper(config=self.config, venue_key='first_light')
-        self.austin_symphony_scraper = AustinSymphonyScraper(config=self.config, venue_key='austin_symphony')
-        self.austin_opera_scraper = AustinOperaScraper(config=self.config, venue_key='austin_opera')
-        self.austin_chamber_music_scraper = AustinChamberMusicScraper(config=self.config, venue_key='austin_chamber_music')
-        self.early_music_scraper = EarlyMusicAustinScraper(config=self.config, venue_key='early_music_austin')
-        self.la_follia_scraper = LaFolliaAustinScraper(config=self.config, venue_key='la_follia')
-        self.ballet_austin_scraper = BalletAustinScraper(config=self.config, venue_key='ballet_austin')
+        self.afs_scraper = AFSScraper(config=self.config, venue_key="afs")
+        self.hyperreal_scraper = HyperrealScraper(
+            config=self.config, venue_key="hyperreal"
+        )
+        self.paramount_scraper = ParamountScraper(
+            config=self.config, venue_key="paramount"
+        )
+        self.alienated_majesty_scraper = AlienatedMajestyBooksScraper(
+            config=self.config, venue_key="alienated_majesty"
+        )
+        self.first_light_scraper = FirstLightAustinScraper(
+            config=self.config, venue_key="first_light"
+        )
+        self.arts_on_alexander_scraper = ArtsOnAlexanderScraper(
+            config=self.config, venue_key="arts_on_alexander"
+        )
+        self.austin_symphony_scraper = AustinSymphonyScraper(
+            config=self.config, venue_key="austin_symphony"
+        )
+        self.austin_opera_scraper = AustinOperaScraper(
+            config=self.config, venue_key="austin_opera"
+        )
+        self.austin_chamber_music_scraper = AustinChamberMusicScraper(
+            config=self.config, venue_key="austin_chamber_music"
+        )
+        self.early_music_scraper = EarlyMusicAustinScraper(
+            config=self.config, venue_key="early_music_austin"
+        )
+        self.la_follia_scraper = LaFolliaAustinScraper(
+            config=self.config, venue_key="la_follia"
+        )
+        self.ballet_austin_scraper = BalletAustinScraper(
+            config=self.config, venue_key="ballet_austin"
+        )
 
         # Initialize recurring events generator
         self.recurring_events_generator = RecurringEventGenerator()
 
         self.existing_events_cache = set()  # Cache for duplicate detection
         self.last_updated = {}
-    
-    def scrape_all_venues(self, target_week: bool = False, days_ahead: int = None) -> List[Dict]:
+
+    def scrape_all_venues(
+        self, target_week: bool = False, days_ahead: int = None
+    ) -> List[Dict]:
         """Scrape all venues sequentially"""
         start_time = datetime.now()
-        
+
         all_events = []
         self.last_updated = {}
-        
+
         # Define all venue scrapers with their configurations
         venue_configs = [
             ("AFS", self.afs_scraper, "Austin Movie Society", {}),
@@ -67,14 +93,25 @@ class MultiVenueScraper:
             # ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
             # ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
             # ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
+            (
+                "ArtsOnAlexander",
+                self.arts_on_alexander_scraper,
+                "Arts on Alexander",
+                {},
+            ),
             ("Symphony", self.austin_symphony_scraper, "Austin Symphony", {}),
             ("Opera", self.austin_opera_scraper, "Austin Opera", {}),
-            ("Chamber Music", self.austin_chamber_music_scraper, "Austin Chamber Music", {}),
+            (
+                "Chamber Music",
+                self.austin_chamber_music_scraper,
+                "Austin Chamber Music",
+                {},
+            ),
             ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
             ("LaFollia", self.la_follia_scraper, "La Follia", {}),
             ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
         ]
-        
+
         # Execute all venue scrapers sequentially (no threading)
         start_time = datetime.now()
         all_events = []
@@ -103,18 +140,24 @@ class MultiVenueScraper:
                         print(f"  ⚠️  Event validation error for {venue_code}: {e}")
                         # Skip invalid events in Phase One
                         continue
-                
+
                 all_events.extend(formatted_events)
 
-                print(f"✅ [{completed_venues}/{total_venues}] {display_name}: {len(events)} events")
+                print(
+                    f"✅ [{completed_venues}/{total_venues}] {display_name}: {len(events)} events"
+                )
                 self.last_updated[venue_code] = datetime.now().isoformat()
 
             except Exception as e:
-                print(f"❌ [{completed_venues}/{total_venues}] {display_name}: Failed - {e}")
+                print(
+                    f"❌ [{completed_venues}/{total_venues}] {display_name}: Failed - {e}"
+                )
                 self.last_updated[venue_code] = None
 
         elapsed_time = (datetime.now() - start_time).total_seconds()
-        print(f"🎯 SEQUENTIAL SCRAPING COMPLETE: {len(all_events)} events in {elapsed_time:.1f}s")
+        print(
+            f"🎯 SEQUENTIAL SCRAPING COMPLETE: {len(all_events)} events in {elapsed_time:.1f}s"
+        )
 
         # Add recurring events
         all_events.extend(self._get_recurring_events(target_week))
@@ -128,7 +171,11 @@ class MultiVenueScraper:
         try:
             print("Generating recurring events...")
             weeks_ahead = 2 if target_week else 8
-            recurring_events = self.recurring_events_generator.generate_all_recurring_events(weeks_ahead)
+            recurring_events = (
+                self.recurring_events_generator.generate_all_recurring_events(
+                    weeks_ahead
+                )
+            )
             print(f"Generated {len(recurring_events)} recurring events")
             self.last_updated["RecurringEvents"] = datetime.now().isoformat()
             return recurring_events
@@ -136,7 +183,6 @@ class MultiVenueScraper:
             print(f"Error generating recurring events: {e}")
             self.last_updated["RecurringEvents"] = None
             return []
-
 
     def load_existing_events(self, existing_data_path: str = None) -> None:
         """Load existing events to cache for duplicate detection"""
@@ -204,13 +250,13 @@ class MultiVenueScraper:
             # Handle both array and singular formats
             dates = event.get("dates", [])
             times = event.get("times", [])
-            
+
             # Fallback to singular format
             if not dates and "date" in event:
                 dates = [event["date"]]
             if not times and "time" in event:
                 times = [event["time"]]
-            
+
             # Check each date/time combination for duplicates
             is_duplicate = False
             for i, date in enumerate(dates):
@@ -220,7 +266,7 @@ class MultiVenueScraper:
                 ):
                     is_duplicate = True
                     break
-            
+
             if not is_duplicate:
                 new_events.append(event)
                 # Add all date/time combinations to cache
