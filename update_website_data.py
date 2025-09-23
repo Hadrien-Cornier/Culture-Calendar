@@ -9,9 +9,21 @@ import json
 import sys
 from datetime import datetime, timedelta
 
+from src.config_loader import ConfigLoader
 from src.processor import EventProcessor
 from src.scraper import MultiVenueScraper
 from src.validation_service import EventValidationService
+
+
+def apply_field_defaults(event: dict, config_defaults: dict) -> dict:
+    """Apply field defaults from config to event data following fail-fast principle"""
+    result = {}
+    for field, default_value in config_defaults.items():
+        if field in event and event[field] is not None:
+            result[field] = event[field]
+        else:
+            result[field] = default_value
+    return result
 
 
 def save_update_info(info: dict, path: str = "docs/source_update_times.json") -> None:
@@ -99,8 +111,6 @@ def mark_work_hours(events):
             marked_events.append(event_copy)
 
     return marked_events
-
-
 
 
 def clean_markdown_text(text):
@@ -193,6 +203,10 @@ def is_movie_event(title, description=""):
 
 def generate_website_data(events):
     """Generate JSON data for the website with movie aggregation and venue tags"""
+    # Load configuration defaults
+    config = ConfigLoader()
+    field_defaults = config.get_field_defaults()
+
     # Include movies, classical music events, and book club events for the
     # website
     website_events = []
@@ -223,40 +237,49 @@ def generate_website_data(events):
         title = event["title"]
 
         if title not in combined_data:
-            # Create new movie entry
+            # Create new movie entry using config defaults
             ai_rating = event.get("ai_rating", {})
+
+            # Apply config defaults for basic fields
+            defaults_applied = apply_field_defaults(event, field_defaults)
+
             combined_data[title] = {
                 "title": title,
                 "rating": ai_rating.get(
-                    "score", 5
+                    "score", field_defaults.get("rating", -1)
                 ),  # Use base AI rating for consistency
                 "description": clean_markdown_text(
-                    ai_rating.get("summary", "No description available")
+                    ai_rating.get(
+                        "summary",
+                        field_defaults.get("description", "No description available"),
+                    )
                 ),
                 "oneLinerSummary": event.get(
                     "oneLinerSummary"
                 ),  # Preserve AI-generated summary
-                "url": event.get("url", ""),
+                "url": defaults_applied["url"],
                 "isSpecialScreening": event.get("is_special_screening", False),
-                # From scraper detection
-                "isMovie": event.get("is_movie", True),
+                "isMovie": event.get("is_movie", True),  # From scraper detection
                 "isWorkHours": event.get("isWorkHours", False),  # Work hours marking
                 "duration": event.get("duration"),
                 "director": event.get("director"),
-                "country": event.get("country") if event.get("country") else "Unknown",
+                "country": defaults_applied["country"],
                 "year": event.get("year"),
-                "language": event.get("language"),
-                "venue": event.get("venue", "AFS"),  # Venue tag
+                "language": defaults_applied["language"],
+                "venue": defaults_applied.get("venue")
+                or event.get("venue"),  # Use config default or event venue
                 "type": event.get("type", "screening"),  # Preserve event type
                 "screenings": [],
             }
 
         # Add screening info (avoid duplicates)
+        defaults_for_screening = apply_field_defaults(event, field_defaults)
         screening = {
             "date": event["date"],
             "time": event.get("time", "TBD"),
-            "url": event.get("url", ""),
-            "venue": event.get("venue", "AFS"),  # Add venue to each screening
+            "url": defaults_for_screening["url"],
+            "venue": defaults_for_screening.get("venue")
+            or event.get("venue"),  # Use config default or event venue
         }
 
         # Check if this exact screening already exists
@@ -277,22 +300,27 @@ def generate_website_data(events):
         event_key = f"{event['title']} - {event['date']} {event['time']}"
 
         ai_rating = event.get("ai_rating", {})
+        defaults_applied = apply_field_defaults(event, field_defaults)
+
         combined_data[event_key] = {
             "title": event["title"],
-            "rating": ai_rating.get("score", 5),
+            "rating": ai_rating.get("score", field_defaults.get("rating", -1)),
             "description": clean_markdown_text(
-                ai_rating.get("summary", "No description available")
+                ai_rating.get(
+                    "summary",
+                    field_defaults.get("description", "No description available"),
+                )
             ),
             "oneLinerSummary": event.get(
                 "oneLinerSummary"
             ),  # Preserve AI-generated summary
-            "url": event.get("url", ""),
+            "url": defaults_applied["url"],
             "isSpecialScreening": False,  # Classical events aren't "screenings"
             "isMovie": False,  # Classical events are concerts
             "isWorkHours": event.get("isWorkHours", False),  # Work hours marking
             "duration": event.get("duration"),
             "director": None,  # Not applicable to concerts
-            "country": event.get("country", "USA"),
+            "country": defaults_applied["country"],
             "year": event.get("year"),
             "language": None,  # Not applicable to instrumental music
             "venue": event.get("venue"),
@@ -306,7 +334,7 @@ def generate_website_data(events):
                 {  # Using "screenings" terminology for consistency with website
                     "date": event["date"],
                     "time": event.get("time", "TBD"),
-                    "url": event.get("url", ""),
+                    "url": defaults_applied["url"],
                     "venue": event.get("venue"),
                 }
             ],
@@ -318,24 +346,29 @@ def generate_website_data(events):
         event_key = f"{event['title']} - {event['date']} {event['time']}"
 
         ai_rating = event.get("ai_rating", {})
+        defaults_applied = apply_field_defaults(event, field_defaults)
+
         combined_data[event_key] = {
             "title": event["title"],
-            "rating": ai_rating.get("score", 5),
+            "rating": ai_rating.get("score", field_defaults.get("rating", -1)),
             "description": clean_markdown_text(
-                ai_rating.get("summary", "No description available")
+                ai_rating.get(
+                    "summary",
+                    field_defaults.get("description", "No description available"),
+                )
             ),
             "oneLinerSummary": event.get(
                 "oneLinerSummary"
             ),  # Preserve AI-generated summary
-            "url": event.get("url", ""),
+            "url": defaults_applied["url"],
             "isSpecialScreening": False,  # Book clubs aren't "screenings"
             "isMovie": False,  # Book clubs are discussions
             "isWorkHours": event.get("isWorkHours", False),  # Work hours marking
             "duration": event.get("duration"),
             "director": None,  # Not applicable to book clubs
-            "country": event.get("country", "USA"),
+            "country": defaults_applied["country"],
             "year": event.get("year"),
-            "language": event.get("language", "English"),
+            "language": defaults_applied["language"],
             "venue": event.get("venue"),
             "series": event.get("series"),
             "book": event.get("book"),
@@ -346,7 +379,7 @@ def generate_website_data(events):
                 {  # Using "screenings" terminology for consistency with website
                     "date": event["date"],
                     "time": event.get("time", "TBD"),
-                    "url": event.get("url", ""),
+                    "url": defaults_applied["url"],
                     "venue": event.get("venue"),
                 }
             ],
@@ -434,7 +467,9 @@ def main(
                 "FirstLight": [e for e in events if e.get("venue") == "FirstLight"],
                 "Symphony": [e for e in events if e.get("venue") == "Symphony"],
                 "Opera": [e for e in events if e.get("venue") == "Opera"],
-                "Chamber Music": [e for e in events if e.get("venue") == "Chamber Music"],
+                "Chamber Music": [
+                    e for e in events if e.get("venue") == "Chamber Music"
+                ],
                 "EarlyMusic": [e for e in events if e.get("venue") == "EarlyMusic"],
                 "LaFollia": [e for e in events if e.get("venue") == "LaFollia"],
                 "Paramount": [e for e in events if e.get("venue") == "Paramount"],
@@ -496,29 +531,37 @@ def main(
         print("Processing and enriching events...")
         enriched_events = processor.process_events(marked_events)
         print(f"Processed {len(enriched_events)} events")
-        
+
         # Generate one-line summaries for events
         print("\nGenerating one-line summaries...")
         # Use the summary generator from the processor to maintain cache consistency
         summary_generator = processor.summary_generator
         if summary_generator:
             for event in enriched_events:
-                if not event.get('oneLinerSummary'):
+                if not event.get("oneLinerSummary"):
                     try:
                         summary = summary_generator.generate_summary(event)
                         if summary:
-                            event['oneLinerSummary'] = summary
-                            print(f"  Generated summary for: {event.get('title', 'Unknown')}")
+                            event["oneLinerSummary"] = summary
+                            print(
+                                f"  Generated summary for: {event.get('title', 'Unknown')}"
+                            )
                     except RuntimeError as e:
                         # Critical validation failure - this should stop the entire process
-                        print(f"CRITICAL ERROR: Cannot generate summary for '{event.get('title', 'Unknown')}': {e}")
+                        print(
+                            f"CRITICAL ERROR: Cannot generate summary for '{event.get('title', 'Unknown')}': {e}"
+                        )
                         raise
                     except Exception as e:
                         # Other errors (API failures, etc.) - log but continue
-                        print(f"  Warning: Failed to generate summary for '{event.get('title', 'Unknown')}': {e}")
+                        print(
+                            f"  Warning: Failed to generate summary for '{event.get('title', 'Unknown')}': {e}"
+                        )
             print("Completed summary generation")
         else:
-            print("Warning: Summary generator not available, skipping summary generation")
+            print(
+                "Warning: Summary generator not available, skipping summary generation"
+            )
 
         # Generate website JSON data
         print("Generating website data...")
