@@ -20,7 +20,7 @@ from .scrapers import (
     FirstLightAustinScraper,
     HyperrealScraper,
     LaFolliaAustinScraper,
-    ParamountScraper,
+    # ParamountScraper,
 )
 from .recurring_events import RecurringEventGenerator
 
@@ -40,9 +40,9 @@ class MultiVenueScraper:
         self.hyperreal_scraper = HyperrealScraper(
             config=self.config, venue_key="hyperreal"
         )
-        self.paramount_scraper = ParamountScraper(
-            config=self.config, venue_key="paramount"
-        )
+        # self.paramount_scraper = ParamountScraper(
+        #     config=self.config, venue_key="paramount"
+        # )
         self.alienated_majesty_scraper = AlienatedMajestyBooksScraper(
             config=self.config, venue_key="alienated_majesty"
         )
