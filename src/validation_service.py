@@ -71,8 +71,8 @@ class EventValidationService:
     def validate_event_schema(self, event: Dict) -> ValidationResult:
         """Validate event against its schema"""
         try:
-            # Check required fields
-            required_fields = ["title", "date", "venue", "type"]
+            # Check required fields (match master_config.yaml schema)
+            required_fields = ["title", "dates", "venue"]
             missing_fields = [
                 field for field in required_fields if not event.get(field)
             ]
@@ -85,24 +85,29 @@ class EventValidationService:
                     event_data=event,
                 )
 
-            # Validate date format
-            try:
-                datetime.strptime(event["date"], "%Y-%m-%d")
-            except ValueError:
-                return ValidationResult(
-                    passed=False,
-                    level=ValidationLevel.CRITICAL,
-                    message=f"Invalid date format: {event['date']}",
-                    event_data=event,
-                )
+            # Validate dates format (array of YYYY-MM-DD strings)
+            dates = event.get("dates", [])
+            if not isinstance(dates, list):
+                dates = [dates]
 
-            # Validate event type
-            event_type = event.get("type")
-            if event_type not in ["screening", "movie", "concert", "book_club"]:
+            for date in dates:
+                try:
+                    datetime.strptime(str(date), "%Y-%m-%d")
+                except ValueError:
+                    return ValidationResult(
+                        passed=False,
+                        level=ValidationLevel.CRITICAL,
+                        message=f"Invalid date format: {date} (expected YYYY-MM-DD)",
+                        event_data=event,
+                    )
+
+            # Validate event_category (from master_config ontology labels)
+            event_category = event.get("event_category")
+            if event_category and event_category not in ["movie", "concert", "book_club", "opera", "dance", "other"]:
                 return ValidationResult(
                     passed=False,
                     level=ValidationLevel.WARNING,
-                    message=f"Unknown event type: {event_type}",
+                    message=f"Unknown event_category: {event_category}",
                     event_data=event,
                 )
 

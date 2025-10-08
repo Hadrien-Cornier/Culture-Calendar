@@ -4,7 +4,7 @@ Austin Movie Society scraper - scrapes events from website
 
 import re
 from datetime import datetime
-from typing import Dict, List
+from typing import Dict, List, Optional
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
@@ -353,7 +353,7 @@ class AFSScraper(BaseScraper):
 
         return None
 
-    def _parse_languages_from_info(self, info_text: str, country: str | None) -> str | None:
+    def _parse_languages_from_info(self, info_text: str, country: Optional[str]) -> Optional[str]:
         """Extract language(s) from the info text.
 
         Examples handled:
