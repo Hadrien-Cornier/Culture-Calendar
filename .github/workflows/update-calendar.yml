@@ -87,7 +87,7 @@ jobs:
             # Sample a few events for basic validation
             sample_events = data[:3]
             for i, event in enumerate(sample_events):
-                if not all(field in event for field in ['title', 'rating', 'screenings']):
+                if not all(field in event for field in ['title', 'rating', 'occurrences']):
                     print(f'❌ Error: Event {i+1} missing required fields')
                     sys.exit(1)
             
