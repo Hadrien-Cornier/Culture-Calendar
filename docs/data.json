@@ -1534,7 +1534,7 @@
     "venue": "NewYorkerMeetup",
     "occurrences": [
       {
-        "date": "2025-12-30",
+        "date": "2026-01-06",
         "time": "7:00 PM",
         "url": "https://www.meetup.com/atxstories/",
         "venue": "NewYorkerMeetup"
@@ -1559,31 +1559,6 @@
     "venue": "NewYorkerMeetup",
     "occurrences": [
       {
-        "date": "2026-01-06",
-        "time": "7:00 PM",
-        "url": "https://www.meetup.com/atxstories/",
-        "venue": "NewYorkerMeetup"
-      }
-    ],
-    "type": "book_club",
-    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-2---tbd-tbd"
-  },
-  {
-    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 3",
-    "dates": "",
-    "times": "",
-    "book": "",
-    "author": "",
-    "publication_year": "",
-    "series": "The New Yorker Weekly Short Story Club",
-    "host": "Nabeel K. and others",
-    "rating": 7,
-    "one_liner_summary": "Weekly literary discussion group",
-    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
-    "url": "https://www.meetup.com/atxstories/",
-    "venue": "NewYorkerMeetup",
-    "occurrences": [
-      {
         "date": "2026-01-13",
         "time": "7:00 PM",
         "url": "https://www.meetup.com/atxstories/",
@@ -1591,7 +1566,7 @@
       }
     ],
     "type": "book_club",
-    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-3---tbd-tbd"
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-2---tbd-tbd"
   },
   {
     "title": "Masterworks 4: Miguel Espinoza Fusion",
@@ -1639,7 +1614,7 @@
     "id": "masterworks-4-miguel-espinoza-fusion---2026-01-162026-01-17-20002000"
   },
   {
-    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 4",
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 3",
     "dates": "",
     "times": "",
     "book": "",
@@ -1655,6 +1630,31 @@
     "occurrences": [
       {
         "date": "2026-01-20",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "type": "book_club",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-3---tbd-tbd"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 4",
+    "dates": "",
+    "times": "",
+    "book": "",
+    "author": "",
+    "publication_year": "",
+    "series": "The New Yorker Weekly Short Story Club",
+    "host": "Nabeel K. and others",
+    "rating": 7,
+    "one_liner_summary": "Weekly literary discussion group",
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "url": "https://www.meetup.com/atxstories/",
+    "venue": "NewYorkerMeetup",
+    "occurrences": [
+      {
+        "date": "2026-01-27",
         "time": "7:00 PM",
         "url": "https://www.meetup.com/atxstories/",
         "venue": "NewYorkerMeetup"
@@ -1679,7 +1679,7 @@
     "venue": "NewYorkerMeetup",
     "occurrences": [
       {
-        "date": "2026-01-27",
+        "date": "2026-02-03",
         "time": "7:00 PM",
         "url": "https://www.meetup.com/atxstories/",
         "venue": "NewYorkerMeetup"
@@ -1704,31 +1704,6 @@
     "venue": "NewYorkerMeetup",
     "occurrences": [
       {
-        "date": "2026-02-03",
-        "time": "7:00 PM",
-        "url": "https://www.meetup.com/atxstories/",
-        "venue": "NewYorkerMeetup"
-      }
-    ],
-    "type": "book_club",
-    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-6---tbd-tbd"
-  },
-  {
-    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 7",
-    "dates": "",
-    "times": "",
-    "book": "",
-    "author": "",
-    "publication_year": "",
-    "series": "The New Yorker Weekly Short Story Club",
-    "host": "Nabeel K. and others",
-    "rating": 7,
-    "one_liner_summary": "Weekly literary discussion group",
-    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
-    "url": "https://www.meetup.com/atxstories/",
-    "venue": "NewYorkerMeetup",
-    "occurrences": [
-      {
         "date": "2026-02-10",
         "time": "7:00 PM",
         "url": "https://www.meetup.com/atxstories/",
@@ -1736,7 +1711,7 @@
       }
     ],
     "type": "book_club",
-    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-7---tbd-tbd"
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-6---tbd-tbd"
   },
   {
     "title": "IN MOTION / An Evening with Stephen Mills",
@@ -1826,7 +1801,7 @@
     "id": "in-motion-/-an-evening-with-stephen-mills---2026-02-15-1500"
   },
   {
-    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 8",
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 7",
     "dates": "",
     "times": "",
     "book": "",
@@ -1848,7 +1823,7 @@
       }
     ],
     "type": "book_club",
-    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-8---tbd-tbd"
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-7---tbd-tbd"
   },
   {
     "title": "Masterworks 5: Annie Jacobs-Perkins, cello",
@@ -1896,6 +1871,31 @@
     ],
     "type": "concert",
     "id": "masterworks-5-annie-jacobs-perkins-cello---2026-02-202026-02-21-20002000"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 8",
+    "dates": "",
+    "times": "",
+    "book": "",
+    "author": "",
+    "publication_year": "",
+    "series": "The New Yorker Weekly Short Story Club",
+    "host": "Nabeel K. and others",
+    "rating": 7,
+    "one_liner_summary": "Weekly literary discussion group",
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "url": "https://www.meetup.com/atxstories/",
+    "venue": "NewYorkerMeetup",
+    "occurrences": [
+      {
+        "date": "2026-02-24",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "type": "book_club",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-8---tbd-tbd"
   },
   {
     "title": "Pirates of the Caribbean in Concert",
