@@ -8,7 +8,7 @@ import os
 import time
 from typing import Dict, Optional
 
-from anthropic import Anthropic
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -16,11 +16,11 @@ load_dotenv()
 
 class SummaryGenerator:
     def __init__(self):
-        self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
-        if not self.anthropic_api_key:
-            raise ValueError("ANTHROPIC_API_KEY not found in environment variables")
+        self.openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+        if not self.openrouter_api_key:
+            raise ValueError("OPENROUTER_API_KEY not found in environment variables")
 
-        self.client = Anthropic(api_key=self.anthropic_api_key)
+        self.client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=self.openrouter_api_key)
         self.summary_cache = {}
         self._load_cache()
 
@@ -282,14 +282,17 @@ class SummaryGenerator:
             # Add rate limiting
             time.sleep(0.5)
 
-            response = self.client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=100,
+            # OpenRouter uses OpenAI-compatible chat.completions API via openai>=1
+            resp = self.client.chat.completions.create(
+                model="google/gemini-2.5-flash",
                 temperature=0.3,
-                messages=[{"role": "user", "content": prompt}],
+                max_tokens=100,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt},
+                ],
             )
-
-            summary = response.content[0].text.strip()
+            summary = resp.choices[0].message.content.strip()
 
             # Clean up the response - remove quotes and ensure it's one line
             summary = summary.strip("\"'").replace("\n", " ").strip()

@@ -62,7 +62,7 @@ class BaseScraper(ABC):
             self.enrichment_layer = None
 
         print(f"Initialized {self.__class__.__name__} for {venue_name}")
-        if not self.llm_service.anthropic and not self.llm_service.perplexity_api_key:
+        if not self.llm_service.openai and not self.llm_service.perplexity_api_key:
             print(
                 "  Warning: LLM service not configured - Smart extraction unavailable"
             )

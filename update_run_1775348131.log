@@ -1,0 +1,420 @@
+Culture Calendar Website Update - Starting at 2026-04-05 00:15:32.041145
+Loaded master configuration
+Initialized AFSScraper for Austin Movie Society
+Initialized HyperrealScraper for Hyperreal Movie Club
+Initialized AlienatedMajestyBooksScraper for AlienatedMajesty
+Initialized FirstLightAustinScraper for FirstLight
+Initialized ArtsOnAlexanderScraper for Arts on Alexander
+Initialized AustinSymphonyScraper for Symphony
+Initialized AustinOperaScraper for Opera
+Initialized AustinChamberMusicScraper for Chamber Music
+Initialized EarlyMusicAustinScraper for EarlyMusic
+Initialized LaFolliaAustinScraper for LaFollia
+Initialized BalletAustinScraper for BalletAustin
+Loaded 74 cached event ratings from data.json
+Loaded 272 cached summaries
+Fetching calendar data from all venues...
+✅ [1/9] Austin Movie Society: 56 events
+Scraping Hyperreal Movie Club...
+  Found 15 movie events
+    ✓ Extracted with BeautifulSoup: DUMB AND DUMBER
+    ✓ Extracted with BeautifulSoup: Discovery Zone: SCHOOL OF THE HOLY BEAST
+    ✓ Extracted with BeautifulSoup: Not Your Belly Dancer: WADJDA
+    ✓ Extracted with BeautifulSoup: BURLESQUE
+    ✓ Extracted with BeautifulSoup: Not Your Belly Dancer: CARAMEL
+    ✓ Extracted with BeautifulSoup: Discovery Zone: MY BOYFRIEND'S BACK
+    ✓ Extracted with BeautifulSoup: Not Your Belly Dancer: SIRENS
+    ✓ Extracted with BeautifulSoup: Carabiner Club: BOTTOMS
+    ✓ Extracted with BeautifulSoup: THE MUMMY (1999)
+    ✓ Extracted with BeautifulSoup: THE NIGHT COMES FOR US
+    ✓ Extracted with BeautifulSoup: xXx: RETURN OF XANDER CAGE
+    ✓ Extracted with BeautifulSoup: BELL, BOOK AND CANDLE
+    ✓ Extracted with BeautifulSoup: THE HARDER THEY FALL
+    ✓ Extracted with BeautifulSoup: Black Is Not a Genre: A RAGE IN HARLEM
+    ✓ Extracted with BeautifulSoup: SAVED!
+Successfully scraped 15 Hyperreal events total
+✅ [2/9] Hyperreal Movie Club: 15 events
+Loaded 0 Arts on Alexander events from JSON
+✅ [3/9] Arts on Alexander: 0 events
+Loaded 14 Symphony events from JSON
+✅ [4/9] Austin Symphony: 14 events
+Loaded 9 Opera events from JSON
+✅ [5/9] Austin Opera: 9 events
+Loaded 7 Chamber Music events from JSON
+✅ [6/9] Austin Chamber Music: 7 events
+Loaded 8 Early Music events from JSON
+✅ [7/9] Early Music Project: 8 events
+Loaded 10 La Follia events from JSON
+✅ [8/9] La Follia: 10 events
+Loaded 27 Ballet Austin events from JSON
+✅ [9/9] Ballet Austin: 27 events
+🎯 SEQUENTIAL SCRAPING COMPLETE: 146 events in 4.7s
+Generating recurring events...
+Generated 8 recurring events
+Found 154 total events from all venues
+NOTE: Classical music venues load their events from docs/classical_data.json
+⚠️ Smart validation disabled - continuing without checks
+Fetching event details...
+Processing 154 total events
+Processing and enriching events...
+Processing (1): Masterworks 1: Stefan Jackiw, violin
+  Force re-processing MASTERWORKS 1: STEFAN JACKIW, VIOLIN (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (2): Masterworks 2: Emanuel Ax, piano
+  Force re-processing MASTERWORKS 2: EMANUEL AX, PIANO (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (3): Masterworks 3: Rhapsody Spectacular
+  Force re-processing MASTERWORKS 3: RHAPSODY SPECTACULAR (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (4): Masterworks 4: Miguel Espinoza Fusion
+  Force re-processing MASTERWORKS 4: MIGUEL ESPINOZA FUSION (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (5): Masterworks 5: Annie Jacobs-Perkins, cello
+  Force re-processing MASTERWORKS 5: ANNIE JACOBS-PERKINS, CELLO (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (6): Masterworks 6: Nancy Zhou, violin
+  Force re-processing MASTERWORKS 6: NANCY ZHOU, VIOLIN (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (7): Masterworks 7: Grisha Goryachev, guitar & Mozart Requiem
+  Force re-processing MASTERWORKS 7: GRISHA GORYACHEV, GUITAR & MOZART REQUIEM (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (8): Masterworks 8: Steinway Spirio featuring "George Gershwin"
+  Force re-processing MASTERWORKS 8: STEINWAY SPIRIO FEATURING "GEORGE GERSHWIN" (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (9): Star Wars: Return of the Jedi in Concert
+  Force re-processing STAR WARS: RETURN OF THE JEDI IN CONCERT (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (10): Home Alone in Concert
+  Force re-processing HOME ALONE IN CONCERT (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (11): Pirates of the Caribbean in Concert
+  Force re-processing PIRATES OF THE CARIBBEAN IN CONCERT (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (12): Video Games Live
+  Force re-processing VIDEO GAMES LIVE (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (13): Halloween Children's Concert
+  Force re-processing HALLOWEEN CHILDREN'S CONCERT (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (14): Handel's Messiah
+  Force re-processing HANDEL'S MESSIAH (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (15): Kodak Quartet with Michelle Schumann
+  Force re-processing KODAK QUARTET WITH MICHELLE SCHUMANN (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (16): Carnival of the Animals
+  Force re-processing CARNIVAL OF THE ANIMALS (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (17): Carnival of the Animals
+  Using cached rating for CARNIVAL OF THE ANIMALS
+  Using cached summary for Carnival of the Animals
+  Using cached data for CARNIVAL OF THE ANIMALS
+Processing (18): Twelfth Night
+  Force re-processing TWELFTH NIGHT (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (19): Poiesis Quartet & Friends
+  Force re-processing POIESIS QUARTET & FRIENDS (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (20): Miró Quartet & Poiesis Quartet
+  Force re-processing MIRÓ QUARTET & POIESIS QUARTET (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (21): Gil Shaham & Akira Eguchi
+  Force re-processing GIL SHAHAM & AKIRA EGUCHI (ignoring cache)
+  Skipping summary for non-specific event: Gil Shaham & Akira Eguchi
+  Insufficient data for summary generation: Gil Shaham & Akira Eguchi
+  Applied rate limiting (AI API: True, Summary API: False)
+Processing (22): A Cry of many voices: British Isles & The Lowlands
+  Force re-processing A CRY OF MANY VOICES: BRITISH ISLES & THE LOWLANDS (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (23): A Cry of many voices: British Isles & The Lowlands
+  Using cached rating for A CRY OF MANY VOICES: BRITISH ISLES & THE LOWLANDS
+  Using cached summary for A Cry of many voices: British Isles & The Lowlands
+  Using cached data for A CRY OF MANY VOICES: BRITISH ISLES & THE LOWLANDS
+Processing (24): Joy and Light: Delights of the Season
+  Force re-processing JOY AND LIGHT: DELIGHTS OF THE SEASON (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (25): Joy and Light: Delights of the Season
+  Using cached rating for JOY AND LIGHT: DELIGHTS OF THE SEASON
+  Using cached summary for Joy and Light: Delights of the Season
+  Using cached data for JOY AND LIGHT: DELIGHTS OF THE SEASON
+Processing (26): Troubadours of France & Iberia
+  Force re-processing TROUBADOURS OF FRANCE & IBERIA (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (27): Troubadours of France & Iberia
+  Using cached rating for TROUBADOURS OF FRANCE & IBERIA
+  Using cached summary for Troubadours of France & Iberia
+  Using cached data for TROUBADOURS OF FRANCE & IBERIA
+Processing (28): Purcell. Henry Purcell: License to Trill
+  Force re-processing PURCELL. HENRY PURCELL: LICENSE TO TRILL (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (29): Purcell. Henry Purcell: License to Trill
+  Using cached rating for PURCELL. HENRY PURCELL: LICENSE TO TRILL
+  Using cached summary for Purcell. Henry Purcell: License to Trill
+  Using cached data for PURCELL. HENRY PURCELL: LICENSE TO TRILL
+Processing (30): Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]
+  Force re-processing GEORG PHILIPP TELEMANN: THE GREATEST GERMAN BAROQUE COMPOSER [FIGHT ME!] (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (31): Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]
+  Using cached rating for GEORG PHILIPP TELEMANN: THE GREATEST GERMAN BAROQUE COMPOSER [FIGHT ME!]
+  Using cached summary for Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]
+  Using cached data for GEORG PHILIPP TELEMANN: THE GREATEST GERMAN BAROQUE COMPOSER [FIGHT ME!]
+Processing (32): Music for a Consort of Viols
+  Force re-processing MUSIC FOR A CONSORT OF VIOLS (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (33): Music for a Consort of Viols
+  Using cached rating for MUSIC FOR A CONSORT OF VIOLS
+  Using cached summary for Music for a Consort of Viols
+  Using cached data for MUSIC FOR A CONSORT OF VIOLS
+Processing (34): Anton Nel and Keith Womer wrangle the Herd of Harpsichords
+  Force re-processing ANTON NEL AND KEITH WOMER WRANGLE THE HERD OF HARPSICHORDS (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (35): Anton Nel and Keith Womer wrangle the Herd of Harpsichords
+  Using cached rating for ANTON NEL AND KEITH WOMER WRANGLE THE HERD OF HARPSICHORDS
+  Using cached summary for Anton Nel and Keith Womer wrangle the Herd of Harpsichords
+  Using cached data for ANTON NEL AND KEITH WOMER WRANGLE THE HERD OF HARPSICHORDS
+Processing (36): Hidden Gems
+  Force re-processing HIDDEN GEMS (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (37): Hidden Gems
+  Using cached rating for HIDDEN GEMS
+  Using cached summary for Hidden Gems
+  Using cached data for HIDDEN GEMS
+Processing (38): Haydn! Beethoven! Scotland! - with Anton Nel
+  Force re-processing HAYDN! BEETHOVEN! SCOTLAND! - WITH ANTON NEL (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (39): Haydn! Beethoven! Scotland! - with Anton Nel
+  Using cached rating for HAYDN! BEETHOVEN! SCOTLAND! - WITH ANTON NEL
+  Using cached summary for Haydn! Beethoven! Scotland! - with Anton Nel
+  Using cached data for HAYDN! BEETHOVEN! SCOTLAND! - WITH ANTON NEL
+Processing (40): GRIMM TALES
+  Force re-processing GRIMM TALES (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (41): GRIMM TALES
+  Using cached rating for GRIMM TALES
+  Using cached summary for GRIMM TALES
+  Using cached data for GRIMM TALES
+Processing (42): GRIMM TALES
+  Using cached rating for GRIMM TALES
+  Using cached summary for GRIMM TALES
+  Using cached data for GRIMM TALES
+Processing (43): THE NUTCRACKER
+  Force re-processing THE NUTCRACKER (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (44): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (45): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (46): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (47): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (48): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (49): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (50): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (51): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (52): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (53): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (54): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (55): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (56): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (57): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (58): IN MOTION / An Evening with Stephen Mills
+  Force re-processing IN MOTION / AN EVENING WITH STEPHEN MILLS (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (59): IN MOTION / An Evening with Stephen Mills
+  Using cached rating for IN MOTION / AN EVENING WITH STEPHEN MILLS
+  Using cached summary for IN MOTION / An Evening with Stephen Mills
+  Using cached data for IN MOTION / AN EVENING WITH STEPHEN MILLS
+Processing (60): IN MOTION / An Evening with Stephen Mills
+  Using cached rating for IN MOTION / AN EVENING WITH STEPHEN MILLS
+  Using cached summary for IN MOTION / An Evening with Stephen Mills
+  Using cached data for IN MOTION / AN EVENING WITH STEPHEN MILLS
+Processing (61): MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Force re-processing MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (62): MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached rating for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached summary for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached data for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+Processing (63): MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached rating for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached summary for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached data for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+Processing (64): THE MAGIC FLUTE
+  Force re-processing THE MAGIC FLUTE (ignoring cache)
+Claude API error: name 'system_prompt' is not defined
+  Applied rate limiting (AI API: True, Summary API: True)
+Processing (65): THE MAGIC FLUTE
+  Using cached rating for THE MAGIC FLUTE
+  Using cached summary for THE MAGIC FLUTE
+  Using cached data for THE MAGIC FLUTE
+Processing (66): THE MAGIC FLUTE
+  Using cached rating for THE MAGIC FLUTE
+  Using cached summary for THE MAGIC FLUTE
+  Using cached data for THE MAGIC FLUTE
+Processing (67): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - This Week's Story
+  Skipping AI processing for recurring event
+Processing (68): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 2
+  Skipping AI processing for recurring event
+Processing (69): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 3
+  Skipping AI processing for recurring event
+Processing (70): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 4
+  Skipping AI processing for recurring event
+Processing (71): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 5
+  Skipping AI processing for recurring event
+Processing (72): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 6
+  Skipping AI processing for recurring event
+Processing (73): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 7
+  Skipping AI processing for recurring event
+Processing (74): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 8
+  Skipping AI processing for recurring event
+Processed 74 events
+
+Generating one-line summaries...
+  Using cached summary for Masterworks 1: Stefan Jackiw, violin
+  Generated summary for: Masterworks 1: Stefan Jackiw, violin
+  Using cached summary for Masterworks 2: Emanuel Ax, piano
+  Generated summary for: Masterworks 2: Emanuel Ax, piano
+  Using cached summary for Masterworks 3: Rhapsody Spectacular
+  Generated summary for: Masterworks 3: Rhapsody Spectacular
+  Using cached summary for Masterworks 4: Miguel Espinoza Fusion
+  Generated summary for: Masterworks 4: Miguel Espinoza Fusion
+  Using cached summary for Masterworks 5: Annie Jacobs-Perkins, cello
+  Generated summary for: Masterworks 5: Annie Jacobs-Perkins, cello
+  Using cached summary for Masterworks 6: Nancy Zhou, violin
+  Generated summary for: Masterworks 6: Nancy Zhou, violin
+  Using cached summary for Masterworks 7: Grisha Goryachev, guitar & Mozart Requiem
+  Generated summary for: Masterworks 7: Grisha Goryachev, guitar & Mozart Requiem
+  Using cached summary for Masterworks 8: Steinway Spirio featuring "George Gershwin"
+  Generated summary for: Masterworks 8: Steinway Spirio featuring "George Gershwin"
+  Using cached summary for Star Wars: Return of the Jedi in Concert
+  Generated summary for: Star Wars: Return of the Jedi in Concert
+  Using cached summary for Home Alone in Concert
+  Generated summary for: Home Alone in Concert
+  Using cached summary for Pirates of the Caribbean in Concert
+  Generated summary for: Pirates of the Caribbean in Concert
+  Using cached summary for Video Games Live
+  Generated summary for: Video Games Live
+  Using cached summary for Halloween Children's Concert
+  Generated summary for: Halloween Children's Concert
+  Using cached summary for Handel's Messiah
+  Generated summary for: Handel's Messiah
+  Using cached summary for Kodak Quartet with Michelle Schumann
+  Generated summary for: Kodak Quartet with Michelle Schumann
+  Using cached summary for Carnival of the Animals
+  Generated summary for: Carnival of the Animals
+  Using cached summary for Twelfth Night
+  Generated summary for: Twelfth Night
+  Using cached summary for Poiesis Quartet & Friends
+  Generated summary for: Poiesis Quartet & Friends
+  Using cached summary for Miró Quartet & Poiesis Quartet
+  Generated summary for: Miró Quartet & Poiesis Quartet
+  Skipping summary for non-specific event: Gil Shaham & Akira Eguchi
+  Insufficient data for summary generation: Gil Shaham & Akira Eguchi
+  Using cached summary for A Cry of many voices: British Isles & The Lowlands
+  Generated summary for: A Cry of many voices: British Isles & The Lowlands
+  Using cached summary for Joy and Light: Delights of the Season
+  Generated summary for: Joy and Light: Delights of the Season
+  Using cached summary for Troubadours of France & Iberia
+  Generated summary for: Troubadours of France & Iberia
+  Using cached summary for Purcell. Henry Purcell: License to Trill
+  Generated summary for: Purcell. Henry Purcell: License to Trill
+  Using cached summary for Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]
+  Generated summary for: Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]
+  Using cached summary for Music for a Consort of Viols
+  Generated summary for: Music for a Consort of Viols
+  Using cached summary for Anton Nel and Keith Womer wrangle the Herd of Harpsichords
+  Generated summary for: Anton Nel and Keith Womer wrangle the Herd of Harpsichords
+  Using cached summary for Hidden Gems
+  Generated summary for: Hidden Gems
+  Using cached summary for Haydn! Beethoven! Scotland! - with Anton Nel
+  Generated summary for: Haydn! Beethoven! Scotland! - with Anton Nel
+  Using cached summary for GRIMM TALES
+  Generated summary for: GRIMM TALES
+  Using cached summary for THE NUTCRACKER
+  Generated summary for: THE NUTCRACKER
+  Using cached summary for IN MOTION / An Evening with Stephen Mills
+  Generated summary for: IN MOTION / An Evening with Stephen Mills
+  Using cached summary for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Generated summary for: MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached summary for THE MAGIC FLUTE
+  Generated summary for: THE MAGIC FLUTE
+Completed summary generation
+Generating website data...
+Generating website data using config-driven approach...
+Processing events by type: {'concert': 66, 'book_club': 8}
+Processing 66 concert events with template: ['title', 'dates', 'times', 'program', 'series', 'featured_artist', 'composers', 'works', 'venue', 'rating', 'one_liner_summary', 'description', 'url', 'occurrences']
+Processing 8 book_club events with template: ['title', 'dates', 'times', 'book', 'author', 'publication_year', 'series', 'host', 'rating', 'one_liner_summary', 'description', 'url', 'venue', 'occurrences']
+Generated docs/data.json with 74 events
+Saved update info to docs/source_update_times.json
+Website update completed successfully!

@@ -118,8 +118,34 @@ def is_movie_event(title, description=""):
 
 
 def determine_event_type(event: dict) -> str:
-    """Determine event type from event data, defaulting to 'other'"""
-    return event.get("type", "other")
+    """Determine event type from event data, with robust normalization.
+
+    - Map common variants (screening/film/movie_screening) to 'movie'
+    - Infer 'movie' by venue heuristics (AFS/Hyperreal) when type is missing
+    - Infer 'movie' if film-centric fields are present
+    - Fallback to provided type or 'other'
+    """
+    raw_type = (event.get("type") or "").strip().lower()
+    venue = (event.get("venue") or "").strip().lower()
+
+    # Normalize common movie variants
+    movie_aliases = {"screening", "film", "movie_screening", "movie-showing", "showing"}
+    if raw_type in movie_aliases:
+        return "movie"
+
+    # Venue-based inference for movie houses
+    movie_venues = {"afs", "austin film society", "hyperreal", "hyperreal movie club"}
+    if not raw_type and venue in movie_venues:
+        return "movie"
+
+    # Field-based inference (typical film metadata)
+    if any(k in event for k in ("director", "runtime", "runtime_minutes", "release_year")):
+        # Don't overwrite explicit non-movie types
+        if raw_type in ("", "other"):
+            return "movie"
+
+    # Default
+    return raw_type or event.get("type", "other") or "other"
 
 
 def build_event_from_template(
@@ -301,9 +327,10 @@ def generate_website_data(events):
             events_by_type[event_type] = []
         events_by_type[event_type].append(event)
 
-    print(
-        f"Processing events by type: { {k: len(v) for k, v in events_by_type.items()} }"
-    )
+    counts = {k: len(v) for k, v in events_by_type.items()}
+    print(f"Processing events by type: {counts}")
+    if counts.get("movie", 0) == 0 and any(e.get("venue") in {"AFS", "Hyperreal"} for e in events):
+        print("WARNING: 0 'movie' events after typing, but AFS/Hyperreal events exist → check type normalization/templates")
 
     # Process events using templates
     combined_data = {}
@@ -423,19 +450,29 @@ def main(
         # Get detailed information for screening and book club events
         print("Fetching event details...")
         detailed_events = []
+        dropped_on_details = 0
         for event in events:
-            if event.get("type") in ["screening", "book_club"]:
+            etype = event.get("type")
+            if etype in ["screening", "book_club"]:
                 try:
                     details = scraper.get_event_details(event)
-                    event.update(details)
+                    if isinstance(details, dict):
+                        event.update(details)
                     detailed_events.append(event)
                 except Exception as e:
+                    # Do NOT drop the event; keep minimal data so movies still publish
                     print(
-                        f"Error getting details for {event.get( 'title','Unknown')}: {e}"
+                        f"Warning: details fetch failed for {event.get('title','Unknown')} ({etype}): {e} — keeping list-level data"
                     )
-            elif event.get("type") in ["concert", "movie"]:
-                # Classical events and movie events already have complete details
+                    detailed_events.append(event)
+            elif etype in ["concert", "movie"]:
+                # Classical events and normalized movie events already have sufficient details
                 detailed_events.append(event)
+            else:
+                # Keep other types too (e.g., if typing happens later)
+                detailed_events.append(event)
+        if dropped_on_details:
+            print(f"Note: {dropped_on_details} events lost during details stage (should be 0)")
 
         # Keep all events - no date filtering applied
         upcoming_events = detailed_events

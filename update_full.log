@@ -1,0 +1,363 @@
+Culture Calendar Website Update - Starting at 2026-04-04 16:38:27.787635
+Loaded master configuration
+Initialized AFSScraper for Austin Movie Society
+Initialized HyperrealScraper for Hyperreal Movie Club
+Initialized AlienatedMajestyBooksScraper for AlienatedMajesty
+Initialized FirstLightAustinScraper for FirstLight
+Initialized ArtsOnAlexanderScraper for Arts on Alexander
+Initialized AustinSymphonyScraper for Symphony
+Initialized AustinOperaScraper for Opera
+Initialized AustinChamberMusicScraper for Chamber Music
+Initialized EarlyMusicAustinScraper for EarlyMusic
+Initialized LaFolliaAustinScraper for LaFollia
+Initialized BalletAustinScraper for BalletAustin
+Loaded 68 cached event ratings from data.json
+Loaded 272 cached summaries
+Fetching calendar data from all venues...
+✅ [1/9] Austin Movie Society: 62 events
+Scraping Hyperreal Movie Club...
+  Found 15 movie events
+    ✓ Extracted with BeautifulSoup: Not Your Belly Dancer: CARAMEL
+    ✓ Extracted with BeautifulSoup: Discovery Zone: MY BOYFRIEND'S BACK
+    ✓ Extracted with BeautifulSoup: xXx: RETURN OF XANDER CAGE
+    ✓ Extracted with BeautifulSoup: DUMB AND DUMBER
+    ✓ Extracted with BeautifulSoup: Not Your Belly Dancer: WADJDA
+    ✓ Extracted with BeautifulSoup: Not Your Belly Dancer: SIRENS
+    ✓ Extracted with BeautifulSoup: Discovery Zone: SCHOOL OF THE HOLY BEAST
+    ✓ Extracted with BeautifulSoup: THE HARDER THEY FALL
+    ✓ Extracted with BeautifulSoup: Carabiner Club: BOTTOMS
+    ✓ Extracted with BeautifulSoup: SAVED!
+    ✓ Extracted with BeautifulSoup: BURLESQUE
+    ✓ Extracted with BeautifulSoup: Black Is Not a Genre: A RAGE IN HARLEM
+    ✓ Extracted with BeautifulSoup: THE MUMMY (1999)
+    ✓ Extracted with BeautifulSoup: THE NIGHT COMES FOR US
+    ✓ Extracted with BeautifulSoup: BELL, BOOK AND CANDLE
+Successfully scraped 15 Hyperreal events total
+✅ [2/9] Hyperreal Movie Club: 15 events
+Loaded 0 Arts on Alexander events from JSON
+✅ [3/9] Arts on Alexander: 0 events
+Loaded 14 Symphony events from JSON
+✅ [4/9] Austin Symphony: 14 events
+Loaded 9 Opera events from JSON
+✅ [5/9] Austin Opera: 9 events
+Loaded 7 Chamber Music events from JSON
+✅ [6/9] Austin Chamber Music: 7 events
+Loaded 8 Early Music events from JSON
+✅ [7/9] Early Music Project: 8 events
+Loaded 10 La Follia events from JSON
+✅ [8/9] La Follia: 10 events
+Loaded 27 Ballet Austin events from JSON
+✅ [9/9] Ballet Austin: 27 events
+🎯 SEQUENTIAL SCRAPING COMPLETE: 152 events in 4.7s
+Generating recurring events...
+Generated 8 recurring events
+Found 160 total events from all venues
+NOTE: Classical music venues load their events from docs/classical_data.json
+⚠️ Smart validation disabled - continuing without checks
+Fetching event details...
+Processing 74 total events
+Processing and enriching events...
+Processing (1): Masterworks 1: Stefan Jackiw, violin
+  Using cached rating for MASTERWORKS 1: STEFAN JACKIW, VIOLIN
+  Using cached summary for Masterworks 1: Stefan Jackiw, violin
+  Using cached data for MASTERWORKS 1: STEFAN JACKIW, VIOLIN
+Processing (2): Masterworks 2: Emanuel Ax, piano
+  Using cached rating for MASTERWORKS 2: EMANUEL AX, PIANO
+  Using cached summary for Masterworks 2: Emanuel Ax, piano
+  Using cached data for MASTERWORKS 2: EMANUEL AX, PIANO
+Processing (3): Masterworks 3: Rhapsody Spectacular
+  Using cached rating for MASTERWORKS 3: RHAPSODY SPECTACULAR
+  Using cached summary for Masterworks 3: Rhapsody Spectacular
+  Using cached data for MASTERWORKS 3: RHAPSODY SPECTACULAR
+Processing (4): Masterworks 4: Miguel Espinoza Fusion
+  Using cached rating for MASTERWORKS 4: MIGUEL ESPINOZA FUSION
+  Using cached summary for Masterworks 4: Miguel Espinoza Fusion
+  Using cached data for MASTERWORKS 4: MIGUEL ESPINOZA FUSION
+Processing (5): Masterworks 5: Annie Jacobs-Perkins, cello
+  Using cached rating for MASTERWORKS 5: ANNIE JACOBS-PERKINS, CELLO
+  Using cached summary for Masterworks 5: Annie Jacobs-Perkins, cello
+  Using cached data for MASTERWORKS 5: ANNIE JACOBS-PERKINS, CELLO
+Processing (6): Masterworks 6: Nancy Zhou, violin
+  Using cached rating for MASTERWORKS 6: NANCY ZHOU, VIOLIN
+  Using cached summary for Masterworks 6: Nancy Zhou, violin
+  Using cached data for MASTERWORKS 6: NANCY ZHOU, VIOLIN
+Processing (7): Masterworks 7: Grisha Goryachev, guitar & Mozart Requiem
+  Using cached rating for MASTERWORKS 7: GRISHA GORYACHEV, GUITAR & MOZART REQUIEM
+  Using cached summary for Masterworks 7: Grisha Goryachev, guitar & Mozart Requiem
+  Using cached data for MASTERWORKS 7: GRISHA GORYACHEV, GUITAR & MOZART REQUIEM
+Processing (8): Masterworks 8: Steinway Spirio featuring "George Gershwin"
+  Using cached rating for MASTERWORKS 8: STEINWAY SPIRIO FEATURING "GEORGE GERSHWIN"
+  Using cached summary for Masterworks 8: Steinway Spirio featuring "George Gershwin"
+  Using cached data for MASTERWORKS 8: STEINWAY SPIRIO FEATURING "GEORGE GERSHWIN"
+Processing (9): Star Wars: Return of the Jedi in Concert
+  Using cached rating for STAR WARS: RETURN OF THE JEDI IN CONCERT
+  Using cached summary for Star Wars: Return of the Jedi in Concert
+  Using cached data for STAR WARS: RETURN OF THE JEDI IN CONCERT
+Processing (10): Home Alone in Concert
+  Using cached rating for HOME ALONE IN CONCERT
+  Using cached summary for Home Alone in Concert
+  Using cached data for HOME ALONE IN CONCERT
+Processing (11): Pirates of the Caribbean in Concert
+  Using cached rating for PIRATES OF THE CARIBBEAN IN CONCERT
+  Using cached summary for Pirates of the Caribbean in Concert
+  Using cached data for PIRATES OF THE CARIBBEAN IN CONCERT
+Processing (12): Video Games Live
+  Using cached rating for VIDEO GAMES LIVE
+  Using cached summary for Video Games Live
+  Using cached data for VIDEO GAMES LIVE
+Processing (13): Halloween Children's Concert
+  Using cached rating for HALLOWEEN CHILDREN'S CONCERT
+  Using cached summary for Halloween Children's Concert
+  Using cached data for HALLOWEEN CHILDREN'S CONCERT
+Processing (14): Handel's Messiah
+  Using cached rating for HANDEL'S MESSIAH
+  Using cached summary for Handel's Messiah
+  Using cached data for HANDEL'S MESSIAH
+Processing (15): Kodak Quartet with Michelle Schumann
+  Using cached rating for KODAK QUARTET WITH MICHELLE SCHUMANN
+  Using cached summary for Kodak Quartet with Michelle Schumann
+  Using cached data for KODAK QUARTET WITH MICHELLE SCHUMANN
+Processing (16): Carnival of the Animals
+  Using cached rating for CARNIVAL OF THE ANIMALS
+  Skipping summary for non-specific event: Carnival of the Animals
+  Insufficient data for summary generation: Carnival of the Animals
+  Using cached data for CARNIVAL OF THE ANIMALS
+Processing (17): Carnival of the Animals
+  Using cached rating for CARNIVAL OF THE ANIMALS
+  Skipping summary for non-specific event: Carnival of the Animals
+  Insufficient data for summary generation: Carnival of the Animals
+  Using cached data for CARNIVAL OF THE ANIMALS
+Processing (18): Twelfth Night
+  Using cached rating for TWELFTH NIGHT
+  Skipping summary for non-specific event: Twelfth Night
+  Insufficient data for summary generation: Twelfth Night
+  Using cached data for TWELFTH NIGHT
+Processing (19): Poiesis Quartet & Friends
+  Using cached rating for POIESIS QUARTET & FRIENDS
+  Using cached summary for Poiesis Quartet & Friends
+  Using cached data for POIESIS QUARTET & FRIENDS
+Processing (20): Miró Quartet & Poiesis Quartet
+  Using cached rating for MIRÓ QUARTET & POIESIS QUARTET
+  Using cached summary for Miró Quartet & Poiesis Quartet
+  Using cached data for MIRÓ QUARTET & POIESIS QUARTET
+Processing (21): Gil Shaham & Akira Eguchi
+  Using cached rating for GIL SHAHAM & AKIRA EGUCHI
+  Skipping summary for non-specific event: Gil Shaham & Akira Eguchi
+  Insufficient data for summary generation: Gil Shaham & Akira Eguchi
+  Using cached data for GIL SHAHAM & AKIRA EGUCHI
+Processing (22): A Cry of many voices: British Isles & The Lowlands
+  Using cached rating for A CRY OF MANY VOICES: BRITISH ISLES & THE LOWLANDS
+  Using cached summary for A Cry of many voices: British Isles & The Lowlands
+  Using cached data for A CRY OF MANY VOICES: BRITISH ISLES & THE LOWLANDS
+Processing (23): A Cry of many voices: British Isles & The Lowlands
+  Using cached rating for A CRY OF MANY VOICES: BRITISH ISLES & THE LOWLANDS
+  Using cached summary for A Cry of many voices: British Isles & The Lowlands
+  Using cached data for A CRY OF MANY VOICES: BRITISH ISLES & THE LOWLANDS
+Processing (24): Joy and Light: Delights of the Season
+  Using cached rating for JOY AND LIGHT: DELIGHTS OF THE SEASON
+  Using cached summary for Joy and Light: Delights of the Season
+  Using cached data for JOY AND LIGHT: DELIGHTS OF THE SEASON
+Processing (25): Joy and Light: Delights of the Season
+  Using cached rating for JOY AND LIGHT: DELIGHTS OF THE SEASON
+  Using cached summary for Joy and Light: Delights of the Season
+  Using cached data for JOY AND LIGHT: DELIGHTS OF THE SEASON
+Processing (26): Troubadours of France & Iberia
+  Using cached rating for TROUBADOURS OF FRANCE & IBERIA
+  Using cached summary for Troubadours of France & Iberia
+  Using cached data for TROUBADOURS OF FRANCE & IBERIA
+Processing (27): Troubadours of France & Iberia
+  Using cached rating for TROUBADOURS OF FRANCE & IBERIA
+  Using cached summary for Troubadours of France & Iberia
+  Using cached data for TROUBADOURS OF FRANCE & IBERIA
+Processing (28): Purcell. Henry Purcell: License to Trill
+  Using cached rating for PURCELL. HENRY PURCELL: LICENSE TO TRILL
+  Using cached summary for Purcell. Henry Purcell: License to Trill
+  Using cached data for PURCELL. HENRY PURCELL: LICENSE TO TRILL
+Processing (29): Purcell. Henry Purcell: License to Trill
+  Using cached rating for PURCELL. HENRY PURCELL: LICENSE TO TRILL
+  Using cached summary for Purcell. Henry Purcell: License to Trill
+  Using cached data for PURCELL. HENRY PURCELL: LICENSE TO TRILL
+Processing (30): Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]
+  Using cached rating for GEORG PHILIPP TELEMANN: THE GREATEST GERMAN BAROQUE COMPOSER [FIGHT ME!]
+  Using cached summary for Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]
+  Using cached data for GEORG PHILIPP TELEMANN: THE GREATEST GERMAN BAROQUE COMPOSER [FIGHT ME!]
+Processing (31): Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]
+  Using cached rating for GEORG PHILIPP TELEMANN: THE GREATEST GERMAN BAROQUE COMPOSER [FIGHT ME!]
+  Using cached summary for Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]
+  Using cached data for GEORG PHILIPP TELEMANN: THE GREATEST GERMAN BAROQUE COMPOSER [FIGHT ME!]
+Processing (32): Music for a Consort of Viols
+  Using cached rating for MUSIC FOR A CONSORT OF VIOLS
+  Using cached summary for Music for a Consort of Viols
+  Using cached data for MUSIC FOR A CONSORT OF VIOLS
+Processing (33): Music for a Consort of Viols
+  Using cached rating for MUSIC FOR A CONSORT OF VIOLS
+  Using cached summary for Music for a Consort of Viols
+  Using cached data for MUSIC FOR A CONSORT OF VIOLS
+Processing (34): Anton Nel and Keith Womer wrangle the Herd of Harpsichords
+  Using cached rating for ANTON NEL AND KEITH WOMER WRANGLE THE HERD OF HARPSICHORDS
+  Using cached summary for Anton Nel and Keith Womer wrangle the Herd of Harpsichords
+  Using cached data for ANTON NEL AND KEITH WOMER WRANGLE THE HERD OF HARPSICHORDS
+Processing (35): Anton Nel and Keith Womer wrangle the Herd of Harpsichords
+  Using cached rating for ANTON NEL AND KEITH WOMER WRANGLE THE HERD OF HARPSICHORDS
+  Using cached summary for Anton Nel and Keith Womer wrangle the Herd of Harpsichords
+  Using cached data for ANTON NEL AND KEITH WOMER WRANGLE THE HERD OF HARPSICHORDS
+Processing (36): Hidden Gems
+  Using cached rating for HIDDEN GEMS
+  Using cached summary for Hidden Gems
+  Using cached data for HIDDEN GEMS
+Processing (37): Hidden Gems
+  Using cached rating for HIDDEN GEMS
+  Using cached summary for Hidden Gems
+  Using cached data for HIDDEN GEMS
+Processing (38): Haydn! Beethoven! Scotland! - with Anton Nel
+  Using cached rating for HAYDN! BEETHOVEN! SCOTLAND! - WITH ANTON NEL
+  Using cached summary for Haydn! Beethoven! Scotland! - with Anton Nel
+  Using cached data for HAYDN! BEETHOVEN! SCOTLAND! - WITH ANTON NEL
+Processing (39): Haydn! Beethoven! Scotland! - with Anton Nel
+  Using cached rating for HAYDN! BEETHOVEN! SCOTLAND! - WITH ANTON NEL
+  Using cached summary for Haydn! Beethoven! Scotland! - with Anton Nel
+  Using cached data for HAYDN! BEETHOVEN! SCOTLAND! - WITH ANTON NEL
+Processing (40): GRIMM TALES
+  Using cached rating for GRIMM TALES
+  Using cached summary for GRIMM TALES
+  Using cached data for GRIMM TALES
+Processing (41): GRIMM TALES
+  Using cached rating for GRIMM TALES
+  Using cached summary for GRIMM TALES
+  Using cached data for GRIMM TALES
+Processing (42): GRIMM TALES
+  Using cached rating for GRIMM TALES
+  Using cached summary for GRIMM TALES
+  Using cached data for GRIMM TALES
+Processing (43): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (44): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (45): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (46): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (47): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (48): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (49): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (50): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (51): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (52): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (53): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (54): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (55): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (56): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (57): THE NUTCRACKER
+  Using cached rating for THE NUTCRACKER
+  Using cached summary for THE NUTCRACKER
+  Using cached data for THE NUTCRACKER
+Processing (58): IN MOTION / An Evening with Stephen Mills
+  Using cached rating for IN MOTION / AN EVENING WITH STEPHEN MILLS
+  Using cached summary for IN MOTION / An Evening with Stephen Mills
+  Using cached data for IN MOTION / AN EVENING WITH STEPHEN MILLS
+Processing (59): IN MOTION / An Evening with Stephen Mills
+  Using cached rating for IN MOTION / AN EVENING WITH STEPHEN MILLS
+  Using cached summary for IN MOTION / An Evening with Stephen Mills
+  Using cached data for IN MOTION / AN EVENING WITH STEPHEN MILLS
+Processing (60): IN MOTION / An Evening with Stephen Mills
+  Using cached rating for IN MOTION / AN EVENING WITH STEPHEN MILLS
+  Using cached summary for IN MOTION / An Evening with Stephen Mills
+  Using cached data for IN MOTION / AN EVENING WITH STEPHEN MILLS
+Processing (61): MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached rating for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached summary for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached data for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+Processing (62): MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached rating for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached summary for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached data for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+Processing (63): MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached rating for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached summary for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+  Using cached data for MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES
+Processing (64): THE MAGIC FLUTE
+  Using cached rating for THE MAGIC FLUTE
+  Using cached summary for THE MAGIC FLUTE
+  Using cached data for THE MAGIC FLUTE
+Processing (65): THE MAGIC FLUTE
+  Using cached rating for THE MAGIC FLUTE
+  Using cached summary for THE MAGIC FLUTE
+  Using cached data for THE MAGIC FLUTE
+Processing (66): THE MAGIC FLUTE
+  Using cached rating for THE MAGIC FLUTE
+  Using cached summary for THE MAGIC FLUTE
+  Using cached data for THE MAGIC FLUTE
+Processing (67): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - This Week's Story
+  Skipping AI processing for recurring event
+Processing (68): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 2
+  Skipping AI processing for recurring event
+Processing (69): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 3
+  Skipping AI processing for recurring event
+Processing (70): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 4
+  Skipping AI processing for recurring event
+Processing (71): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 5
+  Skipping AI processing for recurring event
+Processing (72): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 6
+  Skipping AI processing for recurring event
+Processing (73): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 7
+  Skipping AI processing for recurring event
+Processing (74): The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 8
+  Skipping AI processing for recurring event
+Processed 74 events
+
+Generating one-line summaries...
+  Skipping summary for non-specific event: Carnival of the Animals
+  Insufficient data for summary generation: Carnival of the Animals
+  Skipping summary for non-specific event: Carnival of the Animals
+  Insufficient data for summary generation: Carnival of the Animals
+  Skipping summary for non-specific event: Twelfth Night
+  Insufficient data for summary generation: Twelfth Night
+  Skipping summary for non-specific event: Gil Shaham & Akira Eguchi
+  Insufficient data for summary generation: Gil Shaham & Akira Eguchi
+Completed summary generation
+Generating website data...
+Generating website data using config-driven approach...
+Processing events by type: {'concert': 66, 'book_club': 8}
+Processing 66 concert events with template: ['title', 'dates', 'times', 'program', 'series', 'featured_artist', 'composers', 'works', 'venue', 'rating', 'one_liner_summary', 'description', 'url', 'occurrences']
+Processing 8 book_club events with template: ['title', 'dates', 'times', 'book', 'author', 'publication_year', 'series', 'host', 'rating', 'one_liner_summary', 'description', 'url', 'venue', 'occurrences']
+Generated docs/data.json with 74 events
+Saved update info to docs/source_update_times.json
+Website update completed successfully!
