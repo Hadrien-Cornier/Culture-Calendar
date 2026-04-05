@@ -170,7 +170,7 @@ class EventValidationService:
 
             # Get LLM validation - use anthropic client directly
             response = self.llm_service.anthropic.messages.create(
-                model="claude-sonnet-4-20250514",
+                model="google/gemini-2.5-flash",
                 max_tokens=200,
                 temperature=0.1,
                 messages=[{"role": "user", "content": prompt}],

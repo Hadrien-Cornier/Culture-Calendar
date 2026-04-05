@@ -10,7 +10,7 @@ from datetime import datetime
 from typing import Dict, Optional
 import requests
 
-from anthropic import Anthropic
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,10 +20,10 @@ class LLMService:
     """Centralized service for all LLM-powered data extraction and validation"""
 
     def __init__(self):
-        self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
-        self.anthropic = (
-            Anthropic(api_key=self.anthropic_api_key)
-            if self.anthropic_api_key
+        self.openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+        self.openai = (
+            OpenAI(base_url="https://openrouter.ai/api/v1", api_key=self.openrouter_api_key)
+            if self.openrouter_api_key
             else None
         )
         
@@ -36,7 +36,7 @@ class LLMService:
         self.validation_cache = {}
         self.classification_cache = {}
 
-        if not self.anthropic and not self.perplexity_api_key:
+        if not self.openai and not self.perplexity_api_key:
             print(
                 "Warning: No LLM API keys found. LLM features will be disabled."
             )
@@ -56,7 +56,7 @@ class LLMService:
         Returns:
             Dict with extracted data and success status
         """
-        if not self.anthropic:
+        if not self.openai:
             return {"success": False, "error": "LLM service not available", "data": {}}
 
         # Create cache key
@@ -72,11 +72,11 @@ class LLMService:
             # Add rate limiting
             time.sleep(1)
 
-            response = self.anthropic.messages.create(
-                model="claude-sonnet-4-20250514",
+            response = self.openai.chat.completions.create(
+                model="google/gemini-2.5-flash",
                 max_tokens=2000,
                 temperature=0.1,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[{"role": "system", "content": system_prompt},{"role": "user", "content": prompt}],
             )
 
             # Parse response
@@ -107,7 +107,7 @@ class LLMService:
         Returns:
             Dict with validation result and reasoning
         """
-        if not self.anthropic:
+        if not self.openai:
             return {
                 "is_valid": True,
                 "confidence": 0.5,
@@ -129,11 +129,11 @@ class LLMService:
             # Add rate limiting
             time.sleep(1)
 
-            response = self.anthropic.messages.create(
-                model="claude-sonnet-4-20250514",
+            response = self.openai.chat.completions.create(
+                model="google/gemini-2.5-flash",
                 max_tokens=1000,
                 temperature=0.1,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[{"role": "system", "content": system_prompt},{"role": "user", "content": prompt}],
             )
 
             # Parse validation response
@@ -165,7 +165,7 @@ class LLMService:
         Returns:
             Similarity score between 0.0 and 1.0
         """
-        if not self.anthropic:
+        if not self.openai:
             return self._simple_similarity(event1, event2)
 
         try:
@@ -191,11 +191,11 @@ Reason: [brief explanation]
 
             time.sleep(1)
 
-            response = self.anthropic.messages.create(
-                model="claude-sonnet-4-20250514",
+            response = self.openai.chat.completions.create(
+                model="google/gemini-2.5-flash",
                 max_tokens=500,
                 temperature=0.1,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[{"role": "system", "content": system_prompt},{"role": "user", "content": prompt}],
             )
 
             content_text = response.content[0].text.strip()
@@ -495,7 +495,7 @@ Focus on whether the data represents a plausible real-world event.
         """
         if not self.perplexity_api_key:
             # Fall back to Anthropic if available
-            if self.anthropic:
+            if self.openai:
                 return self._call_anthropic_json(prompt, temperature)
             return None
         
@@ -567,17 +567,17 @@ Focus on whether the data represents a plausible real-world event.
         Returns:
             Parsed JSON response or None
         """
-        if not self.anthropic:
+        if not self.openai:
             return None
         
         try:
             time.sleep(1)  # Rate limiting
             
-            response = self.anthropic.messages.create(
-                model="claude-3-5-sonnet-20241022",
+            response = self.openai.chat.completions.create(
+                model="google/gemini-2.5-flash",
                 max_tokens=2000,
                 temperature=temperature,
-                messages=[{"role": "user", "content": prompt}]
+                messages=[{"role": "system", "content": system_prompt},{"role": "user", "content": prompt}]
             )
             
             content_text = response.content[0].text.strip()
