@@ -2413,5 +2413,1349 @@
     ],
     "type": "concert",
     "id": "video-games-live---2026-05-29-2000"
+  },
+  {
+    "title": "YOU GOT GOLD: A CELEBRATION OF JOHN PRINE",
+    "dates": [
+      "2026-04-09"
+    ],
+    "times": [
+      "17:15"
+    ],
+    "url": "https://www.austinfilm.org/screening/you-got-gold-a-celebration-of-john-prine/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-09",
+        "time": "17:15",
+        "url": "https://www.austinfilm.org/screening/you-got-gold-a-celebration-of-john-prine/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "you-got-gold-a-celebration-of-john-prine---2026-04-09-1715"
+  },
+  {
+    "title": "NADJA",
+    "dates": [
+      "2026-04-08"
+    ],
+    "times": [
+      "19:45"
+    ],
+    "url": "https://www.austinfilm.org/screening/nadja/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-08",
+        "time": "19:45",
+        "url": "https://www.austinfilm.org/screening/nadja/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "nadja---2026-04-08-1945"
+  },
+  {
+    "title": "MIROIRS NO. 3",
+    "dates": [
+      "2026-04-08"
+    ],
+    "times": [
+      "17:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/miroirs-no-3/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-08",
+        "time": "17:30",
+        "url": "https://www.austinfilm.org/screening/miroirs-no-3/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "miroirs-no-3---2026-04-08-1730"
+  },
+  {
+    "title": "KIKI\u2019S DELIVERY SERVICE",
+    "dates": [
+      "2026-04-09"
+    ],
+    "times": [
+      "19:45"
+    ],
+    "url": "https://www.austinfilm.org/screening/kikis-delivery-service/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-09",
+        "time": "19:45",
+        "url": "https://www.austinfilm.org/screening/kikis-delivery-service/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "kiki-s-delivery-service---2026-04-09-1945"
+  },
+  {
+    "title": "TWO PROSECUTORS",
+    "dates": [
+      "2026-04-07"
+    ],
+    "times": [
+      "16:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/two-prosecutors/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-07",
+        "time": "16:00",
+        "url": "https://www.austinfilm.org/screening/two-prosecutors/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "two-prosecutors---2026-04-07-1600"
+  },
+  {
+    "title": "TWO PROSECUTORS",
+    "dates": [
+      "2026-04-08"
+    ],
+    "times": [
+      "17:45"
+    ],
+    "url": "https://www.austinfilm.org/screening/two-prosecutors/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-08",
+        "time": "17:45",
+        "url": "https://www.austinfilm.org/screening/two-prosecutors/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "two-prosecutors---2026-04-08-1745"
+  },
+  {
+    "title": "TWO PROSECUTORS",
+    "dates": [
+      "2026-04-09"
+    ],
+    "times": [
+      "16:15"
+    ],
+    "url": "https://www.austinfilm.org/screening/two-prosecutors/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-09",
+        "time": "16:15",
+        "url": "https://www.austinfilm.org/screening/two-prosecutors/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "two-prosecutors---2026-04-09-1615"
+  },
+  {
+    "title": "HAUSU",
+    "dates": [
+      "2026-04-08"
+    ],
+    "times": [
+      "20:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/hausu/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-08",
+        "time": "20:30",
+        "url": "https://www.austinfilm.org/screening/hausu/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "hausu---2026-04-08-2030"
+  },
+  {
+    "title": "POMPEI: BELOW THE CLOUDS",
+    "dates": [
+      "2026-04-07"
+    ],
+    "times": [
+      "16:15"
+    ],
+    "url": "https://www.austinfilm.org/screening/pompei-below-the-clouds/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-07",
+        "time": "16:15",
+        "url": "https://www.austinfilm.org/screening/pompei-below-the-clouds/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "pompei-below-the-clouds---2026-04-07-1615"
+  },
+  {
+    "title": "MY UNDESIRABLE FRIENDS PART 1: LAST AIR IN MOSCOW",
+    "dates": [
+      "2026-04-12"
+    ],
+    "times": [
+      "15:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/my-undesirable-friends-part-1-last-air-in-moscow/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-12",
+        "time": "15:30",
+        "url": "https://www.austinfilm.org/screening/my-undesirable-friends-part-1-last-air-in-moscow/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "my-undesirable-friends-part-1-last-air-in-moscow---2026-04-12-1530"
+  },
+  {
+    "title": "FREAKS",
+    "dates": [
+      "2026-04-12"
+    ],
+    "times": [
+      "13:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/freaks/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-12",
+        "time": "13:30",
+        "url": "https://www.austinfilm.org/screening/freaks/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "freaks---2026-04-12-1330"
+  },
+  {
+    "title": "XIAO WU",
+    "dates": [
+      "2026-04-07"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/xiao-wu/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-07",
+        "time": "19:30",
+        "url": "https://www.austinfilm.org/screening/xiao-wu/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "xiao-wu---2026-04-07-1930"
+  },
+  {
+    "title": "XIAO WU",
+    "dates": [
+      "2026-04-11"
+    ],
+    "times": [
+      "14:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/xiao-wu/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-11",
+        "time": "14:30",
+        "url": "https://www.austinfilm.org/screening/xiao-wu/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "xiao-wu---2026-04-11-1430"
+  },
+  {
+    "title": "GUN CRAZY",
+    "dates": [
+      "2026-04-10"
+    ],
+    "times": [
+      "19:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/gun-crazy/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-10",
+        "time": "19:00",
+        "url": "https://www.austinfilm.org/screening/gun-crazy/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "gun-crazy---2026-04-10-1900"
+  },
+  {
+    "title": "GUN CRAZY",
+    "dates": [
+      "2026-04-15"
+    ],
+    "times": [
+      "18:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/gun-crazy/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-15",
+        "time": "18:00",
+        "url": "https://www.austinfilm.org/screening/gun-crazy/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "gun-crazy---2026-04-15-1800"
+  },
+  {
+    "title": "STEP ACROSS THE BORDER",
+    "dates": [
+      "2026-04-10"
+    ],
+    "times": [
+      "21:15"
+    ],
+    "url": "https://www.austinfilm.org/screening/step-across-the-border/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-10",
+        "time": "21:15",
+        "url": "https://www.austinfilm.org/screening/step-across-the-border/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "step-across-the-border---2026-04-10-2115"
+  },
+  {
+    "title": "STEP ACROSS THE BORDER",
+    "dates": [
+      "2026-04-11"
+    ],
+    "times": [
+      "21:15"
+    ],
+    "url": "https://www.austinfilm.org/screening/step-across-the-border/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-11",
+        "time": "21:15",
+        "url": "https://www.austinfilm.org/screening/step-across-the-border/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "step-across-the-border---2026-04-11-2115"
+  },
+  {
+    "title": "WERCKMEISTER HARMONIES",
+    "dates": [
+      "2026-04-13"
+    ],
+    "times": [
+      "18:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/werckmeister-harmonies/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-13",
+        "time": "18:30",
+        "url": "https://www.austinfilm.org/screening/werckmeister-harmonies/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "werckmeister-harmonies---2026-04-13-1830"
+  },
+  {
+    "title": "WERCKMEISTER HARMONIES",
+    "dates": [
+      "2026-04-17"
+    ],
+    "times": [
+      "18:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/werckmeister-harmonies/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-17",
+        "time": "18:00",
+        "url": "https://www.austinfilm.org/screening/werckmeister-harmonies/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "werckmeister-harmonies---2026-04-17-1800"
+  },
+  {
+    "title": "UNKNOWN PLEASURES",
+    "dates": [
+      "2026-04-14"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/unknown-pleasures/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-14",
+        "time": "19:30",
+        "url": "https://www.austinfilm.org/screening/unknown-pleasures/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "unknown-pleasures---2026-04-14-1930"
+  },
+  {
+    "title": "UNKNOWN PLEASURES",
+    "dates": [
+      "2026-04-18"
+    ],
+    "times": [
+      "15:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/unknown-pleasures/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-18",
+        "time": "15:30",
+        "url": "https://www.austinfilm.org/screening/unknown-pleasures/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "unknown-pleasures---2026-04-18-1530"
+  },
+  {
+    "title": "A SERIOUS MAN",
+    "dates": [
+      "2026-04-15"
+    ],
+    "times": [
+      "20:15"
+    ],
+    "url": "https://www.austinfilm.org/screening/a-serious-man/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-15",
+        "time": "20:15",
+        "url": "https://www.austinfilm.org/screening/a-serious-man/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "a-serious-man---2026-04-15-2015"
+  },
+  {
+    "title": "A SERIOUS MAN",
+    "dates": [
+      "2026-04-19"
+    ],
+    "times": [
+      "13:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/a-serious-man/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-19",
+        "time": "13:00",
+        "url": "https://www.austinfilm.org/screening/a-serious-man/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "a-serious-man---2026-04-19-1300"
+  },
+  {
+    "title": "A SERIOUS MAN",
+    "dates": [
+      "2026-04-20"
+    ],
+    "times": [
+      "19:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/a-serious-man/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-20",
+        "time": "19:00",
+        "url": "https://www.austinfilm.org/screening/a-serious-man/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "a-serious-man---2026-04-20-1900"
+  },
+  {
+    "title": "CARNIVAL IN THE NIGHT",
+    "dates": [
+      "2026-04-17"
+    ],
+    "times": [
+      "21:15"
+    ],
+    "url": "https://www.austinfilm.org/screening/carnival-in-the-night/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-17",
+        "time": "21:15",
+        "url": "https://www.austinfilm.org/screening/carnival-in-the-night/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "carnival-in-the-night---2026-04-17-2115"
+  },
+  {
+    "title": "CARNIVAL IN THE NIGHT",
+    "dates": [
+      "2026-04-18"
+    ],
+    "times": [
+      "20:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/carnival-in-the-night/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-18",
+        "time": "20:30",
+        "url": "https://www.austinfilm.org/screening/carnival-in-the-night/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "carnival-in-the-night---2026-04-18-2030"
+  },
+  {
+    "title": "CONFESSIONS OF A CONGRESSMAN",
+    "dates": [
+      "2026-04-19"
+    ],
+    "times": [
+      "15:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/confessions-of-a-congressman/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-19",
+        "time": "15:30",
+        "url": "https://www.austinfilm.org/screening/confessions-of-a-congressman/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "confessions-of-a-congressman---2026-04-19-1530"
+  },
+  {
+    "title": "LANCELOT DU LAC",
+    "dates": [
+      "2026-04-19"
+    ],
+    "times": [
+      "18:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/lancelot-du-lac/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-19",
+        "time": "18:00",
+        "url": "https://www.austinfilm.org/screening/lancelot-du-lac/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "lancelot-du-lac---2026-04-19-1800"
+  },
+  {
+    "title": "THE WORLD",
+    "dates": [
+      "2026-04-21"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/the-world/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-21",
+        "time": "19:30",
+        "url": "https://www.austinfilm.org/screening/the-world/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "the-world---2026-04-21-1930"
+  },
+  {
+    "title": "THE WORLD",
+    "dates": [
+      "2026-04-25"
+    ],
+    "times": [
+      "14:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/the-world/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-25",
+        "time": "14:00",
+        "url": "https://www.austinfilm.org/screening/the-world/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "the-world---2026-04-25-1400"
+  },
+  {
+    "title": "8 1/2",
+    "dates": [
+      "2026-04-27"
+    ],
+    "times": [
+      "19:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/8-1-2/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-27",
+        "time": "19:00",
+        "url": "https://www.austinfilm.org/screening/8-1-2/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "8-1-2---2026-04-27-1900"
+  },
+  {
+    "title": "8 1/2",
+    "dates": [
+      "2026-04-29"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/8-1-2/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-29",
+        "time": "19:30",
+        "url": "https://www.austinfilm.org/screening/8-1-2/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "8-1-2---2026-04-29-1930"
+  },
+  {
+    "title": "STILL LIFE",
+    "dates": [
+      "2026-04-28"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/still-life/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-28",
+        "time": "19:30",
+        "url": "https://www.austinfilm.org/screening/still-life/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "still-life---2026-04-28-1930"
+  },
+  {
+    "title": "STILL LIFE",
+    "dates": [
+      "2026-05-02"
+    ],
+    "times": [
+      "14:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/still-life/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-05-02",
+        "time": "14:00",
+        "url": "https://www.austinfilm.org/screening/still-life/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "still-life---2026-05-02-1400"
+  },
+  {
+    "title": "WHO MOVES AMERICA",
+    "dates": [
+      "2026-04-30"
+    ],
+    "times": [
+      "18:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/who-moves-america/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-30",
+        "time": "18:00",
+        "url": "https://www.austinfilm.org/screening/who-moves-america/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "who-moves-america---2026-04-30-1800"
+  },
+  {
+    "title": "BUCKS HARBOR",
+    "dates": [
+      "2026-04-30"
+    ],
+    "times": [
+      "21:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/bucks-harbor/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-30",
+        "time": "21:00",
+        "url": "https://www.austinfilm.org/screening/bucks-harbor/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "bucks-harbor---2026-04-30-2100"
+  },
+  {
+    "title": "SHIFTING BASELINES",
+    "dates": [
+      "2026-05-01"
+    ],
+    "times": [
+      "17:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/shifting-baselines/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-05-01",
+        "time": "17:30",
+        "url": "https://www.austinfilm.org/screening/shifting-baselines/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "shifting-baselines---2026-05-01-1730"
+  },
+  {
+    "title": "CLOSURE",
+    "dates": [
+      "2026-05-01"
+    ],
+    "times": [
+      "20:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/closure/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-05-01",
+        "time": "20:30",
+        "url": "https://www.austinfilm.org/screening/closure/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "closure---2026-05-01-2030"
+  },
+  {
+    "title": "FANTASTIQUE",
+    "dates": [
+      "2026-05-02"
+    ],
+    "times": [
+      "13:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/fantastique/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-05-02",
+        "time": "13:00",
+        "url": "https://www.austinfilm.org/screening/fantastique/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "fantastique---2026-05-02-1300"
+  },
+  {
+    "title": "THE LAKE",
+    "dates": [
+      "2026-05-02"
+    ],
+    "times": [
+      "15:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/the-lake/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-05-02",
+        "time": "15:30",
+        "url": "https://www.austinfilm.org/screening/the-lake/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "the-lake---2026-05-02-1530"
+  },
+  {
+    "title": "AANIKOOBIJIGAN [ancestor/great-grandparent/great-grandchild]",
+    "dates": [
+      "2026-05-02"
+    ],
+    "times": [
+      "18:30"
+    ],
+    "url": "https://www.austinfilm.org/screening/aanikoobijigan/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-05-02",
+        "time": "18:30",
+        "url": "https://www.austinfilm.org/screening/aanikoobijigan/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "aanikoobijigan-ancestor-great-grandparent-great-grandchild---2026-05-02-1830"
+  },
+  {
+    "title": "THE VOYAGE OUT",
+    "dates": [
+      "2026-05-03"
+    ],
+    "times": [
+      "15:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/the-voyage-out/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-05-03",
+        "time": "15:00",
+        "url": "https://www.austinfilm.org/screening/the-voyage-out/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "the-voyage-out---2026-05-03-1500"
+  },
+  {
+    "title": "SOUL PATROL",
+    "dates": [
+      "2026-05-03"
+    ],
+    "times": [
+      "18:00"
+    ],
+    "url": "https://www.austinfilm.org/screening/soul-patrol/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-05-03",
+        "time": "18:00",
+        "url": "https://www.austinfilm.org/screening/soul-patrol/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "soul-patrol---2026-05-03-1800"
+  },
+  {
+    "title": "AMY GOODMAN: STEAL THIS STORY PLEASE",
+    "dates": [
+      "2026-05-17"
+    ],
+    "times": [
+      "12:15"
+    ],
+    "url": "https://www.austinfilm.org/screening/amy-goodman-steal-this-story-please/",
+    "venue": "AFS",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-05-17",
+        "time": "12:15",
+        "url": "https://www.austinfilm.org/screening/amy-goodman-steal-this-story-please/",
+        "venue": "AFS"
+      }
+    ],
+    "id": "amy-goodman-steal-this-story-please---2026-05-17-1215"
+  },
+  {
+    "title": "BURLESQUE",
+    "dates": [
+      "2026-04-08"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-8/burlesque-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-08",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-8/burlesque-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "burlesque---2026-04-08-1930"
+  },
+  {
+    "title": "xXx: RETURN OF XANDER CAGE",
+    "dates": [
+      "2026-04-30"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-30/xxx-return-of-xander-cage-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-30",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-30/xxx-return-of-xander-cage-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "xxx-return-of-xander-cage---2026-04-30-1930"
+  },
+  {
+    "title": "DUMB AND DUMBER",
+    "dates": [
+      "2026-04-24"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-24/dumb-and-dumber-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-24",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-24/dumb-and-dumber-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "dumb-and-dumber---2026-04-24-1930"
+  },
+  {
+    "title": "Not Your Belly Dancer: WADJDA",
+    "dates": [
+      "2026-04-23"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-23/wadjda-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-23",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-23/wadjda-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "not-your-belly-dancer-wadjda---2026-04-23-1930"
+  },
+  {
+    "title": "THE NIGHT COMES FOR US",
+    "dates": [
+      "2026-04-29"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-29/the-night-comes-for-us-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-29",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-29/the-night-comes-for-us-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "the-night-comes-for-us---2026-04-29-1930"
+  },
+  {
+    "title": "BELL, BOOK AND CANDLE",
+    "dates": [
+      "2026-04-28"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-28/bell-book-and-candle-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-28",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-28/bell-book-and-candle-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "bell-book-and-candle---2026-04-28-1930"
+  },
+  {
+    "title": "Black Is Not a Genre: A RAGE IN HARLEM",
+    "dates": [
+      "2026-04-07"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-7/a-rage-in-harlem-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-07",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-7/a-rage-in-harlem-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "black-is-not-a-genre-a-rage-in-harlem---2026-04-07-1930"
+  },
+  {
+    "title": "Carabiner Club: BOTTOMS",
+    "dates": [
+      "2026-04-20"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-20/bottoms-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-20",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-20/bottoms-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "carabiner-club-bottoms---2026-04-20-1930"
+  },
+  {
+    "title": "Discovery Zone: SCHOOL OF THE HOLY BEAST",
+    "dates": [
+      "2026-04-27"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-27/school-of-the-holy-beast-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-27",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-27/school-of-the-holy-beast-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "discovery-zone-school-of-the-holy-beast---2026-04-27-1930"
+  },
+  {
+    "title": "Not Your Belly Dancer: CARAMEL",
+    "dates": [
+      "2026-04-22"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-22/caramel-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-22",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-22/caramel-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "not-your-belly-dancer-caramel---2026-04-22-1930"
+  },
+  {
+    "title": "THE HARDER THEY FALL",
+    "dates": [
+      "2026-04-10"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-10/the-harder-they-fall-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-10",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-10/the-harder-they-fall-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "the-harder-they-fall---2026-04-10-1930"
+  },
+  {
+    "title": "Not Your Belly Dancer: SIRENS",
+    "dates": [
+      "2026-04-21"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "url": "https://hyperrealfilm.club/events/4-21/sirens-movie-screening",
+    "venue": "Hyperreal",
+    "type": "movie",
+    "rating": 8,
+    "one_liner_summary": "",
+    "description": "",
+    "occurrences": [
+      {
+        "date": "2026-04-21",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/4-21/sirens-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "id": "not-your-belly-dancer-sirens---2026-04-21-1930"
   }
 ]
