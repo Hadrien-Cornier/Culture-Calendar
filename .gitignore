@@ -36,3 +36,11 @@ hive-mind-prompt-*.txt
 .roomodes
 memory/
 node_modules/
+.gitnexus
+
+# OpenClaw Claude Code runtime logs (do not commit)
+.openclaw/claude-code/logs/
+
+# SQLite sidecars (if any)
+*.sqlite-shm
+*.sqlite-wal
