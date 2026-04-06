@@ -331,6 +331,15 @@ function filterToday() {
     dateRangeEnd = tomorrow;
     
     updateFilteredEvents();
+
+    // If no events today, gracefully fall back to "This Week"
+    if (!filteredEvents || filteredEvents.length === 0) {
+        eventsHeading.textContent = "Today's Events — none. Showing This Week";
+        // Switch to week view (sets date range + renders)
+        filterThisWeek();
+        return;
+    }
+
     renderEvents();
     
     // Update section header
