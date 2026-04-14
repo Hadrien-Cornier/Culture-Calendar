@@ -389,9 +389,64 @@ def main() -> int:
     combined = afs_events + hr_events
     checks.extend(check_site_views(combined))
     checks.extend(check_published_data_json())
+    checks.extend(check_data_json_site_views())
 
     ok = print_report(checks)
     return 0 if ok else 1
+
+
+def check_data_json_site_views() -> list[Check]:
+    """MD.4: run the site's Today/Week/Weekend filters against docs/data.json.
+
+    Unlike check_site_views (which feeds raw scraper output through the filters),
+    this reads the post-grouping docs/data.json — the exact shape the frontend
+    consumes — and asserts non-zero counts on 2026-04-14 Tuesday.
+    """
+    import json
+    checks: list[Check] = []
+    path = ROOT / "docs" / "data.json"
+    if not path.exists():
+        return [_fail("data.json site views", "docs/data.json missing")]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e:
+        return [_fail("data.json site views", f"JSON error: {e!r}")]
+
+    def _dates_in_entry(entry: dict) -> list[str]:
+        sc = entry.get("screenings") or []
+        if isinstance(sc, list):
+            return [s.get("date", "") for s in sc if isinstance(s, dict)]
+        return []
+
+    today_iso = DEBUG_TODAY.isoformat()
+    tomorrow_iso = (DEBUG_TODAY + timedelta(days=1)).isoformat()
+    week_end_iso = (DEBUG_TODAY + timedelta(days=7)).isoformat()
+    # Friday/Sat/Sun window containing Tuesday 2026-04-14 → Fri 2026-04-17 .. Sun 2026-04-19
+    day = DEBUG_TODAY.weekday()
+    friday = DEBUG_TODAY - timedelta(days=2) if day == 6 else DEBUG_TODAY + timedelta(days=(4 - day))
+    weekend_dates = {
+        friday.isoformat(),
+        (friday + timedelta(days=1)).isoformat(),
+        (friday + timedelta(days=2)).isoformat(),
+    }
+
+    today_ct = week_ct = weekend_ct = 0
+    for e in data:
+        dates = _dates_in_entry(e)
+        if any(d == today_iso for d in dates):
+            today_ct += 1
+        if any(today_iso <= d < week_end_iso for d in dates if d):
+            week_ct += 1
+        if any(d in weekend_dates for d in dates if d):
+            weekend_ct += 1
+
+    checks.append(_ok("data.json: Today", f"{today_ct} entries on 2026-04-14") if today_ct
+                  else _fail("data.json: Today", "zero entries on synthetic today"))
+    checks.append(_ok("data.json: This Week", f"{week_ct} entries in 04-14..21") if week_ct
+                  else _fail("data.json: This Week", "zero entries in week window"))
+    checks.append(_ok("data.json: Weekend", f"{weekend_ct} entries Fri 04-17..Sun 04-19") if weekend_ct
+                  else _fail("data.json: Weekend", "zero entries in weekend window"))
+    return checks
 
 
 if __name__ == "__main__":
