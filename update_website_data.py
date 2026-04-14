@@ -370,18 +370,16 @@ def generate_website_data(events):
 
 def main(
     test_week: bool = False,
-    full: bool = False,
     force_reprocess: bool = False,
-    days: int = None,
     validate: bool = False,
 ):
     """Generate website data.
 
     Args:
-        test_week: If True, limit scraping to current week for testing.
-        full: Deprecated parameter (no longer used - all events are always included).
+        test_week: If True, limit recurring-event generation to ~2 weeks
+            ahead instead of ~8. Does not affect venue scraping — each
+            venue's `scrape_events()` always pulls its full calendar.
         force_reprocess: If True, force re-processing of all events (ignore cache).
-        days: Deprecated parameter (no longer used - all events are always included).
         validate: If True, enable smart validation with fail-fast mechanisms.
     """
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
@@ -393,7 +391,7 @@ def main(
 
         # Scrape all venues (including classical music from JSON)
         print("Fetching calendar data from all venues...")
-        events = scraper.scrape_all_venues(target_week=test_week, days_ahead=days)
+        events = scraper.scrape_all_venues(target_week=test_week)
         print(f"Found {len(events)} total events from all venues")
         print(
             "NOTE: Classical music venues load their events from docs/classical_data.json"
@@ -534,29 +532,11 @@ def main(
 
 
 if __name__ == "__main__":
-    # Parse command line flags
     test_week = "--test-week" in sys.argv
-    full_update = "--full" in sys.argv
     force_reprocess = "--force-reprocess" in sys.argv
     validate = "--validate" in sys.argv
-
-    # Parse --days parameter
-    days_param = None
-    for i, arg in enumerate(sys.argv):
-        if arg == "--days" and i + 1 < len(sys.argv):
-            try:
-                days_param = int(sys.argv[i + 1])
-            except ValueError:
-                print(
-                    f"Error: --days parameter must be a number, got '{sys.argv[i + 1]}'"
-                )
-                sys.exit(1)
-            break
-
     main(
         test_week=test_week,
-        full=full_update,
         force_reprocess=force_reprocess,
-        days=days_param,
         validate=validate,
     )
