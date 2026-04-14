@@ -3,10 +3,11 @@ Event processor for enriching and rating events
 """
 
 import os
+import re
 import time
 import json
 from datetime import datetime
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import requests
 from dotenv import load_dotenv
@@ -14,6 +15,36 @@ from dotenv import load_dotenv
 from .summary_generator import SummaryGenerator
 
 load_dotenv()
+
+
+REFUSAL_PATTERNS = (
+    r"i cannot provide",
+    r"i cannot create",
+    r"i'?m unable to",
+    r"do(es)? not contain information",
+    r"search results do not",
+    r"would be speculative",
+    r"speculative rather than",
+    r"without substantive information",
+    r"lack(s)? the substantive detail",
+    r"without specific (recordings|reviews|program information|sources|information)",
+    r"insufficient (information|context|sources|data)",
+    r"i (do not|don'?t) have (access to |sufficient |enough )",
+)
+_REFUSAL_RE = re.compile("|".join(REFUSAL_PATTERNS), re.IGNORECASE)
+
+
+def is_refusal_response(text: str) -> bool:
+    """Heuristic: does this look like an LLM refusing to write a real review?
+
+    Used to detect Perplexity's 'I cannot provide a critique because the search
+    results don't contain information' replies, so the processor can retry with
+    a different prompt strategy instead of shipping the refusal text as the
+    public-facing description.
+    """
+    if not text or len(text.strip()) < 40:
+        return True
+    return bool(_REFUSAL_RE.search(text))
 
 
 class EventProcessor:
@@ -197,32 +228,42 @@ class EventProcessor:
         return enriched_events
 
     def _get_ai_rating(self, event: Dict) -> Dict:
-        """Get movie rating and info from Perplexity API using detailed metadata"""
+        """Get movie rating and info from Perplexity, retrying on refusal."""
         if not self.perplexity_api_key:
             return {"score": 5, "summary": "No API key provided"}
 
-        try:
-            headers = {
-                "Authorization": f"Bearer {self.perplexity_api_key}",
-                "Content-Type": "application/json",
-            }
-            movie_title = event.get("title", "")
-            year = event.get("year", "unknown")
-            duration = event.get("duration", "unknown")
-            director = event.get("director", "unknown")
-            country = event.get("country", "unknown")
-            language = event.get("language", "unknown")
+        movie_title = event.get("title", "")
+        details = (
+            f"Title: {movie_title}\n"
+            f"Year: {event.get('release_year') or event.get('year', 'unknown')}\n"
+            f"Director: {event.get('director', 'unknown')}\n"
+            f"Duration: {event.get('runtime_minutes') or event.get('duration', 'unknown')}\n"
+            f"Country: {event.get('country', 'unknown')}\n"
+            f"Language: {event.get('language', 'unknown')}"
+        )
 
-            details = (
-                f"Title: {movie_title}\n"
-                f"Year: {year}\n"
-                f"Director: {director}\n"
-                f"Duration: {duration}\n"
-                f"Country: {country}\n"
-                f"Language: {language}"
-            )
+        attempts = [
+            ("strict", self._build_movie_prompt_strict(details)),
+            ("permissive", self._build_movie_prompt_permissive(details)),
+            ("knowledge", self._build_movie_prompt_general_knowledge(details)),
+        ]
+        for attempt_name, prompt in attempts:
+            content = self._call_perplexity(prompt)
+            if not content:
+                continue
+            if is_refusal_response(content):
+                print(f"  Perplexity refused on '{movie_title}' (attempt={attempt_name}); retrying with broader prompt…")
+                continue
+            return self._parse_ai_response(content)
 
-            prompt = f"""
+        # All Perplexity prompts refused — fall back to Claude direct.
+        claude_review = self._claude_fallback_review(event)
+        if claude_review:
+            return claude_review
+        return {"score": 5, "summary": f"Unable to evaluate {movie_title} (LLM unable to find sources)."}
+
+    def _build_movie_prompt_strict(self, details: str) -> str:
+        return f"""
 You are a rigorous cultural critic evaluating with uncompromising academic standards. Assess the movie described below using a 0–10 scale where
 0–4 = weak or derivative,
 5–6 = competent but unremarkable,
@@ -242,54 +283,143 @@ Provide a concise report with these standardized sections:
 Focus solely on artistic merit and complexity. Reward innovation and high entropy. Ensure you are reviewing the specific work described above.
 """
 
+    def _build_movie_prompt_permissive(self, details: str) -> str:
+        return f"""
+Write a brief critical review of this film. If your search results don't surface specific reviews, draw on general film history, the director's body of work, the country's cinema tradition, and contextual knowledge — DO NOT refuse to review.
+
+Movie Details:
+{details}
+
+Format:
+★ Rating: [X/10] (integer)
+🎭 Artistic Merit
+✨ Originality
+📚 Cultural Significance
+💡 Intellectual Depth
+
+Aim for 4–6 short paragraphs total. A grounded, contextual review is far more useful than a refusal.
+"""
+
+    def _build_movie_prompt_general_knowledge(self, details: str) -> str:
+        return f"""
+You are a knowledgeable cinephile writing for an Austin film-society audience. Use your training-time knowledge — not just search — to write a real review.
+
+Movie Details:
+{details}
+
+Cover director's style, the film's place in cinema history, what makes it interesting (or not). Provide a 0–10 rating. If the film is genuinely obscure to you, still take a defensible position based on the metadata above (director's other work, country/era cinema norms) and explicitly note the uncertainty in one sentence — but do not refuse.
+
+Format your reply with:
+★ Rating: [X/10]
+🎭 Artistic Merit
+✨ Originality
+📚 Cultural Significance
+💡 Intellectual Depth
+"""
+
+    def _call_perplexity(self, prompt: str) -> Optional[str]:
+        try:
+            headers = {
+                "Authorization": f"Bearer {self.perplexity_api_key}",
+                "Content-Type": "application/json",
+            }
             data = {
                 "model": "sonar",
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": 2000,
             }
-
             response = requests.post(
                 "https://api.perplexity.ai/chat/completions",
                 headers=headers,
                 json=data,
                 timeout=30,
             )
-
             if response.status_code == 200:
-                result = response.json()
-                content = result["choices"][0]["message"]["content"]
-                return self._parse_ai_response(content)
-            else:
-                print(f"Perplexity API error: {response.status_code}")
-                return {"score": 5, "summary": "API error"}
-
+                return response.json()["choices"][0]["message"]["content"]
+            print(f"  Perplexity API error: {response.status_code}")
+            return None
         except Exception as e:
-            print(f"Error calling Perplexity API: {e}")
-            return {"score": 5, "summary": "Unable to get rating"}
+            print(f"  Error calling Perplexity API: {e}")
+            return None
+
+    def _claude_fallback_review(self, event: Dict) -> Optional[Dict]:
+        """Last-resort: ask Claude directly to write the review.
+
+        Only used when every Perplexity prompt variant returned a refusal. Claude
+        Sonnet has wider general-knowledge coverage on art-house cinema, so a
+        Director + Title prompt usually produces a defensible review even when
+        Perplexity's search couldn't surface evidence.
+        """
+        if not os.getenv("ANTHROPIC_API_KEY"):
+            return None
+        try:
+            import anthropic
+            client = anthropic.Anthropic()
+            prompt = f"""
+Write a 4–6 paragraph critical review of {event.get('title','this film')!r} (dir. {event.get('director','unknown')}, {event.get('release_year') or event.get('year','?')}, {event.get('country','?')}). Use your trained-knowledge of cinema, the director's filmography, and the era's stylistic norms. Provide a 0–10 rating.
+
+Format:
+★ Rating: [X/10]
+🎭 Artistic Merit
+✨ Originality
+📚 Cultural Significance
+💡 Intellectual Depth
+
+Be specific. If you genuinely don't know this film, position it based on the director's other work and explicitly say so in one sentence — but write the review.
+"""
+            resp = client.messages.create(
+                model="claude-sonnet-4-5-20250929",
+                max_tokens=1500,
+                temperature=0.4,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            content = resp.content[0].text
+            if is_refusal_response(content):
+                return None
+            print(f"  Claude fallback succeeded for {event.get('title')!r}")
+            return self._parse_ai_response(content)
+        except Exception as e:
+            print(f"  Claude fallback failed: {e}")
+            return None
 
     def _get_classical_rating(self, event: Dict) -> Dict:
-        """Get classical music concert rating and analysis from Perplexity API"""
+        """Get classical concert rating, retrying on refusal."""
         if not self.perplexity_api_key:
             return {"score": 5, "summary": "No API key provided"}
 
-        try:
-            headers = {
-                "Authorization": f"Bearer {self.perplexity_api_key}",
-                "Content-Type": "application/json",
-            }
+        title = event.get("title", "")
+        composers = ", ".join(event.get("composers", [])) or "unknown"
+        works = ", ".join(event.get("works", [])) or "unknown"
+        details = (
+            f"Concert: {title}\n"
+            f"Series: {event.get('series', 'unknown')}\n"
+            f"Program: {event.get('program', 'unknown')}\n"
+            f"Featured Artist: {event.get('featured_artist', 'unknown')}\n"
+            f"Composers: {composers}\n"
+            f"Works: {works}"
+        )
 
-            # Extract key information from the event
-            concert_title = event.get("title", "")
-            program = event.get("program", "")
-            event.get("composers", [])
-            event.get("works", [])
-            featured_artist = event.get("featured_artist", "")
-            series = event.get("series", "")
+        attempts = [
+            ("strict", self._build_concert_prompt_strict(details)),
+            ("permissive", self._build_concert_prompt_permissive(details)),
+            ("knowledge", self._build_concert_prompt_general_knowledge(details)),
+        ]
+        for attempt_name, prompt in attempts:
+            content = self._call_perplexity(prompt)
+            if not content:
+                continue
+            if is_refusal_response(content):
+                print(f"  Perplexity refused on '{title}' (concert, attempt={attempt_name}); retrying…")
+                continue
+            return self._parse_ai_response(content)
 
-            # Create detailed concert description for analysis
-            concert_description = f"Concert: {concert_title}\nSeries: {series}\nProgram: {program}\nFeatured Artist: {featured_artist}"
+        claude_review = self._claude_fallback_concert(event, details)
+        if claude_review:
+            return claude_review
+        return {"score": 5, "summary": f"Unable to evaluate concert {title} (LLM unable to find sources)."}
 
-            prompt = f"""
+    def _build_concert_prompt_strict(self, details: str) -> str:
+        return f"""
 You are a rigorous cultural critic evaluating with uncompromising academic standards. Assess the concert described below using a 0–10 scale where
 0–4 = weak or derivative,
 5–6 = competent but unremarkable,
@@ -297,42 +427,84 @@ You are a rigorous cultural critic evaluating with uncompromising academic stand
 9–10 = exceptional masterpieces. Scores above 5 must be justified with specific evidence.
 
 Concert Details:
-{concert_description}
+{details}
 
 Provide a concise report with these standardized sections:
 ★ Rating: [X/10] (integer only)
-🎭 Artistic Merit – evaluate performance quality, technical execution, and interpretive depth
-✨ Originality – assess programming choices, interpretive freshness, and avoidance of predictable repertoire
-📚 Cultural Significance – discuss the concert's contribution to the classical music tradition
-💡 Intellectual Depth – examine how effectively the music conveys complex emotions and ideas
+🎭 Artistic Merit – performance quality, technical execution, interpretive depth
+✨ Originality – programming choices, interpretive freshness
+📚 Cultural Significance – contribution to classical music tradition
+💡 Intellectual Depth – complexity of ideas conveyed
 
-Focus solely on artistic merit and complexity. Reward innovation and high entropy. Ensure you are reviewing the specific concert described above.
+Ensure you are reviewing the specific concert described above.
 """
 
-            data = {
-                "model": "sonar",
-                "messages": [{"role": "user", "content": prompt}],
-                "max_tokens": 2000,
-            }
+    def _build_concert_prompt_permissive(self, details: str) -> str:
+        return f"""
+Write a brief critical review of this classical concert. If your search doesn't surface specific reviews, draw on general knowledge of the composers, ensemble's reputation, and repertoire — DO NOT refuse. A grounded contextual review is more useful than a refusal.
 
-            response = requests.post(
-                "https://api.perplexity.ai/chat/completions",
-                headers=headers,
-                json=data,
-                timeout=30,
+Concert Details:
+{details}
+
+Format:
+★ Rating: [X/10]
+🎭 Artistic Merit
+✨ Originality
+📚 Cultural Significance
+💡 Intellectual Depth
+"""
+
+    def _build_concert_prompt_general_knowledge(self, details: str) -> str:
+        return f"""
+You are an expert classical music critic writing for a discerning Austin audience. Use your training-time knowledge of the composers, the works listed, and the ensemble or featured artist to write a real review — even if your search doesn't surface specific reviews of this exact concert.
+
+Concert Details:
+{details}
+
+Cover the historical importance of the composers/works, what makes the program interesting (or routine), and what you'd expect from this kind of ensemble. Provide a 0–10 rating. If you genuinely don't know one element, take a defensible position from what you do know.
+
+Format:
+★ Rating: [X/10]
+🎭 Artistic Merit
+✨ Originality
+📚 Cultural Significance
+💡 Intellectual Depth
+"""
+
+    def _claude_fallback_concert(self, event: Dict, details: str) -> Optional[Dict]:
+        if not os.getenv("ANTHROPIC_API_KEY"):
+            return None
+        try:
+            import anthropic
+            client = anthropic.Anthropic()
+            prompt = f"""
+Write a 4–6 paragraph critical review of this classical concert using your trained-knowledge of the composers, repertoire, and ensemble. Provide a 0–10 rating.
+
+{details}
+
+Format:
+★ Rating: [X/10]
+🎭 Artistic Merit
+✨ Originality
+📚 Cultural Significance
+💡 Intellectual Depth
+
+Be specific. Take a defensible position even if some details are missing.
+"""
+            resp = client.messages.create(
+                model="claude-sonnet-4-5-20250929",
+                max_tokens=1500,
+                temperature=0.4,
+                messages=[{"role": "user", "content": prompt}],
             )
-
-            if response.status_code == 200:
-                result = response.json()
-                content = result["choices"][0]["message"]["content"]
-                return self._parse_ai_response(content)
-            else:
-                print(f"Perplexity API error: {response.status_code}")
-                return {"score": 5, "summary": "API error"}
-
+            content = resp.content[0].text
+            if is_refusal_response(content):
+                return None
+            print(f"  Claude fallback succeeded for concert '{event.get('title')}'")
+            return self._parse_ai_response(content)
         except Exception as e:
-            print(f"Error calling Perplexity API for classical music: {e}")
-            return {"score": 5, "summary": "Unable to get rating"}
+            print(f"  Claude fallback (concert) failed: {e}")
+            return None
 
     def _get_book_club_rating(self, event: Dict) -> Dict:
         """Get book club discussion rating and analysis from Perplexity API"""

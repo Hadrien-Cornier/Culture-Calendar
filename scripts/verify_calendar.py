@@ -37,6 +37,7 @@ from scripts.oracle_hyperreal import (  # noqa: E402
     parse_hyperreal_schedule,
 )
 from src.config_loader import ConfigLoader  # noqa: E402
+from src.processor import is_refusal_response  # noqa: E402
 from src.scrapers.afs_scraper import AFSScraper  # noqa: E402
 from src.scrapers.hyperreal_scraper import HyperrealScraper  # noqa: E402
 
@@ -390,6 +391,7 @@ def main() -> int:
     checks.extend(check_site_views(combined))
     checks.extend(check_published_data_json())
     checks.extend(check_data_json_site_views())
+    checks.extend(check_no_refusal_reviews())
 
     ok = print_report(checks)
     return 0 if ok else 1
@@ -447,6 +449,48 @@ def check_data_json_site_views() -> list[Check]:
     checks.append(_ok("data.json: Weekend", f"{weekend_ct} entries Fri 04-17..Sun 04-19") if weekend_ct
                   else _fail("data.json: Weekend", "zero entries in weekend window"))
     return checks
+
+
+def check_no_refusal_reviews() -> list[Check]:
+    """Hard gate: no entry in docs/data.json may have an LLM-refusal review.
+
+    Catches Perplexity/Claude responses like 'I cannot provide... search results
+    do not contain information' that ship as the public-facing description.
+    The processor must retry until it gets a real review (see processor.py
+    _get_ai_rating attempts list) — anything that escapes that loop is a bug.
+
+    Strips HTML tags before checking so paragraph wrapping doesn't fool us.
+    """
+    import json
+    import re
+    path = ROOT / "docs" / "data.json"
+    if not path.exists():
+        return [_fail("data.json: refusals", "docs/data.json missing")]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e:
+        return [_fail("data.json: refusals", f"JSON error: {e!r}")]
+
+    def _strip_html(html: str) -> str:
+        return re.sub(r"<[^>]+>", " ", html or "")
+
+    refusing: list[tuple[str, str, str]] = []
+    for e in data:
+        title = e.get("title", "?")
+        venue = e.get("venue", "?")
+        for field in ("description", "one_liner_summary"):
+            text = _strip_html(e.get(field) or "")
+            if is_refusal_response(text):
+                refusing.append((venue, title, field))
+                break
+
+    if refusing:
+        sample = ", ".join(f"{v}/{t}" for (v, t, _f) in refusing[:5])
+        return [_fail(
+            "data.json: no refusals",
+            f"{len(refusing)} entries have refusal-shaped reviews — first 5: {sample}",
+        )]
+    return [_ok("data.json: no refusals", f"all {len(data)} entries have substantive reviews")]
 
 
 if __name__ == "__main__":
