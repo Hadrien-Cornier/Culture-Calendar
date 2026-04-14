@@ -228,7 +228,7 @@ class HyperrealScraper(BaseScraper):
         content_texts = []
 
         # First, try to find "The vitals:" section
-        for elem in soup.find_all(text=re.compile(r"The vitals:", re.IGNORECASE)):
+        for elem in soup.find_all(string=re.compile(r"The vitals:", re.IGNORECASE)):
             parent = elem.parent
             if parent:
                 # Get the parent container and extract all text
@@ -283,7 +283,7 @@ class HyperrealScraper(BaseScraper):
                     content_texts.append(text)
 
             # Also check for any text containing "The vitals:"
-            for elem in soup.find_all(text=re.compile(r"The vitals:")):
+            for elem in soup.find_all(string=re.compile(r"The vitals:")):
                 parent = elem.parent
                 while parent and parent.name not in ["body", "html"]:
                     text = parent.get_text(separator=" ", strip=True)

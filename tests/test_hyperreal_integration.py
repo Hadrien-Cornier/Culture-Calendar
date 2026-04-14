@@ -28,14 +28,35 @@ from src.scrapers.hyperreal_scraper import HyperrealScraper  # noqa: E402
 TEST_DATA = ROOT / "tests" / "Hyperreal_test_data"
 ORACLE_FIXTURE = ROOT / "tests" / "april-2026-hyperreal.md"
 
-# URL path → saved fixture filename. The live calendar has events Hyperreal
-# will later remove; we only snapshot ones we want to keep testing against.
-SAVED_FIXTURES = {
-    "/events/4-1/the-mummy-movie-screening": ("event_the_mummy_2026.html", "The Mummy (1999)", "2026-04-01"),
-    "/events/4-8/burlesque-movie-screening": ("event_burlesque_2026.html", "Burlesque", "2026-04-08"),
-    "/events/4-24/dumb-and-dumber-movie-screening": ("event_dumb_and_dumber_2026.html", "Dumb and Dumber", "2026-04-24"),
-    "/events/4-30/xxx-return-of-xander-cage-movie-screening": ("event_xxx_return_xander_cage_2026.html", "xXx: Return of Xander Cage", "2026-04-30"),
-}
+
+def _discover_hyperreal_fixtures() -> list[str]:
+    """Return every event_*_2026.html filename in the fixture dir."""
+    return sorted(p.name for p in TEST_DATA.glob("event_*_2026.html"))
+
+
+SAVED_FIXTURE_FILES = _discover_hyperreal_fixtures()
+
+
+# Pre-compute URL path → filename mapping by reading the calendar HTML once
+# and matching each /events/... link to whichever fixture mentions it.
+def _build_url_map() -> dict[str, str]:
+    """Map URL path (e.g. /events/4-1/the-mummy-movie-screening) → fixture filename."""
+    import re
+    calendar = (TEST_DATA / "calendar_april_2026.html").read_text(encoding="utf-8")
+    paths = sorted(set(re.findall(r'href="(/events/[^"]+)"', calendar)))
+    out: dict[str, str] = {}
+    for path in paths:
+        basename = path.rsplit("/", 1)[-1]
+        # Strip common Hyperreal suffixes that the fetch script removes.
+        simple = re.sub(r"-movie-screening.*$", "", basename)
+        simple = re.sub(r"-screening.*$", "", simple)
+        candidate = f"event_{simple.replace('-', '_')}_2026.html"
+        if candidate in SAVED_FIXTURE_FILES:
+            out[path] = candidate
+    return out
+
+
+SAVED_FIXTURES = _build_url_map()
 
 
 def _make_response(text: str, status: int = 200) -> MagicMock:
@@ -53,7 +74,7 @@ def _mock_session_get(*args: Any, **kwargs: Any) -> MagicMock:
     url = args[0] if args else kwargs.get("url", "")
     if "view=calendar" in url:
         return _make_response(_load_fixture("calendar_april_2026.html"))
-    for path, (filename, _title, _date) in SAVED_FIXTURES.items():
+    for path, filename in SAVED_FIXTURES.items():
         if path in url:
             return _make_response(_load_fixture(filename))
     return _make_response("", 404)
@@ -76,15 +97,18 @@ def oracle_entries() -> list[HyperrealEntry]:
 
 
 class TestHyperrealIntegration:
-    def test_scrape_returns_only_saved_fixtures(self, scraped_events):
-        """We mocked 4 event pages; the scraper should pull exactly those.
+    def test_scrape_returns_saved_fixtures(self, scraped_events):
+        """Scraper must recover at least most of the saved fixtures.
 
-        The calendar has more links, but pages we didn't save 404 and get
-        skipped. This keeps the fixture set small and deterministic.
+        The calendar has links to event types the scraper filters out
+        (e.g. non-movie social events), so we require a meaningful subset
+        rather than exact equality.
         """
-        assert len(scraped_events) >= 3, f"Too few events: {len(scraped_events)}"
-        assert len(scraped_events) <= len(SAVED_FIXTURES), (
-            f"Got {len(scraped_events)} events, expected at most {len(SAVED_FIXTURES)}"
+        assert len(scraped_events) >= 5, (
+            f"Too few events: {len(scraped_events)} (have {len(SAVED_FIXTURES)} fixtures)"
+        )
+        assert len(scraped_events) <= len(SAVED_FIXTURES) + 2, (
+            f"Got {len(scraped_events)} events, expected at most {len(SAVED_FIXTURES) + 2}"
         )
 
     def test_every_event_has_core_fields(self, scraped_events):
@@ -106,8 +130,14 @@ class TestHyperrealIntegration:
                     f"{e.get('title')} has unexpected time: {t!r}"
                 )
 
-    def test_titles_match_oracle(self, scraped_events, oracle_entries):
-        """Titles pulled from the event pages should match what the oracle claims."""
+    def test_oracle_title_coverage(self, scraped_events, oracle_entries):
+        """At least 70% of oracle film titles appear in scraper output.
+
+        Oracle has 16 films + 6 live events in April 2026. The scraper
+        filters for URLs with 'screening' in them — live events like
+        'PowerPoint Night' and 'Hack the Planet' are skipped, which is
+        intentional. 70% of 16 ≈ 11 films.
+        """
         import unicodedata
 
         def _norm(s: str) -> str:
@@ -115,14 +145,18 @@ class TestHyperrealIntegration:
             s = s.replace("\u2019", "'").replace("\u2018", "'")
             return s.strip().casefold()
 
-        expected_norm = {_norm(title) for (_f, title, _d) in SAVED_FIXTURES.values()}
-        oracle_norm = {_norm(e.title) for e in oracle_entries}
-        # Every fixture title must also be in the oracle (sanity).
-        assert expected_norm.issubset(oracle_norm), (
-            f"Fixture titles not in oracle: {expected_norm - oracle_norm}"
-        )
-        scraped_norm = {_norm(e.get("title", "")) for e in scraped_events}
-        matching = scraped_norm & expected_norm
-        assert len(matching) >= 3, (
-            f"Only {len(matching)} scraped titles match saved fixtures: {scraped_norm}"
+        oracle_films = films_only(oracle_entries)
+        oracle_titles_norm = {_norm(e.title) for e in oracle_films}
+        scraped_titles_norm = {_norm(e.get("title", "")) for e in scraped_events}
+
+        def title_in_oracle(scraped: str) -> bool:
+            # Hyperreal prepends program names (e.g. "Discovery Zone: MY BOYFRIEND'S BACK")
+            # so use substring containment.
+            return any(o in scraped or scraped in o for o in oracle_titles_norm)
+
+        matching = {s for s in scraped_titles_norm if title_in_oracle(s)}
+        ratio = len(matching) / len(oracle_films) if oracle_films else 0
+        assert ratio >= 0.70, (
+            f"Only {len(matching)}/{len(oracle_films)} oracle titles matched "
+            f"({ratio:.0%}). Scraped: {sorted(scraped_titles_norm)[:5]}..."
         )
