@@ -20,16 +20,21 @@ load_dotenv()
 REFUSAL_PATTERNS = (
     r"i cannot provide",
     r"i cannot create",
+    r"i cannot verify",
+    r"i (cannot|can'?t) locate",
     r"i'?m unable to",
-    r"do(es)? not contain information",
-    r"search results do not",
+    r"do(es)? not contain (any |relevant |specific )?information",
+    r"search results (do not|provided do not)",
     r"would be speculative",
     r"speculative rather than",
+    r"speculative criticism",
     r"without substantive information",
     r"lack(s)? the substantive detail",
     r"without specific (recordings|reviews|program information|sources|information)",
     r"insufficient (information|context|sources|data)",
     r"i (do not|don'?t) have (access to |sufficient |enough )",
+    r"i appreciate your request, but i (must be direct|cannot)",
+    r"following this instruction would require me to generate speculative",
 )
 _REFUSAL_RE = re.compile("|".join(REFUSAL_PATTERNS), re.IGNORECASE)
 
@@ -41,9 +46,14 @@ def is_refusal_response(text: str) -> bool:
     results don't contain information' replies, so the processor can retry with
     a different prompt strategy instead of shipping the refusal text as the
     public-facing description.
+
+    Empty or very short text is NOT considered a refusal here — that's a
+    separate condition (missing summary, missing description) handled by other
+    gates in verify_calendar.py. Only verbose refusal-shaped prose triggers
+    this detector.
     """
     if not text or len(text.strip()) < 40:
-        return True
+        return False
     return bool(_REFUSAL_RE.search(text))
 
 
@@ -145,15 +155,18 @@ class EventProcessor:
                 made_ai_api_call = False
 
                 if event_title not in self.movie_cache:
-                    # Not in cache, need to process
                     should_process = True
                 elif (
                     self.force_reprocess and event_title not in self.reprocessed_titles
                 ):
-                    # Force reprocess enabled and we haven't reprocessed this title yet
                     should_process = True
                     is_first_time_reprocessing = True
                     print(f"  Force re-processing {event_title} (ignoring cache)")
+                elif is_refusal_response(self.movie_cache[event_title].get("summary", "")):
+                    # Stale refusal in cache — treat as miss so the new retry chain
+                    # can rescue it without forcing a full --force-reprocess.
+                    should_process = True
+                    print(f"  Cached entry for {event_title} is a refusal; re-rating.")
 
                 if should_process:
                     # Process the event
