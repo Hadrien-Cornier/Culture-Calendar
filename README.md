@@ -77,6 +77,18 @@ Visit **[hadrien-cornier.github.io/Culture-Calendar](https://hadrien-cornier.git
    - Enable "Read and write permissions"
    - Add `PERPLEXITY_API_KEY` to repository secrets
 
+6. **Install Node Dependencies & Index with GitNexus** _(optional, for AI code intelligence)_
+   ```bash
+   npm install
+   npm run analyze
+   # Output: 781 nodes | 1,928 edges | 56 clusters | 63 flows
+
+   # Generate wiki (requires OPENAI_API_KEY or GITNEXUS_API_KEY):
+   export OPENAI_API_KEY=sk-...
+   npm run wiki
+   ```
+   > **Note**: Do not use `npx gitnexus` — it fails on Node v24. Use `npm run analyze` instead.
+
 ## 🎯 Usage
 
 ### 🌐 Web Interface
