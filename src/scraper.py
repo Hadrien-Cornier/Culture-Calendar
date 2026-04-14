@@ -90,9 +90,9 @@ class MultiVenueScraper:
         venue_configs = [
             ("AFS", self.afs_scraper, "Austin Movie Society", {}),
             ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
-            # ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
-            # ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
-            # ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
+            # ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),  # G.3 BLOCKED: pyppeteer
+            # ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),  # G.2 deferred
+            ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
             (
                 "ArtsOnAlexander",
                 self.arts_on_alexander_scraper,

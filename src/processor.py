@@ -520,70 +520,120 @@ Be specific. Take a defensible position even if some details are missing.
             return None
 
     def _get_book_club_rating(self, event: Dict) -> Dict:
-        """Get book club discussion rating and analysis from Perplexity API"""
+        """Get book club rating, retrying on refusal."""
         if not self.perplexity_api_key:
             return {"score": 5, "summary": "No API key provided"}
 
-        try:
-            headers = {
-                "Authorization": f"Bearer {self.perplexity_api_key}",
-                "Content-Type": "application/json",
-            }
+        title = event.get("book", "") or event.get("title", "")
+        details = (
+            f"Book: {event.get('book', '')} by {event.get('author', 'unknown author')}\n"
+            f"Host: {event.get('host', '')}\n"
+            f"Venue: {event.get('venue', '')}"
+        )
+        attempts = [
+            ("strict", self._build_book_prompt_strict(details)),
+            ("permissive", self._build_book_prompt_permissive(details)),
+            ("knowledge", self._build_book_prompt_general_knowledge(details)),
+        ]
+        for attempt_name, prompt in attempts:
+            content = self._call_perplexity(prompt)
+            if not content:
+                continue
+            if is_refusal_response(content):
+                print(f"  Perplexity refused on book '{title}' (attempt={attempt_name}); retrying…")
+                continue
+            return self._parse_ai_response(content)
 
-            # Extract key information from the event
-            book_title = event.get("book", "")
-            author = event.get("author", "")
-            host = event.get("host", "")
-            venue = event.get("venue", "")
-            description = event.get("description", "")
+        claude_review = self._claude_fallback_book(event, details)
+        if claude_review:
+            return claude_review
+        return {"score": 5, "summary": f"Unable to evaluate {title} (LLM unable to find sources)."}
 
-            # Create detailed book description for analysis
-            book_description = f"Book: {book_title} by {author}\nHost: {host}\nVenue: {venue}\nDescription: {description}"
-
-            prompt = f"""
-You are a rigorous cultural critic evaluating with uncompromising academic standards. Assess the book club selection described below using a 0–10 scale where
+    def _build_book_prompt_strict(self, details: str) -> str:
+        return f"""
+You are a rigorous literary critic. Assess the book described below using a 0–10 scale where
 0–4 = weak or derivative,
 5–6 = competent but unremarkable,
 7–8 = strong,
-9–10 = exceptional masterpieces. Scores above 5 must be justified with specific evidence.
+9–10 = exceptional. Scores above 5 must be justified with specific evidence.
 
-Book Club Details:
-{book_description}
+Book Details:
+{details}
 
-Provide a concise report with these standardized sections:
-★ Rating: [X/10] (integer only)
-🎭 Artistic Merit – evaluate literary craft, prose quality, narrative structure and character development
-✨ Originality – assess innovation in form or content, subversion of genre expectations
-📚 Cultural Significance – discuss the work's place in literary tradition and contemporary relevance
-💡 Intellectual Depth – examine complexity of themes, ideas, and human experiences explored
-
-Focus solely on artistic merit and complexity. Reward innovation and high entropy. Ensure you are reviewing the specific book described above.
+Format:
+★ Rating: [X/10] (integer)
+🎭 Artistic Merit – literary craft, prose quality, narrative structure
+✨ Originality – innovation in form or content
+📚 Cultural Significance – place in literary tradition
+💡 Intellectual Depth – complexity of themes
 """
 
-            data = {
-                "model": "sonar",
-                "messages": [{"role": "user", "content": prompt}],
-                "max_tokens": 2000,
-            }
+    def _build_book_prompt_permissive(self, details: str) -> str:
+        return f"""
+Write a brief critical review of this book. If your search doesn't surface specific reviews, draw on general knowledge of the author's body of work and the book's place in their oeuvre — DO NOT refuse.
 
-            response = requests.post(
-                "https://api.perplexity.ai/chat/completions",
-                headers=headers,
-                json=data,
-                timeout=30,
+Book Details:
+{details}
+
+Format:
+★ Rating: [X/10]
+🎭 Artistic Merit
+✨ Originality
+📚 Cultural Significance
+💡 Intellectual Depth
+"""
+
+    def _build_book_prompt_general_knowledge(self, details: str) -> str:
+        return f"""
+You are a literary critic writing for a discerning Austin book-club audience. Use your training-time knowledge of the author and the book to write a real review — even if your search doesn't surface specific contemporary reviews of this exact title.
+
+Book Details:
+{details}
+
+Cover the author's literary reputation, what makes this work distinctive (or routine), and reasons readers might gravitate to it. Provide a 0–10 rating. If you're genuinely uncertain about a detail, take a defensible position from the author's known output and say so in one sentence — but do not refuse.
+
+Format:
+★ Rating: [X/10]
+🎭 Artistic Merit
+✨ Originality
+📚 Cultural Significance
+💡 Intellectual Depth
+"""
+
+    def _claude_fallback_book(self, event: Dict, details: str) -> Optional[Dict]:
+        if not os.getenv("ANTHROPIC_API_KEY"):
+            return None
+        try:
+            import anthropic
+            client = anthropic.Anthropic()
+            prompt = f"""
+Write a 4–6 paragraph critical review of this book using your trained-knowledge of the author and the work. Provide a 0–10 rating.
+
+{details}
+
+Format:
+★ Rating: [X/10]
+🎭 Artistic Merit
+✨ Originality
+📚 Cultural Significance
+💡 Intellectual Depth
+
+Be specific. Take a defensible position even if some details are missing.
+"""
+            resp = client.messages.create(
+                model="claude-sonnet-4-5-20250929",
+                max_tokens=1500,
+                temperature=0.4,
+                messages=[{"role": "user", "content": prompt}],
             )
-
-            if response.status_code == 200:
-                result = response.json()
-                content = result["choices"][0]["message"]["content"]
-                return self._parse_ai_response(content)
-            else:
-                print(f"Perplexity API error: {response.status_code}")
-                return {"score": 5, "summary": "API error"}
-
+            content = resp.content[0].text
+            if is_refusal_response(content):
+                return None
+            print(f"  Claude fallback succeeded for book '{event.get('title')}'")
+            return self._parse_ai_response(content)
         except Exception as e:
-            print(f"Error calling Perplexity API for book club: {e}")
-            return {"score": 5, "summary": "Unable to get rating"}
+            print(f"  Claude fallback (book) failed: {e}")
+            return None
 
     def _parse_ai_response(self, content: str) -> Dict:
         """Parse AI response to extract rating and summary"""
