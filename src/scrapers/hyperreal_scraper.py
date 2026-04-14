@@ -349,7 +349,7 @@ class HyperrealScraper(BaseScraper):
         self, raw_data: Dict[str, Any], event_url: str
     ) -> Dict[str, Any]:
         """Build event dict using configuration template"""
-        event = {}
+        event: Dict[str, Any] = {"type": "movie"}
 
         # Use template fields if available
         if self.template_fields:
