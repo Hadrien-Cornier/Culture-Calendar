@@ -1800,32 +1800,6 @@ class ReviewModal {
         `;
     }
 
-    getModalHTML(eventData) {
-        const rating = eventData.final_rating ?? eventData.rating ?? (eventData.ai_rating ? eventData.ai_rating.score : null);
-        const ratingDisplay = rating ? `★${rating}/10` : '';
-        
-        return `
-            <div class="review-modal-container">
-                <div class="review-modal-content">
-                    <div class="review-modal-header">
-                        <h2 id="modal-title" class="review-modal-title">${escapeHtml(eventData.title)}</h2>
-                        <div class="review-modal-actions">
-                            <button class="review-modal-close" aria-label="Close review modal">×</button>
-                        </div>
-                    </div>
-                    <div class="review-modal-body">
-                        ${rating ? `<div class="event-rating" style="margin-bottom: 1.5rem;">
-                            <span class="star">★</span>${rating}/10
-                        </div>` : ''}
-                        <div class="review-content">
-                            ${eventData.description ? formatDescription(eventData.description) : 'No detailed review available for this event.'}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
     async animateOpen() {
         return new Promise((resolve, reject) => {
             try {
