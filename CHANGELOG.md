@@ -57,8 +57,9 @@ Simplify (Milestone E):
 
 Other venues (Milestone G — open-ended, extends to all venues per user scope decision):
 - [x] 2026-04-14 10:55 G.1  FirstLight re-enabled (3 site-drift fixes + type='book_club' + book retry chain). 4 events in data.json.
-BLOCKED: G.2 AlienatedMajesty: pyppeteer Chromium "Browser closed unexpectedly" on Python 3.13 + macOS. The book-clubs page is fully JS-rendered (3.6 KB static HTML, 0 mentions of "book club"); scraper cannot work via requests/BeautifulSoup. Migration to Playwright would unblock — separate ~2-hour task.
-BLOCKED: G.3 Paramount: same root cause as G.2 (pyppeteer Chromium broken on Python 3.13). Documented in CLAUDE.md known issues.
+- [x] 2026-04-14 11:30 G.2  AlienatedMajesty migrated pyppeteer → Playwright. New layout parser walks h2 tags in document order, tracks current series, parses 'UPCOMING CLUBS' siblings as `<Day>, <Mon> <D> - <Book> by <Author>`. 15 book club events live.
+- [x] 2026-04-14 11:35 G.3  Paramount unblocked without a browser at all — discovered POST `/api/products/productionseasons` returning JSON; needed only an explicit Accept: application/json header (BaseScraper sends text/html which 500s). 58 events live.
+- [x] 2026-04-14 11:25 Repo bloat: pruned 55 redundant HTML fixtures (tests/AFS_test_data + tests/Hyperreal_test_data went from 7.0 MB → 2.0 MB) without losing test coverage; live verify covers full breadth.
 - [ ] G.4  baseline Austin Symphony events from docs/classical_data.json; add sanity test
 - [ ] G.5  baseline Austin Opera events; add sanity test
 - [ ] G.6  baseline Austin Chamber Music events; add sanity test
