@@ -45,253 +45,156 @@ class AFSScraper(BaseScraper):
         ]
 
     def scrape_events(self) -> List[Dict]:
-        """
-        Scrape AFS screenings from the website using BeautifulSoup only.
-        Returns empty list if scraping fails.
+        """Scrape AFS screenings from the website using BeautifulSoup.
+
+        Emits structured logs on failure instead of silently returning [].
         """
         try:
-            all_events = []
+            all_events: List[Dict] = []
+            print(f"Scraping {self.venue_name}...")
             urls_to_try = [
                 f"{self.base_url}/screenings/",
                 f"{self.base_url}/calendar/",
-                f"{self.base_url}/",  # Main page as fallback
+                f"{self.base_url}/",
             ]
             for url in urls_to_try:
                 try:
                     response = self.session.get(url, timeout=15, allow_redirects=True)
-                    if response.status_code == 200:
-                        soup = BeautifulSoup(response.text, "html.parser")
-                        # If this is a movie page (contains showtime selectors/displays), extract events directly
-                        if soup.select(".c-showtime-select__trigger") or soup.select(
-                            "div.c-showtime-display"
-                        ):
-                            # --- BEGIN MOVIE PAGE EXTRACTION ---
-                            movie_soup = soup
-                            # Title
-                            title_elem = movie_soup.find("h1")
-                            if not title_elem:
-                                title_elem = movie_soup.find("h2")
-                            title = (
-                                title_elem.get_text(strip=True) if title_elem else None
-                            )
-                            # Director
-                            director = None
-                            director_elem = movie_soup.find(
-                                string=re.compile(r"Directed by ", re.I)
-                            )
-                            if director_elem:
-                                match = re.search(
-                                    r"Directed by ([^\n\r<]+)", director_elem
-                                )
-                                if match:
-                                    director = match.group(1).strip()
-                            # Year, Country, Language, Duration
-                            info_elem = movie_soup.find("p", class_="t-smaller")
-                            year = None
-                            country = None
-                            language = None
-                            duration = None
-                            if info_elem:
-                                info_text = info_elem.get_text()
-                                parts = [p.strip() for p in info_text.split(",")]
-                                if len(parts) > 0:
-                                    country = parts[0]
-                                if len(parts) > 1:
-                                    try:
-                                        year = int(parts[1])
-                                    except Exception:
-                                        year = None
-                                if len(parts) > 2:
-                                    duration = parts[2]
-                                # Extract languages from the full info text (handles multi-language entries)
-                                language = self._parse_languages_from_info(info_text, country)
-                            # Description
-                            desc_elem = movie_soup.find(
-                                "div", class_="c-screening-content"
-                            )
-                            description = (
-                                desc_elem.get_text(separator=" ", strip=True)
-                                if desc_elem
-                                else None
-                            )
-                            # Showtimes
-                            date_map = {}
-                            for li in movie_soup.select(".c-showtime-select__trigger"):
-                                data_target = li.get("data-target")
-                                if data_target and len(data_target) == 8:
-                                    date_fmt = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
-                                    date_map[data_target] = date_fmt
-                            if not date_map:
-                                for div in movie_soup.select("div.c-showtime-display"):
-                                    div_id = div.get("id", "")
-                                    if (
-                                        div_id.startswith("showtime-")
-                                        and len(div_id) == 17
-                                    ):
-                                        data_target = div_id.replace("showtime-", "")
-                                        if len(data_target) == 8:
-                                            date_fmt = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
-                                            date_map[data_target] = date_fmt
-                            events = []
-                            for data_target, date_fmt in date_map.items():
-                                showtime_div = movie_soup.find(
-                                    "div", id=f"showtime-{data_target}"
-                                )
-                                if showtime_div:
-                                    time_buttons = showtime_div.find_all(
-                                        "a", class_="c-button"
-                                    )
-                                    for btn in time_buttons:
-                                        time_str = btn.get_text(strip=True)
-                                        if not time_str:
-                                            continue
-                                        # Build event in snake_case format
-                                        event = {
-                                            "title": title,
-                                            "director": director,
-                                            "release_year": year,  # Changed from "year" to "release_year" per template
-                                            "country": country,
-                                            "language": language,
-                                            "runtime_minutes": self._parse_duration_to_minutes(duration),  # Convert to minutes
-                                            "dates": [date_fmt],  # Use dates array
-                                            "times": [time_str],  # Use times array
-                                            "venue": "AFS Cinema",
-                                            "description": description,
-                                            "url": url,
-                                        }
-                                        events.append(event)
-                            if events:
-                                all_events.extend(events)
-                                break
-                            # --- END MOVIE PAGE EXTRACTION ---
-                        # Otherwise, treat as calendar/screenings page and find movie links
-                        event_links = soup.find_all("a", href=True)
-                        movie_urls = []
-                        for link in event_links:
-                            href = link.get("href", "")
-                            if "/screening/" in href:
-                                if href.startswith("/"):
-                                    href = f"{self.base_url}{href}"
-                                elif not href.startswith("http"):
-                                    href = f"{self.base_url}/{href}"
-                                if href not in movie_urls:
-                                    movie_urls.append(href)
-                        for movie_url in movie_urls:  # Increased limit to get more movies
-                            try:
-                                movie_response = self.session.get(movie_url, timeout=10)
-                                if movie_response.status_code == 200:
-                                    movie_soup = BeautifulSoup(
-                                        movie_response.text, "html.parser"
-                                    )
-                                    title_elem = movie_soup.find("h1")
-                                    if not title_elem:
-                                        title_elem = movie_soup.find("h2")
-                                    title = (
-                                        title_elem.get_text(strip=True)
-                                        if title_elem
-                                        else None
-                                    )
-                                    director = None
-                                    director_elem = movie_soup.find(
-                                        string=re.compile(r"Directed by ", re.I)
-                                    )
-                                    if director_elem:
-                                        match = re.search(
-                                            r"Directed by ([^\n\r<]+)", director_elem
-                                        )
-                                        if match:
-                                            director = match.group(1).strip()
-                                    info_elem = movie_soup.find("p", class_="t-smaller")
-                                    year = None
-                                    country = None
-                                    language = None
-                                    duration = None
-                                    if info_elem:
-                                        info_text = info_elem.get_text()
-                                        parts = [
-                                            p.strip() for p in info_text.split(",")
-                                        ]
-                                        if len(parts) > 0:
-                                            country = parts[0]
-                                        if len(parts) > 1:
-                                            try:
-                                                year = int(parts[1])
-                                            except Exception:
-                                                year = None
-                                        if len(parts) > 2:
-                                            duration = parts[2]
-                                        # Extract languages from the full info text (handles multi-language entries)
-                                        language = self._parse_languages_from_info(info_text, country)
-                                    desc_elem = movie_soup.find(
-                                        "div", class_="c-screening-content"
-                                    )
-                                    description = (
-                                        desc_elem.get_text(separator=" ", strip=True)
-                                        if desc_elem
-                                        else None
-                                    )
-                                    date_map = {}
-                                    for li in movie_soup.select(
-                                        ".c-showtime-select__trigger"
-                                    ):
-                                        data_target = li.get("data-target")
-                                        if data_target and len(data_target) == 8:
-                                            date_fmt = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
-                                            date_map[data_target] = date_fmt
-                                    if not date_map:
-                                        for div in movie_soup.select(
-                                            "div.c-showtime-display"
-                                        ):
-                                            div_id = div.get("id", "")
-                                            if (
-                                                div_id.startswith("showtime-")
-                                                and len(div_id) == 17
-                                            ):
-                                                data_target = div_id.replace(
-                                                    "showtime-", ""
-                                                )
-                                                if len(data_target) == 8:
-                                                    date_fmt = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
-                                                    date_map[data_target] = date_fmt
-                                    events = []
-                                    for data_target, date_fmt in date_map.items():
-                                        showtime_div = movie_soup.find(
-                                            "div", id=f"showtime-{data_target}"
-                                        )
-                                        if showtime_div:
-                                            time_buttons = showtime_div.find_all(
-                                                "a", class_="c-button"
-                                            )
-                                            for btn in time_buttons:
-                                                time_str = btn.get_text(strip=True)
-                                                if not time_str:
-                                                    continue
-                                                # Build event in snake_case format
-                                                event = {
-                                                    "title": title,
-                                                    "director": director,
-                                                    "release_year": year,  # Changed from "year" to "release_year" per template
-                                                    "country": country,
-                                                    "language": language,
-                                                    "runtime_minutes": self._parse_duration_to_minutes(duration),  # Convert to minutes
-                                                    "dates": [date_fmt],  # Use dates array
-                                                    "times": [time_str],  # Use times array
-                                                    "venue": "AFS Cinema",
-                                                    "description": description,
-                                                    "url": movie_url,
-                                                }
-                                                events.append(event)
-                                    if events:
-                                        all_events.extend(events)
-                            except Exception as e:
-                                continue
-                        if all_events:
+                    if response.status_code != 200:
+                        continue
+                    soup = BeautifulSoup(response.text, "html.parser")
+
+                    # Case 1: URL is itself a movie page.
+                    if self._is_movie_page(soup):
+                        events = self._extract_movie_page_events(soup, url)
+                        if events:
+                            all_events.extend(events)
                             break
+
+                    # Case 2: URL is a listing; follow each /screening/ link.
+                    for movie_url in self._discover_screening_urls(soup):
+                        try:
+                            movie_response = self.session.get(movie_url, timeout=10)
+                            if movie_response.status_code != 200:
+                                continue
+                            movie_soup = BeautifulSoup(movie_response.text, "html.parser")
+                            all_events.extend(self._extract_movie_page_events(movie_soup, movie_url))
+                        except Exception as e:
+                            print(f"  AFS: failed on {movie_url}: {e!r}")
+                            continue
+                    if all_events:
+                        break
                 except Exception as e:
+                    print(f"  AFS: failed on listing {url}: {e!r}")
                     continue
+            print(f"  AFS: scraped {len(all_events)} events")
             return all_events
         except Exception as e:
+            print(f"AFS scrape_events fatal error: {e!r}")
             return []
+
+    def _is_movie_page(self, soup: BeautifulSoup) -> bool:
+        """A movie page has either showtime trigger buttons or a showtime display div."""
+        return bool(
+            soup.select(".c-showtime-select__trigger")
+            or soup.select("div.c-showtime-display")
+        )
+
+    def _discover_screening_urls(self, soup: BeautifulSoup) -> List[str]:
+        """Find every /screening/<slug>/ link on a listing/calendar page, absolutised."""
+        urls: List[str] = []
+        for link in soup.find_all("a", href=True):
+            href = link.get("href", "")
+            if "/screening/" not in href:
+                continue
+            if href.startswith("/"):
+                href = f"{self.base_url}{href}"
+            elif not href.startswith("http"):
+                href = f"{self.base_url}/{href}"
+            if href not in urls:
+                urls.append(href)
+        return urls
+
+    def _extract_movie_page_events(self, soup: BeautifulSoup, source_url: str) -> List[Dict]:
+        """Pull every (title, date, time) screening event from one movie page."""
+        title_elem = soup.find("h1") or soup.find("h2")
+        title = title_elem.get_text(strip=True) if title_elem else None
+        if not title:
+            return []
+
+        director = None
+        director_elem = soup.find(string=re.compile(r"Directed by ", re.I))
+        if director_elem:
+            match = re.search(r"Directed by ([^\n\r<]+)", director_elem)
+            if match:
+                director = match.group(1).strip()
+
+        info_elem = soup.find("p", class_="t-smaller")
+        year = country = language = duration = None
+        if info_elem:
+            info_text = info_elem.get_text()
+            parts = [p.strip() for p in info_text.split(",")]
+            if parts:
+                country = parts[0]
+            if len(parts) > 1:
+                try:
+                    year = int(parts[1])
+                except ValueError:
+                    year = None
+            if len(parts) > 2:
+                duration = parts[2]
+            language = self._parse_languages_from_info(info_text, country)
+
+        desc_elem = soup.find("div", class_="c-screening-content")
+        description = desc_elem.get_text(separator=" ", strip=True) if desc_elem else None
+
+        date_map = self._extract_date_map(soup)
+
+        events: List[Dict] = []
+        for data_target, date_fmt in date_map.items():
+            showtime_div = soup.find("div", id=f"showtime-{data_target}")
+            if not showtime_div:
+                continue
+            for btn in showtime_div.find_all("a", class_="c-button"):
+                time_str = btn.get_text(strip=True)
+                if not time_str:
+                    continue
+                events.append({
+                    "title": title,
+                    "type": "movie",
+                    "director": director,
+                    "release_year": year,
+                    "country": country,
+                    "language": language,
+                    "runtime_minutes": self._parse_duration_to_minutes(duration),
+                    "dates": [date_fmt],
+                    "times": [time_str],
+                    "venue": "AFS Cinema",
+                    "description": description,
+                    "url": source_url,
+                })
+        return events
+
+    @staticmethod
+    def _extract_date_map(soup: BeautifulSoup) -> Dict[str, str]:
+        """Map 'YYYYMMDD' → 'YYYY-MM-DD' for every showtime date on the page.
+
+        AFS exposes showtimes two ways: the dropdown trigger (data-target attr)
+        and the showtime-<date> div IDs. Either is enough on its own.
+        """
+        date_map: Dict[str, str] = {}
+        for li in soup.select(".c-showtime-select__trigger"):
+            data_target = li.get("data-target")
+            if data_target and len(data_target) == 8:
+                date_map[data_target] = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
+        if not date_map:
+            for div in soup.select("div.c-showtime-display"):
+                div_id = div.get("id", "")
+                if div_id.startswith("showtime-") and len(div_id) == 17:
+                    data_target = div_id.removeprefix("showtime-")
+                    if len(data_target) == 8:
+                        date_map[data_target] = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
+        return date_map
     
     def _parse_duration_to_minutes(self, duration_str):
         """Parse duration string into total minutes.

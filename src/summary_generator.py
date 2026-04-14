@@ -1,6 +1,9 @@
 """
-One-line summary generator for Culture Calendar events
-Uses Anthropic's Claude API to generate concise event summaries
+One-line summary generator for Culture Calendar events.
+
+Uses Anthropic's Claude API directly when ANTHROPIC_API_KEY is set, falling
+back to OpenRouter if only that key is available. The OpenAI Python SDK is
+used against either provider's chat-completions-compatible endpoint.
 """
 
 import json
@@ -8,7 +11,7 @@ import os
 import time
 from typing import Dict, Optional
 
-from openai import OpenAI
+import anthropic
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -16,11 +19,28 @@ load_dotenv()
 
 class SummaryGenerator:
     def __init__(self):
+        self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
         self.openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-        if not self.openrouter_api_key:
-            raise ValueError("OPENROUTER_API_KEY not found in environment variables")
+        if not self.anthropic_api_key and not self.openrouter_api_key:
+            raise ValueError(
+                "Neither ANTHROPIC_API_KEY nor OPENROUTER_API_KEY is set; "
+                "at least one is required for summary generation."
+            )
 
-        self.client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=self.openrouter_api_key)
+        if self.anthropic_api_key:
+            self.provider = "anthropic"
+            self.client = anthropic.Anthropic(api_key=self.anthropic_api_key)
+            self.model = "claude-haiku-4-5-20251001"
+        else:
+            # Late import so tests without the openai package don't fail.
+            from openai import OpenAI
+            self.provider = "openrouter"
+            self.client = OpenAI(
+                base_url="https://openrouter.ai/api/v1",
+                api_key=self.openrouter_api_key,
+            )
+            self.model = "google/gemini-2.5-flash"
+
         self.summary_cache = {}
         self._load_cache()
 
@@ -278,21 +298,35 @@ class SummaryGenerator:
                 f"Summary generation failed for event '{title}': {e}"
             ) from e
 
-        try:
-            # Add rate limiting
-            time.sleep(0.5)
+        system_prompt = (
+            "You are an expert cultural critic writing one-line summaries (8–16 words) for "
+            "Austin event listings. Be concrete, evocative, and specific. No quotes, no preamble, "
+            "no meta-commentary — just the summary sentence."
+        )
 
-            # OpenRouter uses OpenAI-compatible chat.completions API via openai>=1
-            resp = self.client.chat.completions.create(
-                model="google/gemini-2.5-flash",
-                temperature=0.3,
-                max_tokens=100,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt},
-                ],
-            )
-            summary = resp.choices[0].message.content.strip()
+        try:
+            time.sleep(0.5)  # Light rate limiting to stay under API caps.
+
+            if self.provider == "anthropic":
+                resp = self.client.messages.create(
+                    model=self.model,
+                    system=system_prompt,
+                    temperature=0.3,
+                    max_tokens=120,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+                summary = resp.content[0].text.strip()
+            else:
+                resp = self.client.chat.completions.create(
+                    model=self.model,
+                    temperature=0.3,
+                    max_tokens=100,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": prompt},
+                    ],
+                )
+                summary = resp.choices[0].message.content.strip()
 
             # Clean up the response - remove quotes and ensure it's one line
             summary = summary.strip("\"'").replace("\n", " ").strip()

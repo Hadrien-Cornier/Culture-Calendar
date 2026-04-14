@@ -42,7 +42,7 @@ templates:
       - description
       - url
       - venue
-      - occurrences
+      - screenings
     required_on_publish:
       - title
       - dates
@@ -54,11 +54,11 @@ templates:
       - runtime_minutes
       - release_year
       - country
-      - occurrences
+      - screenings
     field_definitions:
-      occurrences:
+      screenings:
         type: array
-        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        description: "Array of specific event screenings. Generated from dates/times arrays."
         item_schema:
           type: object
           properties:
@@ -96,7 +96,7 @@ templates:
       - description
       - url
       - venue
-      - occurrences
+      - screenings
     required_on_publish:
       - title
       - dates
@@ -106,7 +106,7 @@ templates:
       - description
       - book
       - author
-      - occurrences
+      - screenings
     field_definitions:
       title:
         type: string
@@ -147,9 +147,9 @@ templates:
       one_liner_summary:
         type: string
         description: "A brief, compelling summary of the book club event."
-      occurrences:
+      screenings:
         type: array
-        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        description: "Array of specific event screenings. Generated from dates/times arrays."
         item_schema:
           type: object
           properties:
@@ -187,7 +187,7 @@ templates:
       - one_liner_summary
       - description
       - url
-      - occurrences
+      - screenings
     required_on_publish:
       - title
       - dates
@@ -196,11 +196,11 @@ templates:
       - one_liner_summary
       - description
       - program
-      - occurrences
+      - screenings
     field_definitions:
-      occurrences:
+      screenings:
         type: array
-        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        description: "Array of specific event screenings. Generated from dates/times arrays."
         item_schema:
           type: object
           properties:
@@ -238,7 +238,7 @@ templates:
       - one_liner_summary
       - description
       - url
-      - occurrences
+      - screenings
     required_on_publish:
       - title
       - dates
@@ -247,11 +247,11 @@ templates:
       - one_liner_summary
       - description
       - program
-      - occurrences
+      - screenings
     field_definitions:
-      occurrences:
+      screenings:
         type: array
-        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        description: "Array of specific event screenings. Generated from dates/times arrays."
         item_schema:
           type: object
           properties:
@@ -286,7 +286,7 @@ templates:
       - one_liner_summary
       - description
       - url
-      - occurrences
+      - screenings
     required_on_publish:
       - title
       - dates
@@ -295,11 +295,11 @@ templates:
       - one_liner_summary
       - description
       - program
-      - occurrences
+      - screenings
     field_definitions:
-      occurrences:
+      screenings:
         type: array
-        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        description: "Array of specific event screenings. Generated from dates/times arrays."
         item_schema:
           type: object
           properties:
@@ -332,7 +332,7 @@ templates:
       - one_liner_summary
       - description
       - url
-      - occurrences
+      - screenings
     required_on_publish:
       - title
       - dates
@@ -341,11 +341,11 @@ templates:
       - one_liner_summary
       - description
       - venue
-      - occurrences
+      - screenings
     field_definitions:
-      occurrences:
+      screenings:
         type: array
-        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        description: "Array of specific event screenings. Generated from dates/times arrays."
         item_schema:
           type: object
           properties:

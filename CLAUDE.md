@@ -2,6 +2,28 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Overnight Loop Protocol (active through 2026-04-15)
+
+If you are running inside `scripts/overnight_loop.sh` on branch `fix/calendar-oracle`:
+
+1. **Read CHANGELOG.md.** Pick the first `- [ ]` line under the "Calendar fix" section. That is your subtask. Do **not** pick a later one — the queue is ordered by dependency.
+2. **Do that subtask, nothing else.** No refactors, no drive-by cleanups. If you spot a separate bug, add a new `- [ ]` line instead of fixing it inline.
+3. **Verify before declaring done:**
+   ```
+   .venv/bin/python -m pytest -q
+   .venv/bin/python scripts/verify_calendar.py --offline
+   ```
+   Both must print success. If either fails, keep iterating on the same subtask.
+4. **Commit with the required identity and push:**
+   ```
+   git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m "feat(calendar): <subtask-id> <what>"
+   git push origin fix/calendar-oracle
+   ```
+   Never touch `main`. Never `--no-verify`. Never force-push. Never `git reset --hard` — the only destructive move allowed is reverting a single just-made commit via `git revert HEAD --no-edit` if its tests regressed.
+5. **Tick the box in CHANGELOG.md** before committing: replace `- [ ]` with `- [x] YYYY-MM-DD HH:MM`.
+6. **If blocked**, append `BLOCKED: <subtask-id>: <why>` under the queue and move on. Don't thrash.
+7. **Exit criterion:** `scripts/verify_calendar.py --live` prints PASS two iterations in a row. Until then, keep picking subtasks.
+
 ## Project Overview
 
 Culture Calendar is an automated system that scrapes Austin cultural events (films, concerts, book clubs, opera, ballet) from multiple venues, enriches them with AI-powered analysis and ratings, and publishes them to a GitHub Pages website with calendar/ICS export functionality.

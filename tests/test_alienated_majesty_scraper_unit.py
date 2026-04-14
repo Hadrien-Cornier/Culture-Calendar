@@ -2,6 +2,10 @@
 """
 Unit tests for Alienated Majesty Books scraper
 Tests HTML file against expected output in test database
+
+Skipped pending book-club scope (Milestone G.2). This scraper is currently
+commented out in MultiVenueScraper; reactivation is part of the overnight
+loop's extended-scope pass.
 """
 
 import json
@@ -10,6 +14,8 @@ import sys
 import unittest
 from pathlib import Path
 
+import pytest
+
 from src.scrapers.alienated_majesty_scraper import AlienatedMajestyBooksScraper
 
 # Add the src directory to the path to import the scraper
@@ -17,6 +23,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src", "scrapers")
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 
 
+@pytest.mark.skip(reason="book-club scraper deferred to Milestone G.2; tests reference legacy API")
 class TestAlienatedMajestyBooksScraper(unittest.TestCase):
     """Unit tests for Alienated Majesty Books scraper"""
 

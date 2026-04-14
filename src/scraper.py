@@ -20,7 +20,7 @@ from .scrapers import (
     FirstLightAustinScraper,
     HyperrealScraper,
     LaFolliaAustinScraper,
-    # ParamountScraper,
+    ParamountScraper,
 )
 from .recurring_events import RecurringEventGenerator
 
@@ -40,9 +40,9 @@ class MultiVenueScraper:
         self.hyperreal_scraper = HyperrealScraper(
             config=self.config, venue_key="hyperreal"
         )
-        # self.paramount_scraper = ParamountScraper(
-        #     config=self.config, venue_key="paramount"
-        # )
+        self.paramount_scraper = ParamountScraper(
+            config=self.config, venue_key="paramount"
+        )
         self.alienated_majesty_scraper = AlienatedMajestyBooksScraper(
             config=self.config, venue_key="alienated_majesty"
         )
@@ -90,9 +90,9 @@ class MultiVenueScraper:
         venue_configs = [
             ("AFS", self.afs_scraper, "Austin Movie Society", {}),
             ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
-            # ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
-            # ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
-            # ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
+            ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
+            ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
+            ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
             (
                 "ArtsOnAlexander",
                 self.arts_on_alexander_scraper,
@@ -295,7 +295,7 @@ class MultiVenueScraper:
         if venue == "Hyperreal":
             return self.hyperreal_scraper.get_event_details(event["url"])
         elif venue == "Symphony":
-            return self.symphony_scraper.get_event_details(event)
+            return self.austin_symphony_scraper.get_event_details(event)
         elif venue == "EarlyMusic":
             return self.early_music_scraper.get_event_details(event)
         elif venue == "LaFollia":

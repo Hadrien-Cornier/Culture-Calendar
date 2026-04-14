@@ -1,6 +1,81 @@
 # CHANGELOG
 
-## [Unreleased] — 2026-04-13
+## [Calendar fix] — 2026-04-14 — in progress
+
+### Termination criterion
+
+`scripts/verify_calendar.py --live` prints `PASS` twice in a row. Offline
+mode runs against saved HTML fixtures; live mode hits austinfilm.org and
+hyperrealfilm.club.
+
+### Subtask queue (checkbox-driven — the overnight loop picks the next unchecked line)
+
+Finished (this branch):
+- [x] 2026-04-13 22:30 M0   type='movie' in AFS scraper + loosen processor filter
+- [x] 2026-04-13 22:35 MA.1 scripts/oracle_afs.py parses april-may-2026-schedule-afs.md
+- [x] 2026-04-13 22:36 MA.2 scripts/oracle_hyperreal.py parses april-2026-hyperreal.md
+- [x] 2026-04-13 22:37 MA.3 tests/test_oracle_parsers.py (13 assertions, all pass)
+- [x] 2026-04-13 22:40 MA.4 occurrences → screenings (backend + config)
+- [x] 2026-04-13 22:41 MA.5 frontend reads release_year / runtime_minutes / one_liner_summary
+- [x] 2026-04-13 22:42 MA.6 ?debug_date=YYYY-MM-DD shim in docs/script.js
+- [x] 2026-04-13 22:43 MA.7 pytest.ini registers integration/live/unit markers
+- [x] 2026-04-13 22:47 MB.1 save AFS calendar snapshot + 7 movie pages (April 2026)
+- [x] 2026-04-13 22:48 MB.2 tests/test_afs_integration.py (6 assertions, all pass)
+- [x] 2026-04-13 22:50 MC.1 save Hyperreal calendar snapshot + 4 movie pages
+- [x] 2026-04-13 22:52 MC.2 tests/test_hyperreal_integration.py (5 assertions, all pass)
+- [x] 2026-04-13 22:53 MC.3 fix: Hyperreal _build_event_from_config unconditionally sets type='movie'
+- [x] 2026-04-13 22:58 MD.1 scripts/verify_calendar.py (11/11 checks pass offline)
+
+Overnight queue (unchecked — loop will pick them in order):
+
+AFS fixture expansion (raises oracle coverage):
+- [x] 2026-04-14 09:55 MB.3  save screening pages for every /screening/ link in calendar_snapshot_2026_04.html (46 total)
+- [x] 2026-04-14 09:55 MB.4  test_afs_integration.py raises coverage floor to ≥95%
+- [ ] MB.5  add tests for all films in oracle (director/release_year/country/runtime_minutes populated)
+
+Hyperreal fixture expansion:
+- [x] 2026-04-14 09:59 MC.4  save screening pages for every /events/ link in Hyperreal calendar (21 total)
+- [x] 2026-04-14 09:59 MC.5  test_hyperreal_integration.py covers every entry in the oracle
+- [x] 2026-04-14 09:59 MC.6  clean DeprecationWarning: BeautifulSoup text=... → string=...
+
+End-to-end pipeline:
+- [x] 2026-04-14 09:47 MD.2  verify_calendar.py --live passes (11/11)
+- [x] 2026-04-14 10:11 MD.3  regenerate docs/data.json from the full pipeline (141 entries, 73 movies, 21/21)
+- [x] 2026-04-14 10:13 MD.4  verify Today/Week/Weekend counts via actual docs/data.json shape (5/18/11 on 04-14)
+- [x] 2026-04-14 10:15 MD.5  smoke test: `python -m http.server` + GET /data.json → 200 OK, 141 entries
+
+Review quality (caught by user during inspection of LANCELOT DU LAC):
+- [x] 2026-04-14 10:35 MD.6  is_refusal_response heuristic + 3-attempt retry chain in _get_ai_rating / _get_classical_rating + Claude Sonnet fallback. New verify gate 'data.json: no refusals' counts how many entries ship LLM-refusal text as their review. RED with 43 stale refusals until force-reprocess flushes them.
+- [x] 2026-04-14 10:43 MD.7  flushed all 43 stale refusals via --force-reprocess + cache-miss-on-refusal logic. 23 retries fired during the run, all caught by permissive/knowledge prompts; 0 needed Claude Sonnet fallback.
+- [x] 2026-04-14 10:44 MD.8  is_refusal_response no longer flags short summaries (separate failure mode); REFUSAL_PATTERNS extended for permissive-prompt refusal phrasing ('I appreciate your request, but…', 'I cannot verify', 'I cannot locate', etc.).
+
+Simplify (Milestone E):
+- [x] 2026-04-14 10:05 ME.1  collapse AFSScraper duplicated extraction blocks into one helper (-102 lines)
+- [x] 2026-04-14 10:10 ME.2  remove --full and --days flags from update_website_data.py (deprecated)
+- [x] 2026-04-14 10:12 ME.3  delete unused getModalHTML in docs/script.js (-28 lines)
+- [ ] ME.4  delete the occurrences legacy-alias in docs/script.js (kept defensive: no observed cost)
+
+Other venues (Milestone G — open-ended, extends to all venues per user scope decision):
+- [x] 2026-04-14 10:55 G.1  FirstLight re-enabled (3 site-drift fixes + type='book_club' + book retry chain). 4 events in data.json.
+- [x] 2026-04-14 11:30 G.2  AlienatedMajesty migrated pyppeteer → Playwright. New layout parser walks h2 tags in document order, tracks current series, parses 'UPCOMING CLUBS' siblings as `<Day>, <Mon> <D> - <Book> by <Author>`. 15 book club events live.
+- [x] 2026-04-14 11:35 G.3  Paramount unblocked without a browser at all — discovered POST `/api/products/productionseasons` returning JSON; needed only an explicit Accept: application/json header (BaseScraper sends text/html which 500s). 58 events live.
+- [x] 2026-04-14 11:25 Repo bloat: pruned 55 redundant HTML fixtures (tests/AFS_test_data + tests/Hyperreal_test_data went from 7.0 MB → 2.0 MB) without losing test coverage; live verify covers full breadth.
+- [ ] G.4  baseline Austin Symphony events from docs/classical_data.json; add sanity test
+- [ ] G.5  baseline Austin Opera events; add sanity test
+- [ ] G.6  baseline Austin Chamber Music events; add sanity test
+- [ ] G.7  baseline Early Music events; add sanity test
+- [ ] G.8  baseline La Follia events; add sanity test
+- [ ] G.9  baseline Ballet Austin events; add sanity test
+
+### Conventions
+- Blockers: write `BLOCKED: <subtask-id>: <why>` as a line below the checklist. The loop skips these and moves on.
+- Commits: author as `Hadrien-Cornier <hadrien.cornier@gmail.com>` via `git -c user.name=... -c user.email=...`.
+- Push every commit to `origin/fix/calendar-oracle` immediately (never `main`).
+- Green gate: `pytest -q` AND `python scripts/verify_calendar.py --offline` must both pass before marking a subtask done.
+
+---
+
+## [Previous] — 2026-04-13
 
 ### Final Status: ✅ COMPLETE
 

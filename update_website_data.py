@@ -211,8 +211,8 @@ def get_default_value(field_name: str, config: ConfigLoader):
     return defaults.get(config_field, "")
 
 
-def create_occurrences_from_arrays(event: dict, date_time_spec: dict) -> list:
-    """Create occurrences array from date/time arrays with validation"""
+def create_screenings_from_arrays(event: dict, date_time_spec: dict) -> list:
+    """Create screenings array from date/time arrays with validation"""
     dates = event.get(date_time_spec["date_field"], [])
     times = event.get(date_time_spec["time_field"], [])
 
@@ -228,15 +228,15 @@ def create_occurrences_from_arrays(event: dict, date_time_spec: dict) -> list:
             f"Event missing required '{date_time_spec['date_field']}' field: {event.get('title', 'Unknown')}"
         )
 
-    # Create occurrences based on zip_rule
-    occurrences = []
+    # Create screenings based on zip_rule
+    screenings = []
     zip_rule = date_time_spec.get("zip_rule", "pairwise_equal_length")
 
     if zip_rule == "pairwise_equal_length":
         # Pair dates and times by index
         for i, date in enumerate(dates):
             time = times[i] if i < len(times) else times[0] if times else "TBD"
-            occurrences.append(
+            screenings.append(
                 {
                     "date": date,
                     "time": time,
@@ -248,7 +248,7 @@ def create_occurrences_from_arrays(event: dict, date_time_spec: dict) -> list:
         # Use first time for all dates
         default_time = times[0] if times else "TBD"
         for date in dates:
-            occurrences.append(
+            screenings.append(
                 {
                     "date": date,
                     "time": default_time,
@@ -257,7 +257,7 @@ def create_occurrences_from_arrays(event: dict, date_time_spec: dict) -> list:
                 }
             )
 
-    return occurrences
+    return screenings
 
 
 def create_unique_key(event: dict) -> str:
@@ -287,8 +287,8 @@ def finalize_website_data(combined_data: dict) -> list:
         )
         event_data["id"] = event_id
 
-        # Sort occurrences by date and time (handle None values)
-        event_data["occurrences"].sort(
+        # Sort screenings by date and time (handle None values)
+        event_data["screenings"].sort(
             key=lambda x: (x.get("date") or "9999-12-31", x.get("time") or "23:59")
         )
 
@@ -296,11 +296,11 @@ def finalize_website_data(combined_data: dict) -> list:
 
     # Sort by the earliest occurrence date/time so upcoming events appear first
     def first_occurrence_key(item):
-        occurrences = item.get("occurrences", [])
-        if not occurrences:
+        screenings = item.get("screenings", [])
+        if not screenings:
             return ("9999-12-31", "23:59")
         first = min(
-            occurrences,
+            screenings,
             key=lambda s: (s.get("date") or "9999-12-31", s.get("time") or "23:59"),
         )
         return (first.get("date") or "9999-12-31", first.get("time") or "23:59")
@@ -351,17 +351,17 @@ def generate_website_data(events):
                 group_key = event["title"]
                 if group_key not in combined_data:
                     combined_data[group_key] = output_event
-                    combined_data[group_key]["occurrences"] = []
+                    combined_data[group_key]["screenings"] = []
                 # Add occurrence
-                combined_data[group_key]["occurrences"].extend(
-                    create_occurrences_from_arrays(event, date_time_spec)
+                combined_data[group_key]["screenings"].extend(
+                    create_screenings_from_arrays(event, date_time_spec)
                 )
             else:
                 # Unique event (concert, book_club, etc.)
                 unique_key = create_unique_key(event)
                 combined_data[unique_key] = output_event
-                combined_data[unique_key]["occurrences"] = (
-                    create_occurrences_from_arrays(event, date_time_spec)
+                combined_data[unique_key]["screenings"] = (
+                    create_screenings_from_arrays(event, date_time_spec)
                 )
 
     # Finalize and return website data
@@ -370,18 +370,16 @@ def generate_website_data(events):
 
 def main(
     test_week: bool = False,
-    full: bool = False,
     force_reprocess: bool = False,
-    days: int = None,
     validate: bool = False,
 ):
     """Generate website data.
 
     Args:
-        test_week: If True, limit scraping to current week for testing.
-        full: Deprecated parameter (no longer used - all events are always included).
+        test_week: If True, limit recurring-event generation to ~2 weeks
+            ahead instead of ~8. Does not affect venue scraping — each
+            venue's `scrape_events()` always pulls its full calendar.
         force_reprocess: If True, force re-processing of all events (ignore cache).
-        days: Deprecated parameter (no longer used - all events are always included).
         validate: If True, enable smart validation with fail-fast mechanisms.
     """
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
@@ -393,7 +391,7 @@ def main(
 
         # Scrape all venues (including classical music from JSON)
         print("Fetching calendar data from all venues...")
-        events = scraper.scrape_all_venues(target_week=test_week, days_ahead=days)
+        events = scraper.scrape_all_venues(target_week=test_week)
         print(f"Found {len(events)} total events from all venues")
         print(
             "NOTE: Classical music venues load their events from docs/classical_data.json"
@@ -534,29 +532,11 @@ def main(
 
 
 if __name__ == "__main__":
-    # Parse command line flags
     test_week = "--test-week" in sys.argv
-    full_update = "--full" in sys.argv
     force_reprocess = "--force-reprocess" in sys.argv
     validate = "--validate" in sys.argv
-
-    # Parse --days parameter
-    days_param = None
-    for i, arg in enumerate(sys.argv):
-        if arg == "--days" and i + 1 < len(sys.argv):
-            try:
-                days_param = int(sys.argv[i + 1])
-            except ValueError:
-                print(
-                    f"Error: --days parameter must be a number, got '{sys.argv[i + 1]}'"
-                )
-                sys.exit(1)
-            break
-
     main(
         test_week=test_week,
-        full=full_update,
         force_reprocess=force_reprocess,
-        days=days_param,
         validate=validate,
     )

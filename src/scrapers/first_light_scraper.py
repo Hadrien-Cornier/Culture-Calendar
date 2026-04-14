@@ -55,34 +55,28 @@ class FirstLightAustinScraper(BaseScraper):
             return None, None
 
     def parse_book_club_date(self, date_str):
-        """Parse book club date strings like 'Friday, June 27th' into YYYY-MM-DD format"""
+        """Parse book club date like 'Friday, June 27th' or 'April 13' into YYYY-MM-DD.
+
+        Year inference: today is the anchor. If the parsed month is < current
+        month, the event is next year; otherwise it's this year. This is the
+        same dynamic-guidance rule the AlienatedMajesty scraper config uses.
+        """
         try:
-            # Remove trailing comma and any extra whitespace
             cleaned_date = date_str.strip().rstrip(",").strip()
-            # Remove 'st', 'nd', 'rd', 'th' from day
             cleaned_date = re.sub(r"(\d+)(st|nd|rd|th)", r"\1", cleaned_date)
 
-            # Use 2025 for future events (these are all 2025 events)
-            current_year = datetime.now().year
-            # For events in months that have already passed this year, use next year
-            # For events in current or future months, use current year
-            future_year = (
-                2025  # Force 2025 since we're in 2025 and these are future events
-            )
-
-            # Parse the date (assuming future year since these are future
-            # events)
-            try:
-                date_obj = datetime.strptime(
-                    f"{future_year} {cleaned_date}", "%Y %A, %B %d"
-                )
-            except ValueError:
-                # If that fails, try without the day of week
-                date_obj = datetime.strptime(
-                    f"{future_year} {cleaned_date.split(', ')[-1]}", "%Y %B %d"
-                )
-
-            return date_obj.strftime("%Y-%m-%d")
+            today = datetime.now()
+            for fmt in ("%Y %A, %B %d", "%Y %B %d"):
+                try:
+                    base = cleaned_date.split(", ")[-1] if fmt == "%Y %B %d" else cleaned_date
+                    date_obj = datetime.strptime(f"{today.year} {base}", fmt)
+                    if date_obj.month < today.month:
+                        date_obj = date_obj.replace(year=today.year + 1)
+                    return date_obj.strftime("%Y-%m-%d")
+                except ValueError:
+                    continue
+            print(f"Error parsing book club date '{date_str}': unrecognized format")
+            return None
         except Exception as e:
             print(f"Error parsing book club date '{date_str}': {e}")
             return None
@@ -229,74 +223,60 @@ class FirstLightAustinScraper(BaseScraper):
                 else:
                     full_club_name = f"{club_short_name} Book Club"
 
-                # Extract book title and author - simple approach
-                # Look for " by " surrounded by spaces, then extract what's before and after
-                by_match = re.search(r"\s+by\s+", description_text)
-                if by_match:
-                    # Split the text at " by "
-                    parts = description_text.split(" by ")
-                    if len(parts) >= 2:
-                        # Book title is everything after "selection:" up to " by "
-                        book_part = parts[0]
-                        selection_match = re.search(r"selection:\s*(.+)$", book_part)
-                        if selection_match:
-                            book_title = selection_match.group(1).strip()
-                        else:
-                            book_title = book_part.strip()
-
-                        # Author is everything after " by " up to ". Meets"
-                        author_part = parts[1]
-                        author_match = re.search(
-                            r"^(.+?)(?=\s*\.\s*Meets)", author_part
-                        )
-                        if author_match:
-                            author = author_match.group(1).strip()
-                        else:
-                            author = author_part.strip()
+                # Extract book title + author from a "<Month> selection: <Book> by <Author>"
+                # span. The first " by " in the full description is usually
+                # "Hosted by …", so we MUST anchor on "selection:" before splitting.
+                book_title = None
+                author = None
+                sel_match = re.search(
+                    r"[A-Z][a-z]+\s+selection:\s*(.+?)(?:\s*\.?\s*Meeting|\s*\.?\s*Meets|$)",
+                    description_text,
+                    flags=re.DOTALL,
+                )
+                if sel_match:
+                    selection_text = sel_match.group(1).strip().rstrip(".")
+                    by_split = re.split(r"\s+by\s+", selection_text, maxsplit=1)
+                    if len(by_split) == 2:
+                        book_title = by_split[0].strip()
+                        # Strip a trailing 'Meeting' fragment that crept in when there's no
+                        # period between author name and the 'Meeting…' sentence.
+                        author = re.sub(r"\s*Meeting\s+the\b.*$", "", by_split[1]).strip()
                     else:
-                        book_title = None
-                        author = None
-                else:
-                    book_title = None
-                    author = None
+                        book_title = selection_text
 
-                # If we didn't find book/author with the simple approach, try link text
+                # Fallback: anchor link in the description
                 if not book_title:
                     book_link = description_elem.find("a")
                     if book_link:
                         book_title = book_link.get_text().strip()
-                        # Try to find author after "by" in the text
-                        link_text = book_link.get_text()
-                        remaining_text = description_text.split(link_text)[-1]
-                        by_match = re.search(r"\s+by\s+", remaining_text)
-                        if by_match:
-                            author_part = remaining_text.split(" by ")[1]
-                            author_match = re.search(
-                                r"^(.+?)(?=\s*\.\s*Meets)", author_part
-                            )
-                            if author_match:
-                                author = author_match.group(1).strip()
 
-                # Extract meeting date and time - simple approach
-                # Look for sentences that start with "Meets"
-                meeting_match = re.search(
-                    r"Meets\s+([^.]+?)\s+at\s+(\d+)(?::\d+)?\s*([ap]m)",
-                    description_text,
-                )
-
+                # Extract meeting date and time. The site uses two phrasings:
+                #   old:  "Meets <date> at <H>(:<MM>)?<ampm>"
+                #   new:  "Meeting the <ordinal> <day> of the month, <Month> <D>, at <H>(:<MM>)?\s*<ampm>"
+                #         e.g. "Meeting the second Monday of the month, April 13, at 7 p.m."
                 date_str = None
                 time_str = None
+
+                meeting_match = re.search(
+                    r"Meeting\s+the\s+(?:first|second|third|fourth|fifth|last)\s+\w+\s+of\s+the\s+month,\s+"
+                    r"([A-Za-z]+\s+\d{1,2})\s*,?\s*at\s+(\d+)(?::(\d{2}))?\s*([ap]\.?m)",
+                    description_text,
+                    flags=re.IGNORECASE,
+                )
+                if not meeting_match:
+                    meeting_match = re.search(
+                        r"Meets\s+([^.]+?)\s+at\s+(\d+)(?::(\d{2}))?\s*([ap]\.?m)",
+                        description_text,
+                        flags=re.IGNORECASE,
+                    )
 
                 if meeting_match:
                     date_part = meeting_match.group(1).strip()
                     hour = meeting_match.group(2)
-                    ampm = meeting_match.group(3)
-
-                    # Parse the date
+                    minutes = meeting_match.group(3) or "00"
+                    ampm = meeting_match.group(4).replace(".", "").upper()
                     date_str = self.parse_book_club_date(date_part)
-
-                    # Format the time
-                    time_str = f"{hour}:00 {ampm.upper()}"
+                    time_str = f"{hour}:{minutes} {ampm}"
 
                 # Extract host information
                 # Look for patterns like "Hosted by [Title] [Name]" and extract
@@ -352,15 +332,16 @@ class FirstLightAustinScraper(BaseScraper):
                 if full_club_name and book_title and date_str and time_str:
                     event = {
                         "title": f"{full_club_name} - {book_title}",
+                        "type": "book_club",
                         "author": author,
                         "book": book_title,
-                        "dates": [date_str],  # Use dates array
-                        "times": [time_str],  # Use times array
+                        "dates": [date_str],
+                        "times": [time_str],
                         "venue": "First Light Books",
                         "host": host,
                         "series": full_club_name,
                         "description": main_description,
-                        "rsvp_url": None,  # Book clubs don't seem to have specific RSVP URLs
+                        "rsvp_url": None,
                         "url": url,
                     }
                     events.append(event)
