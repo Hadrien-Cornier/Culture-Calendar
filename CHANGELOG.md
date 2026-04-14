@@ -29,25 +29,25 @@ Finished (this branch):
 Overnight queue (unchecked — loop will pick them in order):
 
 AFS fixture expansion (raises oracle coverage):
-- [ ] MB.3  save screening pages for every /screening/ link in calendar_snapshot_2026_04.html
-- [ ] MB.4  test_afs_integration.py raises coverage floor to ≥95%
+- [x] 2026-04-14 09:55 MB.3  save screening pages for every /screening/ link in calendar_snapshot_2026_04.html (46 total)
+- [x] 2026-04-14 09:55 MB.4  test_afs_integration.py raises coverage floor to ≥95%
 - [ ] MB.5  add tests for all films in oracle (director/release_year/country/runtime_minutes populated)
 
 Hyperreal fixture expansion:
-- [ ] MC.4  save screening pages for every /events/ link in Hyperreal calendar (16 films + 6 lives)
-- [ ] MC.5  test_hyperreal_integration.py covers every entry in the oracle
-- [ ] MC.6  clean DeprecationWarning: BeautifulSoup text=... → string=...
+- [x] 2026-04-14 09:59 MC.4  save screening pages for every /events/ link in Hyperreal calendar (21 total)
+- [x] 2026-04-14 09:59 MC.5  test_hyperreal_integration.py covers every entry in the oracle
+- [x] 2026-04-14 09:59 MC.6  clean DeprecationWarning: BeautifulSoup text=... → string=...
 
 End-to-end pipeline:
-- [ ] MD.2  verify_calendar.py --live passes (hits real sites — may need retry logic)
-- [ ] MD.3  regenerate docs/data.json from the full pipeline (requires LLM keys — may BLOCK)
+- [x] 2026-04-14 09:47 MD.2  verify_calendar.py --live passes (11/11)
+- [ ] MD.3  regenerate docs/data.json from the full pipeline (running in background, requires LLM keys)
 - [ ] MD.4  verify Today/Week/Weekend counts via actual docs/data.json shape
 - [ ] MD.5  smoke test: `python -m http.server` + open http://localhost:8765/?debug_date=2026-04-14
 
 Simplify (Milestone E):
-- [ ] ME.1  collapse AFSScraper duplicated extraction blocks (lines 68-166 ≈ 180-285) into one helper
-- [ ] ME.2  remove --full and --days flags from update_website_data.py (deprecated)
-- [ ] ME.3  drop one of docs/script.js duplicate modal implementations (getNewModalHTML or getModalHTML)
+- [x] 2026-04-14 10:05 ME.1  collapse AFSScraper duplicated extraction blocks into one helper (-102 lines)
+- [x] 2026-04-14 10:10 ME.2  remove --full and --days flags from update_website_data.py (deprecated)
+- [x] 2026-04-14 10:12 ME.3  delete unused getModalHTML in docs/script.js (-28 lines)
 - [ ] ME.4  delete the occurrences legacy-alias in docs/script.js once data.json has been regenerated
 
 Other venues (Milestone G — open-ended, extends to all venues per user scope decision):
