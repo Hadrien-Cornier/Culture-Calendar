@@ -57,8 +57,8 @@ Simplify (Milestone E):
 
 Other venues (Milestone G — open-ended, extends to all venues per user scope decision):
 - [x] 2026-04-14 10:55 G.1  FirstLight re-enabled (3 site-drift fixes + type='book_club' + book retry chain). 4 events in data.json.
-- [ ] G.2  re-enable AlienatedMajesty scraper and write integration test (book-club schema)
-- [ ] G.3  re-enable Paramount scraper (check pyppeteer threading issue)
+BLOCKED: G.2 AlienatedMajesty: pyppeteer Chromium "Browser closed unexpectedly" on Python 3.13 + macOS. The book-clubs page is fully JS-rendered (3.6 KB static HTML, 0 mentions of "book club"); scraper cannot work via requests/BeautifulSoup. Migration to Playwright would unblock — separate ~2-hour task.
+BLOCKED: G.3 Paramount: same root cause as G.2 (pyppeteer Chromium broken on Python 3.13). Documented in CLAUDE.md known issues.
 - [ ] G.4  baseline Austin Symphony events from docs/classical_data.json; add sanity test
 - [ ] G.5  baseline Austin Opera events; add sanity test
 - [ ] G.6  baseline Austin Chamber Music events; add sanity test
