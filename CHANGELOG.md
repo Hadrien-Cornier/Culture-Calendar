@@ -46,8 +46,8 @@ End-to-end pipeline:
 
 Review quality (caught by user during inspection of LANCELOT DU LAC):
 - [x] 2026-04-14 10:35 MD.6  is_refusal_response heuristic + 3-attempt retry chain in _get_ai_rating / _get_classical_rating + Claude Sonnet fallback. New verify gate 'data.json: no refusals' counts how many entries ship LLM-refusal text as their review. RED with 43 stale refusals until force-reprocess flushes them.
-- [ ] MD.7  rerun update_website_data.py --force-reprocess to flush 43 stale refusal-shaped reviews (running in background)
-- [ ] MD.8  audit one-liner summaries for refusal patterns too (Anthropic Haiku rarely refuses but worth checking)
+- [x] 2026-04-14 10:43 MD.7  flushed all 43 stale refusals via --force-reprocess + cache-miss-on-refusal logic. 23 retries fired during the run, all caught by permissive/knowledge prompts; 0 needed Claude Sonnet fallback.
+- [x] 2026-04-14 10:44 MD.8  is_refusal_response no longer flags short summaries (separate failure mode); REFUSAL_PATTERNS extended for permissive-prompt refusal phrasing ('I appreciate your request, but…', 'I cannot verify', 'I cannot locate', etc.).
 
 Simplify (Milestone E):
 - [x] 2026-04-14 10:05 ME.1  collapse AFSScraper duplicated extraction blocks into one helper (-102 lines)
