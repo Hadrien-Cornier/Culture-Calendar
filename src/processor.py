@@ -83,7 +83,7 @@ class EventProcessor:
                     if venue in MOVIE_VENUES:
                         etype = "movie"
                         event["type"] = "movie"
-                if etype not in ("screening", "movie", "concert", "book_club"):
+                if etype not in ("screening", "movie", "concert", "book_club", "opera", "dance", "other"):
                     if etype:
                         print(f"  Skipping unsupported type={etype} for '{event.get('title','?')}'")
                     else:
