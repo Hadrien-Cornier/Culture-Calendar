@@ -44,6 +44,11 @@ End-to-end pipeline:
 - [x] 2026-04-14 10:13 MD.4  verify Today/Week/Weekend counts via actual docs/data.json shape (5/18/11 on 04-14)
 - [x] 2026-04-14 10:15 MD.5  smoke test: `python -m http.server` + GET /data.json → 200 OK, 141 entries
 
+Review quality (caught by user during inspection of LANCELOT DU LAC):
+- [x] 2026-04-14 10:35 MD.6  is_refusal_response heuristic + 3-attempt retry chain in _get_ai_rating / _get_classical_rating + Claude Sonnet fallback. New verify gate 'data.json: no refusals' counts how many entries ship LLM-refusal text as their review. RED with 43 stale refusals until force-reprocess flushes them.
+- [ ] MD.7  rerun update_website_data.py --force-reprocess to flush 43 stale refusal-shaped reviews (running in background)
+- [ ] MD.8  audit one-liner summaries for refusal patterns too (Anthropic Haiku rarely refuses but worth checking)
+
 Simplify (Milestone E):
 - [x] 2026-04-14 10:05 ME.1  collapse AFSScraper duplicated extraction blocks into one helper (-102 lines)
 - [x] 2026-04-14 10:10 ME.2  remove --full and --days flags from update_website_data.py (deprecated)
