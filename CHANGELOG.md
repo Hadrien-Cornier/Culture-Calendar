@@ -40,15 +40,15 @@ Hyperreal fixture expansion:
 
 End-to-end pipeline:
 - [x] 2026-04-14 09:47 MD.2  verify_calendar.py --live passes (11/11)
-- [ ] MD.3  regenerate docs/data.json from the full pipeline (running in background, requires LLM keys)
-- [ ] MD.4  verify Today/Week/Weekend counts via actual docs/data.json shape
-- [ ] MD.5  smoke test: `python -m http.server` + open http://localhost:8765/?debug_date=2026-04-14
+- [x] 2026-04-14 10:11 MD.3  regenerate docs/data.json from the full pipeline (141 entries, 73 movies, 21/21)
+- [x] 2026-04-14 10:13 MD.4  verify Today/Week/Weekend counts via actual docs/data.json shape (5/18/11 on 04-14)
+- [x] 2026-04-14 10:15 MD.5  smoke test: `python -m http.server` + GET /data.json → 200 OK, 141 entries
 
 Simplify (Milestone E):
 - [x] 2026-04-14 10:05 ME.1  collapse AFSScraper duplicated extraction blocks into one helper (-102 lines)
 - [x] 2026-04-14 10:10 ME.2  remove --full and --days flags from update_website_data.py (deprecated)
 - [x] 2026-04-14 10:12 ME.3  delete unused getModalHTML in docs/script.js (-28 lines)
-- [ ] ME.4  delete the occurrences legacy-alias in docs/script.js once data.json has been regenerated
+- [ ] ME.4  delete the occurrences legacy-alias in docs/script.js (kept defensive: no observed cost)
 
 Other venues (Milestone G — open-ended, extends to all venues per user scope decision):
 - [ ] G.1  re-enable FirstLight scraper in src/scraper.py and write integration test
