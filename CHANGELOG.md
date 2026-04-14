@@ -1,6 +1,75 @@
 # CHANGELOG
 
-## [Unreleased] — 2026-04-13
+## [Calendar fix] — 2026-04-14 — in progress
+
+### Termination criterion
+
+`scripts/verify_calendar.py --live` prints `PASS` twice in a row. Offline
+mode runs against saved HTML fixtures; live mode hits austinfilm.org and
+hyperrealfilm.club.
+
+### Subtask queue (checkbox-driven — the overnight loop picks the next unchecked line)
+
+Finished (this branch):
+- [x] 2026-04-13 22:30 M0   type='movie' in AFS scraper + loosen processor filter
+- [x] 2026-04-13 22:35 MA.1 scripts/oracle_afs.py parses april-may-2026-schedule-afs.md
+- [x] 2026-04-13 22:36 MA.2 scripts/oracle_hyperreal.py parses april-2026-hyperreal.md
+- [x] 2026-04-13 22:37 MA.3 tests/test_oracle_parsers.py (13 assertions, all pass)
+- [x] 2026-04-13 22:40 MA.4 occurrences → screenings (backend + config)
+- [x] 2026-04-13 22:41 MA.5 frontend reads release_year / runtime_minutes / one_liner_summary
+- [x] 2026-04-13 22:42 MA.6 ?debug_date=YYYY-MM-DD shim in docs/script.js
+- [x] 2026-04-13 22:43 MA.7 pytest.ini registers integration/live/unit markers
+- [x] 2026-04-13 22:47 MB.1 save AFS calendar snapshot + 7 movie pages (April 2026)
+- [x] 2026-04-13 22:48 MB.2 tests/test_afs_integration.py (6 assertions, all pass)
+- [x] 2026-04-13 22:50 MC.1 save Hyperreal calendar snapshot + 4 movie pages
+- [x] 2026-04-13 22:52 MC.2 tests/test_hyperreal_integration.py (5 assertions, all pass)
+- [x] 2026-04-13 22:53 MC.3 fix: Hyperreal _build_event_from_config unconditionally sets type='movie'
+- [x] 2026-04-13 22:58 MD.1 scripts/verify_calendar.py (11/11 checks pass offline)
+
+Overnight queue (unchecked — loop will pick them in order):
+
+AFS fixture expansion (raises oracle coverage):
+- [ ] MB.3  save screening pages for every /screening/ link in calendar_snapshot_2026_04.html
+- [ ] MB.4  test_afs_integration.py raises coverage floor to ≥95%
+- [ ] MB.5  add tests for all films in oracle (director/release_year/country/runtime_minutes populated)
+
+Hyperreal fixture expansion:
+- [ ] MC.4  save screening pages for every /events/ link in Hyperreal calendar (16 films + 6 lives)
+- [ ] MC.5  test_hyperreal_integration.py covers every entry in the oracle
+- [ ] MC.6  clean DeprecationWarning: BeautifulSoup text=... → string=...
+
+End-to-end pipeline:
+- [ ] MD.2  verify_calendar.py --live passes (hits real sites — may need retry logic)
+- [ ] MD.3  regenerate docs/data.json from the full pipeline (requires LLM keys — may BLOCK)
+- [ ] MD.4  verify Today/Week/Weekend counts via actual docs/data.json shape
+- [ ] MD.5  smoke test: `python -m http.server` + open http://localhost:8765/?debug_date=2026-04-14
+
+Simplify (Milestone E):
+- [ ] ME.1  collapse AFSScraper duplicated extraction blocks (lines 68-166 ≈ 180-285) into one helper
+- [ ] ME.2  remove --full and --days flags from update_website_data.py (deprecated)
+- [ ] ME.3  drop one of docs/script.js duplicate modal implementations (getNewModalHTML or getModalHTML)
+- [ ] ME.4  delete the occurrences legacy-alias in docs/script.js once data.json has been regenerated
+
+Other venues (Milestone G — open-ended, extends to all venues per user scope decision):
+- [ ] G.1  re-enable FirstLight scraper in src/scraper.py and write integration test
+- [ ] G.2  re-enable AlienatedMajesty scraper and write integration test (book-club schema)
+- [ ] G.3  re-enable Paramount scraper (check pyppeteer threading issue)
+- [ ] G.4  baseline Austin Symphony events from docs/classical_data.json; add sanity test
+- [ ] G.5  baseline Austin Opera events; add sanity test
+- [ ] G.6  baseline Austin Chamber Music events; add sanity test
+- [ ] G.7  baseline Early Music events; add sanity test
+- [ ] G.8  baseline La Follia events; add sanity test
+- [ ] G.9  baseline Ballet Austin events; add sanity test
+
+### Conventions
+- Blockers: write `BLOCKED: <subtask-id>: <why>` as a line below the checklist. The loop skips these and moves on.
+- Commits: author as `Hadrien-Cornier <hadrien.cornier@gmail.com>` via `git -c user.name=... -c user.email=...`.
+- Push every commit to `origin/fix/calendar-oracle` immediately (never `main`).
+- Green gate: `pytest -q` AND `python scripts/verify_calendar.py --offline` must both pass before marking a subtask done.
+
+---
+
+## [Previous] — 2026-04-13
 
 ### Final Status: ✅ COMPLETE
 
