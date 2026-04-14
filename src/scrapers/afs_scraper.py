@@ -45,12 +45,13 @@ class AFSScraper(BaseScraper):
         ]
 
     def scrape_events(self) -> List[Dict]:
-        """
-        Scrape AFS screenings from the website using BeautifulSoup only.
-        Returns empty list if scraping fails.
+        """Scrape AFS screenings from the website using BeautifulSoup.
+
+        Emits structured logs on failure instead of silently returning [].
         """
         try:
             all_events = []
+            print(f"Scraping {self.venue_name}...")
             urls_to_try = [
                 f"{self.base_url}/screenings/",
                 f"{self.base_url}/calendar/",
@@ -145,16 +146,16 @@ class AFSScraper(BaseScraper):
                                         time_str = btn.get_text(strip=True)
                                         if not time_str:
                                             continue
-                                        # Build event in snake_case format
                                         event = {
                                             "title": title,
+                                            "type": "movie",
                                             "director": director,
-                                            "release_year": year,  # Changed from "year" to "release_year" per template
+                                            "release_year": year,
                                             "country": country,
                                             "language": language,
-                                            "runtime_minutes": self._parse_duration_to_minutes(duration),  # Convert to minutes
-                                            "dates": [date_fmt],  # Use dates array
-                                            "times": [time_str],  # Use times array
+                                            "runtime_minutes": self._parse_duration_to_minutes(duration),
+                                            "dates": [date_fmt],
+                                            "times": [time_str],
                                             "venue": "AFS Cinema",
                                             "description": description,
                                             "url": url,
@@ -266,16 +267,16 @@ class AFSScraper(BaseScraper):
                                                 time_str = btn.get_text(strip=True)
                                                 if not time_str:
                                                     continue
-                                                # Build event in snake_case format
                                                 event = {
                                                     "title": title,
+                                                    "type": "movie",
                                                     "director": director,
-                                                    "release_year": year,  # Changed from "year" to "release_year" per template
+                                                    "release_year": year,
                                                     "country": country,
                                                     "language": language,
-                                                    "runtime_minutes": self._parse_duration_to_minutes(duration),  # Convert to minutes
-                                                    "dates": [date_fmt],  # Use dates array
-                                                    "times": [time_str],  # Use times array
+                                                    "runtime_minutes": self._parse_duration_to_minutes(duration),
+                                                    "dates": [date_fmt],
+                                                    "times": [time_str],
                                                     "venue": "AFS Cinema",
                                                     "description": description,
                                                     "url": movie_url,
@@ -284,13 +285,17 @@ class AFSScraper(BaseScraper):
                                     if events:
                                         all_events.extend(events)
                             except Exception as e:
+                                print(f"  AFS: failed on {movie_url}: {e!r}")
                                 continue
                         if all_events:
                             break
                 except Exception as e:
+                    print(f"  AFS: failed on listing {url}: {e!r}")
                     continue
+            print(f"  AFS: scraped {len(all_events)} events")
             return all_events
         except Exception as e:
+            print(f"AFS scrape_events fatal error: {e!r}")
             return []
     
     def _parse_duration_to_minutes(self, duration_str):

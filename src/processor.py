@@ -70,15 +70,24 @@ class EventProcessor:
         len(events)
         processed_count = 0
 
+        MOVIE_VENUES = {
+            "afs", "hyperreal", "paramount",
+            "austin film society", "austin movie society",
+            "hyperreal movie club", "hyperreal film club",
+        }
         for i, event in enumerate(events, 1):
             try:
-                # Process screenings, movies, concerts, and book clubs
-                if event.get("type") not in [
-                    "screening",
-                    "movie",
-                    "concert",
-                    "book_club",
-                ]:
+                etype = event.get("type")
+                if not etype:
+                    venue = (event.get("venue") or "").strip().lower()
+                    if venue in MOVIE_VENUES:
+                        etype = "movie"
+                        event["type"] = "movie"
+                if etype not in ("screening", "movie", "concert", "book_club"):
+                    if etype:
+                        print(f"  Skipping unsupported type={etype} for '{event.get('title','?')}'")
+                    else:
+                        print(f"  Skipping untyped event '{event.get('title','?')}' (venue={event.get('venue','?')})")
                     continue
 
                 processed_count += 1

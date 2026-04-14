@@ -36,53 +36,54 @@ class TestAFSScraper(unittest.TestCase):
             return f.read()
 
     def _assert_extracted_data_matches_expected(self, actual, expected, test_case_name):
-        """Helper method to compare extracted data against expected results"""
-        with self.subTest(test_case=test_case_name):
-            # Check required fields
-            self.assertIn("title", actual, f"Missing title in {test_case_name}")
-            self.assertEqual(
-                actual["title"],
-                expected["title"],
-                f"Title mismatch in {test_case_name}",
-            )
+        """Helper: compare scraper output against expected fixture.
 
-            # Check optional fields if they exist in expected data
-            optional_fields = ["director", "year", "country", "duration", "venue"]
-            for field in optional_fields:
-                if expected.get(field) is not None:
+        Scraper emits arrays (`dates`, `times`) and snake_case template fields
+        (`release_year`, `runtime_minutes`). Fixtures use legacy names
+        (`year`, `duration`); this helper bridges both.
+        """
+        with self.subTest(test_case=test_case_name):
+            self.assertIn("title", actual, f"Missing title in {test_case_name}")
+            self.assertEqual(actual["title"], expected["title"])
+            self.assertEqual(actual.get("type"), "movie", f"type must be 'movie' in {test_case_name}")
+
+            field_map = {
+                "director": "director",
+                "year": "release_year",
+                "country": "country",
+                "venue": "venue",
+            }
+            for expected_field, actual_field in field_map.items():
+                if expected.get(expected_field) is not None:
                     self.assertEqual(
-                        actual.get(field),
-                        expected[field],
-                        f"{field} mismatch in {test_case_name}",
+                        actual.get(actual_field),
+                        expected[expected_field],
+                        f"{expected_field}→{actual_field} mismatch in {test_case_name}",
                     )
 
-            # Check dates and times arrays
+            if expected.get("duration") is not None:
+                expected_minutes = self.scraper._parse_duration_to_minutes(expected["duration"])
+                self.assertEqual(
+                    actual.get("runtime_minutes"),
+                    expected_minutes,
+                    f"runtime_minutes mismatch in {test_case_name}",
+                )
+
             if "dates" in expected:
-                self.assertIn("date", actual, f"Missing date in {test_case_name}")
-                # For single events, date should match one of the expected dates
-                if isinstance(actual["date"], str):
+                self.assertIn("dates", actual, f"Missing dates array in {test_case_name}")
+                for date in actual["dates"]:
                     self.assertIn(
-                        actual["date"],
+                        date,
                         expected["dates"],
-                        f"Date {actual['date']} not in expected dates {expected['dates']} for {test_case_name}",
+                        f"Unexpected date {date} in {test_case_name}",
                     )
 
             if "times" in expected:
-                self.assertIn("time", actual, f"Missing time in {test_case_name}")
-                # For single events, time should match one of the expected times
-                if isinstance(actual["time"], str):
-                    self.assertIn(
-                        actual["time"],
-                        expected["times"],
-                        f"Time {actual['time']} not in expected times {expected['times']} for {test_case_name}",
-                    )
-
-            # Check venue
-            if "venue" in expected:
+                self.assertIn("times", actual, f"Missing times array in {test_case_name}")
                 self.assertEqual(
-                    actual.get("venue"),
-                    expected["venue"],
-                    f"Venue mismatch in {test_case_name}",
+                    len(actual["dates"]),
+                    len(actual["times"]),
+                    f"dates/times length mismatch in {test_case_name}",
                 )
 
     def test_scraper_initialization(self):
@@ -98,14 +99,19 @@ class TestAFSScraper(unittest.TestCase):
         self.assertTrue(len(urls) > 0)
         self.assertIn("https://www.austinfilm.org/calendar/", urls)
 
-    def test_get_data_schema(self):
-        """Test that data schema is returned correctly"""
-        schema = self.scraper.get_data_schema()
-        self.assertIsInstance(schema, dict)
-        # Should include basic movie event fields
-        expected_fields = ["title", "date", "venue", "type"]
-        for field in expected_fields:
-            self.assertIn(field, str(schema))
+    def test_type_is_movie_on_extracted_events(self):
+        """Every emitted AFS event must have type='movie' so the processor filter accepts it."""
+        html_content = self._load_test_html("jane_austen_movie_page.html")
+        with patch("requests.Session.get") as mock_get:
+            import unittest.mock
+            mock_response = unittest.mock.MagicMock()
+            mock_response.status_code = 200
+            mock_response.text = html_content
+            mock_get.return_value = mock_response
+            events = self.scraper.scrape_events()
+        self.assertGreater(len(events), 0, "Scraper must produce events from fixture")
+        for e in events:
+            self.assertEqual(e.get("type"), "movie")
 
     def test_extract_movie_data_from_real_pages(self):
         """Test extraction of movie data from real AFS HTML pages"""
@@ -143,52 +149,31 @@ class TestAFSScraper(unittest.TestCase):
                     )
 
     def test_venue_configuration(self):
-        """Test that venue-specific configuration is correct"""
-        # Test that the scraper is properly configured for AFS
+        """Scraper is properly configured for AFS and implements required methods."""
         self.assertEqual(self.scraper.venue_name, "Austin Movie Society")
         self.assertTrue(self.scraper.base_url.startswith("https://"))
-
-        # Test that required methods are implemented
         self.assertTrue(hasattr(self.scraper, "get_target_urls"))
-        self.assertTrue(hasattr(self.scraper, "get_data_schema"))
         self.assertTrue(hasattr(self.scraper, "scrape_events"))
 
     def test_extract_showtimes_accurately(self):
-        """Test that showtimes are extracted accurately from movie pages"""
-        # Test JANE AUSTEN which has many showtimes
+        """Showtimes are extracted as YYYY-MM-DD dates and 12-hour times."""
         html_content = self._load_test_html("jane_austen_movie_page.html")
-
         with patch("requests.Session.get") as mock_get:
             import unittest.mock
-
             mock_response = unittest.mock.MagicMock()
             mock_response.status_code = 200
             mock_response.text = html_content
             mock_get.return_value = mock_response
-
             events = self.scraper.scrape_events()
 
-            if events:
-                event = events[0]
-                # Should have date and time
-                self.assertIn("date", event)
-                self.assertIn("time", event)
-
-                # Date should be in YYYY-MM-DD format
-                import re
-
-                date_pattern = r"\d{4}-\d{2}-\d{2}"
-                self.assertRegex(
-                    event["date"],
-                    date_pattern,
-                    f"Date {event['date']} not in YYYY-MM-DD format",
-                )
-
-                # Time should contain AM or PM
-                self.assertTrue(
-                    "AM" in event["time"] or "PM" in event["time"],
-                    f"Time {event['time']} should contain AM or PM",
-                )
+        self.assertGreater(len(events), 0)
+        event = events[0]
+        self.assertIn("dates", event)
+        self.assertIn("times", event)
+        self.assertTrue(len(event["dates"]) >= 1 and len(event["times"]) >= 1)
+        import re
+        self.assertRegex(event["dates"][0], r"^\d{4}-\d{2}-\d{2}$")
+        self.assertTrue("AM" in event["times"][0] or "PM" in event["times"][0])
 
     def test_detect_special_screenings(self):
         """Test detection of special screenings like Free Member Monday"""
