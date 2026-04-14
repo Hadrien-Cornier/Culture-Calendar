@@ -1,6 +1,8 @@
 .env
 .cursor
 venv/
+.venv/
+.overnight.log
 *.pyc
 docs/calendars/
 cache/
