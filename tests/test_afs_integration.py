@@ -173,3 +173,34 @@ class TestAFSIntegration:
         assert any(t in expected_patterns for t in apr19_times), (
             f"PALESTINE Apr 19 times {apr19_times} don't include 12:30 PM / 6:15 PM"
         )
+
+    def test_every_oracle_film_has_full_metadata(self, scraped_events, oracle_films):
+        """MB.5: for every film the oracle knows about, scraper output must
+        populate director/release_year/country/runtime_minutes when the film
+        actually reached the scraper.
+
+        Some oracle films may not appear in scraped_events (e.g., removed from
+        the calendar, or not yet saved as a fixture) — those are skipped.
+        Each appearing film must have ≥3 of the 4 metadata fields (some
+        repertory/rep-cinema pages intentionally omit e.g. country).
+        """
+        import unicodedata
+
+        def _norm(s: str) -> str:
+            s = unicodedata.normalize("NFKC", s or "")
+            return s.replace("\u2019", "'").replace("\u2018", "'").strip().casefold()
+
+        oracle_titles = {_norm(s.title) for s in oracle_films}
+        checked = 0
+        metadata_fields = ("director", "release_year", "country", "runtime_minutes")
+        for e in scraped_events:
+            title_norm = _norm(e.get("title", ""))
+            if title_norm not in oracle_titles:
+                continue
+            populated = sum(1 for f in metadata_fields if e.get(f))
+            assert populated >= 3, (
+                f"{e.get('title')!r}: only {populated}/4 of {metadata_fields} populated: "
+                f"{ {f: e.get(f) for f in metadata_fields} }"
+            )
+            checked += 1
+        assert checked >= 20, f"Only {checked} oracle films in scraper output (expected ≥20)"
