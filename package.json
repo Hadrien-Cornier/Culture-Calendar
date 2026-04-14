@@ -10,8 +10,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "analyze": "gitnexus analyze",
-    "wiki": "gitnexus wiki",
-    "gitnexus:status": "gitnexus status"
+    "wiki": "gitnexus wiki --provider openai --base-url https://api.openai.com/v1 --model gpt-4o-mini",
+    "gitnexus:status": "gitnexus status",
+    "postinstall": "node scripts/patch_gitnexus_template.js"
   },
   "keywords": [],
   "author": "",
