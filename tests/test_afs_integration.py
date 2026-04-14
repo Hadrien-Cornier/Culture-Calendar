@@ -28,17 +28,18 @@ from src.scrapers.afs_scraper import AFSScraper  # noqa: E402
 TEST_DATA = ROOT / "tests" / "AFS_test_data"
 ORACLE_FIXTURE = ROOT / "tests" / "april-may-2026-schedule-afs.md"
 
-# Map slug → (fixture filename, oracle title).
-# Fixture titles must match the oracle markdown exactly (post-normalization).
-SAVED_FIXTURES = {
-    "miroirs-no-3": ("screening_miroirs_no_3_2026.html", "MIROIRS NO. 3"),
-    "palestine-36": ("screening_palestine_36_2026.html", "PALESTINE '36"),
-    "a-serious-man": ("screening_a_serious_man_2026.html", "A SERIOUS MAN"),
-    "8-1-2": ("screening_8_1_2_2026.html", "8 1/2"),
-    "amadeus": ("screening_amadeus_2026.html", "AMADEUS"),
-    "werckmeister-harmonies": ("screening_werckmeister_harmonies_2026.html", "WERCKMEISTER HARMONIES"),
-    "chime-serpents-path": ("screening_chime_serpents_path_2026.html", "CHIME + SERPENT'S PATH"),
-}
+
+def _discover_saved_fixtures() -> dict[str, str]:
+    """Map slug → filename for every screening_*_2026.html in AFS_test_data/."""
+    out: dict[str, str] = {}
+    for path in TEST_DATA.glob("screening_*_2026.html"):
+        # screening_<slug_with_underscores>_2026.html → slug (hyphens)
+        slug = path.stem.removeprefix("screening_").removesuffix("_2026").replace("_", "-")
+        out[slug] = path.name
+    return out
+
+
+SAVED_FIXTURES_FILES = _discover_saved_fixtures()
 
 
 def _make_response(html: str, status: int = 200) -> MagicMock:
@@ -60,7 +61,7 @@ def _mock_session_get(*args: Any, **kwargs: Any) -> MagicMock:
         return _make_response("<html></html>", 200)
     if "/calendar/" in url or "/screenings/" in url:
         return _make_response(_load_fixture("calendar_snapshot_2026_04.html"))
-    for slug, (filename, _title) in SAVED_FIXTURES.items():
+    for slug, filename in SAVED_FIXTURES_FILES.items():
         if f"/screening/{slug}/" in url or url.rstrip("/").endswith(f"/screening/{slug}"):
             return _make_response(_load_fixture(filename))
     return _make_response("", 404)
@@ -113,12 +114,15 @@ class TestAFSIntegration:
         assert have_runtime / n >= 0.6, f"Only {have_runtime}/{n} have runtime_minutes"
 
     def test_oracle_coverage_for_saved_fixtures(self, scraped_events, oracle_films):
-        """Every (title, date, time) from the oracle that matches a saved fixture
-        must appear in the scraper output. This is the MB termination criterion.
+        """Every (title, date, time) in the oracle must appear in the scraper output.
 
         Titles are normalized: curly quotes → straight, NFKC, case-folded. AFS
         renders "PALESTINE ’36" (curly) while the oracle markdown uses the
         straight apostrophe; both refer to the same film.
+
+        With all 46 AFS /screening/ fixtures saved, coverage should be ~100%
+        for everything in the oracle's date range that still resolves to a
+        live /screening/ page.
         """
         import unicodedata
 
@@ -128,13 +132,13 @@ class TestAFSIntegration:
             title = title.replace("\u201c", '"').replace("\u201d", '"')
             return title.strip().casefold()
 
-        expected_titles_norm = {_norm(title) for (_f, title) in SAVED_FIXTURES.values()}
+        scraped_titles_norm = {_norm(e.get("title") or "") for e in scraped_events}
         expected_triples = {
             (_norm(s.title), s.date, s.time_24h)
             for s in oracle_films
-            if _norm(s.title) in expected_titles_norm
+            if _norm(s.title) in scraped_titles_norm
         }
-        assert expected_triples, "Oracle returned nothing for saved fixture titles"
+        assert expected_triples, "No oracle titles match any scraper output"
 
         from scripts.oracle_afs import _to_24h
         scraped_triples: set[tuple[str, str, str]] = set()
@@ -149,8 +153,8 @@ class TestAFSIntegration:
 
         missing = expected_triples - scraped_triples
         coverage = 1.0 - len(missing) / len(expected_triples)
-        assert coverage >= 0.90, (
-            f"Oracle coverage {coverage:.0%} below 90% floor. "
+        assert coverage >= 0.95, (
+            f"Oracle coverage {coverage:.0%} below 95% floor. "
             f"Missing {len(missing)} of {len(expected_triples)}: {sorted(missing)[:5]}..."
         )
 

@@ -46,15 +46,18 @@ DEBUG_TODAY = date(2026, 4, 14)
 
 
 AFS_FIXTURE_DIR = ROOT / "tests" / "AFS_test_data"
-AFS_SAVED_SLUGS = {
-    "miroirs-no-3": "screening_miroirs_no_3_2026.html",
-    "palestine-36": "screening_palestine_36_2026.html",
-    "a-serious-man": "screening_a_serious_man_2026.html",
-    "8-1-2": "screening_8_1_2_2026.html",
-    "amadeus": "screening_amadeus_2026.html",
-    "werckmeister-harmonies": "screening_werckmeister_harmonies_2026.html",
-    "chime-serpents-path": "screening_chime_serpents_path_2026.html",
-}
+
+
+def _discover_afs_fixtures() -> dict[str, str]:
+    """Auto-discover every screening_*_2026.html → slug mapping."""
+    out: dict[str, str] = {}
+    for path in AFS_FIXTURE_DIR.glob("screening_*_2026.html"):
+        slug = path.stem.removeprefix("screening_").removesuffix("_2026").replace("_", "-")
+        out[slug] = path.name
+    return out
+
+
+AFS_SAVED_SLUGS = _discover_afs_fixtures()
 
 HYPERREAL_FIXTURE_DIR = ROOT / "tests" / "Hyperreal_test_data"
 HYPERREAL_SAVED_PATHS = {
@@ -281,6 +284,68 @@ def check_site_views(all_events: list[dict]) -> list[Check]:
     return checks
 
 
+def check_published_data_json() -> list[Check]:
+    """Check the shipped docs/data.json for freshness + AI enrichment.
+
+    This is the gate that proves update_website_data.py has been run recently
+    with working LLM keys: data.json must contain AFS movies with non-null
+    rating and a non-empty one_liner_summary.
+    """
+    import json
+    checks: list[Check] = []
+    path = ROOT / "docs" / "data.json"
+    if not path.exists():
+        return [_fail("data.json: exists", f"{path} is missing")]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e:
+        return [_fail("data.json: parseable", f"JSON error: {e!r}")]
+    if not isinstance(data, list):
+        return [_fail("data.json: array", f"expected list, got {type(data).__name__}")]
+    checks.append(_ok("data.json: exists", f"{len(data)} total entries"))
+
+    afs = [e for e in data if (e.get("venue") or "").upper() == "AFS"]
+    hyperreal = [e for e in data if (e.get("venue") or "").lower() in {"hyperreal", "hyperreal film club", "hyperreal movie club"}]
+    movies = [e for e in data if (e.get("type") or "").lower() == "movie"]
+
+    if not afs:
+        checks.append(_fail("data.json: AFS entries", "no entries with venue=AFS"))
+    else:
+        checks.append(_ok("data.json: AFS entries", f"{len(afs)} AFS entries"))
+
+    if not hyperreal:
+        checks.append(_fail("data.json: Hyperreal entries", "no Hyperreal entries"))
+    else:
+        checks.append(_ok("data.json: Hyperreal entries", f"{len(hyperreal)} Hyperreal entries"))
+
+    if not movies:
+        checks.append(_fail("data.json: type=movie", "no movie-type entries (data.json is stale / concert-only)"))
+    else:
+        checks.append(_ok("data.json: type=movie", f"{len(movies)} movie entries"))
+
+    # AI enrichment gate: for AFS movies, rating must be >= 0 (not the -1 "unrated" default)
+    # and one_liner_summary must be non-empty. These prove the Perplexity + Anthropic LLM
+    # paths actually ran.
+    if afs:
+        afs_with_rating = [e for e in afs if isinstance(e.get("rating"), (int, float)) and e["rating"] >= 0]
+        afs_with_summary = [e for e in afs if (e.get("one_liner_summary") or "").strip()]
+        afs_with_screenings = [e for e in afs if e.get("screenings") and isinstance(e["screenings"], list)]
+        if len(afs_with_rating) / len(afs) < 0.8:
+            checks.append(_fail("data.json: AFS ratings", f"only {len(afs_with_rating)}/{len(afs)} AFS entries have rating≥0"))
+        else:
+            checks.append(_ok("data.json: AFS ratings", f"{len(afs_with_rating)}/{len(afs)} entries have AI rating"))
+        if len(afs_with_summary) / len(afs) < 0.8:
+            checks.append(_fail("data.json: AFS one-liners", f"only {len(afs_with_summary)}/{len(afs)} AFS entries have one_liner_summary"))
+        else:
+            checks.append(_ok("data.json: AFS one-liners", f"{len(afs_with_summary)}/{len(afs)} entries have one-liner"))
+        if len(afs_with_screenings) / len(afs) < 0.9:
+            checks.append(_fail("data.json: AFS screenings[]", f"only {len(afs_with_screenings)}/{len(afs)} AFS entries have screenings array"))
+        else:
+            checks.append(_ok("data.json: AFS screenings[]", f"{len(afs_with_screenings)}/{len(afs)} entries have screenings[]"))
+
+    return checks
+
+
 def print_report(checks: list[Check]) -> bool:
     total_ok = sum(1 for c in checks if c.passed)
     total = len(checks)
@@ -323,6 +388,7 @@ def main() -> int:
 
     combined = afs_events + hr_events
     checks.extend(check_site_views(combined))
+    checks.extend(check_published_data_json())
 
     ok = print_report(checks)
     return 0 if ok else 1
