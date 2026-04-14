@@ -295,7 +295,7 @@ class MultiVenueScraper:
         if venue == "Hyperreal":
             return self.hyperreal_scraper.get_event_details(event["url"])
         elif venue == "Symphony":
-            return self.symphony_scraper.get_event_details(event)
+            return self.austin_symphony_scraper.get_event_details(event)
         elif venue == "EarlyMusic":
             return self.early_music_scraper.get_event_details(event)
         elif venue == "LaFollia":
