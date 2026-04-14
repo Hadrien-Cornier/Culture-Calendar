@@ -1,3 +1,32 @@
+// --- Debug date shim ------------------------------------------------------
+// When the URL has ?debug_date=YYYY-MM-DD, every `new Date()` with no args
+// returns that fixed date (9 AM local). Used by scripts/verify_calendar.py
+// and by humans who want to preview Today/Week views for a specific date.
+(function applyDebugDateShim() {
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const debug = params.get('debug_date');
+        if (!debug || !/^\d{4}-\d{2}-\d{2}$/.test(debug)) return;
+        const fixed = new Date(debug + 'T09:00:00');
+        if (isNaN(fixed.getTime())) return;
+        const OrigDate = Date;
+        const FakeDate = function (...args) {
+            if (!(this instanceof FakeDate)) {
+                return args.length === 0 ? new OrigDate(fixed) : new OrigDate(...args);
+            }
+            return args.length === 0 ? new OrigDate(fixed) : new OrigDate(...args);
+        };
+        FakeDate.prototype = OrigDate.prototype;
+        FakeDate.now = () => fixed.getTime();
+        FakeDate.parse = OrigDate.parse.bind(OrigDate);
+        FakeDate.UTC = OrigDate.UTC.bind(OrigDate);
+        window.Date = FakeDate;
+        console.log(`[debug_date] fake today = ${debug}`);
+    } catch (e) {
+        console.warn('[debug_date] shim failed:', e);
+    }
+})();
+
 // Global variables
 let eventsData = [];
 let filteredEvents = [];
@@ -103,11 +132,11 @@ function updateNavigationCounts() {
             if (selectedDirector && event.director !== selectedDirector) return false;
             
             if (searchTerm) {
-                const fields = [event.title, event.director, event.oneLinerSummary, event.description];
+                const fields = [event.title, event.director, event.one_liner_summary || event.oneLinerSummary, event.description];
                 const haystack = fields.filter(Boolean).join(' ').toLowerCase();
                 if (!haystack.includes(searchTerm)) return false;
             }
-            
+
             // Check date range
             if (!event.screenings || !Array.isArray(event.screenings)) return false;
             return event.screenings.some(screening => {
@@ -150,7 +179,7 @@ function updateNavigationCounts() {
         if (showSpecialEventsOnly && !event.isSpecialScreening) return false;
         if (selectedDirector && event.director !== selectedDirector) return false;
         if (searchTerm) {
-            const fields = [event.title, event.director, event.oneLinerSummary, event.description];
+            const fields = [event.title, event.director, event.one_liner_summary || event.oneLinerSummary, event.description];
             const haystack = fields.filter(Boolean).join(' ').toLowerCase();
             if (!haystack.includes(searchTerm)) return false;
         }
@@ -905,14 +934,21 @@ function createEventCard(event) {
         compactDateTime = `${compactDate} · ${time} · ${getVenueName(event.venue)}`;
     }
     
-    // Get oneLinerSummary or truncated description
-    const summary = event.oneLinerSummary || truncateText(stripHtmlTags(event.description || ''), 150);
+    // Get one_liner_summary (canonical template field) or fall back to the legacy camelCase alias,
+    // then to a truncated description if neither is present.
+    const summary = event.one_liner_summary || event.oneLinerSummary
+        || truncateText(stripHtmlTags(event.description || ''), 150);
     
-    // Build metadata string
+    // Build metadata string — prefer template-normalized fields (release_year, runtime_minutes)
+    // and fall back to legacy (year, duration) if a stale data.json is served.
     const metaParts = [];
     if (event.director) metaParts.push(event.director);
-    if (event.year) metaParts.push(event.year);
-    if (event.duration) metaParts.push(event.duration);
+    const eventYear = event.release_year ?? event.year;
+    if (eventYear) metaParts.push(eventYear);
+    const runtime = event.runtime_minutes
+        ? `${event.runtime_minutes} min`
+        : event.duration;
+    if (runtime) metaParts.push(runtime);
     const metadata = metaParts.join(' | ');
     
     // Always allow review access - every event is clickable
@@ -1198,7 +1234,7 @@ function getFilteredEventsForDownload(minRating) {
             const fields = [
                 event.title,
                 event.director,
-                event.oneLinerSummary,
+                event.one_liner_summary || event.oneLinerSummary,
                 event.description,
             ];
             const haystack = fields
@@ -1637,9 +1673,10 @@ class ReviewModal {
         
         const description = eventData.description || eventData.ai_summary || 'No review available for this event.';
         
-        // Extract time and place information from occurrences or screenings
+        // Prefer `screenings` (canonical). `occurrences` kept as a legacy fallback for any
+        // stale data.json snapshots that predate the rename.
         let timeAndPlaceHTML = '';
-        const eventTimes = eventData.occurrences || eventData.screenings || [];
+        const eventTimes = eventData.screenings || eventData.occurrences || [];
         
         if (eventTimes.length > 0) {
             // Format the first occurrence/screening for display

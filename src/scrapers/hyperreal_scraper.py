@@ -355,9 +355,9 @@ class HyperrealScraper(BaseScraper):
         if self.template_fields:
             # Map raw data to config fields
             for field in self.template_fields:
-                if field == "occurrences":
-                    # Generate occurrences from dates/times
-                    event["occurrences"] = self._generate_occurrences(
+                if field == "screenings":
+                    # Generate screenings from dates/times
+                    event["screenings"] = self._generate_screenings(
                         raw_data.get("dates", []), raw_data.get("times", []), event_url
                     )
                 elif field == "venue":
@@ -401,17 +401,17 @@ class HyperrealScraper(BaseScraper):
 
         return event
 
-    def _generate_occurrences(
+    def _generate_screenings(
         self, dates: List[str], times: List[str], url: str
     ) -> List[Dict]:
-        """Generate occurrences array from dates and times"""
-        occurrences = []
+        """Generate screenings array from dates and times"""
+        screenings = []
 
         # Ensure we have at least empty lists
         dates = dates or []
         times = times or ["TBD"]
 
-        # Generate occurrences for each date
+        # Generate screenings for each date
         for i, date in enumerate(dates):
             # Use corresponding time or default to first time or 'TBD'
             time = times[i] if i < len(times) else (times[0] if times else "TBD")
@@ -422,9 +422,9 @@ class HyperrealScraper(BaseScraper):
                 "url": url,
                 "venue": self.venue_name,
             }
-            occurrences.append(occurrence)
+            screenings.append(occurrence)
 
-        return occurrences
+        return screenings
 
     def extract_event_with_beautifulsoup(
         self, html: str, event_url: str
