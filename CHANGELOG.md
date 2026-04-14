@@ -56,7 +56,7 @@ Simplify (Milestone E):
 - [ ] ME.4  delete the occurrences legacy-alias in docs/script.js (kept defensive: no observed cost)
 
 Other venues (Milestone G — open-ended, extends to all venues per user scope decision):
-- [ ] G.1  re-enable FirstLight scraper in src/scraper.py and write integration test
+- [x] 2026-04-14 10:55 G.1  FirstLight re-enabled (3 site-drift fixes + type='book_club' + book retry chain). 4 events in data.json.
 - [ ] G.2  re-enable AlienatedMajesty scraper and write integration test (book-club schema)
 - [ ] G.3  re-enable Paramount scraper (check pyppeteer threading issue)
 - [ ] G.4  baseline Austin Symphony events from docs/classical_data.json; add sanity test
