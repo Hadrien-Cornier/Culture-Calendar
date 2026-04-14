@@ -10,36 +10,97 @@ from datetime import datetime
 from typing import Dict, Optional
 import requests
 
+import anthropic
 from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
+_EXTRACTION_SYSTEM_PROMPT = (
+    "You are a meticulous data-extraction assistant. Read the provided HTML or "
+    "text content and return JSON conforming to the requested schema. Output ONLY "
+    "the JSON — no preamble, no commentary, no markdown code fences."
+)
+
+_VALIDATION_SYSTEM_PROMPT = (
+    "You are a strict data-validation assistant. Compare the extracted data against "
+    "the source content and report whether it is valid. Output ONLY the requested "
+    "JSON shape — no preamble."
+)
+
+
 class LLMService:
-    """Centralized service for all LLM-powered data extraction and validation"""
+    """Centralized service for all LLM-powered data extraction and validation.
+
+    Provider preference: Anthropic Claude (Haiku 4.5) > OpenRouter Gemini Flash.
+    Only one is required; both work. Perplexity is used separately for
+    rating/review generation in EventProcessor.
+    """
 
     def __init__(self):
+        self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
         self.openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-        self.openai = (
-            OpenAI(base_url="https://openrouter.ai/api/v1", api_key=self.openrouter_api_key)
-            if self.openrouter_api_key
-            else None
-        )
-        
-        # Perplexity API configuration
         self.perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
         self.perplexity_base_url = "https://api.perplexity.ai"
 
-        # Cache for extraction and validation results
+        if self.anthropic_api_key:
+            self.provider = "anthropic"
+            self.anthropic = anthropic.Anthropic(api_key=self.anthropic_api_key)
+            self.openai = None
+            self.model = "claude-haiku-4-5-20251001"
+        elif self.openrouter_api_key:
+            self.provider = "openrouter"
+            self.anthropic = None
+            self.openai = OpenAI(
+                base_url="https://openrouter.ai/api/v1",
+                api_key=self.openrouter_api_key,
+            )
+            self.model = "google/gemini-2.5-flash"
+        else:
+            self.provider = None
+            self.anthropic = None
+            self.openai = None
+            self.model = None
+
         self.extraction_cache = {}
         self.validation_cache = {}
         self.classification_cache = {}
 
-        if not self.openai and not self.perplexity_api_key:
-            print(
-                "Warning: No LLM API keys found. LLM features will be disabled."
-            )
+        if self.provider is None and not self.perplexity_api_key:
+            print("Warning: No LLM API keys found. LLM features will be disabled.")
+
+    def _chat(self, system: str, user: str, max_tokens: int = 2000, temperature: float = 0.1) -> Optional[str]:
+        """Send a system+user prompt, return the assistant text or None on error."""
+        if self.provider == "anthropic":
+            try:
+                resp = self.anthropic.messages.create(
+                    model=self.model,
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                    system=system,
+                    messages=[{"role": "user", "content": user}],
+                )
+                return resp.content[0].text.strip()
+            except Exception as e:
+                print(f"  LLM (anthropic) error: {e}")
+                return None
+        if self.provider == "openrouter":
+            try:
+                resp = self.openai.chat.completions.create(
+                    model=self.model,
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                    messages=[
+                        {"role": "system", "content": system},
+                        {"role": "user", "content": user},
+                    ],
+                )
+                return resp.choices[0].message.content.strip()
+            except Exception as e:
+                print(f"  LLM (openrouter) error: {e}")
+                return None
+        return None
 
     def extract_data(
         self, content: str, schema: Dict, url: str = "", content_type: str = "html"
@@ -56,42 +117,26 @@ class LLMService:
         Returns:
             Dict with extracted data and success status
         """
-        if not self.openai:
+        if self.provider is None:
             return {"success": False, "error": "LLM service not available", "data": {}}
 
-        # Create cache key
         cache_key = self._create_cache_key(content, schema, "extract")
         if cache_key in self.extraction_cache:
             print("Using cached extraction result")
             return self.extraction_cache[cache_key]
 
-        try:
-            # Create extraction prompt based on schema
-            prompt = self._create_extraction_prompt(content, schema, content_type)
+        prompt = self._create_extraction_prompt(content, schema, content_type)
+        time.sleep(1)
 
-            # Add rate limiting
-            time.sleep(1)
-
-            response = self.openai.chat.completions.create(
-                model="google/gemini-2.5-flash",
-                max_tokens=2000,
-                temperature=0.1,
-                messages=[{"role": "system", "content": system_prompt},{"role": "user", "content": prompt}],
-            )
-
-            # Parse response
-            content_text = response.content[0].text.strip()
-            result = self._parse_extraction_response(content_text, schema)
-
-            # Cache the result
-            self.extraction_cache[cache_key] = result
-
-            return result
-
-        except Exception as e:
-            error_result = {"success": False, "error": str(e), "data": {}}
+        text = self._chat(_EXTRACTION_SYSTEM_PROMPT, prompt, max_tokens=2000, temperature=0.1)
+        if text is None:
+            error_result = {"success": False, "error": "LLM call returned no text", "data": {}}
             self.extraction_cache[cache_key] = error_result
             return error_result
+
+        result = self._parse_extraction_response(text, schema)
+        self.extraction_cache[cache_key] = result
+        return result
 
     def validate_extraction(
         self, extracted_data: Dict, schema: Dict, original_content: str = ""
@@ -107,52 +152,34 @@ class LLMService:
         Returns:
             Dict with validation result and reasoning
         """
-        if not self.openai:
+        if self.provider is None:
             return {
                 "is_valid": True,
                 "confidence": 0.5,
                 "reason": "LLM validation not available",
             }
 
-        # Create cache key
         cache_key = self._create_cache_key(str(extracted_data), schema, "validate")
         if cache_key in self.validation_cache:
             print("Using cached validation result")
             return self.validation_cache[cache_key]
 
-        try:
-            # Create validation prompt
-            prompt = self._create_validation_prompt(
-                extracted_data, schema, original_content
-            )
+        prompt = self._create_validation_prompt(extracted_data, schema, original_content)
+        time.sleep(1)
 
-            # Add rate limiting
-            time.sleep(1)
-
-            response = self.openai.chat.completions.create(
-                model="google/gemini-2.5-flash",
-                max_tokens=1000,
-                temperature=0.1,
-                messages=[{"role": "system", "content": system_prompt},{"role": "user", "content": prompt}],
-            )
-
-            # Parse validation response
-            content_text = response.content[0].text.strip()
-            result = self._parse_validation_response(content_text)
-
-            # Cache the result
-            self.validation_cache[cache_key] = result
-
-            return result
-
-        except Exception as e:
+        text = self._chat(_VALIDATION_SYSTEM_PROMPT, prompt, max_tokens=1000, temperature=0.1)
+        if text is None:
             error_result = {
                 "is_valid": False,
                 "confidence": 0.0,
-                "reason": f"Validation error: {str(e)}",
+                "reason": "Validation call returned no text",
             }
             self.validation_cache[cache_key] = error_result
             return error_result
+
+        result = self._parse_validation_response(text)
+        self.validation_cache[cache_key] = result
+        return result
 
     def get_similarity_score(self, event1: Dict, event2: Dict) -> float:
         """
@@ -165,7 +192,7 @@ class LLMService:
         Returns:
             Similarity score between 0.0 and 1.0
         """
-        if not self.openai:
+        if self.provider is None:
             return self._simple_similarity(event1, event2)
 
         try:
@@ -190,22 +217,14 @@ Reason: [brief explanation]
 """
 
             time.sleep(1)
+            content_text = self._chat(_VALIDATION_SYSTEM_PROMPT, prompt, max_tokens=500, temperature=0.1)
+            if content_text is None:
+                return self._simple_similarity(event1, event2)
 
-            response = self.openai.chat.completions.create(
-                model="google/gemini-2.5-flash",
-                max_tokens=500,
-                temperature=0.1,
-                messages=[{"role": "system", "content": system_prompt},{"role": "user", "content": prompt}],
-            )
-
-            content_text = response.content[0].text.strip()
-
-            # Extract similarity score
             similarity_match = re.search(r"SIMILARITY:\s*([0-9.]+)", content_text)
             if similarity_match:
                 return float(similarity_match.group(1))
-            else:
-                return self._simple_similarity(event1, event2)
+            return self._simple_similarity(event1, event2)
 
         except Exception as e:
             print(f"Error calculating similarity: {e}")
@@ -494,8 +513,8 @@ Focus on whether the data represents a plausible real-world event.
             Parsed response or None if error
         """
         if not self.perplexity_api_key:
-            # Fall back to Anthropic if available
-            if self.openai:
+            # Fall back to whichever LLM provider is configured.
+            if self.provider is not None:
                 return self._call_anthropic_json(prompt, temperature)
             return None
         
@@ -557,40 +576,21 @@ Focus on whether the data represents a plausible real-world event.
         return None
     
     def _call_anthropic_json(self, prompt: str, temperature: float = 0.2) -> Optional[Dict]:
+        """Call the configured LLM and parse the response as JSON.
+
+        Despite the historical method name, this routes through whichever
+        provider is configured (Anthropic Claude or OpenRouter Gemini). Returns
+        the parsed dict, or None if the call fails or the response isn't JSON.
         """
-        Internal method to call Anthropic and get JSON response
-        
-        Args:
-            prompt: User prompt
-            temperature: Temperature setting
-            
-        Returns:
-            Parsed JSON response or None
-        """
-        if not self.openai:
+        time.sleep(1)
+        text = self._chat(_EXTRACTION_SYSTEM_PROMPT, prompt, max_tokens=2000, temperature=temperature)
+        if not text:
             return None
-        
         try:
-            time.sleep(1)  # Rate limiting
-            
-            response = self.openai.chat.completions.create(
-                model="google/gemini-2.5-flash",
-                max_tokens=2000,
-                temperature=temperature,
-                messages=[{"role": "system", "content": system_prompt},{"role": "user", "content": prompt}]
-            )
-            
-            content_text = response.content[0].text.strip()
-            
-            # Parse JSON
-            json_start = content_text.find("{")
-            json_end = content_text.rfind("}") + 1
-            
+            json_start = text.find("{")
+            json_end = text.rfind("}") + 1
             if json_start != -1 and json_end > json_start:
-                json_str = content_text[json_start:json_end]
-                return json.loads(json_str)
-                
+                return json.loads(text[json_start:json_end])
         except Exception as e:
-            print(f"Anthropic API error: {e}")
-        
+            print(f"  LLM JSON parse error: {e}")
         return None
