@@ -57,6 +57,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: scripts/check_ai_smell.py
 - validation: green
 
+### task-T3.1 — DONE — 2026-04-15T19:39:44Z
+- commit: a892356
+- files: docs/variants/v1/index.html, docs/variants/v1/styles.css, docs/variants/v1/script.js, docs/variants/v1/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
