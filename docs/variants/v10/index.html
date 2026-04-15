@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Austin Culture Calendar — v10</title>
+  <link rel="stylesheet" href="../_shared/reset.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <h1 class="masthead-title">The Austin Culture Tipsheet</h1>
+      <p class="masthead-subtitle">Critic's picks &amp; ratings — sorted by merit</p>
+    </div>
+  </header>
+  <section class="picks-section" id="picks" aria-label="Top 10 picks of the week">
+    <h2 class="picks-heading">Top 10 Picks of the Week</h2>
+    <ol class="picks-list" id="picks-list"></ol>
+  </section>
+  <main class="listings" id="listings" aria-label="All events by rating">
+    <h2 class="listings-heading">All Events — Sorted by Rating</h2>
+  </main>
+  <div class="status" id="loading">Loading events&hellip;</div>
+  <div class="status error" id="error" hidden></div>
+  <script src="script.js"></script>
+</body>
+</html>
