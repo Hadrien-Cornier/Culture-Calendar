@@ -12,6 +12,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/variants/_shared/reset.css
 - validation: green
 
+### task-T0.3 — DONE — 2026-04-15T19:19:17Z
+- commit: b84fcb9
+- files: docs/variants/PLUGIN_STATUS.md
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
