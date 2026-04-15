@@ -32,6 +32,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/script.js
 - validation: green
 
+### task-T1.4 — DONE — 2026-04-15T19:26:48Z
+- commit: (no-op — T1.2 already regenerated docs/data.json)
+- files: docs/data.json (verified, no changes needed)
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
