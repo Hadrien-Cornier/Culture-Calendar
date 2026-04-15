@@ -62,6 +62,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: scripts/regen_smelly_reviews.py
 - validation: green
 
+### task-T2.6 — DONE — 2026-04-15T20:15:30Z
+- commit: 4b1a6cd
+- files: docs/data.json
+- validation: green
+
 ### task-T3.1 — DONE — 2026-04-15T19:39:44Z
 - commit: a892356
 - files: docs/variants/v1/index.html, docs/variants/v1/styles.css, docs/variants/v1/script.js, docs/variants/v1/audit.md
