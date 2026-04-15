@@ -7,6 +7,11 @@ Runner: `overnight-plan` skill. Branch: `overnight/2026-04-15`. Goal: THE STRANG
 
 Task entries (appended by the runner after each DONE commit) follow below.
 
+### task-T0.2 — DONE — 2026-04-15T19:14:25Z
+- commit: c36a97b
+- files: docs/variants/_shared/reset.css
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
