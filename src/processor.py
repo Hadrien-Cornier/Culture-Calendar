@@ -38,6 +38,42 @@ REFUSAL_PATTERNS = (
 )
 _REFUSAL_RE = re.compile("|".join(REFUSAL_PATTERNS), re.IGNORECASE)
 
+BANNED_PHRASES = (
+    "haunting",
+    "profound",
+    "profound meditation",
+    "resonates",
+    "resonates deeply",
+    "masterfully",
+    "masterfully crafted",
+    "breathtaking",
+    "visceral",
+    "lush",
+    "luminous",
+    "poignant",
+    "exquisite",
+    "meditation on",
+    "in this film we see",
+    "in this work we see",
+    "tour de force",
+    "transcendent",
+)
+
+
+def _style_rubric() -> str:
+    """Return the style rubric and banned-phrase list injected into every LLM review prompt."""
+    banned = "; ".join(BANNED_PHRASES)
+    return (
+        "STYLE RULES (mandatory):\n"
+        "- Write like a newspaper critic on deadline: direct, concrete, no filler.\n"
+        "- Never use em-dashes.\n"
+        "- No hedging. Either commit to a judgment or say "
+        "'I don't know this work well enough to review it.'\n"
+        f"- BANNED PHRASES (do not use any of these): {banned}.\n"
+        "- Prefer short declarative sentences. Cite specific scenes, passages, "
+        "movements, or performances as evidence."
+    )
+
 
 def is_refusal_response(text: str) -> bool:
     """Heuristic: does this look like an LLM refusing to write a real review?
