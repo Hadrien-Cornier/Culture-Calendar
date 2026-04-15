@@ -448,7 +448,6 @@
       "2025-09-13"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "Gabriela Ortiz - Kauyumari | Prokofiev - Violin Concerto No. 2 in G Minor | Saint-Sa\u00ebns - Symphony No. 3 in C Minor (Organ Symphony)",
@@ -716,7 +715,6 @@
       "2025-10-18"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "John Williams - Star Wars: Return of the Jedi (complete film with live orchestra)",
@@ -757,7 +755,6 @@
       "2025-10-25"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "Valerie Coleman - Seven O'Clock Shout | Beethoven - Piano Concerto No. 3 in C Minor | Tchaikovsky - Symphony No. 3 in D Major (Polish)",
@@ -985,7 +982,6 @@
       "2025-11-22"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "Liszt/Doppler - Hungarian Rhapsody No. 2 | Debussy - Premi\u00e8re rapsodie for Clarinet and Orchestra | Enescu - Romanian Rhapsody No. 1 | Gershwin - Second Rhapsody for Piano and Orchestra | Beethoven - Symphony No. 5 in C Minor",
@@ -1365,7 +1361,6 @@
       "2025-12-17"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "John Williams - Home Alone (complete film with live orchestra)",
@@ -1609,7 +1604,6 @@
       "2026-01-17"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "Aaron Copland - El Sal\u00f3n M\u00e9xico | Miguel Espinoza - New Work (World Premiere) | Gustav Holst - The Planets",
@@ -1843,7 +1837,6 @@
       "2026-02-21"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "Felix Mendelssohn - The Hebrides Overture | Ernest Bloch - Schelomo | Jarom\u00edr Weinberger - Schwanda the Bagpiper Suite | Leonard Bernstein - Symphonic Dances from West Side Story",
@@ -1890,7 +1883,6 @@
       "2026-02-28"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "Klaus Badelt - Pirates of the Caribbean: The Curse of the Black Pearl (complete film with live orchestra)",
@@ -1997,7 +1989,6 @@
       "2026-03-14"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "Bernard Herrmann/Palmer - Psycho Suite | Erich Wolfgang Korngold - Violin Concerto in D Major | Richard Strauss - Also sprach Zarathustra",
@@ -2303,7 +2294,6 @@
       "2026-04-11"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "Perttu - New Guitar Concerto | Joaqu\u00edn Rodrigo - Concierto de Aranjuez | Wolfgang Amadeus Mozart - Requiem in D Minor",
@@ -2402,9 +2392,14 @@
   {
     "title": "YOU GOT GOLD: A CELEBRATION OF JOHN PRINE",
     "dates": [
-      "2026-04-14"
+      "2026-04-14",
+      "2026-04-21",
+      "2026-04-22",
+      "2026-04-23"
     ],
     "times": [
+      "15:30",
+      "16:00",
       "16:45"
     ],
     "director": "Michael John Warren",
@@ -2449,10 +2444,13 @@
   {
     "title": "MIROIRS NO. 3",
     "dates": [
-      "2026-04-14"
+      "2026-04-14",
+      "2026-04-15",
+      "2026-04-16"
     ],
     "times": [
-      "17:15"
+      "17:15",
+      "17:30"
     ],
     "director": "Christian Petzold",
     "runtime_minutes": 86,
@@ -2490,10 +2488,12 @@
   {
     "title": "CHIME + SERPENT\u2019S PATH",
     "dates": [
-      "2026-04-14"
+      "2026-04-14",
+      "2026-04-16"
     ],
     "times": [
-      "19:00"
+      "19:00",
+      "19:30"
     ],
     "director": "Kiyoshi Kurosawa",
     "runtime_minutes": 130,
@@ -2525,9 +2525,11 @@
   {
     "title": "UNKNOWN PLEASURES",
     "dates": [
-      "2026-04-14"
+      "2026-04-14",
+      "2026-04-18"
     ],
     "times": [
+      "15:30",
       "19:30"
     ],
     "director": "Jia Zhangke",
@@ -2559,8 +2561,12 @@
   },
   {
     "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - This Week's Story",
-    "dates": "",
-    "times": "",
+    "dates": [
+      "2026-04-14"
+    ],
+    "times": [
+      "7:00 PM"
+    ],
     "book": "",
     "author": "",
     "publication_year": "",
@@ -2585,7 +2591,10 @@
   {
     "title": "Moontower Wristbands 2026",
     "dates": [
-      "2026-04-15"
+      "2026-04-15",
+      "2026-04-16",
+      "2026-04-17",
+      "2026-04-18"
     ],
     "times": [
       "00:00"
@@ -2748,9 +2757,13 @@
   {
     "title": "A SERIOUS MAN",
     "dates": [
-      "2026-04-15"
+      "2026-04-15",
+      "2026-04-19",
+      "2026-04-20"
     ],
     "times": [
+      "13:00",
+      "19:00",
       "20:15"
     ],
     "director": "Joel and Ethan Coen",
@@ -2818,7 +2831,10 @@
   {
     "title": "Stamptown",
     "dates": [
-      "2026-04-15"
+      "2026-04-15",
+      "2026-04-16",
+      "2026-04-17",
+      "2026-04-18"
     ],
     "times": [
       "21:30"
@@ -2952,10 +2968,18 @@
   {
     "title": "THE STRANGER (L\u2019ETRANGER)",
     "dates": [
-      "2026-04-17"
+      "2026-04-17",
+      "2026-04-18",
+      "2026-04-19",
+      "2026-04-20",
+      "2026-04-22",
+      "2026-04-23"
     ],
     "times": [
-      "17:30"
+      "15:15",
+      "16:00",
+      "17:30",
+      "17:45"
     ],
     "director": "Francois Ozon",
     "runtime_minutes": 120,
@@ -3040,9 +3064,11 @@
   {
     "title": "Jeff Arcuri",
     "dates": [
-      "2026-04-17"
+      "2026-04-17",
+      "2026-04-18"
     ],
     "times": [
+      "16:00",
       "19:00"
     ],
     "director": "",
@@ -3104,9 +3130,22 @@
   {
     "title": "PALESTINE \u201936",
     "dates": [
-      "2026-04-17"
+      "2026-04-17",
+      "2026-04-18",
+      "2026-04-19",
+      "2026-04-20",
+      "2026-04-21",
+      "2026-04-22",
+      "2026-04-23"
     ],
     "times": [
+      "12:30",
+      "15:00",
+      "16:30",
+      "16:45",
+      "18:15",
+      "19:00",
+      "19:30",
       "20:15"
     ],
     "director": "Annemarie Jacir",
@@ -3181,9 +3220,11 @@
   {
     "title": "CARNIVAL IN THE NIGHT",
     "dates": [
-      "2026-04-17"
+      "2026-04-17",
+      "2026-04-18"
     ],
     "times": [
+      "20:30",
       "21:15"
     ],
     "director": "Masashi Yamamoto",
@@ -3758,9 +3799,11 @@
   {
     "title": "THE WORLD",
     "dates": [
-      "2026-04-21"
+      "2026-04-21",
+      "2026-04-25"
     ],
     "times": [
+      "14:00",
       "19:30"
     ],
     "director": "Jia Zhangke",
@@ -3850,8 +3893,12 @@
   },
   {
     "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 2",
-    "dates": "",
-    "times": "",
+    "dates": [
+      "2026-04-21"
+    ],
+    "times": [
+      "7:00 PM"
+    ],
     "book": "",
     "author": "",
     "publication_year": "",
@@ -4137,10 +4184,12 @@
   {
     "title": "8 1/2",
     "dates": [
-      "2026-04-27"
+      "2026-04-27",
+      "2026-04-29"
     ],
     "times": [
-      "19:00"
+      "19:00",
+      "19:30"
     ],
     "director": "Federico Fellini",
     "runtime_minutes": 138,
@@ -4288,9 +4337,11 @@
   {
     "title": "STILL LIFE",
     "dates": [
-      "2026-04-28"
+      "2026-04-28",
+      "2026-05-02"
     ],
     "times": [
+      "14:00",
       "19:30"
     ],
     "director": "Jia Zhangke",
@@ -4381,7 +4432,8 @@
   {
     "title": "David Sedaris",
     "dates": [
-      "2026-04-29"
+      "2026-04-29",
+      "2026-04-30"
     ],
     "times": [
       "19:00"
@@ -4594,7 +4646,8 @@
   {
     "title": "ConnectHER",
     "dates": [
-      "2026-05-01"
+      "2026-05-01",
+      "2026-05-02"
     ],
     "times": [
       "19:00"
@@ -4658,9 +4711,13 @@
   {
     "title": "EVERYONE IS LYING TO YOU FOR MONEY",
     "dates": [
-      "2026-05-01"
+      "2026-05-01",
+      "2026-05-02",
+      "2026-05-03"
     ],
     "times": [
+      "16:30",
+      "18:45",
       "20:00"
     ],
     "director": "Ben McKenzie",
@@ -5204,10 +5261,14 @@
   {
     "title": "MY FATHER\u2019S SHADOW",
     "dates": [
-      "2026-05-09"
+      "2026-05-09",
+      "2026-05-10",
+      "2026-05-11"
     ],
     "times": [
-      "15:10"
+      "15:10",
+      "16:30",
+      "19:00"
     ],
     "director": "Akinola Davies Jr.",
     "runtime_minutes": 93,
@@ -5245,10 +5306,12 @@
   {
     "title": "MCCABE & MRS. MILLER",
     "dates": [
-      "2026-05-09"
+      "2026-05-09",
+      "2026-05-12"
     ],
     "times": [
-      "17:45"
+      "17:45",
+      "19:00"
     ],
     "director": "Robert Altman",
     "runtime_minutes": 121,
@@ -5309,10 +5372,12 @@
   {
     "title": "THE MOST TERRIBLE TIME IN MY LIFE",
     "dates": [
-      "2026-05-10"
+      "2026-05-10",
+      "2026-05-13"
     ],
     "times": [
-      "14:00"
+      "14:00",
+      "20:30"
     ],
     "director": "Kaizo Hayashi",
     "runtime_minutes": 92,
@@ -5434,7 +5499,8 @@
       "2026-05-14"
     ],
     "times": [
-      "19:00"
+      "19:00",
+      "21:30"
     ],
     "director": "",
     "runtime_minutes": "",
@@ -5499,7 +5565,6 @@
       "2026-05-16"
     ],
     "times": [
-      "20:00",
       "20:00"
     ],
     "program": "Morton Gould - American Salute | George Gershwin - Piano Concerto in F | Charles Ives - Symphony No. 2 | Aaron Copland - Fanfare for the Common Man",
@@ -5542,9 +5607,11 @@
   {
     "title": "THE PYTHON HUNT",
     "dates": [
-      "2026-05-15"
+      "2026-05-15",
+      "2026-05-16"
     ],
     "times": [
+      "15:45",
       "20:30"
     ],
     "director": "Xander Robin",
@@ -5664,10 +5731,12 @@
   {
     "title": "THE STAIRWAY TO THE DISTANT PAST",
     "dates": [
-      "2026-05-17"
+      "2026-05-17",
+      "2026-05-20"
     ],
     "times": [
-      "16:00"
+      "16:00",
+      "20:15"
     ],
     "director": "Kaizo Hayashi",
     "runtime_minutes": 101,
@@ -5728,7 +5797,8 @@
   {
     "title": "The Gourds",
     "dates": [
-      "2026-05-19"
+      "2026-05-19",
+      "2026-05-20"
     ],
     "times": [
       "19:00"
@@ -5792,10 +5862,16 @@
   {
     "title": "AMADEUS",
     "dates": [
-      "2026-05-22"
+      "2026-05-22",
+      "2026-05-23",
+      "2026-05-24",
+      "2026-05-25"
     ],
     "times": [
-      "17:45"
+      "14:00",
+      "16:15",
+      "17:45",
+      "18:00"
     ],
     "director": "Milo\u0161 Forman",
     "runtime_minutes": 161,
@@ -5897,7 +5973,8 @@
   {
     "title": "DEAD MOUNTAINEER\u2019S HOTEL",
     "dates": [
-      "2026-05-22"
+      "2026-05-22",
+      "2026-05-23"
     ],
     "times": [
       "21:30"
@@ -5990,10 +6067,12 @@
   {
     "title": "THE TRAP",
     "dates": [
-      "2026-05-24"
+      "2026-05-24",
+      "2026-05-27"
     ],
     "times": [
-      "13:30"
+      "13:30",
+      "20:30"
     ],
     "director": "Kaizo Hayashi",
     "runtime_minutes": 106,
@@ -6112,10 +6191,12 @@
   {
     "title": "THE HEIGHT OF THE COCONUT TREES",
     "dates": [
-      "2026-05-25"
+      "2026-05-25",
+      "2026-05-27"
     ],
     "times": [
-      "17:45"
+      "17:45",
+      "18:00"
     ],
     "director": "Du Jie",
     "runtime_minutes": 100,
@@ -6205,9 +6286,13 @@
   {
     "title": "LUMI\u00c8RE, LE CIN\u00c9MA!",
     "dates": [
-      "2026-05-26"
+      "2026-05-26",
+      "2026-05-30",
+      "2026-05-31"
     ],
     "times": [
+      "16:15",
+      "18:10",
       "19:00"
     ],
     "director": "Thierry Fr\u00e9maux",
@@ -6275,10 +6360,20 @@
   {
     "title": "ATX TV Festival 2026",
     "dates": [
-      "2026-05-28"
+      "2026-05-28",
+      "2026-05-29",
+      "2026-05-30",
+      "2026-05-31"
     ],
     "times": [
-      "14:00"
+      "11:30",
+      "13:30",
+      "14:00",
+      "14:45",
+      "15:30",
+      "17:00",
+      "19:00",
+      "21:30"
     ],
     "director": "",
     "runtime_minutes": "",
@@ -6358,9 +6453,11 @@
   {
     "title": "BITTER RICE",
     "dates": [
-      "2026-05-28"
+      "2026-05-28",
+      "2026-05-30"
     ],
     "times": [
+      "13:30",
       "18:00"
     ],
     "director": "Giuseppe De Santis",
@@ -6393,9 +6490,11 @@
   {
     "title": "DON\u2019T LOOK BACK",
     "dates": [
-      "2026-05-28"
+      "2026-05-28",
+      "2026-05-31"
     ],
     "times": [
+      "13:15",
       "20:30"
     ],
     "director": "D.A. Pennebaker",
@@ -6490,7 +6589,11 @@
   {
     "title": "Camp Paramount 2026",
     "dates": [
-      "2026-06-01"
+      "2026-06-01",
+      "2026-06-08",
+      "2026-06-15",
+      "2026-07-06",
+      "2026-07-13"
     ],
     "times": [
       "09:00"
@@ -6543,9 +6646,12 @@
   {
     "title": "DAYS AND NIGHTS IN THE FOREST",
     "dates": [
-      "2026-06-01"
+      "2026-06-01",
+      "2026-06-03",
+      "2026-06-06"
     ],
     "times": [
+      "16:15",
       "19:00"
     ],
     "director": "Satyajit Ray",
@@ -6584,9 +6690,11 @@
   {
     "title": "LITTLE SHOP OF HORRORS",
     "dates": [
-      "2026-06-02"
+      "2026-06-02",
+      "2026-06-06"
     ],
     "times": [
+      "14:15",
       "19:30"
     ],
     "director": "Roger Corman",
@@ -6619,9 +6727,13 @@
   {
     "title": "TAKE CARE OF MY CAT",
     "dates": [
-      "2026-06-03"
+      "2026-06-03",
+      "2026-06-05",
+      "2026-06-10"
     ],
     "times": [
+      "18:00",
+      "19:00",
       "20:00"
     ],
     "director": "Jae-eun Jeong",
@@ -6718,9 +6830,13 @@
   {
     "title": "ALLEGRO NON TROPPO",
     "dates": [
-      "2026-06-05"
+      "2026-06-05",
+      "2026-06-06",
+      "2026-06-08"
     ],
     "times": [
+      "19:00",
+      "21:00",
       "21:30"
     ],
     "director": "Bruno Bozzetto",
@@ -6759,10 +6875,14 @@
   {
     "title": "DAISIES",
     "dates": [
-      "2026-06-06"
+      "2026-06-06",
+      "2026-06-07",
+      "2026-06-10"
     ],
     "times": [
-      "19:00"
+      "16:30",
+      "19:00",
+      "20:30"
     ],
     "director": "V\u011bra Chytilov\u00e1",
     "runtime_minutes": 76,
@@ -6916,9 +7036,11 @@
   {
     "title": "THE MASQUE OF THE RED DEATH",
     "dates": [
-      "2026-06-09"
+      "2026-06-09",
+      "2026-06-14"
     ],
     "times": [
+      "16:00",
       "19:30"
     ],
     "director": "Roger Corman",
@@ -6951,7 +7073,8 @@
   {
     "title": "MISHIMA: A LIFE IN FOUR CHAPTERS",
     "dates": [
-      "2026-06-11"
+      "2026-06-11",
+      "2026-06-15"
     ],
     "times": [
       "19:00"
@@ -6986,9 +7109,11 @@
   {
     "title": "SWEET SMELL OF SUCCESS",
     "dates": [
-      "2026-06-12"
+      "2026-06-12",
+      "2026-06-14"
     ],
     "times": [
+      "13:30",
       "19:30"
     ],
     "director": "Alexander Mackendrick",
@@ -7050,10 +7175,12 @@
   {
     "title": "RUBBER\u2019S LOVER",
     "dates": [
-      "2026-06-12"
+      "2026-06-12",
+      "2026-06-13"
     ],
     "times": [
-      "21:00"
+      "21:00",
+      "21:15"
     ],
     "director": "Shozin Fukui",
     "runtime_minutes": 91,
@@ -7085,10 +7212,12 @@
   {
     "title": "PURANA MANDIR",
     "dates": [
-      "2026-06-13"
+      "2026-06-13",
+      "2026-06-17"
     ],
     "times": [
-      "14:30"
+      "14:30",
+      "18:00"
     ],
     "director": "Tulsi Ramsay and Shyam Ramsay",
     "runtime_minutes": 175,
@@ -7236,9 +7365,11 @@
   {
     "title": "BLOODY MAMA",
     "dates": [
-      "2026-06-16"
+      "2026-06-16",
+      "2026-06-20"
     ],
     "times": [
+      "13:30",
       "19:30"
     ],
     "director": "Roger Corman",
@@ -7300,9 +7431,11 @@
   {
     "title": "NATCHEZ",
     "dates": [
-      "2026-06-19"
+      "2026-06-19",
+      "2026-06-21"
     ],
     "times": [
+      "13:00",
       "19:00"
     ],
     "director": "Suzannah Herbert",
@@ -7393,9 +7526,13 @@
   {
     "title": "THE TRIP",
     "dates": [
-      "2026-06-23"
+      "2026-06-23",
+      "2026-06-27",
+      "2026-06-29"
     ],
     "times": [
+      "14:00",
+      "19:00",
       "19:30"
     ],
     "director": "Roger Corman",

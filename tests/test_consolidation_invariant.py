@@ -20,7 +20,6 @@ def _find_stranger(events):
     pytest.fail("THE STRANGER (L'ETRANGER) not found in docs/data.json")
 
 
-@pytest.mark.xfail(reason="Bug: dates[] not hoisted from screenings yet (task-T1.2)", strict=True)
 def test_the_stranger_6_dates():
     """THE STRANGER must have dates == set of unique screening dates."""
     events = _load_events()
@@ -35,7 +34,6 @@ def test_the_stranger_6_dates():
     )
 
 
-@pytest.mark.xfail(reason="Bug: dates[] not hoisted from screenings yet (task-T1.2)", strict=True)
 def test_all_events_dates_match_screenings():
     """For every event with screenings, dates[] must equal the unique screening dates."""
     events = _load_events()
