@@ -17,6 +17,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/variants/PLUGIN_STATUS.md
 - validation: green
 
+### task-T1.1 — DONE — 2026-04-15T19:20:44Z
+- commit: ad0f369
+- files: tests/test_consolidation_invariant.py
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
