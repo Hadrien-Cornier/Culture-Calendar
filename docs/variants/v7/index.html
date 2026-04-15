@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Austin Culture Calendar — v7</title>
+  <link rel="stylesheet" href="../_shared/reset.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">Austin Culture Calendar</h1>
+    <p class="site-count" id="count">Loading&hellip;</p>
+  </header>
+  <section class="heatmap-container" aria-label="Event heatmap">
+    <div class="heatmap-months" id="heatmap-months"></div>
+    <div class="heatmap-grid-wrapper">
+      <div class="heatmap-weekdays" aria-hidden="true">
+        <span></span>
+        <span>Mon</span>
+        <span></span>
+        <span>Wed</span>
+        <span></span>
+        <span>Fri</span>
+        <span></span>
+      </div>
+      <div class="heatmap-grid" id="heatmap-grid" role="grid" aria-label="60-day event calendar"></div>
+    </div>
+    <div class="heatmap-legend">
+      <span class="legend-label">Less</span>
+      <span class="legend-cell" data-level="0"></span>
+      <span class="legend-cell" data-level="1"></span>
+      <span class="legend-cell" data-level="2"></span>
+      <span class="legend-cell" data-level="3"></span>
+      <span class="legend-cell" data-level="4"></span>
+      <span class="legend-label">More</span>
+    </div>
+  </section>
+  <main class="event-panel" id="event-panel" aria-live="polite">
+    <p class="panel-prompt">Click a day on the heatmap to see its events.</p>
+  </main>
+  <div class="status" id="loading">Loading events&hellip;</div>
+  <div class="status error" id="error" hidden></div>
+  <script src="script.js"></script>
+</body>
+</html>
