@@ -1,5 +1,14 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-15 -->
+## Overnight run — 2026-04-15
+
+Runner: `overnight-plan` skill. Branch: `overnight/2026-04-15`. Goal: THE STRANGER bug, anti-AI-smell reviews, 10 design variants. Full spec in `CLAUDE.md` §Overnight run — 2026-04-15.
+
+Task entries (appended by the runner after each DONE commit) follow below.
+
+<!-- END OVERNIGHT-PLAN: 2026-04-15 -->
+
 ## [Calendar fix] — 2026-04-14 — in progress
 
 ### Termination criterion

@@ -3,6 +3,7 @@
 venv/
 .venv/
 .overnight.log
+.overnight/
 *.pyc
 docs/calendars/
 cache/
