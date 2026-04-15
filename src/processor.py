@@ -312,7 +312,10 @@ class EventProcessor:
         return {"score": 5, "summary": f"Unable to evaluate {movie_title} (LLM unable to find sources)."}
 
     def _build_movie_prompt_strict(self, details: str) -> str:
+        rubric = _style_rubric()
         return f"""
+{rubric}
+
 You are a rigorous cultural critic evaluating with uncompromising academic standards. Assess the movie described below using a 0–10 scale where
 0–4 = weak or derivative,
 5–6 = competent but unremarkable,
@@ -333,7 +336,10 @@ Focus solely on artistic merit and complexity. Reward innovation and high entrop
 """
 
     def _build_movie_prompt_permissive(self, details: str) -> str:
+        rubric = _style_rubric()
         return f"""
+{rubric}
+
 Write a brief critical review of this film. If your search results don't surface specific reviews, draw on general film history, the director's body of work, the country's cinema tradition, and contextual knowledge — DO NOT refuse to review.
 
 Movie Details:
@@ -350,7 +356,10 @@ Aim for 4–6 short paragraphs total. A grounded, contextual review is far more 
 """
 
     def _build_movie_prompt_general_knowledge(self, details: str) -> str:
+        rubric = _style_rubric()
         return f"""
+{rubric}
+
 You are a knowledgeable cinephile writing for an Austin film-society audience. Use your training-time knowledge — not just search — to write a real review.
 
 Movie Details:
@@ -468,7 +477,10 @@ Be specific. If you genuinely don't know this film, position it based on the dir
         return {"score": 5, "summary": f"Unable to evaluate concert {title} (LLM unable to find sources)."}
 
     def _build_concert_prompt_strict(self, details: str) -> str:
+        rubric = _style_rubric()
         return f"""
+{rubric}
+
 You are a rigorous cultural critic evaluating with uncompromising academic standards. Assess the concert described below using a 0–10 scale where
 0–4 = weak or derivative,
 5–6 = competent but unremarkable,
@@ -489,7 +501,10 @@ Ensure you are reviewing the specific concert described above.
 """
 
     def _build_concert_prompt_permissive(self, details: str) -> str:
+        rubric = _style_rubric()
         return f"""
+{rubric}
+
 Write a brief critical review of this classical concert. If your search doesn't surface specific reviews, draw on general knowledge of the composers, ensemble's reputation, and repertoire — DO NOT refuse. A grounded contextual review is more useful than a refusal.
 
 Concert Details:
@@ -504,7 +519,10 @@ Format:
 """
 
     def _build_concert_prompt_general_knowledge(self, details: str) -> str:
+        rubric = _style_rubric()
         return f"""
+{rubric}
+
 You are an expert classical music critic writing for a discerning Austin audience. Use your training-time knowledge of the composers, the works listed, and the ensemble or featured artist to write a real review — even if your search doesn't surface specific reviews of this exact concert.
 
 Concert Details:
@@ -586,7 +604,10 @@ Be specific. Take a defensible position even if some details are missing.
         return {"score": 5, "summary": f"Unable to evaluate {title} (LLM unable to find sources)."}
 
     def _build_book_prompt_strict(self, details: str) -> str:
+        rubric = _style_rubric()
         return f"""
+{rubric}
+
 You are a rigorous literary critic. Assess the book described below using a 0–10 scale where
 0–4 = weak or derivative,
 5–6 = competent but unremarkable,
@@ -605,7 +626,10 @@ Format:
 """
 
     def _build_book_prompt_permissive(self, details: str) -> str:
+        rubric = _style_rubric()
         return f"""
+{rubric}
+
 Write a brief critical review of this book. If your search doesn't surface specific reviews, draw on general knowledge of the author's body of work and the book's place in their oeuvre — DO NOT refuse.
 
 Book Details:
@@ -620,7 +644,10 @@ Format:
 """
 
     def _build_book_prompt_general_knowledge(self, details: str) -> str:
+        rubric = _style_rubric()
         return f"""
+{rubric}
+
 You are a literary critic writing for a discerning Austin book-club audience. Use your training-time knowledge of the author and the book to write a real review — even if your search doesn't surface specific contemporary reviews of this exact title.
 
 Book Details:
