@@ -27,6 +27,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: update_website_data.py, tests/test_consolidation_invariant.py, docs/data.json
 - validation: green
 
+### task-T1.3 — DONE — 2026-04-15T19:24:38Z
+- commit: 642dd6c
+- files: docs/script.js
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
