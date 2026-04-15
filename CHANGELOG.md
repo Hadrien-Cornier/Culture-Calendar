@@ -102,6 +102,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/variants/v9/index.html, docs/variants/v9/styles.css, docs/variants/v9/script.js, docs/variants/v9/audit.md
 - validation: green (check_variant.mjs missing — pytest+verify_calendar green)
 
+### task-T3.10 — DONE — 2026-04-15T20:09:39Z
+- commit: ee2f8ee
+- files: docs/variants/v10/index.html, docs/variants/v10/styles.css, docs/variants/v10/script.js, docs/variants/v10/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
