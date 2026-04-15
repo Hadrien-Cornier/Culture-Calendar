@@ -42,6 +42,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: src/processor.py
 - validation: green
 
+### task-T2.2 — DONE — 2026-04-15T19:28:10Z
+- commit: 0c73a7d
+- files: src/processor.py
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
