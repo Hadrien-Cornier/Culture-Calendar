@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Austin Culture Calendar — v6</title>
+  <link rel="stylesheet" href="../_shared/reset.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">Austin Culture Calendar</h1>
+    <p class="site-count" id="count">Loading&hellip;</p>
+  </header>
+  <nav class="timeline-rail" id="timeline-rail" aria-label="Date timeline">
+    <div class="timeline-track" id="timeline-track"></div>
+  </nav>
+  <p class="drag-hint" id="drag-hint">Drag or swipe to scroll &rarr;</p>
+  <main class="event-area" id="event-area" aria-label="Events"></main>
+  <div class="status" id="loading">Loading events&hellip;</div>
+  <div class="status error" id="error" hidden></div>
+  <script src="script.js"></script>
+</body>
+</html>
