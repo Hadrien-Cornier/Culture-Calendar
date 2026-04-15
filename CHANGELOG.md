@@ -124,6 +124,11 @@ BLOCKED: task-T2.7: verify_calendar.py --offline fails: 29 refusal-shaped one_li
 - files: docs/variants/index.html
 - validation: green
 
+### task-T3.12 — DONE — 2026-04-15T20:24:37Z
+- commit: b3bbe87
+- files: docs/variants/v2/audit.md
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
