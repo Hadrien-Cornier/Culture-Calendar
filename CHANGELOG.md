@@ -52,6 +52,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: src/summary_generator.py
 - validation: green
 
+### task-T2.4 — DONE — 2026-04-15T19:31:58Z
+- commit: 50a93e3
+- files: scripts/check_ai_smell.py
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
