@@ -117,6 +117,13 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/variants/v10/index.html, docs/variants/v10/styles.css, docs/variants/v10/script.js, docs/variants/v10/audit.md
 - validation: green (check_variant.mjs missing — pytest+verify_calendar green)
 
+BLOCKED: task-T2.7: verify_calendar.py --offline fails: 29 refusal-shaped one_liner_summary entries (Opera + Paramount) and check_ai_smell.py shows 74 banned-phrase violations still in docs/data.json — regen in T2.6 did not fully clean cached reviews; requires live API regen which is out of scope for this no-code gate task
+
+### task-T3.11 — DONE — 2026-04-15T20:22:03Z
+- commit: dcd4216
+- files: docs/variants/index.html
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
 
 ## [Calendar fix] — 2026-04-14 — in progress
