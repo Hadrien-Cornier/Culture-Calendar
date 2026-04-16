@@ -10,11 +10,13 @@
 
   var params = new URLSearchParams(window.location.search);
   var debugDate = params.get("debug_date");
-  var daysAhead = parseInt(params.get("days") || "21", 10);
+  var daysAhead = parseInt(params.get("days") || "14", 10);
+  var picksDays = parseInt(params.get("picks_days") || "7", 10);
   var showAll = params.get("all") === "1";
 
   var MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var DAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   function todayISO() {
     if (debugDate) return debugDate;
@@ -30,6 +32,10 @@
       String(d.getMonth() + 1).padStart(2, "0") + "-" +
       String(d.getDate()).padStart(2, "0");
   }
+  function dayOfWeek(iso) {
+    var d = new Date(iso + "T00:00:00");
+    return DAYS_SHORT[d.getDay()];
+  }
 
   fetch(DATA_URL)
     .then(function (r) {
@@ -40,8 +46,20 @@
       var events = Array.isArray(raw) ? raw : (raw.events || []);
       loadingEl.hidden = true;
       var grouped = groupEvents(events);
-      renderPicks(grouped.slice(0, 10));
+
+      // Picks are the top-rated events whose FIRST upcoming showing falls
+      // within picks_days (default 7), i.e. "this week". Listings use the
+      // broader window (default 14 days).
+      var startIso = todayISO();
+      var picksEndIso = isoPlusDays(startIso, picksDays);
+      var picksPool = showAll ? grouped : grouped.filter(function (ev) {
+        return ev.showings.some(function (s) {
+          return s.date >= startIso && s.date <= picksEndIso;
+        });
+      });
+      renderPicks(picksPool.slice(0, 10));
       renderListings(grouped);
+      updateHeadings(startIso, picksEndIso);
     })
     .catch(function (err) {
       loadingEl.hidden = true;
@@ -121,6 +139,23 @@
     return result;
   }
 
+  function updateHeadings(startIso, picksEndIso) {
+    var picksHeading = document.querySelector(".picks-heading");
+    if (picksHeading) {
+      picksHeading.textContent = "Top picks · " +
+        formatDate(startIso, { noDay: true }) + "–" +
+        formatDate(picksEndIso, { noDay: true });
+    }
+    var listingsHeading = document.querySelector(".listings-heading");
+    if (listingsHeading && !showAll) {
+      var listingsEnd = isoPlusDays(startIso, daysAhead);
+      listingsHeading.textContent = "All events · " +
+        formatDate(startIso, { noDay: true }) + "–" +
+        formatDate(listingsEnd, { noDay: true }) +
+        " · sorted by rating";
+    }
+  }
+
   function parseReview(html) {
     if (!html) return { rating: "", sections: [], flat: "" };
     var doc = new DOMParser().parseFromString("<div>" + html + "</div>", "text/html");
@@ -158,11 +193,14 @@
     return "low";
   }
 
-  function formatDate(str) {
+  function formatDate(str, opts) {
+    opts = opts || {};
     var parts = str.split("-");
     var m = parseInt(parts[1], 10) - 1;
     var d = parseInt(parts[2], 10);
-    return MONTHS_SHORT[m] + " " + d;
+    var base = MONTHS_SHORT[m] + " " + d;
+    if (opts.noDay) return base;
+    return dayOfWeek(str) + " " + base;
   }
 
   function formatTime(t) {
