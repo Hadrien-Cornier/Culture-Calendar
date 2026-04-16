@@ -37,6 +37,16 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/variants/v11-picks-plus/audit.md
 - validation: green
 
+### task-T6.3 — DONE — 2026-04-16T17:12:35Z
+- commit: 80ce93a
+- files: docs/variants/v11c/index.html, docs/variants/v11c/styles.css, docs/variants/v11c/script.js, docs/variants/v11c/audit.md
+- validation: green
+
+### task-T8.2 — DONE — 2026-04-16T17:25:00Z
+- commit: 708d162
+- files: src/processor.py, update_website_data.py, docs/data.json, docs/source_update_times.json
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-16 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-15 -->
