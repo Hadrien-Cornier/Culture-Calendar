@@ -118,7 +118,14 @@ class SummaryGenerator:
             return self.summary_cache[cache_key], False
 
         try:
+            from src.processor import is_refusal_response
+
             summary = self._call_claude_api(event)
+            if summary and is_refusal_response(summary):
+                print(
+                    f"  Refusal-shaped summary dropped: {event.get('title','Unknown')}"
+                )
+                summary = None
             if summary:
                 self.summary_cache[cache_key] = summary
                 self._save_cache()
@@ -159,6 +166,17 @@ class SummaryGenerator:
         """Check if this is a specific event that should be summarized"""
         title = event.get("title", "").lower()
         description = event.get("description", "").lower()
+
+        # Short-circuit: if description is substantial and has key metadata, it's specific
+        has_substantial_description = len(description) > 500
+        has_key_metadata = bool(
+            event.get("director") or
+            event.get("book") or
+            event.get("author") or
+            event.get("featured_artist")
+        )
+        if has_substantial_description and has_key_metadata:
+            return True
 
         # Events that should NOT be summarized - only in TITLES
         title_non_specific_indicators = [

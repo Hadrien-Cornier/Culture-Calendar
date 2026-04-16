@@ -6,7 +6,8 @@ venv/
 .overnight/
 *.pyc
 docs/calendars/
-cache/
+cache/*
+!cache/summary_cache.json
 __pycache__/
 .agents/
 skills-lock.json

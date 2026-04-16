@@ -5,7 +5,10 @@ Generates JSON data for the GitHub Pages website
 Supports multiple venues: AFS, Hyperreal Movie Club, Paramount Theatre, and others
 """
 
+import argparse
 import json
+import os
+import re
 import sys
 from datetime import datetime, timedelta
 
@@ -23,6 +26,77 @@ def save_update_info(info: dict, path: str = "docs/source_update_times.json") ->
         print(f"Saved update info to {path}")
     except Exception as e:
         print(f"Error saving update info: {e}")
+
+
+BANNED_PHRASES = (
+    "haunting",
+    "profound",
+    "profound meditation",
+    "resonates",
+    "resonates deeply",
+    "masterfully",
+    "masterfully crafted",
+    "breathtaking",
+    "visceral",
+    "lush",
+    "luminous",
+    "poignant",
+    "exquisite",
+    "meditation on",
+    "in this film we see",
+    "in this work we see",
+    "tour de force",
+    "transcendent",
+)
+
+BANNED_RE = re.compile(
+    r"\b(?:" + "|".join(re.escape(p) for p in BANNED_PHRASES) + r")\b",
+    re.IGNORECASE,
+)
+
+
+def strip_banned_phrases(text: str) -> str:
+    """Remove banned phrases from text, replacing with generic alternatives."""
+    if not text:
+        return text
+    replacements = {
+        "profound": "deep",
+        "profound meditation": "deep exploration",
+        "haunting": "memorable",
+        "visceral": "intense",
+        "resonates": "connects",
+        "resonates deeply": "deeply connects",
+        "masterfully": "skillfully",
+        "masterfully crafted": "skillfully crafted",
+        "breathtaking": "striking",
+        "lush": "rich",
+        "luminous": "bright",
+        "poignant": "moving",
+        "exquisite": "refined",
+        "meditation on": "reflection on",
+        "in this film we see": "the film shows",
+        "in this work we see": "the work shows",
+        "tour de force": "showcase",
+        "transcendent": "elevated",
+    }
+    for phrase, replacement in replacements.items():
+        text = re.sub(
+            r"\b" + re.escape(phrase) + r"\b",
+            replacement,
+            text,
+            flags=re.IGNORECASE,
+        )
+    return text
+
+
+def strip_banned_from_events(events: list) -> list:
+    """Remove banned phrases from event descriptions and summaries."""
+    for event in events:
+        if "description" in event and event["description"]:
+            event["description"] = strip_banned_phrases(event["description"])
+        if "one_liner_summary" in event and event["one_liner_summary"]:
+            event["one_liner_summary"] = strip_banned_phrases(event["one_liner_summary"])
+    return events
 
 
 # Classical music events are now loaded directly by the individual
@@ -378,6 +452,7 @@ def main(
     test_week: bool = False,
     force_reprocess: bool = False,
     validate: bool = False,
+    pilot: bool = False,
 ):
     """Generate website data.
 
@@ -387,13 +462,20 @@ def main(
             venue's `scrape_events()` always pulls its full calendar.
         force_reprocess: If True, force re-processing of all events (ignore cache).
         validate: If True, enable smart validation with fail-fast mechanisms.
+        pilot: If True, restrict to 5 hardcoded pilot titles and output to data-pilot.json.
     """
+    if pilot:
+        os.environ["PILOT_UPLIFT"] = "1"
+        # Pilot implies force_reprocess so the dossier injection produces fresh output
+        # rather than returning cached reviews from the non-pilot run.
+        force_reprocess = True
+
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
 
     try:
         # Initialize components
         scraper = MultiVenueScraper()
-        processor = EventProcessor(force_reprocess=force_reprocess)
+        processor = EventProcessor(force_reprocess=force_reprocess, pilot_mode=pilot)
 
         # Scrape all venues (including classical music from JSON)
         print("Fetching calendar data from all venues...")
@@ -482,6 +564,21 @@ def main(
         upcoming_events = detailed_events
         print(f"Processing {len(upcoming_events)} total events")
 
+        # Filter to pilot titles if --pilot flag is set
+        if pilot:
+            pilot_titles = {
+                "THE STRANGER (L\u2019ETRANGER)",
+                "LANCELOT DU LAC",
+                "PALESTINE \u201936",
+                "A SERIOUS MAN",
+                "SHIFTING BASELINES",
+            }
+            upcoming_events = [
+                e for e in upcoming_events
+                if e.get("title", "") in pilot_titles
+            ]
+            print(f"Filtered to {len(upcoming_events)} pilot events")
+
         # Process and enrich events
         print("Processing and enriching events...")
         enriched_events = processor.process_events(upcoming_events)
@@ -522,11 +619,15 @@ def main(
         print("Generating website data...")
         website_data = generate_website_data(enriched_events)
 
+        # Strip banned phrases from descriptions and summaries
+        website_data = strip_banned_from_events(website_data)
+
         # Save JSON data
-        with open("docs/data.json", "w") as f:
+        output_file = "docs/data-pilot.json" if pilot else "docs/data.json"
+        with open(output_file, "w") as f:
             json.dump(website_data, f, indent=2)
 
-        print(f"Generated docs/data.json with {len(website_data)} events")
+        print(f"Generated {output_file} with {len(website_data)} events")
         # Save per-source update timestamps
         save_update_info(scraper.last_updated)
 
@@ -538,11 +639,33 @@ def main(
 
 
 if __name__ == "__main__":
-    test_week = "--test-week" in sys.argv
-    force_reprocess = "--force-reprocess" in sys.argv
-    validate = "--validate" in sys.argv
+    parser = argparse.ArgumentParser(
+        description="Generate website data for Culture Calendar"
+    )
+    parser.add_argument(
+        "--test-week",
+        action="store_true",
+        help="Limit recurring-event generation to ~2 weeks ahead instead of ~8",
+    )
+    parser.add_argument(
+        "--force-reprocess",
+        action="store_true",
+        help="Force re-processing of all events (ignore cache)",
+    )
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help="Enable smart validation with fail-fast mechanisms",
+    )
+    parser.add_argument(
+        "--pilot",
+        action="store_true",
+        help="Restrict to 5 hardcoded pilot titles and output to data-pilot.json",
+    )
+    args = parser.parse_args()
     main(
-        test_week=test_week,
-        force_reprocess=force_reprocess,
-        validate=validate,
+        test_week=args.test_week,
+        force_reprocess=args.force_reprocess,
+        validate=args.validate,
+        pilot=args.pilot,
     )

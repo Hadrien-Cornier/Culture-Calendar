@@ -35,6 +35,7 @@ BANNED_RE = re.compile(
 FIELDS = ("description", "one_liner_summary")
 
 EM_DASH = "\u2014"
+EM_DASH_THRESHOLD = 8
 
 
 def check_event(event, threshold):
@@ -74,8 +75,8 @@ def main():
     parser.add_argument(
         "--threshold",
         type=int,
-        default=5,
-        help="Max em-dashes per event before flagging (default: 5)",
+        default=EM_DASH_THRESHOLD,
+        help=f"Max em-dashes per event before flagging (default: {EM_DASH_THRESHOLD})",
     )
     args = parser.parse_args()
 

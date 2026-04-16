@@ -42,8 +42,8 @@ from src.scrapers.afs_scraper import AFSScraper  # noqa: E402
 from src.scrapers.hyperreal_scraper import HyperrealScraper  # noqa: E402
 
 
-# Synthetic "today" — a Tuesday with confirmed AFS screenings per the oracle.
-DEBUG_TODAY = date(2026, 4, 14)
+# Use real today's date against data.json's window.
+DEBUG_TODAY = date.today()
 
 
 AFS_FIXTURE_DIR = ROOT / "tests" / "AFS_test_data"
@@ -267,13 +267,15 @@ def check_site_views(all_events: list[dict]) -> list[Check]:
     week_events = _filter_this_week(all_events, DEBUG_TODAY)
     weekend_events = _filter_weekend(all_events, DEBUG_TODAY)
     checks = []
+    today_str = DEBUG_TODAY.isoformat()
+    week_end_str = (DEBUG_TODAY + timedelta(days=7)).isoformat()
     checks.append(
-        _ok("Site: Today", f"{len(today_events)} events on 2026-04-14")
+        _ok("Site: Today", f"{len(today_events)} events on {today_str}")
         if today_events else
-        _fail("Site: Today", "zero events on the synthetic today (MIROIRS NO. 3 / CHIME should be present)")
+        _fail("Site: Today", f"zero events on {today_str}")
     )
     checks.append(
-        _ok("Site: This Week", f"{len(week_events)} events in 2026-04-14..21")
+        _ok("Site: This Week", f"{len(week_events)} events in {today_str}..{week_end_str}")
         if week_events else
         _fail("Site: This Week", "zero events in the week window")
     )
@@ -442,11 +444,15 @@ def check_data_json_site_views() -> list[Check]:
         if any(d in weekend_dates for d in dates if d):
             weekend_ct += 1
 
-    checks.append(_ok("data.json: Today", f"{today_ct} entries on 2026-04-14") if today_ct
-                  else _fail("data.json: Today", "zero entries on synthetic today"))
-    checks.append(_ok("data.json: This Week", f"{week_ct} entries in 04-14..21") if week_ct
+    today_str = DEBUG_TODAY.isoformat()
+    week_end_str = (DEBUG_TODAY + timedelta(days=7)).isoformat()
+    friday_str = friday.isoformat()
+    sunday_str = (friday + timedelta(days=2)).isoformat()
+    checks.append(_ok("data.json: Today", f"{today_ct} entries on {today_str}") if today_ct
+                  else _fail("data.json: Today", f"zero entries on {today_str}"))
+    checks.append(_ok("data.json: This Week", f"{week_ct} entries in {today_str}..{week_end_str}") if week_ct
                   else _fail("data.json: This Week", "zero entries in week window"))
-    checks.append(_ok("data.json: Weekend", f"{weekend_ct} entries Fri 04-17..Sun 04-19") if weekend_ct
+    checks.append(_ok("data.json: Weekend", f"{weekend_ct} entries Fri {friday_str}..Sun {sunday_str}") if weekend_ct
                   else _fail("data.json: Weekend", "zero entries in weekend window"))
     return checks
 
