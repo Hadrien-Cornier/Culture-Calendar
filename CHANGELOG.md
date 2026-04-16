@@ -37,14 +37,99 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/variants/v11-picks-plus/audit.md
 - validation: green
 
-### task-T6.3 — DONE — 2026-04-16T17:12:35Z
-- commit: 80ce93a
-- files: docs/variants/v11c/index.html, docs/variants/v11c/styles.css, docs/variants/v11c/script.js, docs/variants/v11c/audit.md
+### task-T6.2 — DONE — 2026-04-16T17:16:38Z
+- commit: 81761ba
+- files: docs/variants/v11b/index.html, docs/variants/v11b/script.js, docs/variants/v11b/styles.css, docs/variants/v11b/audit.md
+- validation: green
+
+### task-T6.3 — DONE — 2026-04-16T17:17:45Z
+- commit: 583f349
+- files: docs/variants/v11c/
 - validation: green
 
 ### task-T8.2 — DONE — 2026-04-16T17:25:00Z
 - commit: 708d162
 - files: src/processor.py, update_website_data.py, docs/data.json, docs/source_update_times.json
+- validation: green
+
+### task-T8.4 — DONE — 2026-04-16T17:28:30Z
+- commit: 893b3e5de5cb47eba7f408f8e95245999da63d5b
+- files: src/summary_generator.py, docs/data.json
+- validation: green
+
+### task-T6.4 — DONE — 2026-04-16T17:30:45Z
+- commit: 141c95f
+- files: docs/variants/v11d/index.html, docs/variants/v11d/script.js, docs/variants/v11d/styles.css, docs/variants/v11d/audit.md
+- validation: green
+
+### task-T6.5 — DONE — 2026-04-16T17:33:20Z
+- commit: 5ecfbfc
+- files: docs/variants/v11e/audit.md, docs/variants/v11e/index.html, docs/variants/v11e/script.js, docs/variants/v11e/styles.css
+- validation: green
+
+### task-T6.6 — DONE — 2026-04-16T17:35:00Z
+- commit: 73cfd16
+- files: docs/variants/v11f/index.html, docs/variants/v11f/script.js, docs/variants/v11f/styles.css, docs/variants/v11f/audit.md
+- validation: green
+
+### task-T6.7 — DONE — 2026-04-16T17:38:45Z
+- commit: 87e4ab6
+- files: docs/variants/v11g/index.html, docs/variants/v11g/script.js, docs/variants/v11g/styles.css, docs/variants/v11g/audit.md
+- validation: green
+
+### task-T6.8 — DONE — 2026-04-16T17:42:15Z
+- commit: b6019a4
+- files: docs/variants/v11h/index.html, docs/variants/v11h/script.js, docs/variants/v11h/styles.css, docs/variants/v11h/audit.md
+- validation: green
+
+### task-T6.9 — DONE — 2026-04-16T17:44:30Z
+- commit: b1842b5
+- files: docs/variants/v11i/index.html, docs/variants/v11i/script.js, docs/variants/v11i/styles.css, docs/variants/v11i/audit.md
+- validation: green
+
+### task-T6.10 — DONE — 2026-04-16T17:28:53Z
+- commit: 99af60a
+- files: docs/variants/v11j/index.html, docs/variants/v11j/script.js, docs/variants/v11j/styles.css, docs/variants/v11j/audit.md
+- validation: green
+
+### task-T6.11 — DONE — 2026-04-16T17:47:26Z
+- commit: 4bc93c6
+- files: docs/variants/index.html
+- validation: green
+
+### task-T6.12 — DONE — 2026-04-16T17:29:55Z
+- commit: 50e3e44
+- files: docs/variants/V11_AUDIT_SUMMARY.md
+- validation: green
+
+### task-T7.2 — DONE — 2026-04-16T17:52:44Z
+- commit: 6f9def6
+- files: src/sources/__init__.py,src/sources/wikipedia.py
+- validation: green
+
+### task-T7.3 — DONE — 2026-04-16T17:53:15Z
+- commit: 56c456a
+- files: src/sources/letterboxd.py
+- validation: green
+
+### task-T7.4 — DONE — 2026-04-16T18:00:00Z
+- commit: 7bc3074
+- files: src/processor.py
+- validation: green
+
+### task-T7.5 — DONE — 2026-04-16T18:07:33Z
+- commit: 4dbf033
+- files: update_website_data.py,docs/data-pilot.json
+- validation: green
+
+### task-T7.6 — DONE — 2026-04-16T18:16:42Z
+- commit: 7f91777
+- files: docs/variants/v11-review-uplift/index.html, docs/variants/v11-review-uplift/script.js, docs/variants/v11-review-uplift/styles.css, docs/variants/v11-review-uplift/audit.md
+- validation: green
+
+### task-T9.1 — DONE — 2026-04-16T17:48:11Z
+- commit: (no-op — all gates pass, no new changes committed)
+- files: CHANGELOG.md
 - validation: green
 
 <!-- END OVERNIGHT-PLAN: 2026-04-16 -->
