@@ -7,6 +7,36 @@ Runner: `overnight-plan` skill. Branch: `overnight/2026-04-16`. Goal: v11 polish
 
 Task entries (appended by the runner after each DONE commit) follow below.
 
+### task-T8.1 — DONE — 2026-04-16T16:36:41Z
+- commit: a11d9f3
+- files: (no-op verification commit)
+- validation: green
+
+### task-T8.3 — DONE — 2026-04-16T16:45:18Z
+- commit: 4df5ab2
+- files: scripts/check_ai_smell.py
+- validation: green
+
+### task-T8.5 — DONE — 2026-04-16T16:48:06Z
+- commit: 43c04ab
+- files: scripts/verify_calendar.py
+- validation: green
+
+### task-T5.2 — DONE — 2026-04-16T16:49:56Z
+- commit: 51e1f09
+- files: docs/variants/v11-picks-plus/styles.css
+- validation: green
+
+### task-T5.3 — DONE — 2026-04-16T17:00:00Z
+- commit: 31c0cdc3b1ffe64724ed9cec30e08ffaad3e4b46
+- files: docs/variants/v11-picks-plus/script.js, docs/variants/v11-picks-plus/styles.css, scripts/check_variant.mjs
+- validation: green
+
+### task-T5.4 — DONE — 2026-04-16T17:05:16Z
+- commit: dd8d02c
+- files: docs/variants/v11-picks-plus/audit.md
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-16 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-15 -->
