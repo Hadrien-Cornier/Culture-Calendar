@@ -5,7 +5,9 @@ Generates JSON data for the GitHub Pages website
 Supports multiple venues: AFS, Hyperreal Movie Club, Paramount Theatre, and others
 """
 
+import argparse
 import json
+import os
 import re
 import sys
 from datetime import datetime, timedelta
@@ -450,6 +452,7 @@ def main(
     test_week: bool = False,
     force_reprocess: bool = False,
     validate: bool = False,
+    pilot: bool = False,
 ):
     """Generate website data.
 
@@ -459,7 +462,11 @@ def main(
             venue's `scrape_events()` always pulls its full calendar.
         force_reprocess: If True, force re-processing of all events (ignore cache).
         validate: If True, enable smart validation with fail-fast mechanisms.
+        pilot: If True, restrict to 5 hardcoded pilot titles and output to data-pilot.json.
     """
+    if pilot:
+        os.environ["PILOT_UPLIFT"] = "1"
+
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
 
     try:
@@ -554,6 +561,21 @@ def main(
         upcoming_events = detailed_events
         print(f"Processing {len(upcoming_events)} total events")
 
+        # Filter to pilot titles if --pilot flag is set
+        if pilot:
+            pilot_titles = {
+                "THE STRANGER (L\u2019ETRANGER)",
+                "LANCELOT DU LAC",
+                "PALESTINE \u201936",
+                "A SERIOUS MAN",
+                "SHIFTING BASELINES",
+            }
+            upcoming_events = [
+                e for e in upcoming_events
+                if e.get("title", "") in pilot_titles
+            ]
+            print(f"Filtered to {len(upcoming_events)} pilot events")
+
         # Process and enrich events
         print("Processing and enriching events...")
         enriched_events = processor.process_events(upcoming_events)
@@ -598,10 +620,11 @@ def main(
         website_data = strip_banned_from_events(website_data)
 
         # Save JSON data
-        with open("docs/data.json", "w") as f:
+        output_file = "docs/data-pilot.json" if pilot else "docs/data.json"
+        with open(output_file, "w") as f:
             json.dump(website_data, f, indent=2)
 
-        print(f"Generated docs/data.json with {len(website_data)} events")
+        print(f"Generated {output_file} with {len(website_data)} events")
         # Save per-source update timestamps
         save_update_info(scraper.last_updated)
 
@@ -613,11 +636,33 @@ def main(
 
 
 if __name__ == "__main__":
-    test_week = "--test-week" in sys.argv
-    force_reprocess = "--force-reprocess" in sys.argv
-    validate = "--validate" in sys.argv
+    parser = argparse.ArgumentParser(
+        description="Generate website data for Culture Calendar"
+    )
+    parser.add_argument(
+        "--test-week",
+        action="store_true",
+        help="Limit recurring-event generation to ~2 weeks ahead instead of ~8",
+    )
+    parser.add_argument(
+        "--force-reprocess",
+        action="store_true",
+        help="Force re-processing of all events (ignore cache)",
+    )
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help="Enable smart validation with fail-fast mechanisms",
+    )
+    parser.add_argument(
+        "--pilot",
+        action="store_true",
+        help="Restrict to 5 hardcoded pilot titles and output to data-pilot.json",
+    )
+    args = parser.parse_args()
     main(
-        test_week=test_week,
-        force_reprocess=force_reprocess,
-        validate=validate,
+        test_week=args.test_week,
+        force_reprocess=args.force_reprocess,
+        validate=args.validate,
+        pilot=args.pilot,
     )
