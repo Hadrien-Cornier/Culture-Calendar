@@ -118,7 +118,14 @@ class SummaryGenerator:
             return self.summary_cache[cache_key], False
 
         try:
+            from src.processor import is_refusal_response
+
             summary = self._call_claude_api(event)
+            if summary and is_refusal_response(summary):
+                print(
+                    f"  Refusal-shaped summary dropped: {event.get('title','Unknown')}"
+                )
+                summary = None
             if summary:
                 self.summary_cache[cache_key] = summary
                 self._save_cache()
