@@ -68,14 +68,16 @@ def _style_rubric() -> str:
     """
     banned = ", ".join(BANNED_PHRASES)
     return (
-        "STYLE PREFERENCES:\n"
+        "STYLE REQUIREMENTS:\n"
         "- Write like a newspaper critic on deadline: direct, concrete, specific.\n"
-        "- Prefer commas, periods, or semicolons over em-dashes (\u2014).\n"
+        "- Use only commas, periods, or semicolons—do not use em-dashes (\u2014).\n"
         "- If sources are thin, write a brief honest note (2-3 sentences) "
         "about what you can and cannot say. Do not refuse; produce the review.\n"
-        f"- Avoid overusing these cliches: {banned}. Substitute concrete nouns and verbs.\n"
+        f"- CRITICAL: Do not use these overused words/phrases: {banned}. Find specific alternatives.\n"
         "- Commit to a judgment; reserve hedging for genuine uncertainty.\n"
-        "- Cite specific scenes, passages, movements, or performances when possible."
+        "- Cite specific scenes, passages, movements, or performances when possible.\n"
+        "- Replace clichés with concrete details (instead of 'haunting', name what haunts; "
+        "instead of 'profound', describe the specific insight)."
     )
 
 
