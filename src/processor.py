@@ -170,7 +170,7 @@ class EventProcessor:
         self.perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
         self.movie_cache = {}  # Cache AI ratings to avoid reprocessing
         self.force_reprocess = force_reprocess
-        self.pilot_mode = pilot_mode or os.getenv("PILOT_MODE", "").lower() in ("1", "true")
+        self.pilot_mode = pilot_mode or os.getenv("PILOT_UPLIFT", "").lower() in ("1", "true")
         self.reprocessed_titles = set()  # Track titles already reprocessed in this run
 
         # Load existing data into cache

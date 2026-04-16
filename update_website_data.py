@@ -466,13 +466,16 @@ def main(
     """
     if pilot:
         os.environ["PILOT_UPLIFT"] = "1"
+        # Pilot implies force_reprocess so the dossier injection produces fresh output
+        # rather than returning cached reviews from the non-pilot run.
+        force_reprocess = True
 
     print(f"Culture Calendar Website Update - Starting at {datetime.now()}")
 
     try:
         # Initialize components
         scraper = MultiVenueScraper()
-        processor = EventProcessor(force_reprocess=force_reprocess)
+        processor = EventProcessor(force_reprocess=force_reprocess, pilot_mode=pilot)
 
         # Scrape all venues (including classical music from JSON)
         print("Fetching calendar data from all venues...")
