@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Austin Culture Calendar — v4</title>
+  <link rel="stylesheet" href="../_shared/reset.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-left">
+      <h1>culture-cal</h1>
+      <span class="header-sep">|</span>
+      <span class="header-count" id="count">0 events</span>
+    </div>
+    <div class="header-right">
+      <span class="header-hint">j/k:nav</span>
+      <span class="header-hint">/:filter</span>
+      <span class="header-hint">?:help</span>
+    </div>
+  </header>
+  <div class="filter-bar" id="filter-bar" hidden>
+    <span class="filter-prompt">/</span>
+    <input type="text" id="filter-input" class="filter-input" autocomplete="off" spellcheck="false" aria-label="Filter events">
+    <span class="filter-esc">esc to close</span>
+  </div>
+  <main class="table" id="table" role="grid" aria-label="Events list"></main>
+  <div class="status" id="loading">loading…</div>
+  <div class="status error" id="error" hidden></div>
+  <div class="help-overlay" id="help" hidden role="dialog" aria-label="Keyboard shortcuts">
+    <div class="help-box">
+      <div class="help-title">keyboard shortcuts</div>
+      <div class="help-row"><kbd>j</kbd> / <kbd>↓</kbd> next row</div>
+      <div class="help-row"><kbd>k</kbd> / <kbd>↑</kbd> previous row</div>
+      <div class="help-row"><kbd>Enter</kbd> open event link</div>
+      <div class="help-row"><kbd>/</kbd> filter events</div>
+      <div class="help-row"><kbd>Escape</kbd> clear filter / close help</div>
+      <div class="help-row"><kbd>?</kbd> toggle this help</div>
+      <div class="help-row"><kbd>g</kbd> jump to top</div>
+      <div class="help-row"><kbd>G</kbd> jump to bottom</div>
+      <div class="help-close">press ? or Esc to close</div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

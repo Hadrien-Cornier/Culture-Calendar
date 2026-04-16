@@ -298,7 +298,10 @@ class SummaryGenerator:
                 f"Summary generation failed for event '{title}': {e}"
             ) from e
 
+        from .processor import _style_rubric
+        rubric = _style_rubric()
         system_prompt = (
+            f"{rubric}\n\n"
             "You are an expert cultural critic writing one-line summaries (8–16 words) for "
             "Austin event listings. Be concrete, evocative, and specific. No quotes, no preamble, "
             "no meta-commentary — just the summary sentence."
@@ -494,9 +497,9 @@ IMPORTANT: Only summarize if this is a specific individual movie. If this is a m
 Based on this analysis, provide ONLY a concise summary that captures the movie's mood, genre, and key themes. No explanations or introductions - just the summary.
 
 Examples:
+- "Bergman 1966 two-hander about identity collapse on a Baltic island"
 - "Bleak UK road movie about obsession and loneliness"
-- "Haunting Japanese adaptation exploring ambition and betrayal"
-- "Surreal Lynch thriller diving into Hollywood's dark underbelly"
+- "Kiarostami lets a car ride replace plot with quiet revelation"
 
 Summary:"""
 
@@ -548,9 +551,9 @@ Detailed Analysis:
 {description}
 
 Extract the core musical style, period, and atmosphere from this analysis. Examples:
-- "Intimate chamber music featuring Baroque masters in candlelit setting"
-- "Powerful symphonic works showcasing romantic-era orchestration"
-- "Haunting medieval chants performed by virtuoso ensemble"
+- "Ligeti electronic studies on prepared piano meet Bartók folk dances"
+- "All-Beethoven program anchored by the Emperor Concerto"
+- "Tallis 40-part motet headlines an a-cappella Renaissance set"
 
 Your one-line summary (8-12 words):"""
 
@@ -599,9 +602,9 @@ Detailed Analysis:
 {description}
 
 Extract the core themes, genre, and literary significance from this analysis. Examples:
-- "Literary fiction exploring family secrets and generational trauma"
-- "Haunting sci-fi meditation on consciousness and memory"
-- "Powerful memoir chronicling immigration and cultural identity"
+- "Ferrante dissects a Naples friendship across four decades"
+- "Hard-boiled 1930s LA noir with a poet's ear for insults"
+- "Sontag argues photography changed how we process atrocity"
 
 Your one-line summary (8-12 words):"""
 

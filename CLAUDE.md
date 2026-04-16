@@ -301,3 +301,99 @@ To check whether embeddings exist, inspect `.gitnexus/meta.json` — the `stats.
 | Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
 
 <!-- gitnexus:end -->
+
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-15 -->
+## Overnight run — 2026-04-15
+
+> **AUTONOMOUS RUN — do not edit while running.**
+> Owner: HCornier · Branch: `overnight/2026-04-15` · Deadline: 2026-04-16T12:00:00 (safety cap; open-ended per user)
+> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`.
+
+### Goal
+
+Three deliverables in one branch:
+1. Fix the missing-event bug: THE STRANGER (L'ETRANGER) on April 19 @ 3:15 PM (and its 5 other screenings) must render correctly. Generalize: every event's `dates[]` must equal the set of `screenings[].date`.
+2. Kill AI-smell in reviews: add a style rubric + banned-phrase list to every LLM prompt; rewrite cached reviews that match the banned list.
+3. Produce 10 design variants under `docs/variants/v{1..10}/` with a gallery at `docs/variants/index.html`, each with an impeccable (or axe-core fallback) audit.
+
+### Definition of done
+
+- `.venv/bin/python -m pytest -q` green.
+- `.venv/bin/python scripts/verify_calendar.py --offline` PASS.
+- `.venv/bin/python scripts/check_ai_smell.py docs/data.json` exits 0.
+- THE STRANGER has `dates == [2026-04-17, 18, 19, 24, 26, 27]` in `docs/data.json`.
+- All 10 `docs/variants/v{N}/` load without JS errors, read `../../data.json`, render >= 200 events, pass `scripts/check_variant.mjs`, have an `audit.md`.
+- `STATUS.md` written with disposition, commit shas, blockers, morning checklist.
+
+### Hard constraints
+
+- Branch: `overnight/2026-04-15` only. Never touch `main` / `master` / `trunk`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does **NOT** push; user reviews and merges manually.
+- No new dependencies: no `pip install`, `npm install`, `cargo add`, `go get`. If you think you need one, write BLOCKED with reason `needs-dep: <name>`.
+- No interactive prompts. No `--no-verify` on commits.
+- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m '...'`. Never mutate `~/.gitconfig` or `.git/config`.
+- Never commit `.env`, `cache/`, or anything matching `*secret*`. `.overnight/` is gitignored; do not `git add` it.
+- Scope fence: `src/`, `scripts/`, `tests/`, `docs/`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS.md`. Nothing else.
+
+### Validation oracle (run before every commit)
+
+```
+.venv/bin/python -m pytest -q
+.venv/bin/python scripts/verify_calendar.py --offline
+```
+
+Both must exit 0. If oracle fails twice in a row for the same task, write BLOCKED and rotate.
+
+### Commit cadence
+
+One commit per DONE task. Message format: `<type>(task-<ID>): <TITLE>` where type is feat/fix/docs/chore/refactor/test. Stage only files in the task's `files` column; never `git add -A`.
+
+### Changelog entry per task
+
+After each DONE commit, append one line to the fenced overnight block in `CHANGELOG.md`:
+
+```
+### task-<ID> — DONE — <ISO timestamp>
+- commit: <sha>
+- files: <comma-separated>
+- validation: green
+```
+
+### Stop conditions
+
+- All queue tasks DONE → `RUN_COMPLETE`
+- Deadline reached → `RUN_HALTED: deadline`
+- 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`
+- `STATUS.md` contains line `HALT` (manual override) → `RUN_HALTED: manual`
+
+### Blocker protocol
+
+A task blocks when validation fails twice. Append to CHANGELOG under today's fenced block:
+```
+BLOCKED: task-<ID>: <one-line reason + failing-command head/tail>
+```
+Then write `.overnight/task-result.json` with `{"status": "BLOCKED", "task_id": "task-<ID>", "reason": "<one line>"}`. The runner rotates to the next eligible task.
+
+### Task queue
+
+Source of truth: `.overnight/queue.tsv`. Human view below:
+
+- **T0.2** — Bootstrap `docs/variants/_shared/reset.css`
+- **T0.3** — Attempt install pbakaus/impeccable; record outcome in `docs/variants/PLUGIN_STATUS.md`
+- **T1.1** — Regression test pinning THE STRANGER 6-date coverage (committed RED)
+- **T1.2** — Fix `update_website_data.py` to hoist `dates` from `screenings`
+- **T1.3** — Frontend audit: migrate remaining `.date`/`.dates[0]` readers to `screenings[]`
+- **T1.4** — Regen `docs/data.json` offline; verify THE STRANGER
+- **T2.1** — Add `_style_rubric()` helper to `src/processor.py`
+- **T2.2** — Wire rubric into all 9 prompts in `src/processor.py`
+- **T2.3** — Replace AI-smell examples + wire rubric in `src/summary_generator.py`
+- **T2.4** — Write `scripts/check_ai_smell.py` linter
+- **T2.5** — Write `scripts/regen_smelly_reviews.py` cache invalidator
+- **T2.6** — Run regen for smelly entries; verify clean
+- **T2.7** — Rerun `verify_calendar.py --offline`
+- **T3.1..T3.10** — Generate one design variant each (see queue.tsv for brief)
+- **T3.11** — Gallery `docs/variants/index.html`
+- **T3.12** — Audit every variant (impeccable or axe-core)
+- **T4.1** — Final gate: pytest + verify_calendar.py
+- **T4.2** — Write STATUS.md handoff
+
+<!-- END OVERNIGHT-PLAN: 2026-04-15 -->

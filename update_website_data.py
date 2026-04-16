@@ -292,6 +292,12 @@ def finalize_website_data(combined_data: dict) -> list:
             key=lambda x: (x.get("date") or "9999-12-31", x.get("time") or "23:59")
         )
 
+        # Hoist dates/times from screenings so they always match
+        screening_dates = sorted({s["date"] for s in event_data["screenings"] if s.get("date")})
+        screening_times = sorted({s["time"] for s in event_data["screenings"] if s.get("time")})
+        event_data["dates"] = screening_dates
+        event_data["times"] = screening_times
+
         website_data.append(event_data)
 
     # Sort by the earliest occurrence date/time so upcoming events appear first

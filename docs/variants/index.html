@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Austin Culture Calendar — Design Variants</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.5}
+header{position:sticky;top:0;z-index:100;background:#1a1a1a;color:#fff;padding:1.25rem 2rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+header h1{font-size:1.5rem;font-weight:700;letter-spacing:.02em}
+header p{font-size:.95rem;opacity:.8;margin-top:.25rem}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;padding:2rem;max-width:1400px;margin:0 auto}
+.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.1);transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.15);transform:translateY(-2px)}
+.card .preview{position:relative;width:100%;height:0;padding-bottom:62.5%;overflow:hidden;background:#e0e0e0}
+.card .preview iframe{position:absolute;top:0;left:0;width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:0;pointer-events:none}
+.card .info{padding:1rem 1.25rem}
+.card .info h2{font-size:1.05rem;font-weight:600;margin-bottom:.25rem}
+.card .info p{font-size:.85rem;color:#555;margin-bottom:.75rem}
+.card .info a{display:inline-block;font-size:.85rem;font-weight:600;color:#1a73e8;text-decoration:none}
+.card .info a:hover{text-decoration:underline}
+@media(max-width:500px){.gallery{grid-template-columns:1fr;padding:1rem}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Austin Culture Calendar — Design Variants</h1>
+  <p>Pick your favorite design. Each variant shows the same event data in a different style.</p>
+</header>
+<main class="gallery">
+  <div class="card">
+    <div class="preview"><iframe src="v1/" loading="lazy" sandbox="allow-scripts" title="Variant 1 preview"></iframe></div>
+    <div class="info">
+      <h2>v1 — Scroll List + Date Jump-Nav</h2>
+      <p>Austintango-style vertical scroll with a left date rail for quick navigation.</p>
+      <a href="v1/">Open variant &rarr;</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="preview"><iframe src="v2/" loading="lazy" sandbox="allow-scripts" title="Variant 2 preview"></iframe></div>
+    <div class="info">
+      <h2>v2 — Editorial Dark Mode</h2>
+      <p>Warm serif typography on an off-black background, magazine-column layout.</p>
+      <a href="v2/">Open variant &rarr;</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="preview"><iframe src="v3/" loading="lazy" sandbox="allow-scripts" title="Variant 3 preview"></iframe></div>
+    <div class="info">
+      <h2>v3 — Card Grid + Hover Flip</h2>
+      <p>Three-column card grid with poster thumbnails; hover to reveal synopsis.</p>
+      <a href="v3/">Open variant &rarr;</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="preview"><iframe src="v4/" loading="lazy" sandbox="allow-scripts" title="Variant 4 preview"></iframe></div>
+    <div class="info">
+      <h2>v4 — Terminal / Keyboard-Nav</h2>
+      <p>Monospace high-density view with j/k navigation and filter search.</p>
+      <a href="v4/">Open variant &rarr;</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="preview"><iframe src="v5/" loading="lazy" sandbox="allow-scripts" title="Variant 5 preview"></iframe></div>
+    <div class="info">
+      <h2>v5 — NYT Sticky Date Rail</h2>
+      <p>Sticky date column on the left, two-column body with genre chips.</p>
+      <a href="v5/">Open variant &rarr;</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="preview"><iframe src="v6/" loading="lazy" sandbox="allow-scripts" title="Variant 6 preview"></iframe></div>
+    <div class="info">
+      <h2>v6 — Horizontal Timeline</h2>
+      <p>Days flow left-to-right on a drag-scrollable rail with compact cards.</p>
+      <a href="v6/">Open variant &rarr;</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="preview"><iframe src="v7/" loading="lazy" sandbox="allow-scripts" title="Variant 7 preview"></iframe></div>
+    <div class="info">
+      <h2>v7 — Calendar Heatmap</h2>
+      <p>GitHub-contributions-style grid; click a day cell to expand its events.</p>
+      <a href="v7/">Open variant &rarr;</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="preview"><iframe src="v8/" loading="lazy" sandbox="allow-scripts" title="Variant 8 preview"></iframe></div>
+    <div class="info">
+      <h2>v8 — Obsidian / Notion Column</h2>
+      <p>Narrow single-column sans-serif layout with subtle accent color.</p>
+      <a href="v8/">Open variant &rarr;</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="preview"><iframe src="v9/" loading="lazy" sandbox="allow-scripts" title="Variant 9 preview"></iframe></div>
+    <div class="info">
+      <h2>v9 — Swiss Poster Aesthetic</h2>
+      <p>Helvetica Neue 12-column grid with bold primary-color accents.</p>
+      <a href="v9/">Open variant &rarr;</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="preview"><iframe src="v10/" loading="lazy" sandbox="allow-scripts" title="Variant 10 preview"></iframe></div>
+    <div class="info">
+      <h2>v10 — Critics Tipsheet</h2>
+      <p>Rating-sorted list with expandable inline reviews and top-10 picks.</p>
+      <a href="v10/">Open variant &rarr;</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

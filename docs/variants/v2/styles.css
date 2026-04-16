@@ -1,0 +1,153 @@
+:root {
+  --bg: #0f0f0f;
+  --fg: #f0ebe0;
+  --fg-muted: #9a9488;
+  --border: #2a2824;
+  --accent: #c8a96e;
+  --col-width: 680px;
+  --serif: "Charter", "Iowan Old Style", "Georgia", serif;
+}
+
+body {
+  font-family: var(--serif);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+}
+
+.site-header {
+  max-width: var(--col-width);
+  margin: 0 auto;
+  padding: 3rem 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header h1 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  margin-top: 0.25rem;
+  letter-spacing: 0.06em;
+}
+
+.column {
+  max-width: var(--col-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+.date-header {
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 2.5rem 0 0.75rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+  color: var(--fg);
+  line-height: 1.2;
+  scroll-margin-top: 1rem;
+}
+
+.date-header::first-letter {
+  font-size: 1.3em;
+  font-weight: 900;
+}
+
+.date-header:first-child {
+  padding-top: 2rem;
+}
+
+.event-row {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(42, 40, 36, 0.5);
+}
+
+.event-row:last-child {
+  border-bottom: none;
+}
+
+.event-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  margin-bottom: 0.15rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.event-time {
+  flex-shrink: 0;
+}
+
+.event-venue {
+  flex-shrink: 0;
+}
+
+.event-dot {
+  color: var(--border);
+}
+
+.event-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.event-title a {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.event-title a:hover {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #e55;
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .site-header h1 {
+    font-size: 1.1rem;
+  }
+
+  .column {
+    padding: 0 1rem 3rem;
+  }
+
+  .date-header {
+    font-size: 1.5rem;
+    padding: 2rem 0 0.5rem;
+  }
+
+  .event-title {
+    font-size: 0.95rem;
+  }
+
+  .event-meta {
+    font-size: 0.75rem;
+  }
+}

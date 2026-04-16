@@ -1313,10 +1313,12 @@ function downloadFilteredCalendar(minRating) {
 }
 
 // Generate ICS calendar content
-function generateICSContent(movies) {
+// contract: receives flat screening objects {title, date, time, description, rating, url, id}
+// built from event.screenings[] in downloadFilteredCalendar()
+function generateICSContent(screeningsList) {
     const now = new Date();
     const timestamp = now.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-    
+
     let icsContent = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
@@ -1344,21 +1346,21 @@ function generateICSContent(movies) {
         'END:VTIMEZONE',
         ''
     ].join('\r\n');
-    
-    movies.forEach(event => {
-        const startDateTime = formatDateTimeForICS(event.date, event.time);
-        const endDateTime = formatDateTimeForICS(event.date, event.time, 2); // 2 hour duration
-        
+
+    screeningsList.forEach(screening => {
+        const startDateTime = formatDateTimeForICS(screening.date, screening.time);
+        const endDateTime = formatDateTimeForICS(screening.date, screening.time, 2);
+
         icsContent += [
             'BEGIN:VEVENT',
-            `UID:${event.id}@culturecalendar.local`,
+            `UID:${screening.id}@culturecalendar.local`,
             `DTSTAMP:${timestamp}`,
             `DTSTART;${startDateTime}`,
             `DTEND;${endDateTime}`,
-            `SUMMARY:★${event.rating}/10 - ${event.title}`,
-            `DESCRIPTION:${formatDescriptionForICS(event.description)}`,
+            `SUMMARY:★${screening.rating}/10 - ${screening.title}`,
+            `DESCRIPTION:${formatDescriptionForICS(screening.description)}`,
             `LOCATION:Austin Film Society Cinema, 6226 Middle Fiskville Rd, Austin, TX 78752`,
-            `URL:${event.url || 'https://www.austinfilm.org/'}`,
+            `URL:${screening.url || 'https://www.austinfilm.org/'}`,
             'CATEGORIES:Film,Entertainment',
             'END:VEVENT',
             ''

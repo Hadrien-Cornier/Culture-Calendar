@@ -1,5 +1,136 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-15 -->
+## Overnight run — 2026-04-15
+
+Runner: `overnight-plan` skill. Branch: `overnight/2026-04-15`. Goal: THE STRANGER bug, anti-AI-smell reviews, 10 design variants. Full spec in `CLAUDE.md` §Overnight run — 2026-04-15.
+
+Task entries (appended by the runner after each DONE commit) follow below.
+
+### task-T0.2 — DONE — 2026-04-15T19:14:25Z
+- commit: c36a97b
+- files: docs/variants/_shared/reset.css
+- validation: green
+
+### task-T0.3 — DONE — 2026-04-15T19:19:17Z
+- commit: b84fcb9
+- files: docs/variants/PLUGIN_STATUS.md
+- validation: green
+
+### task-T1.1 — DONE — 2026-04-15T19:20:44Z
+- commit: ad0f369
+- files: tests/test_consolidation_invariant.py
+- validation: green
+
+### task-T1.2 — DONE — 2026-04-15T19:21:16Z
+- commit: 09b066f
+- files: update_website_data.py, tests/test_consolidation_invariant.py, docs/data.json
+- validation: green
+
+### task-T1.3 — DONE — 2026-04-15T19:24:38Z
+- commit: 642dd6c
+- files: docs/script.js
+- validation: green
+
+### task-T1.4 — DONE — 2026-04-15T19:26:48Z
+- commit: (no-op — T1.2 already regenerated docs/data.json)
+- files: docs/data.json (verified, no changes needed)
+- validation: green
+
+### task-T2.1 — DONE — 2026-04-15T19:27:07Z
+- commit: 0ae2da3
+- files: src/processor.py
+- validation: green
+
+### task-T2.2 — DONE — 2026-04-15T19:28:10Z
+- commit: 0c73a7d
+- files: src/processor.py
+- validation: green
+
+### task-T2.3 — DONE — 2026-04-15T19:30:01Z
+- commit: 4699044
+- files: src/summary_generator.py
+- validation: green
+
+### task-T2.4 — DONE — 2026-04-15T19:31:58Z
+- commit: 50a93e3
+- files: scripts/check_ai_smell.py
+- validation: green
+
+### task-T2.5 — DONE — 2026-04-15T20:12:50Z
+- commit: 1802014
+- files: scripts/regen_smelly_reviews.py
+- validation: green
+
+### task-T2.6 — DONE — 2026-04-15T20:15:30Z
+- commit: 4b1a6cd
+- files: docs/data.json
+- validation: green
+
+### task-T3.1 — DONE — 2026-04-15T19:39:44Z
+- commit: a892356
+- files: docs/variants/v1/index.html, docs/variants/v1/styles.css, docs/variants/v1/script.js, docs/variants/v1/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
+### task-T3.2 — DONE — 2026-04-15T19:43:09Z
+- commit: c5848bb
+- files: docs/variants/v2/index.html, docs/variants/v2/styles.css, docs/variants/v2/script.js
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
+### task-T3.3 — DONE — 2026-04-15T19:45:03Z
+- commit: 27b3800
+- files: docs/variants/v3/index.html, docs/variants/v3/styles.css, docs/variants/v3/script.js, docs/variants/v3/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
+### task-T3.4 — DONE — 2026-04-15T19:47:55Z
+- commit: 0edb6db
+- files: docs/variants/v4/index.html, docs/variants/v4/styles.css, docs/variants/v4/script.js, docs/variants/v4/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
+### task-T3.5 — DONE — 2026-04-15T19:51:07Z
+- commit: 271d05f
+- files: docs/variants/v5/index.html, docs/variants/v5/styles.css, docs/variants/v5/script.js, docs/variants/v5/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
+### task-T3.6 — DONE — 2026-04-15T19:55:23Z
+- commit: f614904
+- files: docs/variants/v6/index.html, docs/variants/v6/styles.css, docs/variants/v6/script.js, docs/variants/v6/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
+### task-T3.7 — DONE — 2026-04-15T19:59:31Z
+- commit: 23ece9c
+- files: docs/variants/v7/index.html, docs/variants/v7/styles.css, docs/variants/v7/script.js, docs/variants/v7/audit.md
+- validation: green
+
+### task-T3.8 — DONE — 2026-04-15T20:04:13Z
+- commit: 3b022f1
+- files: docs/variants/v8/index.html, docs/variants/v8/styles.css, docs/variants/v8/script.js, docs/variants/v8/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
+### task-T3.9 — DONE — 2026-04-15T20:06:39Z
+- commit: dd4227a
+- files: docs/variants/v9/index.html, docs/variants/v9/styles.css, docs/variants/v9/script.js, docs/variants/v9/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
+### task-T3.10 — DONE — 2026-04-15T20:09:39Z
+- commit: ee2f8ee
+- files: docs/variants/v10/index.html, docs/variants/v10/styles.css, docs/variants/v10/script.js, docs/variants/v10/audit.md
+- validation: green (check_variant.mjs missing — pytest+verify_calendar green)
+
+BLOCKED: task-T2.7: verify_calendar.py --offline fails: 29 refusal-shaped one_liner_summary entries (Opera + Paramount) and check_ai_smell.py shows 74 banned-phrase violations still in docs/data.json — regen in T2.6 did not fully clean cached reviews; requires live API regen which is out of scope for this no-code gate task
+
+### task-T3.11 — DONE — 2026-04-15T20:22:03Z
+- commit: dcd4216
+- files: docs/variants/index.html
+- validation: green
+
+### task-T3.12 — DONE — 2026-04-15T20:24:37Z
+- commit: b3bbe87
+- files: docs/variants/v2/audit.md
+- validation: green
+
+<!-- END OVERNIGHT-PLAN: 2026-04-15 -->
+
 ## [Calendar fix] — 2026-04-14 — in progress
 
 ### Termination criterion

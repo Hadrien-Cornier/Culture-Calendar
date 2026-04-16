@@ -1,0 +1,250 @@
+:root {
+  --bg: #fafaf8;
+  --card-bg: #ffffff;
+  --card-back-bg: #1a1a1a;
+  --text: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --text-back: #e8e8e8;
+  --accent: #c53030;
+  --chip-movie: #2b6cb0;
+  --chip-concert: #6b46c1;
+  --chip-book: #2f855a;
+  --chip-opera: #c53030;
+  --chip-dance: #d69e2e;
+  --chip-other: #718096;
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.14);
+  --flip-duration: 0.5s;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.site-header {
+  text-align: center;
+  padding: 2.5rem 1rem 1.5rem;
+}
+
+.site-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
+
+.error {
+  color: var(--accent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.card-container {
+  perspective: 800px;
+  height: 280px;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--flip-duration) ease;
+}
+
+.card-container:hover .card,
+.card-container:focus-within .card {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.card-front {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease;
+}
+
+.card-container:hover .card-front {
+  box-shadow: var(--shadow-hover);
+}
+
+.card-poster {
+  height: 140px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-poster-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  padding: 0 1rem;
+  line-height: 1.1;
+}
+
+.poster-movie { background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%); }
+.poster-concert { background: linear-gradient(135deg, #44337a 0%, #6b46c1 100%); }
+.poster-book_club { background: linear-gradient(135deg, #1c4532 0%, #2f855a 100%); }
+.poster-opera { background: linear-gradient(135deg, #742a2a 0%, #c53030 100%); }
+.poster-dance { background: linear-gradient(135deg, #744210 0%, #d69e2e 100%); }
+.poster-other { background: linear-gradient(135deg, #2d3748 0%, #718096 100%); }
+
+.card-body {
+  padding: 0.75rem 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.venue-chip {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+}
+
+.chip-movie { background: var(--chip-movie); }
+.chip-concert { background: var(--chip-concert); }
+.chip-book_club { background: var(--chip-book); }
+.chip-opera { background: var(--chip-opera); }
+.chip-dance { background: var(--chip-dance); }
+.chip-other { background: var(--chip-other); }
+
+.card-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.card-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-title a:hover {
+  text-decoration: underline;
+}
+
+.card-rating {
+  margin-top: auto;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.star {
+  color: #ecc94b;
+}
+
+.card-back {
+  background: var(--card-back-bg);
+  color: var(--text-back);
+  transform: rotateY(180deg);
+  box-shadow: var(--shadow-hover);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-back-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.card-back-synopsis {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+}
+
+.card-back-venue {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1rem 2rem;
+  }
+
+  .card-container {
+    height: 260px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
