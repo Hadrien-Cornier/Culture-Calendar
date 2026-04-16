@@ -8,11 +8,13 @@ import time
 import json
 from datetime import datetime
 from typing import Dict, List, Optional
+from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
 
 import requests
 from dotenv import load_dotenv
 
 from .summary_generator import SummaryGenerator
+from .sources import wikipedia, letterboxd
 
 load_dotenv()
 
@@ -81,6 +83,70 @@ def _style_rubric() -> str:
     )
 
 
+def _fact_dossier(event: Dict) -> str:
+    """Fetch factual dossier from Wikipedia and Letterboxd (for movies) or Wikipedia (for concerts/opera).
+
+    Uses ThreadPoolExecutor to fetch in parallel with 5s timeout each.
+    Returns markdown block or empty string if all sources returned None.
+    """
+    event_type = event.get("event_category") or event.get("type", "").lower()
+    dossier_parts = []
+
+    if event_type in ("movie", "screening"):
+        title = event.get("title", "")
+        director = event.get("director", "")
+        year = event.get("release_year") or event.get("year")
+
+        with ThreadPoolExecutor(max_workers=3) as executor:
+            futures = {}
+            if director:
+                futures["wikipedia_director"] = executor.submit(wikipedia.fetch_wikipedia, director)
+            if title and year:
+                futures["letterboxd"] = executor.submit(letterboxd.fetch_letterboxd_film, title, int(year))
+
+            for name, future in futures.items():
+                try:
+                    result = future.result(timeout=5)
+                    if result:
+                        if name == "wikipedia_director":
+                            if result.get("extract"):
+                                dossier_parts.append(f"**Director:** {result['extract'][:300]}…")
+                        elif name == "letterboxd":
+                            if result.get("rating"):
+                                dossier_parts.append(f"**Letterboxd Rating:** {result['rating']}/5")
+                            if result.get("review_excerpt"):
+                                dossier_parts.append(f"**Popular Review:** {result['review_excerpt'][:200]}…")
+                except TimeoutError:
+                    pass
+                except Exception:
+                    pass
+
+    elif event_type in ("concert", "opera"):
+        composers = event.get("composers", [])
+        featured_artist = event.get("featured_artist", "")
+
+        with ThreadPoolExecutor(max_workers=3) as executor:
+            futures = {}
+            for composer in (composers[:2] if isinstance(composers, list) else []):
+                futures[f"composer_{composer}"] = executor.submit(wikipedia.fetch_wikipedia, composer)
+            if featured_artist:
+                futures["featured_artist"] = executor.submit(wikipedia.fetch_wikipedia, featured_artist)
+
+            for name, future in futures.items():
+                try:
+                    result = future.result(timeout=5)
+                    if result and result.get("extract"):
+                        dossier_parts.append(f"**{name.replace('_', ' ').title()}:** {result['extract'][:300]}…")
+                except TimeoutError:
+                    pass
+                except Exception:
+                    pass
+
+    if dossier_parts:
+        return "## Factual Dossier\n" + "\n".join(dossier_parts)
+    return ""
+
+
 def is_refusal_response(text: str) -> bool:
     """Heuristic: does this look like an LLM refusing to write a real review?
 
@@ -100,10 +166,11 @@ def is_refusal_response(text: str) -> bool:
 
 
 class EventProcessor:
-    def __init__(self, force_reprocess: bool = False):
+    def __init__(self, force_reprocess: bool = False, pilot_mode: bool = False):
         self.perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
         self.movie_cache = {}  # Cache AI ratings to avoid reprocessing
         self.force_reprocess = force_reprocess
+        self.pilot_mode = pilot_mode or os.getenv("PILOT_MODE", "").lower() in ("1", "true")
         self.reprocessed_titles = set()  # Track titles already reprocessed in this run
 
         # Load existing data into cache
@@ -297,10 +364,12 @@ class EventProcessor:
             f"Language: {event.get('language', 'unknown')}"
         )
 
+        fact_dossier = _fact_dossier(event) if self.pilot_mode else ""
+
         attempts = [
-            ("strict", self._build_movie_prompt_strict(details)),
-            ("permissive", self._build_movie_prompt_permissive(details)),
-            ("knowledge", self._build_movie_prompt_general_knowledge(details)),
+            ("strict", self._build_movie_prompt_strict(details, fact_dossier)),
+            ("permissive", self._build_movie_prompt_permissive(details, fact_dossier)),
+            ("knowledge", self._build_movie_prompt_general_knowledge(details, fact_dossier)),
         ]
         for attempt_name, prompt in attempts:
             content = self._call_perplexity(prompt)
@@ -317,8 +386,9 @@ class EventProcessor:
             return claude_review
         return {"score": 5, "summary": f"Unable to evaluate {movie_title} (LLM unable to find sources)."}
 
-    def _build_movie_prompt_strict(self, details: str) -> str:
+    def _build_movie_prompt_strict(self, details: str, fact_dossier: str = "") -> str:
         rubric = _style_rubric()
+        dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
 {rubric}
 
@@ -329,7 +399,7 @@ You are a rigorous cultural critic evaluating with uncompromising academic stand
 9–10 = exceptional masterpieces. Scores above 5 must be justified with specific evidence.
 
 Movie Details:
-{details}
+{details}{dossier_section}
 
 Provide a concise report with these standardized sections:
 ★ Rating: [X/10] (integer only)
@@ -341,15 +411,16 @@ Provide a concise report with these standardized sections:
 Focus solely on artistic merit and complexity. Reward innovation and high entropy. Ensure you are reviewing the specific work described above.
 """
 
-    def _build_movie_prompt_permissive(self, details: str) -> str:
+    def _build_movie_prompt_permissive(self, details: str, fact_dossier: str = "") -> str:
         rubric = _style_rubric()
+        dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
 {rubric}
 
 Write a brief critical review of this film. If your search results don't surface specific reviews, draw on general film history, the director's body of work, the country's cinema tradition, and contextual knowledge — DO NOT refuse to review.
 
 Movie Details:
-{details}
+{details}{dossier_section}
 
 Format:
 ★ Rating: [X/10] (integer)
@@ -361,15 +432,16 @@ Format:
 Aim for 4–6 short paragraphs total. A grounded, contextual review is far more useful than a refusal.
 """
 
-    def _build_movie_prompt_general_knowledge(self, details: str) -> str:
+    def _build_movie_prompt_general_knowledge(self, details: str, fact_dossier: str = "") -> str:
         rubric = _style_rubric()
+        dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
 {rubric}
 
 You are a knowledgeable cinephile writing for an Austin film-society audience. Use your training-time knowledge — not just search — to write a real review.
 
 Movie Details:
-{details}
+{details}{dossier_section}
 
 Cover director's style, the film's place in cinema history, what makes it interesting (or not). Provide a 0–10 rating. If the film is genuinely obscure to you, still take a defensible position based on the metadata above (director's other work, country/era cinema norms) and explicitly note the uncertainty in one sentence — but do not refuse.
 
@@ -463,10 +535,12 @@ Be specific. If you genuinely don't know this film, position it based on the dir
             f"Works: {works}"
         )
 
+        fact_dossier = _fact_dossier(event) if self.pilot_mode else ""
+
         attempts = [
-            ("strict", self._build_concert_prompt_strict(details)),
-            ("permissive", self._build_concert_prompt_permissive(details)),
-            ("knowledge", self._build_concert_prompt_general_knowledge(details)),
+            ("strict", self._build_concert_prompt_strict(details, fact_dossier)),
+            ("permissive", self._build_concert_prompt_permissive(details, fact_dossier)),
+            ("knowledge", self._build_concert_prompt_general_knowledge(details, fact_dossier)),
         ]
         for attempt_name, prompt in attempts:
             content = self._call_perplexity(prompt)
@@ -482,8 +556,9 @@ Be specific. If you genuinely don't know this film, position it based on the dir
             return claude_review
         return {"score": 5, "summary": f"Unable to evaluate concert {title} (LLM unable to find sources)."}
 
-    def _build_concert_prompt_strict(self, details: str) -> str:
+    def _build_concert_prompt_strict(self, details: str, fact_dossier: str = "") -> str:
         rubric = _style_rubric()
+        dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
 {rubric}
 
@@ -494,7 +569,7 @@ You are a rigorous cultural critic evaluating with uncompromising academic stand
 9–10 = exceptional masterpieces. Scores above 5 must be justified with specific evidence.
 
 Concert Details:
-{details}
+{details}{dossier_section}
 
 Provide a concise report with these standardized sections:
 ★ Rating: [X/10] (integer only)
@@ -506,15 +581,16 @@ Provide a concise report with these standardized sections:
 Ensure you are reviewing the specific concert described above.
 """
 
-    def _build_concert_prompt_permissive(self, details: str) -> str:
+    def _build_concert_prompt_permissive(self, details: str, fact_dossier: str = "") -> str:
         rubric = _style_rubric()
+        dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
 {rubric}
 
 Write a brief critical review of this classical concert. If your search doesn't surface specific reviews, draw on general knowledge of the composers, ensemble's reputation, and repertoire — DO NOT refuse. A grounded contextual review is more useful than a refusal.
 
 Concert Details:
-{details}
+{details}{dossier_section}
 
 Format:
 ★ Rating: [X/10]
@@ -524,15 +600,16 @@ Format:
 💡 Intellectual Depth
 """
 
-    def _build_concert_prompt_general_knowledge(self, details: str) -> str:
+    def _build_concert_prompt_general_knowledge(self, details: str, fact_dossier: str = "") -> str:
         rubric = _style_rubric()
+        dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
 {rubric}
 
 You are an expert classical music critic writing for a discerning Austin audience. Use your training-time knowledge of the composers, the works listed, and the ensemble or featured artist to write a real review — even if your search doesn't surface specific reviews of this exact concert.
 
 Concert Details:
-{details}
+{details}{dossier_section}
 
 Cover the historical importance of the composers/works, what makes the program interesting (or routine), and what you'd expect from this kind of ensemble. Provide a 0–10 rating. If you genuinely don't know one element, take a defensible position from what you do know.
 
