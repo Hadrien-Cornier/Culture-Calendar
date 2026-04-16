@@ -436,17 +436,19 @@ Three deliverables on one branch:
 
 ### Validation oracle (run before every commit)
 
+Per-task oracle — each worker MUST pass only these before committing:
+
 ```
 .venv/bin/python -m pytest -q
-.venv/bin/python scripts/verify_calendar.py --offline
 ```
 
-Both must exit 0. For tasks that touch `docs/data.json`, also:
-```
-.venv/bin/python scripts/check_ai_smell.py docs/data.json
-```
+Pytest must exit 0. The task's own `validate` command (from queue.tsv) is also required.
 
-If oracle fails twice in a row for the same task, write BLOCKED and rotate.
+**Do NOT run `verify_calendar.py --offline` as a per-task gate.** It contains pre-existing known-red checks (AFS one-liner coverage, Today-view date) that specific tasks (T8.4, T8.5) are responsible for fixing; running it as a universal oracle blocks unrelated tasks. `verify_calendar.py --offline` runs only in **T9.1 final gate** after all fix tasks complete.
+
+Same rule for `scripts/check_ai_smell.py` — only T8.2, T8.3, and T9.1 gate on it.
+
+If the per-task oracle fails twice in a row for the same task, write BLOCKED and rotate.
 
 ### Commit cadence
 
