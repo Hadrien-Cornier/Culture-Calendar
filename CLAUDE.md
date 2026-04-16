@@ -397,3 +397,107 @@ Source of truth: `.overnight/queue.tsv`. Human view below:
 - **T4.2** — Write STATUS.md handoff
 
 <!-- END OVERNIGHT-PLAN: 2026-04-15 -->
+
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
+## Overnight run — 2026-04-16
+
+> **AUTONOMOUS RUN — do not edit while running.**
+> Owner: HCornier · Branch: `overnight/2026-04-16` · Deadline: 2026-04-17T12:00:00Z (safety cap; open-ended per user)
+> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`.
+
+### Goal
+
+Three deliverables on one branch:
+1. **Polish v11-picks-plus** with critic formatting (byline, small-caps dateline, drop-cap, paragraph-aware rendering, WCAG-AA neutrals, 65–75ch measure, non-Inter pair); impeccable `detect` findings addressed.
+2. **Ten stylistic variants of v11** under `docs/variants/v11a..v11j/` reusing v11's IA (picks + sorted listings + always-visible showings + click-to-expand). Gallery updated.
+3. **Review-quality pilot** on 5 hand-picked films: factual dossier from Wikipedia (stdlib) + Letterboxd (bs4) injected into the Perplexity prompt, output to `docs/data-pilot.json` + side-by-side A/B preview at `docs/variants/v11-review-uplift/`. Zero risk to the 233-event `docs/data.json`.
+4. **Residual 04-15 cleanup**: 8 AI-smell violations → 0, AFS one-liners 43→56/56, Today-view ≥1.
+
+### Definition of done
+
+- `.venv/bin/python -m pytest -q` green
+- `.venv/bin/python scripts/verify_calendar.py --offline` PASS (all 22 checks)
+- `.venv/bin/python scripts/check_ai_smell.py docs/data.json` exits 0
+- `docs/variants/v11-picks-plus/` polished; `audit.md` no CRITICAL
+- `docs/variants/v11a..v11j/` exist, each passes `scripts/check_variant.mjs`, each has `audit.md`
+- `docs/variants/v11-review-uplift/` renders side-by-side comparison from `docs/data.json` vs `docs/data-pilot.json` (5 events)
+- `STATUS-2026-04-16.md` with disposition, commit shas, morning checklist
+
+### Hard constraints
+
+- Branch: `overnight/2026-04-16` only. Never touch `main` / `master`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does **NOT** push; user reviews and merges manually.
+- No new dependencies: no `pip install`, `npm install`, `cargo add`, `go get`. If a task thinks it needs one, write BLOCKED with reason `needs-dep: <name>`.
+- No interactive prompts. No `--no-verify` on commits.
+- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m '...'`. Never mutate `~/.gitconfig` or `.git/config`.
+- Never commit `.env`, `cache/`, `.agents/`, `skills-lock.json`. `.overnight/` is gitignored; do not `git add` it. `docs/data-pilot.json` **is** committed (A/B artifact).
+- Scope fence: `src/`, `scripts/`, `tests/`, `docs/`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-16.md`. Nothing else.
+- **GitNexus impact analysis MANDATORY** before editing `src/processor.py`, `src/llm_service.py`, `src/enrichment_layer.py`. T7.1 does this explicitly.
+- HTTP sourcing (Wikipedia / Letterboxd) rate-limited 1 qps, cached, attributed. On 403/429 → graceful fallback, log the skip, no aggressive retry.
+
+### Validation oracle (run before every commit)
+
+```
+.venv/bin/python -m pytest -q
+.venv/bin/python scripts/verify_calendar.py --offline
+```
+
+Both must exit 0. For tasks that touch `docs/data.json`, also:
+```
+.venv/bin/python scripts/check_ai_smell.py docs/data.json
+```
+
+If oracle fails twice in a row for the same task, write BLOCKED and rotate.
+
+### Commit cadence
+
+One commit per DONE task. Message format: `<type>(task-<ID>): <TITLE>` (feat/fix/docs/chore/refactor/test). Stage only files in the task's `files` column; never `git add -A`.
+
+### Changelog entry per task
+
+After each DONE commit, append one line to the fenced overnight block in `CHANGELOG.md`:
+
+```
+### task-<ID> — DONE — <ISO timestamp>
+- commit: <sha>
+- files: <comma-separated>
+- validation: green
+```
+
+### Stop conditions
+
+- All queue tasks DONE → `RUN_COMPLETE`
+- Deadline (2026-04-17T12:00:00Z) reached → `RUN_HALTED: deadline`
+- 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`
+- `STATUS-2026-04-16.md` contains line `HALT` (manual override) → `RUN_HALTED: manual`
+
+### Blocker protocol
+
+A task blocks when validation fails twice. Append to CHANGELOG under today's fenced block:
+```
+BLOCKED: task-<ID>: <one-line reason + failing-command head/tail>
+```
+Then write `.overnight/task-result.json` with `{"status": "BLOCKED", "task_id": "task-<ID>", "reason": "<one line>"}`. The runner rotates to the next eligible task.
+
+### Task queue (human view; source of truth is `.overnight/queue.tsv`)
+
+- **T8.1** — Verify branch + startup checks
+- **T8.2** — Targeted regen of 4 remaining banned-phrase events
+- **T8.3** — Raise em-dash threshold 5 → 8 in `scripts/check_ai_smell.py`
+- **T8.4** — Backfill 13 missing AFS one-liners
+- **T8.5** — Fix Today-view synthetic date in `scripts/verify_calendar.py`
+- **T5.2** — Polish `v11-picks-plus/styles.css` (impeccable refs)
+- **T5.3** — Polish `v11-picks-plus/script.js` (paragraph parsing + byline + dateline)
+- **T5.4** — `npx impeccable detect` on v11-picks-plus; fix findings
+- **T6.1..T6.10** — Generate v11a..v11j variants (IA preserved, styles vary)
+- **T6.11** — Update gallery with v11 variants section
+- **T6.12** — Aggregate V11_AUDIT_SUMMARY.md
+- **T7.1** — GitNexus impact analysis for review-uplift touch points
+- **T7.2** — `src/sources/wikipedia.py` (stdlib only)
+- **T7.3** — `src/sources/letterboxd.py` (bs4, polite)
+- **T7.4** — `_fact_dossier()` in `src/processor.py`
+- **T7.5** — `--pilot` flag in `update_website_data.py` → `docs/data-pilot.json`
+- **T7.6** — `docs/variants/v11-review-uplift/` A/B preview
+- **T9.1** — Final gate: pytest + verify_calendar + check_ai_smell
+- **T9.2** — Write `STATUS-2026-04-16.md` handoff
+
+<!-- END OVERNIGHT-PLAN: 2026-04-16 -->

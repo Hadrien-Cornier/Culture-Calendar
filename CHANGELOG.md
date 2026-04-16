@@ -1,5 +1,14 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
+## Overnight run — 2026-04-16
+
+Runner: `overnight-plan` skill. Branch: `overnight/2026-04-16`. Goal: v11 polish, 10 new stylistic variants, review-quality pilot. Full spec in `CLAUDE.md` §Overnight run — 2026-04-16.
+
+Task entries (appended by the runner after each DONE commit) follow below.
+
+<!-- END OVERNIGHT-PLAN: 2026-04-16 -->
+
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-15 -->
 ## Overnight run — 2026-04-15
 
