@@ -8,6 +8,8 @@ venv/
 docs/calendars/
 cache/
 __pycache__/
+.agents/
+skills-lock.json
 .gemini/
 .claude/
 
