@@ -280,10 +280,27 @@
         reviewLabel.textContent = "Critic's take";
         panel.appendChild(reviewLabel);
 
-        var reviewP = document.createElement("p");
-        reviewP.className = "event-review-text";
-        reviewP.textContent = reviewText;
-        panel.appendChild(reviewP);
+        var byline = document.createElement("p");
+        byline.className = "event-byline";
+        byline.textContent = "By The Austin Culture Oracle";
+        panel.appendChild(byline);
+
+        if (ev.showings.length > 0) {
+          var dateline = document.createElement("time");
+          dateline.className = "event-dateline";
+          dateline.textContent = formatDate(ev.showings[0].date);
+          panel.appendChild(dateline);
+        }
+
+        var paragraphs = reviewText.split(/\n\n+/);
+        paragraphs.forEach(function (para, idx) {
+          if (para.trim()) {
+            var p = document.createElement("p");
+            p.className = idx === 0 ? "event-review-first" : "event-review-body";
+            p.textContent = para.trim();
+            panel.appendChild(p);
+          }
+        });
       }
 
       if (panel.childNodes.length > 0) {
