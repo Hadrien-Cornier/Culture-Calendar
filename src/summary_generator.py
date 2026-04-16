@@ -160,6 +160,17 @@ class SummaryGenerator:
         title = event.get("title", "").lower()
         description = event.get("description", "").lower()
 
+        # Short-circuit: if description is substantial and has key metadata, it's specific
+        has_substantial_description = len(description) > 500
+        has_key_metadata = bool(
+            event.get("director") or
+            event.get("book") or
+            event.get("author") or
+            event.get("featured_artist")
+        )
+        if has_substantial_description and has_key_metadata:
+            return True
+
         # Events that should NOT be summarized - only in TITLES
         title_non_specific_indicators = [
             "movie festival",
