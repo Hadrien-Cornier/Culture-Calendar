@@ -1,7 +1,7 @@
 :root {
   --bg: #fafaf7;
   --ink: #111;
-  --muted: #6b6b6b;
+  --muted: #5c5c5c;
   --rule: #e5e4de;
   --accent: #b1432a;
   --accent-soft: #f3e4de;
@@ -11,7 +11,7 @@
   --radius: 4px;
   --max: 880px;
   --serif: "Iowan Old Style", "Charter", "Palatino", "Georgia", serif;
-  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: "SF Pro Text", "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
@@ -20,13 +20,13 @@ body {
   font-family: var(--serif);
   font-size: 17px;
   line-height: 1.55;
-  padding: 0 20px;
+  padding: 0 1.18em;
 }
 
 .masthead {
   max-width: var(--max);
   margin: 0 auto;
-  padding: 48px 0 24px;
+  padding: 2.82em 0 1.41em;
   border-bottom: 2px solid var(--ink);
 }
 .masthead-title {
@@ -45,7 +45,7 @@ body {
 .picks-section,
 .listings {
   max-width: var(--max);
-  margin: 40px auto;
+  margin: 2.35em auto;
 }
 
 .picks-heading,
@@ -56,9 +56,9 @@ body {
   font-family: var(--sans);
   font-weight: 600;
   color: var(--accent);
-  margin-bottom: 18px;
+  margin-bottom: 1.07em;
   border-top: 1px solid var(--rule);
-  padding-top: 12px;
+  padding-top: 0.71em;
 }
 
 .picks-list {
@@ -123,7 +123,7 @@ body {
   background: #fff;
   border: 1px solid var(--rule);
   border-radius: var(--radius);
-  margin-bottom: 14px;
+  margin-bottom: 0.82em;
   overflow: hidden;
 }
 
@@ -247,6 +247,15 @@ body {
   line-height: 1.6;
   color: #333;
   margin: 0;
+  max-width: 70ch;
+}
+
+.event-review-first::first-letter {
+  font-size: 1.75em;
+  float: left;
+  line-height: 1.2;
+  padding-right: 0.1em;
+  font-weight: 600;
 }
 
 .status {
