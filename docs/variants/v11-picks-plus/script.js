@@ -10,9 +10,26 @@
 
   var params = new URLSearchParams(window.location.search);
   var debugDate = params.get("debug_date");
+  var daysAhead = parseInt(params.get("days") || "21", 10);
+  var showAll = params.get("all") === "1";
 
   var MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  function todayISO() {
+    if (debugDate) return debugDate;
+    var d = new Date();
+    return d.getFullYear() + "-" +
+      String(d.getMonth() + 1).padStart(2, "0") + "-" +
+      String(d.getDate()).padStart(2, "0");
+  }
+  function isoPlusDays(iso, n) {
+    var d = new Date(iso + "T00:00:00");
+    d.setDate(d.getDate() + n);
+    return d.getFullYear() + "-" +
+      String(d.getMonth() + 1).padStart(2, "0") + "-" +
+      String(d.getDate()).padStart(2, "0");
+  }
 
   fetch(DATA_URL)
     .then(function (r) {
@@ -80,21 +97,59 @@
 
     var result = order.map(function (k) { return byTitle[k]; });
 
-    if (debugDate) {
-      result = result.filter(function (ev) {
-        return ev.showings.some(function (s) { return s.date === debugDate; });
-      });
-    }
-
     result.forEach(function (ev) {
       ev.showings = dedupeShowings(ev.showings);
     });
+
+    if (!showAll) {
+      var startIso = todayISO();
+      var endIso = isoPlusDays(startIso, daysAhead);
+      result = result
+        .map(function (ev) {
+          var futureShowings = ev.showings.filter(function (s) {
+            return s.date >= startIso && s.date <= endIso;
+          });
+          return Object.assign({}, ev, { showings: futureShowings });
+        })
+        .filter(function (ev) { return ev.showings.length > 0; });
+    }
 
     result.sort(function (a, b) {
       return b.rating - a.rating || a.title.localeCompare(b.title);
     });
 
     return result;
+  }
+
+  function parseReview(html) {
+    if (!html) return { rating: "", sections: [], flat: "" };
+    var doc = new DOMParser().parseFromString("<div>" + html + "</div>", "text/html");
+    var ps = doc.querySelectorAll("p");
+    var rating = "";
+    var sections = [];
+    ps.forEach(function (p) {
+      var text = (p.textContent || "").trim();
+      if (!text) return;
+      var rMatch = text.match(/^★\s*Rating:\s*(\d+(?:\.\d+)?)\s*\/\s*10/i);
+      if (rMatch) { rating = rMatch[1]; return; }
+      var strong = p.querySelector("strong");
+      var label = "", body = text;
+      if (strong) {
+        label = (strong.textContent || "").trim();
+        var after = text.indexOf(label);
+        if (after >= 0) {
+          body = text.slice(after + label.length).replace(/^[\s–—\-:]+/, "").trim();
+        }
+      }
+      var leading = text.match(/^([\p{Extended_Pictographic}\p{Emoji}]+)/u);
+      var emoji = leading ? leading[1] : "";
+      if (emoji && label && label.indexOf(emoji) === -1) {
+        label = label; // keep label clean; emoji kept separately
+      }
+      if (label || body) sections.push({ emoji: emoji, label: label, body: body });
+    });
+    var flat = sections.map(function (s) { return s.body; }).join("\n\n");
+    return { rating: rating, sections: sections, flat: flat };
   }
 
   function ratingClass(r) {
@@ -271,10 +326,10 @@
         panel.appendChild(oneLiner);
       }
 
-      var reviewText = ev.description
-        ? ev.description.replace(/<[^>]*>/g, "")
-        : (ev.program || "");
-      if (reviewText && reviewText !== ev.one_liner) {
+      var parsed = parseReview(ev.description);
+      var hasReview = parsed.sections.length > 0 || (ev.program && ev.program.trim());
+
+      if (hasReview) {
         var reviewLabel = document.createElement("div");
         reviewLabel.className = "event-review-label";
         reviewLabel.textContent = "Critic's take";
@@ -292,15 +347,39 @@
           panel.appendChild(dateline);
         }
 
-        var paragraphs = reviewText.split(/\n\n+/);
-        paragraphs.forEach(function (para, idx) {
-          if (para.trim()) {
-            var p = document.createElement("p");
-            p.className = idx === 0 ? "event-review-first" : "event-review-body";
-            p.textContent = para.trim();
-            panel.appendChild(p);
-          }
-        });
+        if (parsed.sections.length > 0) {
+          parsed.sections.forEach(function (sec, idx) {
+            var sectionEl = document.createElement("section");
+            sectionEl.className = idx === 0 ? "event-review-section event-review-first" : "event-review-section";
+
+            if (sec.label) {
+              var h = document.createElement("h4");
+              h.className = "event-review-heading";
+              if (sec.emoji) {
+                var em = document.createElement("span");
+                em.className = "event-review-emoji";
+                em.setAttribute("aria-hidden", "true");
+                em.textContent = sec.emoji + " ";
+                h.appendChild(em);
+              }
+              var labelNode = document.createTextNode(sec.label);
+              h.appendChild(labelNode);
+              sectionEl.appendChild(h);
+            }
+
+            var bodyP = document.createElement("p");
+            bodyP.className = "event-review-body";
+            bodyP.textContent = sec.body;
+            sectionEl.appendChild(bodyP);
+
+            panel.appendChild(sectionEl);
+          });
+        } else if (ev.program) {
+          var programP = document.createElement("p");
+          programP.className = "event-review-body";
+          programP.textContent = ev.program;
+          panel.appendChild(programP);
+        }
       }
 
       if (panel.childNodes.length > 0) {
