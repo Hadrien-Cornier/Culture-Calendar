@@ -61,17 +61,21 @@ BANNED_PHRASES = (
 
 
 def _style_rubric() -> str:
-    """Return the style rubric and banned-phrase list injected into every LLM review prompt."""
-    banned = "; ".join(BANNED_PHRASES)
+    """Return the style rubric and banned-phrase list injected into every LLM review prompt.
+
+    Phrased as preferences rather than forbidden rules to avoid LLM refusal mode
+    on sparse-source events (Opera/Paramount); still pushes output away from AI-smell.
+    """
+    banned = ", ".join(BANNED_PHRASES)
     return (
-        "STYLE RULES (mandatory):\n"
-        "- Write like a newspaper critic on deadline: direct, concrete, no filler.\n"
-        "- Never use em-dashes.\n"
-        "- No hedging. Either commit to a judgment or say "
-        "'I don't know this work well enough to review it.'\n"
-        f"- BANNED PHRASES (do not use any of these): {banned}.\n"
-        "- Prefer short declarative sentences. Cite specific scenes, passages, "
-        "movements, or performances as evidence."
+        "STYLE PREFERENCES:\n"
+        "- Write like a newspaper critic on deadline: direct, concrete, specific.\n"
+        "- Prefer commas, periods, or semicolons over em-dashes (\u2014).\n"
+        "- If sources are thin, write a brief honest note (2-3 sentences) "
+        "about what you can and cannot say. Do not refuse; produce the review.\n"
+        f"- Avoid overusing these cliches: {banned}. Substitute concrete nouns and verbs.\n"
+        "- Commit to a judgment; reserve hedging for genuine uncertainty.\n"
+        "- Cite specific scenes, passages, movements, or performances when possible."
     )
 
 
