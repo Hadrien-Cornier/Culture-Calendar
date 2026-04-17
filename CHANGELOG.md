@@ -38,7 +38,7 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - validation: green
 
 ### task-T3.1 — DONE — 2026-04-17T20:26:22Z
-- commit: PENDING
+- commit: c03f617e18ecaaba58a903401e3b7030ebaa2a89
 - files: docs/index.html, docs/styles.css, docs/ABOUT.md
 - validation: green
 
