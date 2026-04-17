@@ -338,8 +338,9 @@
     var list = [];
     grouped.forEach(function (ev) {
       var c = (ev.type || "other");
-      if (!seen[c]) {
-        seen[c] = true;
+      var key = c.toLowerCase();
+      if (!seen[key]) {
+        seen[key] = true;
         list.push(c);
       }
     });
@@ -628,7 +629,12 @@
       var meta = document.createElement("span");
       meta.className = "pick-meta";
       var next = ev.showings[0];
-      var parts = [formatType(ev.type)];
+      var pickTypeLabel = formatType(ev.type);
+      var pickVenueLower = (ev.venue || "").toLowerCase();
+      var parts = [];
+      if (pickTypeLabel && pickTypeLabel.toLowerCase() !== pickVenueLower) {
+        parts.push(pickTypeLabel);
+      }
       if (next) {
         parts.push(formatDate(next.date) +
           (next.time ? " \u00b7 " + formatTime(next.time) : ""));
@@ -765,7 +771,11 @@
       subtitle.style.display = "block";
       var subParts = [];
       if (ev.venue) subParts.push(ev.venue);
-      subParts.push(formatType(ev.type));
+      var typeLabel = formatType(ev.type);
+      var venueLower = (ev.venue || "").toLowerCase();
+      if (typeLabel && typeLabel.toLowerCase() !== venueLower) {
+        subParts.push(typeLabel);
+      }
       subtitle.textContent = subParts.join(" \u00b7 ");
       titleCol.appendChild(subtitle);
 
