@@ -28,7 +28,7 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - validation: green
 
 ### task-T2.3 — DONE — 2026-04-17T20:20:36Z
-- commit: <pending>
+- commit: 751b27c921581af15e7e212b8502099ff9211b67
 - files: src/scrapers/paramount_scraper.py, tests/test_paramount_scraper_unit.py
 - validation: green
 
