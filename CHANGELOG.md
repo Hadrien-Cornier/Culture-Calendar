@@ -42,6 +42,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/styles.css, docs/script.js
 - validation: green
 
+### task-T3.4 — DONE — 2026-04-17T16:56:53Z
+- commit: afa2fb6
+- files: docs/IMPECCABLE_AUDIT.md
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-17 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
