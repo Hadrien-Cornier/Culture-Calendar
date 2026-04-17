@@ -3003,8 +3003,8 @@
     "country": "USA",
     "language": "English",
     "rating": 5,
-    "one_liner_summary": "I need actual event details—film title, date, time, or description—to write a meaningful summary.",
-    "description": "No public information available for this event yet. Check the venue page for details.",
+    "one_liner_summary": "Stand-up comedy by Nish Kumar at the Paramount.",
+    "description": "<p>Nish Kumar is a British stand-up comedian and broadcaster, host of the BBC's <em>The Mash Report</em> and co-host of the <em>Pod Save the UK</em> podcast. Expect sharp, politically-engaged stand-up on current affairs and British politics.</p>",
     "url": "https://tickets.austintheatre.org/13126/13127",
     "venue": "Paramount",
     "screenings": [
@@ -3015,8 +3015,9 @@
         "venue": "Paramount"
       }
     ],
-    "type": "movie",
-    "id": "nish-kumar"
+    "type": "other",
+    "id": "nish-kumar",
+    "event_category": "other"
   },
   {
     "title": "A Season Of - Solo Viola",
@@ -3235,36 +3236,16 @@
       }
     ],
     "type": "movie",
-    "id": "lancelot-du-lac"
-  },
-  {
-    "title": "Paper Cuts @ AFS Cinema - LANCELOT DU LAC (dir. Robert Bresson), paired with Notes on the Cinematograph",
-    "dates": [
-      "2026-04-19"
-    ],
-    "times": [
-      "19:00"
-    ],
-    "book": "LANCELOT DU LAC (dir. Robert Bresson), paired with Notes on the Cinematograph",
-    "author": "Robert Bresson",
-    "publication_year": "",
-    "series": "Paper Cuts @ AFS Cinema",
-    "host": "",
-    "rating": 5,
-    "one_liner_summary": "",
-    "description": "No public information available for this event yet. Check the venue page for details.",
-    "url": "https://www.alienatedmajestybooks.com/book-clubs",
-    "venue": "AlienatedMajesty",
-    "screenings": [
+    "id": "lancelot-du-lac",
+    "companion_events": [
       {
-        "date": "2026-04-19",
+        "title": "Paper Cuts pop-up bookshop",
+        "venue": "AFS Cinema lobby",
         "time": "19:00",
-        "url": "https://www.alienatedmajestybooks.com/book-clubs",
-        "venue": "AlienatedMajesty"
+        "description": "Alienated Majesty sets up a curated pop-up bookshop in the AFS Cinema lobby, with books and ephemera chosen to resonate with the film — cinema studies, director-adjacent literature, small-press titles.",
+        "source_url": "https://www.alienatedmajestybooks.com/book-clubs"
       }
-    ],
-    "type": "book_club",
-    "id": "paper-cuts-@-afs-cinema---lancelot-du-lac-(dir.-robert-bresson)-paired-with-notes-on-the-cinematograph---2026-04-19-1900"
+    ]
   },
   {
     "title": "Voyage Out - In Red",
