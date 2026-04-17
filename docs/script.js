@@ -5,6 +5,13 @@
   var listingsEl = document.getElementById("listings");
   var loadingEl = document.getElementById("loading");
   var errorEl = document.getElementById("error");
+  var searchInput = document.getElementById("search-input");
+
+  var allGrouped = [];
+  var currentQuery = "";
+  var currentStartIso = "";
+  var currentPicksEndIso = "";
+  var searchDebounceTimer = null;
 
   var params = new URLSearchParams(window.location.search);
   var debugDate = params.get("debug_date");
@@ -79,20 +86,17 @@
         var startIso = todayISO();
         var picksEndIso = isoPlusDays(startIso, picksDays);
 
+        allGrouped = grouped;
+        currentStartIso = startIso;
+        currentPicksEndIso = picksEndIso;
+
         if (grouped.length === 0) {
           renderEmptyState();
-          updateHeadings(startIso, picksEndIso);
+          updateHeadings(startIso, picksEndIso, currentQuery);
           return;
         }
 
-        var picksPool = showAll ? grouped : grouped.filter(function (ev) {
-          return ev.showings.some(function (s) {
-            return s.date >= startIso && s.date <= picksEndIso;
-          });
-        });
-        renderPicks(picksPool.slice(0, 10));
-        renderListings(grouped);
-        updateHeadings(startIso, picksEndIso);
+        applyFilterAndRender();
       })
       .catch(function (err) {
         loadingEl.hidden = true;
@@ -242,14 +246,23 @@
     return result;
   }
 
-  function updateHeadings(startIso, picksEndIso) {
+  function updateHeadings(startIso, picksEndIso, query) {
     var picksHeading = document.querySelector(".picks-heading");
+    var listingsHeading = document.querySelector(".listings-heading");
+    if (query) {
+      if (picksHeading) {
+        picksHeading.textContent = "Top picks \u00b7 results for \u201c" + query + "\u201d";
+      }
+      if (listingsHeading) {
+        listingsHeading.textContent = "All events \u00b7 results for \u201c" + query + "\u201d";
+      }
+      return;
+    }
     if (picksHeading) {
       picksHeading.textContent = "Top picks · " +
         formatDate(startIso, { noDay: true }) + "–" +
         formatDate(picksEndIso, { noDay: true });
     }
-    var listingsHeading = document.querySelector(".listings-heading");
     if (listingsHeading) {
       if (!showAll) {
         var listingsEnd = isoPlusDays(startIso, daysAhead);
@@ -261,6 +274,54 @@
         listingsHeading.textContent = "All events \u00b7 sorted by rating";
       }
     }
+  }
+
+  function matchesQuery(ev, q) {
+    if (!q) return true;
+    var title = (ev.title || "").toLowerCase();
+    return title.indexOf(q) !== -1;
+  }
+
+  function applyFilterAndRender() {
+    picksList.innerHTML = "";
+    var oldNodes = listingsEl.querySelectorAll(".event-card, .empty-state");
+    oldNodes.forEach(function (n) { n.parentNode.removeChild(n); });
+
+    var q = (currentQuery || "").toLowerCase();
+    var filtered = q
+      ? allGrouped.filter(function (ev) { return matchesQuery(ev, q); })
+      : allGrouped;
+
+    if (filtered.length === 0) {
+      renderEmptyState();
+      updateHeadings(currentStartIso, currentPicksEndIso, currentQuery);
+      return;
+    }
+
+    var picksPool;
+    if (q || showAll) {
+      picksPool = filtered;
+    } else {
+      picksPool = filtered.filter(function (ev) {
+        return ev.showings.some(function (s) {
+          return s.date >= currentStartIso && s.date <= currentPicksEndIso;
+        });
+      });
+    }
+    renderPicks(picksPool.slice(0, 10));
+    renderListings(filtered);
+    updateHeadings(currentStartIso, currentPicksEndIso, currentQuery);
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("input", function (e) {
+      var value = e.target.value || "";
+      if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(function () {
+        currentQuery = value.trim();
+        if (allGrouped.length > 0) applyFilterAndRender();
+      }, 150);
+    });
   }
 
   function parseReview(html) {

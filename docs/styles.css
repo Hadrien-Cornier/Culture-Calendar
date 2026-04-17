@@ -104,6 +104,43 @@ body {
   margin: 0;
 }
 
+.search-bar {
+  max-width: var(--max);
+  margin: var(--space-5) auto 0;
+}
+.search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.search-input {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  min-height: 44px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.search-input::placeholder {
+  color: var(--muted);
+}
+.search-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: var(--accent);
+}
+
 .picks-section,
 .listings {
   max-width: var(--max);
