@@ -1,13 +1,6 @@
 (function () {
   "use strict";
 
-  var DATA_URL = (typeof window !== "undefined" &&
-                  window.location &&
-                  window.location.hostname &&
-                  window.location.hostname.indexOf("github.io") !== -1)
-    ? "/Culture-Calendar/data.json"
-    : "data.json";
-
   var picksList = document.getElementById("picks-list");
   var listingsEl = document.getElementById("listings");
   var loadingEl = document.getElementById("loading");
@@ -42,7 +35,7 @@
     return DAYS_SHORT[d.getDay()];
   }
 
-  fetch(DATA_URL)
+  var DATA_URL = (window.location && window.location.hostname || "").indexOf("github.io") !== -1 ? "/Culture-Calendar/data.json" : "data.json"; fetch(DATA_URL)
     .then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();
