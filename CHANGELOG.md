@@ -82,6 +82,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: CHANGELOG.md
 - validation: green
 
+### task-T6.2 — DONE — 2026-04-17T17:13:57Z
+- commit: 295e265189c9df7be9a81da3b38ccf63fa07e6d2
+- files: STATUS-2026-04-17.md
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-17 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
