@@ -1,5 +1,94 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
+## Overnight run — 2026-04-17
+
+Runner: `overnight-plan` skill. Branch: `overnight/2026-04-17`. Goal: promote v11-picks-plus to default site, add search/venue/category filters, impeccable audit + fixes, G-stack strategy brief. Full spec in `CLAUDE.md` §Overnight run — 2026-04-17.
+
+Task entries (appended by the runner after each DONE commit) follow below.
+
+### task-T1.2 — DONE — 2026-04-17T16:31:41Z
+- commit: a7d343d
+- files: docs/PRODUCT_STRATEGY.md
+- validation: green
+
+### task-T2.1 — DONE — 2026-04-17T16:34:04Z
+- commit: a2459e2
+- files: docs/archive/v0/index.html, docs/archive/v0/style.css, docs/archive/v0/script.js
+- validation: green
+
+### task-T2.2 — DONE — 2026-04-17T16:34:47Z
+- commit: 7350bcf
+- files: docs/index.html, docs/styles.css, docs/script.js
+- validation: green
+
+### task-T2.3 — DONE — 2026-04-17T16:36:06Z
+- commit: 0f35573
+- files: docs/script.js
+- validation: green
+
+### task-T3.1 — DONE — 2026-04-17T16:39:56Z
+- commit: 3c034f1
+- files: docs/IMPECCABLE_AUDIT.md
+- validation: green
+
+### task-T3.2 — DONE — 2026-04-17T16:44:34Z
+- commit: 7990e8d
+- files: docs/styles.css, docs/script.js, docs/index.html
+- validation: green
+
+### task-T3.3 — DONE — 2026-04-17T16:51:20Z
+- commit: 235f8d5
+- files: docs/styles.css, docs/script.js
+- validation: green
+
+### task-T3.4 — DONE — 2026-04-17T16:56:53Z
+- commit: afa2fb6
+- files: docs/IMPECCABLE_AUDIT.md
+- validation: green
+
+### task-T4.1 — DONE — 2026-04-17T17:01:30Z
+- commit: d44884d
+- files: docs/index.html, docs/styles.css, docs/script.js
+- validation: green
+
+### task-T4.2 — DONE — 2026-04-17T17:03:15Z
+- commit: e63b493
+- files: docs/index.html, docs/styles.css, docs/script.js
+- validation: green
+
+### task-T4.3 — DONE — 2026-04-17T17:05:02Z
+- commit: ff770bf
+- files: docs/index.html, docs/styles.css, docs/script.js
+- validation: green
+
+### task-T4.4 — DONE — 2026-04-17T17:06:48Z
+- commit: 24755a12d748b0c84bb03249ca0b5cc0b4cb9f3d
+- files: docs/index.html, docs/script.js, docs/styles.css
+- validation: green
+
+### task-T5.1 — DONE — 2026-04-17T17:09:33Z
+- commit: 377ded75056635556daf247b952e059cebf81643
+- files: docs/styles.css
+- validation: green
+
+### task-T5.2 — DONE — 2026-04-17T17:10:52Z
+- commit: e01b7e7e38392d1dd23af6f99dec32c2374def64
+- files: docs/index.html, docs/styles.css
+- validation: green
+
+### task-T6.1 — DONE — 2026-04-17T17:12:21Z
+- commit: b4e8b81d44f7c7e9ab0e5cd0220e0b8d95a94989
+- files: CHANGELOG.md
+- validation: green
+
+### task-T6.2 — DONE — 2026-04-17T17:13:57Z
+- commit: 295e265189c9df7be9a81da3b38ccf63fa07e6d2
+- files: STATUS-2026-04-17.md
+- validation: green
+
+<!-- END OVERNIGHT-PLAN: 2026-04-17 -->
+
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
 ## Overnight run — 2026-04-16
 
