@@ -27,6 +27,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: src/processor.py, src/scrapers/alienated_majesty_scraper.py, tests/test_scraper_classification.py
 - validation: green
 
+### task-T2.3 — DONE — 2026-04-17T20:20:36Z
+- commit: <pending>
+- files: src/scrapers/paramount_scraper.py, tests/test_paramount_scraper_unit.py
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
