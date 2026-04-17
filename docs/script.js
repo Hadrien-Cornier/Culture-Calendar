@@ -16,6 +16,8 @@
                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   var DAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+  var headerIdCounter = 0;
+
   function todayISO() {
     if (debugDate) return debugDate;
     var d = new Date();
@@ -35,35 +37,94 @@
     return DAYS_SHORT[d.getDay()];
   }
 
-  var DATA_URL = (window.location && window.location.hostname || "").indexOf("github.io") !== -1 ? "/Culture-Calendar/data.json" : "data.json"; fetch(DATA_URL)
-    .then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.json();
-    })
-    .then(function (raw) {
-      var events = Array.isArray(raw) ? raw : (raw.events || []);
-      loadingEl.hidden = true;
-      var grouped = groupEvents(events);
+  var DATA_URL = (window.location && window.location.hostname || "").indexOf("github.io") !== -1 ? "/Culture-Calendar/data.json" : "data.json";
 
-      // Picks are the top-rated events whose FIRST upcoming showing falls
-      // within picks_days (default 7), i.e. "this week". Listings use the
-      // broader window (default 14 days).
-      var startIso = todayISO();
-      var picksEndIso = isoPlusDays(startIso, picksDays);
-      var picksPool = showAll ? grouped : grouped.filter(function (ev) {
-        return ev.showings.some(function (s) {
-          return s.date >= startIso && s.date <= picksEndIso;
+  function load() {
+    loadingEl.hidden = false;
+    errorEl.hidden = true;
+    picksList.innerHTML = "";
+    var old = listingsEl.querySelectorAll(".event-card, .empty-state");
+    old.forEach(function (n) { n.parentNode.removeChild(n); });
+
+    fetch(DATA_URL)
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (raw) {
+        var events = Array.isArray(raw) ? raw : (raw.events || []);
+        loadingEl.hidden = true;
+        var grouped = groupEvents(events);
+
+        var startIso = todayISO();
+        var picksEndIso = isoPlusDays(startIso, picksDays);
+
+        if (grouped.length === 0) {
+          renderEmptyState();
+          updateHeadings(startIso, picksEndIso);
+          return;
+        }
+
+        var picksPool = showAll ? grouped : grouped.filter(function (ev) {
+          return ev.showings.some(function (s) {
+            return s.date >= startIso && s.date <= picksEndIso;
+          });
         });
+        renderPicks(picksPool.slice(0, 10));
+        renderListings(grouped);
+        updateHeadings(startIso, picksEndIso);
+      })
+      .catch(function (err) {
+        loadingEl.hidden = true;
+        renderError(err);
       });
-      renderPicks(picksPool.slice(0, 10));
-      renderListings(grouped);
-      updateHeadings(startIso, picksEndIso);
-    })
-    .catch(function (err) {
-      loadingEl.hidden = true;
-      errorEl.hidden = false;
-      errorEl.textContent = "Error: " + err.message;
-    });
+  }
+
+  function renderError(err) {
+    errorEl.hidden = false;
+    errorEl.innerHTML = "";
+    var msg = document.createElement("p");
+    msg.className = "error-message";
+    msg.textContent = "We couldn't load this week's events. Check your connection and try again.";
+    errorEl.appendChild(msg);
+
+    var retry = document.createElement("button");
+    retry.className = "error-retry";
+    retry.type = "button";
+    retry.textContent = "Try again";
+    retry.addEventListener("click", load);
+    errorEl.appendChild(retry);
+
+    var details = document.createElement("details");
+    details.className = "error-details";
+    var summary = document.createElement("summary");
+    summary.textContent = "Technical details";
+    details.appendChild(summary);
+    var code = document.createElement("code");
+    code.textContent = (err && err.message) ? err.message : String(err);
+    details.appendChild(code);
+    errorEl.appendChild(details);
+  }
+
+  function renderEmptyState() {
+    var empty = document.createElement("div");
+    empty.className = "empty-state";
+    var text = document.createElement("p");
+    text.textContent = "No events in the next " + daysAhead + " days.";
+    empty.appendChild(text);
+    if (!showAll) {
+      var more = document.createElement("p");
+      var link = document.createElement("a");
+      link.href = "?all=1";
+      link.textContent = "Show all events";
+      more.appendChild(link);
+      more.appendChild(document.createTextNode(" to see everything we've indexed."));
+      empty.appendChild(more);
+    }
+    listingsEl.appendChild(empty);
+  }
+
+  load();
 
   function groupEvents(events) {
     var byTitle = {};
@@ -177,7 +238,7 @@
       var leading = text.match(/^([\p{Extended_Pictographic}\p{Emoji}]+)/u);
       var emoji = leading ? leading[1] : "";
       if (emoji && label && label.indexOf(emoji) === -1) {
-        label = label; // keep label clean; emoji kept separately
+        label = label;
       }
       if (label || body) sections.push({ emoji: emoji, label: label, body: body });
     });
@@ -281,35 +342,29 @@
       var card = document.createElement("article");
       card.className = "event-card";
 
-      var header = document.createElement("div");
+      var header = document.createElement("button");
       header.className = "event-header";
+      header.type = "button";
+      header.setAttribute("aria-expanded", "false");
 
       var badge = document.createElement("span");
       badge.className = "event-rating-badge rating-" + ratingClass(ev.rating);
       badge.textContent = ev.rating > 0 ? ev.rating : "\u2014";
       header.appendChild(badge);
 
-      var titleCol = document.createElement("div");
+      var titleCol = document.createElement("span");
       titleCol.className = "event-title-col";
 
-      var titleText = document.createElement("div");
+      var titleText = document.createElement("span");
       titleText.className = "event-title-text";
-      if (ev.url) {
-        var a = document.createElement("a");
-        a.href = ev.url;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.className = "event-title-link";
-        a.textContent = ev.title;
-        titleText.appendChild(a);
-        a.addEventListener("click", function (e) { e.stopPropagation(); });
-      } else {
-        titleText.textContent = ev.title;
-      }
+      var titleId = "event-title-" + (++headerIdCounter);
+      titleText.id = titleId;
+      titleText.textContent = ev.title;
       titleCol.appendChild(titleText);
 
-      var subtitle = document.createElement("div");
+      var subtitle = document.createElement("span");
       subtitle.className = "event-subtitle";
+      subtitle.style.display = "block";
       var subParts = [];
       if (ev.venue) subParts.push(ev.venue);
       subParts.push(ev.type.replace("_", " "));
@@ -326,7 +381,6 @@
 
       card.appendChild(header);
 
-      // Always-visible showings list (v1 influence — hours visible at a glance)
       if (ev.showings.length > 0) {
         var showings = document.createElement("ul");
         showings.className = "event-showings-list";
@@ -351,15 +405,18 @@
         card.appendChild(showings);
       }
 
-      // Expanded panel — click reveals one-liner first, then full review
       var panel = document.createElement("div");
       panel.className = "event-panel";
+      panel.setAttribute("aria-labelledby", titleId);
+
+      var panelInner = document.createElement("div");
+      panelInner.className = "event-panel-inner";
 
       if (ev.one_liner) {
         var oneLiner = document.createElement("p");
         oneLiner.className = "event-oneliner";
         oneLiner.textContent = ev.one_liner;
-        panel.appendChild(oneLiner);
+        panelInner.appendChild(oneLiner);
       }
 
       var parsed = parseReview(ev.description);
@@ -369,18 +426,18 @@
         var reviewLabel = document.createElement("div");
         reviewLabel.className = "event-review-label";
         reviewLabel.textContent = "Critic's take";
-        panel.appendChild(reviewLabel);
+        panelInner.appendChild(reviewLabel);
 
         var byline = document.createElement("p");
         byline.className = "event-byline";
         byline.textContent = "By The Austin Culture Oracle";
-        panel.appendChild(byline);
+        panelInner.appendChild(byline);
 
         if (ev.showings.length > 0) {
           var dateline = document.createElement("time");
           dateline.className = "event-dateline";
           dateline.textContent = formatDate(ev.showings[0].date);
-          panel.appendChild(dateline);
+          panelInner.appendChild(dateline);
         }
 
         if (parsed.sections.length > 0) {
@@ -408,33 +465,34 @@
             bodyP.textContent = sec.body;
             sectionEl.appendChild(bodyP);
 
-            panel.appendChild(sectionEl);
+            panelInner.appendChild(sectionEl);
           });
         } else if (ev.program) {
           var programP = document.createElement("p");
           programP.className = "event-review-body";
           programP.textContent = ev.program;
-          panel.appendChild(programP);
+          panelInner.appendChild(programP);
         }
       }
 
-      if (panel.childNodes.length > 0) {
+      if (ev.url) {
+        var external = document.createElement("a");
+        external.className = "event-external-link";
+        external.href = ev.url;
+        external.target = "_blank";
+        external.rel = "noopener";
+        external.textContent = "View at venue \u2197";
+        panelInner.appendChild(external);
+      }
+
+      if (panelInner.childNodes.length > 0) {
+        panel.appendChild(panelInner);
         card.appendChild(panel);
       }
 
       header.addEventListener("click", function () {
         var expanded = card.classList.toggle("is-expanded");
         header.setAttribute("aria-expanded", expanded ? "true" : "false");
-      });
-
-      header.setAttribute("role", "button");
-      header.setAttribute("tabindex", "0");
-      header.setAttribute("aria-expanded", "false");
-      header.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          header.click();
-        }
       });
 
       frag.appendChild(card);

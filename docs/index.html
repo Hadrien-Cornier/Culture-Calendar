@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Austin Culture Calendar</title>
   <link rel="stylesheet" href="variants/_shared/reset.css">
   <link rel="stylesheet" href="styles.css">
@@ -21,8 +21,8 @@
   <main class="listings" id="listings" aria-label="All events by rating">
     <h2 class="listings-heading">All Events — Sorted by Rating</h2>
   </main>
-  <div class="status" id="loading">Loading events&hellip;</div>
-  <div class="status error" id="error" hidden></div>
+  <div class="status" id="loading" role="status" aria-live="polite">Loading events&hellip;</div>
+  <div class="status error" id="error" role="alert" hidden></div>
   <script src="script.js"></script>
 </body>
 </html>
