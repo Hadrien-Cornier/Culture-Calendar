@@ -6,9 +6,11 @@
   var loadingEl = document.getElementById("loading");
   var errorEl = document.getElementById("error");
   var searchInput = document.getElementById("search-input");
+  var venueFiltersEl = document.getElementById("venue-filters");
 
   var allGrouped = [];
   var currentQuery = "";
+  var currentVenue = "";
   var currentStartIso = "";
   var currentPicksEndIso = "";
   var searchDebounceTimer = null;
@@ -89,6 +91,8 @@
         allGrouped = grouped;
         currentStartIso = startIso;
         currentPicksEndIso = picksEndIso;
+
+        renderVenueChips(grouped);
 
         if (grouped.length === 0) {
           renderEmptyState();
@@ -282,15 +286,68 @@
     return title.indexOf(q) !== -1;
   }
 
+  function matchesVenue(ev, venue) {
+    if (!venue) return true;
+    return (ev.venue || "") === venue;
+  }
+
+  function uniqueVenues(grouped) {
+    var seen = {};
+    var list = [];
+    grouped.forEach(function (ev) {
+      var v = (ev.venue || "").trim();
+      if (!v) return;
+      if (!seen[v]) {
+        seen[v] = true;
+        list.push(v);
+      }
+    });
+    list.sort(function (a, b) { return a.localeCompare(b); });
+    return list;
+  }
+
+  function renderVenueChips(grouped) {
+    if (!venueFiltersEl) return;
+    venueFiltersEl.innerHTML = "";
+    var venues = uniqueVenues(grouped);
+
+    var items = [{ label: "All", value: "" }].concat(
+      venues.map(function (v) { return { label: v, value: v }; })
+    );
+
+    items.forEach(function (item) {
+      var chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "filter-chip";
+      if (item.value === currentVenue) chip.classList.add("is-active");
+      chip.textContent = item.label;
+      chip.setAttribute("aria-pressed", item.value === currentVenue ? "true" : "false");
+      chip.addEventListener("click", function () {
+        if (currentVenue === item.value) return;
+        currentVenue = item.value;
+        var chips = venueFiltersEl.querySelectorAll(".filter-chip");
+        chips.forEach(function (c) {
+          c.classList.remove("is-active");
+          c.setAttribute("aria-pressed", "false");
+        });
+        chip.classList.add("is-active");
+        chip.setAttribute("aria-pressed", "true");
+        if (allGrouped.length > 0) applyFilterAndRender();
+      });
+      venueFiltersEl.appendChild(chip);
+    });
+  }
+
   function applyFilterAndRender() {
     picksList.innerHTML = "";
     var oldNodes = listingsEl.querySelectorAll(".event-card, .empty-state");
     oldNodes.forEach(function (n) { n.parentNode.removeChild(n); });
 
     var q = (currentQuery || "").toLowerCase();
-    var filtered = q
-      ? allGrouped.filter(function (ev) { return matchesQuery(ev, q); })
-      : allGrouped;
+    var venue = currentVenue;
+    var filtered = allGrouped.filter(function (ev) {
+      return matchesQuery(ev, q) && matchesVenue(ev, venue);
+    });
 
     if (filtered.length === 0) {
       renderEmptyState();
