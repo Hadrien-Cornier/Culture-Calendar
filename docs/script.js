@@ -16,6 +16,24 @@
                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   var DAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+  var TYPE_LABELS = {
+    movie: "Film",
+    opera: "Opera",
+    concert: "Concert",
+    book_club: "Book Club",
+    dance: "Dance",
+    ballet: "Ballet",
+    symphony: "Symphony",
+    other: "Event"
+  };
+  function formatType(t) {
+    if (!t) return "";
+    if (TYPE_LABELS[t]) return TYPE_LABELS[t];
+    return t.replace(/_/g, " ").replace(/\b\w/g, function (c) {
+      return c.toUpperCase();
+    });
+  }
+
   var headerIdCounter = 0;
 
   function todayISO() {
@@ -40,9 +58,11 @@
   var DATA_URL = (window.location && window.location.hostname || "").indexOf("github.io") !== -1 ? "/Culture-Calendar/data.json" : "data.json";
 
   function load() {
+    loadingEl.textContent = "Fetching this week's picks\u2026";
     loadingEl.hidden = false;
     errorEl.hidden = true;
     picksList.innerHTML = "";
+    renderSkeleton();
     var old = listingsEl.querySelectorAll(".event-card, .empty-state");
     old.forEach(function (n) { n.parentNode.removeChild(n); });
 
@@ -104,6 +124,30 @@
     code.textContent = (err && err.message) ? err.message : String(err);
     details.appendChild(code);
     errorEl.appendChild(details);
+  }
+
+  function renderSkeleton() {
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < 5; i++) {
+      var row = document.createElement("li");
+      row.className = "skeleton-pick";
+      row.setAttribute("aria-hidden", "true");
+
+      var counter = document.createElement("span");
+      counter.className = "skeleton-bar skeleton-bar--counter";
+      row.appendChild(counter);
+
+      var badge = document.createElement("span");
+      badge.className = "skeleton-bar skeleton-bar--badge";
+      row.appendChild(badge);
+
+      var title = document.createElement("span");
+      title.className = "skeleton-bar skeleton-bar--title";
+      row.appendChild(title);
+
+      frag.appendChild(row);
+    }
+    picksList.appendChild(frag);
   }
 
   function renderEmptyState() {
@@ -206,12 +250,16 @@
         formatDate(picksEndIso, { noDay: true });
     }
     var listingsHeading = document.querySelector(".listings-heading");
-    if (listingsHeading && !showAll) {
-      var listingsEnd = isoPlusDays(startIso, daysAhead);
-      listingsHeading.textContent = "All events · " +
-        formatDate(startIso, { noDay: true }) + "–" +
-        formatDate(listingsEnd, { noDay: true }) +
-        " · sorted by rating";
+    if (listingsHeading) {
+      if (!showAll) {
+        var listingsEnd = isoPlusDays(startIso, daysAhead);
+        listingsHeading.textContent = "All events \u00b7 " +
+          formatDate(startIso, { noDay: true }) + "\u2013" +
+          formatDate(listingsEnd, { noDay: true }) +
+          " \u00b7 sorted by rating";
+      } else {
+        listingsHeading.textContent = "All events \u00b7 sorted by rating";
+      }
     }
   }
 
@@ -321,7 +369,7 @@
       var meta = document.createElement("span");
       meta.className = "pick-meta";
       var next = ev.showings[0];
-      var parts = [ev.type.replace("_", " ")];
+      var parts = [formatType(ev.type)];
       if (next) {
         parts.push(formatDate(next.date) +
           (next.time ? " \u00b7 " + formatTime(next.time) : ""));
@@ -367,7 +415,7 @@
       subtitle.style.display = "block";
       var subParts = [];
       if (ev.venue) subParts.push(ev.venue);
-      subParts.push(ev.type.replace("_", " "));
+      subParts.push(formatType(ev.type));
       subtitle.textContent = subParts.join(" \u00b7 ");
       titleCol.appendChild(subtitle);
 
