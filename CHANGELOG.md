@@ -48,7 +48,7 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - validation: green
 
 ### task-T6.1 — DONE — 2026-04-17T20:31:59Z
-- commit: <pending>
+- commit: ab76b134fa90bdeea082fedca2f2cbabcd2ed842
 - files: CHANGELOG.md
 - validation: green
 - notes: pytest 73 passed / 22 skipped; grep checks all present; verify_calendar.py --offline 22/22 checks passed; check_ai_smell.py 0 violations across 222 events
