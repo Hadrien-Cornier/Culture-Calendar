@@ -302,151 +302,48 @@ To check whether embeddings exist, inspect `.gitnexus/meta.json` — the `stats.
 
 <!-- gitnexus:end -->
 
-<!-- BEGIN OVERNIGHT-PLAN: 2026-04-15 -->
-## Overnight run — 2026-04-15
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
+## Overnight run — 2026-04-17
 
 > **AUTONOMOUS RUN — do not edit while running.**
-> Owner: HCornier · Branch: `overnight/2026-04-15` · Deadline: 2026-04-16T12:00:00 (safety cap; open-ended per user)
-> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`.
-
-### Goal
-
-Three deliverables in one branch:
-1. Fix the missing-event bug: THE STRANGER (L'ETRANGER) on April 19 @ 3:15 PM (and its 5 other screenings) must render correctly. Generalize: every event's `dates[]` must equal the set of `screenings[].date`.
-2. Kill AI-smell in reviews: add a style rubric + banned-phrase list to every LLM prompt; rewrite cached reviews that match the banned list.
-3. Produce 10 design variants under `docs/variants/v{1..10}/` with a gallery at `docs/variants/index.html`, each with an impeccable (or axe-core fallback) audit.
-
-### Definition of done
-
-- `.venv/bin/python -m pytest -q` green.
-- `.venv/bin/python scripts/verify_calendar.py --offline` PASS.
-- `.venv/bin/python scripts/check_ai_smell.py docs/data.json` exits 0.
-- THE STRANGER has `dates == [2026-04-17, 18, 19, 24, 26, 27]` in `docs/data.json`.
-- All 10 `docs/variants/v{N}/` load without JS errors, read `../../data.json`, render >= 200 events, pass `scripts/check_variant.mjs`, have an `audit.md`.
-- `STATUS.md` written with disposition, commit shas, blockers, morning checklist.
-
-### Hard constraints
-
-- Branch: `overnight/2026-04-15` only. Never touch `main` / `master` / `trunk`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does **NOT** push; user reviews and merges manually.
-- No new dependencies: no `pip install`, `npm install`, `cargo add`, `go get`. If you think you need one, write BLOCKED with reason `needs-dep: <name>`.
-- No interactive prompts. No `--no-verify` on commits.
-- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m '...'`. Never mutate `~/.gitconfig` or `.git/config`.
-- Never commit `.env`, `cache/`, or anything matching `*secret*`. `.overnight/` is gitignored; do not `git add` it.
-- Scope fence: `src/`, `scripts/`, `tests/`, `docs/`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS.md`. Nothing else.
-
-### Validation oracle (run before every commit)
-
-```
-.venv/bin/python -m pytest -q
-.venv/bin/python scripts/verify_calendar.py --offline
-```
-
-Both must exit 0. If oracle fails twice in a row for the same task, write BLOCKED and rotate.
-
-### Commit cadence
-
-One commit per DONE task. Message format: `<type>(task-<ID>): <TITLE>` where type is feat/fix/docs/chore/refactor/test. Stage only files in the task's `files` column; never `git add -A`.
-
-### Changelog entry per task
-
-After each DONE commit, append one line to the fenced overnight block in `CHANGELOG.md`:
-
-```
-### task-<ID> — DONE — <ISO timestamp>
-- commit: <sha>
-- files: <comma-separated>
-- validation: green
-```
-
-### Stop conditions
-
-- All queue tasks DONE → `RUN_COMPLETE`
-- Deadline reached → `RUN_HALTED: deadline`
-- 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`
-- `STATUS.md` contains line `HALT` (manual override) → `RUN_HALTED: manual`
-
-### Blocker protocol
-
-A task blocks when validation fails twice. Append to CHANGELOG under today's fenced block:
-```
-BLOCKED: task-<ID>: <one-line reason + failing-command head/tail>
-```
-Then write `.overnight/task-result.json` with `{"status": "BLOCKED", "task_id": "task-<ID>", "reason": "<one line>"}`. The runner rotates to the next eligible task.
-
-### Task queue
-
-Source of truth: `.overnight/queue.tsv`. Human view below:
-
-- **T0.2** — Bootstrap `docs/variants/_shared/reset.css`
-- **T0.3** — Attempt install pbakaus/impeccable; record outcome in `docs/variants/PLUGIN_STATUS.md`
-- **T1.1** — Regression test pinning THE STRANGER 6-date coverage (committed RED)
-- **T1.2** — Fix `update_website_data.py` to hoist `dates` from `screenings`
-- **T1.3** — Frontend audit: migrate remaining `.date`/`.dates[0]` readers to `screenings[]`
-- **T1.4** — Regen `docs/data.json` offline; verify THE STRANGER
-- **T2.1** — Add `_style_rubric()` helper to `src/processor.py`
-- **T2.2** — Wire rubric into all 9 prompts in `src/processor.py`
-- **T2.3** — Replace AI-smell examples + wire rubric in `src/summary_generator.py`
-- **T2.4** — Write `scripts/check_ai_smell.py` linter
-- **T2.5** — Write `scripts/regen_smelly_reviews.py` cache invalidator
-- **T2.6** — Run regen for smelly entries; verify clean
-- **T2.7** — Rerun `verify_calendar.py --offline`
-- **T3.1..T3.10** — Generate one design variant each (see queue.tsv for brief)
-- **T3.11** — Gallery `docs/variants/index.html`
-- **T3.12** — Audit every variant (impeccable or axe-core)
-- **T4.1** — Final gate: pytest + verify_calendar.py
-- **T4.2** — Write STATUS.md handoff
-
-<!-- END OVERNIGHT-PLAN: 2026-04-15 -->
-
-<!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
-## Overnight run — 2026-04-16
-
-> **AUTONOMOUS RUN — do not edit while running.**
-> Owner: HCornier · Branch: `overnight/2026-04-16` · Deadline: 2026-04-17T12:00:00Z (safety cap; open-ended per user)
+> Owner: HCornier · Branch: `overnight/2026-04-17` · Deadline: 2026-04-18T12:00:00Z (safety cap; open-ended per user)
 > Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`.
 
 ### Goal
 
 Three deliverables on one branch:
-1. **Polish v11-picks-plus** with critic formatting (byline, small-caps dateline, drop-cap, paragraph-aware rendering, WCAG-AA neutrals, 65–75ch measure, non-Inter pair); impeccable `detect` findings addressed.
-2. **Ten stylistic variants of v11** under `docs/variants/v11a..v11j/` reusing v11's IA (picks + sorted listings + always-visible showings + click-to-expand). Gallery updated.
-3. **Review-quality pilot** on 5 hand-picked films: factual dossier from Wikipedia (stdlib) + Letterboxd (bs4) injected into the Perplexity prompt, output to `docs/data-pilot.json` + side-by-side A/B preview at `docs/variants/v11-review-uplift/`. Zero risk to the 233-event `docs/data.json`.
-4. **Residual 04-15 cleanup**: 8 AI-smell violations → 0, AFS one-liners 43→56/56, Today-view ≥1.
+1. **Promote v11-picks-plus to default site** at `docs/` root. Archive old site to `docs/archive/v0/`. Fix paths (data.json, reset.css, GH Pages hostname detection).
+2. **Add select features from old site**: search bar, venue filter chips, category filter chips with AND logic, shareable URL params, event count indicator.
+3. **Impeccable full audit** (all 7 design dimensions) + fix all CRITICAL/HIGH/MEDIUM findings.
+4. **G-stack product strategy brief** at `docs/PRODUCT_STRATEGY.md` — JTBD, 7 Powers, positioning, North Star Metric.
 
 ### Definition of done
 
 - `.venv/bin/python -m pytest -q` green
-- `.venv/bin/python scripts/verify_calendar.py --offline` PASS (all 22 checks)
-- `.venv/bin/python scripts/check_ai_smell.py docs/data.json` exits 0
-- `docs/variants/v11-picks-plus/` polished; `audit.md` no CRITICAL
-- `docs/variants/v11a..v11j/` exist, each passes `scripts/check_variant.mjs`, each has `audit.md`
-- `docs/variants/v11-review-uplift/` renders side-by-side comparison from `docs/data.json` vs `docs/data-pilot.json` (5 events)
-- `STATUS-2026-04-16.md` with disposition, commit shas, morning checklist
+- `docs/index.html` is the promoted v11 (not the old dashboard site)
+- `docs/archive/v0/` contains old index.html, style.css, script.js
+- Search, venue filter, category filter functional in promoted site
+- `docs/IMPECCABLE_AUDIT.md` has no CRITICAL or HIGH items OPEN
+- `docs/PRODUCT_STRATEGY.md` exists with 20+ lines
+- `STATUS-2026-04-17.md` written with morning checklist
 
 ### Hard constraints
 
-- Branch: `overnight/2026-04-16` only. Never touch `main` / `master`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does **NOT** push; user reviews and merges manually.
-- No new dependencies: no `pip install`, `npm install`, `cargo add`, `go get`. If a task thinks it needs one, write BLOCKED with reason `needs-dep: <name>`.
+- Branch: `overnight/2026-04-17` only. Never touch `main` / `master`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does **NOT** push; user reviews and merges manually.
+- No new dependencies: no `pip install`, `npm install`, `cargo add`, `go get`. If a task needs one, write BLOCKED with reason `needs-dep: <name>`.
 - No interactive prompts. No `--no-verify` on commits.
 - Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m '...'`. Never mutate `~/.gitconfig` or `.git/config`.
-- Never commit `.env`, `cache/`, `.agents/`, `skills-lock.json`. `.overnight/` is gitignored; do not `git add` it. `docs/data-pilot.json` **is** committed (A/B artifact).
-- Scope fence: `src/`, `scripts/`, `tests/`, `docs/`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-16.md`. Nothing else.
-- **GitNexus impact analysis MANDATORY** before editing `src/processor.py`, `src/llm_service.py`, `src/enrichment_layer.py`. T7.1 does this explicitly.
-- HTTP sourcing (Wikipedia / Letterboxd) rate-limited 1 qps, cached, attributed. On 403/429 → graceful fallback, log the skip, no aggressive retry.
+- Never commit `.env`, `cache/`, `.agents/`, `skills-lock.json`. `.overnight/` is gitignored; do not `git add` it.
+- Scope fence: `docs/`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-17.md`. Nothing else — this run is frontend-only.
+- v11 variant files at `docs/variants/v11-picks-plus/` are LEFT IN PLACE (copied to root, not moved).
 
 ### Validation oracle (run before every commit)
-
-Per-task oracle — each worker MUST pass only these before committing:
 
 ```
 .venv/bin/python -m pytest -q
 ```
 
 Pytest must exit 0. The task's own `validate` command (from queue.tsv) is also required.
-
-**Do NOT run `verify_calendar.py --offline` as a per-task gate.** It contains pre-existing known-red checks (AFS one-liner coverage, Today-view date) that specific tasks (T8.4, T8.5) are responsible for fixing; running it as a universal oracle blocks unrelated tasks. `verify_calendar.py --offline` runs only in **T9.1 final gate** after all fix tasks complete.
-
-Same rule for `scripts/check_ai_smell.py` — only T8.2, T8.3, and T9.1 gate on it.
 
 If the per-task oracle fails twice in a row for the same task, write BLOCKED and rotate.
 
@@ -468,9 +365,9 @@ After each DONE commit, append one line to the fenced overnight block in `CHANGE
 ### Stop conditions
 
 - All queue tasks DONE → `RUN_COMPLETE`
-- Deadline (2026-04-17T12:00:00Z) reached → `RUN_HALTED: deadline`
+- Deadline (2026-04-18T12:00:00Z) reached → `RUN_HALTED: deadline`
 - 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`
-- `STATUS-2026-04-16.md` contains line `HALT` (manual override) → `RUN_HALTED: manual`
+- `STATUS-2026-04-17.md` contains line `HALT` (manual override) → `RUN_HALTED: manual`
 
 ### Blocker protocol
 
@@ -482,24 +379,21 @@ Then write `.overnight/task-result.json` with `{"status": "BLOCKED", "task_id": 
 
 ### Task queue (human view; source of truth is `.overnight/queue.tsv`)
 
-- **T8.1** — Verify branch + startup checks
-- **T8.2** — Targeted regen of 4 remaining banned-phrase events
-- **T8.3** — Raise em-dash threshold 5 → 8 in `scripts/check_ai_smell.py`
-- **T8.4** — Backfill 13 missing AFS one-liners
-- **T8.5** — Fix Today-view synthetic date in `scripts/verify_calendar.py`
-- **T5.2** — Polish `v11-picks-plus/styles.css` (impeccable refs)
-- **T5.3** — Polish `v11-picks-plus/script.js` (paragraph parsing + byline + dateline)
-- **T5.4** — `npx impeccable detect` on v11-picks-plus; fix findings
-- **T6.1..T6.10** — Generate v11a..v11j variants (IA preserved, styles vary)
-- **T6.11** — Update gallery with v11 variants section
-- **T6.12** — Aggregate V11_AUDIT_SUMMARY.md
-- **T7.1** — GitNexus impact analysis for review-uplift touch points
-- **T7.2** — `src/sources/wikipedia.py` (stdlib only)
-- **T7.3** — `src/sources/letterboxd.py` (bs4, polite)
-- **T7.4** — `_fact_dossier()` in `src/processor.py`
-- **T7.5** — `--pilot` flag in `update_website_data.py` → `docs/data-pilot.json`
-- **T7.6** — `docs/variants/v11-review-uplift/` A/B preview
-- **T9.1** — Final gate: pytest + verify_calendar + check_ai_smell
-- **T9.2** — Write `STATUS-2026-04-16.md` handoff
+- **T1.2** — G-stack product strategy brief → `docs/PRODUCT_STRATEGY.md`
+- **T2.1** — Archive old root site to `docs/archive/v0/`
+- **T2.2** — Promote v11-picks-plus to `docs/` root (fix paths, GH Pages detection)
+- **T2.3** — Verify promotion — fix remaining path issues
+- **T3.1** — Impeccable full audit (all 7 dimensions) → `docs/IMPECCABLE_AUDIT.md`
+- **T3.2** — Fix CRITICAL and HIGH audit findings
+- **T3.3** — Fix MEDIUM audit findings
+- **T3.4** — Re-audit: confirm no CRITICAL/HIGH remain
+- **T4.1** — Add search bar
+- **T4.2** — Add venue filter chips
+- **T4.3** — Add category filter chips
+- **T4.4** — Filter interaction polish (URL params, count, clear-all)
+- **T5.1** — Mobile responsive pass
+- **T5.2** — Accessibility pass
+- **T6.1** — Final gate
+- **T6.2** — Write `STATUS-2026-04-17.md` handoff
 
-<!-- END OVERNIGHT-PLAN: 2026-04-16 -->
+<!-- END OVERNIGHT-PLAN: 2026-04-17 -->

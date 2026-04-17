@@ -1,5 +1,14 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
+## Overnight run — 2026-04-17
+
+Runner: `overnight-plan` skill. Branch: `overnight/2026-04-17`. Goal: promote v11-picks-plus to default site, add search/venue/category filters, impeccable audit + fixes, G-stack strategy brief. Full spec in `CLAUDE.md` §Overnight run — 2026-04-17.
+
+Task entries (appended by the runner after each DONE commit) follow below.
+
+<!-- END OVERNIGHT-PLAN: 2026-04-17 -->
+
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
 ## Overnight run — 2026-04-16
 
