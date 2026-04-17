@@ -13,7 +13,7 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - validation: green
 
 ### task-T1.3 — DONE — 2026-04-17T20:11:27Z
-- commit: __PENDING__
+- commit: 8d0639ebe414f10c33764881e4c01e54aa2680ae
 - files: docs/script.js
 - validation: green
 
