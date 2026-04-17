@@ -39,6 +39,71 @@ class ParamountScraper(BaseScraper):
 
     # ---------- Core scraping ----------
 
+    SPARSE_DROP_THRESHOLD = 0.20
+
+    @staticmethod
+    def _is_sparse_event(event: Dict) -> bool:
+        """Return True if event has only title and lacks all descriptive metadata.
+
+        Sparse means: has a title, but no meaningful description, no runtime,
+        no release year, and no director. Such events yield poor LLM reviews.
+        """
+        description = (event.get("description") or "").strip()
+        return (
+            bool(event.get("title"))
+            and not description
+            and not event.get("runtime_minutes")
+            and not event.get("release_year")
+            and not event.get("director")
+        )
+
+    def _apply_sparse_metadata_policy(self, events: List[Dict]) -> List[Dict]:
+        """Skip sparse-metadata events unless >20% of events would be dropped.
+
+        If dropping would remove more than SPARSE_DROP_THRESHOLD of events,
+        invert the policy: keep them but replace description/one_liner_summary
+        with a neutral placeholder so the LLM isn't called on empty input.
+        """
+        if not events:
+            return events
+
+        sparse_indices = [i for i, e in enumerate(events) if self._is_sparse_event(e)]
+        if not sparse_indices:
+            return events
+
+        sparse_ratio = len(sparse_indices) / len(events)
+        if sparse_ratio > self.SPARSE_DROP_THRESHOLD:
+            print(
+                f"  Paramount: {len(sparse_indices)}/{len(events)} events are sparse "
+                f"({sparse_ratio:.0%} > {self.SPARSE_DROP_THRESHOLD:.0%}); "
+                "keeping with placeholder descriptions"
+            )
+            result: List[Dict] = []
+            for i, event in enumerate(events):
+                if i in set(sparse_indices):
+                    placeholder = (
+                        f"{event['title']} at the Paramount — see venue for details"
+                    )
+                    result.append({
+                        **event,
+                        "description": placeholder,
+                        "one_liner_summary": placeholder,
+                    })
+                else:
+                    result.append(event)
+            return result
+
+        kept: List[Dict] = []
+        for i, event in enumerate(events):
+            if i in set(sparse_indices):
+                print(
+                    f"  Paramount: skipping sparse-metadata event: "
+                    f"{event.get('title', '<no title>')}"
+                )
+                continue
+            kept.append(event)
+        return kept
+
     def scrape_events(self) -> List[Dict]:
         """Main entrypoint – fetch Paramount events from the JSON API.
 
@@ -49,6 +114,7 @@ class ParamountScraper(BaseScraper):
         print(f"Scraping {self.venue_name}...")
         events = self._fetch_via_api()
         if events:
+            events = self._apply_sparse_metadata_policy(events)
             print(f"Successfully scraped {len(events)} Paramount events total")
             return events
 
@@ -70,6 +136,7 @@ class ParamountScraper(BaseScraper):
                     all_events.append(event_data)
             except Exception as exc:
                 print(f"    Error extracting {url}: {exc}")
+        all_events = self._apply_sparse_metadata_policy(all_events)
         print(f"Successfully scraped {len(all_events)} Paramount events total")
         return all_events
 
@@ -132,7 +199,7 @@ class ParamountScraper(BaseScraper):
                     "times": [time_str],
                     "venue": self.venue_name,
                     "url": action_url or f"{self.base_url}/{production.get('productionSeasonId','')}",
-                    "description": description or f"{title} at the Paramount Theatre",
+                    "description": description,
                 })
         return events
 

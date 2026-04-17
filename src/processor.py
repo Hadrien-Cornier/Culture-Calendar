@@ -15,30 +15,15 @@ from dotenv import load_dotenv
 
 from .summary_generator import SummaryGenerator
 from .sources import wikipedia, letterboxd
+from .refusal import (
+    REFUSAL_PATTERNS,
+    REFUSAL_STUB,
+    _REFUSAL_RE,
+    filter_refusal,
+    is_refusal_response,
+)
 
 load_dotenv()
-
-
-REFUSAL_PATTERNS = (
-    r"i cannot provide",
-    r"i cannot create",
-    r"i cannot verify",
-    r"i (cannot|can'?t) locate",
-    r"i'?m unable to",
-    r"do(es)? not contain (any |relevant |specific )?information",
-    r"search results (do not|provided do not)",
-    r"would be speculative",
-    r"speculative rather than",
-    r"speculative criticism",
-    r"without substantive information",
-    r"lack(s)? the substantive detail",
-    r"without specific (recordings|reviews|program information|sources|information)",
-    r"insufficient (information|context|sources|data)",
-    r"i (do not|don'?t) have (access to |sufficient |enough )",
-    r"i appreciate your request, but i (must be direct|cannot)",
-    r"following this instruction would require me to generate speculative",
-)
-_REFUSAL_RE = re.compile("|".join(REFUSAL_PATTERNS), re.IGNORECASE)
 
 BANNED_PHRASES = (
     "haunting",
@@ -147,24 +132,6 @@ def _fact_dossier(event: Dict) -> str:
     return ""
 
 
-def is_refusal_response(text: str) -> bool:
-    """Heuristic: does this look like an LLM refusing to write a real review?
-
-    Used to detect Perplexity's 'I cannot provide a critique because the search
-    results don't contain information' replies, so the processor can retry with
-    a different prompt strategy instead of shipping the refusal text as the
-    public-facing description.
-
-    Empty or very short text is NOT considered a refusal here — that's a
-    separate condition (missing summary, missing description) handled by other
-    gates in verify_calendar.py. Only verbose refusal-shaped prose triggers
-    this detector.
-    """
-    if not text or len(text.strip()) < 40:
-        return False
-    return bool(_REFUSAL_RE.search(text))
-
-
 class EventProcessor:
     def __init__(self, force_reprocess: bool = False, pilot_mode: bool = False):
         self.perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
@@ -252,6 +219,20 @@ class EventProcessor:
                         "summary": event.get("description", "Weekly recurring event"),
                     }
                     event["oneLinerSummary"] = "Weekly literary discussion group"
+                    enriched_events.append(event)
+                    continue
+
+                # Skip LLM enrichment for type=other events that already carry
+                # a scraper-authored factual description (e.g. Paper Cuts pop-up
+                # bookshop). We must not overwrite those pre-filled blurbs.
+                if etype == "other" and (event.get("description") or "").strip():
+                    print(f"  Skipping LLM enrichment for type=other with pre-filled description")
+                    event["ai_rating"] = {
+                        "score": None,
+                        "summary": event["description"],
+                    }
+                    if not event.get("oneLinerSummary"):
+                        event["oneLinerSummary"] = event.get("one_liner_summary") or ""
                     enriched_events.append(event)
                     continue
 
@@ -807,6 +788,11 @@ Be specific. Take a defensible position even if some details are missing.
             # Use the cleaned content as summary for the French cinéaste style
             summary = content.strip()
 
+            filtered = filter_refusal(summary)
+            if filtered != summary:
+                print("  Substituting refusal-shaped description with stub")
+                summary = filtered
+
             return {
                 "score": max(0, min(10, score)),  # Clamp to 0-10
                 "summary": summary,  # Keep full summary
@@ -814,4 +800,4 @@ Be specific. Take a defensible position even if some details are missing.
 
         except Exception as e:
             print(f"Error parsing AI response: {e}")
-            return {"score": 5, "summary": content[:2000]}
+            return {"score": 5, "summary": filter_refusal(content[:2000])}

@@ -1,5 +1,65 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18 -->
+## Overnight run — 2026-04-18
+
+Runner: `overnight-plan` skill. Branch: `overnight/2026-04-18`. Goal: five fixes on the promoted v11 site — /10 rating clarity, Opera dedup, incomplete-review guards (Nish Kumar + Paper Cuts + Paramount scraper), About methodology section, client-side Web Speech API read-aloud. Full spec in `CLAUDE.md` §Overnight run — 2026-04-18.
+
+Task entries (appended by the runner after each DONE commit) follow below.
+
+### task-T1.2 — DONE — 2026-04-17T20:07:23Z
+- commit: f4b91244d18871e8af59e0c20cc363fa45d3dbf1
+- files: docs/script.js, docs/styles.css
+- validation: green
+
+### task-T1.3 — DONE — 2026-04-17T20:11:27Z
+- commit: 8d0639ebe414f10c33764881e4c01e54aa2680ae
+- files: docs/script.js
+- validation: green
+
+### task-T2.1 — DONE — 2026-04-17T20:13:13Z
+- commit: 96a298bf2a7e1e249d24a0dc8ef307fe3e5fcc2f
+- files: src/processor.py, src/refusal.py, tests/test_refusal_filter.py
+- validation: green
+
+### task-T2.2 — DONE — 2026-04-17T20:17:20Z
+- commit: 6aac9c8035d9e747e2c4e4eb9f00c0f02e6ea70d
+- files: src/processor.py, src/scrapers/alienated_majesty_scraper.py, tests/test_scraper_classification.py
+- validation: green
+
+### task-T2.3 — DONE — 2026-04-17T20:20:36Z
+- commit: 751b27c921581af15e7e212b8502099ff9211b67
+- files: src/scrapers/paramount_scraper.py, tests/test_paramount_scraper_unit.py
+- validation: green
+
+### task-T2.4 — DONE — 2026-04-17T20:23:24Z
+- commit: df035b46e89ad24bdf2a632f8aba42d0724fd763
+- files: docs/data.json
+- validation: green
+
+### task-T3.1 — DONE — 2026-04-17T20:26:22Z
+- commit: c03f617e18ecaaba58a903401e3b7030ebaa2a89
+- files: docs/index.html, docs/styles.css, docs/ABOUT.md
+- validation: green
+
+### task-T4.1 — DONE — 2026-04-17T20:28:33Z
+- commit: 986877e52fb2c91e3f32e3120b88108d8c4415ba
+- files: docs/script.js, docs/styles.css
+- validation: green
+
+### task-T6.1 — DONE — 2026-04-17T20:31:59Z
+- commit: ab76b134fa90bdeea082fedca2f2cbabcd2ed842
+- files: CHANGELOG.md
+- validation: green
+- notes: pytest 73 passed / 22 skipped; grep checks all present; verify_calendar.py --offline 22/22 checks passed; check_ai_smell.py 0 violations across 222 events
+
+### task-T6.2 — DONE — 2026-04-17T20:33:03Z
+- commit: 487b7505200dca829dc307aa00371ab4bb1f3ee4
+- files: STATUS-2026-04-18.md, CHANGELOG.md
+- validation: green
+
+<!-- END OVERNIGHT-PLAN: 2026-04-18 -->
+
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
 ## Overnight run — 2026-04-17
 

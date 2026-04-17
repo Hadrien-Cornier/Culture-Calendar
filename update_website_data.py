@@ -374,6 +374,11 @@ def finalize_website_data(combined_data: dict) -> list:
 
         website_data.append(event_data)
 
+    # Merge companion events (e.g. Paper Cuts pop-up bookshop) INTO the
+    # matching film event so the site shows one card per theatrical outing
+    # rather than two separate listings for the same showtime.
+    website_data = _merge_companion_events(website_data)
+
     # Sort by the earliest occurrence date/time so upcoming events appear first
     def first_occurrence_key(item):
         screenings = item.get("screenings", [])
@@ -388,6 +393,66 @@ def finalize_website_data(combined_data: dict) -> list:
     website_data.sort(key=first_occurrence_key)
 
     return website_data
+
+
+def _merge_companion_events(events: list) -> list:
+    """Fold Paper-Cuts-style companion events into their paired film event.
+
+    A companion carries `companion_of = {"title": <paired_film>, "date": <iso>}`
+    set by the scraper. We find the film event whose title contains the
+    paired film title (case-insensitive) AND whose screenings share the
+    date, attach it under `companion_events`, and drop the companion from
+    the top-level list. If no match is found the companion survives
+    unchanged so it still surfaces on the site.
+    """
+    # Index film events by (lowered title, date) for fast lookup.
+    film_index: dict[tuple[str, str], int] = {}
+    for idx, ev in enumerate(events):
+        if ev.get("type") in ("movie", "screening"):
+            title_key = (ev.get("title") or "").lower()
+            for s in ev.get("screenings", []):
+                d = s.get("date")
+                if d:
+                    film_index[(title_key, d)] = idx
+
+    remaining: list = []
+    for ev in events:
+        companion_hint = ev.get("companion_of")
+        if not companion_hint:
+            remaining.append(ev)
+            continue
+
+        paired_title = (companion_hint.get("title") or "").lower().strip()
+        paired_date = companion_hint.get("date")
+        target_idx = None
+        for (film_title, film_date), film_idx in film_index.items():
+            if (
+                film_date == paired_date
+                and paired_title
+                and paired_title in film_title
+            ):
+                target_idx = film_idx
+                break
+
+        if target_idx is None:
+            # No matching film event; keep the companion standalone so it
+            # still surfaces on the site.
+            remaining.append(ev)
+            continue
+
+        events[target_idx].setdefault("companion_events", []).append(
+            {
+                "title": ev.get("title") or "",
+                "venue": ev.get("venue") or "",
+                "time": (ev.get("times") or [""])[0] if ev.get("times") else "",
+                "description": ev.get("description") or "",
+                "source_url": ev.get("url") or "",
+            }
+        )
+        # Dropping the companion from the top-level list — it lives inside
+        # the film event now.
+
+    return remaining
 
 
 def generate_website_data(events):
