@@ -22,6 +22,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: src/processor.py, src/refusal.py, tests/test_refusal_filter.py
 - validation: green
 
+### task-T2.2 — DONE — 2026-04-17T20:17:20Z
+- commit: 6aac9c8035d9e747e2c4e4eb9f00c0f02e6ea70d
+- files: src/processor.py, src/scrapers/alienated_majesty_scraper.py, tests/test_scraper_classification.py
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
