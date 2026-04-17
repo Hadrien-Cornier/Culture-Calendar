@@ -57,3 +57,29 @@ def filter_refusal(text: str) -> str:
     if is_refusal_response(text):
         return REFUSAL_STUB
     return text
+
+
+# Fields on an event that can carry LLM-generated text and therefore need
+# refusal filtering. Kept as a module constant so callers (data-cleanup
+# scripts, test fixtures, verify_calendar) share the same invariant.
+REFUSAL_SENSITIVE_FIELDS: tuple[str, ...] = ("description", "one_liner_summary")
+
+
+def clean_event_refusals(event: dict) -> tuple[dict, list[str]]:
+    """Return (cleaned_event, changed_fields).
+
+    Walks every refusal-sensitive field on the event; substitutes the
+    canonical stub where the content matches the refusal regex. This
+    fixes the 04-18 leak where the T2.4 cleanup only checked
+    `description` and missed refusal-shaped `one_liner_summary`.
+
+    The returned event is a shallow copy; the input is not mutated.
+    """
+    cleaned = dict(event)
+    changed: list[str] = []
+    for field in REFUSAL_SENSITIVE_FIELDS:
+        original = cleaned.get(field) or ""
+        if original and is_refusal_response(original):
+            cleaned[field] = REFUSAL_STUB
+            changed.append(field)
+    return cleaned, changed

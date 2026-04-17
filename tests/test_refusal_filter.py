@@ -67,3 +67,54 @@ def test_processor_reexports_is_refusal_response() -> None:
 
     assert reexported(NISH_KUMAR_STYLE_REFUSAL) is True
     assert reexported(LEGITIMATE_REVIEW) is False
+
+
+# --- clean_event_refusals: walks BOTH description and one_liner_summary ----
+# Regression: the 04-18 T2.4 cleanup only checked `description` and left
+# refusal-shaped `one_liner_summary` values intact on-site. This must not
+# recur.
+
+
+@pytest.mark.unit
+def test_clean_event_refusals_cleans_both_fields() -> None:
+    from src.refusal import clean_event_refusals
+
+    event = {
+        "title": "Nish Kumar",
+        "description": NISH_KUMAR_STYLE_REFUSAL,
+        "one_liner_summary": (
+            "I cannot provide a meaningful summary without actual "
+            "event details to work from."
+        ),
+    }
+    cleaned, changed = clean_event_refusals(event)
+
+    assert cleaned["description"] == REFUSAL_STUB
+    assert cleaned["one_liner_summary"] == REFUSAL_STUB
+    assert set(changed) == {"description", "one_liner_summary"}
+
+
+@pytest.mark.unit
+def test_clean_event_refusals_leaves_legitimate_unchanged() -> None:
+    from src.refusal import clean_event_refusals
+
+    event = {
+        "title": "Something Good",
+        "description": LEGITIMATE_REVIEW,
+        "one_liner_summary": "A terrific night out.",
+    }
+    cleaned, changed = clean_event_refusals(event)
+
+    assert cleaned == event
+    assert changed == []
+
+
+@pytest.mark.unit
+def test_clean_event_refusals_does_not_mutate_input() -> None:
+    from src.refusal import clean_event_refusals
+
+    event = {"description": NISH_KUMAR_STYLE_REFUSAL, "one_liner_summary": ""}
+    _, _ = clean_event_refusals(event)
+
+    # Original must still carry the refusal text — the function returns a copy.
+    assert event["description"] == NISH_KUMAR_STYLE_REFUSAL

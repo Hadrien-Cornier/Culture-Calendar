@@ -62,6 +62,71 @@ def test_paper_cuts_event_has_venue_and_paired_film_fields():
 
 
 @pytest.mark.unit
+def test_paper_cuts_event_carries_companion_of_hint():
+    """update_website_data._merge_companion_events needs title+date to
+    fold the pop-up bookshop into the matching AFS film event."""
+    event = _paper_cuts_event()
+    hint = event.get("companion_of")
+    assert hint is not None, "companion_of hint missing"
+    assert hint["title"] == "Stalker"
+    assert hint["date"] == "2026-05-17"
+
+
+@pytest.mark.unit
+def test_merge_companion_events_folds_paper_cuts_into_film():
+    """End-to-end merge: when the AFS scraper surfaces LANCELOT DU LAC on
+    the same date as Paper Cuts, _merge_companion_events attaches the
+    pop-up bookshop under companion_events[] and drops the standalone."""
+    from update_website_data import _merge_companion_events
+
+    film = {
+        "title": "LANCELOT DU LAC",
+        "type": "movie",
+        "venue": "AFS",
+        "screenings": [{"date": "2026-04-19", "time": "18:00"}],
+    }
+    paper_cuts = {
+        "title": "Paper Cuts @ AFS Cinema - LANCELOT DU LAC",
+        "type": "other",
+        "venue": "AFS Cinema Lobby",
+        "times": ["19:00"],
+        "description": "<p>Pop-up bookshop.</p>",
+        "url": "https://example.com/",
+        "companion_of": {"title": "LANCELOT DU LAC", "date": "2026-04-19"},
+    }
+
+    merged = _merge_companion_events([film, paper_cuts])
+
+    assert len(merged) == 1
+    assert merged[0]["title"] == "LANCELOT DU LAC"
+    ce = merged[0].get("companion_events")
+    assert ce and len(ce) == 1
+    assert ce[0]["title"] == paper_cuts["title"]
+    assert ce[0]["venue"] == "AFS Cinema Lobby"
+
+
+@pytest.mark.unit
+def test_merge_companion_events_keeps_orphan_companion_standalone():
+    """If no matching film event is present, the companion survives so it
+    still appears on the site rather than silently vanishing."""
+    from update_website_data import _merge_companion_events
+
+    orphan = {
+        "title": "Paper Cuts @ AFS Cinema - Ghost Film",
+        "type": "other",
+        "venue": "AFS Cinema Lobby",
+        "times": ["19:00"],
+        "description": "<p>Pop-up bookshop.</p>",
+        "companion_of": {"title": "Ghost Film", "date": "2026-06-01"},
+    }
+
+    merged = _merge_companion_events([orphan])
+
+    assert len(merged) == 1
+    assert merged[0]["title"] == orphan["title"]
+
+
+@pytest.mark.unit
 def test_processor_skips_llm_for_type_other_with_prefilled_description(monkeypatch):
     """Processor must not overwrite a scraper-authored description on type=other."""
     # Isolate the processor from env-driven LLM paths.

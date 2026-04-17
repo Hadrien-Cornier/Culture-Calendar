@@ -1210,6 +1210,41 @@
         }
       }
 
+      if (ev.companion_events && ev.companion_events.length) {
+        var companionSection = document.createElement("section");
+        companionSection.className = "event-companion";
+
+        var companionLabel = document.createElement("div");
+        companionLabel.className = "event-companion-label";
+        companionLabel.textContent = "Also this day";
+        companionSection.appendChild(companionLabel);
+
+        ev.companion_events.forEach(function (ce) {
+          var item = document.createElement("div");
+          item.className = "event-companion-item";
+
+          var meta = document.createElement("div");
+          meta.className = "event-companion-meta";
+          var metaParts = [];
+          if (ce.title) metaParts.push(ce.title);
+          if (ce.venue) metaParts.push(ce.venue);
+          if (ce.time) metaParts.push(formatTime(ce.time));
+          meta.textContent = metaParts.join(" \u00b7 ");
+          item.appendChild(meta);
+
+          if (ce.description) {
+            var desc = document.createElement("p");
+            desc.className = "event-companion-desc";
+            desc.textContent = ce.description;
+            item.appendChild(desc);
+          }
+
+          companionSection.appendChild(item);
+        });
+
+        panelInner.appendChild(companionSection);
+      }
+
       var listingTtsNode = tts.createButton(parsed, ev.one_liner);
       if (listingTtsNode) panelInner.appendChild(listingTtsNode);
 

@@ -225,6 +225,12 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             f"zines, and ephemera chosen to resonate with the film — cinema "
             f"studies, director-adjacent literature, small-press titles.</p>"
         )
+        # Best-effort extraction of the film title + director from the
+        # paired_film string. Expected shapes:
+        #   "LANCELOT DU LAC (dir. Robert Bresson)"
+        #   "SOME FILM"
+        paired_film_title = film.split("(")[0].strip()
+
         return {
             "title": title,
             "type": "other",
@@ -236,6 +242,14 @@ class AlienatedMajestyBooksScraper(BaseScraper):
             "url": url,
             "one_liner_summary": one_liner,
             "description": description,
+            # Hint for update_website_data._merge_companion_events: if the
+            # same pipeline run produces an AFS film event with this title
+            # on this date, fold us in under its `companion_events` array
+            # rather than emitting as a standalone card.
+            "companion_of": {
+                "title": paired_film_title,
+                "date": date_iso,
+            },
         }
 
     @staticmethod
