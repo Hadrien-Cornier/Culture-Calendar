@@ -53,7 +53,7 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - validation: green
 
 ### task-T4.2 — DONE — 2026-04-17T17:03:15Z
-- commit: __PENDING__
+- commit: e63b493
 - files: docs/index.html, docs/styles.css, docs/script.js
 - validation: green
 
