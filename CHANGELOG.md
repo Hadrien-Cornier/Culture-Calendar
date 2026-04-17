@@ -67,6 +67,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/index.html, docs/script.js, docs/styles.css
 - validation: green
 
+### task-T5.1 — DONE — 2026-04-17T17:09:33Z
+- commit: 377ded75056635556daf247b952e059cebf81643
+- files: docs/styles.css
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-17 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
