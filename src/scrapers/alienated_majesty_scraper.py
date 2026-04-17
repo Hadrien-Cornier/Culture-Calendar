@@ -177,8 +177,16 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                 book_title, author = self._split_title_by_author(title_part)
                 if not book_title:
                     continue
+                event_title = f"{current_series} - {book_title}"
+                if event_title.startswith("Paper Cuts"):
+                    events.append(
+                        self._build_paper_cuts_event(
+                            event_title, book_title, date_iso, url
+                        )
+                    )
+                    continue
                 events.append({
-                    "title": f"{current_series} - {book_title}",
+                    "title": event_title,
                     "type": "book_club",
                     "series": current_series,
                     "book": book_title,
@@ -194,6 +202,41 @@ class AlienatedMajestyBooksScraper(BaseScraper):
                     ),
                 })
         return events
+
+    @staticmethod
+    def _build_paper_cuts_event(
+        title: str, paired_film: str, date_iso: str, url: str
+    ) -> Dict:
+        """Construct a Paper Cuts pop-up bookshop event.
+
+        Paper Cuts is a curated pop-up bookshop Alienated Majesty runs in the
+        AFS Cinema lobby around a film screening — it is not a book club, and
+        it is not the film itself. We emit type=other with a deterministic,
+        factual description so downstream LLM enrichment can be skipped.
+        """
+        film = (paired_film or "the screening").strip() or "the screening"
+        one_liner = (
+            f"Pop-up bookshop by Alienated Majesty in the AFS Cinema lobby "
+            f"around {film}."
+        )
+        description = (
+            f"<p>Alienated Majesty sets up a curated pop-up bookshop in the "
+            f"AFS Cinema lobby around the screening of {film}. Expect books, "
+            f"zines, and ephemera chosen to resonate with the film — cinema "
+            f"studies, director-adjacent literature, small-press titles.</p>"
+        )
+        return {
+            "title": title,
+            "type": "other",
+            "series": "Paper Cuts @ AFS Cinema",
+            "paired_film": film,
+            "dates": [date_iso],
+            "times": ["7:00 PM"],
+            "venue": "AFS Cinema Lobby",
+            "url": url,
+            "one_liner_summary": one_liner,
+            "description": description,
+        }
 
     @staticmethod
     def _month_number(token: str) -> Optional[int]:

@@ -222,6 +222,20 @@ class EventProcessor:
                     enriched_events.append(event)
                     continue
 
+                # Skip LLM enrichment for type=other events that already carry
+                # a scraper-authored factual description (e.g. Paper Cuts pop-up
+                # bookshop). We must not overwrite those pre-filled blurbs.
+                if etype == "other" and (event.get("description") or "").strip():
+                    print(f"  Skipping LLM enrichment for type=other with pre-filled description")
+                    event["ai_rating"] = {
+                        "score": None,
+                        "summary": event["description"],
+                    }
+                    if not event.get("oneLinerSummary"):
+                        event["oneLinerSummary"] = event.get("one_liner_summary") or ""
+                    enriched_events.append(event)
+                    continue
+
                 # Get AI rating (with caching)
                 event_title = event["title"].upper().strip()
 
