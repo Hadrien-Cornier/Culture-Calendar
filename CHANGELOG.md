@@ -53,6 +53,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - validation: green
 - notes: pytest 73 passed / 22 skipped; grep checks all present; verify_calendar.py --offline 22/22 checks passed; check_ai_smell.py 0 violations across 222 events
 
+### task-T6.2 — DONE — 2026-04-17T20:33:03Z
+- commit: <pending>
+- files: STATUS-2026-04-18.md, CHANGELOG.md
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
