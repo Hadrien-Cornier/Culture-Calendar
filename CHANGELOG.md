@@ -17,6 +17,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/script.js
 - validation: green
 
+### task-T2.1 — DONE — 2026-04-17T20:13:13Z
+- commit: 96a298bf2a7e1e249d24a0dc8ef307fe3e5fcc2f
+- files: src/processor.py, src/refusal.py, tests/test_refusal_filter.py
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
