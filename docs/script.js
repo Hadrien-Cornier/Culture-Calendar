@@ -8,11 +8,10 @@
   var searchInput = document.getElementById("search-input");
   var venueFiltersEl = document.getElementById("venue-filters");
   var categoryFiltersEl = document.getElementById("category-filters");
+  var filterCountEl = document.getElementById("filter-count");
+  var filterClearEl = document.getElementById("filter-clear");
 
   var allGrouped = [];
-  var currentQuery = "";
-  var currentVenue = "";
-  var currentCategory = "";
   var currentStartIso = "";
   var currentPicksEndIso = "";
   var searchDebounceTimer = null;
@@ -22,6 +21,32 @@
   var daysAhead = parseInt(params.get("days") || "14", 10);
   var picksDays = parseInt(params.get("picks_days") || "7", 10);
   var showAll = params.get("all") === "1";
+
+  var currentQuery = (params.get("q") || "").trim();
+  var currentVenue = params.get("venue") || "";
+  var currentCategory = params.get("category") || "";
+
+  if (searchInput && currentQuery) {
+    searchInput.value = currentQuery;
+  }
+
+  function syncURLState() {
+    var next = new URLSearchParams(window.location.search);
+    if (currentQuery) next.set("q", currentQuery); else next.delete("q");
+    if (currentVenue) next.set("venue", currentVenue); else next.delete("venue");
+    if (currentCategory) next.set("category", currentCategory); else next.delete("category");
+    var qs = next.toString();
+    var newUrl = window.location.pathname + (qs ? "?" + qs : "") + window.location.hash;
+    try {
+      window.history.replaceState(null, "", newUrl);
+    } catch (e) {
+      // ignore — file:// or sandbox restrictions
+    }
+  }
+
+  function hasActiveFilters() {
+    return !!(currentQuery || currentVenue || currentCategory);
+  }
 
   var MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -394,6 +419,21 @@
     });
   }
 
+  function updateFilterStatus(visibleCount) {
+    if (!filterCountEl) return;
+    var total = allGrouped.length;
+    if (total === 0) {
+      filterCountEl.textContent = "";
+    } else if (hasActiveFilters()) {
+      filterCountEl.textContent = "Showing " + visibleCount + " of " + total + " events";
+    } else {
+      filterCountEl.textContent = "Showing all " + total + " events";
+    }
+    if (filterClearEl) {
+      filterClearEl.hidden = !hasActiveFilters();
+    }
+  }
+
   function applyFilterAndRender() {
     picksList.innerHTML = "";
     var oldNodes = listingsEl.querySelectorAll(".event-card, .empty-state");
@@ -407,6 +447,9 @@
         matchesVenue(ev, venue) &&
         matchesCategory(ev, category);
     });
+
+    updateFilterStatus(filtered.length);
+    syncURLState();
 
     if (filtered.length === 0) {
       renderEmptyState();
@@ -427,6 +470,32 @@
     renderPicks(picksPool.slice(0, 10));
     renderListings(filtered);
     updateHeadings(currentStartIso, currentPicksEndIso, currentQuery);
+  }
+
+  function resetFilters() {
+    currentQuery = "";
+    currentVenue = "";
+    currentCategory = "";
+    if (searchInput) searchInput.value = "";
+    if (venueFiltersEl) {
+      var vChips = venueFiltersEl.querySelectorAll(".filter-chip");
+      vChips.forEach(function (c, i) {
+        c.classList.toggle("is-active", i === 0);
+        c.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+      });
+    }
+    if (categoryFiltersEl) {
+      var cChips = categoryFiltersEl.querySelectorAll(".filter-chip");
+      cChips.forEach(function (c, i) {
+        c.classList.toggle("is-active", i === 0);
+        c.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+      });
+    }
+    if (allGrouped.length > 0) applyFilterAndRender();
+  }
+
+  if (filterClearEl) {
+    filterClearEl.addEventListener("click", resetFilters);
   }
 
   if (searchInput) {

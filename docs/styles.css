@@ -181,6 +181,46 @@ body {
   border-color: var(--accent);
 }
 
+.filter-status {
+  max-width: var(--max);
+  margin: var(--space-3) auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-family: var(--sans);
+  font-size: var(--text-xs);
+  color: var(--muted);
+  min-height: 28px;
+}
+.filter-count {
+  font-variant-numeric: tabular-nums;
+}
+.filter-clear {
+  font-family: var(--sans);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: var(--space-1) var(--space-3);
+  min-height: 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out-quart),
+              border-color var(--dur-fast) var(--ease-out-quart);
+}
+.filter-clear:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .filter-clear:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+}
+
 .picks-section,
 .listings {
   max-width: var(--max);
@@ -286,6 +326,14 @@ body {
   border-radius: var(--radius);
   margin-bottom: var(--space-2);
   overflow: hidden;
+  animation: event-card-fade-in var(--dur-base) var(--ease-out-quart) both;
+}
+.pick-item {
+  animation: event-card-fade-in var(--dur-base) var(--ease-out-quart) both;
+}
+@keyframes event-card-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* Real <button> disclosure — no nested interactive descendants */
