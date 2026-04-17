@@ -84,6 +84,27 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.skip-link {
+  position: absolute;
+  left: var(--space-3);
+  top: -100px;
+  z-index: 100;
+  font-family: var(--sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--on-accent);
+  background: var(--accent);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: top var(--dur-fast) var(--ease-out-quart);
+}
+.skip-link:focus {
+  top: var(--space-3);
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
 .masthead {
   max-width: var(--max);
   margin: 0 auto;

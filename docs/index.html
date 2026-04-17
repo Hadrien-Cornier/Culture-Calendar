@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#picks">Skip to content</a>
   <header class="masthead">
     <div class="masthead-inner">
       <h1 class="masthead-title">The Austin Culture Tipsheet</h1>
@@ -31,7 +32,7 @@
     <span class="filter-count" id="filter-count"></span>
     <button class="filter-clear" id="filter-clear" type="button" hidden>Clear all filters</button>
   </div>
-  <section class="picks-section" id="picks" aria-label="Top 10 picks of the week">
+  <section class="picks-section" id="picks" tabindex="-1" aria-label="Top 10 picks of the week">
     <h2 class="picks-heading">Top 10 Picks of the Week</h2>
     <ol class="picks-list" id="picks-list"></ol>
   </section>
