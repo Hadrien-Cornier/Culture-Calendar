@@ -206,15 +206,24 @@
 
   load();
 
+  // Normalize recurring event titles so weekly instances merge into one card.
+  // e.g. "Book Club - Week 2" and "Book Club - This Week's Story" → "Book Club"
+  var RECURRING_STRIP = /\s*[-–—]\s*(?:this\s+week'?s?\s+\w+|week\s+\d+|session\s+\d+|part\s+\d+|meeting\s+\d+|episode\s+\d+)\s*$/i;
+
+  function normalizeTitle(title) {
+    if (!title) return "Untitled";
+    return title.replace(RECURRING_STRIP, "").trim() || title;
+  }
+
   function groupEvents(events) {
     var byTitle = {};
     var order = [];
 
     events.forEach(function (ev) {
-      var key = ev.title || "Untitled";
+      var key = normalizeTitle(ev.title || "Untitled");
       if (!byTitle[key]) {
         byTitle[key] = {
-          title: ev.title,
+          title: key,
           rating: ev.rating || 0,
           type: ev.type || ev.event_category || "other",
           venue: ev.venue || "",
@@ -598,19 +607,10 @@
       badge.textContent = ev.rating > 0 ? ev.rating : "\u2014";
       li.appendChild(badge);
 
-      var title = document.createElement("span");
-      title.className = "pick-title";
-      if (ev.url) {
-        var a = document.createElement("a");
-        a.href = ev.url;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.textContent = ev.title;
-        title.appendChild(a);
-      } else {
-        title.textContent = ev.title;
-      }
-      li.appendChild(title);
+      var titleRow = document.createElement("span");
+      titleRow.className = "pick-title";
+      titleRow.textContent = ev.title;
+      li.appendChild(titleRow);
 
       var meta = document.createElement("span");
       meta.className = "pick-meta";
@@ -620,8 +620,86 @@
         parts.push(formatDate(next.date) +
           (next.time ? " \u00b7 " + formatTime(next.time) : ""));
       }
+      if (ev.venue) parts.unshift(ev.venue);
       meta.textContent = parts.join(" \u00b7 ");
       li.appendChild(meta);
+
+      // Expandable review panel inside the pick
+      var parsed = parseReview(ev.description);
+      var hasContent = ev.one_liner || parsed.sections.length > 0 || (ev.program && ev.program.trim());
+      if (hasContent) {
+        var pickPanel = document.createElement("div");
+        pickPanel.className = "pick-panel";
+
+        var pickPanelInner = document.createElement("div");
+        pickPanelInner.className = "pick-panel-inner";
+
+        if (ev.one_liner) {
+          var oneLiner = document.createElement("p");
+          oneLiner.className = "event-oneliner";
+          oneLiner.textContent = ev.one_liner;
+          pickPanelInner.appendChild(oneLiner);
+        }
+
+        if (parsed.sections.length > 0) {
+          parsed.sections.forEach(function (sec, idx) {
+            var sectionEl = document.createElement("section");
+            sectionEl.className = idx === 0 ? "event-review-section event-review-first" : "event-review-section";
+            if (sec.label) {
+              var h = document.createElement("h4");
+              h.className = "event-review-heading";
+              if (sec.emoji) {
+                var em = document.createElement("span");
+                em.className = "event-review-emoji";
+                em.setAttribute("aria-hidden", "true");
+                em.textContent = sec.emoji + " ";
+                h.appendChild(em);
+              }
+              h.appendChild(document.createTextNode(sec.label));
+              sectionEl.appendChild(h);
+            }
+            var bodyP = document.createElement("p");
+            bodyP.className = "event-review-body";
+            bodyP.textContent = sec.body;
+            sectionEl.appendChild(bodyP);
+            pickPanelInner.appendChild(sectionEl);
+          });
+        } else if (ev.program) {
+          var programP = document.createElement("p");
+          programP.className = "event-review-body";
+          programP.textContent = ev.program;
+          pickPanelInner.appendChild(programP);
+        }
+
+        if (ev.url) {
+          var external = document.createElement("a");
+          external.className = "event-external-link";
+          external.href = ev.url;
+          external.target = "_blank";
+          external.rel = "noopener";
+          external.textContent = "View at venue \u2197";
+          external.addEventListener("click", function (e) { e.stopPropagation(); });
+          pickPanelInner.appendChild(external);
+        }
+
+        pickPanel.appendChild(pickPanelInner);
+        li.appendChild(pickPanel);
+
+        li.style.cursor = "pointer";
+        li.setAttribute("role", "button");
+        li.setAttribute("tabindex", "0");
+        li.setAttribute("aria-expanded", "false");
+        li.addEventListener("click", function () {
+          var expanded = li.classList.toggle("is-expanded");
+          li.setAttribute("aria-expanded", expanded ? "true" : "false");
+        });
+        li.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            li.click();
+          }
+        });
+      }
 
       frag.appendChild(li);
     });
