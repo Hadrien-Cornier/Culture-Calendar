@@ -556,6 +556,330 @@
     return "low";
   }
 
+  // Web Speech API "Read aloud". Cross-browser: voiceschanged handling,
+  // mobile Play/Stop-only (Android Chromium pause() cancels), sentence chunking
+  // for long text (Safari cutoff workaround), global single-utterance policy.
+  var tts = (function () {
+    var supported = typeof window !== "undefined"
+      && typeof window.speechSynthesis !== "undefined"
+      && typeof window.SpeechSynthesisUtterance !== "undefined";
+    var voices = [];
+    var isMobile = false;
+    try {
+      isMobile = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+    } catch (e) { isMobile = false; }
+    var activeController = null;
+
+    function refreshVoices() {
+      try { voices = window.speechSynthesis.getVoices() || []; }
+      catch (e) { voices = []; }
+    }
+    if (supported) {
+      refreshVoices();
+      if (typeof window.speechSynthesis.addEventListener === "function") {
+        window.speechSynthesis.addEventListener("voiceschanged", refreshVoices);
+      } else {
+        window.speechSynthesis.onvoiceschanged = refreshVoices;
+      }
+    }
+
+    function pickVoice() {
+      if (!voices || voices.length === 0) return null;
+      for (var i = 0; i < voices.length; i++) {
+        var v = voices[i];
+        if (v && v.lang && v.lang.toLowerCase().indexOf("en") === 0 && v.localService) {
+          return v;
+        }
+      }
+      for (var j = 0; j < voices.length; j++) {
+        var w = voices[j];
+        if (w && w.lang && w.lang.toLowerCase().indexOf("en") === 0) return w;
+      }
+      return voices[0] || null;
+    }
+
+    function countWords(str) {
+      if (!str) return 0;
+      var parts = str.trim().split(/\s+/);
+      var n = 0;
+      for (var i = 0; i < parts.length; i++) if (parts[i]) n++;
+      return n;
+    }
+
+    function splitSentences(text) {
+      if (!text) return [];
+      var raw = text.match(/[^.!?]+[.!?]+(\s|$)|[^.!?]+$/g) || [text];
+      var out = [];
+      for (var i = 0; i < raw.length; i++) {
+        var s = raw[i].trim();
+        if (s) out.push(s);
+      }
+      return out;
+    }
+
+    function makeChunks(text) {
+      if (!text) return [];
+      if (countWords(text) > 200) return splitSentences(text);
+      return [text];
+    }
+
+    function stripLeadingEmoji(str) {
+      if (!str) return "";
+      try {
+        return str.replace(/^[\p{Extended_Pictographic}\p{Emoji}\s]+/u, "").trim();
+      } catch (e) {
+        return str.replace(/^[\s\u2000-\u3300\uD83C-\uDBFF\uDC00-\uDFFF]+/, "").trim();
+      }
+    }
+
+    function buildText(parsed, oneLiner) {
+      var parts = [];
+      if (oneLiner) parts.push(String(oneLiner).trim());
+      var sections = (parsed && parsed.sections) || [];
+      for (var i = 0; i < sections.length; i++) {
+        var sec = sections[i];
+        var label = stripLeadingEmoji(sec.label || "");
+        var body = (sec.body || "").trim();
+        if (label && body) parts.push(label + ": " + body);
+        else if (body) parts.push(body);
+        else if (label) parts.push(label);
+      }
+      return parts.filter(Boolean).join("\n\n");
+    }
+
+    function cancelActive() {
+      if (activeController) {
+        try { activeController._cancelInternal(); } catch (e) { /* noop */ }
+        activeController = null;
+      }
+      if (supported) {
+        try { window.speechSynthesis.cancel(); } catch (e) { /* noop */ }
+      }
+    }
+
+    function speak(chunks, onState) {
+      cancelActive();
+      if (!supported || !chunks || chunks.length === 0) {
+        onState("error", "Your browser blocked audio — try a different browser or enable TTS in settings.");
+        return null;
+      }
+      var cancelled = false;
+      var index = 0;
+      var voice = pickVoice();
+      var startTimer = null;
+      var firstStarted = false;
+
+      function clearStartTimer() {
+        if (startTimer) { clearTimeout(startTimer); startTimer = null; }
+      }
+
+      function speakNext() {
+        if (cancelled) return;
+        if (index >= chunks.length) {
+          activeController = null;
+          onState("ended");
+          return;
+        }
+        var utter = new window.SpeechSynthesisUtterance(chunks[index]);
+        utter.rate = 0.95;
+        utter.pitch = 1.0;
+        utter.volume = 1.0;
+        if (voice) {
+          utter.voice = voice;
+          utter.lang = voice.lang;
+        }
+        utter.onstart = function () {
+          if (index === 0 && !firstStarted) {
+            firstStarted = true;
+            clearStartTimer();
+          }
+          if (!cancelled) onState("playing");
+        };
+        utter.onend = function () {
+          if (cancelled) return;
+          index++;
+          speakNext();
+        };
+        utter.onerror = function () {
+          if (cancelled) return;
+          cancelled = true;
+          clearStartTimer();
+          activeController = null;
+          onState("error", "Your browser blocked audio — try a different browser or enable TTS in settings.");
+        };
+        try {
+          window.speechSynthesis.speak(utter);
+        } catch (e) {
+          cancelled = true;
+          clearStartTimer();
+          activeController = null;
+          onState("error", "Your browser blocked audio — try a different browser or enable TTS in settings.");
+          return;
+        }
+        if (index === 0 && !firstStarted) {
+          startTimer = setTimeout(function () {
+            if (firstStarted || cancelled) return;
+            cancelled = true;
+            try { window.speechSynthesis.cancel(); } catch (e) { /* noop */ }
+            activeController = null;
+            onState("error", "Your browser blocked audio — try a different browser or enable TTS in settings.");
+          }, 1500);
+        }
+      }
+
+      activeController = {
+        _cancelInternal: function () {
+          cancelled = true;
+          clearStartTimer();
+          try { window.speechSynthesis.cancel(); } catch (e) { /* noop */ }
+          onState("stopped");
+        },
+        cancel: function () {
+          if (activeController === this) activeController = null;
+          cancelled = true;
+          clearStartTimer();
+          try { window.speechSynthesis.cancel(); } catch (e) { /* noop */ }
+          onState("stopped");
+        },
+        pause: function () {
+          try { window.speechSynthesis.pause(); } catch (e) { /* noop */ }
+          onState("paused");
+        },
+        resume: function () {
+          try { window.speechSynthesis.resume(); } catch (e) { /* noop */ }
+          onState("playing");
+        }
+      };
+      speakNext();
+      return activeController;
+    }
+
+    function createButton(parsed, oneLiner) {
+      if (!supported) return null;
+      var text = buildText(parsed, oneLiner);
+      if (!text) return null;
+
+      var container = document.createElement("div");
+      container.className = "event-tts";
+
+      var controls = document.createElement("div");
+      controls.className = "event-tts-controls";
+
+      var playBtn = document.createElement("button");
+      playBtn.type = "button";
+      playBtn.className = "event-tts-btn event-tts-play";
+      playBtn.textContent = "\u25B6 Read aloud";
+      playBtn.setAttribute("aria-label", "Read aloud");
+
+      var pauseBtn = null, resumeBtn = null;
+      if (!isMobile) {
+        pauseBtn = document.createElement("button");
+        pauseBtn.type = "button";
+        pauseBtn.className = "event-tts-btn event-tts-pause";
+        pauseBtn.textContent = "\u23F8 Pause";
+        pauseBtn.setAttribute("aria-label", "Pause read aloud");
+        pauseBtn.hidden = true;
+
+        resumeBtn = document.createElement("button");
+        resumeBtn.type = "button";
+        resumeBtn.className = "event-tts-btn event-tts-resume";
+        resumeBtn.textContent = "\u25B6 Resume";
+        resumeBtn.setAttribute("aria-label", "Resume read aloud");
+        resumeBtn.hidden = true;
+      }
+
+      var stopBtn = document.createElement("button");
+      stopBtn.type = "button";
+      stopBtn.className = "event-tts-btn event-tts-stop";
+      stopBtn.textContent = "\u25A0 Stop";
+      stopBtn.setAttribute("aria-label", "Stop read aloud");
+      stopBtn.hidden = true;
+
+      var status = document.createElement("span");
+      status.className = "event-tts-status";
+      status.setAttribute("aria-live", "polite");
+      status.setAttribute("role", "status");
+
+      var myController = null;
+
+      function resetControls() {
+        container.classList.remove("is-playing", "is-paused", "is-error");
+        playBtn.hidden = false;
+        stopBtn.hidden = true;
+        if (pauseBtn) pauseBtn.hidden = true;
+        if (resumeBtn) resumeBtn.hidden = true;
+      }
+
+      function setState(state, message) {
+        if (state === "playing") {
+          container.classList.add("is-playing");
+          container.classList.remove("is-paused", "is-error");
+          playBtn.hidden = true;
+          stopBtn.hidden = false;
+          if (pauseBtn) pauseBtn.hidden = false;
+          if (resumeBtn) resumeBtn.hidden = true;
+          status.textContent = "Playing audio.";
+        } else if (state === "paused") {
+          container.classList.remove("is-playing", "is-error");
+          container.classList.add("is-paused");
+          playBtn.hidden = true;
+          stopBtn.hidden = false;
+          if (pauseBtn) pauseBtn.hidden = true;
+          if (resumeBtn) resumeBtn.hidden = false;
+          status.textContent = "Paused.";
+        } else if (state === "ended") {
+          resetControls();
+          status.textContent = "Finished.";
+          myController = null;
+        } else if (state === "stopped") {
+          resetControls();
+          status.textContent = "Stopped.";
+          myController = null;
+        } else if (state === "error") {
+          resetControls();
+          container.classList.add("is-error");
+          status.textContent = message || "Audio unavailable.";
+          myController = null;
+        }
+      }
+
+      playBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        myController = speak(makeChunks(text), setState);
+      });
+      stopBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (myController) myController.cancel();
+        else setState("stopped");
+      });
+      if (pauseBtn) {
+        pauseBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (myController) myController.pause();
+        });
+      }
+      if (resumeBtn) {
+        resumeBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (myController) myController.resume();
+        });
+      }
+
+      controls.appendChild(playBtn);
+      if (pauseBtn) controls.appendChild(pauseBtn);
+      if (resumeBtn) controls.appendChild(resumeBtn);
+      controls.appendChild(stopBtn);
+      container.appendChild(controls);
+      container.appendChild(status);
+      return container;
+    }
+
+    return {
+      supported: supported,
+      createButton: createButton
+    };
+  })();
+
   function formatDate(str, opts) {
     opts = opts || {};
     var parts = str.split("-");
@@ -689,6 +1013,9 @@
           programP.textContent = ev.program;
           pickPanelInner.appendChild(programP);
         }
+
+        var pickTtsNode = tts.createButton(parsed, ev.one_liner);
+        if (pickTtsNode) pickPanelInner.appendChild(pickTtsNode);
 
         if (ev.url) {
           var external = document.createElement("a");
@@ -882,6 +1209,9 @@
           panelInner.appendChild(programP);
         }
       }
+
+      var listingTtsNode = tts.createButton(parsed, ev.one_liner);
+      if (listingTtsNode) panelInner.appendChild(listingTtsNode);
 
       if (ev.url) {
         var external = document.createElement("a");

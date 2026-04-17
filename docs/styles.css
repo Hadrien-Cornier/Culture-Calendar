@@ -600,6 +600,72 @@ body {
   font-weight: 600;
 }
 
+/* Read-aloud (Web Speech) controls — nested inside expanded review panels */
+.event-tts {
+  margin-top: var(--space-4);
+  font-family: var(--sans);
+}
+.event-tts-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+.event-tts-btn {
+  font-family: var(--sans);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  min-height: 32px;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out-quart),
+              color var(--dur-fast) var(--ease-out-quart);
+}
+.event-tts-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .event-tts-btn:hover {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+}
+.event-tts-btn:active {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.event-tts-status {
+  font-size: var(--text-xs);
+  color: var(--muted);
+  font-style: italic;
+  margin-left: var(--space-2);
+}
+.event-tts.is-playing .event-tts-play,
+.event-tts.is-playing .event-tts-btn {
+  animation: event-tts-pulse 1.4s ease-in-out infinite;
+}
+.event-tts.is-error .event-tts-status {
+  color: var(--rating-low);
+  font-style: normal;
+}
+@keyframes event-tts-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50%      { box-shadow: 0 0 0 3px var(--accent-soft); }
+}
+@media (pointer: coarse) {
+  .event-tts-btn {
+    min-height: 44px;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+}
+
 .event-external-link {
   display: inline-block;
   font-family: var(--sans);
