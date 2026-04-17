@@ -12,6 +12,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/PRODUCT_STRATEGY.md
 - validation: green
 
+### task-T2.1 — DONE — 2026-04-17T16:34:04Z
+- commit: a2459e2
+- files: docs/archive/v0/index.html, docs/archive/v0/style.css, docs/archive/v0/script.js
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-17 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
