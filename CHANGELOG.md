@@ -7,6 +7,11 @@ Runner: `overnight-plan` skill. Branch: `overnight/2026-04-17`. Goal: promote v1
 
 Task entries (appended by the runner after each DONE commit) follow below.
 
+### task-T1.2 — DONE — 2026-04-17T16:31:41Z
+- commit: a7d343d
+- files: docs/PRODUCT_STRATEGY.md
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-17 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-16 -->
