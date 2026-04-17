@@ -7,10 +7,12 @@
   var errorEl = document.getElementById("error");
   var searchInput = document.getElementById("search-input");
   var venueFiltersEl = document.getElementById("venue-filters");
+  var categoryFiltersEl = document.getElementById("category-filters");
 
   var allGrouped = [];
   var currentQuery = "";
   var currentVenue = "";
+  var currentCategory = "";
   var currentStartIso = "";
   var currentPicksEndIso = "";
   var searchDebounceTimer = null;
@@ -93,6 +95,7 @@
         currentPicksEndIso = picksEndIso;
 
         renderVenueChips(grouped);
+        renderCategoryChips(grouped);
 
         if (grouped.length === 0) {
           renderEmptyState();
@@ -291,6 +294,27 @@
     return (ev.venue || "") === venue;
   }
 
+  function matchesCategory(ev, category) {
+    if (!category) return true;
+    return (ev.type || "other") === category;
+  }
+
+  function uniqueCategories(grouped) {
+    var seen = {};
+    var list = [];
+    grouped.forEach(function (ev) {
+      var c = (ev.type || "other");
+      if (!seen[c]) {
+        seen[c] = true;
+        list.push(c);
+      }
+    });
+    list.sort(function (a, b) {
+      return formatType(a).localeCompare(formatType(b));
+    });
+    return list;
+  }
+
   function uniqueVenues(grouped) {
     var seen = {};
     var list = [];
@@ -338,6 +362,38 @@
     });
   }
 
+  function renderCategoryChips(grouped) {
+    if (!categoryFiltersEl) return;
+    categoryFiltersEl.innerHTML = "";
+    var categories = uniqueCategories(grouped);
+
+    var items = [{ label: "All", value: "" }].concat(
+      categories.map(function (c) { return { label: formatType(c), value: c }; })
+    );
+
+    items.forEach(function (item) {
+      var chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "filter-chip";
+      if (item.value === currentCategory) chip.classList.add("is-active");
+      chip.textContent = item.label;
+      chip.setAttribute("aria-pressed", item.value === currentCategory ? "true" : "false");
+      chip.addEventListener("click", function () {
+        if (currentCategory === item.value) return;
+        currentCategory = item.value;
+        var chips = categoryFiltersEl.querySelectorAll(".filter-chip");
+        chips.forEach(function (c) {
+          c.classList.remove("is-active");
+          c.setAttribute("aria-pressed", "false");
+        });
+        chip.classList.add("is-active");
+        chip.setAttribute("aria-pressed", "true");
+        if (allGrouped.length > 0) applyFilterAndRender();
+      });
+      categoryFiltersEl.appendChild(chip);
+    });
+  }
+
   function applyFilterAndRender() {
     picksList.innerHTML = "";
     var oldNodes = listingsEl.querySelectorAll(".event-card, .empty-state");
@@ -345,8 +401,11 @@
 
     var q = (currentQuery || "").toLowerCase();
     var venue = currentVenue;
+    var category = currentCategory;
     var filtered = allGrouped.filter(function (ev) {
-      return matchesQuery(ev, q) && matchesVenue(ev, venue);
+      return matchesQuery(ev, q) &&
+        matchesVenue(ev, venue) &&
+        matchesCategory(ev, category);
     });
 
     if (filtered.length === 0) {
