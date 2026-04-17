@@ -66,7 +66,7 @@
   --sans: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Culture Sans Fallback", sans-serif;
 
   /* Layout helpers */
-  --badge-size: 40px;
+  --badge-size: 56px;
   --header-gap: var(--space-3);
   --header-padding-x: var(--space-4);
   --indent-content: calc(var(--badge-size) + var(--header-gap) + var(--header-padding-x));
@@ -316,6 +316,20 @@ body {
 .pick-rating--high { background: var(--rating-high); }
 .pick-rating--mid  { background: var(--rating-mid); }
 .pick-rating--low  { background: var(--rating-low); }
+
+.pick-rating .rating-value,
+.event-rating-badge .rating-value {
+  font-weight: inherit;
+  font-variant-numeric: tabular-nums;
+}
+.pick-rating .rating-scale,
+.event-rating-badge .rating-scale {
+  font-weight: 400;
+  font-size: 0.72em;
+  opacity: 0.78;
+  letter-spacing: 0.01em;
+  margin-left: 1px;
+}
 
 .pick-title a {
   color: var(--ink);
@@ -858,7 +872,7 @@ body {
 @media (max-width: 380px) {
   :root {
     --header-padding-x: var(--space-3);
-    --badge-size: 36px;
+    --badge-size: 48px;
   }
   .pick-item {
     grid-template-columns: 24px var(--badge-size) 1fr;

@@ -604,7 +604,20 @@
 
       var badge = document.createElement("span");
       badge.className = "pick-rating pick-rating--" + ratingClass(ev.rating);
-      badge.textContent = ev.rating > 0 ? ev.rating : "\u2014";
+      if (ev.rating > 0) {
+        var pickRatingValue = document.createElement("span");
+        pickRatingValue.className = "rating-value";
+        pickRatingValue.textContent = ev.rating;
+        badge.appendChild(pickRatingValue);
+        var pickRatingScale = document.createElement("span");
+        pickRatingScale.className = "rating-scale";
+        pickRatingScale.textContent = " / 10";
+        badge.appendChild(pickRatingScale);
+        badge.setAttribute("aria-label", "rated " + ev.rating + " out of 10");
+      } else {
+        badge.textContent = "\u2014";
+        badge.setAttribute("aria-label", "not yet rated");
+      }
       li.appendChild(badge);
 
       var titleRow = document.createElement("span");
@@ -721,7 +734,20 @@
 
       var badge = document.createElement("span");
       badge.className = "event-rating-badge rating-" + ratingClass(ev.rating);
-      badge.textContent = ev.rating > 0 ? ev.rating : "\u2014";
+      if (ev.rating > 0) {
+        var ratingValue = document.createElement("span");
+        ratingValue.className = "rating-value";
+        ratingValue.textContent = ev.rating;
+        badge.appendChild(ratingValue);
+        var ratingScale = document.createElement("span");
+        ratingScale.className = "rating-scale";
+        ratingScale.textContent = " / 10";
+        badge.appendChild(ratingScale);
+        badge.setAttribute("aria-label", "rated " + ev.rating + " out of 10");
+      } else {
+        badge.textContent = "\u2014";
+        badge.setAttribute("aria-label", "not yet rated");
+      }
       header.appendChild(badge);
 
       var titleCol = document.createElement("span");
