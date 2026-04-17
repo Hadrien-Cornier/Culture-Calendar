@@ -37,6 +37,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/data.json
 - validation: green
 
+### task-T3.1 — DONE — 2026-04-17T20:26:22Z
+- commit: PENDING
+- files: docs/index.html, docs/styles.css, docs/ABOUT.md
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
