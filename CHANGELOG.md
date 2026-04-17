@@ -47,6 +47,12 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: docs/script.js, docs/styles.css
 - validation: green
 
+### task-T6.1 — DONE — 2026-04-17T20:31:59Z
+- commit: <pending>
+- files: CHANGELOG.md
+- validation: green
+- notes: pytest 73 passed / 22 skipped; grep checks all present; verify_calendar.py --offline 22/22 checks passed; check_ai_smell.py 0 violations across 222 events
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
