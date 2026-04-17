@@ -1,5 +1,14 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18 -->
+## Overnight run — 2026-04-18
+
+Runner: `overnight-plan` skill. Branch: `overnight/2026-04-18`. Goal: five fixes on the promoted v11 site — /10 rating clarity, Opera dedup, incomplete-review guards (Nish Kumar + Paper Cuts + Paramount scraper), About methodology section, client-side Web Speech API read-aloud. Full spec in `CLAUDE.md` §Overnight run — 2026-04-18.
+
+Task entries (appended by the runner after each DONE commit) follow below.
+
+<!-- END OVERNIGHT-PLAN: 2026-04-18 -->
+
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
 ## Overnight run — 2026-04-17
 

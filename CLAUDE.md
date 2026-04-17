@@ -302,40 +302,45 @@ To check whether embeddings exist, inspect `.gitnexus/meta.json` — the `stats.
 
 <!-- gitnexus:end -->
 
-<!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
-## Overnight run — 2026-04-17
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18 -->
+## Overnight run — 2026-04-18
 
 > **AUTONOMOUS RUN — do not edit while running.**
-> Owner: HCornier · Branch: `overnight/2026-04-17` · Deadline: 2026-04-18T12:00:00Z (safety cap; open-ended per user)
+> Owner: HCornier · Branch: `overnight/2026-04-18` · Deadline: 2026-04-19T12:00:00Z (safety cap; open-ended)
 > Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`.
 
 ### Goal
 
-Three deliverables on one branch:
-1. **Promote v11-picks-plus to default site** at `docs/` root. Archive old site to `docs/archive/v0/`. Fix paths (data.json, reset.css, GH Pages hostname detection).
-2. **Add select features from old site**: search bar, venue filter chips, category filter chips with AND logic, shareable URL params, event count indicator.
-3. **Impeccable full audit** (all 7 design dimensions) + fix all CRITICAL/HIGH/MEDIUM findings.
-4. **G-stack product strategy brief** at `docs/PRODUCT_STRATEGY.md` — JTBD, 7 Powers, positioning, North Star Metric.
+Five fixes on the promoted v11 site:
+1. **Rating "/10" clarity** — bare integers on badges gain a scale suffix + aria-label.
+2. **Incomplete reviews** (Nish Kumar + Paper Cuts) — add description-level refusal filter in `src/processor.py`; classify Paper Cuts as a pop-up bookshop with factual pre-filled text; harden Paramount scraper against sparse metadata.
+3. **Duplicate "Opera" in tags** — case-insensitive dedup in the category chips + subtitle.
+4. **About section** — collapsible methodology at page bottom.
+5. **Read-aloud via Web Speech API** — client-side TTS button on every expanded review. Cross-browser targets: iPhone Safari, iOS DuckDuckGo, Android Chrome, Android DuckDuckGo, mobile Firefox, desktop Chrome/Safari/Firefox. No generated audio files, no repo growth.
 
 ### Definition of done
 
 - `.venv/bin/python -m pytest -q` green
-- `docs/index.html` is the promoted v11 (not the old dashboard site)
-- `docs/archive/v0/` contains old index.html, style.css, script.js
-- Search, venue filter, category filter functional in promoted site
-- `docs/IMPECCABLE_AUDIT.md` has no CRITICAL or HIGH items OPEN
-- `docs/PRODUCT_STRATEGY.md` exists with 20+ lines
-- `STATUS-2026-04-17.md` written with morning checklist
+- Rating badge shows "X / 10" with aria-label "rated X out of 10"
+- No duplicate category chip or subtitle tag; case-insensitive dedup in JS
+- `is_refusal_response(e.description)` is False for every event in `docs/data.json`
+- Paper Cuts events have `type != "book_club"` and factual pre-filled descriptions
+- Paramount scraper skips (or placeholder-fills) events with only a bare title
+- `docs/ABOUT.md` exists and the About section is visible in `docs/index.html`
+- `docs/script.js` calls `window.speechSynthesis.speak()` and listens for `voiceschanged`
+- `STATUS-2026-04-18.md` written with morning checklist
 
 ### Hard constraints
 
-- Branch: `overnight/2026-04-17` only. Never touch `main` / `master`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does **NOT** push; user reviews and merges manually.
-- No new dependencies: no `pip install`, `npm install`, `cargo add`, `go get`. If a task needs one, write BLOCKED with reason `needs-dep: <name>`.
+- Branch: `overnight/2026-04-18` only. Never touch `main` / `master`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does **NOT** push.
+- No new paid API deps. Web Speech API is browser-native, free, client-side only.
+- No new Python deps. If a task thinks it needs one → write BLOCKED with reason `needs-dep: <name>`.
+- No generated audio files committed. TTS runs in the browser; no MP3s in the repo, no GHA changes needed.
 - No interactive prompts. No `--no-verify` on commits.
-- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m '...'`. Never mutate `~/.gitconfig` or `.git/config`.
-- Never commit `.env`, `cache/`, `.agents/`, `skills-lock.json`. `.overnight/` is gitignored; do not `git add` it.
-- Scope fence: `docs/`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-17.md`. Nothing else — this run is frontend-only.
-- v11 variant files at `docs/variants/v11-picks-plus/` are LEFT IN PLACE (copied to root, not moved).
+- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m '...'`. Never mutate `~/.gitconfig`.
+- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`. `.overnight/` is gitignored; do not `git add` it.
+- Scope fence: `src/`, `scripts/`, `docs/`, `tests/`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-18.md`.
+- GitNexus impact analysis MANDATORY before editing `src/processor.py`, `src/scrapers/alienated_majesty_scraper.py`, `src/scrapers/paramount_scraper.py`.
 
 ### Validation oracle (run before every commit)
 
@@ -345,7 +350,9 @@ Three deliverables on one branch:
 
 Pytest must exit 0. The task's own `validate` command (from queue.tsv) is also required.
 
-If the per-task oracle fails twice in a row for the same task, write BLOCKED and rotate.
+**Do NOT run `verify_calendar.py --offline` as a per-task oracle** — its 22 checks include some that pre-exist red and would block unrelated tasks. Only T6.1 runs it.
+
+If the per-task oracle fails twice in a row, write BLOCKED and rotate.
 
 ### Commit cadence
 
@@ -353,7 +360,7 @@ One commit per DONE task. Message format: `<type>(task-<ID>): <TITLE>` (feat/fix
 
 ### Changelog entry per task
 
-After each DONE commit, append one line to the fenced overnight block in `CHANGELOG.md`:
+After each DONE commit, append one entry to the fenced overnight block in `CHANGELOG.md`:
 
 ```
 ### task-<ID> — DONE — <ISO timestamp>
@@ -365,9 +372,9 @@ After each DONE commit, append one line to the fenced overnight block in `CHANGE
 ### Stop conditions
 
 - All queue tasks DONE → `RUN_COMPLETE`
-- Deadline (2026-04-18T12:00:00Z) reached → `RUN_HALTED: deadline`
+- Deadline (2026-04-19T12:00:00Z) reached → `RUN_HALTED: deadline`
 - 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`
-- `STATUS-2026-04-17.md` contains line `HALT` (manual override) → `RUN_HALTED: manual`
+- `STATUS-2026-04-18.md` contains line `HALT` (manual override) → `RUN_HALTED: manual`
 
 ### Blocker protocol
 
@@ -375,25 +382,19 @@ A task blocks when validation fails twice. Append to CHANGELOG under today's fen
 ```
 BLOCKED: task-<ID>: <one-line reason + failing-command head/tail>
 ```
-Then write `.overnight/task-result.json` with `{"status": "BLOCKED", "task_id": "task-<ID>", "reason": "<one line>"}`. The runner rotates to the next eligible task.
+Then write `.overnight/task-result.json` with `{"status": "BLOCKED", "task_id": "task-<ID>", "reason": "<one line>"}`. The runner rotates.
 
 ### Task queue (human view; source of truth is `.overnight/queue.tsv`)
 
-- **T1.2** — G-stack product strategy brief → `docs/PRODUCT_STRATEGY.md`
-- **T2.1** — Archive old root site to `docs/archive/v0/`
-- **T2.2** — Promote v11-picks-plus to `docs/` root (fix paths, GH Pages detection)
-- **T2.3** — Verify promotion — fix remaining path issues
-- **T3.1** — Impeccable full audit (all 7 dimensions) → `docs/IMPECCABLE_AUDIT.md`
-- **T3.2** — Fix CRITICAL and HIGH audit findings
-- **T3.3** — Fix MEDIUM audit findings
-- **T3.4** — Re-audit: confirm no CRITICAL/HIGH remain
-- **T4.1** — Add search bar
-- **T4.2** — Add venue filter chips
-- **T4.3** — Add category filter chips
-- **T4.4** — Filter interaction polish (URL params, count, clear-all)
-- **T5.1** — Mobile responsive pass
-- **T5.2** — Accessibility pass
+- **T1.2** — Rating badge `/10` suffix + aria-label (picks + listings)
+- **T1.3** — Case-insensitive category dedup (`uniqueCategories`, subtitle)
+- **T2.1** — Description-level refusal filter in `src/processor.py` + test
+- **T2.2** — Classify Paper Cuts as pop-up bookshop (type=other, pre-filled)
+- **T2.3** — Paramount scraper: skip/placeholder sparse-metadata events
+- **T2.4** — Clean existing refusal-shaped descriptions in `docs/data.json`
+- **T3.1** — Methodology `docs/ABOUT.md` + collapsible `.about-section`
+- **T4.1** — Read-aloud button via Web Speech API (cross-browser)
 - **T6.1** — Final gate
-- **T6.2** — Write `STATUS-2026-04-17.md` handoff
+- **T6.2** — `STATUS-2026-04-18.md` handoff
 
-<!-- END OVERNIGHT-PLAN: 2026-04-17 -->
+<!-- END OVERNIGHT-PLAN: 2026-04-18 -->
