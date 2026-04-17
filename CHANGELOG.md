@@ -7,6 +7,11 @@ Runner: `overnight-plan` skill. Branch: `overnight/2026-04-18`. Goal: five fixes
 
 Task entries (appended by the runner after each DONE commit) follow below.
 
+### task-T1.2 — DONE — 2026-04-17T20:07:23Z
+- commit: f4b91244d18871e8af59e0c20cc363fa45d3dbf1
+- files: docs/script.js, docs/styles.css
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
