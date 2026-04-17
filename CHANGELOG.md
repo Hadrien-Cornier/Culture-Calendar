@@ -32,6 +32,11 @@ Task entries (appended by the runner after each DONE commit) follow below.
 - files: src/scrapers/paramount_scraper.py, tests/test_paramount_scraper_unit.py
 - validation: green
 
+### task-T2.4 — DONE — 2026-04-17T20:23:24Z
+- commit: df035b46e89ad24bdf2a632f8aba42d0724fd763
+- files: docs/data.json
+- validation: green
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-17 -->
