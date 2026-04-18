@@ -135,6 +135,35 @@ async def _evaluate_assert(page: Any, a: dict[str, Any]) -> str | None:
     return f"unknown assert type {t!r}"
 
 
+_CANDIDATE_BROWSER_PATHS = (
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary",
+    "/usr/bin/google-chrome",
+    "/usr/bin/chromium-browser",
+    "/usr/bin/chromium",
+)
+
+
+def _resolve_browser_executable() -> str | None:
+    """Return a browser executablePath pyppeteer can launch, or None.
+
+    pyppeteer's bundled Chromium 117 x64 crashes under Rosetta on Apple
+    Silicon. Prefer an installed system browser so the validator works on
+    a plain developer laptop without `pyppeteer-install` heroics.
+
+    Priority: PYPPETEER_EXECUTABLE_PATH env var, then common install paths.
+    """
+    import os
+    env = os.environ.get("PYPPETEER_EXECUTABLE_PATH")
+    if env and os.path.exists(env):
+        return env
+    for p in _CANDIDATE_BROWSER_PATHS:
+        if os.path.exists(p):
+            return p
+    return None
+
+
 async def run_spec(
     spec: dict[str, Any],
     launch: Callable[..., Awaitable[Any]] | None = None,
@@ -143,7 +172,11 @@ async def run_spec(
     if launch is None:
         from pyppeteer import launch as _launch
         launch = _launch
-    browser = await launch(headless=True, args=["--no-sandbox"])
+    launch_kwargs: dict[str, Any] = {"headless": True, "args": ["--no-sandbox"]}
+    exe = _resolve_browser_executable()
+    if exe:
+        launch_kwargs["executablePath"] = exe
+    browser = await launch(**launch_kwargs)
     try:
         page = await browser.newPage()
         viewport = MOBILE_VIEWPORT if spec.get("mobile") else DESKTOP_VIEWPORT
