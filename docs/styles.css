@@ -344,11 +344,46 @@ details[open] .filter-trigger-caret { transform: rotate(180deg); }
   margin: 0 0 12px;
 }
 
+.event-review {
+  max-width: 70ch;
+}
+
+.event-review-section {
+  margin-top: 1.2em;
+}
+
+.event-review-section.event-review-first {
+  margin-top: 0;
+}
+
+.event-review h3,
+.event-review h4,
+.event-review-heading,
+.event-review strong {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 0.4em;
+  line-height: 1.3;
+}
+
+.event-review-emoji {
+  margin-right: 0.25em;
+}
+
+.event-review p,
 .event-review-body {
   font-size: 15px;
   line-height: 1.7;
-  margin: 0;
+  margin: 0 0 0.8em;
   max-width: 70ch;
+}
+
+.event-review-section > .event-review-body:last-child {
+  margin-bottom: 0;
 }
 
 .empty-state {
