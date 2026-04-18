@@ -27,7 +27,7 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: passed after 36s deploy wait
 
 ### task-T2.1 — DONE — 2026-04-18T20:55:41Z
-- commit: fdaa2bd
+- commit: 83e7325
 - files: docs/script.js, CHANGELOG.md
 - live-check: pending deploy-wait + check_live_site.py run
 
