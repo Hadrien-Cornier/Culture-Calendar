@@ -22,7 +22,7 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: pending deploy-wait + check_live_site.py run
 
 ### task-T1.2b — DONE — 2026-04-18T20:50:06Z
-- commit: <pending>
+- commit: 1b09b3f
 - files: docs/index.html, CHANGELOG.md
 - live-check: pending deploy-wait + check_live_site.py run
 
