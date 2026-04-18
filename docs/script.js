@@ -11,7 +11,9 @@
     collapseSheet: true
   };
 
-  var DATA_URL = "../../data.json";
+  var DATA_URL = (window.location && window.location.hostname || "").indexOf("github.io") !== -1
+    ? "/Culture-Calendar/data.json"
+    : "data.json";
   var CATEGORY_ICONS = {
     movie: "🎬", film: "🎬", concert: "🎵", book_club: "📖", opera: "🎭",
     dance: "💃", ballet: "💃", visual_arts: "🎨", other: "✨"
