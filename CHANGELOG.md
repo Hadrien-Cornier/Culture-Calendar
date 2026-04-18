@@ -42,8 +42,10 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: passed after 17s deploy wait
 
 ### task-T3.2 — DONE — 2026-04-18T21:09:05Z
+- commit: a304032
+- fix-commit: 6c9b40d (dropped `.event-review-section > .event-review-body:last-child {margin-bottom:0}` — it zeroed every paragraph's bottom margin because `.event-review-body` is always the last child of its section)
 - files: docs/styles.css, CHANGELOG.md
-- live-check: pending deploy-wait + check_live_site.py run
+- live-check: passed after 31s deploy wait on fix commit
 
 <!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
 
