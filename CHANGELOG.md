@@ -62,6 +62,11 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: passed (desktop composite OK; mobile composite OK) — no deploy wait (no code shipped)
 - notes: final-gate composite smoke. Desktop spec (1280×800) asserts subtitle "Austin cultural events, AI-curated" present + no "Sticky chip-drawer" leak, About body+h3 rendered with "Austin Culture Tipsheet"/"Artistic merit"/"methodology" text (case-insensitive via js_truthy — masthead + about headings are `text-transform: uppercase` so innerText returns uppercased), ≤10 picks all dated within next 7d, "TOP PICKS OF THE WEEK" heading, ≥1 `.event-review-section`/`.event-review-heading`/heading-bold, paragraph bottom-margin > 0. Mobile spec (375×812) clicks filter-trigger → filter-close → filter-trigger (proves close actually closed — if close were broken, the third trigger click would re-close instead of re-open), then asserts sheet is open + fully within viewport (`rect.bottom <= innerHeight`).
 
+### task-T5.2 — DONE — 2026-04-18T21:31:06Z
+- files: STATUS-2026-04-18-2.md, CHANGELOG.md
+- live-check: passed (local file check — STATUS not deployed)
+- notes: morning-review handoff with per-task SHAs, five-regression mapping (subtitle/About/picks-of-the-week/review-formatting/mobile-filter), and a "what's different from prior runs" section explaining push-per-task with revert-on-failure discipline.
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->
