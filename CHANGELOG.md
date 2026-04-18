@@ -57,6 +57,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: docs/styles.css, CHANGELOG.md
 - live-check: passed after 36s deploy wait
 
+### task-T5.1 — DONE — 2026-04-18T21:21:37Z
+- files: .overnight/check-T5.1-desktop.json, .overnight/check-T5.1-mobile.json, CHANGELOG.md
+- live-check: passed (desktop composite OK; mobile composite OK) — no deploy wait (no code shipped)
+- notes: final-gate composite smoke. Desktop spec (1280×800) asserts subtitle "Austin cultural events, AI-curated" present + no "Sticky chip-drawer" leak, About body+h3 rendered with "Austin Culture Tipsheet"/"Artistic merit"/"methodology" text (case-insensitive via js_truthy — masthead + about headings are `text-transform: uppercase` so innerText returns uppercased), ≤10 picks all dated within next 7d, "TOP PICKS OF THE WEEK" heading, ≥1 `.event-review-section`/`.event-review-heading`/heading-bold, paragraph bottom-margin > 0. Mobile spec (375×812) clicks filter-trigger → filter-close → filter-trigger (proves close actually closed — if close were broken, the third trigger click would re-close instead of re-open), then asserts sheet is open + fully within viewport (`rect.bottom <= innerHeight`).
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->
