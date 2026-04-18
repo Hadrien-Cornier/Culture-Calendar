@@ -32,7 +32,7 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: passed after 36s deploy wait
 
 ### task-T2.2 — DONE — 2026-04-18T21:00:47Z
-- commit: f18585e
+- commit: fb7ffd2
 - files: docs/index.html, CHANGELOG.md
 - live-check: pending deploy-wait + check_live_site.py run
 
