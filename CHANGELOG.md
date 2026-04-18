@@ -26,6 +26,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: docs/index.html, CHANGELOG.md
 - live-check: passed after 36s deploy wait
 
+### task-T2.1 — DONE — 2026-04-18T20:55:41Z
+- commit: fdaa2bd
+- files: docs/script.js, CHANGELOG.md
+- live-check: pending deploy-wait + check_live_site.py run
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->

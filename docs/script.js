@@ -290,7 +290,17 @@
 
   function renderAll() {
     var grouped = groupEvents(allEvents);
-    renderPicks(grouped.slice(0, 10));
+    var now = new Date();
+    now.setHours(0, 0, 0, 0);
+    var cap = new Date(now);
+    cap.setDate(cap.getDate() + 7);
+    var thisWeek = grouped.filter(function (ev) {
+      if (!ev.showings || !ev.showings[0]) return false;
+      var p = ev.showings[0].date.split("-");
+      var d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+      return d >= now && d < cap;
+    });
+    renderPicks(thisWeek.slice(0, 10));
     renderListings(grouped);
   }
 
@@ -307,6 +317,9 @@
     picks.forEach(function (ev) {
       var li = document.createElement("li");
       li.className = "pick-item";
+      if (ev.showings && ev.showings[0]) {
+        li.dataset.firstDate = ev.showings[0].date;
+      }
       var badge = document.createElement("span");
       badge.className = "pick-rating pick-rating--" + ratingClass(ev.rating);
       badge.textContent = ev.rating > 0 ? ev.rating + " / 10" : "—";
