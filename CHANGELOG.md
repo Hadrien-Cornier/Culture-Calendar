@@ -12,6 +12,11 @@ Task entries (appended after each DONE commit) follow below.
 - validation: green (34 tests pass, --help exits 0)
 - notes: TOOLING task — no live-check required. Pyppeteer-based verifier with injectable launch for testability; 6 assertion types per spec.
 
+### task-T1.1 — DONE — 2026-04-18T19:25:56Z
+- commit: 7a43a7a
+- files: docs/index.html, CHANGELOG.md
+- live-check: pending deploy-wait + check_live_site.py run
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->
