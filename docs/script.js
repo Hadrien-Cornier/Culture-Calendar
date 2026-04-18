@@ -273,6 +273,34 @@
 
   function ratingClass(r) { return r >= 8 ? "high" : r >= 5 ? "mid" : "low"; }
 
+  function parseReview(html) {
+    if (!html) return { rating: "", sections: [], flat: "" };
+    var doc = new DOMParser().parseFromString("<div>" + html + "</div>", "text/html");
+    var ps = doc.querySelectorAll("p");
+    var rating = "";
+    var sections = [];
+    ps.forEach(function (p) {
+      var text = (p.textContent || "").trim();
+      if (!text) return;
+      var rMatch = text.match(/^★\s*Rating:\s*(\d+(?:\.\d+)?)\s*\/\s*10/i);
+      if (rMatch) { rating = rMatch[1]; return; }
+      var strong = p.querySelector("strong");
+      var label = "", body = text;
+      if (strong) {
+        label = (strong.textContent || "").trim();
+        var after = text.indexOf(label);
+        if (after >= 0) {
+          body = text.slice(after + label.length).replace(/^[\s–—\-:]+/, "").trim();
+        }
+      }
+      var leading = text.match(/^([\p{Extended_Pictographic}\p{Emoji}]+)/u);
+      var emoji = leading ? leading[1] : "";
+      if (label || body) sections.push({ emoji: emoji, label: label, body: body });
+    });
+    var flat = sections.map(function (s) { return s.body; }).join("\n\n");
+    return { rating: rating, sections: sections, flat: flat };
+  }
+
   function formatDate(str) {
     var p = str.split("-");
     return MONTHS_SHORT[parseInt(p[1], 10) - 1] + " " + parseInt(p[2], 10);
@@ -406,12 +434,43 @@
         ol.textContent = ev.one_liner;
         panel.appendChild(ol);
       }
-      var review = ev.description ? ev.description.replace(/<[^>]*>/g, "") : "";
-      if (review && review !== ev.one_liner) {
-        var p = document.createElement("p");
-        p.className = "event-review-body";
-        p.textContent = review;
-        panel.appendChild(p);
+      var parsed = parseReview(ev.description);
+      if (parsed.sections.length > 0) {
+        var reviewWrap = document.createElement("div");
+        reviewWrap.className = "event-review";
+        parsed.sections.forEach(function (sec, idx) {
+          var sectionEl = document.createElement("section");
+          sectionEl.className = idx === 0
+            ? "event-review-section event-review-first"
+            : "event-review-section";
+          if (sec.label) {
+            var h = document.createElement("h4");
+            h.className = "event-review-heading";
+            if (sec.emoji) {
+              var em = document.createElement("span");
+              em.className = "event-review-emoji";
+              em.setAttribute("aria-hidden", "true");
+              em.textContent = sec.emoji + " ";
+              h.appendChild(em);
+            }
+            h.appendChild(document.createTextNode(sec.label));
+            sectionEl.appendChild(h);
+          }
+          var bodyP = document.createElement("p");
+          bodyP.className = "event-review-body";
+          bodyP.textContent = sec.body;
+          sectionEl.appendChild(bodyP);
+          reviewWrap.appendChild(sectionEl);
+        });
+        panel.appendChild(reviewWrap);
+      } else if (ev.description) {
+        var flat = ev.description.replace(/<[^>]*>/g, "");
+        if (flat && flat !== ev.one_liner) {
+          var p = document.createElement("p");
+          p.className = "event-review-body";
+          p.textContent = flat;
+          panel.appendChild(p);
+        }
       }
       if (panel.childNodes.length > 0) card.appendChild(panel);
 
