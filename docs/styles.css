@@ -382,10 +382,6 @@ details[open] .filter-trigger-caret { transform: rotate(180deg); }
   max-width: 70ch;
 }
 
-.event-review-section > .event-review-body:last-child {
-  margin-bottom: 0;
-}
-
 .empty-state {
   padding: 24px;
   text-align: center;
