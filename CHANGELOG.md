@@ -47,6 +47,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: docs/styles.css, CHANGELOG.md
 - live-check: passed after 31s deploy wait on fix commit
 
+### task-T4.1 — DONE — 2026-04-18T21:13:51Z
+- commit: PENDING
+- files: docs/index.html, docs/styles.css, docs/script.js, CHANGELOG.md
+- live-check: PENDING
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->

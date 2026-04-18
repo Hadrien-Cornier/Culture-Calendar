@@ -493,10 +493,29 @@
     listingsEl.appendChild(frag);
   }
 
+  function closeFilterSheet() {
+    var sheet = document.querySelector("details.filter-sheet");
+    if (sheet && sheet.hasAttribute("open")) sheet.removeAttribute("open");
+  }
+
+  document.addEventListener("click", function (e) {
+    var tgt = e.target;
+    if (!tgt) return;
+    if (tgt.closest && tgt.closest(".filter-close")) {
+      e.preventDefault();
+      closeFilterSheet();
+      return;
+    }
+    var sheet = document.querySelector("details.filter-sheet");
+    if (sheet && sheet.hasAttribute("open") && !sheet.contains(tgt)) {
+      closeFilterSheet();
+    }
+  });
+
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
-      var sheet = document.querySelector(".filter-sheet.is-open");
-      if (sheet) sheet.classList.remove("is-open");
+      var sheet = document.querySelector("details.filter-sheet[open]");
+      if (sheet) sheet.removeAttribute("open");
     }
   });
 })();
