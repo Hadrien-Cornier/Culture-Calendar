@@ -1,5 +1,14 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->
+## Overnight run — 2026-04-18-2
+
+Runner: `overnight-plan` skill, push-per-task variant. Branch: `main` (direct commits/pushes). Goal: fix 5 live-site regressions after the 2026-04-19 v12i promotion — subtitle leak, missing About section, Top Picks of the Week scope, review formatting regression, mobile filter sheet bugs. Each task commits → pushes → waits for GH Pages deploy → runs live-site check via `scripts/check_live_site.py` (pyppeteer), reverting on live-check failure. Full spec in `CLAUDE.md` §Overnight run — 2026-04-18-2.
+
+Task entries (appended after each DONE commit) follow below.
+
+<!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
+
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->
 ## Overnight run — 2026-04-19
 

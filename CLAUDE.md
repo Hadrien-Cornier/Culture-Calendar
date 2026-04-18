@@ -499,3 +499,130 @@ After each DONE commit (skip for research-only tasks), append one entry to the f
 - **T5.2** — `STATUS-2026-04-19.md` handoff
 
 <!-- END OVERNIGHT-PLAN: 2026-04-19 -->
+
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->
+## Overnight run — 2026-04-18-2
+
+> **AUTONOMOUS RUN — do not edit while running.**
+> Owner: HCornier · Branch: `main` (direct commits/pushes) · Deadline: 2026-04-19T14:14:20 local (24h safety cap)
+> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`. Date tag: `2026-04-18-2`.
+
+### Why this run exists
+
+The 2026-04-19 merge (`c45fdfd` + `7a477cb` + `2c83a39`) shipped the `visual_arts` category and v12i filter-bar redesign, but the live site now has five regressions the user flagged:
+
+1. **Mobile filter sheet** — opens half-cut-off on iOS, can't be closed
+2. **Top Picks** — shows top-N by rating across ALL events; user wants top picks **of the week** (next 7d)
+3. **Review expansion** — mechanism works, but content is unformatted (single-paragraph textContent instead of the pre-v12i `parseReview()` structured sections)
+4. **Subtitle leak** — `<p class="masthead-subtitle">Sticky chip-drawer with active summary</p>` is v12i's internal design-note text, not a user-facing tagline
+5. **About section** — the collapsible methodology section added by 2026-04-18 T3.1 (`c03f617`) was dropped when v12i was promoted; `docs/ABOUT.md` still exists but isn't referenced from `index.html`
+
+Plus a meta-requirement: the 2026-04-19 push-then-discover-404 episode eroded trust. Every task in this run **pushes to main and verifies against the live site** before declaring DONE.
+
+### Goal / definition of done
+
+All five regressions fixed and verified live at `https://hadrien-cornier.github.io/Culture-Calendar/`:
+- Subtitle reads "Austin cultural events, AI-curated"
+- About section present with collapsible methodology from `docs/ABOUT.md`
+- Top Picks heading says "TOP PICKS OF THE WEEK" and only includes events within next 7d
+- Review panels render with sections (h3/h4 headings + paragraph spacing), not plain text
+- Mobile filter sheet opens, closes (close button + escape + click-outside), and stays fully within viewport (375×812)
+
+### Hard constraints
+
+- **Branch `main` direct.** User explicitly authorized per-task pushes to main for this run because each fix must be verifiable against the live site. Never `git reset --hard`, `git push --force`, or rewrite history.
+- Each task: commit → push → wait for GH Pages → run live-check → if check fails, `git revert HEAD --no-edit` + push + BLOCK. Never leaves a broken live state.
+- No new Python or JS deps. No `pip install` / `npm install`. Pyppeteer is already installed (v2.0.0) — that's our verification tool.
+- No interactive prompts. No `--no-verify`.
+- Git identity: every commit (including reverts) via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
+- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `.overnight/`, `skills-lock.json`.
+- **Scope fence**: `docs/` (index.html/script.js/styles.css/ABOUT.md), `src/`, `scripts/check_live_site.py`, `tests/test_check_live_site.py`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-18-2.md`. Nothing else without BLOCK-and-ask.
+- **Do NOT edit `docs/variants/v12i/`** — that's the archival variant; the live `docs/*` is a sibling copy.
+
+### Live-site verification tool
+
+`scripts/check_live_site.py` (built by T0.1) uses pyppeteer to load a URL, optionally with mobile viewport, evaluate assertions from a JSON spec file, and exit 0/non-zero. Each subsequent task writes its spec file to `.overnight/check-T<ID>.json` (gitignored) and invokes the checker via the validate command.
+
+Spec schema: `{url, mobile, wait_ms, wait_for_selector, click_before_assert[], asserts[]}` — assertion types: `body_contains`, `body_not_contains`, `selector_exists`, `selector_min_count`, `selector_max_count`, `js_truthy`.
+
+### Validation oracle (before every commit)
+
+```
+.venv/bin/python -m pytest -q
+```
+
+Must exit 0 locally. The per-task `validate` from queue.tsv is the LIVE-SITE check and runs AFTER push + deploy-wait.
+
+Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle — pre-existing red items.
+
+### Deploy-wait discipline
+
+After `git push origin main`, poll a file changed in the push (commonly `docs/script.js`, `docs/styles.css`, or `docs/index.html`) at `https://hadrien-cornier.github.io/Culture-Calendar/<file>` every 15-20s until the served content matches the pushed content. Timeout 5 min → BLOCKED `deploy-timeout`.
+
+Each task adds at least one unique string (e.g., new commit-specific marker or content) that can be grepped during the poll.
+
+### Revert protocol (when live-check fails)
+
+```
+git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com revert HEAD --no-edit
+git push origin main
+# wait for deploy
+# re-run validate to confirm site is stable after revert
+```
+
+Then BLOCKED with reason explaining why the validate failed.
+
+### Commit cadence + changelog
+
+One DONE commit per task (plus possibly 1 revert commit on failure). Message format: `<type>(task-<ID>): <TITLE>`. Append CHANGELOG entry inside today's fence:
+
+```
+### task-<ID> — DONE — <ISO timestamp>
+- commit: <sha>
+- files: <comma-separated>
+- live-check: passed after <N>s deploy wait
+```
+
+On BLOCKED (revert committed):
+
+```
+### task-<ID> — BLOCKED — <ISO timestamp>
+- attempted: <original-sha>
+- reverted: <revert-sha>
+- reason: <one-line>
+```
+
+### Stop conditions
+
+- All queue tasks DONE → `RUN_COMPLETE`
+- Deadline 2026-04-19T14:14:20 local → `RUN_HALTED: deadline`
+- 3 consecutive BLOCKED → `RUN_HALTED: consecutive-blockers`
+- `STATUS.md` contains `HALT` → `RUN_HALTED: manual`
+
+### Task queue (human view; source of truth is `.overnight/queue.tsv`)
+
+**Phase 0 — tooling**
+- **T0.1** — Build `scripts/check_live_site.py` + pytest unit tests
+
+**Phase 1 — small independent fixes**
+- **T1.1** — Subtitle → "Austin cultural events, AI-curated"
+- **T1.2a** — Restore `<section class="about-section">` HTML + CSS
+- **T1.2b** — Inline `docs/ABOUT.md` content into About body
+
+**Phase 2 — Top Picks of the Week**
+- **T2.1** — Date-filter picks to events within next 7d, re-sort
+- **T2.2** — Rename heading to "TOP PICKS OF THE WEEK"
+
+**Phase 3 — Review formatting**
+- **T3.1** — Port `parseReview()` from `d13f975:docs/script.js:1157-1207`
+- **T3.2** — Review-section CSS (headings, paragraph spacing)
+
+**Phase 4 — Mobile filter sheet**
+- **T4.1** — Close mechanism (X button + click-outside + Escape)
+- **T4.2** — Viewport cutoff fix (100dvh + safe-area-inset)
+
+**Phase 5 — gate**
+- **T5.1** — Final composite live-site smoke (desktop + mobile)
+- **T5.2** — `STATUS-2026-04-18-2.md` handoff
+
+<!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
