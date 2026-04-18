@@ -7,6 +7,11 @@ Runner: `overnight-plan` skill, push-per-task variant. Branch: `main` (direct co
 
 Task entries (appended after each DONE commit) follow below.
 
+### task-T0.1 — DONE — 2026-04-18T19:19:09Z
+- files: scripts/check_live_site.py, tests/test_check_live_site.py, CHANGELOG.md
+- validation: green (34 tests pass, --help exits 0)
+- notes: TOOLING task — no live-check required. Pyppeteer-based verifier with injectable launch for testability; 6 assertion types per spec.
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->
