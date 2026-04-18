@@ -23,6 +23,7 @@ ontology:
     - concert
     - opera
     - dance
+    - visual_arts
     - other
 
 templates:
@@ -307,7 +308,88 @@ templates:
               type: string
               description: "Event date in YYYY-MM-DD format"
             time:
-              type: string  
+              type: string
+              description: "Event time (e.g., '11:00', '7:00 PM', 'TBD')"
+            url:
+              type: string
+              description: "Source URL for this occurrence"
+            venue:
+              type: string
+              description: "Venue name for this occurrence"
+          required:
+            - date
+            - time
+            - url
+            - venue
+
+  visual_arts:
+    grouping: unique
+    fields:
+      - title
+      - dates
+      - times
+      - artist
+      - artists
+      - medium
+      - series
+      - venue
+      - rating
+      - one_liner_summary
+      - description
+      - url
+      - screenings
+    required_on_publish:
+      - title
+      - dates
+      - times
+      - venue
+      - url
+      - rating
+      - one_liner_summary
+      - description
+      - screenings
+    field_definitions:
+      title:
+        type: string
+        description: "Title of the exhibition, installation, or visual arts event."
+      artist:
+        type: string
+        description: "Primary artist name when a single artist is featured. Optional — omit for group shows."
+      artists:
+        type: array
+        description: "List of artist names for group exhibitions. Optional — omit for solo shows."
+      medium:
+        type: string
+        description: "Artistic medium or form (e.g., 'painting', 'sculpture', 'mixed media', 'photography', 'installation')."
+      series:
+        type: string
+        description: "Exhibition series or program name if the event belongs to a recurring curatorial series."
+      venue:
+        type: string
+        description: "Gallery, museum, or space hosting the exhibition."
+      url:
+        type: string
+        description: "Source URL for the exhibition listing."
+      rating:
+        type: float
+        description: "AI-generated artistic-merit rating for the exhibition."
+      one_liner_summary:
+        type: string
+        description: "Concise one-line hook summarizing the exhibition."
+      description:
+        type: string
+        description: "Art-critic-style analysis of the exhibition and its significance."
+      screenings:
+        type: array
+        description: "Array of specific event occurrences. Generated from dates/times arrays."
+        item_schema:
+          type: object
+          properties:
+            date:
+              type: string
+              description: "Event date in YYYY-MM-DD format"
+            time:
+              type: string
               description: "Event time (e.g., '11:00', '7:00 PM', 'TBD')"
             url:
               type: string
@@ -529,5 +611,27 @@ venues:
       assumed_event_category: concert
     enrichment:
       enabled: false
+
+  now_playing_austin_visual_arts:
+    display_name: NowPlayingAustin — Visual Arts
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+
+  libra_books:
+    display_name: Livra Books (Book Clubs & Events)
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: book_club
+    enrichment:
+      enabled: true
 
 

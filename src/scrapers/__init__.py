@@ -13,6 +13,8 @@ from .early_music_scraper import EarlyMusicAustinScraper
 from .first_light_scraper import FirstLightAustinScraper
 from .hyperreal_scraper import HyperrealScraper
 from .la_follia_scraper import LaFolliaAustinScraper
+from .libra_books_scraper import LibraBooksScraper
+from .now_playing_austin_visual_arts_scraper import NowPlayingAustinVisualArtsScraper
 from .paramount_scraper import ParamountScraper
 
 __all__ = [
@@ -27,5 +29,7 @@ __all__ = [
     "BalletAustinScraper",
     "EarlyMusicAustinScraper",
     "LaFolliaAustinScraper",
+    "LibraBooksScraper",
+    "NowPlayingAustinVisualArtsScraper",
     "ParamountScraper",
 ]

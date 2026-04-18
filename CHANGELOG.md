@@ -1,5 +1,94 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->
+## Overnight run — 2026-04-19
+
+Runner: `overnight-plan` skill. Branch: `overnight/2026-04-19`. Goal: ship `visual_arts` event category (NowPlayingAustin scraper, art-critic rating branch in EventProcessor, tests, pipeline integration); audit Alienated Majesty for artist-talks + add Libra Books scraper if findable; redesign filter bar via 10-variant council with composite scoring (critique+layout+audit+polish); ship event-type coverage matrix in `docs/COVERAGE.md`. Full spec in `CLAUDE.md` §Overnight run — 2026-04-19.
+
+Task entries (appended by the runner after each DONE commit) follow below.
+
+### task-T3.3-rerun — DONE — 2026-04-18T05:08:00Z
+- files: docs/index.html, docs/script.js, docs/styles.css, STATUS-2026-04-19.md, CHANGELOG.md
+- validation: green (pytest 120 passed / 22 skipped; filter-bar smoke 61px vs 72px budget)
+- notes: the original T3.3 completed in 2m41s — too fast for 40 real skill invocations. Council re-run with 4 parallel specialist Explore agents (one per dimension) produced real scores. Winner v12i (composite 7.55) supersedes v12d (real composite 6.40; the 8.6 figure was fabricated). Only v12d and v12i pass all 8 HCs; v12i higher on every dimension. Live docs/ re-promoted from v12i.
+
+### task-T1.1 — DONE — 2026-04-18T03:52:48Z
+- commit: c0a4ddadcd8363ba42377908999e8412dd65ab0f
+- files: config/master_config.yaml, src/config_loader.py
+- validation: green
+
+### task-T1.2 — DONE — 2026-04-18T03:55:25Z
+- commit: 27c8940bddbb1f0d98739233827bdefce9c19bbd
+- files: config/master_config.yaml, tests/test_visual_arts_template.py
+- validation: green
+
+### task-T1.3 — DONE — 2026-04-18T03:57:45Z
+- commit: 0903406d941e732fec26a06309fcca863fa5e1bb
+- files: src/scrapers/now_playing_austin_visual_arts_scraper.py, tests/test_now_playing_austin_scraper_unit.py, tests/now_playing_austin_test_data/sample_listing.html
+- validation: green
+
+### task-T1.4 — DONE — 2026-04-18T04:02:07Z
+- commit: db980928ecef7816fbb9ed6f0a103ca5d8e84e9b
+- files: src/scrapers/__init__.py, src/scraper.py, config/master_config.yaml
+- validation: green
+
+### task-T1.5 — DONE — 2026-04-18T04:03:45Z
+- commit: 179583f8c6fc2835d95afccb0a4b375365430803
+- files: tests/test_now_playing_austin_scraper_unit.py, tests/now_playing_austin_test_data/empty_listing.html, tests/now_playing_austin_test_data/single_event.html, tests/now_playing_austin_test_data/multi_event_date_variants.html
+- validation: green
+
+### task-T1.6 — DONE — 2026-04-18T04:06:01Z
+- commit: d7a08e653db3d64fc2089566391ce7fa3e95747b
+- files: src/processor.py, tests/test_processor.py
+- validation: green
+
+### task-T1.7 — DONE — 2026-04-18T04:09:53Z
+- commit: 887780d11070a061ca2322445275544c62435f5b
+- files: docs/data.json, scripts/check_data_json_visual_arts.py
+- validation: green
+
+### task-T1.8 — DONE — 2026-04-18T04:16:22Z
+- commit: 7acb6627a70edf7c0a8de68dcf8c72c46f094414
+- files: docs/data.json
+- validation: green
+
+### task-T2.2 — DONE — 2026-04-18T04:18:53Z
+- commit: 92f9c156c92ff968a24b55edff7189a24135d955
+- files: src/scrapers/libra_books_scraper.py, src/scrapers/__init__.py, src/scraper.py, config/master_config.yaml, tests/test_libra_books_scraper_unit.py, tests/libra_books_test_data/sample_listing.html, tests/libra_books_test_data/empty_listing.html
+- validation: green
+
+### task-T3.2 — DONE — 2026-04-18T04:26:33Z
+- commit: 3e0d993ed68b98ac38b60328a79f70d805514e0f
+- files: docs/variants/v12a, docs/variants/v12b, docs/variants/v12c, docs/variants/v12d, docs/variants/v12e, docs/variants/v12f, docs/variants/v12g, docs/variants/v12h, docs/variants/v12i, docs/variants/v12j
+- validation: green
+
+### task-T3.4 — DONE — 2026-04-18T04:42:35Z
+- commit: cb50a7951aa72fdf828790e93c0f120601be7393
+- files: docs/index.html, docs/script.js, docs/styles.css
+- validation: green
+
+### task-T3.5 — DONE — 2026-04-18T04:44:01Z
+- commit: e27f9aa3fd704e7cfe3c1e4c7357b60658746d02
+- files: scripts/check_filter_smoke.py
+- validation: green
+
+### task-T4.1 — DONE — 2026-04-18T04:46:54Z
+- commit: 1c027473ff9890b31e304e5147b255c3e3b38471
+- files: scripts/check_event_coverage.py
+- validation: green
+
+### task-T4.2 — DONE — 2026-04-18T04:51:15Z
+- commit: 2bbb9b45598000e2dc4f9aaf8e82330629bf1d80
+- files: docs/COVERAGE.md
+- validation: green
+
+### task-T5.2 — DONE — 2026-04-18T04:55:06Z
+- commit: b6a966e26b41d9c7d02d3741fbeaeca861a4e428
+- files: STATUS-2026-04-19.md, CHANGELOG.md
+- validation: green
+
+<!-- END OVERNIGHT-PLAN: 2026-04-19 -->
+
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18 -->
 ## Overnight run — 2026-04-18
 

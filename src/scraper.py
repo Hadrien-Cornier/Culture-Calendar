@@ -20,6 +20,8 @@ from .scrapers import (
     FirstLightAustinScraper,
     HyperrealScraper,
     LaFolliaAustinScraper,
+    LibraBooksScraper,
+    NowPlayingAustinVisualArtsScraper,
     ParamountScraper,
 )
 from .recurring_events import RecurringEventGenerator
@@ -70,6 +72,12 @@ class MultiVenueScraper:
         self.ballet_austin_scraper = BalletAustinScraper(
             config=self.config, venue_key="ballet_austin"
         )
+        self.now_playing_austin_visual_arts_scraper = NowPlayingAustinVisualArtsScraper(
+            config=self.config, venue_key="now_playing_austin_visual_arts"
+        )
+        self.libra_books_scraper = LibraBooksScraper(
+            config=self.config, venue_key="libra_books"
+        )
 
         # Initialize recurring events generator
         self.recurring_events_generator = RecurringEventGenerator()
@@ -110,6 +118,18 @@ class MultiVenueScraper:
             ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
             ("LaFollia", self.la_follia_scraper, "La Follia", {}),
             ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
+            (
+                "NowPlayingAustinVisualArts",
+                self.now_playing_austin_visual_arts_scraper,
+                "NowPlayingAustin — Visual Arts",
+                {},
+            ),
+            (
+                "LivraBooks",
+                self.libra_books_scraper,
+                "Livra Books",
+                {},
+            ),
         ]
 
         # Execute all venue scrapers sequentially (no threading)

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Culture Calendar — v12f · Single-Row Rect AND</title>
+  <link rel="stylesheet" href="../_shared/reset.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <h1 class="masthead-title">CULTURE CALENDAR</h1>
+      <p class="masthead-subtitle">Rectangular chips · multi-select · AND across groups</p>
+    </div>
+  </header>
+  <nav class="filter-bar filter-bar--sticky" id="filter-bar" aria-label="Filter events">
+    <div class="filter-bar-inner filter-bar-inner--merged">
+      <div class="filter-merged-row">
+        <span class="filter-row-label">Venue</span>
+        <div class="filter-chips" id="venue-chips" aria-label="Venue filter (multi-select OR within group)"></div>
+        <span class="filter-sep" aria-hidden="true">·</span>
+        <span class="filter-row-label">Category</span>
+        <div class="filter-chips" id="category-chips" aria-label="Category filter (multi-select OR within group)"></div>
+      </div>
+    </div>
+  </nav>
+  <section class="picks-section" id="picks" aria-label="Top picks">
+    <h2 class="picks-heading">TOP PICKS</h2>
+    <ol class="picks-list" id="picks-list"></ol>
+  </section>
+  <main class="listings" id="listings" aria-label="All events"></main>
+  <div class="status" id="loading">Loading events…</div>
+  <div class="status error" id="error" hidden></div>
+  <script src="script.js"></script>
+</body>
+</html>

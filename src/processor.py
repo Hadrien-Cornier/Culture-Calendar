@@ -200,7 +200,7 @@ class EventProcessor:
                     if venue in MOVIE_VENUES:
                         etype = "movie"
                         event["type"] = "movie"
-                if etype not in ("screening", "movie", "concert", "book_club", "opera", "dance", "other"):
+                if etype not in ("screening", "movie", "concert", "book_club", "opera", "dance", "visual_arts", "other"):
                     if etype:
                         print(f"  Skipping unsupported type={etype} for '{event.get('title','?')}'")
                     else:
@@ -265,6 +265,8 @@ class EventProcessor:
                         ai_rating = self._get_classical_rating(event)
                     elif event.get("type") == "book_club":
                         ai_rating = self._get_book_club_rating(event)
+                    elif event.get("type") == "visual_arts":
+                        ai_rating = self._get_visual_arts_rating(event)
                     else:
                         ai_rating = self._get_ai_rating(event)
                     self.movie_cache[event_title] = ai_rating
@@ -635,6 +637,152 @@ Be specific. Take a defensible position even if some details are missing.
             return self._parse_ai_response(content)
         except Exception as e:
             print(f"  Claude fallback (concert) failed: {e}")
+            return None
+
+    def _get_visual_arts_rating(self, event: Dict) -> Dict:
+        """Get visual-arts exhibition rating, retrying on refusal.
+
+        Modeled on _get_classical_rating. Uses an art-critic prompt tone that
+        emphasizes formal qualities, cultural significance, and historical
+        context rather than cinematic or musical criteria.
+        """
+        if not self.perplexity_api_key:
+            return {"score": 5, "summary": "No API key provided"}
+
+        title = event.get("title", "")
+        artists_raw = event.get("artists") or []
+        if isinstance(artists_raw, list):
+            artists = ", ".join(a for a in artists_raw if a)
+        else:
+            artists = str(artists_raw)
+        artist = event.get("artist", "") or artists or "unknown"
+        details = (
+            f"Exhibition: {title}\n"
+            f"Artist(s): {artist}\n"
+            f"Medium: {event.get('medium', 'unknown')}\n"
+            f"Series: {event.get('series', 'unknown')}\n"
+            f"Venue: {event.get('venue', 'unknown')}"
+        )
+
+        fact_dossier = _fact_dossier(event) if self.pilot_mode else ""
+
+        attempts = [
+            ("strict", self._build_visual_arts_prompt_strict(details, fact_dossier)),
+            ("permissive", self._build_visual_arts_prompt_permissive(details, fact_dossier)),
+            ("knowledge", self._build_visual_arts_prompt_general_knowledge(details, fact_dossier)),
+        ]
+        for attempt_name, prompt in attempts:
+            content = self._call_perplexity(prompt)
+            if not content:
+                continue
+            if is_refusal_response(content):
+                print(f"  Perplexity refused on '{title}' (visual_arts, attempt={attempt_name}); retrying…")
+                continue
+            return self._parse_ai_response(content)
+
+        claude_review = self._claude_fallback_visual_arts(event, details)
+        if claude_review:
+            return claude_review
+        return {"score": 5, "summary": f"Unable to evaluate exhibition {title} (LLM unable to find sources)."}
+
+    def _build_visual_arts_prompt_strict(self, details: str, fact_dossier: str = "") -> str:
+        rubric = _style_rubric()
+        dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
+        return f"""
+{rubric}
+
+You are a rigorous art critic evaluating with uncompromising curatorial standards. Assess the exhibition described below using a 0–10 scale where
+0–4 = weak or derivative,
+5–6 = competent but unremarkable,
+7–8 = strong,
+9–10 = exceptional. Scores above 5 must be justified with specific evidence.
+
+Exhibition Details:
+{details}{dossier_section}
+
+Provide a concise report with these standardized sections:
+★ Rating: [X/10] (integer only)
+🎭 Formal Qualities – composition, materials, technique, spatial and visual craft
+✨ Originality – conceptual innovation, departure from prevailing conventions
+📚 Cultural Significance – relevance to contemporary discourse, relationship to institutional and critical context
+💡 Historical Context – place within the artist's trajectory and broader art-historical lineage
+
+Ensure you are reviewing the specific exhibition described above.
+"""
+
+    def _build_visual_arts_prompt_permissive(self, details: str, fact_dossier: str = "") -> str:
+        rubric = _style_rubric()
+        dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
+        return f"""
+{rubric}
+
+Write a brief critical review of this visual-arts exhibition. If your search doesn't surface specific reviews, draw on general knowledge of the artist's body of work, the venue's curatorial program, and the medium's conventions — DO NOT refuse. A grounded contextual review is more useful than a refusal.
+
+Exhibition Details:
+{details}{dossier_section}
+
+Format:
+★ Rating: [X/10]
+🎭 Formal Qualities
+✨ Originality
+📚 Cultural Significance
+💡 Historical Context
+"""
+
+    def _build_visual_arts_prompt_general_knowledge(self, details: str, fact_dossier: str = "") -> str:
+        rubric = _style_rubric()
+        dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
+        return f"""
+{rubric}
+
+You are an expert art critic writing for a discerning Austin gallery-going audience. Use your training-time knowledge of the artist, the medium, and the venue to write a real review — even if your search doesn't surface specific reviews of this exact exhibition.
+
+Exhibition Details:
+{details}{dossier_section}
+
+Cover the artist's reputation and trajectory, the formal strategies at work, and the exhibition's place in the current art-historical moment. Provide a 0–10 rating. If you genuinely don't know one element, take a defensible position from what you do know and say so in one sentence — but do not refuse.
+
+Format:
+★ Rating: [X/10]
+🎭 Formal Qualities
+✨ Originality
+📚 Cultural Significance
+💡 Historical Context
+"""
+
+    def _claude_fallback_visual_arts(self, event: Dict, details: str) -> Optional[Dict]:
+        if not os.getenv("ANTHROPIC_API_KEY"):
+            return None
+        try:
+            import anthropic
+            client = anthropic.Anthropic()
+            prompt = f"""
+Write a 4–6 paragraph critical review of this visual-arts exhibition using your trained-knowledge of the artist, the medium, and the venue's curatorial program. Provide a 0–10 rating.
+
+{details}
+
+Format:
+★ Rating: [X/10]
+🎭 Formal Qualities
+✨ Originality
+📚 Cultural Significance
+💡 Historical Context
+
+Be specific. Take a defensible position even if some details are missing.
+"""
+            resp = client.messages.create(
+                model="claude-sonnet-4-5-20250929",
+                max_tokens=1500,
+                temperature=0.4,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            content = resp.content[0].text
+            if is_refusal_response(content):
+                return None
+            print(f"  Claude fallback succeeded for exhibition '{event.get('title')}'")
+            return self._parse_ai_response(content)
+        except Exception as e:
+            print(f"  Claude fallback (visual_arts) failed: {e}")
             return None
 
     def _get_book_club_rating(self, event: Dict) -> Dict:

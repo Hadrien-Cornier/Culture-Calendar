@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Culture Calendar — v12g · Tag Chips Horizontal Scroll</title>
+  <link rel="stylesheet" href="../_shared/reset.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <h1 class="masthead-title">CULTURE CALENDAR</h1>
+      <p class="masthead-subtitle">Tag-shaped chips · horizontal browsing</p>
+    </div>
+  </header>
+  <nav class="filter-bar" id="filter-bar" aria-label="Filter events">
+    <div class="filter-bar-inner">
+      <div class="filter-scroll-wrap">
+        <div class="filter-chips filter-chips--hscroll" id="fused-chips" role="radiogroup" aria-label="Venue and category filters"></div>
+      </div>
+    </div>
+  </nav>
+  <section class="picks-section" id="picks" aria-label="Top picks">
+    <h2 class="picks-heading">TOP PICKS</h2>
+    <ol class="picks-list" id="picks-list"></ol>
+  </section>
+  <main class="listings" id="listings" aria-label="All events"></main>
+  <div class="status" id="loading">Loading events…</div>
+  <div class="status error" id="error" hidden></div>
+  <script src="script.js"></script>
+</body>
+</html>

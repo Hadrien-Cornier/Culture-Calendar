@@ -2,13 +2,13 @@
   "use strict";
 
   var CONFIG = {
-    variant: "v12i",
+    variant: "v12j",
     multiVenue: true,
     multiCategory: true,
-    persistence: "url+local",
-    storageKey: "v12i_filter",
+    persistence: "url+session",
+    storageKey: "v12j_filter",
     iconMode: "icon+text",
-    collapseSheet: true
+    collapseSheet: false
   };
 
   var DATA_URL = "../../data.json";
@@ -126,20 +126,6 @@
 
     if (venueChipsEl) renderChips(venueChipsEl, venues, "venues");
     if (categoryChipsEl) renderChips(categoryChipsEl, categories, "categories");
-
-    var count = state.venues.length + state.categories.length;
-    var countEl = document.getElementById("filter-count");
-    if (countEl) {
-      countEl.textContent = count > 0 ? count : "";
-      countEl.classList.toggle("is-active", count > 0);
-    }
-    var summaryEl = document.getElementById("filter-summary");
-    if (summaryEl) {
-      var parts = [];
-      if (state.categories.length > 0) parts.push(state.categories.length + " category");
-      if (state.venues.length > 0) parts.push(state.venues.length + " venue");
-      summaryEl.textContent = parts.length > 0 ? parts.join(" · ") : "All venues, all categories";
-    }
   }
 
   function renderChips(container, values, group) {

@@ -66,6 +66,10 @@ class ConfigLoader:
             if field not in date_spec:
                 raise ValueError(f"Missing required date_time_spec field: {field}")
 
+    def get_config(self) -> Dict[str, Any]:
+        """Return the full parsed configuration."""
+        return self._config
+
     def get_venue_policy(self, venue_key: str) -> Dict[str, Any]:
         """
         Get venue-specific policy configuration

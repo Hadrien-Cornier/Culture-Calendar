@@ -398,3 +398,104 @@ Then write `.overnight/task-result.json` with `{"status": "BLOCKED", "task_id": 
 - **T6.2** — `STATUS-2026-04-18.md` handoff
 
 <!-- END OVERNIGHT-PLAN: 2026-04-18 -->
+
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->
+## Overnight run — 2026-04-19
+
+> **AUTONOMOUS RUN — do not edit while running.**
+> Owner: HCornier · Branch: `overnight/2026-04-19` · Deadline: 2026-04-19T03:38:09Z (24h safety cap; user requested open-ended)
+> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`. Date tag passed to runner: `2026-04-19`.
+
+### Goal
+
+Three threads bundled as one batch:
+
+**Primary (must ship):** A `visual_arts` event category lands in the schema, a NowPlayingAustin visual-arts scraper feeds events into `docs/data.json`, an art-critic AI rating branch runs in `src/processor.py`, and tests cover all of it.
+
+**Secondary (best-effort):** Audit Alienated Majesty for artist-talk events and extend its scraper. Add a Libra Books scraper if T0.1 finds a public events page; if not, T2.2 self-blocks and the run continues.
+
+**Tertiary (best-effort):** 10-variant filter-bar redesign under `docs/variants/v12{a..j}/`. Each variant scored by `critique` (40%) + `layout` (30%) + `audit` (20%) + `polish` (10%). Winner promoted to live `docs/`.
+
+**Quaternary (last-hour polish):** Coverage matrix in `docs/COVERAGE.md` proving every event category has ≥1 well-formed event in `docs/data.json`.
+
+### Hard constraints
+
+- Branch `overnight/2026-04-19` only. Never touch `main`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does NOT push.
+- No new Python deps (`pip install` forbidden). If a task thinks it needs one → BLOCKED with reason `needs-dep: <name>`.
+- No new paid API deps. LLM calls reuse Perplexity (Sonar) + Anthropic from `.env`.
+- Web Speech API stays browser-native — no audio files committed.
+- No interactive prompts. No `--no-verify`.
+- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m '...'`. Never mutate `~/.gitconfig`.
+- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`. `.overnight/` stays gitignored.
+- Scope fence: `src/`, `scripts/`, `docs/`, `tests/`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-19.md`.
+- GitNexus impact analysis MANDATORY before editing `src/processor.py`, `src/scraper.py`, `src/scrapers/alienated_majesty_scraper.py`, `update_website_data.py`.
+- **Filter-redesign scope fence:** T3.x writes only under `docs/variants/v12<x>/` until T3.4, which promotes the winner to `docs/index.html` / `script.js` / `styles.css`.
+
+### Validation oracle (run before every commit)
+
+```
+.venv/bin/python -m pytest -q
+```
+
+Pytest must exit 0. Each task's per-task `validate` command (from queue.tsv) is also required.
+
+**Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle** — same reasoning as 2026-04-18: pre-existing red items would block unrelated tasks. Only T5.1 runs it, and only as a delta-vs-main check.
+
+### Commit cadence
+
+One commit per DONE task. Message format: `<type>(task-<ID>): <TITLE>` (feat / fix / docs / chore / refactor / test). Stage only files in the task's `files` column; never `git add -A`. Research-only tasks (T0.1, T0.2, T3.1, T3.3, T5.1) write to gitignored `.overnight/` — they SKIP steps 4 (commit) and 5 (CHANGELOG) of the contract and write `task-result.json` with status=DONE directly.
+
+### Changelog entry per task
+
+After each DONE commit (skip for research-only tasks), append one entry to the fenced overnight block in `CHANGELOG.md`:
+
+```
+### task-<ID> — DONE — <ISO timestamp>
+- commit: <sha>
+- files: <comma-separated>
+- validation: green
+```
+
+### Stop conditions
+
+- All queue tasks DONE → `RUN_COMPLETE`
+- Deadline reached (2026-04-19T03:38:09Z) → `RUN_HALTED: deadline`
+- 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`
+- `STATUS.md` (not date-tagged — runner only watches this exact file) contains line `HALT` → `RUN_HALTED: manual`
+
+### Task queue (human view; source of truth is `.overnight/queue.tsv`)
+
+**Phase 0 — Research (no commits)**
+- **T0.1** — Find Libra Books events page; write `.overnight/libra-resolution.md` with `url:` or `BLOCKED:` verdict
+- **T0.2** — Audit Alienated Majesty events for artist-talk signals → `.overnight/am-artist-events.md`
+
+**Phase 1 — visual_arts category (core goal)**
+- **T1.1** — Add `visual_arts` to `ontology.labels`
+- **T1.2** — Add `visual_arts` template (model on `concert`)
+- **T1.3** — Build `now_playing_austin_visual_arts_scraper.py`
+- **T1.4** — Register scraper in `__init__.py` + `MultiVenueScraper`
+- **T1.5** — Snapshot fixtures + unit tests for the scraper
+- **T1.6** — Add `_get_visual_arts_rating()` branch in `EventProcessor`
+- **T1.7** — End-to-end smoke: pipeline emits ≥1 visual_arts event into data.json
+- **T1.8** — Refusal-guard sweep on visual_arts entries
+
+**Phase 2 — Bookstore artist-talks (secondary)**
+- **T2.1** — Extend Alienated Majesty scraper for artist-talks
+- **T2.2** — Build Libra Books scraper (auto-blocks if T0.1 BLOCKED)
+
+**Phase 3 — Filter redesign (tertiary)**
+- **T3.1** — Variant spec → `.overnight/filter-redesign-spec.md`
+- **T3.2** — Generate 10 variants under `docs/variants/v12{a..j}/`
+- **T3.3** — Score variants via critique+layout+audit+polish skills
+- **T3.4** — Promote winner to `docs/index.html` / `script.js` / `styles.css`
+- **T3.5** — Filter smoke test
+
+**Phase 4 — Coverage (quaternary)**
+- **T4.1** — `scripts/check_event_coverage.py` covers every event_category
+- **T4.2** — `docs/COVERAGE.md` per-category counts table
+
+**Phase 5 — Final gate**
+- **T5.1** — Full pytest + coverage + verify_calendar.py delta check
+- **T5.2** — `STATUS-2026-04-19.md` handoff
+
+<!-- END OVERNIGHT-PLAN: 2026-04-19 -->

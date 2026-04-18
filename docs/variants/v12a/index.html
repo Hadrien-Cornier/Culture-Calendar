@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Culture Calendar — v12a · Baseline Two-Row Pills</title>
+  <link rel="stylesheet" href="../_shared/reset.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <h1 class="masthead-title">CULTURE CALENDAR</h1>
+      <p class="masthead-subtitle">Austin arts · filtered for you</p>
+    </div>
+  </header>
+  <nav class="filter-bar" id="filter-bar" aria-label="Filter events by venue and category">
+    <div class="filter-bar-inner">
+      <div class="filter-row" role="group" aria-labelledby="filter-venue-label">
+        <span class="filter-row-label" id="filter-venue-label">Venue</span>
+        <div class="filter-chips" id="venue-chips" role="radiogroup" aria-labelledby="filter-venue-label"></div>
+      </div>
+      <div class="filter-row" role="group" aria-labelledby="filter-category-label">
+        <span class="filter-row-label" id="filter-category-label">Category</span>
+        <div class="filter-chips" id="category-chips" role="radiogroup" aria-labelledby="filter-category-label"></div>
+      </div>
+    </div>
+  </nav>
+  <section class="picks-section" id="picks" aria-label="Top picks">
+    <h2 class="picks-heading">TOP PICKS</h2>
+    <ol class="picks-list" id="picks-list"></ol>
+  </section>
+  <main class="listings" id="listings" aria-label="All events"></main>
+  <div class="status" id="loading">Loading events…</div>
+  <div class="status error" id="error" hidden></div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Culture Calendar — v12i · Dropdown Collapse</title>
+  <title>Culture Calendar — v12d · Bottom-Sheet Compact</title>
   <link rel="stylesheet" href="../_shared/reset.css">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,26 +11,27 @@
   <header class="masthead">
     <div class="masthead-inner">
       <h1 class="masthead-title">CULTURE CALENDAR</h1>
-      <p class="masthead-subtitle">Sticky chip-drawer with active summary</p>
+      <p class="masthead-subtitle">Filters tucked away · one-tap access</p>
     </div>
   </header>
-  <nav class="filter-bar filter-bar--sticky" id="filter-bar" aria-label="Filter events">
+  <nav class="filter-bar" id="filter-bar" aria-label="Filter events">
     <details class="filter-sheet">
-      <summary class="filter-trigger">
-        <span class="filter-trigger-icon" aria-hidden="true">≡</span>
-        <span class="filter-trigger-summary" id="filter-summary">All venues, all categories</span>
+      <summary class="filter-trigger" aria-label="Open filters">
+        <span class="filter-trigger-icon" aria-hidden="true">⌕</span>
+        <span class="filter-trigger-label">Filters</span>
         <span class="filter-trigger-count" id="filter-count" aria-live="polite"></span>
         <span class="filter-trigger-caret" aria-hidden="true">▾</span>
       </summary>
       <div class="filter-sheet-body">
-        <div class="filter-row" role="group" aria-labelledby="filter-category-label">
-          <span class="filter-row-label" id="filter-category-label">Category</span>
-          <div class="filter-chips" id="category-chips" aria-labelledby="filter-category-label"></div>
-        </div>
         <div class="filter-row" role="group" aria-labelledby="filter-venue-label">
-          <span class="filter-row-label" id="filter-venue-label">Venue</span>
+          <span class="filter-row-label" id="filter-venue-label">Venue (any)</span>
           <div class="filter-chips" id="venue-chips" aria-labelledby="filter-venue-label"></div>
         </div>
+        <div class="filter-row" role="group" aria-labelledby="filter-category-label">
+          <span class="filter-row-label" id="filter-category-label">Category (any)</span>
+          <div class="filter-chips" id="category-chips" aria-labelledby="filter-category-label"></div>
+        </div>
+        <p class="filter-sheet-help">Multiple selections act as OR within a row; venue+category is AND across rows.</p>
       </div>
     </details>
   </nav>
