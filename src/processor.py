@@ -23,6 +23,39 @@ from .refusal import (
     is_refusal_response,
 )
 
+# Phrases an LLM tends to emit when it delivered a review but wants to flag
+# that the underlying evidence was thin. These do not trigger the refusal
+# substitution (the review is still usable), but they should surface as a
+# `low` review_confidence so the UI can route the event to the "pending more
+# research" bucket.
+INSUFFICIENT_EVIDENCE_PHRASES: tuple[str, ...] = (
+    "insufficient evidence",
+    "insufficient information",
+    "could not verify",
+    "limited information",
+    "cannot confirm",
+    "unable to find reliable",
+)
+
+
+def compute_confidence(text: str) -> str:
+    """Return ``"low"`` or ``"high"`` confidence for an LLM review.
+
+    Low iff the text matches the refusal regex OR contains any explicit
+    insufficient-evidence phrase (case-insensitive). Never keys off raw
+    length — a terse but substantive review ("A masterpiece...") must
+    score high, and a long evasive answer must score low.
+    """
+    if not text:
+        return "low"
+    if is_refusal_response(text):
+        return "low"
+    lowered = text.lower()
+    for phrase in INSUFFICIENT_EVIDENCE_PHRASES:
+        if phrase in lowered:
+            return "low"
+    return "high"
+
 load_dotenv()
 
 BANNED_PHRASES = (
@@ -936,6 +969,11 @@ Be specific. Take a defensible position even if some details are missing.
             # Use the cleaned content as summary for the French cinéaste style
             summary = content.strip()
 
+            # Compute confidence from the pre-substitution summary so a
+            # refusal-shaped LLM response (which is about to be replaced by
+            # REFUSAL_STUB) is still recorded as low confidence.
+            confidence = compute_confidence(summary)
+
             filtered = filter_refusal(summary)
             if filtered != summary:
                 print("  Substituting refusal-shaped description with stub")
@@ -944,8 +982,15 @@ Be specific. Take a defensible position even if some details are missing.
             return {
                 "score": max(0, min(10, score)),  # Clamp to 0-10
                 "summary": summary,  # Keep full summary
+                "review_confidence": confidence,
             }
 
         except Exception as e:
             print(f"Error parsing AI response: {e}")
-            return {"score": 5, "summary": filter_refusal(content[:2000])}
+            raw_fallback = content[:2000] if content else ""
+            confidence = compute_confidence(raw_fallback)
+            return {
+                "score": 5,
+                "summary": filter_refusal(raw_fallback),
+                "review_confidence": confidence,
+            }
