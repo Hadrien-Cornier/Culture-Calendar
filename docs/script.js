@@ -1,23 +1,9 @@
 (function () {
   "use strict";
 
-  var CONFIG = {
-    variant: "v12i",
-    multiVenue: true,
-    multiCategory: true,
-    persistence: "url+local",
-    storageKey: "v12i_filter",
-    iconMode: "icon+text",
-    collapseSheet: true
-  };
-
   var DATA_URL = (window.location && window.location.hostname || "").indexOf("github.io") !== -1
     ? "/Culture-Calendar/data.json"
     : "data.json";
-  var CATEGORY_ICONS = {
-    movie: "🎬", film: "🎬", concert: "🎵", book_club: "📖", opera: "🎭",
-    dance: "💃", ballet: "💃", visual_arts: "🎨", other: "✨"
-  };
   var CATEGORY_LABELS = {
     movie: "Film", film: "Film", concert: "Concert", book_club: "Book Club",
     opera: "Opera", dance: "Dance", ballet: "Ballet", visual_arts: "Visual Arts",
@@ -29,10 +15,7 @@
   var listingsEl = document.getElementById("listings");
   var loadingEl = document.getElementById("loading");
   var errorEl = document.getElementById("error");
-  var venueChipsEl = document.getElementById("venue-chips");
-  var categoryChipsEl = document.getElementById("category-chips");
 
-  var state = loadState();
   var allEvents = [];
 
   fetch(DATA_URL)
@@ -40,7 +23,6 @@
     .then(function (raw) {
       allEvents = Array.isArray(raw) ? raw : (raw.events || []);
       loadingEl.hidden = true;
-      buildFilterBar();
       renderAll();
     })
     .catch(function (err) {
@@ -49,184 +31,10 @@
       errorEl.textContent = "Error: " + err.message;
     });
 
-  function loadState() {
-    var params = new URLSearchParams(window.location.search);
-    var s = { venues: [], categories: [] };
-    var vm = params.get("venues");
-    var vs = params.get("venue");
-    var cm = params.get("categories");
-    var cs = params.get("category");
-    if (vm) s.venues = vm.split(",").filter(Boolean);
-    else if (vs) s.venues = [vs];
-    if (cm) s.categories = cm.split(",").filter(Boolean);
-    else if (cs) s.categories = [cs];
-
-    if (s.venues.length === 0 && s.categories.length === 0 && CONFIG.persistence !== "url-only") {
-      try {
-        var store = CONFIG.persistence === "url+local" ? localStorage : sessionStorage;
-        var saved = JSON.parse(store.getItem(CONFIG.storageKey) || "null");
-        if (saved) { s.venues = saved.venues || []; s.categories = saved.categories || []; }
-      } catch (e) {}
-    }
-    return s;
-  }
-
-  function saveState() {
-    var params = new URLSearchParams(window.location.search);
-    ["venue","venues","category","categories"].forEach(function (k) { params.delete(k); });
-    if (state.venues.length > 0) {
-      params.set(CONFIG.multiVenue ? "venues" : "venue",
-        CONFIG.multiVenue ? state.venues.join(",") : state.venues[0]);
-    }
-    if (state.categories.length > 0) {
-      params.set(CONFIG.multiCategory ? "categories" : "category",
-        CONFIG.multiCategory ? state.categories.join(",") : state.categories[0]);
-    }
-    var qs = params.toString();
-    var newUrl = window.location.pathname + (qs ? "?" + qs : "") + window.location.hash;
-    try { history.replaceState(null, "", newUrl); } catch (e) {}
-    try {
-      var store = CONFIG.persistence === "url+local" ? localStorage
-                : CONFIG.persistence === "url+session" ? sessionStorage : null;
-      if (store) store.setItem(CONFIG.storageKey, JSON.stringify(state));
-    } catch (e) {}
-  }
-
-  function toggleFilter(group, value) {
-    var arr = state[group];
-    var multi = (group === "venues") ? CONFIG.multiVenue : CONFIG.multiCategory;
-    var i = arr.indexOf(value);
-    if (i >= 0) {
-      arr.splice(i, 1);
-    } else if (multi) {
-      arr.push(value);
-    } else {
-      state[group] = [value];
-    }
-    saveState();
-    buildFilterBar();
-    renderAll();
-  }
-
-  function clearFilters() {
-    state = { venues: [], categories: [] };
-    saveState();
-    buildFilterBar();
-    renderAll();
-  }
-
-  function buildFilterBar() {
-    var venueSet = {};
-    var categorySet = {};
-    allEvents.forEach(function (ev) {
-      if (ev.venue) venueSet[ev.venue] = true;
-      var c = (ev.type || ev.event_category || "other").toLowerCase();
-      categorySet[c] = true;
-    });
-    var venues = Object.keys(venueSet).sort();
-    var categories = Object.keys(categorySet).sort();
-
-    if (venueChipsEl) renderChips(venueChipsEl, venues, "venues");
-    if (categoryChipsEl) renderChips(categoryChipsEl, categories, "categories");
-
-    var count = state.venues.length + state.categories.length;
-    var countEl = document.getElementById("filter-count");
-    if (countEl) {
-      countEl.textContent = count > 0 ? count : "";
-      countEl.classList.toggle("is-active", count > 0);
-    }
-    var summaryEl = document.getElementById("filter-summary");
-    if (summaryEl) {
-      var parts = [];
-      if (state.categories.length > 0) parts.push(state.categories.length + " category");
-      if (state.venues.length > 0) parts.push(state.venues.length + " venue");
-      summaryEl.textContent = parts.length > 0 ? parts.join(" · ") : "All venues, all categories";
-    }
-  }
-
-  function renderChips(container, values, group) {
-    container.innerHTML = "";
-    var active = state[group];
-    var multi = (group === "venues") ? CONFIG.multiVenue : CONFIG.multiCategory;
-
-    var allBtn = document.createElement("button");
-    allBtn.type = "button";
-    allBtn.className = "filter-chip" + (active.length === 0 ? " is-active" : "");
-    allBtn.setAttribute(multi ? "aria-pressed" : "aria-checked", active.length === 0 ? "true" : "false");
-    allBtn.setAttribute("role", multi ? "button" : "radio");
-    allBtn.textContent = "All";
-    allBtn.addEventListener("click", function () {
-      state[group] = [];
-      saveState();
-      buildFilterBar();
-      renderAll();
-    });
-    container.appendChild(allBtn);
-
-    values.forEach(function (v) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      var selected = active.indexOf(v) >= 0;
-      btn.className = "filter-chip" + (selected ? " is-active" : "");
-      btn.setAttribute(multi ? "aria-pressed" : "aria-checked", selected ? "true" : "false");
-      btn.setAttribute("role", multi ? "button" : "radio");
-      btn.dataset.value = v;
-
-      if (group === "categories" && CONFIG.iconMode !== "text-only") {
-        var icon = document.createElement("span");
-        icon.className = "filter-chip-icon";
-        icon.setAttribute("aria-hidden", "true");
-        icon.textContent = CATEGORY_ICONS[v] || "•";
-        btn.appendChild(icon);
-      }
-      var label = document.createElement("span");
-      label.className = "filter-chip-label";
-      label.textContent = group === "categories"
-        ? (CATEGORY_LABELS[v] || v.replace(/_/g, " "))
-        : v;
-      btn.appendChild(label);
-
-      btn.addEventListener("click", function () { toggleFilter(group, v); });
-      btn.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          toggleFilter(group, v);
-        }
-      });
-      container.appendChild(btn);
-    });
-
-    if (active.length > 0) {
-      var clear = document.createElement("button");
-      clear.type = "button";
-      clear.className = "filter-chip filter-chip--clear";
-      clear.textContent = "Clear";
-      clear.addEventListener("click", function () {
-        state[group] = [];
-        saveState();
-        buildFilterBar();
-        renderAll();
-      });
-      container.appendChild(clear);
-    }
-  }
-
-  function eventPassesFilter(ev) {
-    if (state.venues.length > 0) {
-      if (!ev.venue || state.venues.indexOf(ev.venue) < 0) return false;
-    }
-    if (state.categories.length > 0) {
-      var c = (ev.type || ev.event_category || "other").toLowerCase();
-      if (state.categories.indexOf(c) < 0) return false;
-    }
-    return true;
-  }
-
   function groupEvents(events) {
     var byTitle = {};
     var order = [];
     events.forEach(function (ev) {
-      if (!eventPassesFilter(ev)) return;
       var key = ev.title || "Untitled";
       if (!byTitle[key]) {
         byTitle[key] = {
@@ -492,30 +300,4 @@
     });
     listingsEl.appendChild(frag);
   }
-
-  function closeFilterSheet() {
-    var sheet = document.querySelector("details.filter-sheet");
-    if (sheet && sheet.hasAttribute("open")) sheet.removeAttribute("open");
-  }
-
-  document.addEventListener("click", function (e) {
-    var tgt = e.target;
-    if (!tgt) return;
-    if (tgt.closest && tgt.closest(".filter-close")) {
-      e.preventDefault();
-      closeFilterSheet();
-      return;
-    }
-    var sheet = document.querySelector("details.filter-sheet");
-    if (sheet && sheet.hasAttribute("open") && !sheet.contains(tgt)) {
-      closeFilterSheet();
-    }
-  });
-
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      var sheet = document.querySelector("details.filter-sheet[open]");
-      if (sheet) sheet.removeAttribute("open");
-    }
-  });
 })();

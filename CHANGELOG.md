@@ -17,6 +17,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: README.md, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T1.1a — DONE — 2026-04-19T04:00:00Z
+- commit: 32d7845
+- files: docs/index.html, docs/script.js, docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
+- live-check: pending deploy-wait + check_live_site.py run
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

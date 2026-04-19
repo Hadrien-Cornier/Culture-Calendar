@@ -7,13 +7,6 @@
     "smoke_assertion": "selector_exists"
   },
   {
-    "id": "mobile-filter-close",
-    "name": "Mobile filter sheet close button",
-    "selector": ".filter-close",
-    "since_commit": "77ca9da",
-    "smoke_assertion": "selector_exists"
-  },
-  {
     "id": "one-liner",
     "name": "Event one-liner summary on listing cards",
     "selector": ".event-oneliner",
