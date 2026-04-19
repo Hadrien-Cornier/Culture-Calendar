@@ -191,8 +191,20 @@ def test_build_anthropic_messages_omits_system_when_absent():
 # --- call_anthropic_critique ---------------------------------------------
 
 
-def _build_fake_client(text: str) -> MagicMock:
-    resp = types.SimpleNamespace(content=[types.SimpleNamespace(type="text", text=text)])
+def _build_fake_client(
+    verdict: str = "PASS",
+    summary: str = "quite nice indeed",
+    findings: list[dict] | None = None,
+) -> MagicMock:
+    """Return a MagicMock Anthropic client that emits a tool_use block."""
+    if findings is None:
+        findings = []
+    tool_block = types.SimpleNamespace(
+        type="tool_use",
+        name=pc.PERSONA_CRITIQUE_TOOL["name"],
+        input={"verdict": verdict, "summary": summary, "findings": findings},
+    )
+    resp = types.SimpleNamespace(content=[tool_block])
     client = MagicMock()
     client.messages.create.return_value = resp
     return client
@@ -201,25 +213,99 @@ def _build_fake_client(text: str) -> MagicMock:
 def test_call_anthropic_critique_defaults_to_configured_model():
     persona = {"persona": "p", "url": "u", "llm": {"system_prompt": "SYS", "goals": "g"}}
     result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
-    client = _build_fake_client("quite nice indeed")
-    text = pc.call_anthropic_critique(persona, result, "B", "<html></html>", client)
-    assert text == "quite nice indeed"
+    client = _build_fake_client(verdict="PASS", summary="quite nice indeed")
+    critique = pc.call_anthropic_critique(persona, result, "B", "<html></html>", client)
+    assert isinstance(critique, pc.PersonaCritique)
+    assert critique.verdict == "PASS"
+    assert critique.summary == "quite nice indeed"
+    assert critique.findings == ()
     kwargs = client.messages.create.call_args.kwargs
     # Default is Haiku 4.5 (selected by bench_personas.py on 2026-04-19; see
     # docs/persona_model_benchmark.md for the rationale).
     assert kwargs["model"] == pc.DEFAULT_MODEL == pc.HAIKU_MODEL
     assert kwargs["system"] == "SYS"
     assert kwargs["messages"][0]["role"] == "user"
+    # Tool-use must be forced
+    assert kwargs["tools"] == [pc.PERSONA_CRITIQUE_TOOL]
+    assert kwargs["tool_choice"] == {
+        "type": "tool",
+        "name": pc.PERSONA_CRITIQUE_TOOL["name"],
+    }
 
 
 def test_call_anthropic_critique_accepts_explicit_model():
     persona = {"persona": "p", "url": "u", "llm": {}}
     result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
-    client = _build_fake_client("ok")
+    client = _build_fake_client()
     pc.call_anthropic_critique(
         persona, result, "B", "", client, model="claude-opus-4-7"
     )
-    assert client.messages.create.call_args.kwargs["model"] == "claude-opus-4-7"
+    kwargs = client.messages.create.call_args.kwargs
+    assert kwargs["model"] == "claude-opus-4-7"
+    # Opus 4.7 rejects the temperature parameter; must be omitted.
+    assert "temperature" not in kwargs
+
+
+def test_call_anthropic_critique_parses_findings():
+    persona = {"persona": "p", "url": "u", "llm": {}}
+    result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
+    client = _build_fake_client(
+        verdict="FAIL",
+        summary="missing address",
+        findings=[
+            {
+                "code": "VENUE_ADDRESS_MISSING",
+                "severity": "medium",
+                "evidence": "AFS card shows no street",
+                "suggested_fix": "Add neighborhood below subtitle",
+            }
+        ],
+    )
+    critique = pc.call_anthropic_critique(persona, result, "B", "", client)
+    assert critique.verdict == "FAIL"
+    assert len(critique.findings) == 1
+    assert critique.findings[0].code == "VENUE_ADDRESS_MISSING"
+    assert critique.findings[0].severity == "medium"
+
+
+def test_call_anthropic_critique_rejects_missing_tool_use():
+    """If the model ignores tool-choice, we must raise so the caller records
+    it as a critique_error rather than silently returning empty output."""
+    persona = {"persona": "p", "url": "u", "llm": {}}
+    result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
+    resp = types.SimpleNamespace(
+        content=[types.SimpleNamespace(type="text", text="prose not tool")]
+    )
+    client = MagicMock()
+    client.messages.create.return_value = resp
+    with pytest.raises(ValueError, match="did not invoke tool"):
+        pc.call_anthropic_critique(persona, result, "B", "", client)
+
+
+def test_call_anthropic_critique_rejects_invalid_verdict():
+    persona = {"persona": "p", "url": "u", "llm": {}}
+    result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
+    client = _build_fake_client(verdict="MAYBE")
+    with pytest.raises(ValueError, match="invalid verdict"):
+        pc.call_anthropic_critique(persona, result, "B", "", client)
+
+
+def test_call_anthropic_critique_rejects_invalid_severity():
+    persona = {"persona": "p", "url": "u", "llm": {}}
+    result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
+    client = _build_fake_client(
+        verdict="FAIL",
+        findings=[
+            {
+                "code": "X",
+                "severity": "catastrophic",
+                "evidence": "e",
+                "suggested_fix": "f",
+            }
+        ],
+    )
+    with pytest.raises(ValueError, match="invalid severity"):
+        pc.call_anthropic_critique(persona, result, "B", "", client)
 
 
 def test_load_configured_model_falls_back_when_file_missing(tmp_path):
@@ -238,12 +324,13 @@ def test_load_configured_model_ignores_malformed(tmp_path):
     assert pc._load_configured_model(cfg) == pc.DEFAULT_MODEL
 
 
-def test_call_anthropic_critique_handles_empty_content():
+def test_call_anthropic_critique_raises_on_empty_content():
     persona = {"persona": "p", "url": "u", "llm": {}}
     result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
     client = MagicMock()
     client.messages.create.return_value = types.SimpleNamespace(content=[])
-    assert pc.call_anthropic_critique(persona, result, "B", "", client) == ""
+    with pytest.raises(ValueError, match="did not invoke tool"):
+        pc.call_anthropic_critique(persona, result, "B", "", client)
 
 
 # --- run_all_personas: fast mode skips Anthropic -------------------------
@@ -300,7 +387,7 @@ def test_llm_mode_calls_anthropic_once_per_persona(tmp_path):
     _make_persona_file(tmp_path, "p1")
     _make_persona_file(tmp_path, "p2")
     runner = _TrackingRunner([_fake_completed(0, "OK", "")] * 2)
-    client = _build_fake_client("looks fine")
+    client = _build_fake_client(verdict="PASS", summary="looks fine")
     factory = MagicMock(return_value=client)
     capture = MagicMock(return_value=("B64", "<html></html>"))
 
@@ -317,7 +404,9 @@ def test_llm_mode_calls_anthropic_once_per_persona(tmp_path):
     assert capture.call_count == 2
     assert factory.call_count == 1  # client built once, reused
     for r in results:
-        assert r.critique == "looks fine"
+        assert isinstance(r.critique, pc.PersonaCritique)
+        assert r.critique.verdict == "PASS"
+        assert r.critique.summary == "looks fine"
         assert r.critique_error is None
 
 
@@ -325,7 +414,7 @@ def test_llm_mode_capture_failure_is_recorded_not_fatal(tmp_path):
     _make_persona_file(tmp_path, "p1")
     _make_persona_file(tmp_path, "p2")
     runner = _TrackingRunner([_fake_completed(0, "OK", "")] * 2)
-    client = _build_fake_client("fine")
+    client = _build_fake_client(verdict="PASS", summary="fine")
     factory = MagicMock(return_value=client)
 
     def flaky_capture(persona):
@@ -344,7 +433,8 @@ def test_llm_mode_capture_failure_is_recorded_not_fatal(tmp_path):
     by_name = {r.name: r for r in results}
     assert by_name["p1"].critique is None
     assert "browser crashed" in (by_name["p1"].critique_error or "")
-    assert by_name["p2"].critique == "fine"
+    assert isinstance(by_name["p2"].critique, pc.PersonaCritique)
+    assert by_name["p2"].critique.summary == "fine"
 
 
 # --- Cost-cap enforcement ------------------------------------------------
@@ -417,7 +507,11 @@ def test_render_markdown_llm_mode_includes_critique():
             exit_code=0,
             stdout="",
             stderr="",
-            critique="delightful",
+            critique=pc.PersonaCritique(
+                verdict="PASS",
+                summary="delightful",
+                findings=(),
+            ),
         ),
         pc.PersonaResult(
             name="b",
@@ -427,13 +521,42 @@ def test_render_markdown_llm_mode_includes_critique():
             stderr="missing",
             critique_error="TimeoutError: slow",
         ),
+        pc.PersonaResult(
+            name="c",
+            passed=False,
+            exit_code=1,
+            stdout="",
+            stderr="x",
+            critique=pc.PersonaCritique(
+                verdict="FAIL",
+                summary="needs work",
+                findings=(
+                    pc.PersonaFinding(
+                        code="FOO_BAR",
+                        severity="high",
+                        evidence="header hidden",
+                        suggested_fix="unhide",
+                    ),
+                ),
+            ),
+        ),
     ]
     md = pc.render_markdown(results, fast=False)
     assert "llm" in md
+    assert "## LLM verdicts" in md
     assert "## Qualitative critique" in md
     assert "delightful" in md
     assert "critique unavailable" in md
     assert "slow" in md
+    # Structured findings table rendered for persona c
+    assert "`FOO_BAR`" in md
+    assert "high" in md
+    assert "header hidden" in md
+    assert "unhide" in md
+    # Verdict summary table shows findings count
+    assert "| a | PASS | 0 |" in md
+    assert "| b | ERROR | — |" in md
+    assert "| c | FAIL | 1 |" in md
 
 
 def test_render_markdown_empty_results_still_valid():

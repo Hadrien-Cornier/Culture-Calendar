@@ -79,15 +79,13 @@ def _model_cost_usd(
     return (input_tokens * in_rate + output_tokens * out_rate) / 1_000_000.0
 
 
-def _extract_verdict(critique: str | None) -> str:
-    """Parse the first token of the critique ('PASS' or 'FAIL')."""
-    if not critique:
+def _extract_verdict(critique: Any) -> str:
+    """Extract the verdict field from a PersonaCritique (or fall back)."""
+    if critique is None:
         return "UNKNOWN"
-    first_line = critique.strip().splitlines()[0] if critique.strip() else ""
-    if first_line.startswith("PASS"):
-        return "PASS"
-    if first_line.startswith("FAIL"):
-        return "FAIL"
+    verdict = getattr(critique, "verdict", None)
+    if isinstance(verdict, str) and verdict.upper() in {"PASS", "FAIL"}:
+        return verdict.upper()
     return "UNKNOWN"
 
 
@@ -119,27 +117,34 @@ def benchmark_models(
                 check_script, path
             )
             t0 = time.monotonic()
-            critique: str | None = None
+            critique: Any = None
             critique_error: str | None = None
+            verdict = "UNKNOWN"
             input_tokens = output_tokens = 0
             try:
                 shot, dom = capture(persona)
+                _, messages = pc.build_anthropic_messages(
+                    persona,
+                    pc.PersonaResult(
+                        name=name,
+                        passed=passed,
+                        exit_code=rc,
+                        stdout=stdout,
+                        stderr=stderr,
+                    ),
+                    shot,
+                    dom,
+                )
                 call_kwargs: dict[str, Any] = {
                     "model": model,
                     "max_tokens": pc.DEFAULT_MAX_TOKENS,
                     "system": (persona.get("llm", {}).get("system_prompt") or ""),
-                    "messages": pc.build_anthropic_messages(
-                        persona,
-                        pc.PersonaResult(
-                            name=name,
-                            passed=passed,
-                            exit_code=rc,
-                            stdout=stdout,
-                            stderr=stderr,
-                        ),
-                        shot,
-                        dom,
-                    )[1],
+                    "messages": messages,
+                    "tools": [pc.PERSONA_CRITIQUE_TOOL],
+                    "tool_choice": {
+                        "type": "tool",
+                        "name": pc.PERSONA_CRITIQUE_TOOL["name"],
+                    },
                 }
                 if model not in pc.MODELS_WITHOUT_TEMPERATURE:
                     call_kwargs["temperature"] = pc.DEFAULT_TEMPERATURE
@@ -148,14 +153,20 @@ def benchmark_models(
                 if usage is not None:
                     input_tokens = getattr(usage, "input_tokens", 0) or 0
                     output_tokens = getattr(usage, "output_tokens", 0) or 0
-                critique = pc._extract_text_from_response(resp)
+                payload = pc._extract_tool_use_block(
+                    resp, pc.PERSONA_CRITIQUE_TOOL["name"]
+                )
+                if payload is None:
+                    raise ValueError(f"{model} did not invoke the critique tool")
+                critique = pc._parse_critique_payload(payload)
+                verdict = critique.verdict
             except Exception as exc:  # noqa: BLE001
                 critique_error = f"{type(exc).__name__}: {exc}"
             latency_s = time.monotonic() - t0
             cost_usd = _model_cost_usd(model, input_tokens, output_tokens)
             per_persona[name] = {
                 "structural_pass": passed,
-                "verdict": _extract_verdict(critique),
+                "verdict": verdict,
                 "critique": critique,
                 "error": critique_error,
                 "latency_s": round(latency_s, 2),
@@ -246,11 +257,27 @@ def render_markdown(
             row.append(d["verdict"])
         lines.append("| " + " | ".join(row) + " |")
     lines.append("")
+    # Surface errors so silent failures (e.g. deprecated params) aren't hidden
+    error_rows: list[str] = []
+    for model, data in per_model.items():
+        for persona, d in data.items():
+            if d.get("error"):
+                error_rows.append(
+                    f"| `{model}` | {persona} | {d['error'][:140]} |"
+                )
+    if error_rows:
+        lines.append("## Errors")
+        lines.append("")
+        lines.append("| Model | Persona | Error |")
+        lines.append("|---|---|---|")
+        lines.extend(error_rows)
+        lines.append("")
+
     lines.append("## Notes")
     lines.append("")
     lines.append(
-        "- Structured-output upgrade pending (see Port 2). Until then verdicts "
-        "are parsed from the first token of each critique."
+        "- All models called via tool-use (`record_persona_critique`); "
+        "verdicts are read from the structured payload, not prose."
     )
     lines.append("- Re-run: `.venv/bin/python scripts/bench_personas.py`")
     return "\n".join(lines) + "\n"

@@ -74,6 +74,84 @@ def _load_configured_model(config_path: Path = CONFIG_MODEL_PATH) -> str:
     return DEFAULT_MODEL
 
 
+SEVERITY_LEVELS: tuple[str, ...] = ("critical", "high", "medium", "low")
+PERSONA_CRITIQUE_TOOL: dict[str, Any] = {
+    "name": "record_persona_critique",
+    "description": (
+        "Record the persona's verdict on the live site as structured data. "
+        "Verdict must be PASS if the persona's primary user story can be "
+        "accomplished without friction, else FAIL. List every blocker as a "
+        "finding — the calling system uses these to diff across deployments."
+    ),
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "verdict": {
+                "type": "string",
+                "enum": ["PASS", "FAIL"],
+                "description": "PASS if the persona's user story is served, else FAIL.",
+            },
+            "summary": {
+                "type": "string",
+                "description": "2-4 sentence qualitative critique through the persona's lens.",
+            },
+            "findings": {
+                "type": "array",
+                "description": (
+                    "Structured issues. Empty list when verdict=PASS and the "
+                    "persona has no concerns. One entry per distinct blocker."
+                ),
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "code": {
+                            "type": "string",
+                            "description": (
+                                "Stable machine-readable code in SCREAMING_SNAKE_CASE, "
+                                "e.g. EXPAND_AFFORDANCE_UNLABELED, VENUE_ADDRESS_MISSING."
+                            ),
+                        },
+                        "severity": {
+                            "type": "string",
+                            "enum": list(SEVERITY_LEVELS),
+                        },
+                        "evidence": {
+                            "type": "string",
+                            "description": "Exact text or selector that demonstrates the issue.",
+                        },
+                        "suggested_fix": {
+                            "type": "string",
+                            "description": "Concrete one-line fix proposal.",
+                        },
+                    },
+                    "required": ["code", "severity", "evidence", "suggested_fix"],
+                },
+            },
+        },
+        "required": ["verdict", "summary", "findings"],
+    },
+}
+
+
+@dataclass(frozen=True)
+class PersonaFinding:
+    """One structured issue flagged by a persona."""
+
+    code: str
+    severity: str
+    evidence: str
+    suggested_fix: str
+
+
+@dataclass(frozen=True)
+class PersonaCritique:
+    """Structured LLM verdict + findings for one persona."""
+
+    verdict: str
+    summary: str
+    findings: tuple[PersonaFinding, ...] = ()
+
+
 @dataclass(frozen=True)
 class PersonaResult:
     """Outcome of a single persona's structural + optional LLM pass."""
@@ -83,7 +161,7 @@ class PersonaResult:
     exit_code: int
     stdout: str
     stderr: str
-    critique: str | None = None
+    critique: PersonaCritique | None = None
     critique_error: str | None = None
 
 
@@ -247,9 +325,14 @@ def build_anthropic_messages(
         f"first {DOM_SNIPPET_MAX_BYTES} bytes of outer HTML."
     )
     header.append(
-        "Respond in 3-5 sentences covering (a) whether the experience "
-        "delivers on your goals, (b) any failure modes you notice, and "
-        "(c) the one concrete fix you'd ship first."
+        "Call the `record_persona_critique` tool exactly once with the "
+        "persona's verdict, a 2-4 sentence qualitative summary, and zero or "
+        "more structured findings. One finding per distinct blocker; use "
+        "stable SCREAMING_SNAKE_CASE codes (EXPAND_AFFORDANCE_UNLABELED, "
+        "VENUE_ADDRESS_MISSING, TITLE_OVERFLOW_MOBILE) so the calling system "
+        "can diff across deployments. Severity must be one of "
+        f"{list(SEVERITY_LEVELS)}. PASS only if the persona's user story is "
+        "served end-to-end; any blocking issue means FAIL."
     )
     user_text = "\n\n".join(line for line in header if line)
 
@@ -274,21 +357,51 @@ def build_anthropic_messages(
     return system_prompt, [{"role": "user", "content": user_content}]
 
 
-def _extract_text_from_response(resp: Any) -> str:
-    """Pull concatenated text blocks out of an Anthropic Messages response."""
+def _extract_tool_use_block(resp: Any, tool_name: str) -> dict[str, Any] | None:
+    """Return the first ``tool_use`` block matching ``tool_name`` (or None)."""
     content = getattr(resp, "content", None)
     if content is None and isinstance(resp, dict):
         content = resp.get("content")
     if content is None:
-        return ""
-    parts: list[str] = []
+        return None
     for block in content:
-        text = getattr(block, "text", None)
-        if text is None and isinstance(block, dict):
-            text = block.get("text")
-        if text:
-            parts.append(text)
-    return "\n".join(parts).strip()
+        btype = getattr(block, "type", None)
+        bname = getattr(block, "name", None)
+        binput = getattr(block, "input", None)
+        if btype is None and isinstance(block, dict):
+            btype = block.get("type")
+            bname = block.get("name")
+            binput = block.get("input")
+        if btype == "tool_use" and bname == tool_name and isinstance(binput, dict):
+            return binput
+    return None
+
+
+def _parse_critique_payload(payload: dict[str, Any]) -> PersonaCritique:
+    """Construct a PersonaCritique from a tool-use input dict."""
+    verdict = str(payload.get("verdict", "")).strip().upper()
+    if verdict not in {"PASS", "FAIL"}:
+        raise ValueError(f"invalid verdict {verdict!r}")
+    summary = str(payload.get("summary", "")).strip()
+    findings_raw = payload.get("findings") or []
+    if not isinstance(findings_raw, list):
+        raise ValueError("findings must be a list")
+    findings: list[PersonaFinding] = []
+    for item in findings_raw:
+        if not isinstance(item, dict):
+            raise ValueError("each finding must be an object")
+        sev = str(item.get("severity", "")).strip().lower()
+        if sev not in SEVERITY_LEVELS:
+            raise ValueError(f"invalid severity {sev!r}")
+        findings.append(
+            PersonaFinding(
+                code=str(item.get("code", "")).strip(),
+                severity=sev,
+                evidence=str(item.get("evidence", "")).strip(),
+                suggested_fix=str(item.get("suggested_fix", "")).strip(),
+            )
+        )
+    return PersonaCritique(verdict=verdict, summary=summary, findings=tuple(findings))
 
 
 def call_anthropic_critique(
@@ -301,8 +414,13 @@ def call_anthropic_critique(
     model: str = DEFAULT_MODEL,
     max_tokens: int = DEFAULT_MAX_TOKENS,
     temperature: float = DEFAULT_TEMPERATURE,
-) -> str:
-    """One Anthropic call; return qualitative critique text (possibly empty)."""
+) -> PersonaCritique:
+    """One Anthropic call using tool-use to force a structured verdict.
+
+    Raises ValueError if the response omits the tool-use block or the payload
+    fails schema validation — the caller is expected to convert to
+    ``critique_error``.
+    """
     system_prompt, messages = build_anthropic_messages(
         persona, result, screenshot_b64, dom_snippet
     )
@@ -310,13 +428,21 @@ def call_anthropic_critique(
         "model": model,
         "max_tokens": max_tokens,
         "messages": messages,
+        "tools": [PERSONA_CRITIQUE_TOOL],
+        "tool_choice": {"type": "tool", "name": PERSONA_CRITIQUE_TOOL["name"]},
     }
     if model not in MODELS_WITHOUT_TEMPERATURE:
         kwargs["temperature"] = temperature
     if system_prompt:
         kwargs["system"] = system_prompt
     resp = client.messages.create(**kwargs)
-    return _extract_text_from_response(resp)
+    payload = _extract_tool_use_block(resp, PERSONA_CRITIQUE_TOOL["name"])
+    if payload is None:
+        raise ValueError(
+            f"model {model!r} did not invoke tool "
+            f"{PERSONA_CRITIQUE_TOOL['name']!r}"
+        )
+    return _parse_critique_payload(payload)
 
 
 def _default_anthropic_client_factory() -> Any:  # pragma: no cover
@@ -370,7 +496,7 @@ def run_all_personas(
             python_exe=python_exe,
             subprocess_runner=subprocess_runner,
         )
-        critique: str | None = None
+        critique: PersonaCritique | None = None
         critique_error: str | None = None
         if not fast:
             if llm_calls_used >= max_llm_calls:
@@ -451,6 +577,21 @@ def render_markdown(results: Sequence[PersonaResult], *, fast: bool) -> str:
 
     if not fast:
         lines.append("")
+        lines.append("## LLM verdicts")
+        lines.append("")
+        lines.append("| Persona | Verdict | Findings |")
+        lines.append("|---|---|---|")
+        for r in results:
+            if r.critique_error:
+                lines.append(f"| {r.name} | ERROR | — |")
+            elif r.critique is None:
+                lines.append(f"| {r.name} | — | — |")
+            else:
+                lines.append(
+                    f"| {r.name} | {r.critique.verdict} | {len(r.critique.findings)} |"
+                )
+
+        lines.append("")
         lines.append("## Qualitative critique")
         for r in results:
             lines.append("")
@@ -458,10 +599,24 @@ def render_markdown(results: Sequence[PersonaResult], *, fast: bool) -> str:
             lines.append("")
             if r.critique_error:
                 lines.append(f"_critique unavailable: {r.critique_error}_")
-            elif r.critique:
-                lines.append(r.critique.strip())
-            else:
+                continue
+            if r.critique is None:
                 lines.append("_no critique returned_")
+                continue
+            lines.append(f"**Verdict:** {r.critique.verdict}")
+            lines.append("")
+            if r.critique.summary:
+                lines.append(r.critique.summary.strip())
+                lines.append("")
+            if r.critique.findings:
+                lines.append("| Code | Severity | Evidence | Suggested fix |")
+                lines.append("|---|---|---|---|")
+                for f in r.critique.findings:
+                    evidence = f.evidence.replace("|", "\\|").replace("\n", " ")
+                    fix = f.suggested_fix.replace("|", "\\|").replace("\n", " ")
+                    lines.append(
+                        f"| `{f.code}` | {f.severity} | {evidence} | {fix} |"
+                    )
 
     return "\n".join(lines) + "\n"
 
