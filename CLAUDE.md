@@ -805,22 +805,9 @@ The canonical list of user-visible features lives in `.overnight/feature-invento
 
 Every significant modification to the live site is expected to pass through the LLM persona council — six personas (logistics-user, review-reader, search-user, comprehensiveness-user, continuity-user, mobile-user) that critique the site from distinct user lenses via `scripts/persona_critique.py` (Claude Sonnet 4.6 by default, chosen by `scripts/bench_personas.py`; see `docs/persona_model_benchmark.md`).
 
-Hybrid design: critiques are **always logged** (Gate A) but only **block pushes** when the change is explicitly tagged significant (Gate B).
+**Local-only design.** The LLM council runs on your workstation before push — not in CI. No Anthropic API key lives on GitHub; no per-push CI cost; no GitHub-hosted audit trail. The trade-off: continuity regressions between `[persona-gate]` runs aren't auto-detected (handled via a manual `scripts/persona_critique.py` run whenever you want a fresh scorecard).
 
-### Gate A — post-deploy audit (automatic, non-blocking)
-
-`.github/workflows/persona-audit.yml` triggers on every push to `main` that touches `docs/**` (excluding its own output paths). Flow:
-
-1. Wait up to 5 min for GitHub Pages to serve the new commit.
-2. Run `scripts/persona_critique.py` against the deployed site (6 Anthropic calls, ~$0.14/run on Sonnet).
-3. Commit the scorecard to `docs/personas-history/<sha>.md` and refresh `docs/PERSONAS.md`.
-4. Push back to `main` with `[skip persona-audit]` in the subject so the audit commit doesn't recurse-trigger.
-
-Regression detection: `git diff docs/PERSONAS.md` (or the dated history file) shows when a persona's verdict flipped PASS → FAIL. Review as part of regular maintenance.
-
-Setup: requires `ANTHROPIC_API_KEY` in GitHub Actions secrets (`Settings → Secrets and variables → Actions`). The workflow uses `GITHUB_TOKEN` for the push-back with a 3-try rebase loop to handle race conditions.
-
-### Gate B — opt-in blocking gate via `[persona-gate]` commit tag
+### Opt-in blocking gate via `[persona-gate]` commit tag
 
 For deliberately significant changes (architectural UI refactors, feature removals/restorations, redesigns), tag the commit subject with the literal marker `[persona-gate]`. Example:
 
@@ -850,9 +837,13 @@ git config core.hooksPath .githooks
 
 **When NOT to tag:**
 - Bug fixes, copy tweaks, CSS polish, data refreshes, dependency bumps.
-- Anything covered adequately by Gate A's post-deploy audit.
+- Changes you're willing to ship without a persona-level review.
 
 **Emergency bypass:** `git push --no-verify`. Use once and revisit the failing verdict in the morning.
+
+### On-demand audit
+
+Run `./venv/bin/python scripts/persona_critique.py --out docs/PERSONAS.md` any time you want a fresh scorecard against the deployed site. Commit the file if you want the audit to live in git history; leave uncommitted if it's just for local review. This is the equivalent of what a CI audit would do — you choose when to pay the Anthropic call.
 
 ### Key files
 
@@ -864,10 +855,8 @@ git config core.hooksPath .githooks
 | `scripts/check_live_site.py` | Pyppeteer-based structural-assertion runner consumed by personas |
 | `.overnight/personas/*.json` | 6 persona specs (gitignored parent, persona subdir whitelisted) |
 | `.overnight/feature-inventory.json` | Continuity-user source of truth (gitignored parent, file whitelisted) |
-| `.overnight/persona-costs.jsonl` | Per-call cost log (gitignored; surfaced via GH Action artifact) |
+| `.overnight/persona-costs.jsonl` | Per-call cost log (gitignored; local only) |
 | `config/persona_model.json` | Selected model (written by `bench_personas.py`) |
-| `docs/PERSONAS.md` | Latest persona scorecard (rolling; overwritten by Gate A) |
-| `docs/personas-history/<sha>.md` | Per-deploy historical scorecard (append-only) |
+| `docs/PERSONAS.md` | Latest persona scorecard (overwritten by on-demand `persona_critique.py` runs) |
 | `docs/persona_model_benchmark.md` | Benchmark run results justifying the model pick |
-| `.github/workflows/persona-audit.yml` | Gate A workflow |
-| `.githooks/pre-push` | Gate B hook |
+| `.githooks/pre-push` | Opt-in pre-push hook triggered by `[persona-gate]` commit tag |
