@@ -566,6 +566,91 @@ def test_render_markdown_empty_results_still_valid():
     assert md.endswith("\n")
 
 
+# --- Cost logging (Port 3) -----------------------------------------------
+
+
+def test_compute_cost_usd_known_model():
+    # Haiku: (1.0 in, 5.0 out) per 1M tokens
+    assert pc._compute_cost_usd(pc.HAIKU_MODEL, 1_000_000, 0) == 1.0
+    assert pc._compute_cost_usd(pc.HAIKU_MODEL, 0, 1_000_000) == 5.0
+    assert pc._compute_cost_usd(pc.HAIKU_MODEL, 500, 100) == round(
+        (500 * 1.0 + 100 * 5.0) / 1_000_000, 6
+    )
+
+
+def test_compute_cost_usd_unknown_model_returns_none():
+    assert pc._compute_cost_usd("claude-unknown-99", 1000, 1000) is None
+
+
+def test_log_cost_event_appends_jsonl(tmp_path):
+    log_path = tmp_path / "costs.jsonl"
+    pc._log_cost_event({"a": 1}, path=log_path)
+    pc._log_cost_event({"b": 2}, path=log_path)
+    lines = log_path.read_text(encoding="utf-8").splitlines()
+    assert [json.loads(l) for l in lines] == [{"a": 1}, {"b": 2}]
+
+
+def test_log_cost_event_silently_ignores_failure(tmp_path):
+    # Path under a file (not a directory) → mkdir will fail → must not raise
+    not_a_dir = tmp_path / "file.txt"
+    not_a_dir.write_text("x")
+    pc._log_cost_event({"a": 1}, path=not_a_dir / "nested" / "costs.jsonl")
+    # No exception = pass
+
+
+def test_call_anthropic_critique_emits_cost_event():
+    persona = {"persona": "hero", "url": "u", "llm": {}}
+    result = pc.PersonaResult(name="hero", passed=True, exit_code=0, stdout="", stderr="")
+    # Fake usage object attached to response
+    tool_block = types.SimpleNamespace(
+        type="tool_use",
+        name=pc.PERSONA_CRITIQUE_TOOL["name"],
+        input={"verdict": "PASS", "summary": "ok", "findings": []},
+    )
+    resp = types.SimpleNamespace(
+        content=[tool_block],
+        usage=types.SimpleNamespace(input_tokens=2500, output_tokens=180),
+    )
+    client = MagicMock()
+    client.messages.create.return_value = resp
+
+    captured: list[dict] = []
+    pc.call_anthropic_critique(
+        persona,
+        result,
+        "B",
+        "",
+        client,
+        model=pc.HAIKU_MODEL,
+        run_id="run-abc",
+        log_fn=captured.append,
+    )
+    assert len(captured) == 1
+    event = captured[0]
+    assert event["run_id"] == "run-abc"
+    assert event["context"] == "persona_critique"
+    assert event["persona"] == "hero"
+    assert event["model"] == pc.HAIKU_MODEL
+    assert event["input_tokens"] == 2500
+    assert event["output_tokens"] == 180
+    expected_cost = round((2500 * 1.0 + 180 * 5.0) / 1_000_000, 6)
+    assert event["cost_usd"] == expected_cost
+    # ISO timestamp roundtrip
+    assert "T" in event["ts"]
+
+
+def test_call_anthropic_critique_handles_missing_usage():
+    """Fake clients without a usage attribute must not crash cost logging."""
+    persona = {"persona": "p", "url": "u", "llm": {}}
+    result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
+    client = _build_fake_client()  # resp has no .usage
+    captured: list[dict] = []
+    pc.call_anthropic_critique(persona, result, "B", "", client, log_fn=captured.append)
+    assert captured[0]["input_tokens"] == 0
+    assert captured[0]["output_tokens"] == 0
+    assert captured[0]["cost_usd"] == 0.0
+
+
 # --- Module loader regression (Python 3.13 @dataclass bug) ---------------
 
 

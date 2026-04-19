@@ -25,7 +25,9 @@ import json
 import os
 import subprocess
 import sys
+import uuid
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Awaitable, Callable, Sequence
 
@@ -54,6 +56,45 @@ DEFAULT_CHECK_SCRIPT = Path("scripts/check_live_site.py")
 DEFAULT_CHECK_RETRIES = 0
 SUBPROCESS_TIMEOUT_S = 180
 CONFIG_MODEL_PATH = Path("config/persona_model.json")
+COSTS_LOG_PATH = Path(".overnight/persona-costs.jsonl")
+
+# USD per 1M tokens. Kept co-located with the call site; ``bench_personas.py``
+# imports this table so the two tools agree on pricing. Update when Anthropic
+# adjusts rates.
+PRICING_USD_PER_MTOK: dict[str, tuple[float, float]] = {
+    HAIKU_MODEL: (1.0, 5.0),
+    SONNET_MODEL: (3.0, 15.0),
+    OPUS_MODEL: (15.0, 75.0),
+}
+
+
+def _compute_cost_usd(
+    model: str, input_tokens: int, output_tokens: int
+) -> float | None:
+    """Estimate one-call cost. Returns ``None`` for unpriced models."""
+    rate = PRICING_USD_PER_MTOK.get(model)
+    if rate is None:
+        return None
+    in_rate, out_rate = rate
+    return round(
+        (input_tokens * in_rate + output_tokens * out_rate) / 1_000_000.0, 6
+    )
+
+
+def _log_cost_event(
+    event: dict[str, Any], *, path: Path = COSTS_LOG_PATH
+) -> None:
+    """Append ``event`` as a JSONL line to ``path``. Best-effort; never raises.
+
+    Logging is observability, not correctness — a full disk or a CI sandbox
+    without the ``.overnight/`` directory must not break the critique flow.
+    """
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(event, separators=(",", ":")) + "\n")
+    except Exception:
+        pass
 
 
 def _load_configured_model(config_path: Path = CONFIG_MODEL_PATH) -> str:
@@ -414,12 +455,19 @@ def call_anthropic_critique(
     model: str = DEFAULT_MODEL,
     max_tokens: int = DEFAULT_MAX_TOKENS,
     temperature: float = DEFAULT_TEMPERATURE,
+    run_id: str | None = None,
+    context: str = "persona_critique",
+    log_fn: Callable[[dict[str, Any]], None] = _log_cost_event,
 ) -> PersonaCritique:
     """One Anthropic call using tool-use to force a structured verdict.
 
     Raises ValueError if the response omits the tool-use block or the payload
     fails schema validation — the caller is expected to convert to
     ``critique_error``.
+
+    On success, emits a JSONL cost-event via ``log_fn``. The default
+    :func:`_log_cost_event` appends to :data:`COSTS_LOG_PATH`; tests can pass
+    a no-op.
     """
     system_prompt, messages = build_anthropic_messages(
         persona, result, screenshot_b64, dom_snippet
@@ -436,6 +484,25 @@ def call_anthropic_critique(
     if system_prompt:
         kwargs["system"] = system_prompt
     resp = client.messages.create(**kwargs)
+
+    usage = getattr(resp, "usage", None)
+    input_tokens = getattr(usage, "input_tokens", 0) if usage else 0
+    output_tokens = getattr(usage, "output_tokens", 0) if usage else 0
+    log_fn(
+        {
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "run_id": run_id,
+            "context": context,
+            "persona": persona.get("persona", "unknown"),
+            "model": model,
+            "input_tokens": int(input_tokens or 0),
+            "output_tokens": int(output_tokens or 0),
+            "cost_usd": _compute_cost_usd(
+                model, int(input_tokens or 0), int(output_tokens or 0)
+            ),
+        }
+    )
+
     payload = _extract_tool_use_block(resp, PERSONA_CRITIQUE_TOOL["name"])
     if payload is None:
         raise ValueError(
@@ -480,6 +547,7 @@ def run_all_personas(
 
     client: Any = None
     llm_calls_used = 0
+    run_id = uuid.uuid4().hex[:12]
 
     if not fast:
         factory = anthropic_client_factory or _default_anthropic_client_factory
@@ -521,6 +589,8 @@ def run_all_personas(
                     dom,
                     client,
                     model=model,
+                    run_id=run_id,
+                    context="persona_critique",
                 )
             except Exception as exc:  # noqa: BLE001
                 critique_error = f"{type(exc).__name__}: {exc}"

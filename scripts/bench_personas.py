@@ -23,6 +23,8 @@ import json
 import os
 import sys
 import time
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -54,29 +56,11 @@ def _load_persona_critique_module() -> Any:
     return mod
 
 
-# --- Pricing (USD per 1M tokens) -----------------------------------------
-# Source: https://www.anthropic.com/pricing (2026-04)
-# Keeping rough for bench cost estimation; not the on-invoice truth.
-PRICING_USD_PER_MTOK: dict[str, tuple[float, float]] = {
-    # model: (input_rate, output_rate)
-    "claude-haiku-4-5-20251001": (1.0, 5.0),
-    "claude-sonnet-4-6": (3.0, 15.0),
-    "claude-opus-4-7": (15.0, 75.0),
-}
-
+# Pricing table lives in persona_critique.py so the two tools agree.
+# Imported lazily (via _load_persona_critique_module) to avoid importing
+# pyppeteer at module load time.
 REFERENCE_MODEL = "claude-sonnet-4-6"
 AGREEMENT_THRESHOLD = 5  # out of 6 personas
-
-
-def _model_cost_usd(
-    model: str, input_tokens: int, output_tokens: int
-) -> float | None:
-    """Estimate one-call cost; return ``None`` if pricing unknown."""
-    rate = PRICING_USD_PER_MTOK.get(model)
-    if rate is None:
-        return None
-    in_rate, out_rate = rate
-    return (input_tokens * in_rate + output_tokens * out_rate) / 1_000_000.0
 
 
 def _extract_verdict(critique: Any) -> str:
@@ -106,6 +90,7 @@ def benchmark_models(
     factory = anthropic_client_factory or pc._default_anthropic_client_factory
     client = factory()
     capture = capture_fn or pc.capture_screenshot_and_dom
+    run_id = uuid.uuid4().hex[:12]
 
     per_model: dict[str, dict[str, Any]] = {}
     for model in models:
@@ -163,7 +148,19 @@ def benchmark_models(
             except Exception as exc:  # noqa: BLE001
                 critique_error = f"{type(exc).__name__}: {exc}"
             latency_s = time.monotonic() - t0
-            cost_usd = _model_cost_usd(model, input_tokens, output_tokens)
+            cost_usd = pc._compute_cost_usd(model, input_tokens, output_tokens)
+            pc._log_cost_event(
+                {
+                    "ts": datetime.now(timezone.utc).isoformat(),
+                    "run_id": run_id,
+                    "context": "bench_personas",
+                    "persona": name,
+                    "model": model,
+                    "input_tokens": input_tokens,
+                    "output_tokens": output_tokens,
+                    "cost_usd": cost_usd,
+                }
+            )
             per_persona[name] = {
                 "structural_pass": passed,
                 "verdict": verdict,
@@ -303,7 +300,7 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
     p.add_argument(
         "--models",
         nargs="+",
-        default=list(PRICING_USD_PER_MTOK.keys()),
+        default=list(_load_persona_critique_module().PRICING_USD_PER_MTOK.keys()),
         help="Models to benchmark.",
     )
     p.add_argument(

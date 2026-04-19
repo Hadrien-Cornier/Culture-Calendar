@@ -7,22 +7,22 @@ Reference model: `claude-sonnet-4-6`. Agreement threshold: 5/N.
 
 | Model | Agreement vs reference | Avg latency (s) | Total cost (USD) |
 |---|---|---|---|
-| `claude-haiku-4-5-20251001` | 3/6 | 7.96 | $0.0326 |
-| `claude-sonnet-4-6` | 6/6 | 11.92 | $0.0975 |
-| `claude-opus-4-7` | 4/6 | 12.74 | $0.6229 |
+| `claude-haiku-4-5-20251001` | 1/6 | 6.39 | $0.0370 |
+| `claude-sonnet-4-6` | 6/6 | 16.25 | $0.1419 |
+| `claude-opus-4-7` | 3/6 | 10.96 | $0.7780 |
 
 ## Per-persona verdicts
 
 | Persona | `claude-haiku-4-5-20251001` | `claude-sonnet-4-6` | `claude-opus-4-7` |
 |---|---|---|---|
 | comprehensiveness-user | PASS | PASS | PASS |
-| continuity-user | FAIL | FAIL | FAIL |
-| logistics-user | UNKNOWN | PASS | PASS |
-| mobile-user | UNKNOWN | FAIL | PASS |
-| review-reader | UNKNOWN | FAIL | UNKNOWN |
-| search-user | PASS | PASS | PASS |
+| continuity-user | PASS | FAIL | FAIL |
+| logistics-user | PASS | FAIL | FAIL |
+| mobile-user | PASS | FAIL | PASS |
+| review-reader | PASS | FAIL | PASS |
+| search-user | PASS | FAIL | PASS |
 
 ## Notes
 
-- Structured-output upgrade pending (see Port 2). Until then verdicts are parsed from the first token of each critique.
+- All models called via tool-use (`record_persona_critique`); verdicts are read from the structured payload, not prose.
 - Re-run: `.venv/bin/python scripts/bench_personas.py`
