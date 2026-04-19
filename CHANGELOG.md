@@ -73,6 +73,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: docs/index.html, docs/script.js, docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
 - live-check: passed after 37s deploy wait
 
+### task-T2.6 — DONE — 2026-04-19T04:38:29Z
+- commit: fa6b0e2
+- files: tests/test_review_confidence.py, CHANGELOG.md
+- live-check: n/a (backend)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

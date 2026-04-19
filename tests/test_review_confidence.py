@@ -167,3 +167,127 @@ def test_process_events_keeps_legitimate_low_score_cached_entry(monkeypatch) -> 
     assert enriched["ai_rating"]["score"] == 2
     assert enriched["ai_rating"]["summary"] == legitimate_low_score_summary
     assert enriched["description"] == legitimate_low_score_summary
+
+
+# --- build_event_from_template: missing field falls back to "unknown" ------
+# Contract: the output builder reads ai_rating.review_confidence if present.
+# When an event arrives without any confidence signal (e.g., a pre-T2.1
+# cached entry, a scraper that bypassed the AI pipeline, or a unit-test
+# fixture), the emitted JSON must carry "unknown" — never None or missing.
+# This protects the UI bucket logic in docs/script.js which treats
+# `(ev.review_confidence || "unknown")` as the canonical default.
+
+
+def _movie_template():
+    from src.config_loader import ConfigLoader
+
+    config = ConfigLoader()
+    return ConfigLoader(), config.get_template("movie")
+
+
+@pytest.mark.unit
+def test_build_event_from_template_defaults_missing_confidence_to_unknown() -> None:
+    from update_website_data import build_event_from_template
+
+    config, template = _movie_template()
+    event = {
+        "title": "UNRATED EDGE CASE",
+        "type": "movie",
+        "venue": "afs",
+        "url": "https://example.org/x",
+        "dates": ["2026-05-01"],
+        "times": ["19:30"],
+        "ai_rating": {"score": 7, "summary": "A concise but honest review."},
+    }
+
+    output = build_event_from_template(event, template, config)
+
+    assert output["review_confidence"] == "unknown"
+
+
+@pytest.mark.unit
+def test_build_event_from_template_passes_through_explicit_confidence() -> None:
+    from update_website_data import build_event_from_template
+
+    config, template = _movie_template()
+    event = {
+        "title": "LOW CONFIDENCE CASE",
+        "type": "movie",
+        "venue": "afs",
+        "url": "https://example.org/x",
+        "dates": ["2026-05-01"],
+        "times": ["19:30"],
+        "ai_rating": {
+            "score": 5,
+            "summary": "Thin sources; see venue page.",
+            "review_confidence": "low",
+        },
+    }
+
+    output = build_event_from_template(event, template, config)
+
+    assert output["review_confidence"] == "low"
+
+
+@pytest.mark.unit
+def test_build_event_from_template_handles_missing_ai_rating() -> None:
+    """An event with no ai_rating dict at all must still yield unknown."""
+    from update_website_data import build_event_from_template
+
+    config, template = _movie_template()
+    event = {
+        "title": "NO AI RATING AT ALL",
+        "type": "movie",
+        "venue": "afs",
+        "url": "https://example.org/x",
+        "dates": ["2026-05-01"],
+        "times": ["19:30"],
+    }
+
+    output = build_event_from_template(event, template, config)
+
+    assert output["review_confidence"] == "unknown"
+
+
+# --- is_refusal_response integration sanity --------------------------------
+# compute_confidence delegates refusal detection to is_refusal_response,
+# so a regression in the refusal detector is a regression in the confidence
+# signal. Guard the contract end-to-end here rather than rely solely on the
+# parse-level tests above.
+
+
+@pytest.mark.unit
+def test_is_refusal_response_detects_canonical_refusal() -> None:
+    from src.processor import is_refusal_response
+
+    assert is_refusal_response(REFUSAL_STYLE_SUMMARY) is True
+
+
+@pytest.mark.unit
+def test_is_refusal_response_passes_substantive_review() -> None:
+    from src.processor import is_refusal_response
+
+    assert is_refusal_response(LONG_SUBSTANTIVE_REVIEW) is False
+    assert is_refusal_response(TERSE_HIGH_SIGNAL_REVIEW) is False
+
+
+@pytest.mark.unit
+def test_is_refusal_response_ignores_empty_or_short_text() -> None:
+    """Empty / very short strings are not refusals — they're a separate gate."""
+    from src.processor import is_refusal_response
+
+    assert is_refusal_response("") is False
+    assert is_refusal_response("TBD") is False
+
+
+@pytest.mark.unit
+def test_compute_confidence_unknown_on_empty_returns_low_not_unknown() -> None:
+    """Contract guard: _parse_ai_response never emits "unknown" directly —
+    the "unknown" bucket is reserved for build_event_from_template fallback
+    when ai_rating lacks the field entirely. compute_confidence on an empty
+    string must return "low" so an empty LLM response is quarantined, not
+    silently passed as unknown."""
+    from src.processor import compute_confidence
+
+    assert compute_confidence("") == "low"
+    assert compute_confidence(None) == "low"  # type: ignore[arg-type]
