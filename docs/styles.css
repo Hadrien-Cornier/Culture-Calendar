@@ -314,7 +314,8 @@ body {
 
 .event-oneliner {
   font-style: italic;
-  color: var(--accent);
+  color: #5a4a3a;
+  font-weight: 500;
   margin: 0 0 12px;
 }
 

@@ -8,10 +8,10 @@
   },
   {
     "id": "one-liner",
-    "name": "Event one-liner summary on listing cards",
+    "name": "Event one-liner summary on listing cards (WCAG AA contrast)",
     "selector": ".event-oneliner",
-    "since_commit": "pre-existing",
-    "smoke_assertion": "selector_exists"
+    "since_commit": "task-T1.4",
+    "smoke_assertion": "js_truthy:contrast>=4.5"
   },
   {
     "id": "listing-card-render",
