@@ -74,7 +74,7 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: passed after 37s deploy wait
 
 ### task-T2.6 — DONE — 2026-04-19T04:38:29Z
-- commit: fa6b0e2
+- commit: 606c4dd
 - files: tests/test_review_confidence.py, CHANGELOG.md
 - live-check: n/a (backend)
 
