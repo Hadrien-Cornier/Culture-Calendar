@@ -1,0 +1,44 @@
+[
+  {
+    "id": "about-section",
+    "name": "Collapsible methodology About section",
+    "selector": ".about-section",
+    "since_commit": "c03f617",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "mobile-filter-close",
+    "name": "Mobile filter sheet close button",
+    "selector": ".filter-close",
+    "since_commit": "77ca9da",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "one-liner",
+    "name": "Event one-liner summary on listing cards",
+    "selector": ".event-oneliner",
+    "since_commit": "pre-existing",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "listing-card-render",
+    "name": "Expanded review panel inside event card",
+    "selector": ".event-panel",
+    "since_commit": "pre-existing",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "top-pick-render",
+    "name": "Top picks of the week render as event cards",
+    "selector": ".picks-list .event-card",
+    "since_commit": "pre-existing",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "masthead-subtitle",
+    "name": "Masthead subtitle tagline",
+    "selector": ".masthead-subtitle",
+    "since_commit": "8499818",
+    "smoke_assertion": "selector_exists"
+  }
+]

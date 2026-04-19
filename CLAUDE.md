@@ -774,3 +774,29 @@ On BLOCKED (revert committed):
 - **T5.3** — Write `STATUS-2026-04-18-3.md` handoff
 
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
+
+<!-- BEGIN FEATURE-INVENTORY -->
+## Feature Inventory
+
+The canonical list of user-visible features lives in `.overnight/feature-inventory.json`. Each entry records the CSS selector and smoke assertion proving the feature is live.
+
+**Discipline:** every task that adds or changes a user-visible feature MUST append its entry to that JSON file BEFORE committing. The continuity-user persona reads the file on every overnight run and asserts each listed selector still resolves on the live site. Skipping the append step is the regression pattern that previously dropped the TTS button (`986877e` → `c45fdfd`) and the About section (`c03f617` → v12i promotion).
+
+**Entry shape:**
+
+```json
+{
+  "id": "<slug>",
+  "name": "<human name>",
+  "selector": "<CSS selector>",
+  "since_commit": "<introducing or restoring commit>",
+  "smoke_assertion": "selector_exists | contains_text:<...> | js_truthy:<...>"
+}
+```
+
+**Update rules:**
+
+- Append new entries — never reorder or rewrite existing ones (preserves git-blame history).
+- If a feature is intentionally removed, add a removal note in CHANGELOG and delete the entry in the same commit.
+- Selectors must resolve on the LIVE site (`https://hadrien-cornier.github.io/Culture-Calendar/`), not just in source.
+<!-- END FEATURE-INVENTORY -->
