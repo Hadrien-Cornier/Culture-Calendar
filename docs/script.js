@@ -24,6 +24,130 @@
   var SEARCH_DEBOUNCE_MS = 150;
   var MAX_SUGGESTIONS_PER_GROUP = 20;
 
+  /* task-T1.5: Web Speech API read-aloud button.
+     Supported cross-browser (desktop + mobile). Second click on an active
+     button cancels. Sentence-chunked so Safari does not truncate long text. */
+  var tts = (function () {
+    var supported = typeof window !== "undefined"
+      && typeof window.speechSynthesis !== "undefined"
+      && typeof window.SpeechSynthesisUtterance !== "undefined";
+    var voices = [];
+    var activeBtn = null;
+
+    function refreshVoices() {
+      try { voices = window.speechSynthesis.getVoices() || []; }
+      catch (e) { voices = []; }
+    }
+    if (supported) {
+      refreshVoices();
+      if (typeof window.speechSynthesis.addEventListener === "function") {
+        window.speechSynthesis.addEventListener("voiceschanged", refreshVoices);
+      } else {
+        window.speechSynthesis.onvoiceschanged = refreshVoices;
+      }
+    }
+
+    function pickVoice() {
+      if (!voices.length) return null;
+      for (var i = 0; i < voices.length; i++) {
+        var v = voices[i];
+        if (v && v.lang && v.lang.toLowerCase().indexOf("en") === 0 && v.localService) return v;
+      }
+      for (var j = 0; j < voices.length; j++) {
+        var w = voices[j];
+        if (w && w.lang && w.lang.toLowerCase().indexOf("en") === 0) return w;
+      }
+      return voices[0] || null;
+    }
+
+    function stripHtml(s) {
+      if (!s) return "";
+      return String(s).replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    }
+
+    function splitSentences(text) {
+      if (!text) return [];
+      var raw = text.match(/[^.!?]+[.!?]+(\s|$)|[^.!?]+$/g) || [text];
+      var out = [];
+      for (var i = 0; i < raw.length; i++) {
+        var s = raw[i].trim();
+        if (s) out.push(s);
+      }
+      return out;
+    }
+
+    function cancel() {
+      if (!supported) return;
+      try { window.speechSynthesis.cancel(); } catch (e) { /* noop */ }
+    }
+
+    function resetButton(btn) {
+      if (!btn) return;
+      btn.classList.remove("is-playing");
+      btn.textContent = "\u25B6 Read aloud";
+      btn.setAttribute("aria-label", "Read aloud");
+    }
+
+    function clearActive() {
+      if (activeBtn) resetButton(activeBtn);
+      activeBtn = null;
+    }
+
+    function buildText(ev) {
+      var parts = [];
+      if (ev.one_liner) parts.push(String(ev.one_liner).trim());
+      var body = stripHtml(ev.description);
+      if (body) parts.push(body);
+      return parts.filter(Boolean).join(" ").trim();
+    }
+
+    function speakNow(btn, text) {
+      cancel();
+      clearActive();
+      var chunks = splitSentences(text);
+      if (!chunks.length) return;
+      var voice = pickVoice();
+      activeBtn = btn;
+      btn.classList.add("is-playing");
+      btn.textContent = "\u25A0 Stop";
+      btn.setAttribute("aria-label", "Stop read aloud");
+      var idx = 0;
+      function next() {
+        if (activeBtn !== btn) return;
+        if (idx >= chunks.length) { clearActive(); return; }
+        var u = new window.SpeechSynthesisUtterance(chunks[idx]);
+        u.rate = 0.95;
+        u.pitch = 1.0;
+        u.volume = 1.0;
+        if (voice) { u.voice = voice; u.lang = voice.lang; }
+        u.onend = function () { if (activeBtn !== btn) return; idx++; next(); };
+        u.onerror = function () { if (activeBtn === btn) clearActive(); };
+        try { window.speechSynthesis.speak(u); }
+        catch (e) { clearActive(); }
+      }
+      next();
+    }
+
+    function createButton(ev) {
+      if (!supported) return null;
+      var text = buildText(ev);
+      if (!text) return null;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tts-button";
+      btn.textContent = "\u25B6 Read aloud";
+      btn.setAttribute("aria-label", "Read aloud");
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (activeBtn === btn) { cancel(); clearActive(); return; }
+        speakNow(btn, text);
+      });
+      return btn;
+    }
+
+    return { supported: supported, createButton: createButton };
+  })();
+
   fetch(DATA_URL)
     .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
     .then(function (raw) {
@@ -426,6 +550,8 @@
     }
     var ttsSlot = document.createElement("div");
     ttsSlot.className = "event-tts-slot";
+    var pickTtsBtn = tts.createButton(ev);
+    if (pickTtsBtn) ttsSlot.appendChild(pickTtsBtn);
     panel.appendChild(ttsSlot);
     card.appendChild(panel);
 
@@ -550,6 +676,13 @@
           p.textContent = flat;
           panel.appendChild(p);
         }
+      }
+      var listingTtsBtn = tts.createButton(ev);
+      if (listingTtsBtn) {
+        var listingTtsSlot = document.createElement("div");
+        listingTtsSlot.className = "event-tts-slot";
+        listingTtsSlot.appendChild(listingTtsBtn);
+        panel.appendChild(listingTtsSlot);
       }
       if (panel.childNodes.length > 0) card.appendChild(panel);
 

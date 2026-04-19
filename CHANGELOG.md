@@ -42,6 +42,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
 - live-check: passed after ~60s deploy wait
 
+### task-T1.5 — DONE — 2026-04-19T04:11:13Z
+- commit: 5a77f79
+- files: docs/script.js, docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
+- live-check: pending deploy-wait + check_live_site.py run
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

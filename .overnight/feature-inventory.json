@@ -54,5 +54,12 @@
     "selector": ".listings .event-card .event-when",
     "since_commit": "task-T1.3",
     "smoke_assertion": "selector_min_count:.event-when:10"
+  },
+  {
+    "id": "tts",
+    "name": "Web Speech API read-aloud button",
+    "selector": ".tts-button",
+    "since_commit": "task-T1.5",
+    "smoke_assertion": "selector_exists_after_expand"
   }
 ]
