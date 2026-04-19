@@ -264,6 +264,27 @@ Roadmap candidates for future scraper integration. Each entry is `venue-name (ca
 - [ ] The Museum of Human Achievement (visual_arts) — unconventional performances and installation art
 - [ ] Fusebox Festival (visual_arts) — annual festival for innovative and genre-defying work
 - [ ] dadaLab (visual_arts) — tech-art gallery and event space
+
+### Prospecting additions — 2026-04-19
+
+Sourced from `scripts/prospect_venues.py` runs against Perplexity Sonar; deduped against the seed list above. URLs are the candidate event-calendar pages reported by the prospector — verify before onboarding.
+
+- [ ] Dougherty Arts Center (visual_arts) — community arts venue hosting exhibitions and workshops with browsable online calendar — https://www.austintexas.gov/department/dougherty-arts-center/events
+- [ ] Blanton Museum of Art (visual_arts) — university museum with gallery programs and a dedicated online programs calendar — https://blantonmuseum.org/programs/
+- [ ] The Contemporary Austin (visual_arts) — major visual arts museum with exhibitions and public events on a browsable online calendar — https://thecontemporaryaustin.org/calendar/
+- [ ] Umlauf Sculpture Garden and Museum (visual_arts) — sculpture garden and museum hosting visual arts events with online calendar — https://umlaufsculpture.org/events/
+- [ ] ICOSA Collective (visual_arts) — artist collective hosting visual arts exhibitions and public events with browsable online listings — https://icosacollective.com/events/
+- [ ] Ivester Contemporary (visual_arts) — contemporary art gallery with exhibitions and events on online calendar — https://ivestercontemporary.com/events/
+- [ ] Paggi House (visual_arts) — venue hosting visual arts exhibitions open to the public with event listings — https://paggihouse.com/events
+- [ ] Neill-Cochran House Museum (visual_arts) — historic house museum with visual arts exhibitions and public receptions listed online — https://www.neillcochranhousemuseum.org/events/
+- [ ] Saxon Pub (concert) — listed in the Austin Chronicle music calendar with regular live music events — https://calendar.austinchronicle.com/austin/EventSearch?eventSection=2163369&sortType=date&v=g
+- [ ] Continental Club (concert) — popular Austin venue for live music concerts featured in online event calendars — https://calendar.austinchronicle.com/austin/EventSearch?eventSection=2163369&sortType=date&v=g
+- [ ] Mohawk (concert) — venue hosting public concerts listed in the official Austin music events calendar — https://www.austintexas.org/things-to-do/music/concerts-in-austin/
+- [ ] Sahara Lounge (concert) — intimate live music venue with events in the Austin tourism calendar — https://www.austintexas.org/things-to-do/music/concerts-in-austin/
+- [ ] Emo's Austin (concert) — iconic punk/rock concert venue with a ticketed public events calendar — https://www.ticketmaster.com/discover/austin?categoryId=KZFzniwnSyZfZ7v7nJ
+- [ ] Scoot Inn (concert) — outdoor/indoor concert space with browsable event listings — https://www.ticketmaster.com/discover/austin?categoryId=KZFzniwnSyZfZ7v7nJ
+- [ ] Empire Control Room & Garage (concert) — multi-room venue for public concerts with online Bandsintown calendar — https://www.bandsintown.com/c/austin-tx
+- [ ] Lone Star Court (concert) — hosts regular public live music events with dedicated browsable calendar — https://www.lonestarcourt.com/live-music-and-events.aspx
 <!-- venue-wishlist:end -->
 
 ## 🤝 Contributing
