@@ -83,6 +83,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: .overnight/personas/logistics-user.json, .overnight/personas/review-reader.json, .overnight/personas/search-user.json, .overnight/personas/comprehensiveness-user.json, .overnight/personas/continuity-user.json, .overnight/personas/mobile-user.json, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T3.2 — DONE — 2026-04-19T04:45:55Z
+- commit: 01993c4
+- files: scripts/persona_critique.py, tests/test_persona_critique.py, CHANGELOG.md
+- live-check: n/a (backend)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->
