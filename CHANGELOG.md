@@ -114,9 +114,15 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: passed (fast persona council, 6/6 PASS against live site)
 
 ### task-T5.2 — DONE — 2026-04-19T06:45:00Z
+- commit: 90f9e51
 - files: scripts/persona_critique.py, tests/test_persona_critique.py, docs/PERSONAS.md, CHANGELOG.md
 - live-check: n/a (backend + doc deliverable)
 - recovery: original run blocked at 05:16 on `AttributeError: 'NoneType' object has no attribute '__dict__'` — Python 3.13's `@dataclass` resolves `cls.__module__` via `sys.modules` during decoration, and `_load_check_live_site_module` called `exec_module` without registering the module first. Fix: register in `sys.modules` before exec + clean up on failure. Added regression test `test_load_check_live_site_module_registers_in_sys_modules`. Then ran full LLM council (6 Anthropic calls) against live site — all 6 personas PASS structurally; qualitative critiques captured in `docs/PERSONAS.md` flag real follow-ups (title truncation on mobile, expand affordance for reviews, search-user still wanting filter chips back, venue addresses missing from listing cards).
+
+### task-T5.3 — DONE — 2026-04-19T06:50:00Z
+- files: STATUS-2026-04-18-3.md, CHANGELOG.md
+- live-check: n/a (doc handoff)
+- notes: Morning-handoff document. Includes per-task commit SHAs (23 tasks all DONE after recovery), summary of 9 user-visible features shipped + 2 infrastructure threads, T5.2 recovery explanation, manual live-site verification checklist, 4 suggested follow-ups from the LLM council qualitative critique, cost summary (~$3-5 Anthropic + < $0.10 Perplexity), and next-run seed ideas.
 
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
