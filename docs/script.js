@@ -10,6 +10,7 @@
     other: "Other"
   };
   var MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var WEEKDAY_SHORT = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
   var picksList = document.getElementById("picks-list");
   var listingsEl = document.getElementById("listings");
@@ -129,6 +130,31 @@
     var ampm = hh >= 12 ? "PM" : "AM";
     var h12 = hh % 12 === 0 ? 12 : hh % 12;
     return h12 + ":" + m[2] + " " + ampm;
+  }
+
+  function formatTimeShort(t) {
+    if (!t) return "";
+    var m = t.match(/^(\d{1,2}):(\d{2})$/);
+    if (!m) return t;
+    var hh = parseInt(m[1], 10);
+    var ampm = hh >= 12 ? "pm" : "am";
+    var h12 = hh % 12 === 0 ? 12 : hh % 12;
+    var mm = m[2];
+    return h12 + (mm === "00" ? "" : ":" + mm) + ampm;
+  }
+
+  function formatWhen(dateStr, timeStr) {
+    if (!dateStr) return "";
+    var p = dateStr.split("-");
+    if (p.length !== 3) return dateStr + (timeStr ? " \u00b7 " + formatTimeShort(timeStr) : "");
+    var y = parseInt(p[0], 10);
+    var mo = parseInt(p[1], 10) - 1;
+    var d = parseInt(p[2], 10);
+    var dt = new Date(y, mo, d);
+    var wd = isNaN(dt.getTime()) ? "" : WEEKDAY_SHORT[dt.getDay()];
+    var datePart = (wd ? wd + ", " : "") + MONTHS_SHORT[mo] + " " + d;
+    var timePart = formatTimeShort(timeStr);
+    return timePart ? datePart + " \u00b7 " + timePart : datePart;
   }
 
   function getSearchQuery() {
@@ -462,6 +488,14 @@
       sp.push(CATEGORY_LABELS[ev.type] || ev.type.replace(/_/g, " "));
       sub.textContent = sp.join(" · ");
       col.appendChild(sub);
+
+      var firstShowing = ev.showings && ev.showings[0];
+      var whenText = firstShowing ? formatWhen(firstShowing.date, firstShowing.time) : "";
+      var when = document.createElement("div");
+      when.className = "event-when";
+      when.textContent = whenText || "Date TBA";
+      col.appendChild(when);
+
       header.appendChild(col);
 
       var arrow = document.createElement("span");

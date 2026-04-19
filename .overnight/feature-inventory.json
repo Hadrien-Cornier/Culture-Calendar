@@ -47,5 +47,12 @@
     "selector": ".top-picks .event-card .event-panel",
     "since_commit": "task-T1.2",
     "smoke_assertion": "click_then_visible"
+  },
+  {
+    "id": "card-when",
+    "name": "Date/time on listing card header",
+    "selector": ".listings .event-card .event-when",
+    "since_commit": "task-T1.3",
+    "smoke_assertion": "selector_min_count:.event-when:10"
   }
 ]
