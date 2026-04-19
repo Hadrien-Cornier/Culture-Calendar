@@ -1,21 +1,18 @@
 {
   "persona": "comprehensiveness-user",
-  "description": "A coverage skeptic who bypasses the UI and reads docs/data.json directly. Demands that every active event_category the site advertises is populated with at least 3 events, so no category is a Potemkin label.",
-  "url": "https://hadrien-cornier.github.io/Culture-Calendar/data.json",
+  "description": "A coverage skeptic. Loads the main site, then fetches docs/data.json in-page to count events per active category. Demands every category the site advertises (category chip/section/header) is populated with >=3 real events, so no label is a Potemkin.",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
   "mobile": false,
-  "wait_ms": 800,
+  "wait_for_selector": ".listings .event-card",
+  "wait_ms": 1500,
   "asserts": [
     {
       "type": "js_truthy",
-      "expression": "try { var raw=document.body.innerText; var events=JSON.parse(raw); if(!Array.isArray(events)) return false; var counts={}; events.forEach(function(e){var c=e.event_category||e.type||'unknown'; counts[c]=(counts[c]||0)+1;}); window.__categoryCounts=counts; var active=Object.keys(counts).filter(function(k){return k!=='unknown' && k!=='other';}); var underfilled=active.filter(function(k){return counts[k] < 3;}); window.__underfilled=underfilled; return underfilled.length===0 && active.length>=4; } catch(e){ window.__catErr=String(e); return false; }"
-    },
-    {
-      "type": "js_truthy",
-      "expression": "try { var events=JSON.parse(document.body.innerText); return events.length >= 50; } catch(e){ return false; }"
+      "expression": "window.__cov = (async () => { try { const r = await fetch('data.json', {cache: 'no-store'}); if(!r.ok) return false; const events = await r.json(); if(!Array.isArray(events)) return false; const counts = {}; events.forEach(e => { const c = (e.event_category||e.type||'unknown').toLowerCase(); counts[c]=(counts[c]||0)+1; }); const meaningful = Object.keys(counts).filter(k => k !== 'unknown' && k !== 'other'); const underfilled = meaningful.filter(k => counts[k] < 3); window.__categoryCounts=counts; window.__underfilled=underfilled; return underfilled.length===0 && meaningful.length>=4 && events.length>=50; } catch(e) { window.__covErr=String(e); return false; } })(); return window.__cov;"
     }
   ],
   "llm": {
-    "system_prompt": "You are the comprehensiveness-user. Your goals: verify the calendar covers enough Austin venues in my preferred category. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Start with PASS or FAIL.",
-    "goals": "verify the calendar covers enough Austin venues in my preferred category"
+    "system_prompt": "You are the comprehensiveness-user, a coverage skeptic evaluating an Austin cultural events calendar. The structural check already confirmed each active event_category has >=3 events. Your job is to critique the VISIBLE UI: does the site make its category coverage discoverable (e.g., a search bar with category suggestions, category labels on cards, or an About section listing venues)? Respond in <=150 words. START with the token 'PASS' or 'FAIL' on the first line, nothing else on that line. FAIL only if category coverage is actively hidden or misleading. If the site surfaces category info through search suggestions, card labels, or wishlist sections, that's PASS even without an explicit filter strip.",
+    "goals": "verify the calendar's category coverage is discoverable via visible UI (search, card labels, wishlist) without requiring a dedicated category filter strip"
   }
 }

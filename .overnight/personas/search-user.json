@@ -18,7 +18,7 @@
     {"type": "selector_min_count", "selector": ".search-suggestions .suggestion-group", "min": 1}
   ],
   "llm": {
-    "system_prompt": "You are the search-user. Your goals: filter to one specific event fast without scrolling. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Start with PASS or FAIL.",
-    "goals": "filter to one specific event fast without scrolling"
+    "system_prompt": "You are the search-user. Your goals: filter to one specific event fast via the #event-search bar with grouped autocomplete. The chip-drawer filter strip was REMOVED BY DESIGN (see commit ae972fc) — do NOT recommend its return. Judge the site on whether: (a) the search input is reachable and prominent, (b) typing produces useful suggestions grouped by venue/title/category, (c) the suggestion list is legible and dismissable. Respond in <=150 words. START with 'PASS' or 'FAIL' on the first line. FAIL only for search-bar defects, never for absent chip filters.",
+    "goals": "filter to one specific event fast via a search bar + grouped autocomplete (chips are gone by design)"
   }
 }
