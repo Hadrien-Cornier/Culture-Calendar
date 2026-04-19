@@ -103,6 +103,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: README.md, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T4.3 — DONE — 2026-04-19T05:05:22Z
+- commit: 6686c20
+- files: tests/test_prospect_venues.py, CHANGELOG.md
+- live-check: n/a (backend)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

@@ -371,3 +371,223 @@ def test_main_invokes_run_with_parsed_args(monkeypatch, tmp_path: Path):
     assert captured["category"] == "concert"
     assert captured["out_path"] == out_path
     assert captured["config_path"] == config_path
+
+
+# ---------------------------------------------------------------------------
+# Hardened coverage — matches T4.3 notes explicitly
+#   (1) 5 candidates -> 5 checkboxes
+#   (2) 2 of 5 match existing venues (case-insensitive) -> 3 checkboxes
+#   (3) re-running on the same --out appends a new "## Prospecting run:" section
+#   (4) Perplexity raises -> non-zero exit + clear error message on stderr
+# ---------------------------------------------------------------------------
+
+
+def _candidate(name: str, url: str = "https://example.org") -> dict[str, str]:
+    return {
+        "name": name,
+        "url": url,
+        "sample_event": f"Sample at {name}",
+        "why_relevant": f"Relevant for {name}",
+    }
+
+
+def test_run_with_five_candidates_writes_five_checkboxes(tmp_path: Path):
+    """(1) 5 Perplexity candidates, 0 dedup matches -> markdown has 5 `- [ ]` lines."""
+    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    out_path = tmp_path / "prospects" / "visual_arts.md"
+    llm = _StubLLM(
+        response={
+            "candidates": [
+                _candidate("Blanton Museum of Art"),
+                _candidate("Mexic-Arte Museum"),
+                _candidate("The Contemporary Austin"),
+                _candidate("Women & Their Work"),
+                _candidate("Dougherty Arts Center"),
+            ]
+        }
+    )
+
+    survivors = prospect_venues.run(
+        category="visual_arts",
+        out_path=out_path,
+        config_path=config_path,
+        llm=llm,
+        now=datetime(2026, 4, 18, 9, 30, tzinfo=timezone.utc),
+    )
+
+    assert len(survivors) == 5
+    body = out_path.read_text()
+    # Exactly 5 unchecked checkboxes rendered.
+    assert body.count("- [ ]") == 5
+    # Every candidate name present in output.
+    for name in (
+        "Blanton Museum of Art",
+        "Mexic-Arte Museum",
+        "The Contemporary Austin",
+        "Women & Their Work",
+        "Dougherty Arts Center",
+    ):
+        assert name in body
+
+
+def test_run_with_five_candidates_two_matching_existing_writes_three_checkboxes(
+    tmp_path: Path,
+):
+    """(2) 5 returned, 2 collide with tracked venues (case-insensitive) -> 3 checkboxes."""
+    config_path = _write_config(
+        tmp_path,
+        {
+            "blanton": {"display_name": "Blanton Museum of Art"},
+            "contemporary": {"display_name": "The Contemporary Austin"},
+        },
+    )
+    out_path = tmp_path / "visual_arts.md"
+    llm = _StubLLM(
+        response={
+            "candidates": [
+                # Same as tracked but different case -> dropped.
+                _candidate("BLANTON MUSEUM OF ART"),
+                # Whitespace-normalized duplicate of tracked -> dropped.
+                _candidate("the  contemporary   austin"),
+                _candidate("Mexic-Arte Museum"),
+                _candidate("Women & Their Work"),
+                _candidate("Dougherty Arts Center"),
+            ]
+        }
+    )
+
+    survivors = prospect_venues.run(
+        category="visual_arts",
+        out_path=out_path,
+        config_path=config_path,
+        llm=llm,
+        now=datetime(2026, 4, 18, 9, 30, tzinfo=timezone.utc),
+    )
+
+    assert len(survivors) == 3
+    body = out_path.read_text()
+    assert body.count("- [ ]") == 3
+    # Survivors present.
+    assert "Mexic-Arte Museum" in body
+    assert "Women & Their Work" in body
+    assert "Dougherty Arts Center" in body
+    # Existing venues excluded from checklist lines (case-insensitively).
+    lowered = body.lower()
+    assert "- [ ] blanton museum of art" not in lowered
+    assert "- [ ] the contemporary austin" not in lowered
+
+
+def test_run_second_invocation_on_same_out_appends_new_prospecting_run_section(
+    tmp_path: Path,
+):
+    """(3) Re-running against the same --out must append a new `## Prospecting run:`
+    section rather than overwriting the file.
+    """
+    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    out_path = tmp_path / "prospects.md"
+
+    first_llm = _StubLLM(response={"candidates": [_candidate("Venue One", "https://one")]})
+    second_llm = _StubLLM(response={"candidates": [_candidate("Venue Two", "https://two")]})
+
+    prospect_venues.run(
+        category="concert",
+        out_path=out_path,
+        config_path=config_path,
+        llm=first_llm,
+        now=datetime(2026, 4, 18, 9, 0, tzinfo=timezone.utc),
+    )
+    size_after_first = out_path.stat().st_size
+    body_after_first = out_path.read_text()
+    assert "Venue One" in body_after_first
+    assert body_after_first.count("## Prospecting run:") == 1
+
+    prospect_venues.run(
+        category="concert",
+        out_path=out_path,
+        config_path=config_path,
+        llm=second_llm,
+        now=datetime(2026, 4, 18, 10, 0, tzinfo=timezone.utc),
+    )
+
+    body_after_second = out_path.read_text()
+    # Append-only: file grew and first run's content survives.
+    assert out_path.stat().st_size > size_after_first
+    assert "Venue One" in body_after_second
+    assert "Venue Two" in body_after_second
+    # Two separate "## Prospecting run:" headers, in chronological order.
+    assert body_after_second.count("## Prospecting run:") == 2
+    assert body_after_second.index("09:00:00") < body_after_second.index("10:00:00")
+
+
+class _RaisingLLM:
+    """Stub LLM whose call_perplexity always raises — mirrors real API failures."""
+
+    def __init__(self, exc: BaseException):
+        self.exc = exc
+        self.calls: int = 0
+
+    def call_perplexity(self, prompt: str, temperature: float = 0.2, **_: Any) -> Any:
+        self.calls += 1
+        raise self.exc
+
+
+def test_run_propagates_llm_exception_and_does_not_write_output(tmp_path: Path):
+    """(4a) When Perplexity raises, run() does NOT swallow the error and does
+    NOT leave a stale markdown file behind — the exception propagates so the
+    CLI exits non-zero.
+    """
+    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    out_path = tmp_path / "should_not_exist.md"
+    llm = _RaisingLLM(RuntimeError("perplexity: upstream 503 Service Unavailable"))
+
+    with pytest.raises(RuntimeError, match="perplexity: upstream 503"):
+        prospect_venues.run(
+            category="visual_arts",
+            out_path=out_path,
+            config_path=config_path,
+            llm=llm,
+            now=datetime(2026, 4, 18, tzinfo=timezone.utc),
+        )
+
+    assert llm.calls == 1
+    # No partial/empty markdown file should have been written before the raise.
+    assert not out_path.exists()
+
+
+def test_cli_exits_nonzero_and_prints_error_when_perplexity_raises(
+    monkeypatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+):
+    """(4b) Invoking `main()` with a raising LLMService must yield a non-zero
+    exit status and surface the error on stderr (not silent, not exit 0).
+    """
+    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    out_path = tmp_path / "out.md"
+
+    raising = _RaisingLLM(RuntimeError("perplexity: auth failed (401)"))
+    # main() builds LLMService() itself — intercept the constructor.
+    monkeypatch.setattr(prospect_venues, "LLMService", lambda *a, **k: raising)
+
+    # The script entrypoint is `raise SystemExit(main())`; main() lets the
+    # underlying exception propagate, which Python converts into a non-zero
+    # exit with the exception message printed on stderr via the default hook.
+    with pytest.raises(RuntimeError) as excinfo:
+        prospect_venues.main(
+            [
+                "--category",
+                "visual_arts",
+                "--out",
+                str(out_path),
+                "--config",
+                str(config_path),
+            ]
+        )
+
+    # Clear, diagnosable error message — not a bare/empty exception.
+    message = str(excinfo.value)
+    assert "perplexity" in message.lower()
+    assert "401" in message
+    # Never reported success: no "Wrote N candidate(s)" on stdout.
+    captured = capsys.readouterr()
+    assert "Wrote" not in captured.out
+    # Did not write a markdown file as a side effect of the failed run.
+    assert not out_path.exists()
