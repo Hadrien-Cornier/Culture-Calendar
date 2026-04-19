@@ -1,3 +1,37 @@
+/**
+ * Culture-Calendar frontend.
+ *
+ * Single IIFE renders the static GitHub Pages site. No framework, no
+ * bundler — everything runs directly in the browser from this file.
+ * All data comes from ``docs/data.json`` (written by
+ * ``update_website_data.py`` server-side).
+ *
+ * Module layout (by line number):
+ *
+ *   11-55   Constants, DOM refs, state.
+ *   60-165  Data loading, occurrence expansion, merge-across-venues.
+ *   166-215 Grouping (groupEvents, dedupeShowings).
+ *   217-245 Rating + review parsing helpers.
+ *   247-285 Date/time formatters.
+ *   287-336 Search + filter (getSearchQuery, matchesQuery, filterEvents).
+ *   338-449 Search UI (suggestions dropdown + autocomplete).
+ *   451-584 Top-picks renderer (buildPickCard, renderPicks).
+ *   585-705 Merit-listings renderer (buildListingCard, renderListings).
+ *   706-735 "Pending more research" bucket for low-confidence reviews.
+ *   740+    Read-aloud (Web Speech API) handlers + bootstrap.
+ *
+ * Feature inventory: every CSS selector this module depends on must
+ * be mirrored in ``.overnight/feature-inventory.json`` so the
+ * continuity-user persona catches silent regressions. See
+ * ``CLAUDE.md §Feature Inventory`` and ``AGENTS.md §Invariants``.
+ *
+ * When changing UX here:
+ * - Update or add an inventory entry in the same commit.
+ * - Run ``scripts/check_live_site.py`` against the updated site for
+ *   selector-level regression checks.
+ * - For architectural changes, tag the commit ``[persona-gate]`` so
+ *   the pre-push hook runs the LLM council (see ``.githooks/pre-push``).
+ */
 (function () {
   "use strict";
 
