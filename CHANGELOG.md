@@ -68,6 +68,11 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: n/a (backend)
 - note: cache-aware re-rate of refusal-shaped cached entries is already implemented in src/processor.py:288-292 (from commit 65bf010, 2026-04-14). This task adds regression tests that guarantee (a) refusal-shaped cached summaries trigger re-processing via _get_ai_rating and (b) legitimate low-score cached reviews are served from cache without churn.
 
+### task-T2.5 — DONE — 2026-04-19T04:32:59Z
+- commit: 56b6120
+- files: docs/index.html, docs/script.js, docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
+- live-check: pending deploy-wait + check_live_site.py run
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

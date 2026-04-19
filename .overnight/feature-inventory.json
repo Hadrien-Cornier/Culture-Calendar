@@ -61,5 +61,12 @@
     "selector": ".tts-button",
     "since_commit": "task-T1.5",
     "smoke_assertion": "selector_exists_after_expand"
+  },
+  {
+    "id": "needs-research",
+    "name": "Pending more research section",
+    "selector": ".needs-research-section",
+    "since_commit": "task-T2.5",
+    "smoke_assertion": "selector_exists_if_low_conf_events"
   }
 ]

@@ -177,9 +177,12 @@
           url: ev.url || "",
           description: ev.description || "",
           one_liner: ev.one_liner_summary || "",
+          review_confidence: (ev.review_confidence || "unknown").toLowerCase(),
           showings: []
         };
         order.push(key);
+      } else if ((ev.review_confidence || "").toLowerCase() === "low") {
+        byTitle[key].review_confidence = "low";
       }
       var entry = byTitle[key];
       var screenings = ev.screenings || [];
@@ -311,18 +314,25 @@
   function renderAll() {
     var filtered = filterEvents(allEvents);
     var grouped = groupEvents(filtered);
+    var needsResearch = [];
+    var merit = [];
+    grouped.forEach(function (ev) {
+      if (ev.review_confidence === "low") needsResearch.push(ev);
+      else merit.push(ev);
+    });
     var now = new Date();
     now.setHours(0, 0, 0, 0);
     var cap = new Date(now);
     cap.setDate(cap.getDate() + 7);
-    var thisWeek = grouped.filter(function (ev) {
+    var thisWeek = merit.filter(function (ev) {
       if (!ev.showings || !ev.showings[0]) return false;
       var p = ev.showings[0].date.split("-");
       var d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
       return d >= now && d < cap;
     });
     renderPicks(thisWeek.slice(0, 10));
-    renderListings(grouped);
+    renderListings(merit);
+    renderNeedsResearch(needsResearch);
   }
 
   function initSearch() {
@@ -572,6 +582,127 @@
     return card;
   }
 
+  function buildListingCard(ev) {
+    var card = document.createElement("article");
+    card.className = "event-card";
+    var header = document.createElement("div");
+    header.className = "event-header";
+    var badge = document.createElement("span");
+    badge.className = "event-rating-badge rating-" + ratingClass(ev.rating);
+    badge.textContent = ev.rating > 0 ? ev.rating + " / 10" : "—";
+    badge.setAttribute("aria-label", "rated " + ev.rating + " out of 10");
+    header.appendChild(badge);
+
+    var col = document.createElement("div");
+    col.className = "event-title-col";
+    var title = document.createElement("div");
+    title.className = "event-title-text";
+    if (ev.url) {
+      var a = document.createElement("a");
+      a.href = ev.url; a.target = "_blank"; a.rel = "noopener";
+      a.className = "event-title-link";
+      a.textContent = ev.title;
+      a.addEventListener("click", function (e) { e.stopPropagation(); });
+      title.appendChild(a);
+    } else { title.textContent = ev.title; }
+    col.appendChild(title);
+
+    var sub = document.createElement("div");
+    sub.className = "event-subtitle";
+    var sp = [];
+    if (ev.venue) sp.push(ev.venue);
+    sp.push(CATEGORY_LABELS[ev.type] || ev.type.replace(/_/g, " "));
+    sub.textContent = sp.join(" · ");
+    col.appendChild(sub);
+
+    var firstShowing = ev.showings && ev.showings[0];
+    var whenText = firstShowing ? formatWhen(firstShowing.date, firstShowing.time) : "";
+    var when = document.createElement("div");
+    when.className = "event-when";
+    when.textContent = whenText || "Date TBA";
+    col.appendChild(when);
+
+    header.appendChild(col);
+
+    var arrow = document.createElement("span");
+    arrow.className = "expand-indicator";
+    arrow.textContent = "▶";
+    arrow.setAttribute("aria-hidden", "true");
+    header.appendChild(arrow);
+    card.appendChild(header);
+
+    var panel = document.createElement("div");
+    panel.className = "event-panel";
+    if (ev.one_liner) {
+      var ol = document.createElement("p");
+      ol.className = "event-oneliner";
+      ol.textContent = ev.one_liner;
+      panel.appendChild(ol);
+    }
+    var parsed = parseReview(ev.description);
+    if (parsed.sections.length > 0) {
+      var reviewWrap = document.createElement("div");
+      reviewWrap.className = "event-review";
+      parsed.sections.forEach(function (sec, idx) {
+        var sectionEl = document.createElement("section");
+        sectionEl.className = idx === 0
+          ? "event-review-section event-review-first"
+          : "event-review-section";
+        if (sec.label) {
+          var h = document.createElement("h4");
+          h.className = "event-review-heading";
+          if (sec.emoji) {
+            var em = document.createElement("span");
+            em.className = "event-review-emoji";
+            em.setAttribute("aria-hidden", "true");
+            em.textContent = sec.emoji + " ";
+            h.appendChild(em);
+          }
+          h.appendChild(document.createTextNode(sec.label));
+          sectionEl.appendChild(h);
+        }
+        var bodyP = document.createElement("p");
+        bodyP.className = "event-review-body";
+        bodyP.textContent = sec.body;
+        sectionEl.appendChild(bodyP);
+        reviewWrap.appendChild(sectionEl);
+      });
+      panel.appendChild(reviewWrap);
+    } else if (ev.description) {
+      var flat = ev.description.replace(/<[^>]*>/g, "");
+      if (flat && flat !== ev.one_liner) {
+        var p = document.createElement("p");
+        p.className = "event-review-body";
+        p.textContent = flat;
+        panel.appendChild(p);
+      }
+    }
+    var listingTtsBtn = tts.createButton(ev);
+    if (listingTtsBtn) {
+      var listingTtsSlot = document.createElement("div");
+      listingTtsSlot.className = "event-tts-slot";
+      listingTtsSlot.appendChild(listingTtsBtn);
+      panel.appendChild(listingTtsSlot);
+    }
+    if (panel.childNodes.length > 0) card.appendChild(panel);
+
+    header.setAttribute("role", "button");
+    header.setAttribute("tabindex", "0");
+    header.setAttribute("aria-expanded", "false");
+    header.addEventListener("click", function () {
+      var exp = card.classList.toggle("is-expanded");
+      header.setAttribute("aria-expanded", exp ? "true" : "false");
+    });
+    header.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); header.click(); }
+      if (e.key === "Escape" && card.classList.contains("is-expanded")) {
+        card.classList.remove("is-expanded");
+        header.setAttribute("aria-expanded", "false");
+      }
+    });
+    return card;
+  }
+
   function renderListings(events) {
     listingsEl.innerHTML = "<h2 class=\"listings-heading\">COMPLETE EVENTS — BY MERIT</h2>";
     if (events.length === 0) {
@@ -582,126 +713,33 @@
       return;
     }
     var frag = document.createDocumentFragment();
-    events.forEach(function (ev) {
-      var card = document.createElement("article");
-      card.className = "event-card";
-      var header = document.createElement("div");
-      header.className = "event-header";
-      var badge = document.createElement("span");
-      badge.className = "event-rating-badge rating-" + ratingClass(ev.rating);
-      badge.textContent = ev.rating > 0 ? ev.rating + " / 10" : "—";
-      badge.setAttribute("aria-label", "rated " + ev.rating + " out of 10");
-      header.appendChild(badge);
-
-      var col = document.createElement("div");
-      col.className = "event-title-col";
-      var title = document.createElement("div");
-      title.className = "event-title-text";
-      if (ev.url) {
-        var a = document.createElement("a");
-        a.href = ev.url; a.target = "_blank"; a.rel = "noopener";
-        a.className = "event-title-link";
-        a.textContent = ev.title;
-        a.addEventListener("click", function (e) { e.stopPropagation(); });
-        title.appendChild(a);
-      } else { title.textContent = ev.title; }
-      col.appendChild(title);
-
-      var sub = document.createElement("div");
-      sub.className = "event-subtitle";
-      var sp = [];
-      if (ev.venue) sp.push(ev.venue);
-      sp.push(CATEGORY_LABELS[ev.type] || ev.type.replace(/_/g, " "));
-      sub.textContent = sp.join(" · ");
-      col.appendChild(sub);
-
-      var firstShowing = ev.showings && ev.showings[0];
-      var whenText = firstShowing ? formatWhen(firstShowing.date, firstShowing.time) : "";
-      var when = document.createElement("div");
-      when.className = "event-when";
-      when.textContent = whenText || "Date TBA";
-      col.appendChild(when);
-
-      header.appendChild(col);
-
-      var arrow = document.createElement("span");
-      arrow.className = "expand-indicator";
-      arrow.textContent = "▶";
-      arrow.setAttribute("aria-hidden", "true");
-      header.appendChild(arrow);
-      card.appendChild(header);
-
-      var panel = document.createElement("div");
-      panel.className = "event-panel";
-      if (ev.one_liner) {
-        var ol = document.createElement("p");
-        ol.className = "event-oneliner";
-        ol.textContent = ev.one_liner;
-        panel.appendChild(ol);
-      }
-      var parsed = parseReview(ev.description);
-      if (parsed.sections.length > 0) {
-        var reviewWrap = document.createElement("div");
-        reviewWrap.className = "event-review";
-        parsed.sections.forEach(function (sec, idx) {
-          var sectionEl = document.createElement("section");
-          sectionEl.className = idx === 0
-            ? "event-review-section event-review-first"
-            : "event-review-section";
-          if (sec.label) {
-            var h = document.createElement("h4");
-            h.className = "event-review-heading";
-            if (sec.emoji) {
-              var em = document.createElement("span");
-              em.className = "event-review-emoji";
-              em.setAttribute("aria-hidden", "true");
-              em.textContent = sec.emoji + " ";
-              h.appendChild(em);
-            }
-            h.appendChild(document.createTextNode(sec.label));
-            sectionEl.appendChild(h);
-          }
-          var bodyP = document.createElement("p");
-          bodyP.className = "event-review-body";
-          bodyP.textContent = sec.body;
-          sectionEl.appendChild(bodyP);
-          reviewWrap.appendChild(sectionEl);
-        });
-        panel.appendChild(reviewWrap);
-      } else if (ev.description) {
-        var flat = ev.description.replace(/<[^>]*>/g, "");
-        if (flat && flat !== ev.one_liner) {
-          var p = document.createElement("p");
-          p.className = "event-review-body";
-          p.textContent = flat;
-          panel.appendChild(p);
-        }
-      }
-      var listingTtsBtn = tts.createButton(ev);
-      if (listingTtsBtn) {
-        var listingTtsSlot = document.createElement("div");
-        listingTtsSlot.className = "event-tts-slot";
-        listingTtsSlot.appendChild(listingTtsBtn);
-        panel.appendChild(listingTtsSlot);
-      }
-      if (panel.childNodes.length > 0) card.appendChild(panel);
-
-      header.setAttribute("role", "button");
-      header.setAttribute("tabindex", "0");
-      header.setAttribute("aria-expanded", "false");
-      header.addEventListener("click", function () {
-        var exp = card.classList.toggle("is-expanded");
-        header.setAttribute("aria-expanded", exp ? "true" : "false");
-      });
-      header.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); header.click(); }
-        if (e.key === "Escape" && card.classList.contains("is-expanded")) {
-          card.classList.remove("is-expanded");
-          header.setAttribute("aria-expanded", "false");
-        }
-      });
-      frag.appendChild(card);
-    });
+    events.forEach(function (ev) { frag.appendChild(buildListingCard(ev)); });
     listingsEl.appendChild(frag);
+  }
+
+  function renderNeedsResearch(events) {
+    var host = document.getElementById("needs-research");
+    if (!host) return;
+    host.innerHTML = "";
+    var details = document.createElement("details");
+    details.className = "needs-research-section";
+    var summary = document.createElement("summary");
+    summary.className = "needs-research-summary";
+    summary.textContent = "Pending more research — light evidence available (" + events.length + " events)";
+    details.appendChild(summary);
+    var body = document.createElement("div");
+    body.className = "needs-research-body";
+    if (events.length === 0) {
+      var note = document.createElement("p");
+      note.className = "needs-research-empty";
+      note.textContent = "No low-confidence reviews in this filter.";
+      body.appendChild(note);
+    } else {
+      var frag = document.createDocumentFragment();
+      events.forEach(function (ev) { frag.appendChild(buildListingCard(ev)); });
+      body.appendChild(frag);
+    }
+    details.appendChild(body);
+    host.appendChild(details);
   }
 })();
