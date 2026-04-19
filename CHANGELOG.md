@@ -52,6 +52,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: src/processor.py, tests/test_review_confidence.py, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T2.2 — DONE — 2026-04-19T04:21:33Z
+- commit: a10954d
+- files: config/master_config.yaml, CHANGELOG.md
+- live-check: n/a (backend)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

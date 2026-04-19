@@ -44,6 +44,7 @@ templates:
       - url
       - venue
       - screenings
+      - review_confidence
     required_on_publish:
       - title
       - dates
@@ -57,6 +58,11 @@ templates:
       - country
       - screenings
     field_definitions:
+      review_confidence:
+        type: string
+        default: "unknown"
+        required: false
+        description: "Confidence of the AI-generated review: low | medium | high | unknown."
       screenings:
         type: array
         description: "Array of specific event screenings. Generated from dates/times arrays."
@@ -98,6 +104,7 @@ templates:
       - url
       - venue
       - screenings
+      - review_confidence
     required_on_publish:
       - title
       - dates
@@ -109,6 +116,11 @@ templates:
       - author
       - screenings
     field_definitions:
+      review_confidence:
+        type: string
+        default: "unknown"
+        required: false
+        description: "Confidence of the AI-generated review: low | medium | high | unknown."
       title:
         type: string
         description: "Format as '[Series Name] - [Book Title]' (e.g., 'NYRB Book Club - Nightmare Alley'). Extract the series name from headers and combine with the book title."
@@ -189,6 +201,7 @@ templates:
       - description
       - url
       - screenings
+      - review_confidence
     required_on_publish:
       - title
       - dates
@@ -199,6 +212,11 @@ templates:
       - program
       - screenings
     field_definitions:
+      review_confidence:
+        type: string
+        default: "unknown"
+        required: false
+        description: "Confidence of the AI-generated review: low | medium | high | unknown."
       screenings:
         type: array
         description: "Array of specific event screenings. Generated from dates/times arrays."
@@ -240,6 +258,7 @@ templates:
       - description
       - url
       - screenings
+      - review_confidence
     required_on_publish:
       - title
       - dates
@@ -250,6 +269,11 @@ templates:
       - program
       - screenings
     field_definitions:
+      review_confidence:
+        type: string
+        default: "unknown"
+        required: false
+        description: "Confidence of the AI-generated review: low | medium | high | unknown."
       screenings:
         type: array
         description: "Array of specific event screenings. Generated from dates/times arrays."
@@ -288,6 +312,7 @@ templates:
       - description
       - url
       - screenings
+      - review_confidence
     required_on_publish:
       - title
       - dates
@@ -298,6 +323,11 @@ templates:
       - program
       - screenings
     field_definitions:
+      review_confidence:
+        type: string
+        default: "unknown"
+        required: false
+        description: "Confidence of the AI-generated review: low | medium | high | unknown."
       screenings:
         type: array
         description: "Array of specific event screenings. Generated from dates/times arrays."
@@ -338,6 +368,7 @@ templates:
       - description
       - url
       - screenings
+      - review_confidence
     required_on_publish:
       - title
       - dates
@@ -349,6 +380,11 @@ templates:
       - description
       - screenings
     field_definitions:
+      review_confidence:
+        type: string
+        default: "unknown"
+        required: false
+        description: "Confidence of the AI-generated review: low | medium | high | unknown."
       title:
         type: string
         description: "Title of the exhibition, installation, or visual arts event."
@@ -415,6 +451,7 @@ templates:
       - description
       - url
       - screenings
+      - review_confidence
     required_on_publish:
       - title
       - dates
@@ -425,6 +462,11 @@ templates:
       - venue
       - screenings
     field_definitions:
+      review_confidence:
+        type: string
+        default: "unknown"
+        required: false
+        description: "Confidence of the AI-generated review: low | medium | high | unknown."
       screenings:
         type: array
         description: "Array of specific event screenings. Generated from dates/times arrays."
@@ -464,6 +506,7 @@ field_defaults:
   language: "English"
   url: ""
   venue: ""
+  review_confidence: "unknown"
 
 venues:
   afs:
