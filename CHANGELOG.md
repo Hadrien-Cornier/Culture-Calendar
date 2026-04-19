@@ -1,5 +1,14 @@
 # CHANGELOG
 
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
+## Overnight run — 2026-04-18-3
+
+Runner: `overnight-plan` skill, push-per-task variant. Branch: `main` (direct commits/pushes; docs/ tasks also live-checked, backend tasks skip deploy-wait). Goal: replace chip-drawer with search bar, expose reviews on Top Picks, show date/time on listing cards, raise one-liner contrast, restore TTS, add `review_confidence` signal + "needs more research" bucket, build a 6-persona council verification harness, seed a venue prospecting pipeline. Full spec in `CLAUDE.md` §Overnight run — 2026-04-18-3.
+
+Task entries (appended after each DONE commit) follow below.
+
+<!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
+
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->
 ## Overnight run — 2026-04-18-2
 

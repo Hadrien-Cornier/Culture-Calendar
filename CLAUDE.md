@@ -626,3 +626,151 @@ On BLOCKED (revert committed):
 - **T5.2** — `STATUS-2026-04-18-2.md` handoff
 
 <!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
+
+<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
+## Overnight run — 2026-04-18-3
+
+> **AUTONOMOUS RUN — do not edit while running.**
+> Owner: HCornier · Branch: `main` (direct commits/pushes) · Deadline: 2026-04-19T18:00:00 local (24h safety cap)
+> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`. Date tag: `2026-04-18-3`.
+
+### Why this run exists
+
+The 2026-04-18-2 merge fixed 5 regressions from the v12i promotion, but the user pushed back with **deeper structural issues**:
+
+1. **Filter chips cluttered** — wants a search bar with autocomplete on venues / titles / categories instead.
+2. **Top Picks aren't readable** — can't click through to see the AI review for a recommended event.
+3. **Merit listings hide logistics** — date/time only visible after clicking expand.
+4. **Unfair low ratings** — movies with sparse Perplexity sources score low because the model defaults to 5/10 on thin evidence; no surface for "we couldn't research this well."
+5. **One-liner contrast too low** — italic `#d4a574` on white (~2.8:1) fails WCAG AA.
+6. **Read-aloud TTS regression** — added in `986877e` (2026-04-18 T4.1), silently removed in `c45fdfd` (2026-04-19 v12i promotion). Same pattern as the About section.
+7. **No persona-driven critique** — every overnight run rediscovers regressions by hand.
+8. **No feature inventory** — features get dropped silently during redesigns.
+9. **No venue prospecting** — visual_arts has 8 events from one aggregator; user wants Perplexity-driven discovery.
+
+### Goal / definition of done
+
+- Search bar replaces chip drawer; typing filters listings + shows grouped suggestions
+- Top Pick cards expand to reveal the AI review on click
+- Merit-listing cards show date/time on the header line (no click needed)
+- One-liner contrast ≥ WCAG AA 4.5:1
+- Read-aloud button present inside every expanded review panel, calling `window.speechSynthesis`
+- `review_confidence: low | medium | high | unknown` field on every event; low-confidence events render in a separate collapsed "Pending more research" section
+- 6 persona spec files under `.overnight/personas/` AND `scripts/persona_critique.py` that runs them (default = full LLM council, `--fast` = DOM-asserts only)
+- `.overnight/feature-inventory.json` committed; per-task discipline requires each feature task append its own entry
+- `README.md` "Venue Wishlist" section seeded with roadmap candidates; Phase 4 appends Perplexity-discovered additions
+- `docs/PERSONAS-fast.md` + `docs/PERSONAS.md` scorecards committed
+- `STATUS-2026-04-18-3.md` handoff written
+
+### Hard constraints
+
+- **Branch `main` direct.** User authorized per-task pushes to main because every fix must be verifiable against the live site. Never `git reset --hard`, `git push --force`, or rewrite history.
+- Each task that touches `docs/`: commit → push → wait for GH Pages → live-check → if check fails, `git revert HEAD --no-edit` + push + BLOCK. Backend tasks (`src/`, `scripts/`, `tests/`, `config/`) push without deploy-wait since they don't change the served site directly.
+- No new Python or JS deps. No `pip install` / `npm install`.
+- No interactive prompts. No `--no-verify`.
+- Git identity: every commit (including reverts) via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
+- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or `.overnight/<working-files>` (`.overnight/queue.tsv`, `.overnight/runner-prompt.txt`, `.overnight/events.log`, `.overnight/task-result.json`, `.overnight/check-*.json`, `.overnight/task-*.log`, `.overnight/archive-*/`, `.overnight/venue-prospects/`). The ONLY committed subpaths under `.overnight/` are `.overnight/personas/` and `.overnight/feature-inventory.json` — these are persistent across runs.
+- **Scope fence**: `docs/` (index.html/script.js/styles.css/ABOUT.md/PERSONAS.md/PERSONAS-fast.md), `src/processor.py`, `scripts/check_live_site.py`, `scripts/persona_critique.py`, `scripts/prospect_venues.py`, `tests/test_review_confidence.py`, `tests/test_persona_critique.py`, `tests/test_prospect_venues.py`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-18-3.md`, `README.md` (Venue Wishlist append only), `.overnight/personas/*.json`, `.overnight/feature-inventory.json`. Nothing else without BLOCK-and-ask.
+- **Do NOT edit `docs/variants/v12i/`** — that's the archival variant; live `docs/*` is a sibling copy.
+- **GitNexus impact analysis MANDATORY** before editing `src/processor.py`, `update_website_data.py`, `src/scrapers/__init__.py`, `src/scraper.py`.
+
+### Feature-inventory discipline (NEW)
+
+Every task that adds a user-visible feature MUST append its entry to `.overnight/feature-inventory.json` BEFORE committing. Entry shape:
+
+```json
+{"id": "<slug>", "name": "<human name>", "selector": "<CSS selector>", "since_commit": "<this-commit>", "smoke_assertion": "<selector_exists | click_then_visible | js_truthy:...>"}
+```
+
+The continuity-user persona reads this file on every future run and asserts each listed selector still resolves on the live site. Omitting the append step is the same regression pattern that deleted TTS and About; this discipline is the enforcement mechanism.
+
+### Validation oracle (before every commit)
+
+```
+.venv/bin/python -m pytest -q
+```
+
+Must exit 0 locally. The per-task `validate` from queue.tsv runs AFTER push + deploy-wait (docs/ tasks) or directly as the per-task oracle (backend tasks). Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle — pre-existing red items.
+
+### Deploy-wait discipline (docs/ tasks only)
+
+After `git push origin main`, poll a file changed in the push at `https://hadrien-cornier.github.io/Culture-Calendar/<file>` every 15-20s until served content matches pushed content. Timeout 5 min → BLOCKED `deploy-timeout`. Each task adds at least one unique string that can be grepped during the poll.
+
+Backend tasks (no `docs/` changes) skip deploy-wait; their validate command runs immediately after push.
+
+### Revert protocol (when live-check fails on docs/ tasks)
+
+```
+git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com revert HEAD --no-edit
+git push origin main
+# wait for deploy
+# re-run validate to confirm site is stable after revert
+```
+
+Then BLOCKED with reason explaining why validate failed.
+
+### Commit cadence + changelog
+
+One DONE commit per task (plus possibly 1 revert commit on failure). Message format: `<type>(task-<ID>): <TITLE>`. Append CHANGELOG entry inside today's fence:
+
+```
+### task-<ID> — DONE — <ISO timestamp>
+- commit: <sha>
+- files: <comma-separated>
+- live-check: <passed after Ns | n/a (backend)>
+```
+
+On BLOCKED (revert committed):
+
+```
+### task-<ID> — BLOCKED — <ISO timestamp>
+- attempted: <original-sha>
+- reverted: <revert-sha>
+- reason: <one-line>
+```
+
+### Stop conditions
+
+- All queue tasks DONE → `RUN_COMPLETE`
+- Deadline 2026-04-19T18:00:00 local → `RUN_HALTED: deadline`
+- 3 consecutive BLOCKED → `RUN_HALTED: consecutive-blockers`
+- `STATUS.md` contains `HALT` → `RUN_HALTED: manual`
+
+### Task queue (human view; source of truth is `.overnight/queue.tsv`)
+
+**Phase 0 — inventory + wishlist seeds (backend)**
+- **T0.1** — Seed `.overnight/feature-inventory.json` with currently-live features + add Feature Inventory section to CLAUDE.md
+- **T0.2** — Seed `## Venue Wishlist` section in README.md from existing Phase 4/8 roadmap
+
+**Phase 1 — user-visible UX (docs/ — live-checked)**
+- **T1.1a** — Remove chip-drawer filter sheet entirely
+- **T1.1b** — Add search bar + grouped suggestions in masthead
+- **T1.2** — Make Top Picks cards expandable with review
+- **T1.3** — Show date/time on merit-listing card headers
+- **T1.4** — Raise one-liner text contrast to WCAG AA
+- **T1.5** — Restore TTS Read-aloud button in expanded reviews
+
+**Phase 2 — review_confidence backend + UI bucket**
+- **T2.1** — Add `review_confidence` signal in `_parse_ai_response`
+- **T2.2** — Add `review_confidence` field to all category templates
+- **T2.3** — Expose `review_confidence` in event JSON builder
+- **T2.4** — Cache-aware re-rate of refusal-shaped cached entries
+- **T2.5** — Render "Pending more research" section for low-confidence reviews
+- **T2.6** — Harden review_confidence test coverage
+
+**Phase 3 — persona council framework**
+- **T3.1** — Write 6 persona spec files under `.overnight/personas/`
+- **T3.2** — Build `scripts/persona_critique.py` (LLM council default, `--fast` flag)
+- **T3.3** — Extend personas with LLM framing (goals + system_prompt)
+
+**Phase 4 — Perplexity venue prospecting (drafts only)**
+- **T4.1** — Build `scripts/prospect_venues.py`
+- **T4.2** — Run prospector for visual_arts + concert, append to README wishlist
+- **T4.3** — Harden prospector test coverage
+
+**Phase 5 — gate + handoff**
+- **T5.1** — Final structural gate (fast persona council)
+- **T5.2** — Full LLM persona council critique (6 Anthropic calls, ~$0.50)
+- **T5.3** — Write `STATUS-2026-04-18-3.md` handoff
+
+<!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
