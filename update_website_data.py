@@ -1,8 +1,70 @@
 #!/usr/bin/env python3
-"""
-Website data updater for Culture Calendar
-Generates JSON data for the GitHub Pages website
-Supports multiple venues: AFS, Hyperreal Movie Club, Paramount Theatre, and others
+"""Pipeline entry point — scrape, enrich, rate, summarize, publish.
+
+This is the single script you run to regenerate ``docs/data.json``.
+It threads together every piece of the ``src/`` package into one
+serial pipeline. See ``AGENTS.md §Pipeline map`` for the full
+end-to-end diagram.
+
+**CLI flags**
+
+``--test-week``
+    Only include events in the next 7 days. Fastest smoke run; skips
+    most of the season-length static JSON venues.
+``--force-reprocess``
+    Ignore the rating cache (``docs/data.json`` as self-cache);
+    re-calls Perplexity / Claude for every event. Use sparingly —
+    a full run is ~40 min + real money.
+``--validate``
+    Wire ``src.validation_service.EventValidationService`` in
+    fail-fast mode: if systematic scraper failures are detected
+    (e.g., a venue returns zero events when it historically had
+    hundreds), abort before enrichment so bad data doesn't land on
+    the live site.
+
+**Pipeline sequence in this file**
+
+1. Parse args, load ``config/master_config.yaml``.
+2. ``MultiVenueScraper.scrape_all_venues()`` →
+   normalized events.
+3. Optional validation pass.
+4. ``EnrichmentLayer.run_enrichment()`` on each event (classification
+   + missing-field extraction).
+5. ``EventProcessor.process_events()`` → AI ratings + reviews.
+6. ``SummaryGenerator.generate_summaries()`` → one-liner hooks.
+7. :func:`build_event_from_template` per event → JSON-serializable
+   shape matching ``config/master_config.yaml`` templates.
+8. :func:`finalize_website_data` → grouped/deduped final list.
+9. Write ``docs/data.json`` + ``docs/source_update_times.json``.
+
+**AI-smell filter** (``BANNED_PHRASES``, :func:`strip_banned_phrases`)
+
+A hand-curated list of words and phrases that scream "LLM generated
+review" (``haunting``, ``masterfully``, ``visceral``, ``resonates
+deeply``, etc.). Applied to descriptions as a post-processing pass
+to keep review prose sounding human. Additions should follow the
+existing word-boundary regex pattern (see ``BANNED_RE``).
+
+**Companion-event merge** (:func:`_merge_companion_events`)
+
+Some venues list "Film + Q&A" or "Film + Reception" as separate
+events. This function merges them into one card so the frontend
+doesn't show duplicates. Heuristic: same date, overlapping title
+prefix (≥80%), same venue. Override via the venue's policy if the
+heuristic picks up false positives.
+
+**Critical files this imports from**
+
+- :mod:`src.scraper` — venue orchestrator.
+- :mod:`src.enrichment_layer` — classification + field extraction.
+- :mod:`src.processor` — AI ratings + reviews.
+- :mod:`src.summary_generator` — one-liners.
+- :mod:`src.validation_service` — health check.
+- :mod:`src.config_loader` — template + policy loader.
+
+Run ``gitnexus_impact`` on :func:`build_event_from_template` before
+editing — its output shape is the contract the frontend reads from
+``docs/data.json``.
 """
 
 import argparse

@@ -1,8 +1,43 @@
-"""
-Phase Two: Config-driven Classification and Enrichment Layer
+"""Phase Two of the scraping pipeline — classification + field extraction.
 
-This module implements deterministic classification and enrichment of events
-after normalization (Phase One), following strict config-driven policies.
+Runs AFTER normalization (each scraper's ``format_event``) and BEFORE
+rating (:mod:`src.processor`). Two responsibilities, both LLM-driven
+but bounded by ``config/master_config.yaml`` policies:
+
+1. **Classification** — when a venue's policy doesn't hard-code an
+   ``event_category``, ask the LLM to pick one of
+   ``movie | concert | book_club | opera | dance | visual_arts | other``
+   based on title, description, venue. Abstains (returns None) when
+   confidence is low; the caller decides whether to drop the event or
+   flag it. Only runs if ``classification: enabled: true`` in the
+   venue's policy.
+
+2. **Field extraction** — for missing required fields in the event's
+   category template (e.g., ``director`` on a movie), ask the LLM to
+   fill them. **Evidence-validated**: every extracted field must come
+   with a verbatim source snippet; the validator rejects
+   hallucinated fields silently.
+
+This layer never downgrades a scraper's pre-filled data — it only
+fills gaps. Scrapers that already know the full shape (static JSON
+venues like Austin Symphony) skip enrichment entirely.
+
+**Telemetry** — :attr:`EnrichmentLayer.telemetry` accumulates
+counters (``classifications``, ``abstentions``, ``fields_accepted``,
+``fields_rejected``, ``missing_required``, ``enrichment_failures``)
+that ``update_website_data.py`` logs after each run. Useful for
+spotting drift: if ``fields_rejected`` spikes, the LLM started
+hallucinating and needs a prompt tightening.
+
+**Difference from :mod:`src.processor`** — enrichment fills
+*structured* fields (director, composer, runtime), processor
+produces *critic-style prose* (rating + review). Same LLM
+infrastructure (:mod:`src.llm_service`), different prompts, different
+success criteria.
+
+High-impact: changes to :class:`EnrichmentLayer.run_enrichment`
+affect every enriched event in the pipeline. Run ``gitnexus_impact``
+before editing.
 """
 
 import json
