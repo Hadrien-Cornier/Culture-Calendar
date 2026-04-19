@@ -113,12 +113,28 @@ def run_check_live_site(
 
 
 def _load_check_live_site_module() -> Any:
-    """Import sibling ``check_live_site.py`` without requiring a package."""
+    """Import sibling ``check_live_site.py`` without requiring a package.
+
+    Registers the module in ``sys.modules`` before ``exec_module`` because
+    Python 3.13's ``@dataclass`` resolves ``cls.__module__`` through
+    ``sys.modules`` during decoration — without the registration, the
+    decorator raises ``AttributeError: 'NoneType' object has no attribute
+    '__dict__'`` at import time.
+    """
+    module_name = "_check_live_site"
+    cached = sys.modules.get(module_name)
+    if cached is not None:
+        return cached
     here = Path(__file__).resolve().parent / "check_live_site.py"
-    spec = importlib.util.spec_from_file_location("_check_live_site", here)
+    spec = importlib.util.spec_from_file_location(module_name, here)
     assert spec is not None and spec.loader is not None
     mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+    sys.modules[module_name] = mod
+    try:
+        spec.loader.exec_module(mod)
+    except Exception:
+        sys.modules.pop(module_name, None)
+        raise
     return mod
 
 

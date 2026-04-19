@@ -113,6 +113,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: docs/PERSONAS-fast.md, CHANGELOG.md
 - live-check: passed (fast persona council, 6/6 PASS against live site)
 
+### task-T5.2 — DONE — 2026-04-19T06:45:00Z
+- files: scripts/persona_critique.py, tests/test_persona_critique.py, docs/PERSONAS.md, CHANGELOG.md
+- live-check: n/a (backend + doc deliverable)
+- recovery: original run blocked at 05:16 on `AttributeError: 'NoneType' object has no attribute '__dict__'` — Python 3.13's `@dataclass` resolves `cls.__module__` via `sys.modules` during decoration, and `_load_check_live_site_module` called `exec_module` without registering the module first. Fix: register in `sys.modules` before exec + clean up on failure. Added regression test `test_load_check_live_site_module_registers_in_sys_modules`. Then ran full LLM council (6 Anthropic calls) against live site — all 6 personas PASS structurally; qualitative critiques captured in `docs/PERSONAS.md` flag real follow-ups (title truncation on mobile, expand affordance for reviews, search-user still wanting filter chips back, venue addresses missing from listing cards).
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

@@ -416,6 +416,24 @@ def test_render_markdown_empty_results_still_valid():
     assert md.endswith("\n")
 
 
+# --- Module loader regression (Python 3.13 @dataclass bug) ---------------
+
+
+def test_load_check_live_site_module_registers_in_sys_modules():
+    """Regression for 2026-04-18-3 T5.2: Python 3.13 @dataclass decoration
+    resolves ``cls.__module__`` via ``sys.modules``. Without registration
+    before ``exec_module``, importing ``check_live_site.py`` raises
+    ``AttributeError: 'NoneType' object has no attribute '__dict__'``.
+    """
+    sys.modules.pop("_check_live_site", None)
+    mod = pc._load_check_live_site_module()
+    assert sys.modules.get("_check_live_site") is mod
+    assert hasattr(mod, "AssertionFailure")
+    assert mod.AssertionFailure.__module__ == "_check_live_site"
+    # Cached path returns the same module object.
+    assert pc._load_check_live_site_module() is mod
+
+
 # --- CLI main() ----------------------------------------------------------
 
 
