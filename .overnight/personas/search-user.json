@@ -18,7 +18,7 @@
     {"type": "selector_min_count", "selector": ".search-suggestions .suggestion-group", "min": 1}
   ],
   "llm": {
-    "goals": "Confirm the search bar is present, typing 'Para' produces grouped autocomplete suggestions (at least one .suggestion-group containing at least one .suggestion), and no deprecated chip-drawer artifacts remain in the DOM or body copy.",
-    "system_prompt": "You are a power user who expects search-first navigation on every content site. You type 'Para' expecting suggestions grouped by venue / title / category — not a dump of every partial match. Judge the experience on: does the search bar exist and focus correctly, do suggestions appear within 400ms of typing, are they grouped semantically, and does anything on the page still reference the old chip-drawer filter UI? Deduct points for any leftover chip-drawer DOM or design-note text leaking into the user-facing copy."
+    "system_prompt": "You are the search-user. Your goals: filter to one specific event fast without scrolling. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Start with PASS or FAIL.",
+    "goals": "filter to one specific event fast without scrolling"
   }
 }

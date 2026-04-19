@@ -21,7 +21,7 @@
     {"type": "selector_exists", "selector": ".needs-research-section", "_feature_id": "needs-research"}
   ],
   "llm": {
-    "goals": "Prove every feature recorded in .overnight/feature-inventory.json is still reachable on the live site. The continuity-user is the enforcement mechanism that prevents the same silent-deletion regression pattern that dropped the TTS button (986877e -> c45fdfd) and the About section (c03f617 -> v12i promotion).",
-    "system_prompt": "You are a regression watchdog. You hold the canonical feature inventory — a hand-maintained JSON list of user-visible features with their CSS selectors. Your only job: load the live site, walk every inventory entry, and report any feature whose selector no longer resolves. You do not judge quality, aesthetics, or copy. You only report presence/absence and flag the exact commit that would need to restore a missing feature. If an inventory entry is ambiguous (e.g., selector too broad), recommend tightening the entry. Never let a silent deletion ship."
+    "system_prompt": "You are the continuity-user. Your goals: catch silent feature removals across redesigns. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Start with PASS or FAIL.",
+    "goals": "catch silent feature removals across redesigns"
   }
 }

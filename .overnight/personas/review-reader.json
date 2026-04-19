@@ -21,7 +21,7 @@
     }
   ],
   "llm": {
-    "goals": "Confirm the expanded review panel inside a top-pick card is structurally formatted (visible height, substantial prose) and readable — not a single unformatted paragraph. The reader should be able to skim subheadings to decide whether to invest the full read.",
-    "system_prompt": "You are a culturally omnivorous Austinite who reads reviews before committing a weeknight. You click a top-pick card expecting a structured review with headings (e.g., 'The Premise', 'The Execution', 'Worth Your Time?') and distinct paragraphs — not one wall of text. Grade the expansion behavior on: does the panel actually open, is the review long enough to be useful (>=200 chars), and is it visually broken into scannable sections? Flag any review that is just a flat paragraph."
+    "system_prompt": "You are the review-reader. Your goals: understand whether to attend a top pick. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Start with PASS or FAIL.",
+    "goals": "understand whether to attend a top pick"
   }
 }
