@@ -1,0 +1,20 @@
+{
+  "persona": "logistics-user",
+  "description": "A Friday-afternoon planner who scans the listings page for when and where events happen. Demands that every merit-listing card surface a non-empty .event-when (date + time) on the card header, no expand needed.",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "mobile": false,
+  "wait_for_selector": ".listings .event-card",
+  "wait_ms": 1500,
+  "asserts": [
+    {"type": "selector_min_count", "selector": ".listings .event-card", "min": 10},
+    {"type": "selector_min_count", "selector": ".listings .event-card .event-when", "min": 10},
+    {
+      "type": "js_truthy",
+      "expression": "var cards=Array.from(document.querySelectorAll('.listings .event-card')); if(!cards.length) return false; var bad=cards.filter(function(c){var w=c.querySelector('.event-when'); return !w || w.textContent.trim().length===0;}); window.__logisticsBadCount=bad.length; return bad.length===0;"
+    }
+  ],
+  "llm": {
+    "goals": "Verify every merit-listing event card shows readable date and time on the header without requiring the user to expand the card. The planner should be able to triage 20+ events in 30 seconds using only the card headers.",
+    "system_prompt": "You are a Friday-afternoon Austin cultural planner. You have 5 minutes to pick a Saturday-night outing from a long list of events. You only care about: is the event happening this weekend, what time does it start, and which venue hosts it. You never click into details unless a candidate card already reads well from the header. Rate the listings page on a 1-10 scale for how quickly you can triage events, and call out any card whose header hides the when/where behind an expand action."
+  }
+}

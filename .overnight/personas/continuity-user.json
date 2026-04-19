@@ -1,0 +1,27 @@
+{
+  "persona": "continuity-user",
+  "description": "A regression watchdog. Reads .overnight/feature-inventory.json (at spec-write time) and asserts one selector_exists per recorded feature, so silent deletions during redesigns are caught. Clicks the first top-pick card so post-expand selectors (TTS, open panel) are reachable.",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "mobile": false,
+  "wait_for_selector": ".top-picks .event-card",
+  "wait_ms": 1500,
+  "click_before_assert": [
+    ".top-picks .event-card:first-child .event-header"
+  ],
+  "asserts": [
+    {"type": "selector_exists", "selector": ".about-section", "_feature_id": "about-section"},
+    {"type": "selector_exists", "selector": ".event-oneliner", "_feature_id": "one-liner"},
+    {"type": "selector_exists", "selector": ".event-panel", "_feature_id": "listing-card-render"},
+    {"type": "selector_exists", "selector": ".picks-list .event-card", "_feature_id": "top-pick-render"},
+    {"type": "selector_exists", "selector": ".masthead-subtitle", "_feature_id": "masthead-subtitle"},
+    {"type": "selector_exists", "selector": "#event-search", "_feature_id": "event-search"},
+    {"type": "selector_exists", "selector": ".top-picks .event-card .event-panel", "_feature_id": "top-picks-expand"},
+    {"type": "selector_exists", "selector": ".listings .event-card .event-when", "_feature_id": "card-when"},
+    {"type": "selector_exists", "selector": ".event-card.is-open .tts-button", "_feature_id": "tts"},
+    {"type": "selector_exists", "selector": ".needs-research-section", "_feature_id": "needs-research"}
+  ],
+  "llm": {
+    "goals": "Prove every feature recorded in .overnight/feature-inventory.json is still reachable on the live site. The continuity-user is the enforcement mechanism that prevents the same silent-deletion regression pattern that dropped the TTS button (986877e -> c45fdfd) and the About section (c03f617 -> v12i promotion).",
+    "system_prompt": "You are a regression watchdog. You hold the canonical feature inventory — a hand-maintained JSON list of user-visible features with their CSS selectors. Your only job: load the live site, walk every inventory entry, and report any feature whose selector no longer resolves. You do not judge quality, aesthetics, or copy. You only report presence/absence and flag the exact commit that would need to restore a missing feature. If an inventory entry is ambiguous (e.g., selector too broad), recommend tightening the entry. Never let a silent deletion ship."
+  }
+}

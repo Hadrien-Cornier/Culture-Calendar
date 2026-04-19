@@ -78,6 +78,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: tests/test_review_confidence.py, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T3.1 — DONE — 2026-04-19T04:42:09Z
+- commit: PENDING
+- files: .overnight/personas/logistics-user.json, .overnight/personas/review-reader.json, .overnight/personas/search-user.json, .overnight/personas/comprehensiveness-user.json, .overnight/personas/continuity-user.json, .overnight/personas/mobile-user.json, CHANGELOG.md
+- live-check: n/a (backend)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

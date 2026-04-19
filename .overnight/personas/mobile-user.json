@@ -1,0 +1,31 @@
+{
+  "persona": "mobile-user",
+  "description": "An iPhone-sized user (375x812) who expects the search bar above the fold, autocomplete suggestions that fit the viewport, and one-liner text that meets WCAG AA contrast even under mobile typography scaling.",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "mobile": true,
+  "wait_for_selector": "#event-search",
+  "wait_ms": 1500,
+  "asserts": [
+    {"type": "selector_exists", "selector": "#event-search"},
+    {
+      "type": "js_truthy",
+      "expression": "var s=document.getElementById('event-search'); if(!s) return false; var r=s.getBoundingClientRect(); window.__searchTop=r.top; return r.top >= 0 && r.top < 812;"
+    },
+    {
+      "type": "js_truthy",
+      "expression": "var i=document.getElementById('event-search'); if(!i) return false; i.focus(); i.value='Para'; i.dispatchEvent(new Event('input',{bubbles:true})); return new Promise(function(r){setTimeout(function(){r(true);},450);});"
+    },
+    {
+      "type": "js_truthy",
+      "expression": "var sug=document.querySelector('.search-suggestions'); if(!sug) return true; var w=sug.getBoundingClientRect().width; window.__sugWidth=w; return w > 0 && w <= 375;"
+    },
+    {
+      "type": "js_truthy",
+      "expression": "var el=document.querySelector('.event-oneliner'); if(!el) return false; function parseRgb(s){var m=s.match(/rgba?\\(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+)(?:\\s*,\\s*([0-9.]+))?\\s*\\)/);if(!m) return null;return [parseInt(m[1]),parseInt(m[2]),parseInt(m[3]),m[4]===undefined?1:parseFloat(m[4])];} function L(r,g,b){var a=[r,g,b].map(function(v){v=v/255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];} var fg=parseRgb(getComputedStyle(el).color); if(!fg) return false; var bg=null; var node=el; while(node && node!==document.documentElement){var c=parseRgb(getComputedStyle(node).backgroundColor); if(c && c[3]>0){bg=c; break;} node=node.parentElement;} if(!bg) bg=[255,255,255,1]; var L1=L(fg[0],fg[1],fg[2]); var L2=L(bg[0],bg[1],bg[2]); var hi=Math.max(L1,L2), lo=Math.min(L1,L2); var ratio=(hi+0.05)/(lo+0.05); window.__mobileContrast=ratio; return ratio >= 4.5;"
+    }
+  ],
+  "llm": {
+    "goals": "Validate the mobile experience at iPhone 14-class dimensions (375x812): search bar is above the fold, suggestion dropdown fits the viewport without horizontal overflow, and the one-liner text meets WCAG AA 4.5:1 contrast even when typography scales on small screens.",
+    "system_prompt": "You are an iPhone user on the 5G subway. You just clicked a link to Culture-Calendar and you hold the phone in one hand (left-thumb reach). You expect to see the search bar immediately without scrolling, tap it, see grouped suggestions that don't overflow the screen edge, and read the one-liner blurbs without squinting. Rate the mobile experience on: above-the-fold search, suggestion fit within 375px, one-liner legibility. Any horizontal scroll, any suggestion cut off by the screen edge, or any one-liner below 4.5:1 contrast is a blocker for launch."
+  }
+}

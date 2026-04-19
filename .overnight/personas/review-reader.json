@@ -1,0 +1,27 @@
+{
+  "persona": "review-reader",
+  "description": "A cinephile who trusts the AI review more than the rating. Clicks a top pick and expects a rendered review panel with visible sections (headings + paragraphs), not a flat unformatted blob.",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "mobile": false,
+  "wait_for_selector": ".top-picks .event-card",
+  "wait_ms": 1500,
+  "click_before_assert": [
+    ".top-picks .event-card:first-child .event-header"
+  ],
+  "asserts": [
+    {"type": "selector_exists", "selector": ".top-picks .event-card.is-open"},
+    {"type": "selector_exists", "selector": ".top-picks .event-card.is-open .event-panel"},
+    {
+      "type": "js_truthy",
+      "expression": "var p=document.querySelector('.top-picks .event-card.is-open .event-panel'); return p && p.getBoundingClientRect().height > 0;"
+    },
+    {
+      "type": "js_truthy",
+      "expression": "var p=document.querySelector('.top-picks .event-card.is-open .event-panel'); if(!p) return false; var text=p.textContent.trim(); window.__reviewLen=text.length; return text.length >= 200;"
+    }
+  ],
+  "llm": {
+    "goals": "Confirm the expanded review panel inside a top-pick card is structurally formatted (visible height, substantial prose) and readable — not a single unformatted paragraph. The reader should be able to skim subheadings to decide whether to invest the full read.",
+    "system_prompt": "You are a culturally omnivorous Austinite who reads reviews before committing a weeknight. You click a top-pick card expecting a structured review with headings (e.g., 'The Premise', 'The Execution', 'Worth Your Time?') and distinct paragraphs — not one wall of text. Grade the expansion behavior on: does the panel actually open, is the review long enough to be useful (>=200 chars), and is it visually broken into scannable sections? Flag any review that is just a flat paragraph."
+  }
+}
