@@ -22,6 +22,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: docs/index.html, docs/script.js, docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
 - live-check: pending deploy-wait + check_live_site.py run
 
+### task-T1.1b — DONE — 2026-04-19T03:51:07Z
+- commit: 0ebff33
+- files: docs/index.html, docs/script.js, docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
+- live-check: pending deploy-wait + check_live_site.py run
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

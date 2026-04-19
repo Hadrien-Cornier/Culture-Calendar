@@ -15,8 +15,13 @@
   var listingsEl = document.getElementById("listings");
   var loadingEl = document.getElementById("loading");
   var errorEl = document.getElementById("error");
+  var searchInput = document.getElementById("event-search");
+  var searchSuggestions = document.getElementById("search-suggestions");
 
   var allEvents = [];
+  var searchDebounceTimer = null;
+  var SEARCH_DEBOUNCE_MS = 150;
+  var MAX_SUGGESTIONS_PER_GROUP = 20;
 
   fetch(DATA_URL)
     .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
@@ -30,6 +35,8 @@
       errorEl.hidden = false;
       errorEl.textContent = "Error: " + err.message;
     });
+
+  initSearch();
 
   function groupEvents(events) {
     var byTitle = {};
@@ -124,8 +131,36 @@
     return h12 + ":" + m[2] + " " + ampm;
   }
 
+  function getSearchQuery() {
+    return (searchInput && searchInput.value || "").trim().toLowerCase();
+  }
+
+  function categoryLabel(type) {
+    var key = (type || "").toLowerCase();
+    return CATEGORY_LABELS[key] || key.replace(/_/g, " ");
+  }
+
+  function matchesQuery(ev, q) {
+    if (!q) return true;
+    var title = (ev.title || "").toLowerCase();
+    var venue = (ev.venue || "").toLowerCase();
+    var type = (ev.type || ev.event_category || "").toLowerCase();
+    var label = categoryLabel(type).toLowerCase();
+    return title.indexOf(q) !== -1
+      || venue.indexOf(q) !== -1
+      || type.indexOf(q) !== -1
+      || label.indexOf(q) !== -1;
+  }
+
+  function filterEvents(events) {
+    var q = getSearchQuery();
+    if (!q) return events;
+    return events.filter(function (ev) { return matchesQuery(ev, q); });
+  }
+
   function renderAll() {
-    var grouped = groupEvents(allEvents);
+    var filtered = filterEvents(allEvents);
+    var grouped = groupEvents(filtered);
     var now = new Date();
     now.setHours(0, 0, 0, 0);
     var cap = new Date(now);
@@ -138,6 +173,119 @@
     });
     renderPicks(thisWeek.slice(0, 10));
     renderListings(grouped);
+  }
+
+  function initSearch() {
+    if (!searchInput || !searchSuggestions) return;
+    searchInput.addEventListener("input", function () {
+      if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(applySearch, SEARCH_DEBOUNCE_MS);
+    });
+    searchInput.addEventListener("focus", function () {
+      showSuggestions();
+    });
+    searchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        searchInput.value = "";
+        applySearch();
+        hideSuggestions();
+        searchInput.blur();
+      }
+    });
+    searchSuggestions.addEventListener("mousedown", function (e) {
+      var li = e.target && e.target.closest ? e.target.closest(".suggestion") : null;
+      if (!li) return;
+      e.preventDefault();
+      var val = li.getAttribute("data-value") || "";
+      searchInput.value = val;
+      applySearch();
+      hideSuggestions();
+    });
+    document.addEventListener("click", function (e) {
+      if (!searchSuggestions || searchSuggestions.hidden) return;
+      var t = e.target;
+      if (t === searchInput || (searchSuggestions.contains && searchSuggestions.contains(t))) return;
+      hideSuggestions();
+    });
+  }
+
+  function applySearch() {
+    renderSuggestions();
+    renderAll();
+  }
+
+  function showSuggestions() {
+    if (!searchSuggestions) return;
+    searchSuggestions.hidden = false;
+    if (searchInput) searchInput.setAttribute("aria-expanded", "true");
+    renderSuggestions();
+  }
+
+  function hideSuggestions() {
+    if (!searchSuggestions) return;
+    searchSuggestions.hidden = true;
+    if (searchInput) searchInput.setAttribute("aria-expanded", "false");
+  }
+
+  function collectSuggestions(q) {
+    var venues = {};
+    var titles = {};
+    var cats = {};
+    allEvents.forEach(function (ev) {
+      var venue = ev.venue || "";
+      var title = ev.title || "";
+      var type = (ev.type || ev.event_category || "").toLowerCase();
+      var label = categoryLabel(type);
+      if (venue && venue.toLowerCase().indexOf(q) !== -1) venues[venue] = true;
+      if (title && title.toLowerCase().indexOf(q) !== -1) titles[title] = true;
+      if (label && label.toLowerCase().indexOf(q) !== -1) cats[label] = true;
+    });
+    return {
+      venues: Object.keys(venues).sort(),
+      titles: Object.keys(titles).sort(),
+      categories: Object.keys(cats).sort()
+    };
+  }
+
+  function renderSuggestions() {
+    if (!searchSuggestions) return;
+    var q = getSearchQuery();
+    var grouped = collectSuggestions(q);
+    searchSuggestions.innerHTML = "";
+    var frag = document.createDocumentFragment();
+    var total = appendSuggestionGroup(frag, "Venues", grouped.venues, "venue")
+      + appendSuggestionGroup(frag, "Titles", grouped.titles, "title")
+      + appendSuggestionGroup(frag, "Categories", grouped.categories, "category");
+    if (total === 0) {
+      var empty = document.createElement("li");
+      empty.className = "suggestion-empty";
+      empty.textContent = q ? "No matches for “" + searchInput.value.trim() + "”" : "No events yet";
+      frag.appendChild(empty);
+    }
+    searchSuggestions.appendChild(frag);
+  }
+
+  function appendSuggestionGroup(frag, label, values, type) {
+    if (!values || values.length === 0) return 0;
+    var header = document.createElement("li");
+    header.className = "suggestion-group";
+    header.setAttribute("role", "presentation");
+    header.textContent = label;
+    frag.appendChild(header);
+    var limited = values.slice(0, MAX_SUGGESTIONS_PER_GROUP);
+    limited.forEach(function (value) {
+      var li = document.createElement("li");
+      li.className = "suggestion";
+      li.setAttribute("role", "option");
+      li.setAttribute("data-type", type);
+      li.setAttribute("data-value", value);
+      var span = document.createElement("span");
+      span.className = "suggestion-label";
+      span.textContent = value;
+      li.appendChild(span);
+      frag.appendChild(li);
+    });
+    return limited.length;
   }
 
   function renderPicks(picks) {

@@ -33,5 +33,12 @@
     "selector": ".masthead-subtitle",
     "since_commit": "8499818",
     "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "event-search",
+    "name": "Masthead search bar",
+    "selector": "#event-search",
+    "since_commit": "task-T1.1b",
+    "smoke_assertion": "selector_exists:#event-search"
   }
 ]
