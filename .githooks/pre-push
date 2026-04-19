@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+# Gate B: pre-push hook that blocks pushes when any outgoing commit
+# subject contains the literal [persona-gate] marker and the LLM
+# persona council (run against a local server) would FAIL.
+#
+# Activation (per-clone; not enforced globally):
+#
+#   git config core.hooksPath .githooks
+#
+# See CLAUDE.md §Persona critique gate for the full workflow.
+#
+# Git passes lines like "<local ref> <local oid> <remote ref> <remote oid>"
+# on stdin (one per refspec). For each non-zero local oid, iterate the
+# commits in $remote..$local and check their subjects.
+
+set -eu
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+gate_script="scripts/require_persona_approval.py"
+marker='[persona-gate]'
+
+if [ ! -f "$gate_script" ]; then
+  # Hook installed but script missing — warn and pass (don't block on infra gaps).
+  echo "[pre-push] $gate_script missing; skipping persona gate." >&2
+  exit 0
+fi
+
+# Collect every outgoing commit subject for the push.
+tagged_commits=()
+while read -r local_ref local_sha remote_ref remote_sha; do
+  # Deletions: local_sha is 40 zeros. Nothing to scan.
+  if [ "$local_sha" = "0000000000000000000000000000000000000000" ]; then
+    continue
+  fi
+  if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+    # New branch → scan from the default branch's merge-base so we don't
+    # re-gate the entire history.
+    base=$(git merge-base "$local_sha" origin/main 2>/dev/null || echo "")
+    if [ -n "$base" ]; then
+      range="$base..$local_sha"
+    else
+      range="$local_sha"
+    fi
+  else
+    range="$remote_sha..$local_sha"
+  fi
+
+  # Find commits whose subject contains the marker.
+  while IFS= read -r sha; do
+    [ -z "$sha" ] && continue
+    tagged_commits+=("$sha")
+  done < <(git log --format='%H %s' "$range" 2>/dev/null | awk -v m="$marker" 'index($0, m) { print $1 }')
+done
+
+if [ ${#tagged_commits[@]} -eq 0 ]; then
+  # Nothing tagged; let the push through.
+  exit 0
+fi
+
+echo "[pre-push] ${#tagged_commits[@]} commit(s) tagged $marker; running persona gate..."
+for sha in "${tagged_commits[@]}"; do
+  short=$(git rev-parse --short "$sha")
+  echo "  - $short: $(git log -1 --format='%s' "$sha")"
+done
+
+# Need a venv Python for the deps.
+if [ -x ".venv/bin/python" ]; then
+  py=".venv/bin/python"
+else
+  py="$(command -v python3 || command -v python)"
+fi
+if [ -z "$py" ]; then
+  echo "[pre-push] no python interpreter found; cannot run persona gate." >&2
+  exit 1
+fi
+
+if ! "$py" "$gate_script"; then
+  echo "" >&2
+  echo "[pre-push] PUSH BLOCKED — persona gate rejected the change." >&2
+  echo "Inspect the scorecard at .overnight/gate-b-scorecard.md, address" >&2
+  echo "the findings, and amend the commit. To push anyway (emergency only):" >&2
+  echo "  git push --no-verify" >&2
+  exit 1
+fi
+
+echo "[pre-push] persona gate passed; proceeding with push."
+exit 0
