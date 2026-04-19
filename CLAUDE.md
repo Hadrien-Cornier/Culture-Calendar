@@ -800,3 +800,74 @@ The canonical list of user-visible features lives in `.overnight/feature-invento
 - If a feature is intentionally removed, add a removal note in CHANGELOG and delete the entry in the same commit.
 - Selectors must resolve on the LIVE site (`https://hadrien-cornier.github.io/Culture-Calendar/`), not just in source.
 <!-- END FEATURE-INVENTORY -->
+
+## Persona critique gate
+
+Every significant modification to the live site is expected to pass through the LLM persona council — six personas (logistics-user, review-reader, search-user, comprehensiveness-user, continuity-user, mobile-user) that critique the site from distinct user lenses via `scripts/persona_critique.py` (Claude Sonnet 4.6 by default, chosen by `scripts/bench_personas.py`; see `docs/persona_model_benchmark.md`).
+
+Hybrid design: critiques are **always logged** (Gate A) but only **block pushes** when the change is explicitly tagged significant (Gate B).
+
+### Gate A — post-deploy audit (automatic, non-blocking)
+
+`.github/workflows/persona-audit.yml` triggers on every push to `main` that touches `docs/**` (excluding its own output paths). Flow:
+
+1. Wait up to 5 min for GitHub Pages to serve the new commit.
+2. Run `scripts/persona_critique.py` against the deployed site (6 Anthropic calls, ~$0.14/run on Sonnet).
+3. Commit the scorecard to `docs/personas-history/<sha>.md` and refresh `docs/PERSONAS.md`.
+4. Push back to `main` with `[skip persona-audit]` in the subject so the audit commit doesn't recurse-trigger.
+
+Regression detection: `git diff docs/PERSONAS.md` (or the dated history file) shows when a persona's verdict flipped PASS → FAIL. Review as part of regular maintenance.
+
+Setup: requires `ANTHROPIC_API_KEY` in GitHub Actions secrets (`Settings → Secrets and variables → Actions`). The workflow uses `GITHUB_TOKEN` for the push-back with a 3-try rebase loop to handle race conditions.
+
+### Gate B — opt-in blocking gate via `[persona-gate]` commit tag
+
+For deliberately significant changes (architectural UI refactors, feature removals/restorations, redesigns), tag the commit subject with the literal marker `[persona-gate]`. Example:
+
+```
+feat(ui): [persona-gate] replace chip drawer with combobox search
+
+Significant IA change — wants persona approval before landing.
+```
+
+The pre-push hook at `.githooks/pre-push` scans each outgoing commit subject for the marker. When it finds one:
+
+1. Spins up `python -m http.server` rooted at `docs/` on a free local port.
+2. Copies persona JSONs to a tempdir with URLs rewritten from the live host to `http://127.0.0.1:<port>/`.
+3. Runs `scripts/require_persona_approval.py` → persona_critique in LLM mode.
+4. Aborts the push if any persona verdict is FAIL; prints the scorecard path (`.overnight/gate-b-scorecard.md`) for inspection.
+
+**Activate per-clone** (not enforced globally):
+
+```
+git config core.hooksPath .githooks
+```
+
+**When to tag `[persona-gate]`:**
+- Removing a user-visible feature (chip drawer, TTS button, About section, etc.).
+- Redesigning a primary surface (masthead, top picks, merit listings).
+- Any change a reviewer would call "a new direction" rather than "a fix."
+
+**When NOT to tag:**
+- Bug fixes, copy tweaks, CSS polish, data refreshes, dependency bumps.
+- Anything covered adequately by Gate A's post-deploy audit.
+
+**Emergency bypass:** `git push --no-verify`. Use once and revisit the failing verdict in the morning.
+
+### Key files
+
+| File | Purpose |
+|---|---|
+| `scripts/persona_critique.py` | Runs all personas, emits structured scorecard + cost JSONL |
+| `scripts/bench_personas.py` | Benchmarks Haiku/Sonnet/Opus to pick the cheapest model that agrees with the reference on ≥5/6 personas |
+| `scripts/require_persona_approval.py` | Local preflight harness used by Gate B |
+| `scripts/check_live_site.py` | Pyppeteer-based structural-assertion runner consumed by personas |
+| `.overnight/personas/*.json` | 6 persona specs (gitignored parent, persona subdir whitelisted) |
+| `.overnight/feature-inventory.json` | Continuity-user source of truth (gitignored parent, file whitelisted) |
+| `.overnight/persona-costs.jsonl` | Per-call cost log (gitignored; surfaced via GH Action artifact) |
+| `config/persona_model.json` | Selected model (written by `bench_personas.py`) |
+| `docs/PERSONAS.md` | Latest persona scorecard (rolling; overwritten by Gate A) |
+| `docs/personas-history/<sha>.md` | Per-deploy historical scorecard (append-only) |
+| `docs/persona_model_benchmark.md` | Benchmark run results justifying the model pick |
+| `.github/workflows/persona-audit.yml` | Gate A workflow |
+| `.githooks/pre-push` | Gate B hook |
