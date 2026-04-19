@@ -108,6 +108,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: tests/test_prospect_venues.py, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T5.1 — DONE — 2026-04-19T05:08:33Z
+- commit: 4097281
+- files: docs/PERSONAS-fast.md, CHANGELOG.md
+- live-check: passed (fast persona council, 6/6 PASS against live site)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->
