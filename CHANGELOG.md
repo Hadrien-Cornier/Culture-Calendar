@@ -33,9 +33,9 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: passed after 37s deploy wait
 
 ### task-T1.3 — DONE — 2026-04-19T04:02:23Z
-- commit: eee20ef
+- commit: 6990b23
 - files: docs/script.js, docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
-- live-check: pending deploy-wait + check_live_site.py run
+- live-check: passed after 36s deploy wait
 
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
