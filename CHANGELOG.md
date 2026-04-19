@@ -109,7 +109,7 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: n/a (backend)
 
 ### task-T5.1 — DONE — 2026-04-19T05:08:33Z
-- commit: 4097281
+- commit: 31756a7
 - files: docs/PERSONAS-fast.md, CHANGELOG.md
 - live-check: passed (fast persona council, 6/6 PASS against live site)
 
