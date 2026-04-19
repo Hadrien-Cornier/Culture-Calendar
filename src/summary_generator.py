@@ -1,9 +1,37 @@
-"""
-One-line summary generator for Culture Calendar events.
+"""One-line summary generator — Claude-produced hooks for event cards.
 
-Uses Anthropic's Claude API directly when ANTHROPIC_API_KEY is set, falling
-back to OpenRouter if only that key is available. The OpenAI Python SDK is
-used against either provider's chat-completions-compatible endpoint.
+Final step before writing ``docs/data.json``: takes the critic-style
+review text that :mod:`src.processor` wrote and distills it into an
+8-16 word hook rendered on each event card as ``one_liner_summary``.
+Goals: evocative, specific, non-generic. The frontend italicizes this
+text and color-keys it for contrast.
+
+**Pipeline position** — last LLM pass before publication:
+
+    scraper → enrich → rate/review → **summary** → build_event_from_template → data.json
+
+**Credential fallback chain**
+
+1. ``ANTHROPIC_API_KEY`` set → uses the Anthropic Python SDK directly
+   against Claude (default path; cheapest + most on-voice).
+2. Only ``OPENROUTER_API_KEY`` set → routes through OpenRouter's
+   Anthropic proxy via the OpenAI Python SDK. Covers dev environments
+   without direct Anthropic access.
+3. Neither set → :class:`SummaryGenerator` operates in a no-op mode
+   and returns the existing ``one_liner_summary`` unchanged, so the
+   pipeline still completes with stale summaries rather than
+   crashing.
+
+**Cache** — ``cache/summary_cache.json`` (committed intentionally;
+see ``.gitignore``'s ``!cache/summary_cache.json`` negation) keyed on
+a hash of the source review text. Regenerating a review in
+:mod:`src.processor` invalidates the summary automatically because
+the hash changes. Force-refresh by deleting the cache file.
+
+**AI-smell filter** — the BANNED_PHRASES list in
+``update_website_data.py`` is applied to the summary as a last-pass
+scrub, catching the model's "haunting" / "masterfully crafted" tics.
+Coordinate updates: if you add a phrase here, mirror it there.
 """
 
 import json

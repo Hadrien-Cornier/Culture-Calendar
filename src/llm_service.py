@@ -1,5 +1,58 @@
-"""
-LLM Service for extraction, validation, and analysis of cultural event data
+"""Shared LLM client — Perplexity (Sonar) + Anthropic (Claude) abstraction.
+
+Single class :class:`LLMService` that every AI-using subsystem imports:
+
+- :mod:`src.base_scraper` (LLM-extraction scrapers like Hyperreal,
+  Alienated Majesty, First Light).
+- :mod:`src.processor` — AI ratings + critic-style reviews.
+- :mod:`src.enrichment_layer` — classification + field extraction.
+- :mod:`src.summary_generator` — one-liner hooks.
+- ``scripts/prospect_venues.py`` — Perplexity-driven venue discovery.
+- ``scripts/persona_critique.py`` — LLM persona council critiques.
+
+**Public surface**
+
+- :meth:`extract_data(content, schema)` — structured extraction against
+  a schema dict; returns a populated dict or ``None`` on failure.
+- :meth:`validate_extraction(extracted, content, schema)` — asks the
+  model to judge whether an extraction is evidence-grounded. Used by
+  the enrichment layer's "evidence-validated" field flow.
+- :meth:`get_similarity_score(e1, e2)` — LLM-backed dedup helper;
+  falls back to :meth:`_simple_similarity` (bag-of-words Jaccard)
+  when no API key is present.
+- :meth:`call_perplexity(prompt, ...)` — raw Perplexity Sonar call for
+  callers that want prompt-level control (processor's rating cascade,
+  prospect_venues). Returns ``(response_text, citations)``.
+- :meth:`_call_anthropic_json(prompt)` — internal JSON-forcing Claude
+  call used as Perplexity fallback and for prompts that need strict
+  structure.
+
+**Env vars**
+
+- ``PERPLEXITY_API_KEY`` — required for :meth:`call_perplexity`.
+- ``ANTHROPIC_API_KEY`` — required for :meth:`_call_anthropic_json`
+  and the Claude fallback path in :meth:`_chat`. Loaded via
+  ``python-dotenv`` so ``.env`` files work without shell-exporting.
+
+**Perplexity quirks this module handles**
+
+- Perplexity occasionally returns refusal-shaped text even when the
+  prompt disallows refusals. :mod:`src.refusal` detects these so
+  callers can retry with a permissive prompt or escalate to Claude.
+- Sonar adds inline citation markers (``[1]``, ``[2]``) to prose;
+  :meth:`_parse_extraction_response` strips them before validation.
+- Rate limits aren't heavily enforced by Perplexity, so this module
+  doesn't implement transport-level backoff. If 429s start hitting,
+  add retry here — :mod:`src.processor`'s retry cascade is
+  prompt-level, not transport-level.
+
+**Caching**
+
+None at this layer. Each subsystem maintains its own cache
+(``docs/data.json`` for processor, ``cache/summary_cache.json`` for
+summary_generator, ``cache/wikipedia/`` for the wikipedia source).
+Centralizing caching would simplify invalidation but break the
+per-subsystem freshness contract — keep separate.
 """
 
 import json

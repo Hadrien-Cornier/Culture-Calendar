@@ -1,5 +1,25 @@
-"""
-Recurring events generator for regular meetups and events
+"""Recurring-event expansion — meetups, weekly book clubs, seasons.
+
+Some venues publish a rule ("every third Thursday") rather than
+concrete dates. :class:`RecurringEventGenerator` turns those rules
+into explicit ``occurrences`` the frontend can render as discrete
+event cards.
+
+Called from :class:`src.scraper.MultiVenueScraper` after per-venue
+scraping, before dedup. Operates on events whose scraper emitted a
+``recurrence`` hint (cron-like fields: ``weekly``, ``monthly``,
+``nth_weekday``) and fills their ``dates`` / ``times`` arrays with
+concrete values in the ``America/Chicago`` timezone (Austin's TZ).
+
+**Windowing** — expands into the next ~90 days by default (roughly
+matches the frontend's browse horizon). Longer windows risk
+polluting ``docs/data.json`` with far-future events that may have
+changed venue/time by the time they arrive.
+
+Does NOT handle one-off overrides. If a book club normally meets on
+Thursday but this particular week moves to Friday, the scraper must
+emit the explicit occurrence itself — this generator expands the
+rule, not exception cases.
 """
 
 from datetime import datetime, timedelta

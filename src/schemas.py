@@ -1,5 +1,27 @@
-"""
-Data schemas for different venue types in the Culture Calendar system
+"""Runtime schemas consumed by :mod:`src.validation_service`.
+
+Parallels the declarative templates in ``config/master_config.yaml``
+but expressed as Python objects (:class:`SchemaField` +
+:class:`SchemaRegistry`) so the validation service can attach
+extraction hints and per-field logic that YAML can't easily express
+(e.g., cross-field invariants, conditional required-ness).
+
+**Hand-synced with YAML** — if you add a required field in
+``config/master_config.yaml``, add a matching :class:`SchemaField`
+entry here. ``tests/test_validation_integration.py`` guards the two
+from drifting.
+
+**When to edit here vs YAML**
+
+- Purely static field definitions (type, default, required) → YAML
+  is the source of truth; YAML is what :class:`src.config_loader`
+  reads, what the enrichment layer enforces, what the frontend
+  expects.
+- Extraction hints (LLM prompts, regexes, cross-field checks) →
+  this file.
+- New event category → both files, plus a rating branch in
+  :mod:`src.processor` and a frontend label in
+  ``docs/script.js:CATEGORY_LABELS``.
 """
 
 from typing import Any, Dict, Optional, List

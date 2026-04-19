@@ -1,6 +1,40 @@
-"""
-Configuration loader for master_config.yaml
-Provides read-only access to venue policies, templates, and validation rules
+"""Read-only loader for ``config/master_config.yaml``.
+
+Single source of truth for:
+
+- **Ontology** — which ``event_category`` labels are valid (movie,
+  concert, book_club, opera, dance, visual_arts, other).
+- **Templates** — per-category field shapes: required fields, types,
+  defaults, validation regexes. Every event in ``docs/data.json``
+  conforms to exactly one template (keyed by ``event_category``).
+- **Venue policies** — per-venue:
+  - ``classification.enabled`` — whether the enrichment layer should
+    LLM-classify the event's category or trust the scraper's default
+    (``assumed_category``).
+  - ``scrape_frequency`` — ``monthly`` for HTML scrapers,
+    ``yearly`` for static-JSON seasonal venues.
+  - ``enabled`` — set to ``false`` to skip the venue without
+    unregistering its scraper (used for Arts on Alexander).
+- **Rules** — pipeline-wide invariants like
+  ``pairwise_equal_length(dates, times)`` and
+  ``snake_case_field_names``.
+
+Loaded lazily: :class:`ConfigLoader` reads the YAML once and exposes
+getters. No write-back path — edits must go through
+``config/master_config.yaml`` directly, then any in-process cache is
+reloaded by instantiating a new ``ConfigLoader``.
+
+**Adding a new category** — edit YAML only:
+
+1. Add to ``ontology.labels``.
+2. Add a ``templates.<name>:`` block with required + optional fields.
+3. Ensure every scraper that could emit this category can populate
+   the required fields, or let the enrichment layer fill them.
+4. Add a rating branch in :mod:`src.processor` and the frontend
+   label in ``docs/script.js:CATEGORY_LABELS``.
+
+See the 2026-04-19 overnight run's ``visual_arts`` addition
+(``CLAUDE.md §Overnight run — 2026-04-19``) for a worked example.
 """
 
 import os

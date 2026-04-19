@@ -1,6 +1,41 @@
-"""
-Smart validation service for Culture Calendar events
-Provides real-time validation during scraping with fail-fast mechanisms
+"""Scraper health checks + fail-fast validation.
+
+Wired up via the ``--validate`` flag on ``update_website_data.py``.
+Runs between scraping (Phase One) and enrichment (Phase Two) to
+catch catastrophic scraper failures before expensive LLM work burns
+on garbage input.
+
+**Why fail-fast matters**
+
+Without this layer, a scraper regression (e.g., venue redesigns the
+HTML so selectors match nothing) silently drops events to the floor.
+The pipeline finishes, the website updates with fewer events, and
+nobody notices until a user complains that "where did all the AFS
+screenings go?". Validation catches the drop before LLM calls and
+halts the build.
+
+**Severity levels** (:class:`ValidationSeverity` enum)
+
+- ``CRITICAL`` — abort the run. E.g., historically-major venue
+  returns zero events.
+- ``WARNING`` — log and continue. E.g., a single event fails
+  schema validation.
+- ``INFO`` — telemetry only.
+
+**Thresholds**
+
+- Zero-events-from-historical-venue: ``CRITICAL``.
+- Schema-invalid event count > 20% of a venue's output: ``WARNING``.
+- Individual malformed event: ``INFO``.
+
+Reports are collected on the service instance for post-run summary
+printing. The caller (``update_website_data.py``) inspects the
+severity roll-up and exits non-zero on any ``CRITICAL``.
+
+**Schemas** — validation references :class:`src.schemas.SchemaRegistry`,
+not :mod:`src.config_loader`. The registry is kept hand-synced with
+``config/master_config.yaml`` templates; if you add a field in one,
+add it in the other. Tests/test_validation_integration.py guards this.
 """
 
 import json
