@@ -93,6 +93,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: .overnight/personas/logistics-user.json, .overnight/personas/review-reader.json, .overnight/personas/search-user.json, .overnight/personas/comprehensiveness-user.json, .overnight/personas/continuity-user.json, .overnight/personas/mobile-user.json, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T4.1 — DONE — 2026-04-19T04:58:02Z
+- commit: a474870
+- files: scripts/prospect_venues.py, tests/test_prospect_venues.py, CHANGELOG.md
+- live-check: n/a (backend)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->
