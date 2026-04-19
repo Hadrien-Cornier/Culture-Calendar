@@ -83,3 +83,87 @@ def test_high_signal_terse_review_marked_high_confidence(monkeypatch) -> None:
     processor = _make_processor(monkeypatch)
     result = processor._parse_ai_response(TERSE_HIGH_SIGNAL_REVIEW)
     assert result["review_confidence"] == "high"
+
+
+# --- Cache-aware re-rate of refusal-shaped cached entries (task-T2.4) ------
+# Regression guard: if a previous run cached a Perplexity refusal as the
+# summary, the next regular run must treat that entry as stale and re-rate
+# it via the fresh retry chain — without needing --force-reprocess. Cached
+# entries that carry a legitimate (even low-score) review must still be
+# served from cache, so honest low-rating work is not churned.
+
+from typing import Dict, List  # noqa: E402
+
+
+def _movie_event(title: str = "LANCELOT DU LAC") -> Dict:
+    return {
+        "title": title,
+        "type": "movie",
+        "venue": "afs",
+        "url": "https://example.org/lancelot",
+        "dates": ["2026-05-01"],
+        "times": ["19:30"],
+    }
+
+
+@pytest.mark.unit
+def test_process_events_rerates_refusal_shaped_cached_entry(monkeypatch) -> None:
+    processor = _make_processor(monkeypatch)
+    event = _movie_event()
+
+    processor.movie_cache[event["title"].upper().strip()] = {
+        "score": 5,
+        "summary": REFUSAL_STYLE_SUMMARY,
+    }
+
+    calls: List[str] = []
+
+    def _ai_rating_stub(e: Dict) -> Dict:
+        calls.append(e["title"])
+        return {"score": 9, "summary": "Bresson's austere craft..."}
+
+    monkeypatch.setattr(processor, "_get_ai_rating", _ai_rating_stub)
+
+    [enriched] = processor.process_events([event])
+
+    assert calls == [event["title"]]
+    assert enriched["ai_rating"]["score"] == 9
+    assert enriched["ai_rating"]["summary"].startswith("Bresson")
+    assert processor.movie_cache[event["title"].upper().strip()]["score"] == 9
+
+
+@pytest.mark.unit
+def test_process_events_keeps_legitimate_low_score_cached_entry(monkeypatch) -> None:
+    processor = _make_processor(monkeypatch)
+    event = _movie_event(title="THE HEIGHT OF THE COCONUT TREES")
+
+    legitimate_low_score_summary = (
+        "★ Rating: 2/10\n"
+        "🎭 Artistic Merit — the film hits no identifiable register; the "
+        "cinematography is serviceable but the pacing collapses in the "
+        "second act.\n"
+        "✨ Originality — nothing on-screen distinguishes the material from "
+        "a standard regional art-house entry.\n"
+        "📚 Cultural Significance — limited; the film has not entered any "
+        "critical conversation since its 2024 festival premiere.\n"
+        "💡 Intellectual Depth — the script settles for restatement rather "
+        "than inquiry."
+    )
+    processor.movie_cache[event["title"].upper().strip()] = {
+        "score": 2,
+        "summary": legitimate_low_score_summary,
+    }
+
+    def _fail(*_args, **_kwargs):  # pragma: no cover
+        raise AssertionError("AI rating should NOT be called on legitimate cache hit")
+
+    monkeypatch.setattr(processor, "_get_ai_rating", _fail)
+    monkeypatch.setattr(processor, "_get_classical_rating", _fail)
+    monkeypatch.setattr(processor, "_get_book_club_rating", _fail)
+    monkeypatch.setattr(processor, "_get_visual_arts_rating", _fail)
+
+    [enriched] = processor.process_events([event])
+
+    assert enriched["ai_rating"]["score"] == 2
+    assert enriched["ai_rating"]["summary"] == legitimate_low_score_summary
+    assert enriched["description"] == legitimate_low_score_summary

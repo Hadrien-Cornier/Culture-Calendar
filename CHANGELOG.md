@@ -62,6 +62,12 @@ Task entries (appended after each DONE commit) follow below.
 - files: update_website_data.py, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T2.4 — DONE — 2026-04-19T04:27:29Z
+- commit: cd469ed
+- files: tests/test_review_confidence.py, CHANGELOG.md
+- live-check: n/a (backend)
+- note: cache-aware re-rate of refusal-shaped cached entries is already implemented in src/processor.py:288-292 (from commit 65bf010, 2026-04-14). This task adds regression tests that guarantee (a) refusal-shaped cached summaries trigger re-processing via _get_ai_rating and (b) legitimate low-score cached reviews are served from cache without churn.
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->
