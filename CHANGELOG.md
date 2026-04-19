@@ -12,6 +12,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: CLAUDE.md, .overnight/feature-inventory.json, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T0.2 — DONE — 2026-04-19T03:43:56Z
+- commit: 06b254c
+- files: README.md, CHANGELOG.md
+- live-check: n/a (backend)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

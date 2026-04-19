@@ -248,6 +248,24 @@ python main.py --debug
   - **Fusebox Festival**: Annual festival for innovative and genre-defying work
   - **dadaLab**: Tech-art gallery and event space
 
+## Venue Wishlist
+
+Roadmap candidates for future scraper integration. Each entry is `venue-name (category) — why-interesting`. Sourced from the existing Phase 4 and Phase 8 entries in the Roadmap above; `scripts/prospect_venues.py` (T4.2) later appends Perplexity-discovered additions below the seed list.
+
+<!-- venue-wishlist:begin -->
+- [ ] Alamo Drafthouse (movie) — classic Austin cinema experience with programming flavor beyond the chains
+- [ ] Violet Crown Cinema (movie) — independent and international films, art-house booking
+- [ ] East Austin Movie Theater (movie) — revived single-screen cinema with neighborhood curation
+- [ ] The Long Center (concert) — performing arts venue, including opera and ballet touring
+- [ ] The VORTEX (dance/theater) — experimental theater and performance art
+- [ ] Beerthoven Concert Series (concert) — casual classical music events in non-traditional settings
+- [ ] BookPeople (book_club) — author events and readings from Austin's flagship indie bookstore
+- [ ] Austin Public Library (book_club) — author talks, readings, and workshops across branches
+- [ ] The Museum of Human Achievement (visual_arts) — unconventional performances and installation art
+- [ ] Fusebox Festival (visual_arts) — annual festival for innovative and genre-defying work
+- [ ] dadaLab (visual_arts) — tech-art gallery and event space
+<!-- venue-wishlist:end -->
+
 ## 🤝 Contributing
 
 1. Fork the repository
