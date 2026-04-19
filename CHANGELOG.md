@@ -104,7 +104,7 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: n/a (backend)
 
 ### task-T4.3 — DONE — 2026-04-19T05:05:22Z
-- commit: 6686c20
+- commit: 8918c9f
 - files: tests/test_prospect_venues.py, CHANGELOG.md
 - live-check: n/a (backend)
 
