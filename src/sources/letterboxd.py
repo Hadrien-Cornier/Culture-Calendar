@@ -1,3 +1,17 @@
+"""Letterboxd fallback source for film metadata.
+
+Best-effort supplementary lookup for movies that Perplexity couldn't
+satisfactorily evaluate. Given a film title + year, we slugify into
+Letterboxd's URL scheme (``/film/<slug>/``), fetch the page, and pull
+director / synopsis / average-rating signals from the OpenGraph and
+JSON-LD blocks. Output is a shallow dict that :mod:`src.processor`
+merges into the event before the rating pass.
+
+Not a primary source: Letterboxd is aggregator-driven and lags on
+indie / repertory titles. Treat all fields as hints, not ground truth.
+No API key required; uses public HTML.
+"""
+
 import json
 import time
 import re

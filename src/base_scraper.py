@@ -1,5 +1,35 @@
-"""
-Simple base scraper class for adhoc venue scrapers
+"""Abstract base class for venue scrapers.
+
+Every ``src/scrapers/<venue>_scraper.py`` extends :class:`BaseScraper`
+and implements :meth:`scrape_events` returning a list of event dicts.
+Subclasses inherit:
+
+- ``self.session`` — a ``requests.Session`` with sensible retry + UA
+  headers for HTML scraping.
+- ``self.llm_service`` — a :class:`src.llm_service.LLMService` instance
+  wired with ``PERPLEXITY_API_KEY`` + ``ANTHROPIC_API_KEY`` from env,
+  so subclasses can do smart LLM extraction without threading
+  credentials.
+- :meth:`format_event` — normalizes a raw event dict into the
+  pipeline-wide shape (snake_case fields, ISO dates, HH:mm times,
+  ``occurrences`` array). Subclasses call this as the final step of
+  :meth:`scrape_events`.
+- :meth:`validate_event` — returns ``True`` only if required fields
+  for the event's ``event_category`` template (defined in
+  ``config/master_config.yaml``) are present and non-empty.
+
+**Subclass contract**
+
+- Implement ``scrape_events(self) -> list[dict]``.
+- Set ``self.venue_name`` and ``self.venue_slug`` in ``__init__``
+  (used for dedup and classification policy lookup).
+- Dates must be ``YYYY-MM-DD``; times must be ``HH:MM`` 24-hour.
+- Return an empty list (not ``None``) when scraping yields nothing —
+  the validation service distinguishes "zero events" from
+  "scraper crashed".
+
+See ``CLAUDE.md §Adding a New Venue`` and
+``src/scrapers/afs_scraper.py`` for the canonical pattern.
 """
 
 import os

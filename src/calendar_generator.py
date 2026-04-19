@@ -1,5 +1,17 @@
-"""
-ICS calendar file generator
+"""ICS calendar file generator.
+
+Produces on-demand ``.ics`` files for events the user downloads via
+the website's per-event / per-filter calendar buttons. Uses
+``icalendar`` for RFC 5545 output and ``pytz`` for
+``America/Chicago`` localization (Austin's canonical TZ).
+
+Inputs: normalized event dicts — same shape
+:class:`src.base_scraper.BaseScraper.format_event` produces.
+Outputs: an ``icalendar.Calendar`` instance ready to serialize.
+
+Event end-times default to ``start + 2h`` when ``duration_min`` is
+missing — rough-but-reasonable for most Austin venues. Adjust
+per-category if a venue consistently runs longer/shorter.
 """
 
 from datetime import datetime, timedelta

@@ -1,5 +1,44 @@
-"""
-Event processor for enriching and rating events
+"""Event processor — AI ratings, critic-style reviews, refusal handling.
+
+:class:`EventProcessor` takes normalized events (output of
+:class:`src.scraper.MultiVenueScraper`) and attaches two AI-generated
+fields:
+
+- ``rating`` — integer 0–10 (or ``-1`` when ungraded) reflecting
+  artistic merit, driven by per-category rubrics.
+- ``description`` — long-form critic-style review text. French
+  cinéaste tone for movies, distinguished-criticism tone for
+  music/dance, accessible literary framing for book clubs.
+
+**Rating prompt cascade** (:meth:`_get_ai_rating` and its
+``_get_<category>_rating`` helpers):
+
+1. Strict rubric prompt via Perplexity (uncompromising academic
+   standards).
+2. Permissive retry ("DO NOT refuse"; use training data if web sources
+   are sparse).
+3. General-knowledge retry (pure training-data path).
+4. Claude fallback for events Perplexity declines.
+5. Default sentinel ``{"score": 5, "summary": "Unable to evaluate..."}``
+   which is then filtered out by :mod:`src.refusal` when it matches
+   refusal-shaped text.
+
+**Review confidence** — :meth:`_parse_ai_response` tags the returned
+dict with ``review_confidence: low | medium | high`` based on refusal
+detection + explicit-insufficient phrases (``"insufficient evidence"``
+etc.). The frontend's "Pending more research" section renders events
+whose confidence is ``low``, so uncertain ratings don't visually
+compete with genuine low scores backed by evidence.
+
+**Cache** — ``docs/data.json`` doubles as the rating cache via
+:meth:`_load_existing_data`; refusal-shaped summaries are re-rated
+automatically (commit ``65bf010``), legitimate low scores are served
+from cache. ``cache/llm_cache.json`` (gitignored) mirrors raw LLM
+responses for offline testing.
+
+This module is high-impact: every d=1 caller of
+:meth:`_parse_ai_response` or :meth:`_get_ai_rating` is downstream of
+an event's public rating, so run ``gitnexus_impact`` on any changes.
 """
 
 import os

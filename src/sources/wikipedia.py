@@ -1,3 +1,18 @@
+"""Wikipedia fallback source for non-film metadata.
+
+Queries Wikipedia's REST API (``/api/rest_v1/page/summary/<title>``)
+for composers, ensembles, venues, and book authors when Perplexity
+comes back thin. Returns a shallow dict of ``{title, extract, url}``
+callers can use to pad event descriptions with canonical background.
+
+Cached on disk under ``cache/wikipedia/<sha1>.json`` so repeated runs
+don't re-hit the API. Cache key is the exact query string, so titles
+with punctuation variants will miss and refetch.
+
+No API key required. Wikipedia has a generous rate limit for
+anonymous users but we still sleep ~0.2s between calls to be polite.
+"""
+
 import json
 import os
 import time

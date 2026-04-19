@@ -1,5 +1,28 @@
-"""
-Simplified LLM-powered scrapers module
+"""Venue scraper registry.
+
+Every class exported here is instantiated by
+:class:`src.scraper.MultiVenueScraper` and must extend
+:class:`src.base_scraper.BaseScraper` (contract documented there).
+Scraper categories:
+
+- **Live HTML scrape + LLM extraction**: AFS, Hyperreal, Paramount,
+  Alienated Majesty, First Light, Libra Books.
+- **Static JSON (season files, manually curated)**: Austin Symphony,
+  Early Music Austin, La Follia, Austin Chamber Music, Austin Opera,
+  Ballet Austin, NowPlaying Austin Visual Arts.
+- **Disabled**: Arts on Alexander (kept registered for easy re-enable
+  via ``config/master_config.yaml``).
+
+To add a new scraper:
+
+1. Create ``src/scrapers/<venue>_scraper.py`` extending ``BaseScraper``.
+2. Import and re-export it from this file.
+3. Register it in :class:`src.scraper.MultiVenueScraper` (two edits:
+   the import block and :meth:`scrape_all_venues`).
+4. Add a ``venues:`` entry to ``config/master_config.yaml``.
+5. Write unit tests in ``tests/test_<venue>_scraper_unit.py``.
+
+See ``CLAUDE.md §Adding a New Venue`` for the full checklist.
 """
 
 from .afs_scraper import AFSScraper

@@ -1,3 +1,31 @@
+"""Multi-venue scrape orchestrator.
+
+:class:`MultiVenueScraper` holds one instance of every registered venue
+scraper and exposes :meth:`scrape_all_venues`, which:
+
+1. Invokes each scraper (serially — pyppeteer-based scrapers crash on
+   parallel launch with ``signal only works in main thread``; see
+   ``CLAUDE.md §Known Issues``).
+2. Normalizes the raw events through each scraper's :meth:`format_event`
+   (inherited from :class:`src.base_scraper.BaseScraper`).
+3. De-duplicates across venues by ``(title, first_date, venue)``
+   tuple so one-night cross-venue billings don't double-count.
+4. Expands recurring events via
+   :class:`src.recurring_events.RecurringEventGenerator`.
+
+Add a new venue by:
+
+1. Writing ``src/scrapers/<venue>_scraper.py`` extending ``BaseScraper``
+   and implementing :meth:`scrape_events`.
+2. Registering the class in :mod:`src.scrapers.__init__`.
+3. Importing it in this file and adding it to
+   :meth:`MultiVenueScraper.__init__` + :meth:`scrape_all_venues`.
+4. Adding a ``venues:`` entry in ``config/master_config.yaml`` so the
+   enrichment layer knows its classification policy.
+
+See ``CLAUDE.md §Adding a New Venue`` for the full checklist and
+``src/scrapers/afs_scraper.py`` as the canonical pattern.
+"""
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
