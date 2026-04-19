@@ -1,0 +1,10 @@
+{
+  "model": "claude-sonnet-4-6",
+  "reference": "claude-sonnet-4-6",
+  "agreement_threshold": 5,
+  "agreements": {
+    "claude-haiku-4-5-20251001": 3,
+    "claude-sonnet-4-6": 6,
+    "claude-opus-4-7": 4
+  }
+}

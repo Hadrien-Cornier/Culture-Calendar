@@ -40,13 +40,38 @@ load_dotenv()
 MAX_LLM_CALLS = 6
 DOM_SNIPPET_MAX_BYTES = 10_000
 SONNET_MODEL = "claude-sonnet-4-6"
+HAIKU_MODEL = "claude-haiku-4-5-20251001"
+OPUS_MODEL = "claude-opus-4-7"
+DEFAULT_MODEL = HAIKU_MODEL
 DEFAULT_MAX_TOKENS = 1024
 DEFAULT_TEMPERATURE = 0.2
+# Models that reject the ``temperature`` parameter (API returns 400 since
+# 2026-04). Keep narrow — any unknown model still receives the default.
+MODELS_WITHOUT_TEMPERATURE: frozenset[str] = frozenset({OPUS_MODEL})
 
 DEFAULT_PERSONAS_DIR = Path(".overnight/personas")
 DEFAULT_CHECK_SCRIPT = Path("scripts/check_live_site.py")
 DEFAULT_CHECK_RETRIES = 0
 SUBPROCESS_TIMEOUT_S = 180
+CONFIG_MODEL_PATH = Path("config/persona_model.json")
+
+
+def _load_configured_model(config_path: Path = CONFIG_MODEL_PATH) -> str:
+    """Read the persistently-selected model from ``config_path``.
+
+    Falls back to :data:`DEFAULT_MODEL` when the file is missing or malformed.
+    The file is written by ``scripts/bench_personas.py`` after comparing
+    Haiku/Sonnet/Opus against the live site.
+    """
+    try:
+        with config_path.open("r", encoding="utf-8") as fh:
+            data = json.load(fh)
+        model = data.get("model")
+        if isinstance(model, str) and model.strip():
+            return model.strip()
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+    return DEFAULT_MODEL
 
 
 @dataclass(frozen=True)
@@ -273,7 +298,7 @@ def call_anthropic_critique(
     dom_snippet: str,
     client: Any,
     *,
-    model: str = SONNET_MODEL,
+    model: str = DEFAULT_MODEL,
     max_tokens: int = DEFAULT_MAX_TOKENS,
     temperature: float = DEFAULT_TEMPERATURE,
 ) -> str:
@@ -284,9 +309,10 @@ def call_anthropic_critique(
     kwargs: dict[str, Any] = {
         "model": model,
         "max_tokens": max_tokens,
-        "temperature": temperature,
         "messages": messages,
     }
+    if model not in MODELS_WITHOUT_TEMPERATURE:
+        kwargs["temperature"] = temperature
     if system_prompt:
         kwargs["system"] = system_prompt
     resp = client.messages.create(**kwargs)
@@ -319,6 +345,7 @@ def run_all_personas(
     anthropic_client_factory: Callable[[], Any] | None = None,
     python_exe: str | None = None,
     max_llm_calls: int = MAX_LLM_CALLS,
+    model: str = DEFAULT_MODEL,
 ) -> list[PersonaResult]:
     """Run every persona spec and return per-persona results."""
     paths = load_persona_paths(personas_dir)
@@ -367,6 +394,7 @@ def run_all_personas(
                     shot,
                     dom,
                     client,
+                    model=model,
                 )
             except Exception as exc:  # noqa: BLE001
                 critique_error = f"{type(exc).__name__}: {exc}"
@@ -481,17 +509,28 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
             f"(default {DEFAULT_CHECK_RETRIES})."
         ),
     )
+    p.add_argument(
+        "--model",
+        type=str,
+        default=None,
+        help=(
+            "Anthropic model ID for LLM critiques. Defaults to value in "
+            f"{CONFIG_MODEL_PATH} if present, else {DEFAULT_MODEL}."
+        ),
+    )
     return p.parse_args(list(argv))
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
+    model = args.model or _load_configured_model()
     try:
         results = run_all_personas(
             args.personas_dir,
             args.check_script,
             fast=args.fast,
             check_retries=args.check_retries,
+            model=model,
         )
     except FileNotFoundError as exc:
         print(f"error: {exc}", file=sys.stderr)

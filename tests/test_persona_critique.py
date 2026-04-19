@@ -198,17 +198,44 @@ def _build_fake_client(text: str) -> MagicMock:
     return client
 
 
-def test_call_anthropic_critique_uses_sonnet_model():
+def test_call_anthropic_critique_defaults_to_configured_model():
     persona = {"persona": "p", "url": "u", "llm": {"system_prompt": "SYS", "goals": "g"}}
     result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
     client = _build_fake_client("quite nice indeed")
     text = pc.call_anthropic_critique(persona, result, "B", "<html></html>", client)
     assert text == "quite nice indeed"
     kwargs = client.messages.create.call_args.kwargs
-    assert kwargs["model"] == pc.SONNET_MODEL
-    assert kwargs["model"] == "claude-sonnet-4-6"
+    # Default is Haiku 4.5 (selected by bench_personas.py on 2026-04-19; see
+    # docs/persona_model_benchmark.md for the rationale).
+    assert kwargs["model"] == pc.DEFAULT_MODEL == pc.HAIKU_MODEL
     assert kwargs["system"] == "SYS"
     assert kwargs["messages"][0]["role"] == "user"
+
+
+def test_call_anthropic_critique_accepts_explicit_model():
+    persona = {"persona": "p", "url": "u", "llm": {}}
+    result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
+    client = _build_fake_client("ok")
+    pc.call_anthropic_critique(
+        persona, result, "B", "", client, model="claude-opus-4-7"
+    )
+    assert client.messages.create.call_args.kwargs["model"] == "claude-opus-4-7"
+
+
+def test_load_configured_model_falls_back_when_file_missing(tmp_path):
+    assert pc._load_configured_model(tmp_path / "nope.json") == pc.DEFAULT_MODEL
+
+
+def test_load_configured_model_reads_model_field(tmp_path):
+    cfg = tmp_path / "persona_model.json"
+    cfg.write_text(json.dumps({"model": "claude-opus-4-7", "other": "ignored"}))
+    assert pc._load_configured_model(cfg) == "claude-opus-4-7"
+
+
+def test_load_configured_model_ignores_malformed(tmp_path):
+    cfg = tmp_path / "persona_model.json"
+    cfg.write_text("not json")
+    assert pc._load_configured_model(cfg) == pc.DEFAULT_MODEL
 
 
 def test_call_anthropic_critique_handles_empty_content():
