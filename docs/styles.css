@@ -275,6 +275,35 @@ body {
   border-top: 1px solid var(--rule);
 }
 
+.picks-list.top-picks { counter-reset: pick; }
+.picks-list.top-picks .event-card {
+  counter-increment: pick;
+  margin-bottom: 0;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+}
+.picks-list.top-picks .event-card:last-child { border-bottom: none; }
+.picks-list.top-picks .event-card .event-header {
+  grid-template-columns: 40px 72px 1fr 28px;
+}
+.picks-list.top-picks .event-card .event-header::before {
+  content: counter(pick);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--muted);
+  text-align: center;
+}
+.picks-list.top-picks .event-card.is-open .expand-indicator {
+  transform: rotate(90deg);
+  color: var(--accent);
+}
+.picks-list.top-picks .event-card.is-open .event-panel {
+  max-height: 2000px;
+  padding: 14px 16px 18px 126px;
+  border-top: 1px solid var(--rule);
+}
+
 .event-oneliner {
   font-style: italic;
   color: var(--accent);
@@ -342,6 +371,8 @@ body {
   .event-header { grid-template-columns: 64px 1fr 24px; gap: 10px; padding: 12px; }
   .event-title-text { font-size: 17px; }
   .event-panel, .event-card.is-expanded .event-panel { padding-left: 86px; padding-right: 12px; }
+  .picks-list.top-picks .event-card .event-header { grid-template-columns: 28px 64px 1fr 24px; gap: 10px; padding: 12px; }
+  .picks-list.top-picks .event-card.is-open .event-panel { padding-left: 108px; padding-right: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

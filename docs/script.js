@@ -290,6 +290,7 @@
 
   function renderPicks(picks) {
     picksList.innerHTML = "";
+    picksList.classList.add("top-picks");
     if (picks.length === 0) {
       var empty = document.createElement("li");
       empty.className = "empty-state";
@@ -299,36 +300,124 @@
     }
     var frag = document.createDocumentFragment();
     picks.forEach(function (ev) {
-      var li = document.createElement("li");
-      li.className = "pick-item";
-      if (ev.showings && ev.showings[0]) {
-        li.dataset.firstDate = ev.showings[0].date;
-      }
-      var badge = document.createElement("span");
-      badge.className = "pick-rating pick-rating--" + ratingClass(ev.rating);
-      badge.textContent = ev.rating > 0 ? ev.rating + " / 10" : "—";
-      badge.setAttribute("aria-label", "rated " + ev.rating + " out of 10");
-      li.appendChild(badge);
-
-      var title = document.createElement("span");
-      title.className = "pick-title";
-      if (ev.url) {
-        var a = document.createElement("a");
-        a.href = ev.url; a.target = "_blank"; a.rel = "noopener";
-        a.textContent = ev.title; title.appendChild(a);
-      } else { title.textContent = ev.title; }
-      li.appendChild(title);
-
-      var meta = document.createElement("span");
-      meta.className = "pick-meta";
-      var next = ev.showings[0];
-      var parts = [CATEGORY_LABELS[ev.type] || ev.type.replace(/_/g, " ")];
-      if (next) parts.push(formatDate(next.date) + (next.time ? " · " + formatTime(next.time) : ""));
-      meta.textContent = parts.join(" · ");
-      li.appendChild(meta);
-      frag.appendChild(li);
+      frag.appendChild(buildPickCard(ev));
     });
     picksList.appendChild(frag);
+  }
+
+  function buildPickCard(ev) {
+    var card = document.createElement("li");
+    card.className = "event-card pick-card";
+    if (ev.showings && ev.showings[0]) {
+      card.dataset.firstDate = ev.showings[0].date;
+    }
+
+    var header = document.createElement("div");
+    header.className = "event-header";
+
+    var badge = document.createElement("span");
+    badge.className = "event-rating-badge rating-" + ratingClass(ev.rating);
+    badge.textContent = ev.rating > 0 ? ev.rating + " / 10" : "—";
+    badge.setAttribute("aria-label", "rated " + ev.rating + " out of 10");
+    header.appendChild(badge);
+
+    var col = document.createElement("div");
+    col.className = "event-title-col";
+    var title = document.createElement("div");
+    title.className = "event-title-text";
+    if (ev.url) {
+      var a = document.createElement("a");
+      a.href = ev.url; a.target = "_blank"; a.rel = "noopener";
+      a.className = "event-title-link";
+      a.textContent = ev.title;
+      a.addEventListener("click", function (e) { e.stopPropagation(); });
+      title.appendChild(a);
+    } else { title.textContent = ev.title; }
+    col.appendChild(title);
+
+    var sub = document.createElement("div");
+    sub.className = "event-subtitle";
+    var next = ev.showings && ev.showings[0];
+    var sp = [CATEGORY_LABELS[ev.type] || (ev.type || "").replace(/_/g, " ")];
+    if (ev.venue) sp.unshift(ev.venue);
+    if (next) sp.push(formatDate(next.date) + (next.time ? " · " + formatTime(next.time) : ""));
+    sub.textContent = sp.join(" · ");
+    col.appendChild(sub);
+    header.appendChild(col);
+
+    var arrow = document.createElement("span");
+    arrow.className = "expand-indicator";
+    arrow.textContent = "▶";
+    arrow.setAttribute("aria-hidden", "true");
+    header.appendChild(arrow);
+    card.appendChild(header);
+
+    var panel = document.createElement("div");
+    panel.className = "event-panel";
+    if (ev.one_liner) {
+      var ol = document.createElement("p");
+      ol.className = "event-oneliner";
+      ol.textContent = ev.one_liner;
+      panel.appendChild(ol);
+    }
+    var parsed = parseReview(ev.description);
+    if (parsed.sections.length > 0) {
+      var reviewWrap = document.createElement("div");
+      reviewWrap.className = "event-review";
+      parsed.sections.forEach(function (sec, idx) {
+        var sectionEl = document.createElement("section");
+        sectionEl.className = idx === 0
+          ? "event-review-section event-review-first"
+          : "event-review-section";
+        if (sec.label) {
+          var h = document.createElement("h4");
+          h.className = "event-review-heading";
+          if (sec.emoji) {
+            var em = document.createElement("span");
+            em.className = "event-review-emoji";
+            em.setAttribute("aria-hidden", "true");
+            em.textContent = sec.emoji + " ";
+            h.appendChild(em);
+          }
+          h.appendChild(document.createTextNode(sec.label));
+          sectionEl.appendChild(h);
+        }
+        var bodyP = document.createElement("p");
+        bodyP.className = "event-review-body";
+        bodyP.textContent = sec.body;
+        sectionEl.appendChild(bodyP);
+        reviewWrap.appendChild(sectionEl);
+      });
+      panel.appendChild(reviewWrap);
+    } else if (ev.description) {
+      var flat = ev.description.replace(/<[^>]*>/g, "");
+      if (flat && flat !== ev.one_liner) {
+        var p = document.createElement("p");
+        p.className = "event-review-body";
+        p.textContent = flat;
+        panel.appendChild(p);
+      }
+    }
+    var ttsSlot = document.createElement("div");
+    ttsSlot.className = "event-tts-slot";
+    panel.appendChild(ttsSlot);
+    card.appendChild(panel);
+
+    header.setAttribute("role", "button");
+    header.setAttribute("tabindex", "0");
+    header.setAttribute("aria-expanded", "false");
+    header.addEventListener("click", function () {
+      var open = card.classList.toggle("is-open");
+      header.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    header.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); header.click(); }
+      if (e.key === "Escape" && card.classList.contains("is-open")) {
+        card.classList.remove("is-open");
+        header.setAttribute("aria-expanded", "false");
+      }
+    });
+    return card;
   }
 
   function renderListings(events) {

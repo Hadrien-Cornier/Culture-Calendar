@@ -40,5 +40,12 @@
     "selector": "#event-search",
     "since_commit": "task-T1.1b",
     "smoke_assertion": "selector_exists:#event-search"
+  },
+  {
+    "id": "top-picks-expand",
+    "name": "Top Picks click-to-expand review",
+    "selector": ".top-picks .event-card .event-panel",
+    "since_commit": "task-T1.2",
+    "smoke_assertion": "click_then_visible"
   }
 ]
