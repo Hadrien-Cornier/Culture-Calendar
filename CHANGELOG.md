@@ -57,6 +57,11 @@ Task entries (appended after each DONE commit) follow below.
 - files: config/master_config.yaml, CHANGELOG.md
 - live-check: n/a (backend)
 
+### task-T2.3 — DONE — 2026-04-19T04:25:31Z
+- commit: d1448b9
+- files: update_website_data.py, CHANGELOG.md
+- live-check: n/a (backend)
+
 <!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->

@@ -255,6 +255,10 @@ def build_event_from_template(
                 output[field] = event.get("oneLinerSummary")
             else:
                 output[field] = ""
+        elif field == "review_confidence":
+            # Pull AI-derived confidence so the UI can route low-confidence
+            # reviews into the "pending more research" bucket.
+            output[field] = ai_rating.get("review_confidence", "unknown")
         elif field in event:
             # Use event value if present
             output[field] = event[field]
