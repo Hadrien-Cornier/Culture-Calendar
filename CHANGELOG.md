@@ -79,7 +79,7 @@ Task entries (appended after each DONE commit) follow below.
 - live-check: n/a (backend)
 
 ### task-T3.1 — DONE — 2026-04-19T04:42:09Z
-- commit: PENDING
+- commit: e91803b
 - files: .overnight/personas/logistics-user.json, .overnight/personas/review-reader.json, .overnight/personas/search-user.json, .overnight/personas/comprehensiveness-user.json, .overnight/personas/continuity-user.json, .overnight/personas/mobile-user.json, CHANGELOG.md
 - live-check: n/a (backend)
 
