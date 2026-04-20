@@ -131,6 +131,11 @@
 - files: scripts/build_composer_feature.py, docs/features/.gitkeep, docs/features/composer-2026-W17.html, CHANGELOG.md
 - validation: green
 
+### task-T8.2 — DONE — 2026-04-20T06:38:45Z
+- commit: PENDING
+- files: scripts/capture_screenshots.py, tests/test_capture_screenshots.py, docs/preview/.gitkeep, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
