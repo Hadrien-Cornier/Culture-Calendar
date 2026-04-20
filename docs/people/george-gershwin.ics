@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring George Gershwin (composer)
+X-WR-CALNAME:Culture Calendar — George Gershwin
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] Masterworks 8: Steinway Spirio featuring "George Gershwin"
+DTSTART;TZID=America/Chicago:20260515T200000
+DTEND;TZID=America/Chicago:20260515T220000
+DTSTAMP:20260420T091117Z
+UID:george-gershwin-masterworks-8-steinway-spirio-featuring-george-gershwi
+ n---2026-05-152026-05-16-20002000-2026-05-15-2000@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 8/10\n\nAmerican classical favorites performed by prec
+ ision Steinway Spirio player piano.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Masterworks 8: Steinway Spirio featuring "George Gershwin"
+DTSTART;TZID=America/Chicago:20260516T200000
+DTEND;TZID=America/Chicago:20260516T220000
+DTSTAMP:20260420T091117Z
+UID:george-gershwin-masterworks-8-steinway-spirio-featuring-george-gershwi
+ n---2026-05-152026-05-16-20002000-2026-05-16-2000@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 8/10\n\nAmerican classical favorites performed by prec
+ ision Steinway Spirio player piano.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR

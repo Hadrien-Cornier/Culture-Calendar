@@ -1,0 +1,78 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Jia Zhangke (director)
+X-WR-CALNAME:Culture Calendar — Jia Zhangke
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] THE WORLD
+DTSTART;TZID=America/Chicago:20260421T193000
+DTEND;TZID=America/Chicago:20260421T213000
+DTSTAMP:20260420T091117Z
+UID:jia-zhangke-the-world-2026-04-21-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nJia Zhangke's meditative portrait of contempor
+ ary China through interconnected lives and urban al...\n\nDetails: https:/
+ /www.austinfilm.org/screening/the-world/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-world/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] THE WORLD
+DTSTART;TZID=America/Chicago:20260425T140000
+DTEND;TZID=America/Chicago:20260425T160000
+DTSTAMP:20260420T091117Z
+UID:jia-zhangke-the-world-2026-04-25-1400@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nJia Zhangke's meditative portrait of contempor
+ ary China through interconnected lives and urban al...\n\nDetails: https:/
+ /www.austinfilm.org/screening/the-world/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-world/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] STILL LIFE
+DTSTART;TZID=America/Chicago:20260428T193000
+DTEND;TZID=America/Chicago:20260428T213000
+DTSTAMP:20260420T091117Z
+UID:jia-zhangke-still-life-2026-04-28-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nJia Zhangke documents the Three Gorges Dam's h
+ uman cost through static\, meditative observation.\n\nDetails: https://www
+ .austinfilm.org/screening/still-life/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/still-life/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] STILL LIFE
+DTSTART;TZID=America/Chicago:20260502T140000
+DTEND;TZID=America/Chicago:20260502T160000
+DTSTAMP:20260420T091117Z
+UID:jia-zhangke-still-life-2026-05-02-1400@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nJia Zhangke documents the Three Gorges Dam's h
+ uman cost through static\, meditative observation.\n\nDetails: https://www
+ .austinfilm.org/screening/still-life/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/still-life/
+END:VEVENT
+END:VCALENDAR

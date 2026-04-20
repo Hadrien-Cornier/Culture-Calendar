@@ -1,0 +1,110 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Kaizo Hayashi (director)
+X-WR-CALNAME:Culture Calendar — Kaizo Hayashi
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] THE MOST TERRIBLE TIME IN MY LIFE
+DTSTART;TZID=America/Chicago:20260510T140000
+DTEND;TZID=America/Chicago:20260510T160000
+DTSTAMP:20260420T091117Z
+UID:kaizo-hayashi-the-most-terrible-time-in-my-life-2026-05-10-1400@cultur
+ ecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 7/10\n\nJapanese noir follows a cynical detective thro
+ ugh Tokyo's shadowy underworld.\n\nDetails: https://www.austinfilm.org/scr
+ eening/the-most-terrible-time-in-my-life/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-most-terrible-time-in-my-life
+ /
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE MOST TERRIBLE TIME IN MY LIFE
+DTSTART;TZID=America/Chicago:20260513T203000
+DTEND;TZID=America/Chicago:20260513T223000
+DTSTAMP:20260420T091117Z
+UID:kaizo-hayashi-the-most-terrible-time-in-my-life-2026-05-13-2030@cultur
+ ecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 7/10\n\nJapanese noir follows a cynical detective thro
+ ugh Tokyo's shadowy underworld.\n\nDetails: https://www.austinfilm.org/scr
+ eening/the-most-terrible-time-in-my-life/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-most-terrible-time-in-my-life
+ /
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] THE STAIRWAY TO THE DISTANT PAST
+DTSTART;TZID=America/Chicago:20260517T160000
+DTEND;TZID=America/Chicago:20260517T180000
+DTSTAMP:20260420T091117Z
+UID:kaizo-hayashi-the-stairway-to-the-distant-past-2026-05-17-1600@culture
+ calendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nMysterious journey through time unfolds in thi
+ s enigmatic cinematic exploration.\n\nDetails: https://www.austinfilm.org/
+ screening/the-stairway-to-the-distant-past/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stairway-to-the-distant-past/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] THE STAIRWAY TO THE DISTANT PAST
+DTSTART;TZID=America/Chicago:20260520T201500
+DTEND;TZID=America/Chicago:20260520T221500
+DTSTAMP:20260420T091117Z
+UID:kaizo-hayashi-the-stairway-to-the-distant-past-2026-05-20-2015@culture
+ calendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nMysterious journey through time unfolds in thi
+ s enigmatic cinematic exploration.\n\nDetails: https://www.austinfilm.org/
+ screening/the-stairway-to-the-distant-past/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stairway-to-the-distant-past/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] THE TRAP
+DTSTART;TZID=America/Chicago:20260524T133000
+DTEND;TZID=America/Chicago:20260524T153000
+DTSTAMP:20260420T091117Z
+UID:kaizo-hayashi-the-trap-2026-05-24-1330@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nJapanese psychological thriller ensnares viewe
+ rs in moral ambiguity and existential dread.\n\nDetails: https://www.austi
+ nfilm.org/screening/the-trap/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-trap/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] THE TRAP
+DTSTART;TZID=America/Chicago:20260527T203000
+DTEND;TZID=America/Chicago:20260527T223000
+DTSTAMP:20260420T091117Z
+UID:kaizo-hayashi-the-trap-2026-05-27-2030@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nJapanese psychological thriller ensnares viewe
+ rs in moral ambiguity and existential dread.\n\nDetails: https://www.austi
+ nfilm.org/screening/the-trap/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-trap/
+END:VEVENT
+END:VCALENDAR

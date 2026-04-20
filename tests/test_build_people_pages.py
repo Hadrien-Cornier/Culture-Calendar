@@ -194,9 +194,30 @@ def test_extract_composers_filters_placeholders():
 
 
 def test_extract_composers_dedupes_case_insensitively():
+    # "Beethoven" canonicalises to "Ludwig van Beethoven"; repeated input
+    # should still dedupe to one canonical entry.
     assert bpp._extract_composers(
         {"composers": ["Beethoven", "beethoven"]}
-    ) == ["Beethoven"]
+    ) == ["Ludwig van Beethoven"]
+
+
+def test_extract_composers_filters_various_and_ensembles():
+    # Programme-note placeholders that are NOT people must be rejected:
+    # various, consort-of, scottish songs.
+    assert bpp._extract_composers(
+        {"composers": [
+            "Various Medieval Composers",
+            "Consort of Viols",
+            "Scottish Songs",
+            "Henry Purcell",
+        ]}
+    ) == ["Henry Purcell"]
+
+
+def test_slugify_strips_diacritics():
+    # Camille Saint-Saëns must slugify to ASCII, not "saint-sa-ns".
+    assert bpp.slugify("Camille Saint-Saëns") == "camille-saint-saens"
+    assert bpp.slugify("Antonín Dvořák") == "antonin-dvorak"
 
 
 def test_extract_authors_handles_blank_and_unknown():

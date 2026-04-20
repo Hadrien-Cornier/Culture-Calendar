@@ -16,6 +16,7 @@ import json
 import logging
 import re
 import sys
+import unicodedata
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -83,7 +84,8 @@ ROLE_DESCRIPTIONS = {
 }
 
 # Case-insensitive placeholder values we should never treat as a real
-# person name (and therefore never create a page for).
+# person name (and therefore never create a page for). Exact matches after
+# lowercasing + stripping.
 NAME_BLOCKLIST = frozenset({
     "",
     "various",
@@ -99,29 +101,88 @@ NAME_BLOCKLIST = frozenset({
     "traditional",
 })
 
+# Substrings that, if present anywhere in the lowercased name, mark it as a
+# programme-note placeholder rather than a real person. These catch entries
+# like ``various medieval composers``, ``various troubadour composers``,
+# ``scottish songs`` (a genre, not a composer), ``consort of viols`` (an
+# ensemble type), or ``various england/france/italy`` (a regional label).
+NAME_SUBSTRING_BLOCKLIST: tuple[str, ...] = (
+    "various",
+    "consort of",
+    "ensemble",
+    "scottish songs",
+    "british lowland composers",
+    "troubadour composers",
+    "medieval composers",
+    "england/france",
+)
+
+# Canonical-name aliases: the key is the display form encountered in the
+# data, the value is the canonical full name we should write pages under.
+# Prevents a composer from getting two pages (``beethoven.html`` and
+# ``ludwig-van-beethoven.html``) which would split SEO weight in half.
+NAME_ALIASES: dict[str, str] = {
+    "beethoven": "Ludwig van Beethoven",
+    "haydn": "Joseph Haydn",
+    "mozart": "Wolfgang Amadeus Mozart",
+    "bach": "Johann Sebastian Bach",
+    "schubert": "Franz Schubert",
+    "brahms": "Johannes Brahms",
+    "purcell": "Henry Purcell",
+    "telemann": "Georg Philipp Telemann",
+    "mendelssohn": "Felix Mendelssohn",
+    "gershwin": "George Gershwin",
+    "verdi": "Giuseppe Verdi",
+    "puccini": "Giacomo Puccini",
+    "saint-saens": "Camille Saint-Saëns",
+    "saint saens": "Camille Saint-Saëns",
+    "copland": "Aaron Copland",
+    "bernstein": "Leonard Bernstein",
+}
+
 LOG = logging.getLogger("build_people_pages")
 
 _SLUG_STRIP = re.compile(r"[^a-z0-9]+")
 
 
-def slugify(name: str) -> str:
-    """Lowercase, hyphen-separated slug.
+def _canonicalise(name: str) -> str:
+    """Expand a bare surname like ``"Beethoven"`` to its canonical full form.
 
-    ``"Camille Saint-Saëns"`` → ``"camille-saint-sa-ns"`` (non-ASCII
-    collapses to a single hyphen run, then trims).
+    Keeps already-qualified names unchanged. Case-insensitive lookup.
     """
-    lowered = (name or "").strip().lower()
+    if not name:
+        return name
+    stripped = name.strip()
+    alias = NAME_ALIASES.get(stripped.lower())
+    return alias if alias else stripped
+
+
+def slugify(name: str) -> str:
+    """Lowercase, ASCII-folded, hyphen-separated slug.
+
+    ``"Camille Saint-Saëns"`` → ``"camille-saint-saens"`` (diacritics
+    stripped via NFKD before the non-alnum replacement).
+    """
+    if not name:
+        return ""
+    normalised = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode("ascii")
+    lowered = normalised.strip().lower()
     slug = _SLUG_STRIP.sub("-", lowered)
     return slug.strip("-")
 
 
 def _clean_name(value: object) -> str:
+    """Normalise, reject placeholders, canonicalise aliases."""
     if not isinstance(value, str):
         return ""
     stripped = value.strip()
-    if stripped.lower() in NAME_BLOCKLIST:
+    lowered = stripped.lower()
+    if lowered in NAME_BLOCKLIST:
         return ""
-    return stripped
+    for needle in NAME_SUBSTRING_BLOCKLIST:
+        if needle in lowered:
+            return ""
+    return _canonicalise(stripped)
 
 
 def _extract_directors(event: dict) -> list[str]:

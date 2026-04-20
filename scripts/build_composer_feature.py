@@ -173,10 +173,38 @@ def _is_concert_like(event: dict) -> bool:
     return kind == "concert"
 
 
+def _headliner_score(name: str, events: Sequence[dict]) -> int:
+    """Score how often ``name`` appears in event titles/programmes.
+
+    Treats title matches as 2× a programme-text match because
+    ``Masterworks 8: ... featuring George Gershwin`` signals headliner
+    status in a way that buried programme credits do not. Used as the
+    tiebreaker when multiple composers tie on upcoming-event count, so
+    a listed-but-parenthetical composer like Morton Gould never wins
+    over the actual headliner (Gershwin).
+    """
+    name_lower = name.lower()
+    score = 0
+    for event in events:
+        title = str(event.get("title") or "").lower()
+        if name_lower in title:
+            score += 2
+        programme = str(event.get("program") or event.get("programme") or "").lower()
+        if name_lower in programme:
+            score += 1
+    return score
+
+
 def select_composer(
     events: Sequence[dict], *, today: date
 ) -> Optional[tuple[str, list[dict]]]:
     """Pick the composer with the most upcoming concert events.
+
+    Tiebreaker (when multiple composers share the top count) prefers the
+    composer whose name appears in the event title or programme text —
+    this surfaces the headliner (e.g. Gershwin in ``Masterworks 8: ...
+    featuring George Gershwin``) over parenthetical list entries
+    (e.g. Morton Gould, who shares the same programme).
 
     Returns ``(display_name, [events])`` or ``None`` when no eligible
     composer is tracked (e.g. empty dataset or every concert lists only
@@ -197,7 +225,18 @@ def select_composer(
             buckets.setdefault(key, []).append(event)
     if not counts:
         return None
-    top_key = max(counts, key=lambda k: (counts[k], -len(k), display[k]))
+    # Sort key: (upcoming_count, headliner_score, -len_name, name) — all
+    # maximised by ``max``. Headliner_score breaks count ties so a listed
+    # composer never beats the actual billed composer.
+    top_key = max(
+        counts,
+        key=lambda k: (
+            counts[k],
+            _headliner_score(display[k], buckets[k]),
+            -len(k),
+            display[k],
+        ),
+    )
     return display[top_key], buckets[top_key]
 
 

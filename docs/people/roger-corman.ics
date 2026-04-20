@@ -1,0 +1,147 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Roger Corman (director)
+X-WR-CALNAME:Culture Calendar — Roger Corman
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] LITTLE SHOP OF HORRORS
+DTSTART;TZID=America/Chicago:20260602T193000
+DTEND;TZID=America/Chicago:20260602T213000
+DTSTAMP:20260420T091117Z
+UID:roger-corman-little-shop-of-horrors-2026-06-02-1930@culturecalendar.lo
+ cal
+CATEGORIES:Film
+DESCRIPTION:Rating: 6/10\n\nCorman's scrappy 1960 cult classic: carnivorou
+ s plant terrorizes skid row Los Angeles.\n\nDetails: https://www.austinfil
+ m.org/screening/little-shop-of-horrors/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/little-shop-of-horrors/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] LITTLE SHOP OF HORRORS
+DTSTART;TZID=America/Chicago:20260606T141500
+DTEND;TZID=America/Chicago:20260606T161500
+DTSTAMP:20260420T091117Z
+UID:roger-corman-little-shop-of-horrors-2026-06-06-1415@culturecalendar.lo
+ cal
+CATEGORIES:Film
+DESCRIPTION:Rating: 6/10\n\nCorman's scrappy 1960 cult classic: carnivorou
+ s plant terrorizes skid row Los Angeles.\n\nDetails: https://www.austinfil
+ m.org/screening/little-shop-of-horrors/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/little-shop-of-horrors/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE MASQUE OF THE RED DEATH
+DTSTART;TZID=America/Chicago:20260609T193000
+DTEND;TZID=America/Chicago:20260609T213000
+DTSTAMP:20260420T091117Z
+UID:roger-corman-the-masque-of-the-red-death-2026-06-09-1930@culturecalend
+ ar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 7/10\n\nCorman's lurid Gothic masterpiece transforms P
+ oe's plague allegory into vivid\, theatrical dread.\n\nDetails: https://ww
+ w.austinfilm.org/screening/the-masque-of-the-red-death/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-masque-of-the-red-death/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE MASQUE OF THE RED DEATH
+DTSTART;TZID=America/Chicago:20260614T160000
+DTEND;TZID=America/Chicago:20260614T180000
+DTSTAMP:20260420T091117Z
+UID:roger-corman-the-masque-of-the-red-death-2026-06-14-1600@culturecalend
+ ar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 7/10\n\nCorman's lurid Gothic masterpiece transforms P
+ oe's plague allegory into vivid\, theatrical dread.\n\nDetails: https://ww
+ w.austinfilm.org/screening/the-masque-of-the-red-death/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-masque-of-the-red-death/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] BLOODY MAMA
+DTSTART;TZID=America/Chicago:20260616T193000
+DTEND;TZID=America/Chicago:20260616T213000
+DTSTAMP:20260420T091117Z
+UID:roger-corman-bloody-mama-2026-06-16-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nRoger Corman's outlaw matriarch crime saga fue
+ led by violence and maternal vengeance.\n\nDetails: https://www.austinfilm
+ .org/screening/bloody-mama/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/bloody-mama/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] BLOODY MAMA
+DTSTART;TZID=America/Chicago:20260620T133000
+DTEND;TZID=America/Chicago:20260620T153000
+DTSTAMP:20260420T091117Z
+UID:roger-corman-bloody-mama-2026-06-20-1330@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 5/10\n\nRoger Corman's outlaw matriarch crime saga fue
+ led by violence and maternal vengeance.\n\nDetails: https://www.austinfilm
+ .org/screening/bloody-mama/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/bloody-mama/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE TRIP
+DTSTART;TZID=America/Chicago:20260623T193000
+DTEND;TZID=America/Chicago:20260623T213000
+DTSTAMP:20260420T091117Z
+UID:roger-corman-the-trip-2026-06-23-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 6/10\n\nPsychedelic 1967 trip film captures acid-era a
+ esthetics with uneven technical ambition.\n\nDetails: https://www.austinfi
+ lm.org/screening/the-trip/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-trip/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE TRIP
+DTSTART;TZID=America/Chicago:20260627T140000
+DTEND;TZID=America/Chicago:20260627T160000
+DTSTAMP:20260420T091117Z
+UID:roger-corman-the-trip-2026-06-27-1400@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 6/10\n\nPsychedelic 1967 trip film captures acid-era a
+ esthetics with uneven technical ambition.\n\nDetails: https://www.austinfi
+ lm.org/screening/the-trip/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-trip/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE TRIP
+DTSTART;TZID=America/Chicago:20260629T190000
+DTEND;TZID=America/Chicago:20260629T210000
+DTSTAMP:20260420T091117Z
+UID:roger-corman-the-trip-2026-06-29-1900@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 6/10\n\nPsychedelic 1967 trip film captures acid-era a
+ esthetics with uneven technical ambition.\n\nDetails: https://www.austinfi
+ lm.org/screening/the-trip/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-trip/
+END:VEVENT
+END:VCALENDAR
