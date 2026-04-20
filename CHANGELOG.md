@@ -101,6 +101,11 @@
 - files: docs/script.js, CHANGELOG.md
 - validation: green
 
+### task-T6.1 — DONE — 2026-04-20T06:14:52Z
+- commit: cba2557
+- files: scripts/build_sitemap.py, tests/test_build_sitemap.py, docs/sitemap.xml, docs/robots.txt, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
