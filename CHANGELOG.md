@@ -116,6 +116,11 @@
 - files: docs/script.js, docs/styles.css, CHANGELOG.md
 - validation: green
 
+### task-T7.1 — DONE — 2026-04-20T06:27:51Z
+- commit: fed948a
+- files: docs/index.html, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
