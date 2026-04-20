@@ -46,6 +46,11 @@
 - files: docs/index.html, docs/script.js, CHANGELOG.md
 - validation: green
 
+### task-T2.4 — DONE — 2026-04-20T05:19:54Z
+- commit: aae2017
+- files: docs/script.js, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->

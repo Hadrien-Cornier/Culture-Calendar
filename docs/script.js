@@ -57,6 +57,10 @@
   var searchDebounceTimer = null;
   var SEARCH_DEBOUNCE_MS = 150;
   var MAX_SUGGESTIONS_PER_GROUP = 20;
+  /* task-T2.4: Deep-link index. Keyed by slug(event.id || event.title),
+     populated as each card is built so #event=<id> can scroll + expand. */
+  var cardIndex = {};
+  var EVENT_HASH_PREFIX = "#event=";
 
   /* task-T1.5: Web Speech API read-aloud button.
      Supported cross-browser (desktop + mobile). Second click on an active
@@ -188,6 +192,7 @@
       allEvents = Array.isArray(raw) ? raw : (raw.events || []);
       loadingEl.hidden = true;
       renderAll();
+      handleEventHash();
     })
     .catch(function (err) {
       loadingEl.hidden = true;
@@ -457,6 +462,7 @@
   }
 
   function renderAll() {
+    cardIndex = {};
     var filtered = filterEvents(allEvents);
     var grouped = groupEvents(filtered);
     var needsResearch = [];
@@ -478,6 +484,42 @@
     renderPicks(thisWeek.slice(0, 10));
     renderListings(merit);
     renderNeedsResearch(needsResearch);
+  }
+
+  /* task-T2.4: Deep-link support for #event=<id>.
+     registerCardForHash is called from both card builders; handleEventHash
+     runs on initial render, on hashchange, and on DOMContentLoaded. */
+  function registerCardForHash(card, ev, header, openClass) {
+    var rawId = ev.id || ev.event_id || ev.title || "";
+    var slug = ogCardSlug(rawId);
+    if (!slug) return;
+    card.dataset.eventId = slug;
+    var expand = function () {
+      if (!card.classList.contains(openClass)) header.click();
+    };
+    cardIndex[slug] = { card: card, expand: expand, event: ev };
+  }
+
+  function handleEventHash() {
+    var h = (window.location && window.location.hash) || "";
+    if (!h || h.indexOf(EVENT_HASH_PREFIX) !== 0) return;
+    var raw = h.slice(EVENT_HASH_PREFIX.length);
+    if (!raw) return;
+    var decoded;
+    try { decoded = decodeURIComponent(raw); }
+    catch (e) { decoded = raw; }
+    var slug = ogCardSlug(decoded);
+    var entry = cardIndex[slug] || cardIndex[decoded] || cardIndex[raw];
+    if (!entry) return;
+    try { entry.card.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    catch (e) { entry.card.scrollIntoView(); }
+    entry.expand();
+    if (entry.event) updateOGMetaForEvent(entry.event);
+  }
+
+  window.addEventListener("hashchange", handleEventHash);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", handleEventHash);
   }
 
   function initSearch() {
@@ -725,6 +767,7 @@
         header.setAttribute("aria-expanded", "false");
       }
     });
+    registerCardForHash(card, ev, header, "is-open");
     return card;
   }
 
@@ -847,6 +890,7 @@
         header.setAttribute("aria-expanded", "false");
       }
     });
+    registerCardForHash(card, ev, header, "is-expanded");
     return card;
   }
 
