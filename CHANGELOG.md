@@ -86,6 +86,11 @@
 - files: docs/script.js, .overnight/feature-inventory.json, CHANGELOG.md
 - validation: green
 
+### task-T5.1 — DONE — 2026-04-20T05:57:24Z
+- commit: 8f3a190
+- files: scripts/build_venue_pages.py, tests/test_build_venue_pages.py, docs/venues/.gitkeep, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
