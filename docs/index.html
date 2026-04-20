@@ -6,12 +6,18 @@
   <title>Culture Calendar — v12i · Dropdown Collapse</title>
   <link rel="stylesheet" href="../_shared/reset.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="alternate" type="application/rss+xml" title="Culture Calendar" href="feed.xml">
 </head>
 <body>
   <header class="masthead">
     <div class="masthead-inner">
       <h1 class="masthead-title">CULTURE CALENDAR</h1>
       <p class="masthead-subtitle">Austin cultural events, AI-curated</p>
+      <nav class="subscribe-links" aria-label="Subscribe to feeds">
+        <a class="subscribe-link" href="webcal://hadrien-cornier.github.io/Culture-Calendar/calendar.ics" title="Subscribe to all events in your calendar app">Subscribe (iCal)</a>
+        <a class="subscribe-link" href="webcal://hadrien-cornier.github.io/Culture-Calendar/top-picks.ics" title="Subscribe to top picks only">Top picks (iCal)</a>
+        <a class="subscribe-link" href="feed.xml" title="RSS/Atom feed">RSS</a>
+      </nav>
       <div class="search-wrap">
         <input type="search" id="event-search" placeholder="Search venues, titles, categories…" autocomplete="off" aria-label="Search events" aria-controls="search-suggestions" aria-expanded="false">
         <ul class="search-suggestions" id="search-suggestions" role="listbox" hidden></ul>

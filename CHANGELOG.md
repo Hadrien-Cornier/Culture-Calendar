@@ -26,6 +26,11 @@
 - files: update_website_data.py, CHANGELOG.md
 - validation: green
 
+### task-T1.4 — DONE — 2026-04-20T05:07:51Z
+- commit: b8091b8
+- files: docs/index.html, docs/styles.css, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->

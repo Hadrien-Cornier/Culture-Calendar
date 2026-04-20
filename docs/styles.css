@@ -58,6 +58,32 @@ body {
   margin: 8px 0 0;
 }
 
+.subscribe-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 10px 0 0;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.subscribe-link {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1px;
+}
+
+.subscribe-link:hover,
+.subscribe-link:focus {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+  outline: none;
+}
+
 .search-wrap {
   position: relative;
   max-width: 520px;
