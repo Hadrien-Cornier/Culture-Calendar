@@ -690,9 +690,13 @@
      saves (+1) signals, aggregates them into per-category and per-venue
      bias, then adds a ±2-point boost to each pick's AI rating and sorts
      by the adjusted score. Input arrays are not mutated. A taste-empty
-     state produces the same order as the AI rating alone. */
+     state produces the same order as the AI rating alone.
+     task-T3.4: returns scored {ev, score, reason} items. `reason` is the
+     title of the strongest positive signal (thumbs-up or save) that
+     promoted this pick, used by buildPickCard to render the
+     "Because you liked X" annotation. */
   function rerankByTaste(picks, events) {
-    if (!picks || picks.length === 0) return picks ? picks.slice() : [];
+    if (!picks || picks.length === 0) return [];
     var thumbs = taste.getAllThumbs();
     var savedList = taste.savedEvents();
     var savedSet = {};
@@ -700,6 +704,11 @@
 
     var catBias = {};
     var venBias = {};
+    // task-T3.4: per-bucket "leader" — the highest-weighted positively-
+    // signaled event title for each category and venue. Alphabetical
+    // tiebreak keeps selection deterministic across renders.
+    var catLeader = {};
+    var venLeader = {};
     var anySignal = false;
 
     (events || []).forEach(function (ev) {
@@ -714,10 +723,26 @@
       var ven = (ev.venue || "").toLowerCase();
       catBias[cat] = (catBias[cat] || 0) + w;
       if (ven) venBias[ven] = (venBias[ven] || 0) + w;
+      if (w > 0) {
+        var title = ev.title || "";
+        if (title) {
+          var ca = catLeader[cat];
+          if (!ca || w > ca.weight || (w === ca.weight && title < ca.title)) {
+            catLeader[cat] = { title: title, weight: w };
+          }
+          if (ven) {
+            var va = venLeader[ven];
+            if (!va || w > va.weight || (w === va.weight && title < va.title)) {
+              venLeader[ven] = { title: title, weight: w };
+            }
+          }
+        }
+      }
     });
 
     var scored = picks.map(function (ev) {
       var boost = 0;
+      var reason = null;
       if (anySignal) {
         var cat = (ev.type || "other").toLowerCase();
         var ven = (ev.venue || "").toLowerCase();
@@ -725,15 +750,30 @@
         // Halve the raw signal, clamp to ±2, so taste nudges rather
         // than dominates the editorial rating.
         boost = Math.max(-2, Math.min(2, raw * 0.5));
+        if (boost > 0) {
+          // Prefer venue match (more specific signal); fall back to
+          // category match. Skip self-matches so we never say
+          // "because you liked X" on X itself.
+          var lead = null;
+          if (ven && (venBias[ven] || 0) > 0
+              && venLeader[ven] && venLeader[ven].title !== ev.title) {
+            lead = venLeader[ven];
+          }
+          if (!lead && (catBias[cat] || 0) > 0
+              && catLeader[cat] && catLeader[cat].title !== ev.title) {
+            lead = catLeader[cat];
+          }
+          if (lead) reason = lead.title;
+        }
       }
-      return { ev: ev, score: (ev.rating || 0) + boost };
+      return { ev: ev, score: (ev.rating || 0) + boost, reason: reason };
     });
     scored.sort(function (a, b) {
       return b.score - a.score
         || (b.ev.rating || 0) - (a.ev.rating || 0)
         || (a.ev.title || "").localeCompare(b.ev.title || "");
     });
-    return scored.map(function (s) { return s.ev; });
+    return scored;
   }
 
   /* task-T2.4: Deep-link support for #event=<id>.
@@ -943,13 +983,17 @@
       return;
     }
     var frag = document.createDocumentFragment();
-    picks.forEach(function (ev) {
-      frag.appendChild(buildPickCard(ev));
+    picks.forEach(function (item) {
+      // task-T3.4: rerankByTaste yields {ev, score, reason}; tolerate a
+      // raw event for forward compatibility with callers that bypass it.
+      var ev = item && item.ev ? item.ev : item;
+      var reason = item && item.reason ? item.reason : null;
+      frag.appendChild(buildPickCard(ev, reason));
     });
     picksList.appendChild(frag);
   }
 
-  function buildPickCard(ev) {
+  function buildPickCard(ev, reason) {
     var card = document.createElement("li");
     card.className = "event-card pick-card";
     if (ev.showings && ev.showings[0]) {
@@ -987,6 +1031,18 @@
     if (next) sp.push(formatDate(next.date) + (next.time ? " · " + formatTime(next.time) : ""));
     sub.textContent = sp.join(" · ");
     col.appendChild(sub);
+
+    /* task-T3.4: surface the strongest positive taste signal that
+       promoted this pick. Rendered as a one-liner under the subtitle
+       so it is visible without expanding the card. */
+    if (reason) {
+      var bec = document.createElement("div");
+      bec.className = "because-you-liked";
+      bec.textContent = "Because you liked " + reason;
+      bec.setAttribute("aria-label", "Because you liked " + reason);
+      col.appendChild(bec);
+    }
+
     header.appendChild(col);
 
     var arrow = document.createElement("span");
