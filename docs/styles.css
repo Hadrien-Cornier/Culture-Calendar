@@ -432,6 +432,78 @@ body {
 .thumb-up.is-active { border-color: var(--hi); background: #e9f3e9; }
 .thumb-down.is-active { border-color: var(--lo); background: #f6e6e6; }
 
+/* task-T3.2: save (star) button — shares pill geometry with .thumb-button
+   so it flows naturally inside .thumb-controls. Saved state uses a warm
+   amber fill distinct from the green/red thumb states. */
+.save-button {
+  font-family: var(--sans);
+  font-size: 22px;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+  color: var(--ink);
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+.save-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .save-button:hover {
+    border-color: var(--ink);
+  }
+}
+.save-button:active {
+  transform: scale(0.96);
+}
+.save-button.is-saved {
+  background: #fff6d9;
+  border-color: #c9a227;
+  color: #a6831d;
+}
+
+/* task-T3.2: My Picks filter toggle — injected into masthead after
+   .search-wrap. Active state uses the site accent-soft to signal that
+   the listing has been narrowed. */
+.my-picks-toggle-wrap {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.my-picks-toggle {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1;
+  padding: 10px 16px;
+  min-height: 40px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.my-picks-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .my-picks-toggle:hover {
+    border-color: var(--ink);
+  }
+}
+.my-picks-toggle.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
 /* task-T1.5: Web Speech API read-aloud button inside expanded review panels */
 .event-tts-slot {
   margin-top: 0;

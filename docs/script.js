@@ -188,14 +188,15 @@
 
   /* task-T3.1: Client-side taste graph.
      Persists thumbs up/down signals to localStorage.cc_taste with shape
-     { thumbs: { <slug>: +1 | -1 } }. Clicks are idempotent toggles:
-     clicking the active direction clears the signal; clicking the other
-     direction flips it. Silently no-ops if storage is unavailable
-     (private mode, quota, etc.) so the UI still renders. Downstream tasks
-     (T3.2 saves, T3.3 re-rank, T7.2 analytics) extend the same store. */
+     { thumbs: { <slug>: +1 | -1 }, saves: [<slug>, ...] }. Thumb clicks
+     are idempotent toggles; save clicks toggle membership in the saves
+     list. Silently no-ops if storage is unavailable (private mode,
+     quota, etc.) so the UI still renders. Downstream tasks (T3.3
+     re-rank, T7.2 analytics) extend the same store.
+     task-T3.2: added saves:[ids] + star button + savedEvents accessor. */
   var taste = (function () {
     var STORAGE_KEY = "cc_taste";
-    var memory = { thumbs: {} };
+    var memory = { thumbs: {}, saves: [] };
     var available = false;
 
     function load() {
@@ -207,6 +208,11 @@
         if (parsed && typeof parsed === "object") {
           if (parsed.thumbs && typeof parsed.thumbs === "object") {
             memory.thumbs = parsed.thumbs;
+          }
+          if (Array.isArray(parsed.saves)) {
+            memory.saves = parsed.saves.filter(function (s) {
+              return typeof s === "string" && s.length > 0;
+            });
           }
         }
       } catch (e) { available = false; }
@@ -289,13 +295,67 @@
 
       wrap.appendChild(upBtn);
       wrap.appendChild(downBtn);
+      var saveBtn = createSaveButton(ev);
+      if (saveBtn) wrap.appendChild(saveBtn);
       return wrap;
+    }
+
+    /* task-T3.2: Save (star) button. Toggles membership in
+       memory.saves and dispatches cc:saves-changed so the My Picks
+       filter can refresh without a full app re-bind. */
+    function getSave(slug) {
+      if (!slug) return false;
+      return memory.saves.indexOf(slug) !== -1;
+    }
+    function setSave(slug, on) {
+      if (!slug) return false;
+      var idx = memory.saves.indexOf(slug);
+      if (on && idx === -1) memory.saves.push(slug);
+      else if (!on && idx !== -1) memory.saves.splice(idx, 1);
+      persist();
+      return getSave(slug);
+    }
+    function savedEvents() { return memory.saves.slice(); }
+    function isSaved(ev) {
+      var slug = eventSlug(ev);
+      return slug ? getSave(slug) : false;
+    }
+    function applySaveState(btn, on) {
+      btn.classList.toggle("is-saved", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      btn.textContent = on ? "\u2605" : "\u2606";
+      btn.setAttribute("aria-label", on ? "Unsave event" : "Save event");
+      btn.setAttribute("title", on ? "Saved — click to remove" : "Save to My Picks");
+    }
+    function createSaveButton(ev) {
+      var slug = eventSlug(ev);
+      if (!slug) return null;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "save-button";
+      applySaveState(btn, getSave(slug));
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var next = !getSave(slug);
+        applySaveState(btn, setSave(slug, next));
+        try {
+          document.dispatchEvent(new CustomEvent("cc:saves-changed", {
+            detail: { slug: slug, saved: next }
+          }));
+        } catch (err) { /* old browser — filter will still update on next render */ }
+      });
+      return btn;
     }
 
     return {
       getThumb: getThumb,
       setThumb: setThumb,
+      getSave: getSave,
+      setSave: setSave,
+      isSaved: isSaved,
+      savedEvents: savedEvents,
       createControls: createControls,
+      createSaveButton: createSaveButton,
       eventSlug: eventSlug
     };
   })();
@@ -317,6 +377,7 @@
     });
 
   initSearch();
+  initMyPicksToggle();
 
   function groupEvents(events) {
     var byTitle = {};
@@ -571,10 +632,17 @@
       || label.indexOf(q) !== -1;
   }
 
+  /* task-T3.2: My Picks filter state — when true, only events saved to
+     localStorage.cc_taste.saves pass the filter. Search still composes
+     on top, so users can narrow saved events further. */
+  var myPicksOnly = false;
+
   function filterEvents(events) {
     var q = getSearchQuery();
-    if (!q) return events;
-    return events.filter(function (ev) { return matchesQuery(ev, q); });
+    var filtered = events;
+    if (q) filtered = filtered.filter(function (ev) { return matchesQuery(ev, q); });
+    if (myPicksOnly) filtered = filtered.filter(function (ev) { return taste.isSaved(ev); });
+    return filtered;
   }
 
   function renderAll() {
@@ -636,6 +704,46 @@
   window.addEventListener("hashchange", handleEventHash);
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", handleEventHash);
+  }
+
+  /* task-T3.2: My Picks filter toggle.
+     Injected into the masthead next to the search box. Clicking toggles
+     myPicksOnly and re-renders. Count reflects the number of saved
+     events; the button hides count when zero to avoid "(0)" noise.
+     Listens to cc:saves-changed so unsaving while the filter is on
+     refreshes the listing. */
+  function initMyPicksToggle() {
+    var container = document.querySelector(".search-wrap") || document.querySelector(".masthead-inner");
+    if (!container || !container.parentNode) return;
+    var wrap = document.createElement("div");
+    wrap.className = "my-picks-toggle-wrap";
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "my-picks-toggle";
+    btn.setAttribute("aria-pressed", "false");
+    btn.setAttribute("aria-label", "Show only my saved picks");
+
+    function updateLabel() {
+      var count = taste.savedEvents().length;
+      btn.textContent = count > 0
+        ? "My Picks (" + count + ")"
+        : "My Picks";
+    }
+    updateLabel();
+
+    btn.addEventListener("click", function () {
+      myPicksOnly = !myPicksOnly;
+      btn.classList.toggle("is-active", myPicksOnly);
+      btn.setAttribute("aria-pressed", myPicksOnly ? "true" : "false");
+      renderAll();
+    });
+    document.addEventListener("cc:saves-changed", function () {
+      updateLabel();
+      if (myPicksOnly) renderAll();
+    });
+
+    wrap.appendChild(btn);
+    container.parentNode.insertBefore(wrap, container.nextSibling);
   }
 
   function initSearch() {
