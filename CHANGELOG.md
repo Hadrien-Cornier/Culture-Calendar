@@ -31,6 +31,11 @@
 - files: docs/index.html, docs/styles.css, CHANGELOG.md
 - validation: green
 
+### task-T2.1 — DONE — 2026-04-20T05:09:39Z
+- commit: 1399a65
+- files: docs/script.js, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->

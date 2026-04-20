@@ -250,6 +250,47 @@
 
   function ratingClass(r) { return r >= 8 ? "high" : r >= 5 ? "mid" : "low"; }
 
+  /* task-T2.1: JSON-LD Event schema injection.
+     Runs the first time a card opens. Injects a
+     <script type="application/ld+json"> tag so search engines and
+     SERP-style previews can read Event metadata per
+     https://schema.org/Event. Injected once per card. */
+  function buildEventJsonLd(ev) {
+    var first = ev.showings && ev.showings[0];
+    var data = {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": ev.title || "Untitled event"
+    };
+    if (first && first.date) {
+      data.startDate = first.time ? (first.date + "T" + first.time) : first.date;
+    }
+    var venueName = (first && first.venue) || ev.venue;
+    if (venueName) {
+      data.location = { "@type": "Place", "name": venueName };
+    }
+    if (ev.description) {
+      var flat = String(ev.description).replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+      if (flat) data.description = flat;
+    }
+    var offerUrl = (first && first.url) || ev.url;
+    if (offerUrl) {
+      data.offers = { "@type": "Offer", "url": offerUrl };
+    }
+    return data;
+  }
+
+  function injectEventJsonLd(card, ev) {
+    if (!card || card.dataset.jsonLdInjected === "1") return;
+    try {
+      var script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.textContent = JSON.stringify(buildEventJsonLd(ev));
+      card.appendChild(script);
+      card.dataset.jsonLdInjected = "1";
+    } catch (e) { /* noop */ }
+  }
+
   function parseReview(html) {
     if (!html) return { rating: "", sections: [], flat: "" };
     var doc = new DOMParser().parseFromString("<div>" + html + "</div>", "text/html");
@@ -605,6 +646,7 @@
     header.addEventListener("click", function () {
       var open = card.classList.toggle("is-open");
       header.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) injectEventJsonLd(card, ev);
     });
     header.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); header.click(); }
@@ -726,6 +768,7 @@
     header.addEventListener("click", function () {
       var exp = card.classList.toggle("is-expanded");
       header.setAttribute("aria-expanded", exp ? "true" : "false");
+      if (exp) injectEventJsonLd(card, ev);
     });
     header.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); header.click(); }
