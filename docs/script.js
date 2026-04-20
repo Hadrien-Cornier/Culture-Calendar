@@ -242,7 +242,21 @@
       if (value === 1 || value === -1) memory.thumbs[slug] = value;
       else delete memory.thumbs[slug];
       persist();
+      try {
+        document.dispatchEvent(new CustomEvent("cc:thumbs-changed", {
+          detail: { slug: slug, value: getThumb(slug) }
+        }));
+      } catch (err) { /* old browser — rerank runs on next natural render */ }
       return getThumb(slug);
+    }
+
+    function getAllThumbs() {
+      var out = {};
+      Object.keys(memory.thumbs).forEach(function (k) {
+        var v = memory.thumbs[k];
+        if (v === 1 || v === -1) out[k] = v;
+      });
+      return out;
     }
 
     function applyState(upBtn, downBtn, current) {
@@ -350,6 +364,7 @@
     return {
       getThumb: getThumb,
       setThumb: setThumb,
+      getAllThumbs: getAllThumbs,
       getSave: getSave,
       setSave: setSave,
       isSaved: isSaved,
@@ -665,9 +680,60 @@
       var d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
       return d >= now && d < cap;
     });
-    renderPicks(thisWeek.slice(0, 10));
+    renderPicks(rerankByTaste(thisWeek, merit).slice(0, 10));
     renderListings(merit);
     renderNeedsResearch(needsResearch);
+  }
+
+  /* task-T3.3: Taste-based re-rank of top picks.
+     Pure function. Scans every grouped event for thumbs (+1 / -1) and
+     saves (+1) signals, aggregates them into per-category and per-venue
+     bias, then adds a ±2-point boost to each pick's AI rating and sorts
+     by the adjusted score. Input arrays are not mutated. A taste-empty
+     state produces the same order as the AI rating alone. */
+  function rerankByTaste(picks, events) {
+    if (!picks || picks.length === 0) return picks ? picks.slice() : [];
+    var thumbs = taste.getAllThumbs();
+    var savedList = taste.savedEvents();
+    var savedSet = {};
+    savedList.forEach(function (s) { savedSet[s] = true; });
+
+    var catBias = {};
+    var venBias = {};
+    var anySignal = false;
+
+    (events || []).forEach(function (ev) {
+      var slug = taste.eventSlug(ev);
+      if (!slug) return;
+      var w = 0;
+      if (thumbs[slug] === 1 || thumbs[slug] === -1) w += thumbs[slug];
+      if (savedSet[slug]) w += 1;
+      if (!w) return;
+      anySignal = true;
+      var cat = (ev.type || ev.event_category || "other").toLowerCase();
+      var ven = (ev.venue || "").toLowerCase();
+      catBias[cat] = (catBias[cat] || 0) + w;
+      if (ven) venBias[ven] = (venBias[ven] || 0) + w;
+    });
+
+    var scored = picks.map(function (ev) {
+      var boost = 0;
+      if (anySignal) {
+        var cat = (ev.type || "other").toLowerCase();
+        var ven = (ev.venue || "").toLowerCase();
+        var raw = (catBias[cat] || 0) + (ven ? (venBias[ven] || 0) : 0);
+        // Halve the raw signal, clamp to ±2, so taste nudges rather
+        // than dominates the editorial rating.
+        boost = Math.max(-2, Math.min(2, raw * 0.5));
+      }
+      return { ev: ev, score: (ev.rating || 0) + boost };
+    });
+    scored.sort(function (a, b) {
+      return b.score - a.score
+        || (b.ev.rating || 0) - (a.ev.rating || 0)
+        || (a.ev.title || "").localeCompare(b.ev.title || "");
+    });
+    return scored.map(function (s) { return s.ev; });
   }
 
   /* task-T2.4: Deep-link support for #event=<id>.
@@ -705,6 +771,13 @@
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", handleEventHash);
   }
+
+  /* task-T3.3: re-run rerankByTaste whenever taste signals change so
+     the user sees their thumbs/saves reshape the top picks without a
+     page reload. The initMyPicksToggle listener updates the My Picks
+     count + conditional re-render; this one is unconditional. */
+  document.addEventListener("cc:thumbs-changed", function () { renderAll(); });
+  document.addEventListener("cc:saves-changed", function () { renderAll(); });
 
   /* task-T3.2: My Picks filter toggle.
      Injected into the masthead next to the search box. Clicking toggles
