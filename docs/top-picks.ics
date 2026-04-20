@@ -1,0 +1,1067 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Events rated 7+ of 10 by Culture Calendar
+X-WR-CALNAME:Culture Calendar — Top Picks
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Kodak Quartet with Michelle Schumann
+DTSTART;TZID=America/Chicago:20250719T193000
+DTEND;TZID=America/Chicago:20250719T213000
+DTSTAMP:20260420T045900Z
+UID:kodak-quartet-with-michelle-schumann---2025-07-19-1930-2025-07-19-1930
+ @culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nKodak Quartet and pianist explore Brahms\, Zor
+ n\, and Dohnányi masterworks\n\nDetails: https://austinchambermusic.org
+LOCATION:Chamber Music
+URL:https://austinchambermusic.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 1: Stefan Jackiw\, violin
+DTSTART;TZID=America/Chicago:20250912T200000
+DTEND;TZID=America/Chicago:20250912T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-1-stefan-jackiw-violin---2025-09-122025-09-13-20002000-202
+ 5-09-12-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nPolished violin virtuosity spanning contempora
+ ry\, modern\, and romantic masterworks.\n\nDetails: https://austinsymphony
+ .org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 1: Stefan Jackiw\, violin
+DTSTART;TZID=America/Chicago:20250913T200000
+DTEND;TZID=America/Chicago:20250913T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-1-stefan-jackiw-violin---2025-09-122025-09-13-20002000-202
+ 5-09-13-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nPolished violin virtuosity spanning contempora
+ ry\, modern\, and romantic masterworks.\n\nDetails: https://austinsymphony
+ .org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 2: Emanuel Ax\, piano
+DTSTART;TZID=America/Chicago:20251024T200000
+DTEND;TZID=America/Chicago:20251024T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-2-emanuel-ax-piano---2025-10-242025-10-25-20002000-2025-10
+ -24-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nEmanuel Ax delivers masterful Beethoven amid d
+ iverse contemporary-classical programming.\n\nDetails: https://austinsymph
+ ony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 2: Emanuel Ax\, piano
+DTSTART;TZID=America/Chicago:20251025T200000
+DTEND;TZID=America/Chicago:20251025T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-2-emanuel-ax-piano---2025-10-242025-10-25-20002000-2025-10
+ -25-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nEmanuel Ax delivers masterful Beethoven amid d
+ iverse contemporary-classical programming.\n\nDetails: https://austinsymph
+ ony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Halloween Children's Concert
+DTSTART;TZID=America/Chicago:20251026T150000
+DTEND;TZID=America/Chicago:20251026T170000
+DTSTAMP:20260420T045900Z
+UID:halloween-childrens-concert---2025-10-26-1500-2025-10-26-1500@culturec
+ alendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 8/10\n\nFamily-friendly orchestral concert featuring s
+ pooky classical favorites for Halloween.\n\nDetails: https://austinsymphon
+ y.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 5: Annie Jacobs-Perkins\, cello
+DTSTART;TZID=America/Chicago:20260220T200000
+DTEND;TZID=America/Chicago:20260220T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-5-annie-jacobs-perkins-cello---2026-02-202026-02-21-200020
+ 00-2026-02-20-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nExpressive cello showcase spanning romantic fa
+ iry-tales to urban drama.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 5: Annie Jacobs-Perkins\, cello
+DTSTART;TZID=America/Chicago:20260221T200000
+DTEND;TZID=America/Chicago:20260221T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-5-annie-jacobs-perkins-cello---2026-02-202026-02-21-200020
+ 00-2026-02-21-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nExpressive cello showcase spanning romantic fa
+ iry-tales to urban drama.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Pirates of the Caribbean in Concert
+DTSTART;TZID=America/Chicago:20260227T200000
+DTEND;TZID=America/Chicago:20260227T220000
+DTSTAMP:20260420T045900Z
+UID:pirates-of-the-caribbean-in-concert---2026-02-272026-02-28-20002000-20
+ 26-02-27-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nEnergetic Hollywood blockbuster score delivere
+ d with solid orchestral spectacle.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Pirates of the Caribbean in Concert
+DTSTART;TZID=America/Chicago:20260228T200000
+DTEND;TZID=America/Chicago:20260228T220000
+DTSTAMP:20260420T045900Z
+UID:pirates-of-the-caribbean-in-concert---2026-02-272026-02-28-20002000-20
+ 26-02-28-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nEnergetic Hollywood blockbuster score delivere
+ d with solid orchestral spectacle.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Troubadours of France & Iberia
+DTSTART;TZID=America/Chicago:20260228T193000
+DTEND;TZID=America/Chicago:20260228T213000
+DTSTAMP:20260420T045900Z
+UID:troubadours-of-france-&-iberia---2026-02-28-1930-2026-02-28-1930@cultu
+ recalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 8/10\n\nPassionate medieval troubadour songs brought t
+ o life with scholarly artistry.\n\nDetails: https://www.early-music.org
+LOCATION:EarlyMusic
+URL:https://www.early-music.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Troubadours of France & Iberia
+DTSTART;TZID=America/Chicago:20260301T150000
+DTEND;TZID=America/Chicago:20260301T170000
+DTSTAMP:20260420T045900Z
+UID:troubadours-of-france-&-iberia---2026-03-01-1500-2026-03-01-1500@cultu
+ recalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 8/10\n\nPassionate medieval troubadour songs brought t
+ o life with scholarly artistry.\n\nDetails: https://www.early-music.org
+LOCATION:EarlyMusic
+URL:https://www.early-music.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Discovery Zone: MY BOYFRIEND'S BACK
+DTSTART;TZID=America/Chicago:20260406T193000
+DTEND;TZID=America/Chicago:20260406T213000
+DTSTAMP:20260420T045900Z
+UID:discovery-zone-my-boyfriends-back-2026-04-06-1930@culturecalendar.loca
+ l
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nObscure indie curiosity screening at experimen
+ tal venue promises mystery and bewilderment.\n\nDetails: https://hyperreal
+ film.club/events/4-6/my-boyfriends-back-movie-screening
+LOCATION:Hyperreal
+URL:https://hyperrealfilm.club/events/4-6/my-boyfriends-back-movie-screeni
+ ng
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE HARDER THEY FALL
+DTSTART;TZID=America/Chicago:20260410T193000
+DTEND;TZID=America/Chicago:20260410T213000
+DTSTAMP:20260420T045900Z
+UID:the-harder-they-fall-2026-04-10-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nWestern revenge saga with stylish gunplay and 
+ a stacked ensemble cast.\n\nDetails: https://hyperrealfilm.club/events/4-1
+ 0/the-harder-they-fall-movie-screening
+LOCATION:Hyperreal
+URL:https://hyperrealfilm.club/events/4-10/the-harder-they-fall-movie-scre
+ ening
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 7: Grisha Goryachev\, guitar & Mozart Requiem
+DTSTART;TZID=America/Chicago:20260410T200000
+DTEND;TZID=America/Chicago:20260410T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-7-grisha-goryachev-guitar-&-mozart-requiem---2026-04-10202
+ 6-04-11-20002000-2026-04-10-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nFiery flamenco virtuoso meets classical guitar
+  concertos and Mozart's Requiem.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 7: Grisha Goryachev\, guitar & Mozart Requiem
+DTSTART;TZID=America/Chicago:20260411T200000
+DTEND;TZID=America/Chicago:20260411T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-7-grisha-goryachev-guitar-&-mozart-requiem---2026-04-10202
+ 6-04-11-20002000-2026-04-11-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nFiery flamenco virtuoso meets classical guitar
+  concertos and Mozart's Requiem.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260417T173000
+DTEND;TZID=America/Chicago:20260417T193000
+DTSTAMP:20260420T045900Z
+UID:the-stranger-(l’etranger)-2026-04-17-1730@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260418T174500
+DTEND;TZID=America/Chicago:20260418T194500
+DTSTAMP:20260420T045900Z
+UID:the-stranger-(l’etranger)-2026-04-18-1745@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260419T151500
+DTEND;TZID=America/Chicago:20260419T171500
+DTSTAMP:20260420T045900Z
+UID:the-stranger-(l’etranger)-2026-04-19-1515@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260420T160000
+DTEND;TZID=America/Chicago:20260420T180000
+DTSTAMP:20260420T045900Z
+UID:the-stranger-(l’etranger)-2026-04-20-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260422T160000
+DTEND;TZID=America/Chicago:20260422T180000
+DTSTAMP:20260420T045900Z
+UID:the-stranger-(l’etranger)-2026-04-22-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260423T160000
+DTEND;TZID=America/Chicago:20260423T180000
+DTSTAMP:20260420T045900Z
+UID:the-stranger-(l’etranger)-2026-04-23-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] WERCKMEISTER HARMONIES
+DTSTART;TZID=America/Chicago:20260417T180000
+DTEND;TZID=America/Chicago:20260417T200000
+DTSTAMP:20260420T045900Z
+UID:werckmeister-harmonies-2026-04-17-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nTarr's hypnotic black-and-white masterpiece un
+ folds through mesmerizing long takes and cosmic won...\n\nDetails: https:/
+ /www.austinfilm.org/screening/werckmeister-harmonies/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/werckmeister-harmonies/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] A SERIOUS MAN
+DTSTART;TZID=America/Chicago:20260419T130000
+DTEND;TZID=America/Chicago:20260419T150000
+DTSTAMP:20260420T045900Z
+UID:a-serious-man-2026-04-19-1300@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nCoen brothers' existential masterpiece capture
+ s 1960s Midwestern despair with meticulous precision.\n\nDetails: https://
+ www.austinfilm.org/screening/a-serious-man/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/a-serious-man/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] A SERIOUS MAN
+DTSTART;TZID=America/Chicago:20260420T190000
+DTEND;TZID=America/Chicago:20260420T210000
+DTSTAMP:20260420T045900Z
+UID:a-serious-man-2026-04-20-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nCoen brothers' existential masterpiece capture
+ s 1960s Midwestern despair with meticulous precision.\n\nDetails: https://
+ www.austinfilm.org/screening/a-serious-man/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/a-serious-man/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] The Spotlight Book Club - In the Days of My Youth I Was To
+ ld What It Means to Be a Man
+DTSTART;TZID=America/Chicago:20260420T190000
+DTEND;TZID=America/Chicago:20260420T210000
+DTSTAMP:20260420T045900Z
+UID:the-spotlight-book-club---in-the-days-of-my-youth-i was-told-what-it-
+ means-to-be-a-man---2026-04-20-1900-2026-04-20-1900@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 7/10\n\nSon investigates his father's shadow\, refuses
+  easy answers about manhood.\n\nDetails: https://www.firstlightaustin.com/
+ book-club
+LOCATION:FirstLight
+URL:https://www.firstlightaustin.com/book-club
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] YOU GOT GOLD: A CELEBRATION OF JOHN PRINE
+DTSTART;TZID=America/Chicago:20260421T160000
+DTEND;TZID=America/Chicago:20260421T180000
+DTSTAMP:20260420T045900Z
+UID:you-got-gold-a-celebration-of-john-prine-2026-04-21-1600@culturecalend
+ ar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nConcert footage and peer tributes honor John P
+ rine's storytelling legacy.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/you-got-gold-a-celebration-of-john-prine/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/you-got-gold-a-celebration-of-joh
+ n-prine/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] YOU GOT GOLD: A CELEBRATION OF JOHN PRINE
+DTSTART;TZID=America/Chicago:20260422T153000
+DTEND;TZID=America/Chicago:20260422T173000
+DTSTAMP:20260420T045900Z
+UID:you-got-gold-a-celebration-of-john-prine-2026-04-22-1530@culturecalend
+ ar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nConcert footage and peer tributes honor John P
+ rine's storytelling legacy.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/you-got-gold-a-celebration-of-john-prine/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/you-got-gold-a-celebration-of-joh
+ n-prine/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] YOU GOT GOLD: A CELEBRATION OF JOHN PRINE
+DTSTART;TZID=America/Chicago:20260423T153000
+DTEND;TZID=America/Chicago:20260423T173000
+DTSTAMP:20260420T045900Z
+UID:you-got-gold-a-celebration-of-john-prine-2026-04-23-1530@culturecalend
+ ar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nConcert footage and peer tributes honor John P
+ rine's storytelling legacy.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/you-got-gold-a-celebration-of-john-prine/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/you-got-gold-a-celebration-of-joh
+ n-prine/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] The New Yorker Weekly Short Story Club (Free Copies\, First
+  Hour for Reading) - This Week's Story
+DTSTART;TZID=America/Chicago:20260421T190000
+DTEND;TZID=America/Chicago:20260421T210000
+DTSTAMP:20260420T045900Z
+UID:the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-rea
+ ding)---this-weeks-story---tbd-tbd-2026-04-21-700PM@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 7/10\n\nWeekly literary discussion group\n\nDetails: h
+ ttps://www.meetup.com/atxstories/
+LOCATION:NewYorkerMeetup
+URL:https://www.meetup.com/atxstories/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] 8 1/2
+DTSTART;TZID=America/Chicago:20260427T190000
+DTEND;TZID=America/Chicago:20260427T210000
+DTSTAMP:20260420T045900Z
+UID:8-1/2-2026-04-27-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nFellini's masterpiece follows a blocked direct
+ or's surreal descent through dreams\, desire\, and cr...\n\nDetails: https
+ ://www.austinfilm.org/screening/8-1-2/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/8-1-2/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] 8 1/2
+DTSTART;TZID=America/Chicago:20260429T193000
+DTEND;TZID=America/Chicago:20260429T213000
+DTSTAMP:20260420T045900Z
+UID:8-1/2-2026-04-29-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nFellini's masterpiece follows a blocked direct
+ or's surreal descent through dreams\, desire\, and cr...\n\nDetails: https
+ ://www.austinfilm.org/screening/8-1-2/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/8-1-2/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Tiny Words - The Factory
+DTSTART;TZID=America/Chicago:20260427T190000
+DTEND;TZID=America/Chicago:20260427T210000
+DTSTAMP:20260420T045900Z
+UID:tiny-words---the-factory---2026-04-27-1900-2026-04-27-1900@culturecale
+ ndar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nSurreal factory novel dissects Japan's meaning
+ less labor culture.\n\nDetails: https://www.alienatedmajestybooks.com/book
+ -clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Brevity Book Club - Bloodchild and Other Stories
+DTSTART;TZID=America/Chicago:20260427T190000
+DTEND;TZID=America/Chicago:20260427T210000
+DTSTAMP:20260420T045900Z
+UID:brevity-book-club---bloodchild-and-other-stories---2026-04-27-1900-202
+ 6-04-27-1900@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nButler's speculative stories probe consent\, c
+ olonialism\, and survival through intense alien enco...\n\nDetails: https:
+ //www.firstlightaustin.com/book-club
+LOCATION:FirstLight
+URL:https://www.firstlightaustin.com/book-club
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] The New Yorker Weekly Short Story Club (Free Copies\, First
+  Hour for Reading) - Week 2
+DTSTART;TZID=America/Chicago:20260428T190000
+DTEND;TZID=America/Chicago:20260428T210000
+DTSTAMP:20260420T045900Z
+UID:the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-rea
+ ding)---week-2---tbd-tbd-2026-04-28-700PM@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 7/10\n\nWeekly literary discussion group\n\nDetails: h
+ ttps://www.meetup.com/atxstories/
+LOCATION:NewYorkerMeetup
+URL:https://www.meetup.com/atxstories/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] SHIFTING BASELINES
+DTSTART;TZID=America/Chicago:20260501T173000
+DTEND;TZID=America/Chicago:20260501T193000
+DTSTAMP:20260420T045900Z
+UID:shifting-baselines-2026-05-01-1730@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nEnvironmental documentary exploring how our pe
+ rception of nature's decline shifts across generati...\n\nDetails: https:/
+ /www.austinfilm.org/screening/shifting-baselines/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/shifting-baselines/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] AANIKOOBIJIGAN [ancestor/great-grandparent/great-grandchild
+ ]
+DTSTART;TZID=America/Chicago:20260502T183000
+DTEND;TZID=America/Chicago:20260502T203000
+DTSTAMP:20260420T045900Z
+UID:aanikoobijigan-[ancestor/great-grandparent/great-grandchild]-2026-05-0
+ 2-1830@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nIndigenous intergenerational narrative explori
+ ng ancestral connections through Ojibwe language an...\n\nDetails: https:/
+ /www.austinfilm.org/screening/aanikoobijigan/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/aanikoobijigan/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] NYRB Book Club - Command Performance
+DTSTART;TZID=America/Chicago:20260502T190000
+DTEND;TZID=America/Chicago:20260502T210000
+DTSTAMP:20260420T045900Z
+UID:nyrb-book-club---command-performance---2026-05-02-1900-2026-05-02-1900
+ @culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 7/10\n\nBumbling Parisian detective stumbles through a
+ bsurdist thriller parody.\n\nDetails: https://www.alienatedmajestybooks.co
+ m/book-clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE MOST TERRIBLE TIME IN MY LIFE
+DTSTART;TZID=America/Chicago:20260510T140000
+DTEND;TZID=America/Chicago:20260510T160000
+DTSTAMP:20260420T045900Z
+UID:the-most-terrible-time-in-my-life-2026-05-10-1400@culturecalendar.loca
+ l
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nJapanese noir follows a cynical detective thro
+ ugh Tokyo's shadowy underworld.\n\nDetails: https://www.austinfilm.org/scr
+ eening/the-most-terrible-time-in-my-life/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-most-terrible-time-in-my-life
+ /
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE MOST TERRIBLE TIME IN MY LIFE
+DTSTART;TZID=America/Chicago:20260513T203000
+DTEND;TZID=America/Chicago:20260513T223000
+DTSTAMP:20260420T045900Z
+UID:the-most-terrible-time-in-my-life-2026-05-13-2030@culturecalendar.loca
+ l
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nJapanese noir follows a cynical detective thro
+ ugh Tokyo's shadowy underworld.\n\nDetails: https://www.austinfilm.org/scr
+ eening/the-most-terrible-time-in-my-life/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-most-terrible-time-in-my-life
+ /
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Masterworks 8: Steinway Spirio featuring "George Gershwin"
+DTSTART;TZID=America/Chicago:20260515T200000
+DTEND;TZID=America/Chicago:20260515T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-8-steinway-spirio-featuring-george-gershwin---2026-05-1520
+ 26-05-16-20002000-2026-05-15-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 8/10\n\nAmerican classical favorites performed by prec
+ ision Steinway Spirio player piano.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Masterworks 8: Steinway Spirio featuring "George Gershwin"
+DTSTART;TZID=America/Chicago:20260516T200000
+DTEND;TZID=America/Chicago:20260516T220000
+DTSTAMP:20260420T045900Z
+UID:masterworks-8-steinway-spirio-featuring-george-gershwin---2026-05-1520
+ 26-05-16-20002000-2026-05-16-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 8/10\n\nAmerican classical favorites performed by prec
+ ision Steinway Spirio player piano.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMADEUS
+DTSTART;TZID=America/Chicago:20260522T174500
+DTEND;TZID=America/Chicago:20260522T194500
+DTSTAMP:20260420T045900Z
+UID:amadeus-2026-05-22-1745@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMozart's genius and madness collide in Forman'
+ s operatic masterpiece.\n\nDetails: https://www.austinfilm.org/screening/a
+ madeus/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/amadeus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMADEUS
+DTSTART;TZID=America/Chicago:20260523T180000
+DTEND;TZID=America/Chicago:20260523T200000
+DTSTAMP:20260420T045900Z
+UID:amadeus-2026-05-23-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMozart's genius and madness collide in Forman'
+ s operatic masterpiece.\n\nDetails: https://www.austinfilm.org/screening/a
+ madeus/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/amadeus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMADEUS
+DTSTART;TZID=America/Chicago:20260524T161500
+DTEND;TZID=America/Chicago:20260524T181500
+DTSTAMP:20260420T045900Z
+UID:amadeus-2026-05-24-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMozart's genius and madness collide in Forman'
+ s operatic masterpiece.\n\nDetails: https://www.austinfilm.org/screening/a
+ madeus/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/amadeus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMADEUS
+DTSTART;TZID=America/Chicago:20260525T140000
+DTEND;TZID=America/Chicago:20260525T160000
+DTSTAMP:20260420T045900Z
+UID:amadeus-2026-05-25-1400@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMozart's genius and madness collide in Forman'
+ s operatic masterpiece.\n\nDetails: https://www.austinfilm.org/screening/a
+ madeus/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/amadeus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] DEAD MOUNTAINEER’S HOTEL
+DTSTART;TZID=America/Chicago:20260522T213000
+DTEND;TZID=America/Chicago:20260522T233000
+DTSTAMP:20260420T045900Z
+UID:dead-mountaineer’s-hotel-2026-05-22-2130@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nSoviet sci-fi thriller wraps mystery in Alpine
+  isolation and shadow-drenched dread.\n\nDetails: https://www.austinfilm.o
+ rg/screening/dead-mountaineers-hotel/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/dead-mountaineers-hotel/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] DEAD MOUNTAINEER’S HOTEL
+DTSTART;TZID=America/Chicago:20260523T213000
+DTEND;TZID=America/Chicago:20260523T233000
+DTSTAMP:20260420T045900Z
+UID:dead-mountaineer’s-hotel-2026-05-23-2130@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nSoviet sci-fi thriller wraps mystery in Alpine
+  isolation and shadow-drenched dread.\n\nDetails: https://www.austinfilm.o
+ rg/screening/dead-mountaineers-hotel/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/dead-mountaineers-hotel/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] LA CÉRÉMONIE
+DTSTART;TZID=America/Chicago:20260523T144500
+DTEND;TZID=America/Chicago:20260523T164500
+DTSTAMP:20260420T045900Z
+UID:la-cérémonie-2026-05-23-1445@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nChabrol's masterwork of class tension and psyc
+ hological menace starring Huppert's chilling restra...\n\nDetails: https:/
+ /www.austinfilm.org/screening/la-ceremonie/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-ceremonie/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Spy Kids w/Robert Rodriguez
+DTSTART;TZID=America/Chicago:20260523T150000
+DTEND;TZID=America/Chicago:20260523T170000
+DTSTAMP:20260420T045900Z
+UID:spy-kids-w/robert-rodriguez-2026-05-23-1500@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nRodriguez's kinetic family spy romp bursts wit
+ h practical gadgets and youthful adventure.\n\nDetails: https://tickets.au
+ stintheatre.org/13751/13752
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/13751/13752
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Tiny Words - The Loser
+DTSTART;TZID=America/Chicago:20260525T190000
+DTEND;TZID=America/Chicago:20260525T210000
+DTSTAMP:20260420T045900Z
+UID:tiny-words---the-loser---2026-05-25-1900-2026-05-25-1900@culturecalend
+ ar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nBernhard's venomous monologue on genius\, fail
+ ure\, and artistic suicide.\n\nDetails: https://www.alienatedmajestybooks.
+ com/book-clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] DON’T LOOK BACK
+DTSTART;TZID=America/Chicago:20260528T203000
+DTEND;TZID=America/Chicago:20260528T223000
+DTSTAMP:20260420T045900Z
+UID:don’t-look-back-2026-05-28-2030@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nPennebaker's raw cinéma vérité captures Dyl
+ an's chaotic 1965 UK tour authentically.\n\nDetails: https://www.austinfil
+ m.org/screening/dont-look-back/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/dont-look-back/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] DON’T LOOK BACK
+DTSTART;TZID=America/Chicago:20260531T131500
+DTEND;TZID=America/Chicago:20260531T151500
+DTSTAMP:20260420T045900Z
+UID:don’t-look-back-2026-05-31-1315@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nPennebaker's raw cinéma vérité captures Dyl
+ an's chaotic 1965 UK tour authentically.\n\nDetails: https://www.austinfil
+ m.org/screening/dont-look-back/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/dont-look-back/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ALLEGRO NON TROPPO
+DTSTART;TZID=America/Chicago:20260605T213000
+DTEND;TZID=America/Chicago:20260605T233000
+DTSTAMP:20260420T045900Z
+UID:allegro-non-troppo-2026-06-05-2130@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nBruno Bozzetto's playful animated riff on clas
+ sical music and modernist art.\n\nDetails: https://www.austinfilm.org/scre
+ ening/allegro-non-troppo/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/allegro-non-troppo/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ALLEGRO NON TROPPO
+DTSTART;TZID=America/Chicago:20260606T210000
+DTEND;TZID=America/Chicago:20260606T230000
+DTSTAMP:20260420T045900Z
+UID:allegro-non-troppo-2026-06-06-2100@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nBruno Bozzetto's playful animated riff on clas
+ sical music and modernist art.\n\nDetails: https://www.austinfilm.org/scre
+ ening/allegro-non-troppo/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/allegro-non-troppo/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ALLEGRO NON TROPPO
+DTSTART;TZID=America/Chicago:20260608T190000
+DTEND;TZID=America/Chicago:20260608T210000
+DTSTAMP:20260420T045900Z
+UID:allegro-non-troppo-2026-06-08-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nBruno Bozzetto's playful animated riff on clas
+ sical music and modernist art.\n\nDetails: https://www.austinfilm.org/scre
+ ening/allegro-non-troppo/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/allegro-non-troppo/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] DAISIES
+DTSTART;TZID=America/Chicago:20260606T190000
+DTEND;TZID=America/Chicago:20260606T210000
+DTSTAMP:20260420T045900Z
+UID:daisies-2026-06-06-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nAnarchic Czech New Wave masterpiece fractures 
+ reality through radical montage and sensory chaos.\n\nDetails: https://www
+ .austinfilm.org/screening/daisies/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/daisies/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] DAISIES
+DTSTART;TZID=America/Chicago:20260607T163000
+DTEND;TZID=America/Chicago:20260607T183000
+DTSTAMP:20260420T045900Z
+UID:daisies-2026-06-07-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nAnarchic Czech New Wave masterpiece fractures 
+ reality through radical montage and sensory chaos.\n\nDetails: https://www
+ .austinfilm.org/screening/daisies/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/daisies/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] DAISIES
+DTSTART;TZID=America/Chicago:20260610T203000
+DTEND;TZID=America/Chicago:20260610T223000
+DTSTAMP:20260420T045900Z
+UID:daisies-2026-06-10-2030@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nAnarchic Czech New Wave masterpiece fractures 
+ reality through radical montage and sensory chaos.\n\nDetails: https://www
+ .austinfilm.org/screening/daisies/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/daisies/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Subculture Lit - Beauty Salon
+DTSTART;TZID=America/Chicago:20260607T190000
+DTEND;TZID=America/Chicago:20260607T210000
+DTSTAMP:20260420T045900Z
+UID:subculture-lit---beauty-salon---2026-06-07-1900-2026-06-07-1900@cultur
+ ecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nGay hairdresser tends dying men in plague-rava
+ ged salon.\n\nDetails: https://www.alienatedmajestybooks.com/book-clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE MASQUE OF THE RED DEATH
+DTSTART;TZID=America/Chicago:20260609T193000
+DTEND;TZID=America/Chicago:20260609T213000
+DTSTAMP:20260420T045900Z
+UID:the-masque-of-the-red-death-2026-06-09-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCorman's lurid Gothic masterpiece transforms P
+ oe's plague allegory into vivid\, theatrical dread.\n\nDetails: https://ww
+ w.austinfilm.org/screening/the-masque-of-the-red-death/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-masque-of-the-red-death/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE MASQUE OF THE RED DEATH
+DTSTART;TZID=America/Chicago:20260614T160000
+DTEND;TZID=America/Chicago:20260614T180000
+DTSTAMP:20260420T045900Z
+UID:the-masque-of-the-red-death-2026-06-14-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCorman's lurid Gothic masterpiece transforms P
+ oe's plague allegory into vivid\, theatrical dread.\n\nDetails: https://ww
+ w.austinfilm.org/screening/the-masque-of-the-red-death/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-masque-of-the-red-death/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] SWEET SMELL OF SUCCESS
+DTSTART;TZID=America/Chicago:20260612T193000
+DTEND;TZID=America/Chicago:20260612T213000
+DTSTAMP:20260420T045900Z
+UID:sweet-smell-of-success-2026-06-12-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nRuthless Manhattan power players destroy each 
+ other in this noir masterpiece of ambition and betr...\n\nDetails: https:/
+ /www.austinfilm.org/screening/sweet-smell-of-success/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/sweet-smell-of-success/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] SWEET SMELL OF SUCCESS
+DTSTART;TZID=America/Chicago:20260614T133000
+DTEND;TZID=America/Chicago:20260614T153000
+DTSTAMP:20260420T045900Z
+UID:sweet-smell-of-success-2026-06-14-1330@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nRuthless Manhattan power players destroy each 
+ other in this noir masterpiece of ambition and betr...\n\nDetails: https:/
+ /www.austinfilm.org/screening/sweet-smell-of-success/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/sweet-smell-of-success/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] WEST INDIES: THE FUGITIVE SLAVES OF LIBERTY
+DTSTART;TZID=America/Chicago:20260620T160000
+DTEND;TZID=America/Chicago:20260620T180000
+DTSTAMP:20260420T045900Z
+UID:west-indies-the-fugitive-slaves-of-liberty-2026-06-20-1600@culturecale
+ ndar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nMed Hondo's theatrical masterpiece exposes col
+ onial violence through innovative Brechtian staging...\n\nDetails: https:/
+ /www.austinfilm.org/screening/west-indies-the-fugitive-slaves-of-liberty/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/west-indies-the-fugitive-slaves-o
+ f-liberty/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] TALLY BROWN\, NEW YORK
+DTSTART;TZID=America/Chicago:20260621T180000
+DTEND;TZID=America/Chicago:20260621T200000
+DTSTAMP:20260420T045900Z
+UID:tally-brown-new-york-2026-06-21-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDocumentary portrait of a legendary New York p
+ erformer's life and legacy.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/tally-brown-new-york/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/tally-brown-new-york/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Paper Trails: Latin American Art in Print (1950-1995)
+DTSTART;TZID=America/Chicago:20260417T100000
+DTEND;TZID=America/Chicago:20260417T120000
+DTSTAMP:20260420T045900Z
+UID:paper-trails-latin-american-art-in-print-(1950-1995)---2026-04-172026-
+ 04-182026-04-19-100010001000-2026-04-17-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nDecades of Latin American printmaking reveal p
+ olitical urgency and artistic innovation across bor...\n\nDetails: https:/
+ /nowplayingaustin.com/event/paper-trails-latin-american-art-in-print-1950-
+ 1995/
+LOCATION:Blanton Museum of Art\, Austin
+URL:https://nowplayingaustin.com/event/paper-trails-latin-american-art-in-
+ print-1950-1995/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Paper Trails: Latin American Art in Print (1950-1995)
+DTSTART;TZID=America/Chicago:20260418T100000
+DTEND;TZID=America/Chicago:20260418T120000
+DTSTAMP:20260420T045900Z
+UID:paper-trails-latin-american-art-in-print-(1950-1995)---2026-04-172026-
+ 04-182026-04-19-100010001000-2026-04-18-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nDecades of Latin American printmaking reveal p
+ olitical urgency and artistic innovation across bor...\n\nDetails: https:/
+ /nowplayingaustin.com/event/paper-trails-latin-american-art-in-print-1950-
+ 1995/
+LOCATION:Blanton Museum of Art\, Austin
+URL:https://nowplayingaustin.com/event/paper-trails-latin-american-art-in-
+ print-1950-1995/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Paper Trails: Latin American Art in Print (1950-1995)
+DTSTART;TZID=America/Chicago:20260419T100000
+DTEND;TZID=America/Chicago:20260419T120000
+DTSTAMP:20260420T045900Z
+UID:paper-trails-latin-american-art-in-print-(1950-1995)---2026-04-172026-
+ 04-182026-04-19-100010001000-2026-04-19-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nDecades of Latin American printmaking reveal p
+ olitical urgency and artistic innovation across bor...\n\nDetails: https:/
+ /nowplayingaustin.com/event/paper-trails-latin-american-art-in-print-1950-
+ 1995/
+LOCATION:Blanton Museum of Art\, Austin
+URL:https://nowplayingaustin.com/event/paper-trails-latin-american-art-in-
+ print-1950-1995/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Metamorphosis: The Alchemy of Waste
+DTSTART;TZID=America/Chicago:20260417T100000
+DTEND;TZID=America/Chicago:20260417T120000
+DTSTAMP:20260420T045900Z
+UID:metamorphosis-the-alchemy-of-waste---2026-04-172026-04-182026-04-20202
+ 6-04-212026-04-222026-04-232026-04-24-1000100010001000100010001000-2026-04
+ -17-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nReclaimed fabrics bloom into bold sculptural f
+ orms\, exposing waste's raw beauty.\n\nDetails: https://nowplayingaustin.c
+ om/event/metamorphosis-the-alchemy-of-waste/
+LOCATION:Dougherty Arts Center\, Austin
+URL:https://nowplayingaustin.com/event/metamorphosis-the-alchemy-of-waste/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Metamorphosis: The Alchemy of Waste
+DTSTART;TZID=America/Chicago:20260418T100000
+DTEND;TZID=America/Chicago:20260418T120000
+DTSTAMP:20260420T045900Z
+UID:metamorphosis-the-alchemy-of-waste---2026-04-172026-04-182026-04-20202
+ 6-04-212026-04-222026-04-232026-04-24-1000100010001000100010001000-2026-04
+ -18-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nReclaimed fabrics bloom into bold sculptural f
+ orms\, exposing waste's raw beauty.\n\nDetails: https://nowplayingaustin.c
+ om/event/metamorphosis-the-alchemy-of-waste/
+LOCATION:Dougherty Arts Center\, Austin
+URL:https://nowplayingaustin.com/event/metamorphosis-the-alchemy-of-waste/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Metamorphosis: The Alchemy of Waste
+DTSTART;TZID=America/Chicago:20260420T100000
+DTEND;TZID=America/Chicago:20260420T120000
+DTSTAMP:20260420T045900Z
+UID:metamorphosis-the-alchemy-of-waste---2026-04-172026-04-182026-04-20202
+ 6-04-212026-04-222026-04-232026-04-24-1000100010001000100010001000-2026-04
+ -20-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nReclaimed fabrics bloom into bold sculptural f
+ orms\, exposing waste's raw beauty.\n\nDetails: https://nowplayingaustin.c
+ om/event/metamorphosis-the-alchemy-of-waste/
+LOCATION:Dougherty Arts Center\, Austin
+URL:https://nowplayingaustin.com/event/metamorphosis-the-alchemy-of-waste/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Metamorphosis: The Alchemy of Waste
+DTSTART;TZID=America/Chicago:20260421T100000
+DTEND;TZID=America/Chicago:20260421T120000
+DTSTAMP:20260420T045900Z
+UID:metamorphosis-the-alchemy-of-waste---2026-04-172026-04-182026-04-20202
+ 6-04-212026-04-222026-04-232026-04-24-1000100010001000100010001000-2026-04
+ -21-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nReclaimed fabrics bloom into bold sculptural f
+ orms\, exposing waste's raw beauty.\n\nDetails: https://nowplayingaustin.c
+ om/event/metamorphosis-the-alchemy-of-waste/
+LOCATION:Dougherty Arts Center\, Austin
+URL:https://nowplayingaustin.com/event/metamorphosis-the-alchemy-of-waste/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Metamorphosis: The Alchemy of Waste
+DTSTART;TZID=America/Chicago:20260422T100000
+DTEND;TZID=America/Chicago:20260422T120000
+DTSTAMP:20260420T045900Z
+UID:metamorphosis-the-alchemy-of-waste---2026-04-172026-04-182026-04-20202
+ 6-04-212026-04-222026-04-232026-04-24-1000100010001000100010001000-2026-04
+ -22-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nReclaimed fabrics bloom into bold sculptural f
+ orms\, exposing waste's raw beauty.\n\nDetails: https://nowplayingaustin.c
+ om/event/metamorphosis-the-alchemy-of-waste/
+LOCATION:Dougherty Arts Center\, Austin
+URL:https://nowplayingaustin.com/event/metamorphosis-the-alchemy-of-waste/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Metamorphosis: The Alchemy of Waste
+DTSTART;TZID=America/Chicago:20260423T100000
+DTEND;TZID=America/Chicago:20260423T120000
+DTSTAMP:20260420T045900Z
+UID:metamorphosis-the-alchemy-of-waste---2026-04-172026-04-182026-04-20202
+ 6-04-212026-04-222026-04-232026-04-24-1000100010001000100010001000-2026-04
+ -23-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nReclaimed fabrics bloom into bold sculptural f
+ orms\, exposing waste's raw beauty.\n\nDetails: https://nowplayingaustin.c
+ om/event/metamorphosis-the-alchemy-of-waste/
+LOCATION:Dougherty Arts Center\, Austin
+URL:https://nowplayingaustin.com/event/metamorphosis-the-alchemy-of-waste/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Metamorphosis: The Alchemy of Waste
+DTSTART;TZID=America/Chicago:20260424T100000
+DTEND;TZID=America/Chicago:20260424T120000
+DTSTAMP:20260420T045900Z
+UID:metamorphosis-the-alchemy-of-waste---2026-04-172026-04-182026-04-20202
+ 6-04-212026-04-222026-04-232026-04-24-1000100010001000100010001000-2026-04
+ -24-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nReclaimed fabrics bloom into bold sculptural f
+ orms\, exposing waste's raw beauty.\n\nDetails: https://nowplayingaustin.c
+ om/event/metamorphosis-the-alchemy-of-waste/
+LOCATION:Dougherty Arts Center\, Austin
+URL:https://nowplayingaustin.com/event/metamorphosis-the-alchemy-of-waste/
+END:VEVENT
+END:VCALENDAR
