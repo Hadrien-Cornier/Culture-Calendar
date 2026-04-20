@@ -36,6 +36,11 @@
 - files: docs/script.js, CHANGELOG.md
 - validation: green
 
+### task-T2.2 — DONE — 2026-04-20T05:11:51Z
+- commit: e28b863
+- files: scripts/build_og_cards.py, tests/test_build_og_cards.py, docs/og/.gitkeep, .gitignore, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->

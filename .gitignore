@@ -53,3 +53,6 @@ node_modules/
 *.sqlite-shm
 *.sqlite-wal
 .long-run/
+
+# Generated OG cards — regenerated at build time from docs/data.json
+docs/og/*.svg
