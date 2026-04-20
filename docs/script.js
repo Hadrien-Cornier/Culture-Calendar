@@ -183,7 +183,17 @@
       return btn;
     }
 
-    return { supported: supported, createButton: createButton };
+    /* task-T4.2: speak arbitrary text driven by a controlling button.
+       Used by the "Audio brief" button in the picks section to read a
+       concatenated summary of the top picks. Cancels any in-flight
+       utterance, mirrors the same is-playing toggle behavior. */
+    function speak(btn, text) {
+      if (!supported || !btn || !text) return;
+      if (activeBtn === btn) { cancel(); clearActive(); return; }
+      speakNow(btn, text);
+    }
+
+    return { supported: supported, createButton: createButton, speak: speak };
   })();
 
   /* task-T3.1: Client-side taste graph.
@@ -972,9 +982,17 @@
     return limited.length;
   }
 
+  /* task-T4.2: Cache of the latest rendered picks so the
+     audio-brief button can speak them without re-running the
+     filter/rerank pipeline on click. */
+  var lastRenderedPicks = [];
+
   function renderPicks(picks) {
     picksList.innerHTML = "";
     picksList.classList.add("top-picks");
+    lastRenderedPicks = (picks || []).map(function (item) {
+      return item && item.ev ? item.ev : item;
+    });
     if (picks.length === 0) {
       var empty = document.createElement("li");
       empty.className = "empty-state";
@@ -992,6 +1010,50 @@
     });
     picksList.appendChild(frag);
   }
+
+  /* task-T4.2: 5-minute audio brief button.
+     Concatenates the title + venue + one-liner of the top five rendered
+     picks into a single spoken brief, played via window.speechSynthesis
+     using the shared TTS module. The button lives in the picks-section
+     header so it is visible without expanding any individual card.
+     Hidden when speech synthesis is unsupported (older browsers). */
+  function buildWeekBriefText(picks) {
+    if (!picks || !picks.length) return "";
+    var top = picks.slice(0, 5);
+    var intro = "Top picks of the week. " + top.length
+      + (top.length === 1 ? " event ahead." : " events ahead.");
+    var parts = [intro];
+    top.forEach(function (ev, i) {
+      var bits = ["Pick " + (i + 1) + ": " + (ev.title || "Untitled")];
+      if (ev.venue) bits.push("at " + ev.venue);
+      var head = bits.join(" ") + ".";
+      var one = ev.one_liner || ev.one_liner_summary || "";
+      parts.push(one ? head + " " + String(one).trim() : head);
+    });
+    return parts.join(" ").replace(/\s+/g, " ").trim();
+  }
+
+  function initAudioBrief() {
+    if (!tts.supported) return;
+    var section = document.getElementById("picks");
+    if (!section) return;
+    var heading = section.querySelector(".picks-heading");
+    if (!heading) return;
+    if (section.querySelector(".audio-brief-button")) return;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "audio-brief-button tts-button";
+    btn.textContent = "\u25B6 Play brief";
+    btn.setAttribute("aria-label", "Play audio brief of the top picks");
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var text = buildWeekBriefText(lastRenderedPicks);
+      if (!text) return;
+      tts.speak(btn, text);
+    });
+    heading.insertAdjacentElement("afterend", btn);
+  }
+  initAudioBrief();
 
   function buildPickCard(ev, reason) {
     var card = document.createElement("li");

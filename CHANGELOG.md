@@ -76,6 +76,11 @@
 - files: scripts/build_weekly_digest.py, tests/test_build_weekly_digest.py, docs/weekly/.gitkeep, docs/weekly/2026-W17.html, CHANGELOG.md
 - validation: green
 
+### task-T4.2 — DONE — 2026-04-20T05:47:45Z
+- commit: b5ac4b5
+- files: docs/script.js, docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->

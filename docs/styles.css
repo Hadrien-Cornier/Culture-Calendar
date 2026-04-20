@@ -558,6 +558,15 @@ body {
   color: #fff;
 }
 
+/* task-T4.2: Audio brief button. Lives in the picks-section header; reuses
+   .tts-button styling so it matches the per-card Read-aloud control. */
+.audio-brief-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 1em;
+}
+
 .empty-state {
   padding: 24px;
   text-align: center;

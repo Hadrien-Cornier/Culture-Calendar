@@ -68,5 +68,12 @@
     "selector": ".needs-research-section",
     "since_commit": "task-T2.5",
     "smoke_assertion": "selector_exists_if_low_conf_events"
+  },
+  {
+    "id": "audio-brief",
+    "name": "5-minute audio brief button (top picks)",
+    "selector": ".audio-brief-button",
+    "since_commit": "task-T4.2",
+    "smoke_assertion": "selector_exists"
   }
 ]
