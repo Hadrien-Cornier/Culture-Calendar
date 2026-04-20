@@ -17,9 +17,12 @@ import logging
 import re
 import sys
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Optional, Sequence
+
+import pytz
+from icalendar import Calendar, Event, Timezone, TimezoneDaylight, TimezoneStandard
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = REPO_ROOT / "docs" / "data.json"
@@ -30,9 +33,13 @@ SITE_PATH = "/Culture-Calendar/"
 SITE_URL = f"https://{SITE_HOST}{SITE_PATH}"
 RSS_URL = f"{SITE_URL}feed.xml"
 TOP_PICKS_WEBCAL = f"webcal://{SITE_HOST}{SITE_PATH}top-picks.ics"
+PEOPLE_WEBCAL_BASE = f"webcal://{SITE_HOST}{SITE_PATH}people/"
 
 DEFAULT_UPCOMING_LIMIT = 40
 MIN_EVENTS_PER_PERSON = 2
+DEFAULT_ICS_DURATION = timedelta(hours=2)
+AUSTIN_TZ = pytz.timezone("America/Chicago")
+UID_DOMAIN = "culturecalendar.local"
 
 CATEGORY_LABELS = {
     "movie": "Film",
@@ -439,14 +446,23 @@ def _render_event(event: PersonEvent, ordinal: int) -> str:
     )
 
 
-def render_page(page: PersonPage) -> str:
-    """Render one person's deep-dive HTML page."""
+def render_page(page: PersonPage, *, ics_slug: Optional[str] = None) -> str:
+    """Render one person's deep-dive HTML page.
+
+    ``ics_slug`` is the filename stem used for the companion ``.ics``
+    feed (defaults to ``page.slug``). ``write_pages`` overrides it when
+    slug-collision disambiguation kicks in so the webcal link points at
+    the actual file on disk.
+    """
     role_label = ROLE_LABELS.get(page.role, page.role.title())
     title = f"{page.person_name} — {role_label} — Culture Calendar"
     description_meta = (
         f"Upcoming Austin events featuring {page.person_name} "
         f"({role_label.lower()}). "
         f"{len(page.events)} upcoming of {page.total_events} tracked."
+    )
+    person_webcal = (
+        f"{PEOPLE_WEBCAL_BASE}{_esc(ics_slug or page.slug)}.ics"
     )
     if page.events:
         events_html = "\n".join(
@@ -485,6 +501,7 @@ def render_page(page: PersonPage) -> str:
         '<nav class="venue-actions" aria-label="Person actions">\n'
         '<a href="../">← Back to Calendar</a>\n'
         f'<a href="{_esc(RSS_URL)}">RSS</a>\n'
+        f'<a class="person-webcal" href="{person_webcal}">Follow (webcal)</a>\n'
         f'<a href="{_esc(TOP_PICKS_WEBCAL)}">Top Picks (webcal)</a>\n'
         "</nav>\n"
         "</header>\n"
@@ -497,6 +514,154 @@ def render_page(page: PersonPage) -> str:
         "</body>\n"
         "</html>\n"
     )
+
+
+def _parse_ics_datetime(date_str: str, time_str: str) -> Optional[datetime]:
+    """Parse ``YYYY-MM-DD`` + ``HH:mm`` (or ``H:MM AM/PM``) into Austin tz."""
+    try:
+        base = datetime.strptime(date_str, "%Y-%m-%d")
+    except ValueError:
+        return None
+
+    cleaned = (time_str or "").strip().upper().replace(" ", "")
+    if not cleaned:
+        return None
+
+    hour: Optional[int] = None
+    minute: Optional[int] = None
+    if cleaned.endswith("PM") or cleaned.endswith("AM"):
+        suffix = cleaned[-2:]
+        core = cleaned[:-2]
+        try:
+            if ":" in core:
+                h, m = core.split(":")
+                hour, minute = int(h), int(m)
+            else:
+                hour, minute = int(core), 0
+        except ValueError:
+            return None
+        if suffix == "PM" and hour != 12:
+            hour += 12
+        if suffix == "AM" and hour == 12:
+            hour = 0
+    else:
+        try:
+            h, m = cleaned.split(":")
+            hour, minute = int(h), int(m)
+        except ValueError:
+            return None
+
+    if hour is None or minute is None:
+        return None
+    if not (0 <= hour < 24 and 0 <= minute < 60):
+        return None
+    return AUSTIN_TZ.localize(base.replace(hour=hour, minute=minute))
+
+
+def _ics_timezone() -> Timezone:
+    """VTIMEZONE component for America/Chicago (CST/CDT)."""
+    tz = Timezone()
+    tz.add("tzid", "America/Chicago")
+
+    standard = TimezoneStandard()
+    standard.add("dtstart", datetime(1970, 11, 1, 2, 0, 0))
+    standard.add("rrule", {"freq": "yearly", "bymonth": 11, "byday": "1su"})
+    standard.add("tzoffsetfrom", timedelta(hours=-5))
+    standard.add("tzoffsetto", timedelta(hours=-6))
+    standard.add("tzname", "CST")
+
+    daylight = TimezoneDaylight()
+    daylight.add("dtstart", datetime(1970, 3, 8, 2, 0, 0))
+    daylight.add("rrule", {"freq": "yearly", "bymonth": 3, "byday": "2su"})
+    daylight.add("tzoffsetfrom", timedelta(hours=-6))
+    daylight.add("tzoffsetto", timedelta(hours=-5))
+    daylight.add("tzname", "CDT")
+
+    tz.add_component(standard)
+    tz.add_component(daylight)
+    return tz
+
+
+def _ics_uid(slug: str, event: PersonEvent, screening: UpcomingScreening) -> str:
+    sanitized_time = screening.time.replace(":", "").replace(" ", "")
+    base = event.event_id or slugify(event.title) or "event"
+    return f"{slug}-{base}-{screening.date}-{sanitized_time}@{UID_DOMAIN}"
+
+
+def _ics_vevent(
+    slug: str,
+    event: PersonEvent,
+    screening: UpcomingScreening,
+    *,
+    stamp: datetime,
+) -> Optional[Event]:
+    start = _parse_ics_datetime(screening.date, screening.time)
+    if start is None:
+        return None
+
+    vevent = Event()
+    vevent.add("uid", _ics_uid(slug, event, screening))
+    vevent.add("dtstamp", stamp)
+    vevent.add("dtstart", start)
+    vevent.add("dtend", start + DEFAULT_ICS_DURATION)
+
+    summary = event.title
+    if event.rating is not None:
+        summary = f"[{event.rating}/10] {summary}"
+    vevent.add("summary", summary)
+
+    description_parts: list[str] = []
+    if event.rating is not None:
+        description_parts.append(f"Rating: {event.rating}/10")
+    if event.one_liner:
+        description_parts.append(event.one_liner)
+    if screening.url:
+        description_parts.append(f"Details: {screening.url}")
+    elif event.url:
+        description_parts.append(f"Details: {event.url}")
+    if description_parts:
+        vevent.add("description", "\n\n".join(description_parts))
+
+    if event.venue:
+        vevent.add("location", event.venue)
+    link_url = screening.url or event.url
+    if link_url:
+        vevent.add("url", link_url)
+    if event.category_label:
+        vevent.add("categories", [event.category_label])
+    return vevent
+
+
+def render_person_ics(
+    page: PersonPage, *, stamp: Optional[datetime] = None
+) -> bytes:
+    """Render a per-person iCalendar feed containing only upcoming events.
+
+    People with no upcoming screenings still get a well-formed calendar
+    so the advertised ``webcal://…`` URL resolves.
+    """
+    stamp = stamp or datetime.now(AUSTIN_TZ)
+    role_label = ROLE_LABELS.get(page.role, page.role.title())
+
+    cal = Calendar()
+    cal.add("prodid", "-//Culture Calendar//Austin Events//EN")
+    cal.add("version", "2.0")
+    cal.add("calscale", "GREGORIAN")
+    cal.add("method", "PUBLISH")
+    cal.add("x-wr-calname", f"Culture Calendar — {page.person_name}")
+    cal.add(
+        "x-wr-caldesc",
+        f"Upcoming Austin events featuring {page.person_name} ({role_label.lower()})",
+    )
+    cal.add("x-wr-timezone", "America/Chicago")
+    cal.add_component(_ics_timezone())
+
+    for event in page.events:
+        for screening in event.screenings:
+            vevent = _ics_vevent(page.slug, event, screening, stamp=stamp)
+            if vevent is not None:
+                cal.add_component(vevent)
+    return cal.to_ical()
 
 
 def load_events(data_path: Path = DATA_PATH) -> list[dict]:
@@ -516,13 +681,20 @@ def write_pages(
     today: Optional[date] = None,
     limit: int = DEFAULT_UPCOMING_LIMIT,
     min_events: int = MIN_EVENTS_PER_PERSON,
+    stamp: Optional[datetime] = None,
 ) -> list[tuple[Path, PersonPage]]:
-    """Write one HTML page per qualifying person. Returns ``(path, page)`` pairs."""
+    """Write one HTML page + companion ``.ics`` per qualifying person.
+
+    Returns ``(html_path, page)`` pairs. The ``.ics`` sibling lives at
+    ``<html_path>.with_suffix('.ics')`` and carries only the upcoming
+    screenings already collected on ``page``.
+    """
     today = today or datetime.now().date()
     pages = group_by_person(
         events, today=today, limit=limit, min_events=min_events
     )
     out_dir.mkdir(parents=True, exist_ok=True)
+    ics_stamp = stamp or datetime.now(AUSTIN_TZ)
     written: list[tuple[Path, PersonPage]] = []
     seen_slugs: dict[str, tuple[str, str]] = {}
     for page in pages:
@@ -539,9 +711,13 @@ def write_pages(
             candidate = f"{slug}-{page.role}-{n}"
             n += 1
         seen_slugs[candidate] = (page.role, page.person_name)
-        out_path = out_dir / f"{candidate}.html"
-        out_path.write_text(render_page(page), encoding="utf-8")
-        written.append((out_path, page))
+        html_path = out_dir / f"{candidate}.html"
+        html_path.write_text(
+            render_page(page, ics_slug=candidate), encoding="utf-8"
+        )
+        ics_path = out_dir / f"{candidate}.ics"
+        ics_path.write_bytes(render_person_ics(page, stamp=ics_stamp))
+        written.append((html_path, page))
     return written
 
 

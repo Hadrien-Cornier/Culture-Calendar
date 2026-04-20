@@ -136,6 +136,11 @@
 - files: scripts/capture_screenshots.py, tests/test_capture_screenshots.py, docs/preview/.gitkeep, CHANGELOG.md
 - validation: green
 
+### task-T8.3 — DONE — 2026-04-20T06:44:30Z
+- commit: <sha>
+- files: scripts/build_people_pages.py, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
