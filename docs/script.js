@@ -186,6 +186,122 @@
     return { supported: supported, createButton: createButton };
   })();
 
+  /* task-T3.1: Client-side taste graph.
+     Persists thumbs up/down signals to localStorage.cc_taste with shape
+     { thumbs: { <slug>: +1 | -1 } }. Clicks are idempotent toggles:
+     clicking the active direction clears the signal; clicking the other
+     direction flips it. Silently no-ops if storage is unavailable
+     (private mode, quota, etc.) so the UI still renders. Downstream tasks
+     (T3.2 saves, T3.3 re-rank, T7.2 analytics) extend the same store. */
+  var taste = (function () {
+    var STORAGE_KEY = "cc_taste";
+    var memory = { thumbs: {} };
+    var available = false;
+
+    function load() {
+      try {
+        var raw = window.localStorage && window.localStorage.getItem(STORAGE_KEY);
+        available = true;
+        if (!raw) return;
+        var parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") {
+          if (parsed.thumbs && typeof parsed.thumbs === "object") {
+            memory.thumbs = parsed.thumbs;
+          }
+        }
+      } catch (e) { available = false; }
+    }
+    load();
+
+    function persist() {
+      if (!available) return;
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(memory));
+      } catch (e) { /* quota / private mode — keep in-memory copy */ }
+    }
+
+    function eventSlug(ev) {
+      var raw = (ev && (ev.id || ev.event_id || ev.title)) || "";
+      return ogCardSlug(raw);
+    }
+
+    function getThumb(slug) {
+      if (!slug) return 0;
+      var v = memory.thumbs[slug];
+      return v === 1 || v === -1 ? v : 0;
+    }
+
+    function setThumb(slug, value) {
+      if (!slug) return 0;
+      if (value === 1 || value === -1) memory.thumbs[slug] = value;
+      else delete memory.thumbs[slug];
+      persist();
+      return getThumb(slug);
+    }
+
+    function applyState(upBtn, downBtn, current) {
+      if (upBtn) {
+        var upOn = current === 1;
+        upBtn.classList.toggle("is-active", upOn);
+        upBtn.setAttribute("aria-pressed", upOn ? "true" : "false");
+      }
+      if (downBtn) {
+        var downOn = current === -1;
+        downBtn.classList.toggle("is-active", downOn);
+        downBtn.setAttribute("aria-pressed", downOn ? "true" : "false");
+      }
+    }
+
+    function createControls(ev) {
+      var slug = eventSlug(ev);
+      if (!slug) return null;
+      var wrap = document.createElement("div");
+      wrap.className = "thumb-controls";
+      wrap.setAttribute("role", "group");
+      wrap.setAttribute("aria-label", "Rate this event");
+
+      var upBtn = document.createElement("button");
+      upBtn.type = "button";
+      upBtn.className = "thumb-button thumb-up";
+      upBtn.setAttribute("aria-label", "Thumbs up");
+      upBtn.textContent = "\uD83D\uDC4D";
+
+      var downBtn = document.createElement("button");
+      downBtn.type = "button";
+      downBtn.className = "thumb-button thumb-down";
+      downBtn.setAttribute("aria-label", "Thumbs down");
+      downBtn.textContent = "\uD83D\uDC4E";
+
+      applyState(upBtn, downBtn, getThumb(slug));
+
+      upBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var current = getThumb(slug);
+        var next = current === 1 ? 0 : 1;
+        applyState(upBtn, downBtn, setThumb(slug, next));
+      });
+      downBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var current = getThumb(slug);
+        var next = current === -1 ? 0 : -1;
+        applyState(upBtn, downBtn, setThumb(slug, next));
+      });
+
+      wrap.appendChild(upBtn);
+      wrap.appendChild(downBtn);
+      return wrap;
+    }
+
+    return {
+      getThumb: getThumb,
+      setThumb: setThumb,
+      createControls: createControls,
+      eventSlug: eventSlug
+    };
+  })();
+  window.cultureCalendar = window.cultureCalendar || {};
+  window.cultureCalendar.taste = taste;
+
   fetch(DATA_URL)
     .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
     .then(function (raw) {
@@ -745,11 +861,16 @@
         panel.appendChild(p);
       }
     }
+    var pickActions = document.createElement("div");
+    pickActions.className = "event-actions";
+    var pickThumbs = taste.createControls(ev);
+    if (pickThumbs) pickActions.appendChild(pickThumbs);
     var ttsSlot = document.createElement("div");
     ttsSlot.className = "event-tts-slot";
     var pickTtsBtn = tts.createButton(ev);
     if (pickTtsBtn) ttsSlot.appendChild(pickTtsBtn);
-    panel.appendChild(ttsSlot);
+    pickActions.appendChild(ttsSlot);
+    panel.appendChild(pickActions);
     card.appendChild(panel);
 
     header.setAttribute("role", "button");
@@ -866,13 +987,18 @@
         panel.appendChild(p);
       }
     }
+    var listingActions = document.createElement("div");
+    listingActions.className = "event-actions";
+    var listingThumbs = taste.createControls(ev);
+    if (listingThumbs) listingActions.appendChild(listingThumbs);
     var listingTtsBtn = tts.createButton(ev);
     if (listingTtsBtn) {
       var listingTtsSlot = document.createElement("div");
       listingTtsSlot.className = "event-tts-slot";
       listingTtsSlot.appendChild(listingTtsBtn);
-      panel.appendChild(listingTtsSlot);
+      listingActions.appendChild(listingTtsSlot);
     }
+    if (listingActions.childNodes.length > 0) panel.appendChild(listingActions);
     if (panel.childNodes.length > 0) card.appendChild(panel);
 
     header.setAttribute("role", "button");

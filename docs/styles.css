@@ -383,9 +383,58 @@ body {
   max-width: 70ch;
 }
 
+/* task-T3.1: thumbs up/down taste controls — persisted to localStorage.cc_taste.
+   Lives inside .event-actions beside the read-aloud button. */
+.event-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+.thumb-controls {
+  display: inline-flex;
+  gap: 8px;
+}
+.thumb-button {
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+  color: var(--ink);
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+.thumb-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .thumb-button:hover {
+    border-color: var(--ink);
+  }
+}
+.thumb-button:active {
+  transform: scale(0.96);
+}
+.thumb-button.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.thumb-up.is-active { border-color: var(--hi); background: #e9f3e9; }
+.thumb-down.is-active { border-color: var(--lo); background: #f6e6e6; }
+
 /* task-T1.5: Web Speech API read-aloud button inside expanded review panels */
 .event-tts-slot {
-  margin-top: 16px;
+  margin-top: 0;
 }
 .tts-button {
   font-family: var(--sans);
