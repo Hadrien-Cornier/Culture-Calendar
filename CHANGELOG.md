@@ -137,7 +137,7 @@
 - validation: green
 
 ### task-T8.3 — DONE — 2026-04-20T06:44:30Z
-- commit: <sha>
+- commit: c2a4c81
 - files: scripts/build_people_pages.py, CHANGELOG.md
 - validation: green
 
