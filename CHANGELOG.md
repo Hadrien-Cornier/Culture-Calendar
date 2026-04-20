@@ -146,6 +146,11 @@
 - files: .overnight/feature-inventory.json, CHANGELOG.md
 - validation: green
 
+### task-T9.2 — DONE — 2026-04-20T06:52:54Z
+- commit: b85f82a
+- files: STATUS-20260419-235117.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
