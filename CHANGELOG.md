@@ -81,6 +81,11 @@
 - files: docs/script.js, docs/styles.css, .overnight/feature-inventory.json, CHANGELOG.md
 - validation: green
 
+### task-T4.3 — DONE — 2026-04-20T05:52:13Z
+- commit: 3bdd3ae
+- files: docs/script.js, .overnight/feature-inventory.json, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->

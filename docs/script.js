@@ -1055,6 +1055,51 @@
   }
   initAudioBrief();
 
+  /* task-T4.3: Email-this-digest mailto CTA.
+     Adds an <a href="mailto:…"> next to the audio-brief button that opens
+     the user's default mail app pre-populated with the URL of the current
+     ISO-week digest at docs/weekly/<YYYY-Www>.html (the page emitted by
+     scripts/build_weekly_digest.py on each deploy). No analytics, no
+     backend — Web-native share via the mailto: URI scheme. */
+  function currentIsoWeekTag(now) {
+    var d = now || new Date();
+    var utc = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    var day = utc.getUTCDay() || 7;
+    utc.setUTCDate(utc.getUTCDate() + 4 - day);
+    var yearStart = new Date(Date.UTC(utc.getUTCFullYear(), 0, 1));
+    var week = Math.ceil((((utc - yearStart) / 86400000) + 1) / 7);
+    var ww = week < 10 ? "0" + week : String(week);
+    return utc.getUTCFullYear() + "-W" + ww;
+  }
+
+  function initEmailDigest() {
+    var section = document.getElementById("picks");
+    if (!section) return;
+    var heading = section.querySelector(".picks-heading");
+    if (!heading) return;
+    if (section.querySelector(".email-digest-button")) return;
+    var tag = currentIsoWeekTag();
+    var digestUrl =
+      "https://hadrien-cornier.github.io/Culture-Calendar/weekly/" + tag + ".html";
+    var subject = "Austin Culture Calendar — Top Picks (" + tag + ")";
+    var body =
+      "This week's AI-curated top picks for Austin cultural events:\n\n"
+      + digestUrl + "\n";
+    var mailto = "mailto:?subject=" + encodeURIComponent(subject)
+      + "&body=" + encodeURIComponent(body);
+    var a = document.createElement("a");
+    a.className = "email-digest-button audio-brief-button";
+    a.href = mailto;
+    a.rel = "noopener";
+    a.textContent = "\u2709 Email this digest";
+    a.setAttribute(
+      "aria-label",
+      "Email this week's digest via your default mail app"
+    );
+    heading.insertAdjacentElement("afterend", a);
+  }
+  initEmailDigest();
+
   function buildPickCard(ev, reason) {
     var card = document.createElement("li");
     card.className = "event-card pick-card";

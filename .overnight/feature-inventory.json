@@ -75,5 +75,12 @@
     "selector": ".audio-brief-button",
     "since_commit": "task-T4.2",
     "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "email-digest",
+    "name": "Email-this-digest mailto CTA",
+    "selector": ".email-digest-button",
+    "since_commit": "task-T4.3",
+    "smoke_assertion": "selector_exists"
   }
 ]
