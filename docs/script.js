@@ -57,6 +57,30 @@
   var searchDebounceTimer = null;
   var SEARCH_DEBOUNCE_MS = 150;
   var MAX_SUGGESTIONS_PER_GROUP = 20;
+
+  /* task-T7.2: Plausible analytics queue shim.
+     Plausible's script (loaded async in docs/index.html) exposes
+     window.plausible as a global function. Because the script is async,
+     custom events fired before it finishes loading would be dropped.
+     This shim queues any early calls on window.plausible.q; the real
+     script replays the queue on load. Call sites use the literal
+     plausible("cc_*") form so the analytics event names are greppable. */
+  window.plausible = window.plausible || function () {
+    (window.plausible.q = window.plausible.q || []).push(arguments);
+  };
+
+  /* task-T7.2: Wire subscribe-link click tracking via event delegation.
+     Distinguishes ICS (webcal:// or .ics) from RSS (feed.xml / rss). */
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest && e.target.closest("a.subscribe-link");
+    if (!a) return;
+    var href = (a.getAttribute("href") || "").toLowerCase();
+    if (href.indexOf("webcal:") === 0 || href.indexOf(".ics") !== -1) {
+      window.plausible("cc_subscribe_ics");
+    } else if (href.indexOf("feed.xml") !== -1 || href.indexOf("/rss") !== -1) {
+      window.plausible("cc_subscribe_rss");
+    }
+  }, true);
   /* task-T2.4: Deep-link index. Keyed by slug(event.id || event.title),
      populated as each card is built so #event=<id> can scroll + expand. */
   var cardIndex = {};
@@ -306,6 +330,7 @@
     }
 
     function shareEvent(btn, ev) {
+      window.plausible("cc_share");
       var data = {
         title: ev && ev.title ? ev.title : "Culture Calendar",
         text: shareText(ev),
@@ -463,12 +488,14 @@
         var current = getThumb(slug);
         var next = current === 1 ? 0 : 1;
         applyState(upBtn, downBtn, setThumb(slug, next));
+        if (next === 1) window.plausible("cc_thumb_up");
       });
       downBtn.addEventListener("click", function (e) {
         e.stopPropagation();
         var current = getThumb(slug);
         var next = current === -1 ? 0 : -1;
         applyState(upBtn, downBtn, setThumb(slug, next));
+        if (next === -1) window.plausible("cc_thumb_down");
       });
 
       wrap.appendChild(upBtn);
@@ -516,6 +543,7 @@
         e.stopPropagation();
         var next = !getSave(slug);
         applySaveState(btn, setSave(slug, next));
+        if (next) window.plausible("cc_save");
         try {
           document.dispatchEvent(new CustomEvent("cc:saves-changed", {
             detail: { slug: slug, saved: next }
@@ -1302,6 +1330,7 @@
       e.stopPropagation();
       var text = buildWeekBriefText(lastRenderedPicks);
       if (!text) return;
+      window.plausible("cc_play_brief");
       tts.speak(btn, text);
     });
     heading.insertAdjacentElement("afterend", btn);
