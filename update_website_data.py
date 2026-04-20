@@ -68,16 +68,62 @@ editing — its output shape is the contract the frontend reads from
 """
 
 import argparse
+import importlib.util
 import json
 import os
 import re
 import sys
 from datetime import datetime, timedelta
+from pathlib import Path
 
 from src.processor import EventProcessor
 from src.scraper import MultiVenueScraper
 from src.validation_service import EventValidationService
 from src.config_loader import ConfigLoader
+
+_REPO_ROOT = Path(__file__).resolve().parent
+
+
+def _load_script_module(module_name: str, relative_path: str):
+    """Import a top-level ``scripts/`` module without a package __init__."""
+    spec = importlib.util.spec_from_file_location(
+        module_name, _REPO_ROOT / relative_path
+    )
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Could not load {module_name} from {relative_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def generate_subscribable_feeds(website_data: list) -> None:
+    """Write the ICS + RSS feeds consumed by the masthead subscribe links.
+
+    Invokes ``scripts/build_ics_feed.py`` (calendar.ics + top-picks.ics) and
+    ``scripts/build_rss_feed.py`` (feed.xml) using the freshly generated
+    event list. Failures are logged but non-fatal — the site itself ships
+    from ``docs/data.json`` regardless of feed-generation status.
+    """
+    try:
+        build_ics_feed = _load_script_module(
+            "build_ics_feed", "scripts/build_ics_feed.py"
+        )
+        all_count, top_count = build_ics_feed.write_feeds(website_data)
+        print(
+            f"Wrote docs/calendar.ics ({all_count} events) and "
+            f"docs/top-picks.ics ({top_count} events)"
+        )
+    except Exception as e:
+        print(f"Warning: build_ics_feed failed: {e}")
+
+    try:
+        build_rss_feed = _load_script_module(
+            "build_rss_feed", "scripts/build_rss_feed.py"
+        )
+        item_count = build_rss_feed.write_feed(website_data)
+        print(f"Wrote docs/feed.xml ({item_count} items)")
+    except Exception as e:
+        print(f"Warning: build_rss_feed failed: {e}")
 
 
 def save_update_info(info: dict, path: str = "docs/source_update_times.json") -> None:
@@ -761,6 +807,13 @@ def main(
         print(f"Generated {output_file} with {len(website_data)} events")
         # Save per-source update timestamps
         save_update_info(scraper.last_updated)
+
+        # Build subscribable feeds from the just-written event list. Pilot
+        # runs write to data-pilot.json, so skip feed regeneration there to
+        # avoid clobbering production feeds with the 5-event pilot slice.
+        if not pilot:
+            print("\nBuilding subscribable feeds (ICS + RSS)...")
+            generate_subscribable_feeds(website_data)
 
         print("Website update completed successfully!")
 

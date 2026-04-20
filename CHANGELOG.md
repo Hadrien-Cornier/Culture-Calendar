@@ -21,6 +21,11 @@
 - files: scripts/build_rss_feed.py, tests/test_build_rss_feed.py, docs/feed.xml, CHANGELOG.md
 - validation: green
 
+### task-T1.3 — DONE — 2026-04-20T05:05:03Z
+- commit: a9d2e4b
+- files: update_website_data.py, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
