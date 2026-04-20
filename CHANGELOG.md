@@ -71,6 +71,11 @@
 - files: docs/script.js, docs/styles.css, CHANGELOG.md
 - validation: green
 
+### task-T4.1 — DONE — 2026-04-20T05:41:17Z
+- commit: 6b718f5
+- files: scripts/build_weekly_digest.py, tests/test_build_weekly_digest.py, docs/weekly/.gitkeep, docs/weekly/2026-W17.html, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
