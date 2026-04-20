@@ -132,7 +132,7 @@
 - validation: green
 
 ### task-T8.2 — DONE — 2026-04-20T06:38:45Z
-- commit: PENDING
+- commit: f6997bb
 - files: scripts/capture_screenshots.py, tests/test_capture_screenshots.py, docs/preview/.gitkeep, CHANGELOG.md
 - validation: green
 
