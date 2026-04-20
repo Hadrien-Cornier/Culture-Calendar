@@ -91,6 +91,11 @@
 - files: scripts/build_venue_pages.py, tests/test_build_venue_pages.py, docs/venues/.gitkeep, CHANGELOG.md
 - validation: green
 
+### task-T5.2 — DONE — 2026-04-20T06:04:43Z
+- commit: 2616f2f
+- files: scripts/build_people_pages.py, tests/test_build_people_pages.py, docs/people/.gitkeep, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
