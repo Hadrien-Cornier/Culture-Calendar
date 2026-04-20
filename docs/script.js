@@ -196,6 +196,160 @@
     return { supported: supported, createButton: createButton, speak: speak };
   })();
 
+  /* task-T6.3: Share this pick button.
+     Primary path: Web Share API (navigator.share) — invokes the OS share
+     sheet on mobile / supporting desktops. Fallback path: inline popover
+     with three deterministic options — mailto: for email, twitter.com
+     intent URL for X/Twitter, and navigator.clipboard.writeText for
+     copy-to-clipboard (degrades to a hidden textarea + execCommand on
+     older browsers). Share URL is the OG deep-link
+     (<origin>/#event=<id>) so the landing surfaces the specific event
+     via the existing hash-based deep-link handler. */
+  var share = (function () {
+    function shareUrl(ev) {
+      var hashId = (ev && (ev.id || ev.event_id)) || "";
+      if (hashId) return OG_DEFAULT_URL + "#event=" + encodeURIComponent(hashId);
+      return OG_DEFAULT_URL;
+    }
+
+    function shareText(ev) {
+      var title = (ev && ev.title) || "Culture Calendar pick";
+      var one = (ev && (ev.one_liner_summary || ev.one_liner)) || "";
+      return one ? title + " — " + String(one).trim() : title;
+    }
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+      }
+      return new Promise(function (resolve, reject) {
+        try {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "absolute";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          resolve();
+        } catch (err) { reject(err); }
+      });
+    }
+
+    function closePopover(btn, pop) {
+      if (pop && pop.parentNode) pop.parentNode.removeChild(pop);
+      btn.setAttribute("aria-expanded", "false");
+      btn._sharePopover = null;
+    }
+
+    function flashCopied(btn) {
+      var prev = btn.textContent;
+      btn.textContent = "\u2713 Copied";
+      setTimeout(function () { btn.textContent = prev; }, 1400);
+    }
+
+    function buildPopover(btn, ev) {
+      var pop = document.createElement("div");
+      pop.className = "share-popover";
+      pop.setAttribute("role", "menu");
+      var url = shareUrl(ev);
+      var text = shareText(ev);
+      var subject = "Culture Calendar: " + (ev.title || "This pick");
+      var body = text + "\n\n" + url + "\n";
+      var mailto = "mailto:?subject=" + encodeURIComponent(subject)
+        + "&body=" + encodeURIComponent(body);
+      var twitter = "https://twitter.com/intent/tweet?text="
+        + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+
+      var mailLink = document.createElement("a");
+      mailLink.className = "share-option";
+      mailLink.setAttribute("role", "menuitem");
+      mailLink.href = mailto;
+      mailLink.rel = "noopener";
+      mailLink.textContent = "\u2709 Email";
+      mailLink.addEventListener("click", function () {
+        setTimeout(function () { closePopover(btn, pop); }, 0);
+      });
+      pop.appendChild(mailLink);
+
+      var twLink = document.createElement("a");
+      twLink.className = "share-option";
+      twLink.setAttribute("role", "menuitem");
+      twLink.href = twitter;
+      twLink.target = "_blank";
+      twLink.rel = "noopener noreferrer";
+      twLink.textContent = "\uD83D\uDC26 Twitter";
+      twLink.addEventListener("click", function () {
+        setTimeout(function () { closePopover(btn, pop); }, 0);
+      });
+      pop.appendChild(twLink);
+
+      var copyBtn = document.createElement("button");
+      copyBtn.type = "button";
+      copyBtn.className = "share-option";
+      copyBtn.setAttribute("role", "menuitem");
+      copyBtn.textContent = "\uD83D\uDCCB Copy link";
+      copyBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        copyToClipboard(url).then(function () {
+          flashCopied(copyBtn);
+          setTimeout(function () { closePopover(btn, pop); }, 900);
+        }, function () {
+          copyBtn.textContent = "\u2717 Copy failed";
+        });
+      });
+      pop.appendChild(copyBtn);
+
+      return pop;
+    }
+
+    function shareEvent(btn, ev) {
+      var data = {
+        title: ev && ev.title ? ev.title : "Culture Calendar",
+        text: shareText(ev),
+        url: shareUrl(ev)
+      };
+      if (navigator.share) {
+        try {
+          navigator.share(data).catch(function () { /* user cancel */ });
+          return;
+        } catch (e) { /* fall through to popover */ }
+      }
+      if (btn._sharePopover) { closePopover(btn, btn._sharePopover); return; }
+      var pop = buildPopover(btn, ev);
+      btn.insertAdjacentElement("afterend", pop);
+      btn._sharePopover = pop;
+      btn.setAttribute("aria-expanded", "true");
+      setTimeout(function () {
+        document.addEventListener("click", function onDoc(e) {
+          if (!pop.contains(e.target) && e.target !== btn) {
+            closePopover(btn, pop);
+            document.removeEventListener("click", onDoc, true);
+          }
+        }, true);
+      }, 0);
+    }
+
+    function createButton(ev) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "share-button";
+      btn.textContent = "\u2197 Share";
+      btn.setAttribute("aria-label", "Share this pick");
+      btn.setAttribute("aria-haspopup", "menu");
+      btn.setAttribute("aria-expanded", "false");
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        shareEvent(btn, ev);
+      });
+      return btn;
+    }
+
+    return { createButton: createButton, shareEvent: shareEvent };
+  })();
+
   /* task-T3.1: Client-side taste graph.
      Persists thumbs up/down signals to localStorage.cc_taste with shape
      { thumbs: { <slug>: +1 | -1 }, saves: [<slug>, ...] }. Thumb clicks
@@ -1315,6 +1469,10 @@
     var pickTtsBtn = tts.createButton(ev);
     if (pickTtsBtn) ttsSlot.appendChild(pickTtsBtn);
     pickActions.appendChild(ttsSlot);
+    var pickShareWrap = document.createElement("div");
+    pickShareWrap.className = "event-share-slot";
+    pickShareWrap.appendChild(share.createButton(ev));
+    pickActions.appendChild(pickShareWrap);
     panel.appendChild(pickActions);
     card.appendChild(panel);
 
@@ -1445,6 +1603,10 @@
       listingTtsSlot.appendChild(listingTtsBtn);
       listingActions.appendChild(listingTtsSlot);
     }
+    var listingShareWrap = document.createElement("div");
+    listingShareWrap.className = "event-share-slot";
+    listingShareWrap.appendChild(share.createButton(ev));
+    listingActions.appendChild(listingShareWrap);
     if (listingActions.childNodes.length > 0) panel.appendChild(listingActions);
     if (panel.childNodes.length > 0) card.appendChild(panel);
 
