@@ -186,6 +186,27 @@
     "name": "Per-person webcal follow feed (.ics) linked from people pages",
     "selector": "a[href$=\".ics\"]",
     "since_commit": "task-T8.3",
-    "smoke_assertion": "selector_exists@/people/beethoven.html"
+    "smoke_assertion": "selector_exists@/people/ludwig-van-beethoven.html"
+  },
+  {
+    "id": "per-event-shell-pages",
+    "name": "Per-event HTML shells with OG/Twitter/JSON-LD meta (events/<slug>.html)",
+    "selector": "meta[property=\"og:image\"]",
+    "since_commit": "b6c6a32",
+    "smoke_assertion": "selector_exists@/events/8-1-2.html"
+  },
+  {
+    "id": "share-url-shell-form",
+    "name": "Share button emits events/<slug>.html URLs so link-unfurl bots get rich previews",
+    "selector": "script.js",
+    "since_commit": "b6c6a32",
+    "smoke_assertion": "contains_text:shareUrl returns events/"
+  },
+  {
+    "id": "sitemap-events-coverage",
+    "name": "Sitemap includes every per-event shell URL (229 events in production)",
+    "selector": "sitemap.xml",
+    "since_commit": "b6c6a32",
+    "smoke_assertion": "contains_text:events/8-1-2.html@/sitemap.xml"
   }
 ]
