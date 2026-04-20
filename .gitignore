@@ -52,3 +52,4 @@ node_modules/
 # SQLite sidecars (if any)
 *.sqlite-shm
 *.sqlite-wal
+.long-run/

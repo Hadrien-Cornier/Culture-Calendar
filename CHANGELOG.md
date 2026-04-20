@@ -1,5 +1,18 @@
 # CHANGELOG
 
+<!-- BEGIN LONG-RUN: 20260419-235117 -->
+## Long run — 20260419-235117
+
+*Branch:* `long-run/20260419-235117` · *Started:* 2026-04-19T23:51:17 CDT · *Deadline:* 2026-04-21T11:54:03 CDT (36h) · *Scope:* Consumption Surface v1 (28 tasks across 9 phases)
+
+### task-SCAFFOLD — DONE — 2026-04-19T23:55:00-05:00
+- queue.tsv written with 28 tasks
+- runner-prompt.txt copied from long-run skill template
+- CLAUDE.md fenced section appended
+- branch long-run/20260419-235117 created from main
+
+<!-- END LONG-RUN: 20260419-235117 -->
+
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
 ## Overnight run — 2026-04-18-3
 

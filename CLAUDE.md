@@ -860,3 +860,95 @@ Run `./venv/bin/python scripts/persona_critique.py --out docs/PERSONAS.md` any t
 | `docs/PERSONAS.md` | Latest persona scorecard (overwritten by on-demand `persona_critique.py` runs) |
 | `docs/persona_model_benchmark.md` | Benchmark run results justifying the model pick |
 | `.githooks/pre-push` | Opt-in pre-push hook triggered by `[persona-gate]` commit tag |
+
+<!-- BEGIN LONG-RUN: 20260419-235117 -->
+## Long run — 20260419-235117
+
+> **AUTONOMOUS RUN — do not edit while running.**
+> Owner: Hadrien-Cornier · Started: 2026-04-19T23:51:17 CDT · Deadline: 2026-04-21T11:54:03 CDT (36h safety cap) · Branch: `long-run/20260419-235117`
+
+### Goal
+
+Build "Consumption Surface v1" — turn the static listings site into a multi-surface subscribable/personalizable product without new paid deps. 28 tasks across 9 phases: subscribable feeds (ICS + RSS), JSON-LD + OG cards + deep links, client-side taste graph (thumbs/save/re-rank), weekly digest + audio brief, venue/people SEO pages, sitemap + share button, Plausible analytics, and weekend-stretch (composer essay, screenshot harness, per-person webcal follow feeds).
+
+Strategic frame derived via `gstack-openclaw-ceo-review` (SCOPE EXPANSION) + `business-strategy-v2` frameworks (JTBD, Category Design, 7 Powers, Blue Ocean ERRC, AI Factory, Cold Start, Traction Bullseye). Full plan at `~/.claude/plans/use-the-gstack-skills-elegant-adleman.md`.
+
+### Definition of done
+
+By the deadline, the following must all be true:
+
+- `docs/calendar.ics` and `docs/top-picks.ics` exist, parse as valid iCalendar, and are linked from the masthead via `webcal://`
+- `docs/feed.xml` exists and is valid RSS/Atom
+- `docs/sitemap.xml` exists and enumerates all pages (index + weekly + venues + people + features)
+- Event modals inject JSON-LD `Event` schema; index head has OG + Twitter card meta
+- `#event=<id>` deep-link handler works (loads, scrolls, expands)
+- Thumbs up/down + save buttons persist to localStorage; top picks re-rank based on taste; "because you liked X" annotation renders
+- `docs/weekly/<yyyy-ww>.html` static digest page with top picks; 5-min audio-brief button via Web Speech API
+- `docs/venues/<slug>.html` per venue (≥10); `docs/people/<slug>.html` per composer/director/author with ≥2 events
+- `docs/people/<slug>.ics` per-person webcal follow feeds
+- Share button uses Web Share API with mailto/twitter/clipboard fallbacks
+- Plausible analytics tag present + 7 custom events (`cc_subscribe_ics`, `cc_subscribe_rss`, `cc_thumb_up`, `cc_thumb_down`, `cc_save`, `cc_share`, `cc_play_brief`)
+- `docs/features/composer-<yyyy-ww>.html` auto-generated weekly composer essay
+- `docs/preview/` populated by pyppeteer screenshot harness
+- `.overnight/feature-inventory.json` has ≥18 new entries
+- `STATUS-20260419-235117.md` handoff written
+- `pytest -q` exits 0
+
+### Hard constraints
+
+The runner and any spawned `claude -p` instance must obey these:
+
+- Branch: `long-run/20260419-235117` only — never push, never switch to `main`. The runner does NOT push. User merges after review.
+- Never rewrite git history (`git rebase`, `git reset --hard`, `git push --force`).
+- Never `pip install` / `npm install` new dependencies. If a task thinks it needs one → BLOCKED with reason `needs-dep: <name>`.
+- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or `.overnight/` working files (only `.overnight/feature-inventory.json` and `.overnight/personas/` are whitelisted).
+- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
+- No interactive prompts. No `--no-verify`.
+- Network policy: LLM API calls reuse existing Perplexity + Anthropic keys from `.env`. No new third-party services. Plausible is a single `<script>` tag, no auth needed.
+
+### Scope fence
+
+In-scope paths:
+
+- `scripts/` — new build_*.py generators (ics, rss, og, weekly digest, venues, people, sitemap, wishlist, composer feature, screenshots)
+- `tests/` — unit tests for each new generator
+- `docs/` — `index.html`, `script.js`, `styles.css`, `ABOUT.md`, plus new `docs/calendar.ics`, `docs/top-picks.ics`, `docs/feed.xml`, `docs/sitemap.xml`, `docs/robots.txt`, `docs/og/`, `docs/weekly/`, `docs/venues/`, `docs/people/`, `docs/features/`, `docs/preview/`, `docs/wishlist.html`
+- `update_website_data.py` — orchestrate new builders in final step
+- `src/` — read-only reuse of `calendar_generator.py`, `llm_service.py`, `processor.py` patterns. Direct edits ONLY allowed in `src/processor.py` for composer-essay branch (T8.1) AND require GitNexus impact analysis first.
+- `CLAUDE.md` — only inside this run's fenced markers (`<!-- BEGIN LONG-RUN: 20260419-235117 -->`).
+- `CHANGELOG.md` — only inside this run's fenced markers.
+- `STATUS-20260419-235117.md` — final handoff file.
+- `.overnight/feature-inventory.json` — append-only.
+- `.gitignore` — if needed.
+
+Anything else is read-only.
+
+### Validation oracle (run before every commit)
+
+```
+.venv/bin/python -m pytest -q
+```
+
+Pytest must exit 0. The per-task `validate` command from `queue.tsv` is the second oracle and is task-specific.
+
+Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle — pre-existing red items would block unrelated tasks.
+
+### Working agreement
+
+- Commit cadence: one commit per task. Message format: `<type>(task-<ID>): <title>` where `<type>` is the `ctype=` prefix in the task's notes column (feat / fix / chore / refactor / test / docs).
+- Stage only files in the task's `files` column; never `git add -A`.
+- Append one entry to `CHANGELOG.md` inside this run's fenced block after each DONE commit (format in runner-prompt.txt step 5).
+- Feature-inventory discipline: every task adding a user-visible feature MUST append its entry to `.overnight/feature-inventory.json` BEFORE committing (same regression-prevention pattern as prior runs).
+
+### Stop conditions
+
+- All 28 tasks `DONE` → `RUN_COMPLETE`
+- Wall clock ≥ 2026-04-21T11:54:03 CDT → `RUN_HALTED: deadline`
+- 3 consecutive `BLOCKED` tasks → `RUN_HALTED: consecutive-blockers`
+- `STATUS.md` (bare — no date tag; runner watches this exact name) contains `HALT` → `RUN_HALTED: manual`
+
+### Handoff
+
+When the runner stops, it emits final event to `.long-run/20260419-235117/events.log`. The `long-run/20260419-235117` branch stays local — Hadrien reviews and merges to `main` in the morning. The runner does NOT push.
+
+<!-- END LONG-RUN: 20260419-235117 -->
