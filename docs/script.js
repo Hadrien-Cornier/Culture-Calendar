@@ -521,6 +521,105 @@
     return safe;
   }
 
+  /* task-T5.3: Cross-links from an expanded event card to the matching
+     venue page (docs/venues/<slug>.html, built by
+     scripts/build_venue_pages.py) and any person pages
+     (docs/people/<slug>.html, built by scripts/build_people_pages.py).
+     Slug algorithm mirrors the Python slugify() in both builders:
+     lowercase, non-[a-z0-9] collapsed to "-", trimmed hyphens. Pages
+     are generated server-side; chips render unconditionally when the
+     event data carries the name so the continuity-user persona can
+     assert .venue-link / .people-link stay alive on the live site. */
+  var CROSS_LINK_NAME_BLOCKLIST = {
+    "": 1, "various": 1, "various artists": 1, "others": 1, "other": 1,
+    "unknown": 1, "n/a": 1, "na": 1, "tba": 1, "tbd": 1,
+    "anonymous": 1, "traditional": 1
+  };
+
+  function crossLinkSlug(name) {
+    if (!name) return "";
+    var lowered = String(name).trim().toLowerCase();
+    var slug = lowered.replace(/[^a-z0-9]+/g, "-");
+    return slug.replace(/^-+|-+$/g, "");
+  }
+
+  function cleanCrossLinkName(value) {
+    if (typeof value !== "string") return "";
+    var stripped = value.trim();
+    if (!stripped) return "";
+    if (CROSS_LINK_NAME_BLOCKLIST[stripped.toLowerCase()]) return "";
+    return stripped;
+  }
+
+  function collectPeopleNames(ev) {
+    var seen = {};
+    var out = [];
+    function add(raw) {
+      if (!raw) return;
+      if (Array.isArray(raw)) { raw.forEach(add); return; }
+      var cleaned = cleanCrossLinkName(raw);
+      if (!cleaned) return;
+      var key = cleaned.toLowerCase();
+      if (seen[key]) return;
+      seen[key] = 1;
+      out.push(cleaned);
+    }
+    var t = ev && ev.type;
+    if (t === "movie" || t === "film") {
+      add(ev.director); add(ev.directors);
+    } else if (t === "book_club") {
+      add(ev.author); add(ev.authors);
+    } else if (t === "concert" || t === "opera") {
+      add(ev.composer); add(ev.composers);
+    }
+    return out;
+  }
+
+  function makeCrossLinkChip(label, href, className, ariaLabel) {
+    var a = document.createElement("a");
+    a.className = className;
+    a.href = href;
+    a.textContent = label + " \u2192";
+    if (ariaLabel) a.setAttribute("aria-label", ariaLabel);
+    a.addEventListener("click", function (e) { e.stopPropagation(); });
+    return a;
+  }
+
+  function buildCrossLinks(ev) {
+    if (!ev) return null;
+    var wrap = document.createElement("div");
+    wrap.className = "event-cross-links";
+    var added = 0;
+
+    var venueName = ev.venue;
+    if (venueName) {
+      var venueSlug = crossLinkSlug(venueName);
+      if (venueSlug) {
+        var venuePage = "venues/" + venueSlug + ".html";
+        wrap.appendChild(makeCrossLinkChip(
+          venueName, venuePage, "cross-link-chip venue-link",
+          "Open " + venueName + " venue page"
+        ));
+        added += 1;
+      }
+    }
+
+    var people = collectPeopleNames(ev);
+    for (var i = 0; i < people.length; i += 1) {
+      var personName = people[i];
+      var personSlug = crossLinkSlug(personName);
+      if (!personSlug) continue;
+      var personPage = "people/" + personSlug + ".html";
+      wrap.appendChild(makeCrossLinkChip(
+        personName, personPage, "cross-link-chip people-link",
+        "Open " + personName + " profile page"
+      ));
+      added += 1;
+    }
+
+    return added > 0 ? wrap : null;
+  }
+
   function setMetaContent(selector, content) {
     var el = document.head.querySelector(selector);
     if (!el) return;
@@ -1205,6 +1304,8 @@
         panel.appendChild(p);
       }
     }
+    var pickCrossLinks = buildCrossLinks(ev);
+    if (pickCrossLinks) panel.appendChild(pickCrossLinks);
     var pickActions = document.createElement("div");
     pickActions.className = "event-actions";
     var pickThumbs = taste.createControls(ev);
@@ -1331,6 +1432,8 @@
         panel.appendChild(p);
       }
     }
+    var listingCrossLinks = buildCrossLinks(ev);
+    if (listingCrossLinks) panel.appendChild(listingCrossLinks);
     var listingActions = document.createElement("div");
     listingActions.className = "event-actions";
     var listingThumbs = taste.createControls(ev);

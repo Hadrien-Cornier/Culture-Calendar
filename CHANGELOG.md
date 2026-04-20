@@ -96,6 +96,11 @@
 - files: scripts/build_people_pages.py, tests/test_build_people_pages.py, docs/people/.gitkeep, CHANGELOG.md
 - validation: green
 
+### task-T5.3 — DONE — 2026-04-20T06:09:44Z
+- commit: 8ef62e7
+- files: docs/script.js, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
