@@ -16,6 +16,11 @@
 - files: scripts/build_ics_feed.py, tests/test_build_ics_feed.py, docs/calendar.ics, docs/top-picks.ics, CHANGELOG.md
 - validation: green
 
+### task-T1.2 — DONE — 2026-04-20T05:00:42Z
+- commit: c12195f
+- files: scripts/build_rss_feed.py, tests/test_build_rss_feed.py, docs/feed.xml, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
