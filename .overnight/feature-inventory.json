@@ -82,5 +82,110 @@
     "selector": ".email-digest-button",
     "since_commit": "task-T4.3",
     "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "subscribe-ical-calendar",
+    "name": "Subscribe to full iCal calendar feed (webcal)",
+    "selector": ".subscribe-links a[href*=\"calendar.ics\"]",
+    "since_commit": "task-T1.4",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "subscribe-ical-picks",
+    "name": "Subscribe to top-picks iCal feed (webcal)",
+    "selector": ".subscribe-links a[href*=\"top-picks.ics\"]",
+    "since_commit": "task-T1.4",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "subscribe-rss",
+    "name": "RSS/Atom subscribe link",
+    "selector": ".subscribe-links a[href*=\"feed.xml\"]",
+    "since_commit": "task-T1.4",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "thumbs",
+    "name": "Thumbs up/down taste signals with localStorage persistence",
+    "selector": ".thumb-controls .thumb-button",
+    "since_commit": "task-T3.1",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "save-star",
+    "name": "Save (star) button on event cards",
+    "selector": ".save-button",
+    "since_commit": "task-T3.2",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "my-picks-filter",
+    "name": "My Picks only toggle",
+    "selector": ".my-picks-toggle",
+    "since_commit": "task-T3.2",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "because-you-liked",
+    "name": "Because-you-liked annotation on re-ranked picks",
+    "selector": ".because-you-liked",
+    "since_commit": "task-T3.4",
+    "smoke_assertion": "selector_exists_if_taste_signals"
+  },
+  {
+    "id": "weekly-digest-page",
+    "name": "Static weekly digest page (docs/weekly/<yyyy-Www>.html)",
+    "selector": "body",
+    "since_commit": "task-T4.1",
+    "smoke_assertion": "selector_exists:body@/weekly/2026-W17.html"
+  },
+  {
+    "id": "venue-pages",
+    "name": "Per-venue deep-dive pages",
+    "selector": "body",
+    "since_commit": "task-T5.1",
+    "smoke_assertion": "selector_exists:body@/venues/austin-film-society.html"
+  },
+  {
+    "id": "people-pages",
+    "name": "Per-person (composer/director/author) deep-dive pages",
+    "selector": "body",
+    "since_commit": "task-T5.2",
+    "smoke_assertion": "selector_exists:body@/people/beethoven.html"
+  },
+  {
+    "id": "event-cross-links",
+    "name": "Cross-links to venue + person pages inside expanded event cards",
+    "selector": ".event-cross-links a",
+    "since_commit": "task-T5.3",
+    "smoke_assertion": "selector_exists_after_expand"
+  },
+  {
+    "id": "venue-wishlist",
+    "name": "Venue wishlist dashboard page",
+    "selector": "body",
+    "since_commit": "task-T6.2",
+    "smoke_assertion": "selector_exists:body@/wishlist.html"
+  },
+  {
+    "id": "share-pick",
+    "name": "Share-this-pick button with Web Share API + mailto/twitter/clipboard fallbacks",
+    "selector": ".share-button",
+    "since_commit": "task-T6.3",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "composer-essay",
+    "name": "Composer-of-the-week auto-generated essay page",
+    "selector": "body",
+    "since_commit": "task-T8.1",
+    "smoke_assertion": "selector_exists:body@/features/composer-2026-W17.html"
+  },
+  {
+    "id": "person-webcal-feeds",
+    "name": "Per-person webcal follow feed (.ics) linked from people pages",
+    "selector": "a[href$=\".ics\"]",
+    "since_commit": "task-T8.3",
+    "smoke_assertion": "selector_exists@/people/beethoven.html"
   }
 ]

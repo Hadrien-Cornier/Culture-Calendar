@@ -141,6 +141,11 @@
 - files: scripts/build_people_pages.py, CHANGELOG.md
 - validation: green
 
+### task-T9.1 — DONE — 2026-04-20T06:49:17Z
+- commit: fd6699a
+- files: .overnight/feature-inventory.json, CHANGELOG.md
+- validation: green
+
 <!-- END LONG-RUN: 20260419-235117 -->
 
 <!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
