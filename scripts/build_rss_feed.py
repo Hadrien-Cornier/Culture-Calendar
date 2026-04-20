@@ -14,7 +14,9 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import re
 import sys
+import unicodedata
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from email.utils import format_datetime
@@ -97,9 +99,28 @@ def _rank_key(event: dict, now: datetime) -> tuple:
 
 
 def _build_anchor(event_id: str) -> str:
+    """Return the shell-page URL if a slug exists, else the site root.
+
+    Shell pages at ``events/<slug>.html`` carry per-event OG and JSON-LD
+    and auto-redirect to ``/#event=<slug>``; using them as feed links
+    gives link-unfurl bots rich previews that the bare hash anchor
+    cannot provide.
+    """
     if not event_id:
         return SITE_URL
-    return f"{SITE_URL}#event={event_id}"
+    safe = _safe_slug(event_id)
+    return f"{SITE_URL}events/{safe}.html"
+
+
+_SLUG_SAFE = re.compile(r"[^a-z0-9-]+")
+
+
+def _safe_slug(raw: str) -> str:
+    """Lower, ASCII-fold, replace non-alnum with ``-``; mirrors shell builder."""
+    normalised = unicodedata.normalize("NFKD", raw).encode("ascii", "ignore").decode("ascii")
+    normalised = normalised.lower()
+    normalised = _SLUG_SAFE.sub("-", normalised).strip("-")
+    return normalised or "event"
 
 
 def _to_feed_item(event: dict, *, fallback_pub: datetime) -> Optional[FeedItem]:

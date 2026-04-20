@@ -145,15 +145,25 @@ def test_select_top_items_skips_malformed_entries():
 
 
 def test_build_anchor_uses_event_id():
-    assert brf._build_anchor("abc") == brf.SITE_URL + "#event=abc"
+    # Anchors point at per-event shell pages (events/<slug>.html) so link-unfurl
+    # bots reading the feed get rich OG/JSON-LD metadata; the shell auto-redirects
+    # real users to the in-app #event=<slug> anchor.
+    assert brf._build_anchor("abc") == brf.SITE_URL + "events/abc.html"
     assert brf._build_anchor("") == brf.SITE_URL
+
+
+def test_build_anchor_slugifies_unsafe_chars():
+    """Slashes, apostrophes, diacritics must not leak into the URL."""
+    assert brf._build_anchor("8 1/2") == brf.SITE_URL + "events/8-1-2.html"
+    assert brf._build_anchor("Don't Look Back") == brf.SITE_URL + "events/don-t-look-back.html"
+    assert brf._build_anchor("Café") == brf.SITE_URL + "events/cafe.html"
 
 
 def test_build_item_description_includes_anchor_and_review(events):
     item = brf.select_top_items(events, limit=1, now=NOW)[0]
     body = brf._build_item_description(item)
     assert item.site_anchor in body
-    assert "#event=upcoming-top" in body
+    assert "events/upcoming-top.html" in body
     assert "<p>Full review body.</p>" in body
     assert "Rating: 9/10" in body
 
@@ -172,7 +182,7 @@ def test_build_rss_produces_valid_xml_round_trip(events, tmp_path):
     items = channel.findall("item")
     assert len(items) == len(events)
     first_link = items[0].findtext("link")
-    assert first_link is not None and "#event=upcoming-top" in first_link
+    assert first_link is not None and "events/upcoming-top.html" in first_link
 
 
 def test_feed_items_have_required_rss_fields(events, tmp_path):

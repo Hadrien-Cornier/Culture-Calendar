@@ -52,6 +52,7 @@ INDEXED_SUBDIRS: tuple[str, ...] = (
     "venues",
     "people",
     "features",
+    "events",
 )
 
 LOG = logging.getLogger("build_sitemap")

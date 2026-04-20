@@ -226,13 +226,25 @@
      with three deterministic options — mailto: for email, twitter.com
      intent URL for X/Twitter, and navigator.clipboard.writeText for
      copy-to-clipboard (degrades to a hidden textarea + execCommand on
-     older browsers). Share URL is the OG deep-link
-     (<origin>/#event=<id>) so the landing surfaces the specific event
-     via the existing hash-based deep-link handler. */
+     older browsers). Share URL points at the per-event shell page
+     (events/<slug>.html) which carries per-event OG and JSON-LD meta
+     so link-unfurl bots can render rich previews; the shell itself
+     auto-redirects real users to /#event=<slug> for the live modal. */
+  function _slugForShare(raw) {
+    if (!raw) return "";
+    var s = String(raw)
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    return s || "event";
+  }
   var share = (function () {
     function shareUrl(ev) {
-      var hashId = (ev && (ev.id || ev.event_id)) || "";
-      if (hashId) return OG_DEFAULT_URL + "#event=" + encodeURIComponent(hashId);
+      var rawId = (ev && (ev.id || ev.event_id || ev.title)) || "";
+      var slug = _slugForShare(rawId);
+      if (slug) return OG_DEFAULT_URL + "events/" + slug + ".html";
       return OG_DEFAULT_URL;
     }
 

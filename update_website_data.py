@@ -125,6 +125,16 @@ def generate_subscribable_feeds(website_data: list) -> None:
     except Exception as e:
         print(f"Warning: build_rss_feed failed: {e}")
 
+    try:
+        build_event_shells = _load_script_module(
+            "build_event_shells", "scripts/build_event_shells.py"
+        )
+        shells = build_event_shells.build_shells(website_data)
+        shell_count = build_event_shells.write_shells(shells)
+        print(f"Wrote {shell_count} event shell pages to docs/events/")
+    except Exception as e:
+        print(f"Warning: build_event_shells failed: {e}")
+
 
 def save_update_info(info: dict, path: str = "docs/source_update_times.json") -> None:
     """Save per-source last update times to JSON"""
