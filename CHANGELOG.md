@@ -142,7 +142,7 @@
 - validation: green
 
 ### task-T9.1 — DONE — 2026-04-20T06:49:17Z
-- commit: fd6699a
+- commit: afd7415
 - files: .overnight/feature-inventory.json, CHANGELOG.md
 - validation: green
 
