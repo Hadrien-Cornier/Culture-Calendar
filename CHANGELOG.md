@@ -23,6 +23,11 @@
 - files: update_website_data.py
 - validation: green
 
+### task-T0.3 — DONE — 2026-04-22T21:54:30Z
+- commit: a1a75778e2b9c4c3c7a1511354bcf73e39e24bd7
+- files: scripts/build_api_json.py, docs/api/venues.json, tests/test_build_api_json.py
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
