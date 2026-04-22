@@ -1,0 +1,116 @@
+{
+  "schema_version": "1",
+  "name": "Culture Calendar",
+  "description": "Austin cultural events, AI-curated. Films, concerts, opera, ballet, book clubs, and visual arts \u2014 sorted by merit, not marketing.",
+  "site_url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "contact": {
+    "type": "github",
+    "url": "https://github.com/Hadrien-Cornier/Culture-Calendar"
+  },
+  "policies": {
+    "robots_txt": "https://hadrien-cornier.github.io/Culture-Calendar/robots.txt",
+    "license": "MIT"
+  },
+  "endpoints": [
+    {
+      "id": "llms_index",
+      "title": "llmstxt.org index",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/llms.txt",
+      "content_type": "text/plain",
+      "method": "GET",
+      "agent_usage": "Start here: short llmstxt.org-formatted index of every page and feed on the site."
+    },
+    {
+      "id": "llms_full",
+      "title": "Full text corpus",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/llms-full.txt",
+      "content_type": "text/plain",
+      "method": "GET",
+      "agent_usage": "Plain-text dump of the top events with HTML stripped. Use when you want to reason over the corpus without fetching per-event pages."
+    },
+    {
+      "id": "api_events",
+      "title": "All events (JSON)",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/api/events.json",
+      "content_type": "application/json",
+      "method": "GET",
+      "agent_usage": "Structured view of every event. Wrapper: {generated_at, site_url, count, data: [...]}."
+    },
+    {
+      "id": "api_top_picks",
+      "title": "Top picks (JSON)",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/api/top-picks.json",
+      "content_type": "application/json",
+      "method": "GET",
+      "agent_usage": "Only events rated >= 7, sorted by rating. Use for recommendation answers."
+    },
+    {
+      "id": "api_venues",
+      "title": "Venues (JSON)",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/api/venues.json",
+      "content_type": "application/json",
+      "method": "GET",
+      "agent_usage": "One row per venue with event count and categories."
+    },
+    {
+      "id": "api_people",
+      "title": "People (JSON)",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/api/people.json",
+      "content_type": "application/json",
+      "method": "GET",
+      "agent_usage": "One row per composer, director, or author with event counts and deep-link URLs."
+    },
+    {
+      "id": "api_categories",
+      "title": "Categories (JSON)",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/api/categories.json",
+      "content_type": "application/json",
+      "method": "GET",
+      "agent_usage": "One row per event category with its human label and count."
+    },
+    {
+      "id": "event_canonical_json",
+      "title": "Per-event canonical JSON (template)",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/{slug}.json",
+      "content_type": "application/json",
+      "method": "GET",
+      "agent_usage": "Mirror of the schema.org Event JSON-LD for a single event. Replace {slug} with the event id. Slugs are enumerated in api/events.json.",
+      "params": [
+        "slug"
+      ]
+    },
+    {
+      "id": "rss_top_picks",
+      "title": "RSS \u2014 top picks",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/feed.xml",
+      "content_type": "application/rss+xml",
+      "method": "GET",
+      "agent_usage": "RSS 2.0 feed of the top-ranked events."
+    },
+    {
+      "id": "ical_all",
+      "title": "iCalendar \u2014 all events",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/calendar.ics",
+      "content_type": "text/calendar",
+      "method": "GET",
+      "agent_usage": "Every event as a subscribable calendar."
+    },
+    {
+      "id": "ical_top_picks",
+      "title": "iCalendar \u2014 top picks",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/top-picks.ics",
+      "content_type": "text/calendar",
+      "method": "GET",
+      "agent_usage": "Only the top-ranked events as a subscribable calendar."
+    },
+    {
+      "id": "sitemap",
+      "title": "XML sitemap",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/sitemap.xml",
+      "content_type": "application/xml",
+      "method": "GET",
+      "agent_usage": "Standard sitemap.xml enumerating every HTML page."
+    }
+  ],
+  "generated_at": "2026-04-22T06:20:59Z"
+}
