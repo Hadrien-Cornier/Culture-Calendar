@@ -633,6 +633,24 @@ body {
   }
   .share-popover .share-option-copy { grid-column: 1 / -1; }
 }
+/* task-T1.3: 375px polish. Share button can sit near the right edge of an
+   event card, so anchor the popover to its right edge to prevent overflow
+   past the viewport on iPhone SE / 375px widths. Bump option touch targets
+   to the 44px iOS minimum and widen the menu for thumb-friendly tapping. */
+@media (max-width: 420px) {
+  .share-popover {
+    left: auto;
+    right: 0;
+    min-width: 240px;
+    max-width: calc(100vw - 24px);
+    padding: 8px;
+  }
+  .share-option {
+    font-size: 15px;
+    min-height: 44px;
+    padding: 12px 14px;
+  }
+}
 .share-option {
   font-family: var(--sans);
   font-size: 14px;
