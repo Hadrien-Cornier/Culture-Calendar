@@ -517,6 +517,7 @@ distribution:
 venues:
   afs:
     display_name: Austin Film Society
+    address: "6226 Middle Fiskville Rd, Austin, TX 78752"
     scrape:
       enabled: true
       frequency: monthly
@@ -528,6 +529,7 @@ venues:
 
   hyperreal:
     display_name: Hyperreal
+    address: "301 Chicon St, Austin, TX 78702"
     scrape:
       enabled: true
       frequency: monthly
@@ -538,6 +540,7 @@ venues:
 
   paramount:
     display_name: Paramount
+    address: "713 Congress Ave, Austin, TX 78701"
     scrape:
       enabled: true
       frequency: monthly
@@ -548,6 +551,7 @@ venues:
 
   alienated_majesty:
     display_name: Alienated Majesty (Book Clubs)
+    address: "613 W 29th St, Austin, TX 78705"
     scrape:
       enabled: true
       frequency: monthly
@@ -575,6 +579,7 @@ venues:
 
   first_light:
     display_name: First Light (Book Clubs)
+    address: "606 W 12th St, Austin, TX 78701"
     scrape:
       enabled: true
       frequency: monthly
@@ -586,6 +591,7 @@ venues:
 
   austin_symphony:
     display_name: Austin Symphony
+    address: "701 W Riverside Dr, Austin, TX 78704"
     scrape:
       enabled: true
       frequency: yearly
@@ -597,6 +603,7 @@ venues:
 
   early_music_austin:
     display_name: Early Music Austin
+    address: "3201 Windsor Rd, Austin, TX 78703"
     scrape:
       enabled: true
       frequency: yearly
@@ -608,6 +615,7 @@ venues:
 
   la_follia:
     display_name: La Follia
+    address: "3201 Windsor Rd, Austin, TX 78703"
     scrape:
       enabled: true
       frequency: yearly
@@ -619,6 +627,7 @@ venues:
 
   austin_chamber_music:
     display_name: Austin Chamber Music
+    address: "7601 B Capital of Texas Hwy N, Austin, TX 78731"
     scrape:
       enabled: true
       frequency: yearly
@@ -630,6 +639,7 @@ venues:
 
   austin_opera:
     display_name: Austin Opera
+    address: "701 W Riverside Dr, Austin, TX 78704"
     scrape:
       enabled: true
       frequency: yearly
@@ -641,6 +651,7 @@ venues:
 
   ballet_austin:
     display_name: Ballet Austin
+    address: "701 W Riverside Dr, Austin, TX 78704"
     scrape:
       enabled: true
       frequency: yearly
@@ -652,6 +663,7 @@ venues:
 
   arts_on_alexander:
     display_name: Arts on Alexander
+    address: "4800 Alexander Ave, Austin, TX 78756"
     scrape:
       enabled: false
       frequency: yearly
@@ -663,6 +675,7 @@ venues:
 
   now_playing_austin_visual_arts:
     display_name: NowPlayingAustin — Visual Arts
+    address: "Austin, TX"
     scrape:
       enabled: true
       frequency: monthly
@@ -674,6 +687,7 @@ venues:
 
   libra_books:
     display_name: Livra Books (Book Clubs & Events)
+    address: "4803 Airport Blvd, Austin, TX 78751"
     scrape:
       enabled: true
       frequency: monthly
