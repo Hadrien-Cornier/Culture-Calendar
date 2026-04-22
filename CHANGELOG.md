@@ -1,5 +1,20 @@
 # CHANGELOG
 
+<!-- BEGIN LONG-RUN: 20260422-203219 -->
+## Long run — 20260422-203219
+
+*Branch:* `long-run/20260422-203219` · *Started:* 2026-04-22T20:32:19Z · *Deadline:* 2026-04-24T08:32:21Z (36h) · *Scope:* Persona-Gate Resolution + Calendar Intents v3 (24 tasks across 6 phases — venue addresses, per-event ICS, Google/Apple Calendar share intents, persona harness truthfulness fixes, card-face logistics, mobile hardening, 6/6 persona council gate)
+
+### task-SCAFFOLD — DONE — 2026-04-22T20:32:19Z
+- queue.tsv written with 24 tasks
+- runner-prompt.txt copied from long-run skill template
+- personas copied from v2 (4 task-level + 1 run-level)
+- CLAUDE.md fenced block appended
+- CHANGELOG.md fenced block prepended
+- .gitignore v3 runtime patterns appended
+
+<!-- END LONG-RUN: 20260422-203219 -->
+
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
 ## Long run — 20260421-225013
 

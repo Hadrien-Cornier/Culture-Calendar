@@ -1,0 +1,86 @@
+# Runner prompt template
+
+This is the prompt the bash runner passes to each `claude -p` invocation, with `{{...}}` placeholders interpolated per task before the call.
+
+The bash runner owns the queue. Each `claude -p` call executes exactly one task and exits. The prompt does not need to fight premature stopping — that's the runner's job.
+
+**IMPORTANT for the runner**: the script's `render_prompt` function strips everything above the first standalone `---` line below before sending to `claude -p`. Keep that separator intact and put any human-readable preamble above it.
+
+---
+
+# Prompt body
+
+You are executing **one queued task** in an unattended long run. The bash runner that invoked you owns the queue — do not try to advance past your assigned task, do not start other tasks, do not declare the run complete. Just do this one task well and exit.
+
+**Your work will be reviewed.** Once you write a DONE result file, a council of reviewers will look at your commit diff, your CHANGELOG entry, the scope fence, and your test changes. They are looking for: files touched outside the task's scope, tests weakened or skipped to make the task pass, collateral damage outside scope, commit/CHANGELOG that misrepresents what changed. A critical finding from any of them will re-queue this task and you'll have to do it again. Do the work right the first time: keep the diff narrow, never weaken test assertions, write a commit message that accurately describes the diff.
+
+## Repo
+
+Working directory: `{{REPO_PATH}}` (this is your CWD).
+Branch: `long-run/{{RUN_ID}}` (already checked out — do not switch branches).
+Read `CLAUDE.md` for the full run context, especially the **Hard constraints**, **Scope fence**, and **Working principles** sections. Honor them absolutely — the Working principles (think before coding, simplicity first, surgical changes, goal-driven execution) are what the council of reviewers is implicitly grading you on.
+
+## Your task
+
+**ID**: `task-{{ID}}`
+**Title**: {{TITLE}}
+**Depends on**: {{DEPS}}
+**Files in scope**: {{FILES}}
+**Acceptance**: {{ACCEPT}}
+**Notes**: {{NOTES}}
+
+## Contract
+
+1. Implement the change for this task only. Stay inside the listed files. If the task genuinely requires editing a file outside the listed scope, **stop and write a BLOCKED result file** (step 6) — do not silently expand scope.
+2. Run the validation command:
+   ```
+   {{VALIDATE}}
+   ```
+   It must exit 0. If it fails, fix and retry once. If it still fails, **stop and write a BLOCKED result file** (step 6).
+3. Run the full validation oracle from `CLAUDE.md` (test, lint, typecheck, build) — all must be green. If any oracle command fails, fix and retry once, then **write a BLOCKED result file** if still red.
+4. Stage in-scope files and commit your changes. Use `git add <explicit files>` only; never `git add -A`. Commit message:
+   ```
+   {{COMMIT_TYPE}}(task-{{ID}}): {{TITLE}}
+   ```
+5. **Get the real commit SHA.** Immediately after the commit, capture it via `git rev-parse HEAD` (the Bash tool is available to you). Do NOT guess, predict, or fabricate a SHA — the council's morning-reviewer will diff the CHANGELOG claim against `git show` and flag any mismatch as a finding.
+6. Append one entry to `CHANGELOG.md` inside this run's `<!-- BEGIN LONG-RUN: {{RUN_ID}} -->` fence, then commit the CHANGELOG as a separate commit `chore(task-{{ID}}): changelog`. The SHA in this entry refers to the **previous** commit (the code commit from step 4):
+   ```
+   ### task-{{ID}} — DONE — {{ISO_NOW}}
+   - commit: <exact SHA from step 5, full or short — never guess>
+   - files: <comma-separated list of files you actually touched, matching the diff>
+   - validation: green
+   ```
+   Two small commits per task (code + changelog) is fine — the council accepts this. A single amended commit would also work but requires `git commit --amend` which is allowed for your own HEAD only.
+6. **As your absolute last action**, write a result file the runner will read. This is how the runner knows your disposition — `claude -p`'s exit code is not enough. Use the `Write` tool to create `.long-run/{{RUN_ID}}/task-result.json` (overwriting any prior content) with one of these exact shapes:
+
+   On success:
+   ```json
+   {"status": "DONE", "task_id": "task-{{ID}}", "commit": "<sha>", "files": ["..."]}
+   ```
+
+   On blocked:
+   ```json
+   {"status": "BLOCKED", "task_id": "task-{{ID}}", "reason": "<one short line — no newlines, no tabs>"}
+   ```
+
+   The runner removes this file before invoking you, so a missing file after you exit is treated as a crash and surfaces as `TASK_BLOCKED … no-result-file`. Do not skip step 6 under any circumstance — even if you crash, the runner can recover; if you silently succeed without writing the file, the run halts.
+
+## Forbidden moves (reminder — also in CLAUDE.md)
+
+- No `git push`, `git rebase`, `git reset --hard`, `git checkout main`.
+- No `npm install` / `pip install` / `cargo add` / `go get` of new dependencies. If you think you need a new dependency, exit 2 with `needs-dep: <name>` on stderr.
+- No edits outside the scope fence in CLAUDE.md.
+- No interactive prompts — you have no human attached.
+
+## How the runner reads your result
+
+The runner ignores `claude -p`'s exit code for disposition (the CLI exits 0 even when the agent decides "I'm blocked" — the agent can't influence that). It reads `.long-run/{{RUN_ID}}/task-result.json` instead. So:
+
+- File present, `"status": "DONE"` → `TASK_DONE` event.
+- File present, `"status": "BLOCKED"` → `TASK_BLOCKED` event with your `reason`.
+- File missing → `TASK_BLOCKED … no-result-file` (treated as crash; consecutive-blocker counter increments).
+- `claude -p` exits non-zero → logged but interpretation still hinges on the file.
+
+## Output discipline
+
+Be terse. Don't narrate. Your stdout is captured into a per-task log file for debugging — but the only signal the runner acts on is `.long-run/{{RUN_ID}}/task-result.json`.

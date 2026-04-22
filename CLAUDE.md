@@ -1048,3 +1048,105 @@ Default council active (4 task-level reviewers + 1 run-level). Judge model: `cla
 When the runner stops, it emits final event to `.long-run/20260421-225013/events.log`. The `long-run/20260421-225013` branch stays local — Hadrien reviews `.long-run/20260421-225013/scorecard.md` and merges to `main` manually. The runner does NOT push.
 
 <!-- END LONG-RUN: 20260421-225013 -->
+
+<!-- BEGIN LONG-RUN: 20260422-203219 -->
+## Long run — 20260422-203219
+
+> **AUTONOMOUS RUN — do not edit while running.**
+> Owner: Hadrien-Cornier · Started: 2026-04-22T20:32:19Z · Deadline: 2026-04-24T08:32:21Z (36h safety cap) · Branch: `long-run/20260422-203219` (branched off `main` after v2 FF-merged)
+
+### Goal
+
+"Persona-Gate Resolution + Calendar Intents v3" — a focused quality pass that makes the v2 persona council's 5/6 LLM FAIL verdicts actually actionable. Two parallel workstreams:
+
+**Site fixes (9 findings):** venue addresses rendered on every card face, "Get Tickets →" CTA inside expanded panels, full venue display-names replacing opaque short codes, keyboard-accessible expand affordance, mobile hardening (subscribe-links wrap, title word-break, expand-indicator min-width, 320px breakpoint, search padding), 2-line clamp on event-oneliner.
+
+**Harness fixes (4 findings):** share pyppeteer page between `check_live_site.py` and `persona_critique.py` (no fresh `page.goto()` before screenshot), full-page screenshot, DOM snippet cap raised 10KB → 40KB, `pre_screenshot_actions` replay support, per-selector ground-truth JSON injected into the LLM prompt so personas stop claiming features are missing when they're just below-the-fold.
+
+**User ask bundled in:** per-event `.ics` files under `docs/events/<slug>.ics` + Google Calendar (`calendar.google.com/calendar/render?action=TEMPLATE&...`) and Apple Calendar (`webcal://…/events/<slug>.ics`) entries added to the share-menu `PLATFORMS` registry.
+
+### Durable rule driving this run (saved to memory as `feedback_persona_gate_strict.md`)
+
+Every persona FAIL — LLM or structural — blocks delivery. Age of the issue is irrelevant. Two valid responses: (a) fix the site, or (b) fix the persona's view. "Pre-existing on main / inherited from v1" is never acceptable justification.
+
+### Definition of done
+
+By the deadline:
+
+- `config/master_config.yaml` venues block has `address:` for every venue.
+- `docs/data.json` events carry `venue_address` + `venue_display_name`; `docs/api/venues.json` entries include both.
+- `docs/events/<slug>.html` JSON-LD location blocks carry `streetAddress` + `postalCode`.
+- `docs/events/<slug>.ics` files emitted per event; each parses as valid iCalendar.
+- `docs/script.js` PLATFORMS array includes `google-calendar` (rendering to `calendar.google.com/calendar/render?…`) and `apple-calendar` (rendering to `webcal://…/events/<slug>.ics`). Both fire `cc_share_<platform>` Plausible events.
+- Card renderers show venue display-name + street address on card face; "Get Tickets →" button inside expanded panel (`.event-ticket-link`).
+- `.event-header` has `role="button"`, `tabindex="0"`, `aria-label`, Enter/Space keyboard handling; `.expand-indicator` is not `aria-hidden`.
+- `.event-oneliner` on card face has `-webkit-line-clamp: 2`; expanded panel shows full text.
+- Mobile CSS hardening: `.subscribe-links flex-wrap`, `.event-title-text word-break`, `.expand-indicator min-width: 32px + flex-shrink: 0`, `#event-search padding-right`, 320px breakpoint.
+- `scripts/persona_critique.py` captures screenshot + DOM from the same pyppeteer page as `check_live_site.py`, with `fullPage: True` and `DOM_SNIPPET_MAX_BYTES = 40_000`.
+- `scripts/check_live_site.py` supports `pre_screenshot_actions` (scroll/type/click) and emits per-selector ground-truth JSON the persona LLM ingests.
+- All 6 persona JSONs under `.overnight/personas/` updated with `pre_screenshot_actions` and ground-truth-aware `llm.goals`.
+- `.overnight/feature-inventory.json` has ≥6 new entries appended (total ≥48).
+- `STATUS-20260422-203219.md` handoff written.
+- `pytest -q` exits 0.
+- **Final gate T5.3:** full LLM persona council returns 6/6 PASS on BOTH structural AND LLM layers — zero `Verdict: FAIL` strings in `docs/PERSONAS.md`. Any remaining FAIL halts the run with BLOCKED `persona-regression-v3`.
+
+### Hard constraints
+
+- Branch `long-run/20260422-203219` only. Runner does NOT push. User reviews and merges to `main` manually (same pattern as v1, v2). Never `git reset --hard`, `git push --force`, `git rebase`, or rewrite history.
+- No new Python deps. No `pip install`. Stdlib only.
+- No new JS deps. No `npm install`. Calendar icons are unicode.
+- No paid dep commitments. All-static output.
+- No interactive prompts. No `--no-verify` on commits.
+- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
+- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or `.long-run/<RUN_ID>/` runtime files (events.log, task-*.log, task-result.json, reviews/*.log, task-judge.log, active.pid, scorecard.md). Committed scaffold: queue.tsv + personas/*.json + runner-prompt.txt only.
+- GitNexus impact analysis MANDATORY before editing `update_website_data.py`, `docs/script.js`, `scripts/persona_critique.py`, `scripts/check_live_site.py`.
+- Persona-gate commit tag (`[persona-gate]`) for T2.5 (persona goals rewrite), T3.1 (venue display-name is a content-layer shift), T3.3 (keyboard-expand redefines interaction).
+
+### Scope fence
+
+In-scope (writeable):
+- `config/master_config.yaml` (add `address:` per venue)
+- `docs/` (except `docs/variants/`)
+- `scripts/` (new builders + extensions; persona_critique.py + check_live_site.py refactors)
+- `tests/` (new unit tests per task)
+- `update_website_data.py` (orchestration + venue-metadata lookup)
+- `.overnight/personas/*.json` (all 6 persona specs)
+- `.overnight/feature-inventory.json` (append only)
+- `CLAUDE.md` (inside this run's fenced markers only)
+- `CHANGELOG.md` (inside this run's fenced markers only)
+- `STATUS-20260422-203219.md`
+
+Out-of-scope: `src/` (read-only except where explicitly called out; none in this run), `docs/variants/`, prior-run STATUS files.
+
+### Validation oracle (per task before commit)
+
+```bash
+.venv/bin/python -m pytest -q
+```
+
+Plus the task's own `validate` command from `.long-run/20260422-203219/queue.tsv`. Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle (pre-existing red items from v1/v2).
+
+### Working agreement
+
+- Commit cadence: one code commit per task + one CHANGELOG commit per task (two small commits, per runner-prompt template).
+- Message format: `<type>(task-<ID>): <title>` where `<type>` is from the task's `ctype=` prefix in the notes column.
+- Stage only files in the task's `files` column; never `git add -A`.
+- Feature-inventory discipline: every task adding a user-visible feature appends its entry to `.overnight/feature-inventory.json` in the same code commit.
+
+### LLM council
+
+Default council active (4 task-level reviewers + 1 run-level), same personas as v2. Judge model: `claude-sonnet-4-6` (default). Expected cost: ~24 × 5 + 1 = 121 `claude -p` invocations plus 6 Anthropic persona-council calls at T5.3 (~$0.50). T5.3 opts out via `[no-council]` in its notes column because it IS the council run.
+
+### Stop conditions
+
+- All queue tasks DONE → `RUN_COMPLETE`
+- Wall clock ≥ 2026-04-24T08:32:21Z → `RUN_HALTED: deadline`
+- 3 consecutive BLOCKED (council rejections count) → `RUN_HALTED: consecutive-blockers`
+- Final gate T5.3 returns any LLM FAIL → runner HALT via BLOCKED (no retry — manual triage)
+- Bare `STATUS.md` at repo root contains `HALT` → `RUN_HALTED: manual`
+
+### Handoff
+
+When the runner stops, it emits final event to `.long-run/20260422-203219/events.log`. The `long-run/20260422-203219` branch stays local — Hadrien reviews `.long-run/20260422-203219/scorecard.md` + `docs/PERSONAS.md` and merges to `main` manually via PR. The runner does NOT push.
+
+<!-- END LONG-RUN: 20260422-203219 -->
