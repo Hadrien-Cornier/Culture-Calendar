@@ -23,6 +23,11 @@
 - files: config/master_config.yaml, src/config_loader.py, tests/test_config_buttondown.py
 - validation: green
 
+### task-T0.3 — DONE — 2026-04-22T04:46:07Z
+- commit: e83b68c
+- files: scripts/build_config_json.py, docs/config.json, tests/test_build_config_json.py
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
