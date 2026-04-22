@@ -18,6 +18,11 @@
 - files: scripts/_slug_util.py, scripts/build_event_shells.py, scripts/build_rss_feed.py, tests/test_slug_util.py
 - validation: green
 
+### task-T0.2 — DONE — 2026-04-22T04:41:30Z
+- commit: 3594de9
+- files: config/master_config.yaml, src/config_loader.py, tests/test_config_buttondown.py
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
