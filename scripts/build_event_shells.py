@@ -155,6 +155,28 @@ def _json_ld(shell: EventShell) -> str:
     return raw.replace("</", "<\\/")
 
 
+def _breadcrumb_ld(shell: EventShell, *, base_url: str = SITE_BASE_URL) -> str:
+    """Return a JSON-LD ``BreadcrumbList`` snippet for this shell page.
+
+    Emits Home > Events > <title> so search crawlers can surface the
+    shell page's position in the site hierarchy. Tags are stripped from
+    ``shell.title`` so hostile markup cannot leak into the payload.
+    """
+    base = base_url if base_url.endswith("/") else base_url + "/"
+    name = _plain_text(shell.title, max_len=200) or shell.slug
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Culture Calendar", "item": base},
+            {"@type": "ListItem", "position": 2, "name": "Events", "item": f"{base}events/"},
+            {"@type": "ListItem", "position": 3, "name": name, "item": shell.canonical_url},
+        ],
+    }
+    raw = json.dumps(payload, ensure_ascii=False)
+    return raw.replace("</", "<\\/")
+
+
 def render_shell_html(shell: EventShell) -> str:
     """Return the full HTML document for this shell page."""
     rating_tag = f"[{shell.rating}/10] " if shell.rating is not None else ""
@@ -184,6 +206,7 @@ def render_shell_html(shell: EventShell) -> str:
         '<link rel="alternate" type="application/rss+xml" title="Culture Calendar" '
         f'href="{escape(SITE_BASE_URL)}feed.xml">',
         f'<script type="application/ld+json">{_json_ld(shell)}</script>',
+        f'<script type="application/ld+json">{_breadcrumb_ld(shell)}</script>',
         # Redirect after the meta is fetched so link-unfurl bots (which skip JS
         # and <meta refresh>) still see the tags above; real users bounce to the
         # in-app anchor where the live modal exists.

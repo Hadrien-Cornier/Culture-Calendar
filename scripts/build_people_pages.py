@@ -444,6 +444,29 @@ def _anchor(event: PersonEvent) -> str:
     return f"../#event={_esc(event.event_id)}"
 
 
+def _breadcrumb_jsonld(items: Sequence[tuple[str, str]]) -> str:
+    """Render a schema.org BreadcrumbList JSON-LD payload.
+
+    ``items`` is an ordered sequence of ``(name, url)`` pairs. The final
+    item's URL is often the canonical page URL itself.
+    """
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": i + 1,
+                "name": name,
+                "item": url,
+            }
+            for i, (name, url) in enumerate(items)
+        ],
+    }
+    raw = json.dumps(payload, ensure_ascii=False)
+    return raw.replace("</", "<\\/")
+
+
 def _render_event(event: PersonEvent, ordinal: int) -> str:
     anchor = _anchor(event)
     rating_html = ""
@@ -541,6 +564,14 @@ def render_page(page: PersonPage, *, ics_slug: Optional[str] = None) -> str:
         f"{'s' if len(page.events) != 1 else ''}"
         f" · {_esc(role_label)}</p>"
     )
+    canonical = f"{SITE_URL}people/{ics_slug or page.slug}.html"
+    breadcrumb_json = _breadcrumb_jsonld(
+        (
+            ("Culture Calendar", SITE_URL),
+            ("People", f"{SITE_URL}people/"),
+            (page.person_name, canonical),
+        )
+    )
     return (
         "<!DOCTYPE html>\n"
         '<html lang="en">\n'
@@ -552,6 +583,7 @@ def render_page(page: PersonPage, *, ics_slug: Optional[str] = None) -> str:
         '<link rel="stylesheet" href="../styles.css">\n'
         '<link rel="alternate" type="application/rss+xml" title="Culture Calendar" '
         f'href="{_esc(RSS_URL)}">\n'
+        f'<script type="application/ld+json">{breadcrumb_json}</script>\n'
         "</head>\n"
         '<body class="venue-page">\n'
         '<header class="venue-masthead">\n'

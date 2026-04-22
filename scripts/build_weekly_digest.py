@@ -341,6 +341,29 @@ def _anchor(pick: DigestPick) -> str:
     return f"../#event={_esc(pick.event_id)}"
 
 
+def _breadcrumb_jsonld(items: Sequence[tuple[str, str]]) -> str:
+    """Render a schema.org BreadcrumbList JSON-LD payload.
+
+    ``items`` is an ordered sequence of ``(name, url)`` pairs. The final
+    item's URL is often the canonical page URL itself.
+    """
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": i + 1,
+                "name": name,
+                "item": url,
+            }
+            for i, (name, url) in enumerate(items)
+        ],
+    }
+    raw = json.dumps(payload, ensure_ascii=False)
+    return raw.replace("</", "<\\/")
+
+
 def _render_review(review: ParsedReview) -> str:
     if not review.sections:
         return ""
@@ -448,6 +471,14 @@ def render_digest(
         f"AI-curated Austin cultural events for {date_range}. "
         f"{len(picks)} top picks with reviews."
     )
+    canonical = f"{SITE_URL}weekly/{label}.html"
+    breadcrumb_json = _breadcrumb_jsonld(
+        (
+            ("Culture Calendar", SITE_URL),
+            ("Weekly", f"{SITE_URL}weekly/"),
+            (label, canonical),
+        )
+    )
     return (
         "<!DOCTYPE html>\n"
         '<html lang="en">\n'
@@ -459,6 +490,7 @@ def render_digest(
         '<link rel="stylesheet" href="../styles.css">\n'
         '<link rel="alternate" type="application/rss+xml" title="Culture Calendar" '
         f'href="{_esc(RSS_URL)}">\n'
+        f'<script type="application/ld+json">{breadcrumb_json}</script>\n'
         "</head>\n"
         '<body class="weekly-digest">\n'
         '<header class="weekly-masthead">\n'
