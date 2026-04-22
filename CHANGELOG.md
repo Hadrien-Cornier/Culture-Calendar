@@ -128,6 +128,11 @@
 - files: scripts/build_venue_pages.py, scripts/build_people_pages.py, scripts/build_weekly_digest.py
 - validation: green
 
+### task-T4.5 — DONE — 2026-04-22T06:59:34Z
+- commit: 9ad4501
+- files: scripts/build_weekly_digest.py
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
