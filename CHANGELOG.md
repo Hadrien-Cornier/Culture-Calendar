@@ -58,6 +58,11 @@
 - files: docs/subscribed.html, docs/unsubscribed.html, docs/styles.css
 - validation: green
 
+### task-T2.4 — DONE — 2026-04-22T05:30:07Z
+- commit: f727e18
+- files: scripts/build_archive.py, tests/test_build_archive.py, docs/archive.html
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
