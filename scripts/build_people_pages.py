@@ -580,6 +580,7 @@ def render_page(page: PersonPage, *, ics_slug: Optional[str] = None) -> str:
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         f"<title>{_esc(title)}</title>\n"
         f'<meta name="description" content="{_esc(description_meta)}">\n'
+        f'<link rel="canonical" href="{_esc(canonical)}">\n'
         '<link rel="stylesheet" href="../styles.css">\n'
         '<link rel="alternate" type="application/rss+xml" title="Culture Calendar" '
         f'href="{_esc(RSS_URL)}">\n'
