@@ -103,6 +103,11 @@
 - files: docs/api/README.md, docs/api/index.html
 - validation: green
 
+### task-T3.7 — DONE — 2026-04-22T06:28:58Z
+- commit: a55291a
+- files: update_website_data.py
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
