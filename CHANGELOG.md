@@ -13,6 +13,11 @@
 - CHANGELOG.md fenced block prepended
 - .gitignore runtime patterns appended
 
+### task-T0.1 — DONE — 2026-04-22T04:34:11Z
+- commit: 732f6e6
+- files: scripts/_slug_util.py, scripts/build_event_shells.py, scripts/build_rss_feed.py, tests/test_slug_util.py
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
