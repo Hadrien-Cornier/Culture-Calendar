@@ -472,6 +472,10 @@ def render_digest(
         f"{len(picks)} top picks with reviews."
     )
     canonical = f"{SITE_URL}weekly/{label}.html"
+    prev_year, prev_week = iso_week_from_date(monday - timedelta(days=7))
+    next_year, next_week = iso_week_from_date(monday + timedelta(days=7))
+    prev_url = f"{SITE_URL}weekly/{iso_week_label(prev_year, prev_week)}.html"
+    next_url = f"{SITE_URL}weekly/{iso_week_label(next_year, next_week)}.html"
     breadcrumb_json = _breadcrumb_jsonld(
         (
             ("Culture Calendar", SITE_URL),
@@ -488,6 +492,8 @@ def render_digest(
         f"<title>{_esc(title)} \u2014 Culture Calendar</title>\n"
         f'<meta name="description" content="{_esc(description_meta)}">\n'
         f'<link rel="canonical" href="{_esc(canonical)}">\n'
+        f'<link rel="prev" href="{_esc(prev_url)}">\n'
+        f'<link rel="next" href="{_esc(next_url)}">\n'
         '<link rel="stylesheet" href="../styles.css">\n'
         '<link rel="alternate" type="application/rss+xml" title="Culture Calendar" '
         f'href="{_esc(RSS_URL)}">\n'
