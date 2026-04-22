@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent API — Culture Calendar</title>
+    <meta name="description" content="JSON endpoints, feeds, and discovery manifests for agents and developers building on Culture Calendar's Austin cultural events data.">
+    <link rel="canonical" href="https://hadrien-cornier.github.io/Culture-Calendar/api/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .api-body h3 { margin-top: 2rem; }
+        .api-body h4 { margin-top: 1.5rem; }
+        .api-body code,
+        .api-body pre { font-family: "SFMono-Regular", Consolas, Menlo, monospace; }
+        .api-body pre {
+            background: #f5f2ec;
+            border-left: 3px solid #8b7355;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .api-body code {
+            background: #f5f2ec;
+            padding: 0.1em 0.35em;
+            border-radius: 2px;
+            font-size: 0.9em;
+        }
+        .api-body pre code { background: none; padding: 0; }
+        .api-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.92rem;
+        }
+        .api-body th,
+        .api-body td {
+            border-bottom: 1px solid #d9d1c1;
+            padding: 0.55rem 0.75rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .api-body th {
+            background: #faf7f0;
+            font-weight: 700;
+        }
+        .api-body td code { font-size: 0.85rem; }
+        .endpoint-header {
+            font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+            background: #1a1a1a;
+            color: #f5f2ec;
+            padding: 0.5rem 0.85rem;
+            display: inline-block;
+            border-radius: 2px;
+            font-size: 0.92rem;
+        }
+        .endpoint-header .method { color: #d4a574; font-weight: 700; margin-right: 0.5rem; }
+    </style>
+</head>
+<body>
+    <header class="masthead">
+        <div class="masthead-border-top"></div>
+        <div class="container">
+            <div class="masthead-content">
+                <div class="masthead-date">
+                    <time id="masthead-date"></time>
+                    <span class="masthead-location">Austin, Texas</span>
+                </div>
+                <h1 class="masthead-title">Culture Calendar</h1>
+                <p class="masthead-tagline">Agent API — JSON endpoints, feeds, and discovery manifests</p>
+            </div>
+        </div>
+        <div class="masthead-border-bottom"></div>
+    </header>
+
+    <nav class="primary-nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="../index.html" class="nav-link">← Back to Events</a></li>
+                <li class="nav-separator"></li>
+                <li><a href="../how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="README.md" class="nav-link">README (Markdown)</a></li>
+                <li><a href="../.well-known/ai-agent.json" class="nav-link">ai-agent.json</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <article class="article-content api-body">
+                    <header class="section-header">
+                        <h2 class="section-title">Agent API</h2>
+                    </header>
+
+                    <p class="lead-paragraph">Static JSON endpoints served from GitHub Pages. All responses are plain JSON, cacheable, and require no authentication. Designed for LLM agents, calendar apps, and anyone building on Austin cultural programming.</p>
+
+                    <ul>
+                        <li>Base URL: <code>https://hadrien-cornier.github.io/Culture-Calendar/api/</code></li>
+                        <li>Discovery manifest: <a href="../.well-known/ai-agent.json"><code>/.well-known/ai-agent.json</code></a></li>
+                        <li>llmstxt.org index: <a href="../llms.txt"><code>/llms.txt</code></a></li>
+                        <li>Sitemap: <a href="../sitemap.xml"><code>/sitemap.xml</code></a></li>
+                        <li>Source &amp; license: <a href="https://github.com/Hadrien-Cornier/Culture-Calendar" target="_blank" rel="noopener">github.com/Hadrien-Cornier/Culture-Calendar</a> (MIT)</li>
+                    </ul>
+
+                    <h3>Common envelope</h3>
+                    <p>Every aggregate endpoint returns the same wrapper:</p>
+<pre><code>{
+  "generated_at": "2026-04-22T05:58:28Z",
+  "site_url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "count": 229,
+  "data": [ ... ]
+}</code></pre>
+                    <ul>
+                        <li><code>generated_at</code> — ISO 8601 UTC timestamp of the build run.</li>
+                        <li><code>site_url</code> — Canonical site root. All relative links in <code>data</code> resolve against this.</li>
+                        <li><code>count</code> — Length of <code>data</code>.</li>
+                        <li><code>data</code> — Array whose shape is described per endpoint below.</li>
+                    </ul>
+
+                    <h3>Endpoints</h3>
+
+                    <h4><span class="endpoint-header"><span class="method">GET</span>/api/events.json</span></h4>
+                    <p>Every upcoming event in the calendar, one row per screening or showing.</p>
+                    <table>
+                        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td>string</td><td>Stable slug. Used as <code>{slug}</code> in <code>/events/{slug}.json</code> and <code>/events/{slug}.html</code>.</td></tr>
+                            <tr><td><code>title</code></td><td>string</td><td>Event title.</td></tr>
+                            <tr><td><code>type</code></td><td>string</td><td>Category slug: <code>movie</code>, <code>concert</code>, <code>book_club</code>, <code>opera</code>, <code>visual_arts</code>, <code>other</code>.</td></tr>
+                            <tr><td><code>rating</code></td><td>integer 0–10</td><td>AI-generated merit score.</td></tr>
+                            <tr><td><code>one_liner_summary</code></td><td>string</td><td>≤ ~140 chars, headline-style.</td></tr>
+                            <tr><td><code>description_text</code></td><td>string</td><td>Long-form AI critique, plain text (no HTML).</td></tr>
+                            <tr><td><code>venue</code></td><td>string</td><td>Venue display name (e.g. <code>AFS</code>, <code>LaFollia</code>).</td></tr>
+                            <tr><td><code>date</code></td><td>string</td><td><code>YYYY-MM-DD</code>, the date of this specific showing.</td></tr>
+                            <tr><td><code>time</code></td><td>string</td><td><code>HH:mm</code> (24h), local Austin time.</td></tr>
+                            <tr><td><code>url</code></td><td>string</td><td>Canonical venue URL (buy tickets / confirm schedule).</td></tr>
+                            <tr><td><code>shell_url</code></td><td>string</td><td><code>{site_url}events/{id}.html</code> — per-event landing page.</td></tr>
+                            <tr><td><code>screenings</code></td><td>array</td><td>All showings for this event. Each item has <code>{date, time, url, venue}</code>.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4><span class="endpoint-header"><span class="method">GET</span>/api/top-picks.json</span></h4>
+                    <p>Subset of <a href="events.json"><code>events.json</code></a> filtered to <code>rating &gt;= 7</code> and sorted by rating descending. Same item shape as <code>events.json</code>. Use when you want the recommendation answer without the full catalog.</p>
+
+                    <h4><span class="endpoint-header"><span class="method">GET</span>/api/venues.json</span></h4>
+                    <p>One row per venue we scrape.</p>
+                    <table>
+                        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>slug</code></td><td>string</td><td>Stable venue id.</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>Display name.</td></tr>
+                            <tr><td><code>event_count</code></td><td>integer</td><td>Upcoming events at this venue.</td></tr>
+                            <tr><td><code>categories</code></td><td>array of string</td><td>Category slugs present at this venue.</td></tr>
+                            <tr><td><code>page_url</code></td><td>string</td><td><code>{site_url}venues/{slug}.html</code> — venue landing page.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4><span class="endpoint-header"><span class="method">GET</span>/api/people.json</span></h4>
+                    <p>One row per notable person (composer, director, author) linked to at least one event.</p>
+                    <table>
+                        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>slug</code></td><td>string</td><td>Stable person id.</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>Display name.</td></tr>
+                            <tr><td><code>role</code></td><td>string</td><td><code>composer</code>, <code>director</code>, or <code>author</code>.</td></tr>
+                            <tr><td><code>event_count</code></td><td>integer</td><td>Upcoming events featuring this person.</td></tr>
+                            <tr><td><code>page_url</code></td><td>string</td><td><code>{site_url}people/{slug}.html</code> — person landing page.</td></tr>
+                            <tr><td><code>ics_url</code></td><td>string</td><td><code>{site_url}people/{slug}.ics</code> — per-person follow feed.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4><span class="endpoint-header"><span class="method">GET</span>/api/categories.json</span></h4>
+                    <table>
+                        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>slug</code></td><td>string</td><td>Category slug (matches <code>type</code> in <code>events.json</code>).</td></tr>
+                            <tr><td><code>label</code></td><td>string</td><td>Human-readable label.</td></tr>
+                            <tr><td><code>count</code></td><td>integer</td><td>Number of upcoming events in this category.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4><span class="endpoint-header"><span class="method">GET</span>/events/{slug}.json</span></h4>
+                    <p>Per-event <a href="https://schema.org/Event" target="_blank" rel="noopener">schema.org Event</a> JSON-LD mirror. Slugs come from <code>events.json → data[].id</code>.</p>
+<pre><code>{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "8 1/2",
+  "description": "...",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/8-1-2.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/8-1-2.svg",
+  "startDate": "2026-04-27",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {"@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX"}
+  }
+}</code></pre>
+
+                    <h3>Subscribable feeds</h3>
+                    <ul>
+                        <li><code>GET <a href="../feed.xml">/feed.xml</a></code> — RSS 2.0 of top picks.</li>
+                        <li><code>GET <a href="../calendar.ics">/calendar.ics</a></code> — iCalendar of every event.</li>
+                        <li><code>GET <a href="../top-picks.ics">/top-picks.ics</a></code> — iCalendar of top-rated events only.</li>
+                        <li><code>GET /people/{slug}.ics</code> — iCalendar of every event featuring one person.</li>
+                    </ul>
+
+                    <h3>Usage notes</h3>
+                    <ul>
+                        <li><strong>No auth, no rate limit.</strong> Standard GitHub Pages caching applies.</li>
+                        <li><strong>Freshness.</strong> Regenerated on each push to <code>main</code>; <code>generated_at</code> tells you exactly when.</li>
+                        <li><strong>Stability.</strong> Event <code>id</code> slugs are stable across runs for the same showing. Titles may be revised; treat <code>id</code> as the primary key.</li>
+                        <li><strong>Time zone.</strong> All <code>date</code>/<code>time</code> fields are America/Chicago (Austin) local time.</li>
+                        <li><strong>Encoding.</strong> All endpoints are UTF-8.</li>
+                        <li><strong>Recommended fetch order for an agent.</strong> Start with <a href="../llms.txt"><code>/llms.txt</code></a> or <a href="../.well-known/ai-agent.json"><code>/.well-known/ai-agent.json</code></a> for discovery, then fetch <a href="top-picks.json"><code>/api/top-picks.json</code></a> for recommendations or <a href="events.json"><code>/api/events.json</code></a> for the full catalog, then drill into <code>/events/{slug}.json</code> for structured details.</li>
+                    </ul>
+
+                    <h3>Crawling policy</h3>
+                    <p>See <a href="../robots.txt"><code>/robots.txt</code></a>. GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended, Meta-ExternalAgent, and Amazonbot are explicitly allowed.</p>
+
+                    <h3>Reporting issues</h3>
+                    <p>Open an issue at <a href="https://github.com/Hadrien-Cornier/Culture-Calendar/issues" target="_blank" rel="noopener">github.com/Hadrien-Cornier/Culture-Calendar/issues</a>.</p>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h4>Culture Calendar</h4>
+                <p class="mission">A curated, AI-powered guide to Austin cultural events.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Discover</h5>
+                <ul>
+                    <li><a href="../index.html">Today's Events</a></li>
+                    <li><a href="../archive.html">Weekly Archive</a></li>
+                    <li><a href="../wishlist.html">Venue Wishlist</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>For Agents</h5>
+                <ul>
+                    <li><a href="events.json">events.json</a></li>
+                    <li><a href="top-picks.json">top-picks.json</a></li>
+                    <li><a href="venues.json">venues.json</a></li>
+                    <li><a href="people.json">people.json</a></li>
+                    <li><a href="categories.json">categories.json</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>About</h5>
+                <ul>
+                    <li><a href="../how-it-works.html">How It Works</a></li>
+                    <li><a href="README.md">API README</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mastheadDate = document.getElementById('masthead-date');
+        if (mastheadDate) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            mastheadDate.textContent = new Date().toLocaleDateString('en-US', options);
+        }
+    </script>
+</body>
+</html>
