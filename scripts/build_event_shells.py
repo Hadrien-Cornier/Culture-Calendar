@@ -57,6 +57,7 @@ class EventShell:
     og_image: str
     canonical_url: str
     anchor_url: str
+    ticket_url: str
 
 
 _slugify = safe_slug  # back-compat alias; uses shared scripts._slug_util.safe_slug
@@ -91,6 +92,25 @@ def _og_image_url(slug: str, *, base_url: str) -> str:
     return f"{base_url}og/site-default.svg"
 
 
+def _ticket_url(event: dict, *, fallback: str) -> str:
+    """Pick the best ticket/event URL for ``offers.url``.
+
+    Prefers the first screening's ``url`` (the per-date ticket link),
+    then the event-level ``url``, then ``fallback`` (the in-app anchor).
+    """
+    screenings = event.get("screenings") or []
+    if screenings:
+        first = screenings[0]
+        if isinstance(first, dict):
+            url = str(first.get("url") or "").strip()
+            if url:
+                return url
+    event_url = str(event.get("url") or "").strip()
+    if event_url:
+        return event_url
+    return fallback
+
+
 def _shell_from_event(event: dict, *, base_url: str = SITE_BASE_URL) -> Optional[EventShell]:
     """Build an :class:`EventShell` from a raw event dict, or ``None`` to skip."""
     raw_id = event.get("id") or event.get("title") or ""
@@ -115,6 +135,7 @@ def _shell_from_event(event: dict, *, base_url: str = SITE_BASE_URL) -> Optional
     canonical = f"{base}events/{slug}.html"
     anchor = f"{base}#event={slug}"
     og_image = _og_image_url(slug, base_url=base)
+    ticket_url = _ticket_url(event, fallback=anchor)
 
     return EventShell(
         slug=slug,
@@ -128,6 +149,7 @@ def _shell_from_event(event: dict, *, base_url: str = SITE_BASE_URL) -> Optional
         og_image=og_image,
         canonical_url=canonical,
         anchor_url=anchor,
+        ticket_url=ticket_url,
     )
 
 
@@ -148,6 +170,24 @@ def _json_ld(shell: EventShell) -> str:
             "@type": "Place",
             "name": shell.venue,
             "address": {"@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX"},
+        }
+    # offers.url points to the ticket/venue page so search crawlers link
+    # directly to purchase, falling back to the in-app anchor when the
+    # scraper did not capture a ticket URL.
+    payload["offers"] = {
+        "@type": "Offer",
+        "url": shell.ticket_url,
+        "availability": "https://schema.org/InStock",
+    }
+    # aggregateRating exposes our editorial 0-10 score as a single-count
+    # rating so Google can surface the stars in rich results.
+    if shell.rating is not None:
+        payload["aggregateRating"] = {
+            "@type": "AggregateRating",
+            "ratingValue": shell.rating,
+            "bestRating": 10,
+            "worstRating": 0,
+            "ratingCount": 1,
         }
     raw = json.dumps(payload, ensure_ascii=False)
     # Prevent a stray ``</script>`` inside a string from terminating the
