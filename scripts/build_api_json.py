@@ -9,9 +9,12 @@ parsing ``index.html`` or walking per-event shells:
 - ``top-picks.json`` — only events with ``rating >= TOP_PICK_MIN_RATING``
   (7), sorted by rating desc. Matches the editorial line of
   ``top-picks.ics`` / the RSS top-picks feed.
-- ``venues.json`` — one row per distinct venue with event count and the
-  set of categories it programmes, linking back to the ``venues/<slug>``
-  deep-dive page.
+- ``venues.json`` — top-level list (no envelope), one row per distinct
+  venue, carrying event count, categories programmed, street
+  ``address`` and ``display_name`` pulled from the upstream event
+  metadata, linking back to the ``venues/<slug>`` deep-dive page.
+  Emitted as a raw list so lookup clients can iterate without reaching
+  through a ``data`` key.
 - ``people.json`` — one row per distinct composer (concerts + operas),
   director (movies) or author (book clubs), with event count and the
   per-person deep-dive + webcal URLs.
@@ -299,9 +302,21 @@ def build_venues_payload(
     events: Sequence[dict],
     *,
     base_url: str = SITE_BASE_URL,
-    now: Optional[datetime] = None,
-) -> dict:
-    """Return the ``venues.json`` envelope: one row per distinct venue."""
+    now: Optional[datetime] = None,  # accepted for call-site symmetry; unused
+) -> list[dict]:
+    """Return the ``venues.json`` rows: one dict per distinct venue.
+
+    Each row carries ``display_name`` and ``address`` pulled from the first
+    event tagged with the venue. Both fields are always present so agent
+    clients can rely on the schema; values fall back to the venue code and
+    an empty string respectively when the upstream event lacks metadata.
+
+    Emitted as a plain list — not wrapped in the ``{generated_at, ...}``
+    envelope used by the other endpoints — so a lookup client can iterate
+    directly and the agent-friendly validator can assert per-row keys with
+    ``all('address' in x and 'display_name' in x for x in v)``.
+    """
+    del now  # signature parity with sibling builders
     bucket: dict[str, dict] = {}
     for event in events:
         if not isinstance(event, dict):
@@ -309,9 +324,25 @@ def build_venues_payload(
         name = str(event.get("venue") or "").strip()
         if not name:
             continue
-        slot = bucket.setdefault(name, {"count": 0, "types": Counter()})
+        slot = bucket.setdefault(
+            name,
+            {
+                "count": 0,
+                "types": Counter(),
+                "display_name": "",
+                "address": "",
+            },
+        )
         slot["count"] += 1
         slot["types"][str(event.get("type") or "other")] += 1
+        if not slot["display_name"]:
+            display = str(event.get("venue_display_name") or "").strip()
+            if display:
+                slot["display_name"] = display
+        if not slot["address"]:
+            address = str(event.get("venue_address") or "").strip()
+            if address:
+                slot["address"] = address
     rows: list[dict] = []
     for name in sorted(bucket.keys(), key=lambda s: s.lower()):
         info = bucket[name]
@@ -320,6 +351,8 @@ def build_venues_payload(
             {
                 "slug": slug,
                 "name": name,
+                "display_name": info["display_name"] or name,
+                "address": info["address"],
                 "event_count": info["count"],
                 "categories": sorted(info["types"].keys()),
                 "page_url": (
@@ -327,7 +360,7 @@ def build_venues_payload(
                 ),
             }
         )
-    return _envelope(rows, now=now)
+    return rows
 
 
 def build_people_payload(

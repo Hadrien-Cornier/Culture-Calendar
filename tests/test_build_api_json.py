@@ -225,9 +225,9 @@ def test_build_top_picks_payload_honours_custom_min_rating(events):
 
 
 def test_build_venues_payload_counts_and_dedupes(events):
-    payload = bapi.build_venues_payload(events, now=NOW)
-    _assert_envelope(payload)
-    by_name = {row["name"]: row for row in payload["data"]}
+    rows = bapi.build_venues_payload(events, now=NOW)
+    assert isinstance(rows, list)
+    by_name = {row["name"]: row for row in rows}
     assert by_name["La Follia Hall"]["event_count"] == 2
     assert by_name["La Follia Hall"]["slug"] == "la-follia-hall"
     assert "concert" in by_name["La Follia Hall"]["categories"]
@@ -240,9 +240,87 @@ def test_build_venues_payload_skips_empty_venue():
         {"id": "a", "title": "A", "type": "movie", "venue": ""},
         {"id": "b", "title": "B", "type": "movie", "venue": "Paramount"},
     ]
-    payload = bapi.build_venues_payload(events, now=NOW)
-    names = [row["name"] for row in payload["data"]]
+    rows = bapi.build_venues_payload(events, now=NOW)
+    names = [row["name"] for row in rows]
     assert names == ["Paramount"]
+
+
+def test_build_venues_payload_exposes_address_and_display_name():
+    """Every venue row surfaces both ``address`` and ``display_name`` keys."""
+    events = [
+        {
+            "id": "a",
+            "title": "A",
+            "type": "movie",
+            "venue": "AFS",
+            "venue_display_name": "Austin Film Society",
+            "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752",
+        },
+        {
+            "id": "b",
+            "title": "B",
+            "type": "movie",
+            "venue": "AFS",
+            "venue_display_name": "Austin Film Society",
+            "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752",
+        },
+        {
+            "id": "c",
+            "title": "C",
+            "type": "concert",
+            "venue": "LaFollia",
+            "venue_display_name": "La Follia",
+            "venue_address": "3201 Windsor Rd, Austin, TX 78703",
+        },
+    ]
+    rows = bapi.build_venues_payload(events, now=NOW)
+    for row in rows:
+        assert "address" in row
+        assert "display_name" in row
+    by_slug = {row["slug"]: row for row in rows}
+    assert by_slug["afs"]["display_name"] == "Austin Film Society"
+    assert by_slug["afs"]["address"] == "6226 Middle Fiskville Rd, Austin, TX 78752"
+    assert by_slug["lafollia"]["display_name"] == "La Follia"
+    assert by_slug["lafollia"]["address"] == "3201 Windsor Rd, Austin, TX 78703"
+
+
+def test_build_venues_payload_defaults_when_metadata_absent():
+    """``display_name`` falls back to ``name`` and ``address`` to '' when unset."""
+    events = [
+        {"id": "a", "title": "A", "type": "movie", "venue": "Paramount"},
+    ]
+    rows = bapi.build_venues_payload(events, now=NOW)
+    row = rows[0]
+    assert row["name"] == "Paramount"
+    assert row["display_name"] == "Paramount"
+    assert row["address"] == ""
+
+
+def test_build_venues_payload_picks_first_non_empty_metadata():
+    """First event with metadata wins; later blanks do not overwrite it."""
+    events = [
+        {"id": "a", "title": "A", "type": "movie", "venue": "AFS"},
+        {
+            "id": "b",
+            "title": "B",
+            "type": "movie",
+            "venue": "AFS",
+            "venue_display_name": "Austin Film Society",
+            "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752",
+        },
+        {"id": "c", "title": "C", "type": "movie", "venue": "AFS"},
+    ]
+    rows = bapi.build_venues_payload(events, now=NOW)
+    row = rows[0]
+    assert row["display_name"] == "Austin Film Society"
+    assert row["address"] == "6226 Middle Fiskville Rd, Austin, TX 78752"
+
+
+def test_build_venues_payload_returns_list_not_envelope():
+    """venues.json is a top-level list so clients/validators skip envelope unwrap."""
+    rows = bapi.build_venues_payload([], now=NOW)
+    assert isinstance(rows, list)
+    assert rows == []
 
 
 def test_build_people_payload_sorts_by_count_desc(events):
@@ -298,7 +376,6 @@ def test_build_categories_payload_counts(events):
     [
         bapi.build_events_payload,
         bapi.build_top_picks_payload,
-        bapi.build_venues_payload,
         bapi.build_people_payload,
         bapi.build_categories_payload,
     ],
@@ -308,6 +385,12 @@ def test_builders_return_empty_envelope_for_no_events(builder):
     _assert_envelope(payload)
     assert payload["count"] == 0
     assert payload["data"] == []
+
+
+def test_build_venues_payload_returns_empty_list_for_no_events():
+    """venues.json is a list, so "empty" means ``[]`` not an envelope."""
+    rows = bapi.build_venues_payload([], now=NOW)
+    assert rows == []
 
 
 # ---------------------------------------------------------------------------
@@ -322,7 +405,13 @@ def test_write_outputs_produces_all_five_files(events, tmp_path):
         path = tmp_path / "api" / name
         assert path.is_file()
         parsed = json.loads(path.read_text(encoding="utf-8"))
-        _assert_envelope(parsed)
+        if name == "venues.json":
+            assert isinstance(parsed, list)
+            for row in parsed:
+                assert "address" in row
+                assert "display_name" in row
+        else:
+            _assert_envelope(parsed)
 
 
 def test_write_outputs_writes_valid_utf8(events, tmp_path):
