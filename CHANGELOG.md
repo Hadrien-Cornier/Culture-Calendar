@@ -78,6 +78,11 @@
 - files: scripts/build_llms_txt.py, docs/llms.txt, docs/llms-full.txt, tests/test_build_llms_txt.py
 - validation: green
 
+### task-T3.2 — DONE — 2026-04-22T05:53:08Z
+- commit: c5f4459
+- files: scripts/build_api_json.py, tests/test_build_api_json.py, docs/api/events.json, docs/api/top-picks.json, docs/api/venues.json, docs/api/people.json, docs/api/categories.json
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
