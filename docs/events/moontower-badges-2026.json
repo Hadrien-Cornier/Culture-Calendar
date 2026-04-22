@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Moontower Badges 2026",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit No details emerge on craft, execution, or technical mastery for Moontower Badges 2026; the title alone suggests a badge-distribution event, not a film with defined visuals, editing, or sound design. Sources define artistic meri…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/moontower-badges-2026.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/moontower-badges-2026.svg",
+  "startDate": "2026-04-20",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

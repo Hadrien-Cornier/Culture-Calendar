@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Lauren & Mary Show!",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit No details emerge on craft, execution, or technical mastery; the title suggests a lightweight sketch show lacking visual order or complexity metrics akin to those distinguishing art styles by entropy. Absent specifics on direct…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-lauren-mary-show.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/the-lauren-mary-show.svg",
+  "startDate": "2026-04-18",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Apricot Trees Exist - The Rose of Time",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit – Without access to the text of The Rose of Time, craft, prose, and structure remain invisible; search results yield zero mentions of the book amid 2025 best-of lists heavy on novels like The Edge of Water or The Loneliness of…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/apricot-trees-exist-the-rose-of-time-2026-04-26-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/apricot-trees-exist-the-rose-of-time-2026-04-26-1900.svg",
+  "startDate": "2026-04-26",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Spotlight Book Club - In the Days of My Youth I Was Told What It Means to Be a Man",
+  "description": "★ Rating: 7/10 In the Days of My Youth I Was Told What It Means to Be a Man announces itself as a reckoning. Tom Junod, the longtime Esquire writer and cultural observer, turns inward to examine his father Lou—a charismatic, philandering showroom operator who…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-spotlight-book-club-in-the-days-of-my-youth-i-was-told-what-it-means-to-be-a-man-2026-04-20-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/the-spotlight-book-club-in-the-days-of-my-youth-i-was-told-what-it-means-to-be-a-man-2026-04-20-1900.svg",
+  "startDate": "2026-04-20",
+  "location": {
+    "@type": "Place",
+    "name": "FirstLight",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

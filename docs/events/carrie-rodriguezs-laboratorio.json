@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Carrie Rodriguez's Laboratorio",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No details emerge on craft or execution for Carrie Rodriguez's Laboratorio; absent specifics on visuals, editing, sound design, or performance leave technical mastery unassessable. General research ties appreciation to visual c…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/carrie-rodriguezs-laboratorio.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/carrie-rodriguezs-laboratorio.svg",
+  "startDate": "2026-04-26",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

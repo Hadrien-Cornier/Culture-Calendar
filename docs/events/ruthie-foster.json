@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Ruthie Foster",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit No details emerge on craft, execution, or technical mastery for a movie titled Ruthie Foster; search results yield zero film-specific evidence, only scientific papers on entropy in art paintings or high-entropy alloys. Without…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/ruthie-foster.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/ruthie-foster.svg",
+  "startDate": "2026-06-12",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

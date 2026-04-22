@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "RUBBER’S LOVER",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Fukui's execution leans on low-budget shock tactics: grainy 16mm footage captures dimly lit warehouses and medical labs where characters endure prolonged beatings, injections, and rubber-suited mutations; sound design hammers i…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/rubbers-lover.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-06-12",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

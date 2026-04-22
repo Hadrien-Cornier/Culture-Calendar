@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Gary Gulman",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No details emerge on craft or execution for Gary Gulman; without scenes, runtime, or technical specifics, evaluation stalls on general definitions of artistic quality in film or performance. Sources offer only abstract measures…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/gary-gulman.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/gary-gulman.svg",
+  "startDate": "2026-05-15",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

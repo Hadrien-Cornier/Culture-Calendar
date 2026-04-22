@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Gourds",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No records surface for The Gourds, leaving its direction, acting, or craft invisible; search results yield zero matches amid Soderbergh retrospectives and Tarkovsky essays. Without footage or credits, concrete shots or cuts sta…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-gourds.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/the-gourds.svg",
+  "startDate": "2026-05-19",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

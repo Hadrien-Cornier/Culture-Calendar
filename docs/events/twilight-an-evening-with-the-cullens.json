@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Twilight: An Evening with the Cullens",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Execution falters from the start: a stagey setup of vampires lounging in a dim living room, Cullens reciting lines like \"Eternal night binds us\" while fog machines sputter. Camera lingers on static close-ups of pale faces; edit…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/twilight-an-evening-with-the-cullens.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/twilight-an-evening-with-the-cullens.svg",
+  "startDate": "2026-06-09",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

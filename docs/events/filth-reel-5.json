@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "FILTH! Reel 5",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Thin sources prevent firm claims on craft or execution; no details emerge on visuals, editing, or sound design for FILTH! Reel 5. Entropy metrics from art analysis suggest visual disorder might signal raw energy, but without fo…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/filth-reel-5.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/filth-reel-5.svg",
+  "startDate": "2026-04-11",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

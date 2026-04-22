@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Jack Tucker Screening",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No details on craft, execution, technical mastery, or aesthetic achievement emerge from available sources; the title \"Jack Tucker Screening\" yields zero specifics on visuals, editing, sound design, or performance quality. Gener…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jack-tucker-screening.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/jack-tucker-screening.svg",
+  "startDate": "2026-04-16",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

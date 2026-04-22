@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "LITTLE SHOP OF HORRORS",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Corman shoots the entire film in two days on a single set, turning a skid-row flower shop into a pressure cooker of shadows and tight frames; the plant's growth spurts, from puppet to toothy maw, rely on practical effects that…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/little-shop-of-horrors.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/little-shop-of-horrors.svg",
+  "startDate": "2026-06-02",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

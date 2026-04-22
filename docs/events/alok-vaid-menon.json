@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Alok Vaid-Menon",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Alok Vaid-Menon, the nonbinary performance artist and poet, likely shapes this film around live spoken-word routines and gender-nonconforming visuals. Expect close-ups of Vaid-Menon reciting lines about identity fluidity, backe…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/alok-vaid-menon.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/alok-vaid-menon.svg",
+  "startDate": "2026-06-04",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

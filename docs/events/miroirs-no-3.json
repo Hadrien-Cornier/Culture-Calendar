@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MIROIRS NO. 3",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit Petzold's 86-minute exercise in German minimalism deploys clean lines and static shots, but craft stalls in repetitive mirror reflections that echo his prior films like Phoenix. Technical execution stays competent; cinematograp…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/miroirs-no-3.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-04-16",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

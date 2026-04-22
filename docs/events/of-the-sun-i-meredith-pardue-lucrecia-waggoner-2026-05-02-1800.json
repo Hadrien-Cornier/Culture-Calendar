@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Of the Sun I Meredith Pardue & Lucrecia Waggoner",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities – composition, materials, technique, spatial and visual craft No specifics emerge on Pardue and Waggoner's compositions, materials, or techniques in available records; the title \"Of the Sun I\" hints at solar motifs, perhaps b…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/of-the-sun-i-meredith-pardue-lucrecia-waggoner-2026-05-02-1800.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/of-the-sun-i-meredith-pardue-lucrecia-waggoner-2026-05-02-1800.svg",
+  "startDate": "2026-05-02",
+  "location": {
+    "@type": "Place",
+    "name": "Laura Rathe Fine Art, Austin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

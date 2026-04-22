@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Jorge Lozano H",
+  "description": "★ Rating: 0/10 🎭 Artistic Merit No details exist on craft, execution, or technical mastery for Jorge Lozano H; the title yields zero specifics on visuals, editing, sound design, or performances. Search results define artistic merit generically as quality in f…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jorge-lozano-h.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/jorge-lozano-h.svg",
+  "startDate": "2026-05-27",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

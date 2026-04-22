@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE STRANGER (L’ETRANGER)",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Francois Ozon directs The Stranger with his signature economy: crisp framing isolates protagonist Meursault in Algiers' sun-baked streets, echoing Camus' novel where a single shot kills an Arab man on the beach. Ozon's camera l…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-stranger-letranger.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-04-17",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Anton Nel and Keith Womer wrangle the Herd of Harpsichords",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – Two performers managing five harpsichords demands precise coordination; Nel and Womer likely deliver clean attacks and balanced registrations across instruments, judging by La Follia's Baroque focus. Technical execution holds…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/anton-nel-and-keith-womer-wrangle-the-herd-of-harpsichords-2025-11-08-1500.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/anton-nel-and-keith-womer-wrangle-the-herd-of-harpsichords-2025-11-08-1500.svg",
+  "startDate": "2025-11-08",
+  "location": {
+    "@type": "Place",
+    "name": "LaFollia",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Stephen Mills: A Tribute",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Craft falters without specifics on choreography, editing, or camera work; execution likely mirrors standard tribute formats, with dancers reprising familiar Mills pieces like Light or Sway, lacking fresh staging or technical ri…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/stephen-mills-a-tribute.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/stephen-mills-a-tribute.svg",
+  "startDate": "2026-04-23",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

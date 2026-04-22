@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Not Your Belly Dancer: CARAMEL",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Caramel executes basic dance sequences with clean lines and steady camera work, but lacks polish in editing rhythms or lighting contrasts that distinguish strong performance films. Movements follow predictable hip isolations an…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/not-your-belly-dancer-caramel.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/not-your-belly-dancer-caramel.svg",
+  "startDate": "2026-04-22",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A SERIOUS MAN",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit The Coen brothers execute A Serious Man with precise control over framing and sound design that amplifies suburban dread; the prologue's Yiddish folktale dybbuk scene deploys shadows and whispers to jolt the narrative into Larr…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-serious-man.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/a-serious-man.svg",
+  "startDate": "2026-04-19",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

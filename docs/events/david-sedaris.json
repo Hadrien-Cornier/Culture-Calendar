@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "David Sedaris",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit No film titled David Sedaris exists in known cinema records. David Sedaris, the American humorist behind essay collections like Me Talk Pretty One Day, has inspired stage readings and audiobooks, but searches yield zero evidenc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/david-sedaris.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/david-sedaris.svg",
+  "startDate": "2026-04-29",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

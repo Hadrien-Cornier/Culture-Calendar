@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BUCKS HARBOR",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit Pete Muller's Bucks Harbor delivers competent cinematography in harbor sunset shots, but editing falters in the 45-minute mark's abrupt family reunion sequence, where cuts between dialogue and waves feel mechanical, lacking rhy…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/bucks-harbor.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/bucks-harbor.svg",
+  "startDate": "2026-04-30",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

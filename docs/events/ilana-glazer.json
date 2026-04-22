@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Ilana Glazer",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No details emerge on craft, execution, or technical mastery for Ilana Glazer. Sources define artistic merit as quality in film or other media but offer zero specifics on this work's direction, editing, cinematography, or perfor…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/ilana-glazer.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/ilana-glazer.svg",
+  "startDate": "2026-05-14",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

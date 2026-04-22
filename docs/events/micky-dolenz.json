@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Micky Dolenz",
+  "description": "Sources on Micky Dolenz are absent; no details exist on plot, direction, cast, or production. Without footage, script, or reviews, I cannot evaluate craft or themes; claims of merit would be baseless speculation. This yields a rating of 0, as the work registe…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/micky-dolenz.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/micky-dolenz.svg",
+  "startDate": "2026-05-11",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

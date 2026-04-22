@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A Season Of - Solo Viola",
+  "description": "★ Rating: 5/10 (competent but unremarkable) 🎭 Artistic Merit – Volodine's prose deploys short, clipped sentences in Solo Viola to evoke a solo musician's isolation amid post-apocalyptic decay; the narrative unfolds through fragmented vignettes of performers i…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-season-of-solo-viola-2026-04-18-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/a-season-of-solo-viola-2026-04-18-1900.svg",
+  "startDate": "2026-04-18",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

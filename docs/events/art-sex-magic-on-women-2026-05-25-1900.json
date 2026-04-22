@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Art Sex Magic - On Women",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit – low. No search results mention On Women by Susan Sontag; lists of 2025's best books spotlight novels like The Edge of Water (Olufunke Grace Bankole) for its precise prose tracing three generations of mothers across continents…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/art-sex-magic-on-women-2026-05-25-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/art-sex-magic-on-women-2026-05-25-1900.svg",
+  "startDate": "2026-05-25",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE MAGIC FLUTE",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – Without details on performers, choreography, or execution, assessment rests on concept alone; Ballet Austin's adaptation pairs Mozart's score with Cambodian shadow puppetry, likely delivering competent synchronization of danc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-magic-flute-2026-05-09-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/the-magic-flute-2026-05-09-1930.svg",
+  "startDate": "2026-05-09",
+  "location": {
+    "@type": "Place",
+    "name": "BalletAustin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

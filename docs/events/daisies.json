@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "DAISIES",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Věra Chytilová's craft deploys rapid cuts between color filters—black-and-white to green, pink, blue—in the banquet sequence, where two young women, Marie I and Marie II, smash platters of butter, sausages, and cakes; this tech…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/daisies.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/daisies.svg",
+  "startDate": "2026-06-06",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

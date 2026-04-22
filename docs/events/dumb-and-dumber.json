@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "DUMB AND DUMBER",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit The Farrelly brothers direct a slapstick road trip comedy with tight pacing in gags like the slow-motion beer spill or the birdbath decapitation scene, where timing hinges on Jim Carrey's elastic face-pulling and Jeff Daniels'…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/dumb-and-dumber.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/dumb-and-dumber.svg",
+  "startDate": "2026-04-24",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

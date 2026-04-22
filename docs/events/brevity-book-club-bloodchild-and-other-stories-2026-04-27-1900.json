@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Brevity Book Club - Bloodchild and Other Stories",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit – Butler's prose deploys short, clipped sentences that build tension without excess; in \"Bloodchild,\" the protagonist Gan witnesses T'Gatoi's implantation of eggs into his sister's flesh, a scene where intense details like \"the…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/brevity-book-club-bloodchild-and-other-stories-2026-04-27-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/brevity-book-club-bloodchild-and-other-stories-2026-04-27-1900.svg",
+  "startDate": "2026-04-27",
+  "location": {
+    "@type": "Place",
+    "name": "FirstLight",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

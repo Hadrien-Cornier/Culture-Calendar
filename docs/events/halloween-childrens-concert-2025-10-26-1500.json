@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Halloween Children's Concert",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit The Austin Symphony Orchestra delivers tight, energetic renditions of Halloween staples like John Williams's Harry Potter and the Sorcerer's Stone: Children’s Suite and Prokofiev's Peter and the Wolf, with narrator Bernadette N…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/halloween-childrens-concert-2025-10-26-1500.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/halloween-childrens-concert-2025-10-26-1500.svg",
+  "startDate": "2025-10-26",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Circle Jerks x Repo Man",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Execution falters in a void of specifics: no director steers the craft, no runtime shapes pacing, no language grounds performances. Technical mastery remains invisible without scenes to dissect, like a hypothetical mashup of pu…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/circle-jerks-x-repo-man.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/circle-jerks-x-repo-man.svg",
+  "startDate": "2026-05-03",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

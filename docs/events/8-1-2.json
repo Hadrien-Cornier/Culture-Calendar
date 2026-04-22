@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "8 1/2",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Fellini orchestrates a whirlwind of circus parades, harem dances, and ecclesiastical processions with razor-sharp editing; the camera glides through Guido's blocked psyche in long takes that fuse memory and hallucination, while…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/8-1-2.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/8-1-2.svg",
+  "startDate": "2026-04-27",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

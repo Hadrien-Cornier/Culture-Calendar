@@ -356,6 +356,7 @@ def test_main_writes_all_five_files(events, tmp_path, capsys):
             str(data_path),
             "--out-dir",
             str(out_dir),
+            "--no-event-json",
             "--quiet",
         ]
     )
@@ -377,6 +378,7 @@ def test_main_prints_summary_without_quiet(events, tmp_path, capsys):
             str(data_path),
             "--out-dir",
             str(out_dir),
+            "--no-event-json",
         ]
     )
     assert exit_code == 0
@@ -399,7 +401,208 @@ def test_main_respects_custom_min_rating(events, tmp_path):
             "--min-rating",
             "9",
             "--quiet",
+            "--no-event-json",
         ]
     )
     top = json.loads((out_dir / "top-picks.json").read_text(encoding="utf-8"))
     assert [row["id"] for row in top["data"]] == ["bold-baroque"]
+
+
+# ---------------------------------------------------------------------------
+# per-event canonical JSON (mirror of JSON-LD shape)
+# ---------------------------------------------------------------------------
+
+
+def test_event_slug_uses_id_then_title():
+    assert bapi._event_slug({"id": "bold-baroque"}) == "bold-baroque"
+    assert bapi._event_slug({"title": "Camille Saint-Saëns Gala"}) == (
+        "camille-saint-saens-gala"
+    )
+    assert bapi._event_slug({}) == ""
+    assert bapi._event_slug({"id": "", "title": ""}) == ""
+
+
+def test_truncate_preserves_short_text_and_ellipses_long():
+    assert bapi._truncate("short", max_len=10) == "short"
+    truncated = bapi._truncate("a" * 300, max_len=260)
+    assert len(truncated) == 260
+    assert truncated.endswith("…")
+
+
+def test_og_image_url_falls_back_to_site_default(tmp_path):
+    og_dir = tmp_path / "og"
+    og_dir.mkdir()
+    (og_dir / "known.svg").write_text("<svg/>", encoding="utf-8")
+    base = bapi.SITE_BASE_URL
+    assert bapi._og_image_url("known", base_url=base, og_dir=og_dir) == (
+        base + "og/known.svg"
+    )
+    assert bapi._og_image_url("missing", base_url=base, og_dir=og_dir) == (
+        base + "og/site-default.svg"
+    )
+
+
+def test_build_event_jsonld_mirrors_schema_org_event_shape(tmp_path):
+    event = {
+        "id": "bold-baroque",
+        "title": "Bold Baroque Night",
+        "type": "concert",
+        "oneLiner": "<p>A bracing early-Baroque programme.</p>",
+        "description": "<p>Full <strong>review</strong>.</p>",
+        "venue": "La Follia Hall",
+        "screenings": [{"date": "2026-05-01", "time": "19:30"}],
+    }
+    payload = bapi.build_event_jsonld(event, og_dir=tmp_path)
+    assert payload is not None
+    assert payload["@context"] == "https://schema.org"
+    assert payload["@type"] == "Event"
+    assert payload["name"] == "Bold Baroque Night"
+    assert "<" not in payload["description"]
+    assert payload["description"].startswith("A bracing early-Baroque")
+    assert payload["url"].endswith("events/bold-baroque.html")
+    assert payload["image"].endswith("og/site-default.svg")
+    assert payload["startDate"] == "2026-05-01"
+    assert payload["location"]["@type"] == "Place"
+    assert payload["location"]["name"] == "La Follia Hall"
+    assert payload["location"]["address"]["addressLocality"] == "Austin"
+
+
+def test_build_event_jsonld_uses_description_when_one_liner_missing(tmp_path):
+    event = {
+        "id": "plain",
+        "title": "Plain",
+        "description": "Plain text review.",
+        "venue": "Hall",
+        "screenings": [{"date": "2026-06-01"}],
+    }
+    payload = bapi.build_event_jsonld(event, og_dir=tmp_path)
+    assert payload is not None
+    assert payload["description"] == "Plain text review."
+
+
+def test_build_event_jsonld_falls_back_to_title_when_no_copy(tmp_path):
+    payload = bapi.build_event_jsonld({"id": "x", "title": "Just A Title"}, og_dir=tmp_path)
+    assert payload is not None
+    assert payload["description"] == "Just A Title"
+    # No startDate / location when not supplied.
+    assert "startDate" not in payload
+    assert "location" not in payload
+
+
+def test_build_event_jsonld_skips_events_without_identity(tmp_path):
+    assert bapi.build_event_jsonld({}, og_dir=tmp_path) is None
+    assert bapi.build_event_jsonld({"id": ""}, og_dir=tmp_path) is None
+    assert bapi.build_event_jsonld({"id": "!!!"}, og_dir=tmp_path) is None
+
+
+def test_build_event_jsonld_prefers_per_event_og_card(tmp_path):
+    og_dir = tmp_path
+    (og_dir / "bold-baroque.svg").write_text("<svg/>", encoding="utf-8")
+    payload = bapi.build_event_jsonld(
+        {"id": "bold-baroque", "title": "Bold"}, og_dir=og_dir
+    )
+    assert payload is not None
+    assert payload["image"].endswith("og/bold-baroque.svg")
+
+
+def test_write_event_json_files_writes_one_per_event(events, tmp_path):
+    out_dir = tmp_path / "events"
+    count = bapi.write_event_json_files(events, out_dir=out_dir, og_dir=tmp_path / "og")
+    assert count == len(events)
+    files = sorted(out_dir.glob("*.json"))
+    assert len(files) == len(events)
+    parsed = json.loads(files[0].read_text(encoding="utf-8"))
+    assert parsed["@context"] == "https://schema.org"
+    assert parsed["@type"] == "Event"
+
+
+def test_write_event_json_files_dedupes_same_slug(tmp_path):
+    events = [
+        {"id": "x", "title": "X First", "venue": "A"},
+        {"id": "x", "title": "X Duplicate", "venue": "B"},
+    ]
+    out_dir = tmp_path / "events"
+    count = bapi.write_event_json_files(events, out_dir=out_dir, og_dir=tmp_path / "og")
+    assert count == 1
+    payload = json.loads((out_dir / "x.json").read_text(encoding="utf-8"))
+    assert payload["name"] == "X First"
+
+
+def test_write_event_json_files_skips_malformed(tmp_path):
+    events = [
+        "not a dict",  # type: ignore[list-item]
+        {},
+        {"id": "good", "title": "Good"},
+    ]
+    out_dir = tmp_path / "events"
+    count = bapi.write_event_json_files(events, out_dir=out_dir, og_dir=tmp_path / "og")
+    assert count == 1
+    assert (out_dir / "good.json").is_file()
+
+
+def test_write_event_json_files_clears_stale_json_only(tmp_path):
+    out_dir = tmp_path / "events"
+    out_dir.mkdir()
+    stale_json = out_dir / "stale.json"
+    stale_json.write_text('{"old": true}', encoding="utf-8")
+    sibling_html = out_dir / "keeper.html"
+    sibling_html.write_text("<html></html>", encoding="utf-8")
+
+    bapi.write_event_json_files(
+        [{"id": "fresh", "title": "Fresh"}],
+        out_dir=out_dir,
+        og_dir=tmp_path / "og",
+    )
+
+    assert not stale_json.exists()
+    assert sibling_html.exists()
+    assert (out_dir / "fresh.json").is_file()
+
+
+def test_main_emits_per_event_json_by_default(events, tmp_path):
+    data_path = tmp_path / "data.json"
+    data_path.write_text(json.dumps(events), encoding="utf-8")
+    api_dir = tmp_path / "api"
+    event_dir = tmp_path / "events"
+    og_dir = tmp_path / "og"
+
+    exit_code = bapi.main(
+        [
+            "--data",
+            str(data_path),
+            "--out-dir",
+            str(api_dir),
+            "--event-json-dir",
+            str(event_dir),
+            "--og-dir",
+            str(og_dir),
+            "--quiet",
+        ]
+    )
+    assert exit_code == 0
+    files = list(event_dir.glob("*.json"))
+    assert len(files) == len(events)
+    parsed = json.loads(files[0].read_text(encoding="utf-8"))
+    assert parsed["@type"] == "Event"
+
+
+def test_main_skips_per_event_json_when_flag_set(events, tmp_path):
+    data_path = tmp_path / "data.json"
+    data_path.write_text(json.dumps(events), encoding="utf-8")
+    api_dir = tmp_path / "api"
+    event_dir = tmp_path / "events"
+
+    exit_code = bapi.main(
+        [
+            "--data",
+            str(data_path),
+            "--out-dir",
+            str(api_dir),
+            "--event-json-dir",
+            str(event_dir),
+            "--no-event-json",
+            "--quiet",
+        ]
+    )
+    assert exit_code == 0
+    assert not event_dir.exists() or not any(event_dir.glob("*.json"))

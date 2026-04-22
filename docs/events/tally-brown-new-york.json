@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TALLY BROWN, NEW YORK",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Rosa von Praunheim's documentary deploys raw Super 8 footage and handheld camerawork to capture Tally Brown's nightclub performances and street wanderings with urgent immediacy. The film's collage structure intercuts her drag c…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tally-brown-new-york.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/tally-brown-new-york.svg",
+  "startDate": "2026-06-21",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

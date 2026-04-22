@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Georg Philipp Telemann: The Greatest German Baroque Composer [Fight me!]",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – La Follia Austin delivered competent accounts of Telemann's sonatas, concertos, and suites in this Baroque Chamber Music series event. Technical execution stayed solid across the program's multi-movement forms; flutes and vio…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/georg-philipp-telemann-the-greatest-german-baroque-composer-fight-me-2025-09-05-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/georg-philipp-telemann-the-greatest-german-baroque-composer-fight-me-2025-09-05-1930.svg",
+  "startDate": "2025-09-05",
+  "location": {
+    "@type": "Place",
+    "name": "LaFollia",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

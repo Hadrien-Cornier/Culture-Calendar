@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Metamorphosis: The Alchemy of Waste",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities Aileen Chen twists reclaimed fabrics into bulging flower shapes that pop against gallery walls; unwanted junk stacks into bold, asymmetrical piles that demand a double take. The If We Make It Bloom installation layers upcycle…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/metamorphosis-the-alchemy-of-waste-2026-04-172026-04-182026-04-202026-04-212026-04-222026-04-232026-04-24-1000100010001000100010001000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/metamorphosis-the-alchemy-of-waste-2026-04-172026-04-182026-04-202026-04-212026-04-222026-04-232026-04-24-1000100010001000100010001000.svg",
+  "startDate": "2026-04-17",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center, Austin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

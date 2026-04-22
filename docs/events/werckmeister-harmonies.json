@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WERCKMEISTER HARMONIES",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Béla Tarr's long takes, often exceeding ten minutes, capture a town's slow unraveling with stark black-and-white cinematography; the opening scene, a single choreographed sequence rearranging solar-system models in a bar, deplo…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/werckmeister-harmonies.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/werckmeister-harmonies.svg",
+  "startDate": "2026-04-17",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

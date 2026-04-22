@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "STILL LIFE",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit Jia Zhangke films the Three Gorges Dam's construction with long, static shots of concrete barriers and displaced villagers wandering empty lots; Han Sanming crosses the Yangtze by boat, his pickup truck loaded with scrap metal,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/still-life.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/still-life.svg",
+  "startDate": "2026-04-28",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

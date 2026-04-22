@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Masterworks 3: Rhapsody Spectacular",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – Performances delivered competent execution across the board; Stephen Girko's clarinet in Debussy's Première rapsodie sustained long phrases with clean articulation, while Alex Maynegre-Torra navigated Gershwin's Second Rhapso…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/masterworks-3-rhapsody-spectacular-2025-11-212025-11-22-20002000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/masterworks-3-rhapsody-spectacular-2025-11-212025-11-22-20002000.svg",
+  "startDate": "2025-11-21",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

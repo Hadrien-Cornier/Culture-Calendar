@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TAKE CARE OF MY CAT",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Jeong Jae-eun films five young women in Seoul's cramped apartments and subways, using handheld shots and natural light to capture their listless routines; a cat passes between them like a mute witness to drifting lives. Executi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/take-care-of-my-cat.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/take-care-of-my-cat.svg",
+  "startDate": "2026-06-03",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WHO MOVES AMERICA",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Yael Bridge's Who Moves America delivers competent cinematography in tracking shots of industrial assembly lines, but editing falters in rushed montages that blur worker gestures into indistinct motion. Sound design captures fa…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/who-moves-america.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/who-moves-america.svg",
+  "startDate": "2026-04-30",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

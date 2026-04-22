@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "LANCELOT DU LAC",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit Bresson's craft pares Arthurian legend to stark essentials: knights ride in silence, horses thud across fields, swords pierce flesh in close shots without gore or glory. Actors deliver lines flat, faces blank; no music swells,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/lancelot-du-lac.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/lancelot-du-lac.svg",
+  "startDate": "2026-04-19",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

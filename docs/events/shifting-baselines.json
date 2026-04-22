@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "SHIFTING BASELINES",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Julien Élie deploys crisp editing and trilingual dialogue—English commands barked in factory scenes, French whispers during lab close-ups, Spanish chants in rural interludes—to mirror the \"cocktail effect\" of high-entropy mixin…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/shifting-baselines.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/shifting-baselines.svg",
+  "startDate": "2026-05-01",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE NUTCRACKER",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – Ballet Austin's Nutcracker delivers competent execution of Tchaikovsky's score and standard choreography, with dancers hitting marks in the Sugar Plum Fairy's variation and the Waltz of the Flowers; technical precision holds…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-nutcracker-2025-12-13-1400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/the-nutcracker-2025-12-13-1400.svg",
+  "startDate": "2025-12-13",
+  "location": {
+    "@type": "Place",
+    "name": "BalletAustin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

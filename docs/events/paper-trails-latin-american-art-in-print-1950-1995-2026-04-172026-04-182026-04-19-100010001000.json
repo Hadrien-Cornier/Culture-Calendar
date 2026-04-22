@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Paper Trails: Latin American Art in Print (1950-1995)",
+  "description": "★ Rating: 7/10 \"Paper Trails: Latin American Art in Print (1950-1995)\" closes tomorrow at the Blanton Museum, and it deserves a final look. This exhibition arrives as a corrective, assembling curated print portfolios from a region whose visual culture remains…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/paper-trails-latin-american-art-in-print-1950-1995-2026-04-172026-04-182026-04-19-100010001000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/paper-trails-latin-american-art-in-print-1950-1995-2026-04-172026-04-182026-04-19-100010001000.svg",
+  "startDate": "2026-04-17",
+  "location": {
+    "@type": "Place",
+    "name": "Blanton Museum of Art, Austin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

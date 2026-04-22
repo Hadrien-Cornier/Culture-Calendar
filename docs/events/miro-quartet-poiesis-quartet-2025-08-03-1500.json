@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Miró Quartet & Poiesis Quartet",
+  "description": "Unable to rate",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/miro-quartet-poiesis-quartet-2025-08-03-1500.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-08-03",
+  "location": {
+    "@type": "Place",
+    "name": "Chamber Music",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

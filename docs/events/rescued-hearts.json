@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Rescued Hearts",
+  "description": "★ Rating: 0/10 🎭 Artistic Merit No details exist on Rescued Hearts's craft, execution, or technical elements; director, duration, and production specifics remain unknown. Search results discuss entropy in art history and high-entropy alloys, but supply zero e…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/rescued-hearts.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/rescued-hearts.svg",
+  "startDate": "2026-04-21",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

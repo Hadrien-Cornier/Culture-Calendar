@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Handel's Messiah",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – Competent execution suits a standard Messiah rendition by the Austin Symphony Orchestra and Chorus Austin; choristers deliver crisp attacks in \"And the Glory of the Lord,\" while strings hold steady through recitatives, but so…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/handels-messiah-2025-12-02-2000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/handels-messiah-2025-12-02-2000.svg",
+  "startDate": "2025-12-02",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

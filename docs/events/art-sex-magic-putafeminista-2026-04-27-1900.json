@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Art Sex Magic - Putafeminista",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit: Prose likely leans on blunt slogans over nuanced sentences; without samples, craft appears workmanlike at best, structure probably follows standard essay blocks rather than inventive arcs. ✨ Originality: Title mashes \"puta\" an…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/art-sex-magic-putafeminista-2026-04-27-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/art-sex-magic-putafeminista-2026-04-27-1900.svg",
+  "startDate": "2026-04-27",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

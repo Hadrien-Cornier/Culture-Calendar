@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "GRIMM TALES",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – Without details on dancers, choreography, or Reynolds's score execution, performance quality remains unknown; technical precision and interpretive depth in fairy-tale scenes cannot be assessed from program outline alone. ✨ Or…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/grimm-tales-2025-09-27-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/grimm-tales-2025-09-27-1930.svg",
+  "startDate": "2025-09-27",
+  "location": {
+    "@type": "Place",
+    "name": "BalletAustin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

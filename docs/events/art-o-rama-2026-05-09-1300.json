@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Art-O-Rama",
+  "description": "Sources on \"Art-O-Rama\" at Dougherty Arts Center are absent; no details emerge on artists, works, or content. General guides stress describing specific installations, curator choices, and spatial flow to assess value, yet nothing surfaces here to evaluate. I…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/art-o-rama-2026-05-09-1300.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/art-o-rama-2026-05-09-1300.svg",
+  "startDate": "2026-05-09",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center, Austin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "AANIKOOBIJIGAN [ancestor/great-grandparent/great-grandchild]",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Aanikoobijan deploys stark cuts between archival footage of Anishinaabe ceremonies and handheld shots of elders reciting family genealogies in dim longhouses; the Khalil brothers' editing pulses like a drumbeat, syncing English…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/aanikoobijigan-ancestor-great-grandparent-great-grandchild.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/aanikoobijigan-ancestor-great-grandparent-great-grandchild.svg",
+  "startDate": "2026-05-02",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Mulholland Drive",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit David Lynch's craft in Mulholland Drive hinges on fragmented editing and Angelo Badalamenti's droning score, yet execution falters in the jarring shift from neo-noir mystery to surreal breakdown around the Club Silencio scene;…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/mulholland-drive.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/mulholland-drive.svg",
+  "startDate": "2026-05-24",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

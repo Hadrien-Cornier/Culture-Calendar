@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Haydn! Beethoven! Scotland! - with Anton Nel",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – Competent execution likely defined this program; Anton Nel's fortepiano paired with La Follia's strings would deliver Haydn's crisp chamber textures and Beethoven's robust song accompaniments cleanly, while guest vocalists ha…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/haydn-beethoven-scotland-with-anton-nel-2025-04-24-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/haydn-beethoven-scotland-with-anton-nel-2025-04-24-1930.svg",
+  "startDate": "2025-04-24",
+  "location": {
+    "@type": "Place",
+    "name": "LaFollia",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

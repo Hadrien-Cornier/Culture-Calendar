@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "CLOSURE",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit Marczak's craft in Closure deploys steady handheld shots and natural light to capture Warsaw's gray streets, but execution falters in pacing; long takes of characters wandering apartments drag without building tension. Technica…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/closure.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/closure.svg",
+  "startDate": "2026-05-01",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

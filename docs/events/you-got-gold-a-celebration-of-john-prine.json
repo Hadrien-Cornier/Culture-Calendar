@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "YOU GOT GOLD: A CELEBRATION OF JOHN PRINE",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit You Got Gold: A Celebration of John Prine captures the late singer-songwriter's raw twang through concert footage and talking-head clips from peers like Bonnie Raitt and Jason Isbell. Director Michael John Warren strings togeth…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/you-got-gold-a-celebration-of-john-prine.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/you-got-gold-a-celebration-of-john-prine.svg",
+  "startDate": "2026-04-21",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

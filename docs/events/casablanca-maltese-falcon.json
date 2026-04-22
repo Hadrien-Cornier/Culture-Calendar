@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Casablanca + Maltese Falcon",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Thin sources limit analysis to entropy metrics from art history studies, which cluster styles by visual order and complexity but offer no specifics on this mash-up. Execution likely fuses Casablanca's shadowy bar interiors with…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/casablanca-maltese-falcon.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/casablanca-maltese-falcon.svg",
+  "startDate": "2026-05-22",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

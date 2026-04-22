@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE MUMMY (1999)",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit The Mummy delivers solid craftsmanship in action sequences, like the scarab beetle swarm erupting from the ground in Hamunaptra, where practical effects blend with brisk editing to propel chases forward. Rachel Weisz's performa…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-mummy-1999.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/the-mummy-1999.svg",
+  "startDate": "2026-04-01",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

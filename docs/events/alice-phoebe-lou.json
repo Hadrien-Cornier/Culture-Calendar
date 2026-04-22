@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Alice Phoebe Lou",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit No details on craft, execution, or technical elements like cinematography, editing, or sound design are available; the absence of director, year, duration, or country leaves execution unassessable. Without scenes or performance…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/alice-phoebe-lou.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/alice-phoebe-lou.svg",
+  "startDate": "2026-04-21",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

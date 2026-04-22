@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Masterworks 6: Nancy Zhou, violin",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – Competent execution across the board, but nothing elevated it to standout levels. Nancy Zhou delivered the Korngold Violin Concerto in D Major with clean intonation and assured phrasing in the lyrical second movement, yet her…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/masterworks-6-nancy-zhou-violin-2026-03-132026-03-14-20002000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/masterworks-6-nancy-zhou-violin-2026-03-132026-03-14-20002000.svg",
+  "startDate": "2026-03-13",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

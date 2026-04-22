@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Voyage Out - Pornografia",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – Competent prose deploys Gombrowicz's signature style: sentences twist through dialogue and introspection, building tension in the Polish countryside estate where two older men manipulate youthful passions. Narrative hinges on…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/voyage-out-pornografia-2026-05-17-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/voyage-out-pornografia-2026-05-17-1900.svg",
+  "startDate": "2026-05-17",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

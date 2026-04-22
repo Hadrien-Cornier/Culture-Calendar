@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "DEAD MOUNTAINEER’S HOTEL",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Grigori Kromanov's Dead Mountaineer's Hotel adapts the Strugatsky brothers' locked-room mystery into a taut 93-minute puzzle set in a remote Soviet inn battered by storms. Snowbound guests—scientists, a dwarf, a psychic—unravel…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/dead-mountaineers-hotel.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-05-22",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "AMY GOODMAN: STEAL THIS STORY, PLEASE!",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Directors Carl Deal and Tia Lessin assemble a standard documentary package: 98 minutes of interview clips, archival footage, and narration praising Amy Goodman's journalism. Execution leans on predictable cuts between talking h…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/amy-goodman-steal-this-story-please.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/amy-goodman-steal-this-story-please.svg",
+  "startDate": "2026-05-17",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

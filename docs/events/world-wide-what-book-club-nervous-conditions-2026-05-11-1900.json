@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "World Wide What Book Club - Nervous Conditions",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – Competent prose drives the first-person narrative of Tambu, a Shona girl navigating family tensions in 1960s Rhodesia; the structure alternates her rural upbringing with urban boarding school life, building momentum through h…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/world-wide-what-book-club-nervous-conditions-2026-05-11-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/world-wide-what-book-club-nervous-conditions-2026-05-11-1900.svg",
+  "startDate": "2026-05-11",
+  "location": {
+    "@type": "Place",
+    "name": "FirstLight",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Stamptown",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit Stamptown delivers a bare plot outline without actors, sets, or footage to judge. No director's touch emerges; no shots linger on faces or streets. Performances vanish into thin air, leaving blank screens where tension should b…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/stamptown.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/stamptown.svg",
+  "startDate": "2026-04-16",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

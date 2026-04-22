@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE MOST TERRIBLE TIME IN MY LIFE",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit: Kaizo Hayashi's The Most Terrible Time in My Life kicks off his \"Postman\" trilogy with stark black-and-white visuals that mimic silent film grain, turning Tokyo's underbelly into a shadowy maze. The camera lingers on detective…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-most-terrible-time-in-my-life.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/the-most-terrible-time-in-my-life.svg",
+  "startDate": "2026-05-10",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

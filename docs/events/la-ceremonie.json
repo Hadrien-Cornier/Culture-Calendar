@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "LA CÉRÉMONIE",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Chabrol directs with taut precision: the camera lingers on domestic details, like the bourgeois family's record player spinning classical pieces amid rising tension, underscoring class fractures through everyday objects. Sandri…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/la-ceremonie.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-05-23",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

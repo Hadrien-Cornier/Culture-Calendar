@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE TRIP",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Roger Corman's direction in The Trip delivers competent execution through rapid-cut montages and psychedelic visuals that mimic an LSD journey; the beach sequence, where protagonist Paul trips amid crashing waves and fragmented…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-trip.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/the-trip.svg",
+  "startDate": "2026-06-23",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

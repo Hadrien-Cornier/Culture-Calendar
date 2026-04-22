@@ -1,8 +1,8 @@
-"""Build ``docs/api/*.json`` aggregate endpoints for agent consumers.
+"""Build ``docs/api/*.json`` aggregate endpoints and per-event canonical JSON.
 
-Five flat JSON files that mirror the site's data in a structured,
-HTML-free shape so LLM agents and scripted clients can read the corpus
-without parsing ``index.html`` or walking per-event shells:
+Aggregate endpoints under ``docs/api/`` give agents a structured,
+HTML-free view of the corpus so they can answer questions without
+parsing ``index.html`` or walking per-event shells:
 
 - ``events.json`` — every event with public fields, HTML stripped from
   the review body (``description_text``).
@@ -18,9 +18,15 @@ without parsing ``index.html`` or walking per-event shells:
 - ``categories.json`` — one row per ``type`` with its human label and
   count.
 
-All five share the same envelope shape ``{generated_at, site_url,
-count, data: [...]}`` so a client can deserialise any of them with the
-same adapter. Stdlib only — no new deps.
+All five share the envelope ``{generated_at, site_url, count, data:
+[...]}`` so a client can deserialise any of them with the same adapter.
+
+Per-event canonical files land at ``docs/events/<slug>.json`` and
+mirror the schema.org ``Event`` JSON-LD embedded in the sibling
+``<slug>.html`` shell. Agents and crawlers can fetch the JSON directly
+without scraping the script tag out of HTML.
+
+Stdlib only — no new deps.
 """
 
 from __future__ import annotations
@@ -42,9 +48,16 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = REPO_ROOT / "docs"
 DATA_PATH = DOCS_DIR / "data.json"
 API_DIR = DOCS_DIR / "api"
+EVENTS_JSON_DIR = DOCS_DIR / "events"
+OG_DIR = DOCS_DIR / "og"
 
 SITE_BASE_URL = "https://hadrien-cornier.github.io/Culture-Calendar/"
 TOP_PICK_MIN_RATING = 7
+
+# Matches the shell builder's truncation so the canonical JSON body can
+# be byte-compared with the inline <script type="application/ld+json"> tag.
+_JSONLD_ONE_LINER_MAX = 180
+_JSONLD_DESCRIPTION_MAX = 260
 
 CATEGORY_LABELS: dict[str, str] = {
     "movie": "Film",
@@ -380,6 +393,118 @@ def build_categories_payload(
     return _envelope(rows, now=now)
 
 
+def _truncate(text: str, *, max_len: int) -> str:
+    """Return ``text`` shortened to ``max_len`` chars with a trailing ellipsis."""
+    if len(text) <= max_len:
+        return text
+    return text[: max_len - 1].rstrip() + "…"
+
+
+def _event_slug(event: dict) -> str:
+    """Slug used as the ``docs/events/<slug>.json`` filename.
+
+    Derived from the event id (or title as a fallback) using the same
+    fold-and-hyphenate rule as :func:`slugify`, so canonical JSON URLs
+    line up with the sibling ``.html`` shell and the in-app ``#event=``
+    anchor. Events missing both id and title are skipped (empty slug).
+    """
+    raw = str(event.get("id") or event.get("title") or "").strip()
+    return slugify(raw)
+
+
+def _og_image_url(slug: str, *, base_url: str, og_dir: Path) -> str:
+    """Return the per-event OG card URL, falling back to the site default."""
+    if slug and (og_dir / f"{slug}.svg").is_file():
+        return _absolute_url(f"og/{slug}.svg", base_url=base_url)
+    return _absolute_url("og/site-default.svg", base_url=base_url)
+
+
+def build_event_jsonld(
+    event: dict,
+    *,
+    base_url: str = SITE_BASE_URL,
+    og_dir: Path = OG_DIR,
+) -> Optional[dict]:
+    """Return a schema.org ``Event`` JSON-LD payload, or ``None`` to skip.
+
+    Shape mirrors :func:`scripts.build_event_shells._json_ld` so the
+    canonical ``docs/events/<slug>.json`` file is a structured twin of
+    the inline ``<script type="application/ld+json">`` tag embedded in
+    ``docs/events/<slug>.html``.
+    """
+    slug = _event_slug(event)
+    if not slug:
+        return None
+    title = str(event.get("title") or slug.replace("-", " ").title()).strip()
+    one_liner = _truncate(
+        html_to_text(str(event.get("oneLiner") or "")),
+        max_len=_JSONLD_ONE_LINER_MAX,
+    )
+    desc_plain = _truncate(
+        html_to_text(str(event.get("description") or "")),
+        max_len=_JSONLD_DESCRIPTION_MAX,
+    )
+    description = one_liner or desc_plain or title
+    payload: dict = {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": title,
+        "description": description,
+        "url": _absolute_url(f"events/{slug}.html", base_url=base_url),
+        "image": _og_image_url(slug, base_url=base_url, og_dir=og_dir),
+    }
+    first_date = _event_first_date(event)
+    if first_date:
+        payload["startDate"] = first_date
+    venue = str(event.get("venue") or "").strip()
+    if venue:
+        payload["location"] = {
+            "@type": "Place",
+            "name": venue,
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Austin",
+                "addressRegion": "TX",
+            },
+        }
+    return payload
+
+
+def write_event_json_files(
+    events: Sequence[dict],
+    *,
+    out_dir: Path = EVENTS_JSON_DIR,
+    base_url: str = SITE_BASE_URL,
+    og_dir: Path = OG_DIR,
+) -> int:
+    """Emit one ``<slug>.json`` per event under ``out_dir``; return count.
+
+    Clears stale ``*.json`` files first but leaves sibling ``*.html``
+    shells untouched, so this builder and :mod:`build_event_shells`
+    share the directory safely. Duplicate slugs are de-duplicated, with
+    the first occurrence winning.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for stale in out_dir.glob("*.json"):
+        stale.unlink()
+    seen: set[str] = set()
+    written = 0
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        payload = build_event_jsonld(event, base_url=base_url, og_dir=og_dir)
+        if payload is None:
+            continue
+        slug = _event_slug(event)
+        if slug in seen:
+            continue
+        seen.add(slug)
+        body = json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
+        (out_dir / f"{slug}.json").write_text(body, encoding="utf-8")
+        written += 1
+    return written
+
+
 def load_events(data_path: Path = DATA_PATH) -> list[dict]:
     """Load ``docs/data.json`` as a list of event dicts."""
     if not data_path.is_file():
@@ -443,6 +568,23 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         help="Minimum rating to qualify for top-picks.json (default: %(default)s).",
     )
     parser.add_argument(
+        "--event-json-dir",
+        type=Path,
+        default=EVENTS_JSON_DIR,
+        help="Output directory for per-event canonical JSON files (default: %(default)s).",
+    )
+    parser.add_argument(
+        "--no-event-json",
+        action="store_true",
+        help="Skip emitting docs/events/<slug>.json per-event JSON files.",
+    )
+    parser.add_argument(
+        "--og-dir",
+        type=Path,
+        default=OG_DIR,
+        help="Directory of per-event OG cards used for the JSON-LD image URL.",
+    )
+    parser.add_argument(
         "--quiet",
         action="store_true",
         help="Suppress the summary line on stdout.",
@@ -458,11 +600,24 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         base_url=args.base_url,
         min_rating=args.min_rating,
     )
+    event_json_count = 0
+    if not args.no_event_json:
+        event_json_count = write_event_json_files(
+            events,
+            out_dir=args.event_json_dir,
+            base_url=args.base_url,
+            og_dir=args.og_dir,
+        )
 
     if not args.quiet:
         total = sum(sizes.values())
         names = ", ".join(sizes.keys())
-        print(f"Wrote {len(sizes)} files ({names}) to {args.out_dir} ({total} bytes)")
+        msg = f"Wrote {len(sizes)} files ({names}) to {args.out_dir} ({total} bytes)"
+        if not args.no_event_json:
+            msg += (
+                f"; {event_json_count} per-event JSON files to {args.event_json_dir}"
+            )
+        print(msg)
     return 0
 
 

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Celebrate Opera!",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit Celebrate Opera! delivers standard clips of arias and backstage glimpses, the kind seen in countless public television specials. Singers hit high notes with precision; orchestras swell on cue. Yet the editing feels rushed, sequ…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/celebrate-opera-2025-11-16-2000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/celebrate-opera-2025-11-16-2000.svg",
+  "startDate": "2025-11-16",
+  "location": {
+    "@type": "Place",
+    "name": "Opera",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

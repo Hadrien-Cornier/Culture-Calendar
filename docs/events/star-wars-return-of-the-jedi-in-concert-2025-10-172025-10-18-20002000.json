@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Star Wars: Return of the Jedi in Concert",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – Competent execution defines this Butler Pops presentation of Star Wars: Return of the Jedi with the Austin Symphony Orchestra; strings deliver crisp attacks in the Ewok village chase, brass swells command the Emperor's throne…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/star-wars-return-of-the-jedi-in-concert-2025-10-172025-10-18-20002000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/star-wars-return-of-the-jedi-in-concert-2025-10-172025-10-18-20002000.svg",
+  "startDate": "2025-10-17",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Moontower Wristbands 2026",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit No details exist on craft, execution, or technical mastery for Moontower Wristbands 2026; searches yield only generic definitions of artistic merit, like visual complexity matching viewer memory capacity. Absent specifics on di…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/moontower-wristbands-2026.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/moontower-wristbands-2026.svg",
+  "startDate": "2026-04-17",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

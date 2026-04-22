@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Little Feat",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No details emerge on craft or execution; unknown director, year, duration, and country leave technical mastery unassessable. Sources discuss entropy in art styles via paintings, not film, offering no scenes or performances to e…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/little-feat.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/little-feat.svg",
+  "startDate": "2026-04-20",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

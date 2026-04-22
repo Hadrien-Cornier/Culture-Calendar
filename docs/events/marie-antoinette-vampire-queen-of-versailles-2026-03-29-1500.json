@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MARIE ANTOINETTE: VAMPIRE QUEEN OF VERSAILLES",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit – Without details on performers, choreography, or execution, no evidence supports technical precision or interpretive strength; Ballet Austin's world premiere lacks recorded specifics on staging or dance quality, leaving perfor…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/marie-antoinette-vampire-queen-of-versailles-2026-03-29-1500.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/marie-antoinette-vampire-queen-of-versailles-2026-03-29-1500.svg",
+  "startDate": "2026-03-29",
+  "location": {
+    "@type": "Place",
+    "name": "BalletAustin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Joe Jackson",
+  "description": "★ Rating: 0/10 🎭 Artistic Merit No details on craft, execution, or technical elements are available for Joe Jackson; the work's director, duration, and style remain unknown, leaving its aesthetic achievement unassessable. ✨ Originality Without specifics on na…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/joe-jackson.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/joe-jackson.svg",
+  "startDate": "2026-06-14",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

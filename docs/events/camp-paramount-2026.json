@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Camp Paramount 2026",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No details emerge on craft, execution, or technical mastery for Camp Paramount 2026; search results yield zero specifics on scenes, performances, or production elements. General discussions of artistic innovation stress materia…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/camp-paramount-2026.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/camp-paramount-2026.svg",
+  "startDate": "2026-06-01",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

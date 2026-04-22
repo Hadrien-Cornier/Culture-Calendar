@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE MASQUE OF THE RED DEATH",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Corman packs the 90-minute frame with saturated Technicolor reds and golds that drench Prince Prospero's castle; sets pulse with medieval tapestries and iron masks, while Price's baritone delivery turns Poe's dialogue into inca…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-masque-of-the-red-death.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/the-masque-of-the-red-death.svg",
+  "startDate": "2026-06-09",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

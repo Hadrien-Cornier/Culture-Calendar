@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Sarah Sherman & Meg Stalter",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Sarah Sherman and Meg Stalter's collaboration deploys rapid-fire sketches with punchy timing and exaggerated facial contortions, evident in a bit where Sherman mangles a monologue on suburban ennui while Stalter deadpans escala…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/sarah-sherman-meg-stalter.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/sarah-sherman-meg-stalter.svg",
+  "startDate": "2026-04-18",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

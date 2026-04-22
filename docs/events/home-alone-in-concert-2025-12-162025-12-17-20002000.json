@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Home Alone in Concert",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – The Austin Symphony Orchestra delivered competent execution in John Williams's Home Alone score, syncing brass stabs in the burglar chase scene with the film's pratfalls and sustaining string swells during the family reunion.…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/home-alone-in-concert-2025-12-162025-12-17-20002000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/home-alone-in-concert-2025-12-162025-12-17-20002000.svg",
+  "startDate": "2025-12-16",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

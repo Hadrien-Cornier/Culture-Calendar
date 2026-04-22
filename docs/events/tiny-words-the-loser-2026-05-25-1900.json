@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Tiny Words - The Loser",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit – Bernhard's prose hammers forward in relentless paragraphs that mimic the characters' obsessive spirals; sentences coil around piano practices and Glenn Gould's shadow without pause, building pressure through repetition rather…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tiny-words-the-loser-2026-05-25-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/tiny-words-the-loser-2026-05-25-1900.svg",
+  "startDate": "2026-05-25",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

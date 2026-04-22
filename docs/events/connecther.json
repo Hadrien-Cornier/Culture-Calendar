@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ConnectHER",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No details exist on ConnectHER's craft, execution, or technical elements like cinematography, editing, or sound design. Without footage, scenes, or production notes, its aesthetic achievement remains invisible; the film's const…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/connecther.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/connecther.svg",
+  "startDate": "2026-05-01",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

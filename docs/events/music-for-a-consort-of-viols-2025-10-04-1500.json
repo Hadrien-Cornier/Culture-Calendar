@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Music for a Consort of Viols",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – La Follia Austin's consort of five viols delivered competent execution of English, French, and Italian works under Eric Taeyung Mun's direction; intonation held steady across the intricate counterpoint, but phrasing stayed ro…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/music-for-a-consort-of-viols-2025-10-04-1500.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/music-for-a-consort-of-viols-2025-10-04-1500.svg",
+  "startDate": "2025-10-04",
+  "location": {
+    "@type": "Place",
+    "name": "LaFollia",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "AMADEUS",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Miloš Forman's direction deploys lavish period sets and costumes that immerse viewers in 18th-century Vienna; F. Murray Abraham's Salieri delivers a coiled monologue in the asylum scene, his face twisting from envy to confessio…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/amadeus.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/amadeus.svg",
+  "startDate": "2026-05-22",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

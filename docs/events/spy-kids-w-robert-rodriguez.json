@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Spy Kids w/Robert Rodriguez",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Robert Rodriguez directs Spy Kids (2001), a 88-minute family action film where he handles writing, editing, producing, composing, and cinematography; this one-man control yields tight pacing and inventive gadgets like thumb-suc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/spy-kids-w-robert-rodriguez.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/spy-kids-w-robert-rodriguez.svg",
+  "startDate": "2026-05-23",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

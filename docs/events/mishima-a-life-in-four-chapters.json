@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MISHIMA: A LIFE IN FOUR CHAPTERS",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit Schrader splits Yukio Mishima's life into four chapters, each styled as a distinct genre: black-and-white realism for his early years, Noh theater for family tensions, vivid Technicolor for his novel Runaway Horses, and stark e…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/mishima-a-life-in-four-chapters.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/mishima-a-life-in-four-chapters.svg",
+  "startDate": "2026-06-11",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

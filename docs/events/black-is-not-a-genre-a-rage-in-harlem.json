@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Black Is Not a Genre: A RAGE IN HARLEM",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Solid period recreation anchors the film's craft: period costumes and Harlem street sets capture 1950s grit without excess polish. Forest Whitaker's quiet menace as the hapless undertaker and Robin Givens's sharp turn as the sc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/black-is-not-a-genre-a-rage-in-harlem.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/black-is-not-a-genre-a-rage-in-harlem.svg",
+  "startDate": "2026-04-07",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

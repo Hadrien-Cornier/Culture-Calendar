@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Subculture Lit - Someday All the Adults Will Die!",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit: No evidence surfaces on prose, narrative drive, or craft in Someday All the Adults Will Die! by Pat Blashill; search results spotlight 2025 standouts like Olufunke Grace Bankole's piercing sentences in The Edge of Water or Kir…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/subculture-lit-someday-all-the-adults-will-die-2026-05-03-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/subculture-lit-someday-all-the-adults-will-die-2026-05-03-1900.svg",
+  "startDate": "2026-05-03",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

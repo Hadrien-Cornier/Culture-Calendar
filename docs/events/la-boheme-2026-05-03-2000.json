@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "La Bohème",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit Puccini's La Bohème delivers competent craft in its orchestration and vocal lines, with Rodolfo's aria \"Che gelida manina\" showcasing precise emotional swells through rising strings and tenor vibrato. Execution falters in predi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/la-boheme-2026-05-03-2000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-05-03",
+  "location": {
+    "@type": "Place",
+    "name": "Opera",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "PALESTINE ’36",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit Jacir's direction deploys steady tracking shots through 1936 Jaffa markets and handheld chaos in Mandate-era checkpoints, but cinematography defaults to desaturated palettes that flatten period textures into gray sludge. Perfor…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/palestine-36.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/palestine-36.svg",
+  "startDate": "2026-04-17",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

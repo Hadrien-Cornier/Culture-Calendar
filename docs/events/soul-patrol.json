@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "SOUL PATROL",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit Craft falters in a 100-minute runtime that strains to fill space; technical execution leans on stock shots of urban patrols without dynamic framing or editing rhythm. Performances register as functional line readings, lacking n…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/soul-patrol.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/soul-patrol.svg",
+  "startDate": "2026-05-03",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

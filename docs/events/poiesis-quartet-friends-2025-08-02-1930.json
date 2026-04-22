@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Poiesis Quartet & Friends",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – Without details on works performed or specific execution, assessment relies on the Poiesis Quartet's reputation as prize-winners from last year's Concert Artists Guild Competition and their label as agile collaborators with M…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/poiesis-quartet-friends-2025-08-02-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/poiesis-quartet-friends-2025-08-02-1930.svg",
+  "startDate": "2025-08-02",
+  "location": {
+    "@type": "Place",
+    "name": "Chamber Music",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

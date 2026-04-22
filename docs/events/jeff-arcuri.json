@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Jeff Arcuri",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No details on craft, execution, or technical elements emerge from available records; the title \"Jeff Arcuri\" points to a stand-up comedy special by comedian Jeff Arcuri, likely a filmed routine of observational jokes on everyda…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jeff-arcuri.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/jeff-arcuri.svg",
+  "startDate": "2026-04-17",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

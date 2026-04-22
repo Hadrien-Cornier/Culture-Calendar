@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Shawn Colvin",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit No details emerge on craft or execution for a \"movie\" titled Shawn Colvin, a folk-rock singer known for albums like A Few Small Repairs. Search results yield zero film specifics; instead, they detail entropy in art paintings or…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/shawn-colvin.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/shawn-colvin.svg",
+  "startDate": "2026-06-06",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
