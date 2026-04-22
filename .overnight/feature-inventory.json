@@ -215,5 +215,138 @@
     "selector": "#signup-form",
     "since_commit": "task-T2.2",
     "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "docs-config-json",
+    "name": "Static config endpoint exposing distribution settings to client",
+    "selector": "docs/config.json",
+    "since_commit": "task-T0.3",
+    "smoke_assertion": "contains_text:buttondown_endpoint@/config.json"
+  },
+  {
+    "id": "share-menu-9-platforms",
+    "name": "Share menu with 9 platforms (Twitter, Threads, Bluesky, Mastodon, LinkedIn, WhatsApp, SMS, Email, Copy)",
+    "selector": ".share-menu [data-share-platform]",
+    "since_commit": "task-T1.1",
+    "smoke_assertion": "selector_min_count:.share-menu [data-share-platform]:9"
+  },
+  {
+    "id": "cc-config-load",
+    "name": "window.CC_CONFIG hydrated from docs/config.json on page init",
+    "selector": "script.js",
+    "since_commit": "task-T2.1",
+    "smoke_assertion": "js_truthy:typeof window.CC_CONFIG === 'object'"
+  },
+  {
+    "id": "subscribed-landing",
+    "name": "Post-signup subscribed landing page",
+    "selector": "body",
+    "since_commit": "task-T2.3",
+    "smoke_assertion": "selector_exists:body@/subscribed.html"
+  },
+  {
+    "id": "unsubscribed-landing",
+    "name": "Post-unsubscribe landing page",
+    "selector": "body",
+    "since_commit": "task-T2.3",
+    "smoke_assertion": "selector_exists:body@/unsubscribed.html"
+  },
+  {
+    "id": "weekly-archive",
+    "name": "Weekly digest archive index listing all yyyy-Www pages",
+    "selector": "body",
+    "since_commit": "task-T2.4",
+    "smoke_assertion": "selector_exists:body@/archive.html"
+  },
+  {
+    "id": "llms-txt",
+    "name": "Agent-facing llms.txt + llms-full.txt index",
+    "selector": "docs/llms.txt",
+    "since_commit": "task-T3.1",
+    "smoke_assertion": "contains_text:Culture Calendar@/llms.txt"
+  },
+  {
+    "id": "api-aggregate-endpoints",
+    "name": "Aggregate JSON API endpoints (events, top-picks, venues, people, categories)",
+    "selector": "docs/api/events.json",
+    "since_commit": "task-T3.2",
+    "smoke_assertion": "contains_text:events@/api/events.json"
+  },
+  {
+    "id": "per-event-api-json",
+    "name": "Per-event canonical JSON at /events/<slug>.json mirroring JSON-LD",
+    "selector": "docs/events/*.json",
+    "since_commit": "task-T3.3",
+    "smoke_assertion": "selector_exists@/events/8-1-2.json"
+  },
+  {
+    "id": "ai-crawler-allowlist",
+    "name": "robots.txt allowlist for AI crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended, Meta-ExternalAgent, Amazonbot)",
+    "selector": "docs/robots.txt",
+    "since_commit": "task-T3.4",
+    "smoke_assertion": "contains_text:ClaudeBot@/robots.txt"
+  },
+  {
+    "id": "well-known-ai-agent",
+    "name": ".well-known/ai-agent.json manifest advertising machine-readable surfaces",
+    "selector": "docs/.well-known/ai-agent.json",
+    "since_commit": "task-T3.5",
+    "smoke_assertion": "contains_text:endpoints@/.well-known/ai-agent.json"
+  },
+  {
+    "id": "agent-api-docs-page",
+    "name": "Agent-facing API documentation index at /api/",
+    "selector": "docs/api/index.html",
+    "since_commit": "task-T3.6",
+    "smoke_assertion": "selector_exists:body@/api/index.html"
+  },
+  {
+    "id": "index-jsonld",
+    "name": "WebSite + Organization + ItemList JSON-LD on index page",
+    "selector": "script[type=\"application/ld+json\"]",
+    "since_commit": "task-T4.1",
+    "smoke_assertion": "contains_text:\"@type\": \"ItemList\"@/index.html"
+  },
+  {
+    "id": "breadcrumb-jsonld",
+    "name": "BreadcrumbList JSON-LD on venue, people, weekly, and event-shell generated pages",
+    "selector": "scripts/build_venue_pages.py",
+    "since_commit": "task-T4.2",
+    "smoke_assertion": "contains_text:BreadcrumbList"
+  },
+  {
+    "id": "event-aggregate-rating",
+    "name": "aggregateRating + offers.url on per-event JSON-LD",
+    "selector": "scripts/build_event_shells.py",
+    "since_commit": "task-T4.3",
+    "smoke_assertion": "contains_text:aggregateRating"
+  },
+  {
+    "id": "canonical-meta-description",
+    "name": "rel=canonical + meta description on every generated page",
+    "selector": "link[rel=\"canonical\"]",
+    "since_commit": "task-T4.4",
+    "smoke_assertion": "selector_exists@/archive.html"
+  },
+  {
+    "id": "weekly-rel-prev-next",
+    "name": "rel=prev / rel=next linkage across weekly digest pages",
+    "selector": "scripts/build_weekly_digest.py",
+    "since_commit": "task-T4.5",
+    "smoke_assertion": "contains_text:rel=\"next\""
+  },
+  {
+    "id": "humans-txt",
+    "name": "humans.txt trust signal at site root",
+    "selector": "docs/humans.txt",
+    "since_commit": "task-T4.6",
+    "smoke_assertion": "contains_text:Culture Calendar@/humans.txt"
+  },
+  {
+    "id": "plausible-per-platform-share",
+    "name": "Plausible per-platform cc_share_<platform> custom events on share actions",
+    "selector": "docs/script.js",
+    "since_commit": "task-T5.1",
+    "smoke_assertion": "contains_text:cc_share_bluesky"
   }
 ]
