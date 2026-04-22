@@ -952,3 +952,99 @@ Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle — pre-e
 When the runner stops, it emits final event to `.long-run/20260419-235117/events.log`. The `long-run/20260419-235117` branch stays local — Hadrien reviews and merges to `main` in the morning. The runner does NOT push.
 
 <!-- END LONG-RUN: 20260419-235117 -->
+
+<!-- BEGIN LONG-RUN: 20260421-225013 -->
+## Long run — 20260421-225013
+
+> **AUTONOMOUS RUN — do not edit while running.**
+> Owner: Hadrien-Cornier · Started: 2026-04-22T03:50:13Z · Deadline: 2026-04-23T15:50:13Z (36h safety cap) · Branch: `long-run/20260421-225013`
+
+### Goal
+
+Build "Consumption Surface v2" on top of v1's live foundation (RSS / iCal feeds, per-event shells, OG / Twitter / JSON-LD, taste graph, weekly digest, Plausible analytics). Close the four gaps surfaced after v1 shipped:
+
+1. **Rich social share** — replace the bare `mailto:` digest button and extend the pick-card share popover from 3 platforms (mailto, Twitter, clipboard) to 9 (Twitter/X, Threads, Bluesky, Mastodon, LinkedIn, WhatsApp, SMS, Email, Copy). Per-platform Plausible events.
+2. **Mailing list** — Buttondown-backed (free tier, user-confirmed). UI + config-driven endpoint + stub fallback + archive + subscribed/unsubscribed landings.
+3. **Agent-friendly surfaces** — `llms.txt`, `llms-full.txt`, `/api/*.json` aggregates, per-event JSON, `.well-known/ai-agent.json`, AI-crawler allowlist in `robots.txt`.
+4. **SEO maximization** — WebSite / Organization / ItemList JSON-LD on index, BreadcrumbList on generated pages, `aggregateRating` + `offers.url` in event JSON-LD, canonical + meta description on every page, rel=prev/next on weekly archive, humans.txt.
+
+Plan document: `~/.claude/plans/use-the-gstack-skills-elegant-adleman.md` (applies gstack SCOPE EXPANSION + business-strategy-v2 frameworks).
+
+### Definition of done
+
+By the deadline:
+
+- `docs/llms.txt` + `docs/llms-full.txt` emitted; `docs/api/{events,top-picks,venues,people,categories}.json` exist and parse; per-event `docs/events/<slug>.json` mirror of JSON-LD emitted.
+- `docs/robots.txt` allows GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended, Meta-ExternalAgent, Amazonbot.
+- `docs/.well-known/ai-agent.json` served with >=5 endpoints.
+- Index head has WebSite + Organization + ItemList JSON-LD. Venue / people / weekly / event-shell pages emit BreadcrumbList; all generated pages carry canonical + meta description.
+- Event shell JSON-LD includes `offers.url` + `aggregateRating`.
+- Share popover iterates 9 platforms; `email-digest-button` uses the same share module; each emits a per-platform `cc_share_<platform>` Plausible event.
+- Masthead signup form reads `window.CC_CONFIG.buttondown_endpoint` (from `docs/config.json`) and falls back to a "Coming soon" stub when unset; submits fire `cc_subscribe_email`.
+- `docs/archive.html` lists every weekly digest; `docs/subscribed.html` + `docs/unsubscribed.html` exist.
+- `docs/ABOUT.md` and `README.md` document the mailing list and agent surfaces.
+- `.overnight/feature-inventory.json` has >=12 new entries appended (total >=42).
+- `STATUS-20260421-225013.md` written with verification checklist and post-run manual-step list.
+- `pytest -q` exits 0.
+
+### Hard constraints
+
+- Branch `long-run/20260421-225013` only. Runner does NOT push. User reviews and merges to `main` manually after the run. Never `git reset --hard`, `git push --force`, `git rebase`, or rewrite history.
+- No new Python deps. No `pip install`. Stdlib only (`json`, `xml.etree.ElementTree`, `html`, `pathlib`).
+- No new JS deps. No `npm install`. Share-menu icons via unicode or inline SVG.
+- No paid dep commitments from us. Buttondown free tier is the user's account; we only POST to their endpoint when configured.
+- All-static output. Everything hostable on GitHub Pages.
+- No interactive prompts. No `--no-verify` on commits.
+- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
+- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or `.long-run/<RUN_ID>/` runtime files (events.log, task-*.log, task-result.json, reviews/*.log, task-judge.log, active.pid).
+- GitNexus impact analysis MANDATORY before editing `docs/script.js` and `update_website_data.py`.
+- Persona-gate commit tag for T1.1 (share-menu refactor), T2.2 (signup form), T3.4 (AI-crawler allowlist policy).
+
+### Scope fence
+
+In-scope (writeable):
+- `docs/` (except `docs/variants/`)
+- `scripts/` (new builders + extensions of existing)
+- `tests/` (new unit tests)
+- `update_website_data.py` (orchestration only)
+- `config/master_config.yaml` (add `distribution.buttondown_endpoint` key)
+- `README.md` (append only — "For AI agents" + "Subscribe" sections)
+- `CLAUDE.md` (inside this run's fenced markers only)
+- `CHANGELOG.md` (inside this run's fenced markers only)
+- `STATUS-20260421-225013.md`
+- `.overnight/feature-inventory.json` (append only)
+- `.gitignore` (append only)
+
+Anything else is read-only. Do NOT touch `src/` (except read-only reference), `docs/variants/`, or prior-run STATUS files.
+
+### Validation oracle (per task before commit)
+
+```bash
+.venv/bin/python -m pytest -q
+```
+
+Plus the task's own `validate` command from `.long-run/20260421-225013/queue.tsv`. Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle (pre-existing red items).
+
+### Working agreement
+
+- Commit cadence: one code commit per task + one CHANGELOG commit per task (two small commits, per runner-prompt template).
+- Message format: `<type>(task-<ID>): <title>` where `<type>` is from the task's `ctype=` prefix in the notes column.
+- Stage only files in the task's `files` column; never `git add -A`.
+- Feature-inventory discipline: every task adding a user-visible feature appends its entry to `.overnight/feature-inventory.json` in the same code commit.
+
+### LLM council
+
+Default council active (4 task-level reviewers + 1 run-level). Judge model: `claude-sonnet-4-6` (default). Expected cost: ~31 × 5 + 1 = 156 `claude -p` invocations plus 6 Anthropic persona-council calls at RUN_COMPLETE (~$0.50). T6.3 opts out via `[no-council]` in its notes column because it IS the council run.
+
+### Stop conditions
+
+- All queue tasks DONE → `RUN_COMPLETE`
+- Wall clock ≥ 2026-04-23T15:50:13Z → `RUN_HALTED: deadline`
+- 3 consecutive BLOCKED (council rejections count) → `RUN_HALTED: consecutive-blockers`
+- Bare `STATUS.md` at repo root contains `HALT` → `RUN_HALTED: manual`
+
+### Handoff
+
+When the runner stops, it emits final event to `.long-run/20260421-225013/events.log`. The `long-run/20260421-225013` branch stays local — Hadrien reviews `.long-run/20260421-225013/scorecard.md` and merges to `main` manually. The runner does NOT push.
+
+<!-- END LONG-RUN: 20260421-225013 -->

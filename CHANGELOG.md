@@ -1,5 +1,20 @@
 # CHANGELOG
 
+<!-- BEGIN LONG-RUN: 20260421-225013 -->
+## Long run — 20260421-225013
+
+*Branch:* `long-run/20260421-225013` · *Started:* 2026-04-22T03:50:13Z · *Deadline:* 2026-04-23T15:50:13Z (36h) · *Scope:* Consumption Surface v2 (31 tasks across 7 phases — rich social share, Buttondown mailing list, agent-friendly surfaces, SEO maximization)
+
+### task-SCAFFOLD — DONE — 2026-04-22T03:50:13Z
+- queue.tsv written with 31 tasks
+- runner-prompt.txt copied from long-run skill template
+- personas copied (4 task-level + 1 run-level)
+- CLAUDE.md fenced block appended
+- CHANGELOG.md fenced block prepended
+- .gitignore runtime patterns appended
+
+<!-- END LONG-RUN: 20260421-225013 -->
+
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
 ## Long run — 20260419-235117
 

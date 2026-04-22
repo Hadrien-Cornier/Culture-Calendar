@@ -52,7 +52,13 @@ node_modules/
 # SQLite sidecars (if any)
 *.sqlite-shm
 *.sqlite-wal
-.long-run/
+.long-run/active.pid
+.long-run/*/events.log
+.long-run/*/task-*.log
+.long-run/*/task-result.json
+.long-run/*/task-judge.log
+.long-run/*/reviews/*.log
+.long-run/*/scorecard.md
 
 # Generated OG cards — regenerated at build time from docs/data.json
 docs/og/*.svg
