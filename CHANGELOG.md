@@ -18,6 +18,11 @@
 - files: config/master_config.yaml, tests/test_venue_addresses.py
 - validation: green
 
+### task-T0.2 — DONE — 2026-04-22T21:42:00Z
+- commit: b7b36cb2698948a3e8a1d68768a78ebdb0de9085
+- files: update_website_data.py
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
