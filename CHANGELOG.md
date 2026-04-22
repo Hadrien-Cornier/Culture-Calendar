@@ -68,6 +68,11 @@
 - files: scripts/build_weekly_digest.py
 - validation: green
 
+### task-T2.6 — DONE — 2026-04-22T05:44:00Z
+- commit: 6701095
+- files: docs/ABOUT.md
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
