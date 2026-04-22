@@ -28,6 +28,11 @@
 - files: scripts/build_config_json.py, docs/config.json, tests/test_build_config_json.py
 - validation: green
 
+### task-T1.1 — DONE — 2026-04-22T04:50:22Z
+- commit: 47ebfa7
+- files: docs/script.js, docs/styles.css
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
