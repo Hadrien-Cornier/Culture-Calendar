@@ -53,6 +53,11 @@
 - files: docs/index.html, docs/script.js, docs/styles.css, .overnight/feature-inventory.json
 - validation: green
 
+### task-T2.3 — DONE — 2026-04-22T05:26:22Z
+- commit: b77c29e
+- files: docs/subscribed.html, docs/unsubscribed.html, docs/styles.css
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
