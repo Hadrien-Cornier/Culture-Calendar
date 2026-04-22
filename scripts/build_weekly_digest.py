@@ -37,6 +37,25 @@ TOP_PICKS_HTTPS = f"{SITE_URL}top-picks.ics"
 RSS_URL = f"{SITE_URL}feed.xml"
 DEFAULT_PICK_LIMIT = 20
 
+# Footer signup form — mirrors the class contract from docs/index.html:33-40
+# so the shared ../styles.css styles it consistently. Digest pages don't load
+# script.js, so the form degrades gracefully to a GET against the main site's
+# #signup-form anchor, where the live JS handler (initSignupForm) takes over.
+SIGNUP_FORM_BLOCK = (
+    '<form class="signup-form" aria-label="Subscribe to the weekly tipsheet" '
+    'action="../#signup-form" method="get" novalidate>'
+    '<label class="signup-form-label" for="weekly-digest-email">'
+    "Get the weekly tipsheet by email"
+    "</label>"
+    '<div class="signup-form-row">'
+    '<input type="email" id="weekly-digest-email" name="email" '
+    'class="signup-form-input" placeholder="you@example.com" '
+    'autocomplete="email" required>'
+    '<button type="submit" class="signup-form-button">Subscribe</button>'
+    "</div>"
+    "</form>"
+)
+
 CATEGORY_LABELS = {
     "movie": "Film",
     "concert": "Concert",
@@ -457,6 +476,7 @@ def render_digest(
         f"{picks_block}\n"
         "</main>\n"
         '<footer class="weekly-footer">\n'
+        f"{SIGNUP_FORM_BLOCK}\n"
         '<p><a href="../">Culture Calendar</a> \u00b7 AI-curated Austin cultural events</p>\n'
         "</footer>\n"
         "</body>\n"
