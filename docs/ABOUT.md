@@ -34,6 +34,12 @@ A rating of 7 or above is the threshold for "worth your evening"; 8+ enters the 
 
 Reviews are written by Anthropic's Claude and Perplexity's Sonar working in sequence: Claude drafts the critical voice and the one-line hook, Sonar supplies factual scaffolding (cast, director, release year, composer dates, premiere context) sourced from Wikipedia, Letterboxd, and publisher metadata for the pilot event set. The tone aims for a working critic's voice — declarative, specific, unafraid of a verdict — rather than press-release prose.
 
+## Mailing list
+
+A weekly digest lands in your inbox every Monday morning with the Top 10 picks for the week ahead. One email per week — no daily blasts, no transactional noise, no cross-promotion. The list is operated on Buttondown's free tier; we store only the email address you provide.
+
+Every issue carries a one-click unsubscribe link in the footer, and you can opt out at any time by visiting the unsubscribe page linked from `/archive.html`. Unsubscribing is immediate and removes your address from the list without follow-up email. The signup form on the masthead is the only place we collect addresses, and we do not share or sell them.
+
 ## Limitations
 
 A few things to keep in mind:
