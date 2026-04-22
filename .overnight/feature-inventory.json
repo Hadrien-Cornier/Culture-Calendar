@@ -208,5 +208,12 @@
     "selector": "sitemap.xml",
     "since_commit": "b6c6a32",
     "smoke_assertion": "contains_text:events/8-1-2.html@/sitemap.xml"
+  },
+  {
+    "id": "masthead-signup-form",
+    "name": "Masthead email signup form (Buttondown endpoint + stub fallback)",
+    "selector": "#signup-form",
+    "since_commit": "task-T2.2",
+    "smoke_assertion": "selector_exists"
   }
 ]

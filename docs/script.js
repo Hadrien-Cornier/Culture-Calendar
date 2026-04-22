@@ -732,6 +732,56 @@
 
   initSearch();
   initMyPicksToggle();
+  initSignupForm();
+
+  /* task-T2.2: Buttondown email signup with stub fallback.
+     Endpoint comes from window.CC_CONFIG.buttondown_endpoint (loaded async
+     from docs/config.json). When unset, the form shows a stub confirmation
+     without POSTing. Submit always fires cc_subscribe_email so we can
+     measure intent independently of whether Buttondown is wired up yet. */
+  function initSignupForm() {
+    var form = document.getElementById("signup-form");
+    if (!form) return;
+    var input = document.getElementById("signup-email");
+    var statusEl = document.getElementById("signup-form-status");
+    if (!input || !statusEl) return;
+
+    function setStatus(msg, kind) {
+      statusEl.textContent = msg;
+      statusEl.className = "signup-form-status" + (kind ? " is-" + kind : "");
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var email = (input.value || "").trim();
+      if (!email || email.indexOf("@") === -1) {
+        setStatus("Please enter a valid email address.", "error");
+        input.focus();
+        return;
+      }
+      try { window.plausible("cc_subscribe_email"); } catch (err) { /* no-op */ }
+      var endpoint = (window.CC_CONFIG && window.CC_CONFIG.buttondown_endpoint) || "";
+      if (!endpoint) {
+        setStatus("Mailing list coming soon — we saved your interest.", "success");
+        form.reset();
+        return;
+      }
+      setStatus("Subscribing…", "pending");
+      var body = new URLSearchParams();
+      body.append("email", email);
+      fetch(endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString()
+      }).then(function () {
+        setStatus("Check your inbox to confirm your subscription.", "success");
+        form.reset();
+      }).catch(function () {
+        setStatus("Subscription failed — please try again later.", "error");
+      });
+    });
+  }
 
   function groupEvents(events) {
     var byTitle = {};

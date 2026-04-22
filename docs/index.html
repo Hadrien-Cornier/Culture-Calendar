@@ -30,6 +30,14 @@
         <a class="subscribe-link" href="webcal://hadrien-cornier.github.io/Culture-Calendar/top-picks.ics" title="Subscribe to top picks only">Top picks (iCal)</a>
         <a class="subscribe-link" href="feed.xml" title="RSS/Atom feed">RSS</a>
       </nav>
+      <form class="signup-form" id="signup-form" aria-label="Subscribe by email" novalidate>
+        <label class="signup-form-label" for="signup-email">Get the weekly tipsheet by email</label>
+        <div class="signup-form-row">
+          <input type="email" id="signup-email" name="email" class="signup-form-input" placeholder="you@example.com" autocomplete="email" required>
+          <button type="submit" class="signup-form-button">Subscribe</button>
+        </div>
+        <div class="signup-form-status" id="signup-form-status" role="status" aria-live="polite"></div>
+      </form>
       <div class="search-wrap">
         <input type="search" id="event-search" placeholder="Search venues, titles, categories…" autocomplete="off" aria-label="Search events" aria-controls="search-suggestions" aria-expanded="false">
         <ul class="search-suggestions" id="search-suggestions" role="listbox" hidden></ul>
