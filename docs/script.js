@@ -253,14 +253,15 @@
       var slug = _slugForShare(rawId);
       var url = slug ? OG_DEFAULT_URL + "events/" + slug + ".html" : OG_DEFAULT_URL;
       var title = (ev && ev.title) || "Culture Calendar pick";
-      var one = (ev && (ev.one_liner_summary || ev.one_liner)) || "";
-      var text = one ? title + " — " + String(one).trim() : title;
+      // task-T1.2: pre-craft shareText from event one_liner hook, fall back to title
+      var oneLiner = (ev && (ev.one_liner_summary || ev.one_liner)) || "";
+      var shareText = oneLiner ? title + " — " + String(oneLiner).trim() : title;
       return {
         title: title,
-        text: text,
+        text: shareText,
         url: url,
         subject: "Culture Calendar: " + title,
-        body: text + "\n\n" + url + "\n"
+        body: shareText + "\n\n" + url + "\n"
       };
     }
 
