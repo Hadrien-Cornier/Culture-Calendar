@@ -136,6 +136,55 @@ def generate_subscribable_feeds(website_data: list) -> None:
         print(f"Warning: build_event_shells failed: {e}")
 
 
+def generate_agent_surfaces(website_data: list) -> None:
+    """Write agent-friendly discovery surfaces for AI crawlers.
+
+    Invokes ``scripts/build_llms_txt.py`` (``docs/llms.txt`` +
+    ``docs/llms-full.txt``), ``scripts/build_api_json.py`` (the five
+    ``docs/api/*.json`` aggregates plus per-event canonical JSON under
+    ``docs/events/<slug>.json``), and ``scripts/build_ai_agent_manifest.py``
+    (``docs/.well-known/ai-agent.json``). Failures are logged but
+    non-fatal — the core site still ships from ``docs/data.json``.
+    """
+    try:
+        build_llms_txt = _load_script_module(
+            "build_llms_txt", "scripts/build_llms_txt.py"
+        )
+        index_bytes, full_bytes = build_llms_txt.write_outputs(website_data)
+        print(
+            f"Wrote docs/llms.txt ({index_bytes} bytes) and "
+            f"docs/llms-full.txt ({full_bytes} bytes)"
+        )
+    except Exception as e:
+        print(f"Warning: build_llms_txt failed: {e}")
+
+    try:
+        build_api_json = _load_script_module(
+            "build_api_json", "scripts/build_api_json.py"
+        )
+        sizes = build_api_json.write_outputs(website_data)
+        per_event_count = build_api_json.write_event_json_files(website_data)
+        summary = ", ".join(f"{name} ({size} bytes)" for name, size in sizes.items())
+        print(f"Wrote docs/api/: {summary}")
+        print(f"Wrote {per_event_count} per-event JSON files to docs/events/")
+    except Exception as e:
+        print(f"Warning: build_api_json failed: {e}")
+
+    try:
+        build_ai_agent_manifest = _load_script_module(
+            "build_ai_agent_manifest", "scripts/build_ai_agent_manifest.py"
+        )
+        manifest = build_ai_agent_manifest.build_manifest()
+        written = build_ai_agent_manifest.write_manifest(manifest)
+        endpoint_count = len(manifest.get("endpoints", []))
+        print(
+            f"Wrote docs/.well-known/ai-agent.json ({written} bytes, "
+            f"{endpoint_count} endpoints)"
+        )
+    except Exception as e:
+        print(f"Warning: build_ai_agent_manifest failed: {e}")
+
+
 def save_update_info(info: dict, path: str = "docs/source_update_times.json") -> None:
     """Save per-source last update times to JSON"""
     try:
@@ -824,6 +873,9 @@ def main(
         if not pilot:
             print("\nBuilding subscribable feeds (ICS + RSS)...")
             generate_subscribable_feeds(website_data)
+
+            print("\nBuilding agent surfaces (llms.txt + API + AI manifest)...")
+            generate_agent_surfaces(website_data)
 
         print("Website update completed successfully!")
 
