@@ -47,6 +47,17 @@ Visit **[hadrien-cornier.github.io/Culture-Calendar](https://hadrien-cornier.git
 🎼 **Music**: Paramount Theater, Austin Symphony, Early Music Austin, La Follia  
 📚 **Books**: Alienated Majesty Books, First Light Austin
 
+## 🤖 For AI agents
+
+Endpoints designed for agents — LLM tools, crawlers, and downstream automations. Culture Calendar publishes several machine-readable surfaces as static files on GitHub Pages; no auth, no rate limits beyond Pages defaults.
+
+- **[`llms.txt`](https://hadrien-cornier.github.io/Culture-Calendar/llms.txt)** — [llmstxt.org](https://llmstxt.org/)-formatted index of every page and feed on the site. Start here.
+- **[`llms-full.txt`](https://hadrien-cornier.github.io/Culture-Calendar/llms-full.txt)** — plain-text dump of the top events with HTML stripped, for reasoning over the corpus without per-event fetches.
+- **[`/api/`](https://hadrien-cornier.github.io/Culture-Calendar/api/)** — JSON aggregates: [`events.json`](https://hadrien-cornier.github.io/Culture-Calendar/api/events.json), [`top-picks.json`](https://hadrien-cornier.github.io/Culture-Calendar/api/top-picks.json), [`venues.json`](https://hadrien-cornier.github.io/Culture-Calendar/api/venues.json), [`people.json`](https://hadrien-cornier.github.io/Culture-Calendar/api/people.json), [`categories.json`](https://hadrien-cornier.github.io/Culture-Calendar/api/categories.json). Per-event JSON at `/events/<slug>.json` mirrors the page-level JSON-LD.
+- **[`.well-known/ai-agent.json`](https://hadrien-cornier.github.io/Culture-Calendar/.well-known/ai-agent.json)** — agent manifest describing every endpoint above plus the feeds. Use as the entry point for automated discovery.
+- **Feeds** — [`feed.xml`](https://hadrien-cornier.github.io/Culture-Calendar/feed.xml) (RSS 2.0 of top picks), [`calendar.ics`](https://hadrien-cornier.github.io/Culture-Calendar/calendar.ics) (all events, iCal), [`top-picks.ics`](https://hadrien-cornier.github.io/Culture-Calendar/top-picks.ics) (top picks only, iCal), [`sitemap.xml`](https://hadrien-cornier.github.io/Culture-Calendar/sitemap.xml).
+- **Crawler policy** — `robots.txt` explicitly allows GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended, Meta-ExternalAgent, and Amazonbot.
+
 ### 🔧 Setup Your Own Instance
 
 1. **Fork & Clone**
