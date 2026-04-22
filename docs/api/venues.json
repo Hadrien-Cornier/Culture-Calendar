@@ -1,0 +1,161 @@
+{
+  "generated_at": "2026-04-22T05:58:28Z",
+  "site_url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "count": 17,
+  "data": [
+    {
+      "slug": "afs",
+      "name": "AFS",
+      "event_count": 54,
+      "categories": [
+        "movie"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/afs.html"
+    },
+    {
+      "slug": "alienatedmajesty",
+      "name": "AlienatedMajesty",
+      "event_count": 14,
+      "categories": [
+        "book_club"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/alienatedmajesty.html"
+    },
+    {
+      "slug": "balletaustin",
+      "name": "BalletAustin",
+      "event_count": 27,
+      "categories": [
+        "concert"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/balletaustin.html"
+    },
+    {
+      "slug": "bee-cave-art-foundation",
+      "name": "Bee Cave Art Foundation",
+      "event_count": 1,
+      "categories": [
+        "visual_arts"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/bee-cave-art-foundation.html"
+    },
+    {
+      "slug": "blanton-museum-of-art-austin",
+      "name": "Blanton Museum of Art, Austin",
+      "event_count": 1,
+      "categories": [
+        "visual_arts"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/blanton-museum-of-art-austin.html"
+    },
+    {
+      "slug": "chamber-music",
+      "name": "Chamber Music",
+      "event_count": 7,
+      "categories": [
+        "concert"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/chamber-music.html"
+    },
+    {
+      "slug": "dougherty-arts-center-austin",
+      "name": "Dougherty Arts Center, Austin",
+      "event_count": 4,
+      "categories": [
+        "visual_arts"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/dougherty-arts-center-austin.html"
+    },
+    {
+      "slug": "earlymusic",
+      "name": "EarlyMusic",
+      "event_count": 8,
+      "categories": [
+        "concert"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/earlymusic.html"
+    },
+    {
+      "slug": "firstlight",
+      "name": "FirstLight",
+      "event_count": 4,
+      "categories": [
+        "book_club"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/firstlight.html"
+    },
+    {
+      "slug": "hyperreal",
+      "name": "Hyperreal",
+      "event_count": 17,
+      "categories": [
+        "movie"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/hyperreal.html"
+    },
+    {
+      "slug": "lafollia",
+      "name": "LaFollia",
+      "event_count": 10,
+      "categories": [
+        "concert"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/lafollia.html"
+    },
+    {
+      "slug": "laura-rathe-fine-art-austin",
+      "name": "Laura Rathe Fine Art, Austin",
+      "event_count": 1,
+      "categories": [
+        "visual_arts"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/laura-rathe-fine-art-austin.html"
+    },
+    {
+      "slug": "newyorkermeetup",
+      "name": "NewYorkerMeetup",
+      "event_count": 2,
+      "categories": [
+        "book_club"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/newyorkermeetup.html"
+    },
+    {
+      "slug": "opera",
+      "name": "Opera",
+      "event_count": 9,
+      "categories": [
+        "opera"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/opera.html"
+    },
+    {
+      "slug": "paramount",
+      "name": "Paramount",
+      "event_count": 55,
+      "categories": [
+        "movie",
+        "other"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/paramount.html"
+    },
+    {
+      "slug": "symphony",
+      "name": "Symphony",
+      "event_count": 14,
+      "categories": [
+        "concert"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/symphony.html"
+    },
+    {
+      "slug": "the-cathedral-austin",
+      "name": "The Cathedral, Austin",
+      "event_count": 1,
+      "categories": [
+        "visual_arts"
+      ],
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/the-cathedral-austin.html"
+    }
+  ]
+}
