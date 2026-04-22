@@ -163,6 +163,11 @@
 - files: docs/PERSONAS.md
 - validation: green
 
+### task-T6.4 — DONE — 2026-04-22T07:37:19Z
+- commit: 2245e24
+- files: STATUS-20260421-225013.md
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
