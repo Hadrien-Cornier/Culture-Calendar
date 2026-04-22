@@ -98,6 +98,11 @@
 - files: scripts/build_ai_agent_manifest.py, docs/.well-known/ai-agent.json, tests/test_build_ai_agent_manifest.py
 - validation: green
 
+### task-T3.6 — DONE — 2026-04-22T06:23:55Z
+- commit: 011a5b5
+- files: docs/api/README.md, docs/api/index.html
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
