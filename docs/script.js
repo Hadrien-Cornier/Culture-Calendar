@@ -67,7 +67,15 @@
      custom events fired before it finishes loading would be dropped.
      This shim queues any early calls on window.plausible.q; the real
      script replays the queue on load. Call sites use the literal
-     plausible("cc_*") form so the analytics event names are greppable. */
+     plausible("cc_*") form so the analytics event names are greppable.
+
+     task-T5.1: Greppable analytics event catalog (regression guard).
+     Per-platform share events (T1.1): cc_share_twitter, cc_share_bluesky,
+     cc_share_threads, cc_share_mastodon, cc_share_linkedin,
+     cc_share_whatsapp, cc_share_sms, cc_share_email, cc_share_copy.
+     Mailing list (T2.2): cc_subscribe_email. All nine platform IDs plus
+     cc_subscribe_email must stay greppable in this file; the T5.1 queue
+     validator asserts both with a plain grep so silent removals fail CI. */
   window.plausible = window.plausible || function () {
     (window.plausible.q = window.plausible.q || []).push(arguments);
   };
