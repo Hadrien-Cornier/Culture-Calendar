@@ -73,6 +73,11 @@
 - files: docs/ABOUT.md
 - validation: green
 
+### task-T3.1 — DONE — 2026-04-22T05:46:31Z
+- commit: dbb19f0
+- files: scripts/build_llms_txt.py, docs/llms.txt, docs/llms-full.txt, tests/test_build_llms_txt.py
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
