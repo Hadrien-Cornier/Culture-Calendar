@@ -23,7 +23,6 @@ import json
 import logging
 import re
 import sys
-import unicodedata
 from dataclasses import dataclass
 from datetime import date, datetime
 from html import escape
@@ -31,6 +30,11 @@ from pathlib import Path
 from typing import Iterable, Optional, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts._slug_util import safe_slug  # noqa: E402
+
 DATA_PATH = REPO_ROOT / "docs" / "data.json"
 OUT_DIR = REPO_ROOT / "docs" / "events"
 SITE_BASE_URL = "https://hadrien-cornier.github.io/Culture-Calendar/"
@@ -55,16 +59,7 @@ class EventShell:
     anchor_url: str
 
 
-def _slugify(value: str) -> str:
-    """Return a URL-safe slug matching the one the site JS uses for anchors."""
-    if not value:
-        return "event"
-    normalised = unicodedata.normalize("NFKD", value)
-    ascii_only = normalised.encode("ascii", "ignore").decode("ascii")
-    ascii_only = ascii_only.lower()
-    ascii_only = re.sub(r"[^a-z0-9]+", "-", ascii_only)
-    ascii_only = ascii_only.strip("-")
-    return ascii_only or "event"
+_slugify = safe_slug  # back-compat alias; uses shared scripts._slug_util.safe_slug
 
 
 def _plain_text(html_or_text: str, *, max_len: int = 260) -> str:

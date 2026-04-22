@@ -14,9 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-import re
 import sys
-import unicodedata
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from email.utils import format_datetime
@@ -25,6 +23,11 @@ from typing import Iterable, Optional, Sequence
 from xml.etree import ElementTree as ET
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts._slug_util import safe_slug  # noqa: E402
+
 DATA_PATH = REPO_ROOT / "docs" / "data.json"
 OUT_FEED = REPO_ROOT / "docs" / "feed.xml"
 
@@ -108,19 +111,7 @@ def _build_anchor(event_id: str) -> str:
     """
     if not event_id:
         return SITE_URL
-    safe = _safe_slug(event_id)
-    return f"{SITE_URL}events/{safe}.html"
-
-
-_SLUG_SAFE = re.compile(r"[^a-z0-9-]+")
-
-
-def _safe_slug(raw: str) -> str:
-    """Lower, ASCII-fold, replace non-alnum with ``-``; mirrors shell builder."""
-    normalised = unicodedata.normalize("NFKD", raw).encode("ascii", "ignore").decode("ascii")
-    normalised = normalised.lower()
-    normalised = _SLUG_SAFE.sub("-", normalised).strip("-")
-    return normalised or "event"
+    return f"{SITE_URL}events/{safe_slug(event_id)}.html"
 
 
 def _to_feed_item(event: dict, *, fallback_pub: datetime) -> Optional[FeedItem]:
