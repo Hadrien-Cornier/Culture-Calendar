@@ -113,6 +113,11 @@
 - files: docs/index.html
 - validation: green
 
+### task-T4.2 — DONE — 2026-04-22T06:38:57Z
+- commit: d48a475
+- files: scripts/build_venue_pages.py, scripts/build_people_pages.py, scripts/build_weekly_digest.py, scripts/build_event_shells.py
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
