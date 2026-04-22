@@ -88,6 +88,11 @@
 - files: scripts/build_api_json.py, tests/test_build_api_json.py, docs/events/*.json (229 per-event canonical JSON files)
 - validation: green
 
+### task-T3.4 — DONE — 2026-04-22T06:13:41Z
+- commit: c19f88a
+- files: docs/robots.txt, scripts/build_robots.py, tests/test_robots_ai_crawlers.py
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
