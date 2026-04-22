@@ -93,6 +93,11 @@
 - files: docs/robots.txt, scripts/build_robots.py, tests/test_robots_ai_crawlers.py
 - validation: green
 
+### task-T3.5 — DONE — 2026-04-22T06:18:51Z
+- commit: de6d1e7
+- files: scripts/build_ai_agent_manifest.py, docs/.well-known/ai-agent.json, tests/test_build_ai_agent_manifest.py
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
