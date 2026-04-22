@@ -84,6 +84,29 @@ from src.config_loader import ConfigLoader
 _REPO_ROOT = Path(__file__).resolve().parent
 
 
+# Map the venue *code* stamped onto events by ``MultiVenueScraper`` (and the
+# recurring-events generator) to the matching key under ``venues:`` in
+# ``config/master_config.yaml``. Added for T0.2 of long-run 20260422-203219 so
+# every event in ``docs/data.json`` can carry ``venue_address`` +
+# ``venue_display_name`` sourced from the single master config.
+_VENUE_CODE_TO_CONFIG_KEY: dict[str, str] = {
+    "AFS": "afs",
+    "Hyperreal": "hyperreal",
+    "Paramount": "paramount",
+    "AlienatedMajesty": "alienated_majesty",
+    "FirstLight": "first_light",
+    "Symphony": "austin_symphony",
+    "Opera": "austin_opera",
+    "Chamber Music": "austin_chamber_music",
+    "EarlyMusic": "early_music_austin",
+    "LaFollia": "la_follia",
+    "BalletAustin": "ballet_austin",
+    "ArtsOnAlexander": "arts_on_alexander",
+    "NowPlayingAustinVisualArts": "now_playing_austin_visual_arts",
+    "LivraBooks": "libra_books",
+}
+
+
 def _load_script_module(module_name: str, relative_path: str):
     """Import a top-level ``scripts/`` module without a package __init__."""
     spec = importlib.util.spec_from_file_location(
@@ -626,6 +649,46 @@ def _merge_companion_events(events: list) -> list:
     return remaining
 
 
+def _lookup_venue_metadata(
+    venue_code: str, venues_config: dict
+) -> tuple[str, str]:
+    """Resolve ``venue_display_name`` and ``venue_address`` for a venue code.
+
+    Events carry short venue codes like ``"AFS"`` or facility names like
+    ``"Blanton Museum of Art, Austin"`` (visual_arts scrapers surface the real
+    host venue instead of the aggregator). We try the explicit code→config-key
+    map first, then fall back to the raw code as the display name. Address
+    defaults to an empty string when no config entry matches so downstream
+    builders can detect the miss.
+    """
+    if not venue_code:
+        return "", ""
+    config_key = _VENUE_CODE_TO_CONFIG_KEY.get(venue_code)
+    if config_key and config_key in venues_config:
+        venue_cfg = venues_config[config_key]
+        return (
+            venue_cfg.get("display_name", venue_code),
+            venue_cfg.get("address", ""),
+        )
+    return venue_code, ""
+
+
+def _enrich_events_with_venue_metadata(events: list, config: ConfigLoader) -> list:
+    """Attach ``venue_address`` + ``venue_display_name`` to every event.
+
+    Non-mutating by iteration: each event dict is updated in place, but the
+    surrounding list is returned unchanged so callers can chain if desired.
+    """
+    venues_config = config.get_config().get("venues", {}) or {}
+    for event in events:
+        display_name, address = _lookup_venue_metadata(
+            event.get("venue", ""), venues_config
+        )
+        event["venue_display_name"] = display_name
+        event["venue_address"] = address
+    return events
+
+
 def generate_website_data(events):
     """Generate JSON data for the website using master_config.yaml templates"""
     print("Generating website data using config-driven approach...")
@@ -680,8 +743,12 @@ def generate_website_data(events):
                     create_screenings_from_arrays(event, date_time_spec)
                 )
 
-    # Finalize and return website data
-    return finalize_website_data(combined_data)
+    # Finalize website data (grouping + sorting), then attach per-venue
+    # address and display_name sourced from ``config/master_config.yaml`` so
+    # downstream builders (event shells, api/venues.json, ICS, cards) can
+    # render street addresses without re-loading the config.
+    finalized = finalize_website_data(combined_data)
+    return _enrich_events_with_venue_metadata(finalized, config)
 
 
 def main(
