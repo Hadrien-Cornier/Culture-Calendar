@@ -241,18 +241,110 @@
     return s || "event";
   }
   var share = (function () {
-    function shareUrl(ev) {
+    /* task-T1.1: Share popover iterates a single PLATFORMS registry so
+       every surface (per-event Share button + weekly-digest button) goes
+       through the same code path. Each platform fires its own Plausible
+       event cc_share_<id> for per-channel attribution; a generic cc_share
+       still fires on initial click for back-compat with T6.3 telemetry. */
+    function enc(s) { return encodeURIComponent(s); }
+
+    function eventShareable(ev) {
       var rawId = (ev && (ev.id || ev.event_id || ev.title)) || "";
       var slug = _slugForShare(rawId);
-      if (slug) return OG_DEFAULT_URL + "events/" + slug + ".html";
-      return OG_DEFAULT_URL;
-    }
-
-    function shareText(ev) {
+      var url = slug ? OG_DEFAULT_URL + "events/" + slug + ".html" : OG_DEFAULT_URL;
       var title = (ev && ev.title) || "Culture Calendar pick";
       var one = (ev && (ev.one_liner_summary || ev.one_liner)) || "";
-      return one ? title + " — " + String(one).trim() : title;
+      var text = one ? title + " — " + String(one).trim() : title;
+      return {
+        title: title,
+        text: text,
+        url: url,
+        subject: "Culture Calendar: " + title,
+        body: text + "\n\n" + url + "\n"
+      };
     }
+
+    function digestShareable(tag, url) {
+      var title = "Austin Culture Calendar — Top Picks (" + tag + ")";
+      var text = "This week’s AI-curated top picks for Austin cultural events";
+      return {
+        title: title,
+        text: text,
+        url: url,
+        subject: title,
+        body: text + ":\n\n" + url + "\n"
+      };
+    }
+
+    var PLATFORMS = [
+      {
+        id: "twitter",
+        label: "🐦 Twitter / X",
+        href: function (s) {
+          return "https://twitter.com/intent/tweet?text="
+            + enc(s.text) + "&url=" + enc(s.url);
+        }
+      },
+      {
+        id: "threads",
+        label: "🧵 Threads",
+        href: function (s) {
+          return "https://www.threads.net/intent/post?text="
+            + enc(s.text + " " + s.url);
+        }
+      },
+      {
+        id: "bluesky",
+        label: "🦋 Bluesky",
+        href: function (s) {
+          return "https://bsky.app/intent/compose?text="
+            + enc(s.text + " " + s.url);
+        }
+      },
+      {
+        id: "mastodon",
+        label: "🐘 Mastodon",
+        href: function (s) {
+          return "https://mastodonshare.com/?text="
+            + enc(s.text) + "&url=" + enc(s.url);
+        }
+      },
+      {
+        id: "linkedin",
+        label: "💼 LinkedIn",
+        href: function (s) {
+          return "https://www.linkedin.com/sharing/share-offsite/?url="
+            + enc(s.url);
+        }
+      },
+      {
+        id: "whatsapp",
+        label: "💬 WhatsApp",
+        href: function (s) {
+          return "https://wa.me/?text=" + enc(s.text + " " + s.url);
+        }
+      },
+      {
+        id: "sms",
+        label: "📱 SMS",
+        href: function (s) { return "sms:?&body=" + enc(s.text + " " + s.url); },
+        sameTab: true
+      },
+      {
+        id: "email",
+        label: "✉ Email",
+        href: function (s) {
+          return "mailto:?subject=" + enc(s.subject)
+            + "&body=" + enc(s.body);
+        },
+        sameTab: true
+      },
+      {
+        id: "copy",
+        label: "📋 Copy link",
+        action: "copy"
+      }
+    ];
 
     function copyToClipboard(text) {
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -280,82 +372,66 @@
       btn._sharePopover = null;
     }
 
-    function flashCopied(btn) {
-      var prev = btn.textContent;
-      btn.textContent = "\u2713 Copied";
-      setTimeout(function () { btn.textContent = prev; }, 1400);
+    function flashCopied(node, label) {
+      node.textContent = "✓ Copied";
+      setTimeout(function () { node.textContent = label; }, 1400);
     }
 
-    function buildPopover(btn, ev) {
+    function trackPlatform(id) {
+      /* Per-platform Plausible events:
+         cc_share_twitter, cc_share_threads, cc_share_bluesky,
+         cc_share_mastodon, cc_share_linkedin, cc_share_whatsapp,
+         cc_share_sms, cc_share_email, cc_share_copy. */
+      try { window.plausible("cc_share_" + id); } catch (e) { /* no-op */ }
+    }
+
+    function buildPopover(btn, shareable) {
       var pop = document.createElement("div");
       pop.className = "share-popover";
       pop.setAttribute("role", "menu");
-      var url = shareUrl(ev);
-      var text = shareText(ev);
-      var subject = "Culture Calendar: " + (ev.title || "This pick");
-      var body = text + "\n\n" + url + "\n";
-      var mailto = "mailto:?subject=" + encodeURIComponent(subject)
-        + "&body=" + encodeURIComponent(body);
-      var twitter = "https://twitter.com/intent/tweet?text="
-        + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
 
-      var mailLink = document.createElement("a");
-      mailLink.className = "share-option";
-      mailLink.setAttribute("role", "menuitem");
-      mailLink.href = mailto;
-      mailLink.rel = "noopener";
-      mailLink.textContent = "\u2709 Email";
-      mailLink.addEventListener("click", function () {
-        setTimeout(function () { closePopover(btn, pop); }, 0);
-      });
-      pop.appendChild(mailLink);
+      PLATFORMS.forEach(function (p) {
+        var node;
+        if (p.action === "copy") {
+          node = document.createElement("button");
+          node.type = "button";
+        } else {
+          node = document.createElement("a");
+          node.href = p.href(shareable);
+          node.rel = p.sameTab ? "noopener" : "noopener noreferrer";
+          if (!p.sameTab) node.target = "_blank";
+        }
+        node.className = "share-option share-option-" + p.id;
+        node.setAttribute("role", "menuitem");
+        node.setAttribute("data-platform", p.id);
+        node.textContent = p.label;
 
-      var twLink = document.createElement("a");
-      twLink.className = "share-option";
-      twLink.setAttribute("role", "menuitem");
-      twLink.href = twitter;
-      twLink.target = "_blank";
-      twLink.rel = "noopener noreferrer";
-      twLink.textContent = "\uD83D\uDC26 Twitter";
-      twLink.addEventListener("click", function () {
-        setTimeout(function () { closePopover(btn, pop); }, 0);
+        if (p.action === "copy") {
+          node.addEventListener("click", function (e) {
+            e.stopPropagation();
+            trackPlatform(p.id);
+            copyToClipboard(shareable.url).then(function () {
+              flashCopied(node, p.label);
+              setTimeout(function () { closePopover(btn, pop); }, 900);
+            }, function () {
+              node.textContent = "✗ Copy failed";
+            });
+          });
+        } else {
+          node.addEventListener("click", function () {
+            trackPlatform(p.id);
+            setTimeout(function () { closePopover(btn, pop); }, 0);
+          });
+        }
+        pop.appendChild(node);
       });
-      pop.appendChild(twLink);
-
-      var copyBtn = document.createElement("button");
-      copyBtn.type = "button";
-      copyBtn.className = "share-option";
-      copyBtn.setAttribute("role", "menuitem");
-      copyBtn.textContent = "\uD83D\uDCCB Copy link";
-      copyBtn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        copyToClipboard(url).then(function () {
-          flashCopied(copyBtn);
-          setTimeout(function () { closePopover(btn, pop); }, 900);
-        }, function () {
-          copyBtn.textContent = "\u2717 Copy failed";
-        });
-      });
-      pop.appendChild(copyBtn);
 
       return pop;
     }
 
-    function shareEvent(btn, ev) {
-      window.plausible("cc_share");
-      var data = {
-        title: ev && ev.title ? ev.title : "Culture Calendar",
-        text: shareText(ev),
-        url: shareUrl(ev)
-      };
-      if (navigator.share) {
-        try {
-          navigator.share(data).catch(function () { /* user cancel */ });
-          return;
-        } catch (e) { /* fall through to popover */ }
-      }
+    function openPopover(btn, shareable) {
       if (btn._sharePopover) { closePopover(btn, btn._sharePopover); return; }
-      var pop = buildPopover(btn, ev);
+      var pop = buildPopover(btn, shareable);
       btn.insertAdjacentElement("afterend", pop);
       btn._sharePopover = pop;
       btn.setAttribute("aria-expanded", "true");
@@ -369,11 +445,28 @@
       }, 0);
     }
 
+    function shareShareable(btn, shareable) {
+      window.plausible("cc_share");
+      if (navigator.share) {
+        try {
+          navigator.share({
+            title: shareable.title,
+            text: shareable.text,
+            url: shareable.url
+          }).catch(function () { /* user cancel */ });
+          return;
+        } catch (e) { /* fall through to popover */ }
+      }
+      openPopover(btn, shareable);
+    }
+
+    function shareEvent(btn, ev) { shareShareable(btn, eventShareable(ev)); }
+
     function createButton(ev) {
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "share-button";
-      btn.textContent = "\u2197 Share";
+      btn.textContent = "↗ Share";
       btn.setAttribute("aria-label", "Share this pick");
       btn.setAttribute("aria-haspopup", "menu");
       btn.setAttribute("aria-expanded", "false");
@@ -384,7 +477,29 @@
       return btn;
     }
 
-    return { createButton: createButton, shareEvent: shareEvent };
+    function createDigestButton(tag, url) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "email-digest-button audio-brief-button share-button";
+      btn.textContent = "✉ Share this digest";
+      btn.setAttribute(
+        "aria-label",
+        "Share this week's digest via email, Twitter, Bluesky, or more"
+      );
+      btn.setAttribute("aria-haspopup", "menu");
+      btn.setAttribute("aria-expanded", "false");
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        shareShareable(btn, digestShareable(tag, url));
+      });
+      return btn;
+    }
+
+    return {
+      createButton: createButton,
+      createDigestButton: createDigestButton,
+      shareEvent: shareEvent
+    };
   })();
 
   /* task-T3.1: Client-side taste graph.
@@ -1366,6 +1481,9 @@
     return utc.getUTCFullYear() + "-W" + ww;
   }
 
+  /* task-T1.1: email-digest button routes through the same share module
+     as per-event share buttons. The class `email-digest-button` is kept
+     for CSS continuity and feature-inventory continuity. */
   function initEmailDigest() {
     var section = document.getElementById("picks");
     if (!section) return;
@@ -1375,22 +1493,8 @@
     var tag = currentIsoWeekTag();
     var digestUrl =
       "https://hadrien-cornier.github.io/Culture-Calendar/weekly/" + tag + ".html";
-    var subject = "Austin Culture Calendar — Top Picks (" + tag + ")";
-    var body =
-      "This week's AI-curated top picks for Austin cultural events:\n\n"
-      + digestUrl + "\n";
-    var mailto = "mailto:?subject=" + encodeURIComponent(subject)
-      + "&body=" + encodeURIComponent(body);
-    var a = document.createElement("a");
-    a.className = "email-digest-button audio-brief-button";
-    a.href = mailto;
-    a.rel = "noopener";
-    a.textContent = "\u2709 Email this digest";
-    a.setAttribute(
-      "aria-label",
-      "Email this week's digest via your default mail app"
-    );
-    heading.insertAdjacentElement("afterend", a);
+    var btn = share.createDigestButton(tag, digestUrl);
+    heading.insertAdjacentElement("afterend", btn);
   }
   initEmailDigest();
 
