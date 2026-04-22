@@ -48,6 +48,11 @@
 - files: docs/script.js
 - validation: green
 
+### task-T2.2 — DONE — 2026-04-22T05:18:49Z
+- commit: 448f4d4
+- files: docs/index.html, docs/script.js, docs/styles.css, .overnight/feature-inventory.json
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
