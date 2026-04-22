@@ -13,6 +13,11 @@
 - CHANGELOG.md fenced block prepended
 - .gitignore v3 runtime patterns appended
 
+### task-T0.1 — DONE — 2026-04-22T20:37:48Z
+- commit: 9ebd4a766f92eeef31e68e7db8a832b8895cd4f2
+- files: config/master_config.yaml, tests/test_venue_addresses.py
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
