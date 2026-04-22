@@ -108,6 +108,11 @@
 - files: update_website_data.py
 - validation: green
 
+### task-T4.1 — DONE — 2026-04-22T06:34:20Z
+- commit: dcee334
+- files: docs/index.html
+- validation: green
+
 <!-- END LONG-RUN: 20260421-225013 -->
 
 <!-- BEGIN LONG-RUN: 20260419-235117 -->
