@@ -38,6 +38,9 @@
   var DATA_URL = (window.location && window.location.hostname || "").indexOf("github.io") !== -1
     ? "/Culture-Calendar/data.json"
     : "data.json";
+  var CONFIG_URL = (window.location && window.location.hostname || "").indexOf("github.io") !== -1
+    ? "/Culture-Calendar/config.json"
+    : "config.json";
   var CATEGORY_LABELS = {
     movie: "Film", film: "Film", concert: "Concert", book_club: "Book Club",
     opera: "Opera", dance: "Dance", ballet: "Ballet", visual_arts: "Visual Arts",
@@ -696,6 +699,22 @@
   })();
   window.cultureCalendar = window.cultureCalendar || {};
   window.cultureCalendar.taste = taste;
+
+  /* task-T2.1: Load docs/config.json into window.CC_CONFIG at init.
+     Config is non-fatal — a missing or malformed config.json leaves
+     CC_CONFIG as an empty object so downstream consumers (e.g. the
+     Buttondown signup endpoint in T2.2) can safely read optional keys
+     and fall back when they're unset. */
+  window.CC_CONFIG = window.CC_CONFIG || {};
+  fetch(CONFIG_URL)
+    .then(function (r) { return r.ok ? r.json() : {}; })
+    .then(function (cfg) {
+      window.CC_CONFIG = (cfg && typeof cfg === "object") ? cfg : {};
+      if (typeof document.dispatchEvent === "function" && typeof CustomEvent === "function") {
+        document.dispatchEvent(new CustomEvent("cc:config-loaded", { detail: window.CC_CONFIG }));
+      }
+    })
+    .catch(function () { /* no-op: CC_CONFIG stays {} */ });
 
   fetch(DATA_URL)
     .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
