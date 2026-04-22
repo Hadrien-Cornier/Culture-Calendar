@@ -350,3 +350,24 @@ class ConfigLoader:
             Dictionary mapping field names to default values
         """
         return self._config.get("field_defaults", {})
+
+    def get_distribution_config(self) -> Dict[str, Any]:
+        """
+        Get distribution configuration (mailing list, outbound feeds).
+
+        Returns:
+            Distribution configuration dictionary. Empty dict if not set.
+        """
+        return self._config.get("distribution", {})
+
+    def get_buttondown_endpoint(self) -> str:
+        """
+        Get Buttondown mailing-list endpoint URL.
+
+        Empty string means the feature is disabled — the UI should render
+        a "Coming soon" stub and no network POST should be attempted.
+
+        Returns:
+            Endpoint URL as a string (may be empty).
+        """
+        return self.get_distribution_config().get("buttondown_endpoint", "")

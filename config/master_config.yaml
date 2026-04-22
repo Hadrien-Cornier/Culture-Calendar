@@ -508,6 +508,12 @@ field_defaults:
   venue: ""
   review_confidence: "unknown"
 
+distribution:
+  # Buttondown mailing-list endpoint (free tier, user-provided).
+  # Empty string = feature disabled; UI renders a "Coming soon" stub
+  # and no POST is attempted. See CLAUDE.md long-run 20260421-225013.
+  buttondown_endpoint: ""
+
 venues:
   afs:
     display_name: Austin Film Society
