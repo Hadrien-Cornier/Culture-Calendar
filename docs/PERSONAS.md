@@ -13,40 +13,86 @@ Mode: **llm (Anthropic critique per persona)**. Personas evaluated: 6.
 | review-reader | PASS | 0 |
 | search-user | PASS | 0 |
 
+## LLM verdicts
+
+| Persona | Verdict | Findings |
+|---|---|---|
+| comprehensiveness-user | PASS | 1 |
+| continuity-user | FAIL | 3 |
+| logistics-user | FAIL | 3 |
+| mobile-user | FAIL | 5 |
+| review-reader | FAIL | 4 |
+| search-user | FAIL | 1 |
+
 ## Qualitative critique
 
 ### comprehensiveness-user
 
-FAIL
+**Verdict:** PASS
 
-The page renders raw JSON in a browser `<pre>` tag with zero UI — no filtering by venue, category, or date. As the comprehensiveness-user, I cannot assess whether enough Austin venues in my preferred category (e.g., classical/chamber music) are covered because there is no way to group, filter, or count distinct venues; I can only scroll through undifferentiated JSON. From the visible data, every event appears tied to a single venue ("LaFollia"), suggesting either severe coverage gaps or missing venue diversity. There is no search, no venue index, and no category facet to validate breadth. The one fix I'd ship first: build a minimal rendered UI with a venue-grouped or category-filtered list view so users can instantly see how many distinct Austin venues are represented per event type.
+Category coverage is discoverable through multiple visible UI surfaces: the search bar explicitly invites "Search venues, titles, categories…" as placeholder text, and every event card subtitle displays a category label inline (e.g., "AFS · Film · Apr 27" and "FirstLight · Book Club · Apr 27"). The meta description also enumerates categories ("Films, concerts, opera, ballet, and literary events"). No dedicated filter strip is needed given these affordances. One minor gap: the search suggestions dropdown is hidden until interaction, so passive browsing users may not realize category filtering is possible without typing.
+
+| Code | Severity | Evidence | Suggested fix |
+|---|---|---|---|
+| `SEARCH_CATEGORY_SUGGESTIONS_LATENT` | low | <ul class="search-suggestions" id="search-suggestions" role="listbox" hidden=""></ul> | Pre-populate or display a static list of available categories (Film, Book Club, Concert, etc.) below the search bar on page load so users discover category scope without needing to type first. |
 
 ### continuity-user
 
-FAIL
+**Verdict:** FAIL
 
-No date-range filter or "browse by week/month" navigation is visible — only a static "Top Picks of the Week" list and a search bar. As a continuity-user tracking silent feature removals across redesigns, I cannot verify whether a previously existing calendar view, category filter strip, or date picker was quietly dropped in this v12i iteration, because no such controls are present or even hinted at in the DOM. The title version tag ("v12i · Dropdown Collapse") suggests active UI churn, making silent removals highly probable. The one concrete fix I'd ship first: restore a visible date/category filter toolbar above the picks list, and add a changelog or version diff link in the footer so continuity-users can audit what changed between redesigns.
+The masthead subtitle (.masthead-subtitle), search bar (#event-search), top-picks list (.picks-list .event-card), event one-liners (.event-oneliner), expandable review panels (.event-panel), TTS read-aloud button (.tts-button) after expand, and top-picks click-to-expand are all confirmed present in the DOM. However, the About section (.about-section), the date/time on listing card headers (.listings .event-card .event-when), and the 'Pending more research' section (.needs-research-section) are not visible in the screenshot or the provided DOM snippet, which only shows the masthead and top-picks section. These three features cannot be confirmed present from the available evidence.
+
+| Code | Severity | Evidence | Suggested fix |
+|---|---|---|---|
+| `ABOUT_SECTION_MISSING` | high | No element matching .about-section found in the provided DOM snippet or screenshot. | Ensure the .about-section element is rendered in the page body, below the listings or in its documented position. |
+| `LISTINGS_EVENT_WHEN_MISSING` | high | No .listings .event-card .event-when elements found in the DOM snippet; the listings section itself is absent from the visible DOM. | Confirm the .listings section with .event-when date/time spans is present and rendered below the top-picks section. |
+| `NEEDS_RESEARCH_SECTION_MISSING` | medium | No element matching .needs-research-section found in the provided DOM snippet or screenshot. | Ensure the .needs-research-section element is rendered in the page, typically at the bottom of the listings. |
 
 ### logistics-user
 
-PASS
+**Verdict:** FAIL
 
-The listing rows surface venue abbreviation, category, date, and time inline (e.g., "AFS · Film · Apr 19 · 1:00 PM") without requiring any click, which satisfies my core logistics need. However, the venue is shown only as a cryptic abbreviation ("AFS," "FirstLight," "NewYorkerMeetup") with no street address visible at the list level—I still don't know *where* to physically go without clicking through. The expand arrow suggests full details are hidden behind interaction, meaning the address is likely buried in the collapsed panel. The one fix I'd ship first: add a human-readable street address (or at minimum a neighborhood) directly in the subtitle line alongside the time, so the full logistics picture—when AND where—is scannable without any click.
+As a logistics-user, I need to see when and where an event is at a glance — without clicking anything. The event cards do show date and time in the subtitle line (e.g., "AFS · Film · Apr 27 · 7:00 PM"), which is helpful. However, the venue is only shown as a short name abbreviation ("AFS," "FirstLight," "AlienatedMajesty") with no physical address visible anywhere on the page. The full venue address is hidden behind a click to a separate venue page, which directly blocks my user story. Additionally, the expand indicator (▶) is not clearly labeled as a toggle, and the collapsed state hides any additional location detail that might exist.
+
+| Code | Severity | Evidence | Suggested fix |
+|---|---|---|---|
+| `VENUE_ADDRESS_MISSING` | critical | Event subtitle shows 'AFS · Film · Apr 27 · 7:00 PM' — venue name only, no street address. Full address requires clicking 'AFS →' cross-link to a separate venue page. | Inline the venue street address directly in the event subtitle or a visible secondary line on the card, e.g., 'AFS · 6259 Middle Fiskville Rd · Apr 27 · 7:00 PM'. |
+| `VENUE_NAME_ABBREVIATED` | high | Venue identifiers 'AFS', 'FirstLight', 'AlienatedMajesty' are opaque abbreviations/brand names that do not communicate a physical location to a first-time user. | Expand venue name to full human-readable form (e.g., 'Austin Film Society Cinema') alongside or instead of the abbreviation. |
+| `EXPAND_AFFORDANCE_UNLABELED` | medium | <span class="expand-indicator" aria-hidden="true">▶</span> — the expand triangle is aria-hidden and has no visible label indicating it reveals location/detail. | Add a visible tooltip or label such as 'Details' next to the ▶ indicator, and expose it to assistive technology so users know clicking reveals more logistics info. |
 
 ### mobile-user
 
-FAIL
+**Verdict:** FAIL
 
-The layout holds structurally at 375px, but the second event card's title ("THE NEW YORKER WEEKLY SHORT STORY CLUB (FREE COPIES, FIRST HOUR FOR READING) - THIS WEEK'S STORY") is extremely long and renders as a massive all-caps block consuming nearly the entire viewport height, making scanning the list exhausting and disorienting. The expand indicator (▶) gets pushed far right but remains tappable, which is acceptable. However, the oversized masthead ("CULTURE CALENDAR" in giant stacked letters) burns ~200px before any content appears, requiring immediate scrolling on arrival. The search bar is adequately sized for thumb input. The one fix I'd ship first: truncate event titles to 2 lines with `overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical` — this alone would make the card list scannable and prevent the viewport-dominating title block that breaks the browse-and-tap user story.
+The page has a proper viewport meta tag and the overall layout doesn't catastrophically break at 375px, but several friction points hurt the mobile experience. The header nav links (Subscribe, Top Picks, RSS) are crammed into a single line with small tap targets, risking mis-taps. Long event titles like "BREVITY BOOK CLUB - BLOODCHILD AND OTHER STORIES" overflow their column and push the expand indicator (▶) off-screen or into an awkward position. The "Email this digest" and "Play brief" buttons appear inline without enough spacing, making them hard to tap accurately on a small screen.
+
+| Code | Severity | Evidence | Suggested fix |
+|---|---|---|---|
+| `NAV_LINKS_CRAMPED_MOBILE` | high | <nav class="subscribe-links">…Subscribe (iCal)…Top picks (iCal)…RSS…</nav> — three links on one line at 375px with no wrapping or padding separation | Add flex-wrap: wrap and increase padding/gap on .subscribe-links so each link has a minimum 44px tap target and wraps gracefully on narrow screens. |
+| `TITLE_OVERFLOW_MOBILE` | high | <div class="event-title-text">Brevity Book Club - Bloodchild and Other Stories</div> — long title inside a constrained flex column alongside rating badge and expand indicator at 375px | Allow .event-title-text to use word-break: break-word and ensure the flex row wraps or the title column has overflow: hidden with ellipsis as a fallback. |
+| `EXPAND_INDICATOR_OBSCURED` | medium | <span class="expand-indicator" aria-hidden="true">▶</span> — placed at end of flex row; on long-title cards at 375px the indicator is pushed to the edge or overlaps title text | Give .expand-indicator a fixed min-width (e.g. 32px) and flex-shrink: 0 so it never gets squeezed or hidden behind title text. |
+| `ACTION_BUTTONS_SMALL_TAP_TARGET` | medium | <a class="email-digest-button audio-brief-button" …>✉ Email this digest</a><button … class="tts-button">▶ Play brief</button> — two inline buttons with insufficient spacing between them | Set a minimum height of 44px and add margin-right: 12px between the two buttons, or stack them vertically on screens narrower than 400px. |
+| `SEARCH_INPUT_EDGE_BLEED` | low | <input type="search" … placeholder="Search venues, titles, categories…"> — input appears to span nearly full width but placeholder text may be clipped without visible right padding | Add padding-right: 12px to the search input so placeholder text doesn't bleed into the border on 375px screens. |
 
 ### review-reader
 
-FAIL
+**Verdict:** FAIL
 
-The core user story — deciding whether to attend a top pick — is partially served but blocked by a critical interaction gap. The rich review content (artistic merit, originality, cultural significance) is hidden behind a collapse/expand interaction with no visible affordance; the expand indicator (▶) is easy to miss and not labeled "click to expand," so a casual visitor may never discover the decision-critical information exists. The rating scores and one-liner are visible, which helps, but the AI-curated reviews that differentiate this site are buried. Additionally, there's no venue address, ticket link, or price visible in the collapsed state — key attend/skip signals. The #1 fix to ship first: make the event panel default to **open** for the top-ranked pick (rank 1), or add a clearly labeled "Read review ↓" text link beneath the subtitle so the review content is immediately discoverable without requiring users to guess that the row is interactive.
+The site surfaces strong AI-curated reviews and ratings, which helps me evaluate whether a top pick is worth attending. However, the critical decision-making information — venue address and ticket/RSVP link — is buried behind an expand interaction whose affordance (a small ▶ triangle) is easy to miss and unlabeled for sighted users. The expand indicator is marked `aria-hidden="true"`, giving no visual cue that the card is interactive. Without quickly seeing where the event is and how to get a ticket, I cannot complete my user story of deciding whether to attend.
+
+| Code | Severity | Evidence | Suggested fix |
+|---|---|---|---|
+| `EXPAND_AFFORDANCE_UNLABELED` | high | <span class="expand-indicator" aria-hidden="true">▶</span> | Replace aria-hidden with a visible label such as 'Expand details' and style the entire event-header row as a clearly clickable card with a hover/focus outline so users know it is interactive. |
+| `VENUE_ADDRESS_MISSING` | high | <div class="event-subtitle">AFS · Film · Apr 27 · 7:00 PM</div> | Display the full venue street address (or a map link) inline in the subtitle or expanded panel so attendees can immediately assess travel logistics without navigating to a separate venue page. |
+| `TICKET_LINK_NOT_SURFACED` | critical | No 'Buy tickets' or 'RSVP' CTA is visible in the collapsed card; the only outbound link is the title anchor which goes to the AFS screening page. | Add a prominent 'Get Tickets →' button inside the expanded panel (or on the card face) that deep-links directly to the ticketing or registration page. |
+| `ONELINER_TRUNCATED` | medium | <p class="event-oneliner">Fellini's masterpiece follows a blocked director's surreal descent through dreams, desire, and cr...</p> | Show the full one-liner sentence on the card face without truncation so readers can make an attend/skip decision before expanding. |
 
 ### search-user
 
-FAIL
+**Verdict:** FAIL
 
-The search bar exists but there are no visible filter controls (category chips, date picker, venue dropdown) to narrow results without typing. As a search-user, I must already know exact titles or keywords — if I want "jazz concerts this weekend" or "book clubs on Sunday," the freeform search offers no guided filtering path, and autocomplete suggestions are hidden until I type. There's also no indication of how many total events exist, so I can't judge whether scrolling is avoidable. The one concrete fix I'd ship first: **add a persistent row of clickable category/date filter chips** (e.g., Film | Music | Book Club | This Weekend | Free) directly below the search bar, so I can tap one and instantly see a filtered list without typing anything.
+The search bar (#event-search) is prominently placed below the masthead with a clear placeholder "Search venues, titles, categories…" and is reachable immediately on page load — good. However, the grouped autocomplete suggestion list (`#search-suggestions`) is present in the DOM but rendered `hidden` with no visible JavaScript wiring evidence in the truncated HTML to confirm it actually populates with grouped venue/title/category suggestions on keystroke. Without confirmed autocomplete firing, the core user story — filter to one specific event fast via grouped suggestions — cannot be verified as working end-to-end, making this a blocking defect.
+
+| Code | Severity | Evidence | Suggested fix |
+|---|---|---|---|
+| `AUTOCOMPLETE_SUGGESTIONS_NOT_CONFIRMED_ACTIVE` | critical | <ul class="search-suggestions" id="search-suggestions" role="listbox" hidden=""></ul> | Ensure the search JS populates #search-suggestions with grouped optgroups (Venues / Titles / Categories) on every keystroke and removes the `hidden` attribute when results exist; add at least one visible suggestion in the DOM on first render or via a smoke test. |
