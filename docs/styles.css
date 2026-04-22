@@ -908,3 +908,48 @@ body {
     margin-right: 12px;
   }
 }
+
+/* task-T2.3: subscribed / unsubscribed landing pages */
+.landing-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+}
+.landing-message {
+  text-align: center;
+}
+.landing-heading {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+}
+.landing-lead {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+.landing-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 24px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.landing-link {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1px;
+}
+.landing-link:hover,
+.landing-link:focus {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
