@@ -40,7 +40,7 @@ except ImportError:  # pragma: no cover — dotenv is a project dep
 load_dotenv()
 
 MAX_LLM_CALLS = 6
-DOM_SNIPPET_MAX_BYTES = 10_000
+DOM_SNIPPET_MAX_BYTES = 40_000
 
 
 def _bedrock_mode() -> bool:
@@ -387,7 +387,7 @@ async def _async_capture(
         wait_ms = spec.get("wait_ms")
         if wait_ms:
             await asyncio.sleep(wait_ms / 1000.0)
-        shot_bytes = await page.screenshot({"type": "png", "fullPage": False})
+        shot_bytes = await page.screenshot({"type": "png", "fullPage": True})
         html = await page.content()
         snippet = html[:DOM_SNIPPET_MAX_BYTES]
         b64 = base64.b64encode(shot_bytes).decode("ascii")
@@ -408,7 +408,7 @@ def run_shared_page_capture(
     spec: dict[str, Any],
     launch: Callable[..., Awaitable[Any]] | None = None,
     *,
-    full_page: bool = False,
+    full_page: bool = True,
     dom_max_bytes: int = DOM_SNIPPET_MAX_BYTES,
 ) -> tuple[bool, int, str, str, str, str]:
     """Run asserts + capture screenshot/DOM from the same pyppeteer page.
@@ -420,6 +420,10 @@ def run_shared_page_capture(
     This is the shared-page entry point: one ``browser.newPage`` + one
     ``page.goto`` per persona, asserts evaluated against the same DOM that
     feeds the screenshot. No second navigation before screenshot capture.
+
+    ``full_page`` defaults to ``True`` here so the LLM sees below-the-fold
+    content — personas otherwise flag already-implemented features as
+    missing just because they're scrolled out of the default viewport.
     """
     cls = _load_check_live_site_module()
     failures, shot_b64, dom_html = asyncio.run(
