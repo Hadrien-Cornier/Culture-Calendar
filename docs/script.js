@@ -1796,6 +1796,17 @@
     }
     var pickCrossLinks = buildCrossLinks(ev);
     if (pickCrossLinks) panel.appendChild(pickCrossLinks);
+    if (ev.url) {
+      var pickTicket = document.createElement("a");
+      pickTicket.className = "event-ticket-link";
+      pickTicket.href = ev.url;
+      pickTicket.target = "_blank";
+      pickTicket.rel = "noopener";
+      pickTicket.textContent = "Get Tickets →";
+      pickTicket.setAttribute("aria-label", "Get Tickets for " + ev.title);
+      pickTicket.addEventListener("click", function (e) { e.stopPropagation(); });
+      panel.appendChild(pickTicket);
+    }
     var pickActions = document.createElement("div");
     pickActions.className = "event-actions";
     var pickThumbs = taste.createControls(ev);
@@ -1939,6 +1950,17 @@
     }
     var listingCrossLinks = buildCrossLinks(ev);
     if (listingCrossLinks) panel.appendChild(listingCrossLinks);
+    if (ev.url) {
+      var listingTicket = document.createElement("a");
+      listingTicket.className = "event-ticket-link";
+      listingTicket.href = ev.url;
+      listingTicket.target = "_blank";
+      listingTicket.rel = "noopener";
+      listingTicket.textContent = "Get Tickets →";
+      listingTicket.setAttribute("aria-label", "Get Tickets for " + ev.title);
+      listingTicket.addEventListener("click", function (e) { e.stopPropagation(); });
+      panel.appendChild(listingTicket);
+    }
     var listingActions = document.createElement("div");
     listingActions.className = "event-actions";
     var listingThumbs = taste.createControls(ev);
