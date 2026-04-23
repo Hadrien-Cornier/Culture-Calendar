@@ -97,6 +97,11 @@
 - files: docs/styles.css
 - validation: green
 
+### task-T1.5 — DONE — 2026-04-23T15:36:01Z
+- commit: 6df2b2ddfc0250e9be7bc273fe4d63d988145f2c
+- files: .overnight/feature-inventory.json
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
