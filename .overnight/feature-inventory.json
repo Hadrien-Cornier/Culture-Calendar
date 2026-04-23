@@ -390,5 +390,26 @@
     "selector": "docs/events/*.ics",
     "since_commit": "task-T1.1",
     "smoke_assertion": "selector_exists@/events/8-1-2.ics"
+  },
+  {
+    "id": "event-jsonld-address",
+    "name": "Per-event JSON-LD location.address enriched with streetAddress and postalCode",
+    "selector": "script[type=\"application/ld+json\"]",
+    "since_commit": "task-T0.4",
+    "smoke_assertion": "contains_text:streetAddress@/events/8-1-2.html"
+  },
+  {
+    "id": "oneliner-2line-clamp",
+    "name": "Two-line clamp on event-oneliner card face (full text revealed in expanded panel)",
+    "selector": ".event-oneliner",
+    "since_commit": "task-T3.4",
+    "smoke_assertion": "contains_text:-webkit-line-clamp: 2@/styles.css"
+  },
+  {
+    "id": "mobile-hardening-320",
+    "name": "Mobile hardening suite: subscribe-links wrap, title word-break, expand-indicator min-width, 320px breakpoint, search padding",
+    "selector": "docs/styles.css",
+    "since_commit": "task-T4.1",
+    "smoke_assertion": "contains_text:max-width: 320px@/styles.css"
   }
 ]
