@@ -606,21 +606,294 @@ def call_anthropic_critique(
     return _parse_critique_payload(payload)
 
 
-def _default_anthropic_client_factory() -> Any:  # pragma: no cover
-    import anthropic
+@dataclass(frozen=True)
+class _ShimUsage:
+    """Mirror of ``anthropic.types.Usage`` used by the subprocess shim."""
 
-    if _bedrock_mode():
-        # AnthropicBedrock relies on the AWS SDK's default credential chain
-        # (env vars, ~/.aws/credentials, IAM role). We don't surface a
-        # pre-flight check here so operators can use any AWS auth flavor.
-        bedrock_cls = getattr(anthropic, "AnthropicBedrock", None)
-        if bedrock_cls is None:
-            raise RuntimeError(
-                "anthropic.AnthropicBedrock not available; upgrade the "
-                "anthropic SDK or unset CLAUDE_CODE_USE_BEDROCK."
+    input_tokens: int
+    output_tokens: int
+
+
+@dataclass(frozen=True)
+class _ShimContentBlock:
+    """Mirror of an Anthropic tool_use content block used by the shim."""
+
+    type: str
+    name: str
+    input: dict[str, Any]
+
+
+@dataclass(frozen=True)
+class _ShimResponse:
+    """Mirror of ``anthropic.types.Message`` carrying a single tool_use block.
+
+    The surrounding code reads ``.content`` (iterable of blocks) and ``.usage``
+    (``.input_tokens`` / ``.output_tokens``). Nothing else is inspected, so a
+    frozen dataclass with those attributes is a sufficient stand-in.
+    """
+
+    content: tuple[_ShimContentBlock, ...]
+    usage: _ShimUsage
+
+
+class _ClaudeCodeSubprocessClient:
+    """Presents ``client.messages.create(**kwargs)`` via ``claude -p``.
+
+    Background: under ``CLAUDE_CODE_USE_BEDROCK=1`` the Anthropic Python SDK's
+    ``AnthropicBedrock`` class requires boto3-resolvable AWS IAM credentials
+    (access key + secret). Operators using ``AWS_BEARER_TOKEN_BEDROCK`` (the
+    Claude CLI auth shortcut) have no such credentials available, so the SDK
+    path fails with ``RuntimeError: could not resolve credentials from
+    session``. The ``claude -p`` CLI already honors whatever Bedrock auth the
+    user has wired up (bearer token, IAM, profile) — shelling out to it gives
+    us a single Bedrock auth surface for both the long-runner council and the
+    persona harness.
+
+    Tool-use is faked: the schema + requested payload shape is placed in the
+    prompt, the CLI is asked to reply with a single JSON object, and the text
+    response is parsed into a synthetic ``tool_use`` content block so the rest
+    of :func:`call_anthropic_critique` sees the same return shape as the SDK.
+    """
+
+    def __init__(
+        self,
+        *,
+        claude_cmd: str = "claude",
+        timeout_s: int = 240,
+        scratch_dir: Path | None = None,
+    ) -> None:
+        self._claude_cmd = claude_cmd
+        self._timeout_s = timeout_s
+        self._scratch_dir = scratch_dir
+
+        class _Messages:
+            def __init__(self, outer: "_ClaudeCodeSubprocessClient") -> None:
+                self._outer = outer
+
+            def create(self, **kwargs: Any) -> _ShimResponse:
+                return self._outer._create(**kwargs)
+
+        self.messages = _Messages(self)
+
+    def _create(self, **kwargs: Any) -> _ShimResponse:
+        model = kwargs.get("model") or DEFAULT_MODEL
+        messages = kwargs.get("messages") or []
+        system_prompt = (kwargs.get("system") or "").strip()
+        tools = kwargs.get("tools") or []
+
+        if len(messages) != 1 or messages[0].get("role") != "user":
+            raise ValueError(
+                "_ClaudeCodeSubprocessClient expects exactly one user message; "
+                f"got {len(messages)} messages"
             )
-        return bedrock_cls()
+        user_content = messages[0].get("content") or []
+        if not isinstance(user_content, list):
+            raise ValueError("user message content must be a list of blocks")
 
+        tool_schema_text = self._render_tool_schema(tools)
+        screenshot_path = self._extract_screenshot(user_content)
+        user_text, dom_text = self._extract_text_blocks(user_content)
+
+        prompt = self._build_prompt(
+            system_prompt=system_prompt,
+            tool_schema_text=tool_schema_text,
+            screenshot_path=screenshot_path,
+            user_text=user_text,
+            dom_text=dom_text,
+        )
+
+        cmd = [
+            self._claude_cmd,
+            "--dangerously-skip-permissions",
+            "-p",
+            "--model",
+            model,
+            "--output-format",
+            "json",
+        ]
+        try:
+            proc = subprocess.run(
+                cmd,
+                input=prompt,
+                capture_output=True,
+                text=True,
+                timeout=self._timeout_s,
+                check=False,
+            )
+        except FileNotFoundError as exc:
+            raise RuntimeError(
+                f"{self._claude_cmd!r} CLI not on PATH; required for "
+                "subprocess-based persona critique"
+            ) from exc
+        except subprocess.TimeoutExpired as exc:
+            raise RuntimeError(
+                f"claude -p subprocess timed out after {self._timeout_s}s"
+            ) from exc
+
+        if proc.returncode != 0:
+            raise RuntimeError(
+                f"claude -p exited {proc.returncode}: "
+                f"{(proc.stderr or proc.stdout)[:500]}"
+            )
+
+        envelope = self._parse_cli_envelope(proc.stdout)
+        text_result = envelope.get("result") or ""
+        payload = self._parse_critique_text(text_result)
+
+        usage_raw = envelope.get("usage") or {}
+        usage = _ShimUsage(
+            input_tokens=int(usage_raw.get("input_tokens") or 0),
+            output_tokens=int(usage_raw.get("output_tokens") or 0),
+        )
+        tool_name = (
+            tools[0].get("name") if tools else PERSONA_CRITIQUE_TOOL["name"]
+        )
+        block = _ShimContentBlock(type="tool_use", name=tool_name, input=payload)
+        return _ShimResponse(content=(block,), usage=usage)
+
+    @staticmethod
+    def _render_tool_schema(tools: list[dict[str, Any]]) -> str:
+        if not tools:
+            return ""
+        # Every caller passes the PERSONA_CRITIQUE_TOOL schema; render its
+        # input_schema as pretty JSON so the CLI can mirror it.
+        tool = tools[0]
+        schema = tool.get("input_schema") or {}
+        return json.dumps(schema, indent=2)
+
+    def _extract_screenshot(
+        self, user_content: list[dict[str, Any]]
+    ) -> Path | None:
+        """Write the first image block to a temp PNG file; return the path.
+
+        Returns ``None`` when the content has no image block. The Claude CLI
+        has Read access via ``--dangerously-skip-permissions`` and can open
+        the PNG when the prompt references the absolute path.
+        """
+        for block in user_content:
+            if not isinstance(block, dict):
+                continue
+            if block.get("type") != "image":
+                continue
+            source = block.get("source") or {}
+            if source.get("type") != "base64":
+                continue
+            b64 = source.get("data") or ""
+            if not b64:
+                continue
+            scratch = self._scratch_dir or Path(".long-run/_shim")
+            scratch.mkdir(parents=True, exist_ok=True)
+            path = scratch / f"screenshot-{uuid.uuid4().hex}.png"
+            path.write_bytes(base64.b64decode(b64))
+            return path.resolve()
+        return None
+
+    @staticmethod
+    def _extract_text_blocks(
+        user_content: list[dict[str, Any]],
+    ) -> tuple[str, str]:
+        """Return ``(user_text, dom_text)`` — the two text blocks we recognize.
+
+        :func:`build_anthropic_messages` always emits ``(image, user_text,
+        dom_text?)`` in that order; we preserve the split so the prompt can
+        label them to help the CLI model.
+        """
+        texts: list[str] = []
+        for block in user_content:
+            if isinstance(block, dict) and block.get("type") == "text":
+                texts.append(block.get("text") or "")
+        if not texts:
+            return "", ""
+        if len(texts) == 1:
+            return texts[0], ""
+        return texts[0], "\n\n".join(texts[1:])
+
+    @staticmethod
+    def _build_prompt(
+        *,
+        system_prompt: str,
+        tool_schema_text: str,
+        screenshot_path: Path | None,
+        user_text: str,
+        dom_text: str,
+    ) -> str:
+        parts: list[str] = []
+        if system_prompt:
+            parts.append(f"# Persona\n\n{system_prompt}")
+        if screenshot_path is not None:
+            parts.append(
+                "# Screenshot\n\n"
+                f"Read the PNG at `{screenshot_path}` "
+                "using the Read tool before scoring."
+            )
+        parts.append(f"# Task\n\n{user_text}")
+        if dom_text:
+            parts.append(dom_text)
+        if tool_schema_text:
+            parts.append(
+                "# Response format\n\n"
+                "Respond with a single JSON object matching this schema. "
+                "Emit NOTHING else — no prose, no markdown code fences, no "
+                "commentary before or after. The orchestrator parses your "
+                "response with `json.loads` and will reject any non-JSON output.\n\n"
+                f"```json\n{tool_schema_text}\n```"
+            )
+        return "\n\n".join(parts)
+
+    @staticmethod
+    def _parse_cli_envelope(stdout: str) -> dict[str, Any]:
+        stdout = stdout.strip()
+        if not stdout:
+            raise RuntimeError("claude -p returned empty stdout")
+        # ``--output-format json`` always emits one JSON object on stdout.
+        try:
+            return json.loads(stdout)
+        except json.JSONDecodeError:
+            # Some CLI versions stream NDJSON; take the last line.
+            last = stdout.splitlines()[-1]
+            return json.loads(last)
+
+    @staticmethod
+    def _parse_critique_text(text: str) -> dict[str, Any]:
+        """Parse a JSON critique payload from the CLI's response text.
+
+        Tolerates leading/trailing whitespace and accidental ```json fences
+        — the model is instructed not to add them, but we defend against it.
+        """
+        stripped = text.strip()
+        if stripped.startswith("```"):
+            # Strip an optional code-fence wrapper.
+            lines = stripped.splitlines()
+            if lines[0].startswith("```"):
+                lines = lines[1:]
+            if lines and lines[-1].strip() == "```":
+                lines = lines[:-1]
+            stripped = "\n".join(lines).strip()
+        try:
+            return json.loads(stripped)
+        except json.JSONDecodeError:
+            # Fallback: extract the first balanced JSON object in the text.
+            start = stripped.find("{")
+            end = stripped.rfind("}")
+            if 0 <= start < end:
+                return json.loads(stripped[start : end + 1])
+            raise
+
+
+def _default_anthropic_client_factory() -> Any:  # pragma: no cover
+    """Build the default LLM transport.
+
+    Under ``CLAUDE_CODE_USE_BEDROCK=1`` the ``claude -p`` CLI already has
+    Bedrock auth wired up (IAM role, profile, or ``AWS_BEARER_TOKEN_BEDROCK``)
+    and shelling out is the most reliable path — avoids a second Bedrock auth
+    surface that would need its own boto3-resolvable credentials. Direct API
+    mode still uses ``anthropic.Anthropic`` so existing unit tests and operator
+    workflows keep working.
+    """
+    if _bedrock_mode():
+        return _ClaudeCodeSubprocessClient()
+
+    import anthropic
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError(

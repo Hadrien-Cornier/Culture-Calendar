@@ -58,9 +58,26 @@ def _load_persona_critique_module() -> Any:
 
 # Pricing table lives in persona_critique.py so the two tools agree.
 # Imported lazily (via _load_persona_critique_module) to avoid importing
-# pyppeteer at module load time.
-REFERENCE_MODEL = "claude-sonnet-4-6"
+# pyppeteer at module load time. The reference model is resolved at the
+# same time so it picks up the Bedrock ID when CLAUDE_CODE_USE_BEDROCK=1
+# instead of the stale direct-API default (task-TA.2 unblock).
+_REFERENCE_MODEL_OVERRIDE = "claude-sonnet-4-6"
 AGREEMENT_THRESHOLD = 5  # out of 6 personas
+
+
+def _reference_model() -> str:
+    """Return the reference model, resolved against the current auth mode.
+
+    Lazy so that importing this module does not trigger the pyppeteer
+    import chain in ``persona_critique.py``.
+    """
+    override = os.environ.get("BENCH_REFERENCE_MODEL", "").strip()
+    if override:
+        return override
+    try:
+        return _load_persona_critique_module().SONNET_MODEL
+    except Exception:  # pragma: no cover - fallback only
+        return _REFERENCE_MODEL_OVERRIDE
 
 
 def _extract_verdict(critique: Any) -> str:
@@ -183,7 +200,7 @@ def _verdicts_for(model_data: dict[str, Any]) -> dict[str, str]:
 def select_model(
     per_model: dict[str, Any],
     *,
-    reference: str = REFERENCE_MODEL,
+    reference: str | None = None,
     threshold: int = AGREEMENT_THRESHOLD,
 ) -> tuple[str, dict[str, int]]:
     """Pick cheapest model whose verdicts agree with ``reference`` on >= threshold.
@@ -191,6 +208,8 @@ def select_model(
     Returns ``(chosen_model, agreement_map)`` where ``agreement_map`` counts
     matching verdicts per candidate model.
     """
+    if reference is None:
+        reference = _reference_model()
     ref_verdicts = _verdicts_for(per_model[reference])
     agreements: dict[str, int] = {}
     for model, data in per_model.items():
@@ -223,7 +242,10 @@ def render_markdown(
 ) -> str:
     """Render the benchmark scorecard as markdown."""
     lines = ["# Persona-Critique Model Benchmark", ""]
-    lines.append(f"Reference model: `{REFERENCE_MODEL}`. Agreement threshold: {AGREEMENT_THRESHOLD}/N.")
+    lines.append(
+        f"Reference model: `{_reference_model()}`. "
+        f"Agreement threshold: {AGREEMENT_THRESHOLD}/N."
+    )
     lines.append(f"**Chosen model: `{chosen}`**")
     lines.append("")
     lines.append("## Per-model summary")
@@ -343,7 +365,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         json.dumps(
             {
                 "model": chosen,
-                "reference": REFERENCE_MODEL,
+                "reference": _reference_model(),
                 "agreement_threshold": AGREEMENT_THRESHOLD,
                 "agreements": agreements,
             },

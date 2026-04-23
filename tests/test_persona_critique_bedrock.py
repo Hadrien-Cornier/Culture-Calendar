@@ -178,23 +178,29 @@ def test_explicit_env_override_works_in_direct_mode(
 # --- Client factory -------------------------------------------------------
 
 
-def test_client_factory_uses_bedrock_when_flag_set(
+def test_client_factory_uses_subprocess_shim_when_flag_set(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    """Bedrock mode must route through ``_ClaudeCodeSubprocessClient``.
+
+    The Anthropic SDK's ``AnthropicBedrock`` requires boto3-resolvable IAM
+    credentials, but operators using ``AWS_BEARER_TOKEN_BEDROCK`` (the Claude
+    CLI auth shortcut) have none. Shelling out to ``claude -p`` inherits the
+    CLI's already-wired Bedrock auth without needing a second credential
+    surface — see ``_ClaudeCodeSubprocessClient`` docstring.
+    """
     mod = _fresh_module(monkeypatch, {"CLAUDE_CODE_USE_BEDROCK": "1"})
-    fake_bedrock_instance = MagicMock(name="bedrock-client")
-    fake_bedrock_cls = MagicMock(return_value=fake_bedrock_instance)
-    fake_anthropic = MagicMock()
-    fake_anthropic.AnthropicBedrock = fake_bedrock_cls
     # Direct-client must not be used in Bedrock mode.
+    fake_anthropic = MagicMock()
     fake_anthropic.Anthropic = MagicMock(
         side_effect=AssertionError("direct Anthropic() called in Bedrock mode")
     )
     monkeypatch.setitem(sys.modules, "anthropic", fake_anthropic)
 
     client = mod._default_anthropic_client_factory()
-    assert client is fake_bedrock_instance
-    fake_bedrock_cls.assert_called_once_with()
+    assert isinstance(client, mod._ClaudeCodeSubprocessClient)
+    assert hasattr(client, "messages")
+    assert hasattr(client.messages, "create")
 
 
 def test_client_factory_direct_path_requires_api_key(
@@ -235,15 +241,28 @@ def test_client_factory_direct_path_constructs_anthropic_client(
     fake_direct_cls.assert_called_once_with(api_key="sk-test")
 
 
-def test_client_factory_raises_when_bedrock_unsupported(
+def test_client_factory_bedrock_does_not_touch_anthropic_sdk(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """Old SDKs without ``AnthropicBedrock`` must fail loudly."""
+    """Bedrock mode must not import or touch the Anthropic SDK at all.
+
+    Old test asserted the factory called ``anthropic.AnthropicBedrock``;
+    that path was replaced with a subprocess shim because the SDK's
+    ``AnthropicBedrock`` needs IAM credentials ``claude -p`` does not
+    require. This test now pins the new invariant: nothing from the
+    ``anthropic`` module gets constructed when the flag is set.
+    """
     mod = _fresh_module(monkeypatch, {"CLAUDE_CODE_USE_BEDROCK": "1"})
-    fake_anthropic = MagicMock(spec=[])  # no AnthropicBedrock attr
+    fake_anthropic = MagicMock()
+    fake_anthropic.AnthropicBedrock = MagicMock(
+        side_effect=AssertionError("AnthropicBedrock called in subprocess mode")
+    )
+    fake_anthropic.Anthropic = MagicMock(
+        side_effect=AssertionError("Anthropic called in subprocess mode")
+    )
     monkeypatch.setitem(sys.modules, "anthropic", fake_anthropic)
-    with pytest.raises(RuntimeError, match="AnthropicBedrock not available"):
-        mod._default_anthropic_client_factory()
+    client = mod._default_anthropic_client_factory()
+    assert isinstance(client, mod._ClaudeCodeSubprocessClient)
 
 
 # --- Temperature handling (opus-family skips it) --------------------------
