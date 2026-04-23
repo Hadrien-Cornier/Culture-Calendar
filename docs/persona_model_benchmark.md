@@ -1,26 +1,25 @@
 # Persona-Critique Model Benchmark
 
-Reference model: `claude-sonnet-4-6`. Agreement threshold: 5/N.
-**Chosen model: `claude-sonnet-4-6`**
+Reference model: `us.anthropic.claude-sonnet-4-5-20250929-v1:0`. Agreement threshold: 5/N.
+**Chosen model: `us.anthropic.claude-sonnet-4-5-20250929-v1:0`**
 
 ## Per-model summary
 
 | Model | Agreement vs reference | Avg latency (s) | Total cost (USD) |
 |---|---|---|---|
-| `claude-haiku-4-5-20251001` | 1/6 | 6.39 | $0.0370 |
-| `claude-sonnet-4-6` | 6/6 | 16.25 | $0.1419 |
-| `claude-opus-4-7` | 3/6 | 10.96 | $0.7780 |
+| `us.anthropic.claude-haiku-4-5-20251001-v1:0` | 4/6 | 54.25 | $0.0182 |
+| `us.anthropic.claude-sonnet-4-5-20250929-v1:0` | 6/6 | 20.32 | $0.0445 |
 
 ## Per-persona verdicts
 
-| Persona | `claude-haiku-4-5-20251001` | `claude-sonnet-4-6` | `claude-opus-4-7` |
-|---|---|---|---|
-| comprehensiveness-user | PASS | PASS | PASS |
-| continuity-user | PASS | FAIL | FAIL |
-| logistics-user | PASS | FAIL | FAIL |
-| mobile-user | PASS | FAIL | PASS |
-| review-reader | PASS | FAIL | PASS |
-| search-user | PASS | FAIL | PASS |
+| Persona | `us.anthropic.claude-haiku-4-5-20251001-v1:0` | `us.anthropic.claude-sonnet-4-5-20250929-v1:0` |
+|---|---|---|
+| comprehensiveness-user | PASS | PASS |
+| continuity-user | FAIL | FAIL |
+| logistics-user | FAIL | PASS |
+| mobile-user | PASS | PASS |
+| review-reader | PASS | FAIL |
+| search-user | PASS | PASS |
 
 ## Notes
 
