@@ -905,6 +905,8 @@
           rating: ev.rating || 0,
           type: (ev.type || ev.event_category || "other").toLowerCase(),
           venue: ev.venue || "",
+          venue_display_name: ev.venue_display_name || "",
+          venue_address: ev.venue_address || "",
           url: ev.url || "",
           description: ev.description || "",
           one_liner: ev.one_liner_summary || "",

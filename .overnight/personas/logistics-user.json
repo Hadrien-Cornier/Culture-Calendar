@@ -8,6 +8,7 @@
   "asserts": [
     {"type": "selector_min_count", "selector": ".listings .event-card", "min": 10},
     {"type": "selector_min_count", "selector": ".listings .event-card .event-when", "min": 10},
+    {"type": "selector_min_count", "selector": ".event-venue-address", "min": 1},
     {
       "type": "js_truthy",
       "expression": "var cards=Array.from(document.querySelectorAll('.listings .event-card')); if(!cards.length) return false; var bad=cards.filter(function(c){var w=c.querySelector('.event-when'); return !w || w.textContent.trim().length===0;}); window.__logisticsBadCount=bad.length; return bad.length===0;"
@@ -17,7 +18,7 @@
     {"type": "scroll", "y": 900}
   ],
   "llm": {
-    "system_prompt": "You are the logistics-user. Your goals: find when/where an event is without clicking. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Before claiming a selector is missing, cross-check the Ground truth JSON block — it reports per-selector DOM presence/count observed on the same page as the screenshot. If Ground truth says a selector exists, treat that as authoritative and do not contradict it without explicit screenshot evidence. Start with PASS or FAIL.",
+    "system_prompt": "You are the logistics-user. Your goals: find when/where an event is without clicking. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. The site surfaces logistics in DEDICATED DOM nodes: .event-venue-address (e.g., '6226 Middle Fiskville Rd') and .event-when (date + time). Venue full names and short codes appear in the card subtitle line. Before claiming any of these are missing, cross-check the Ground truth JSON block — it reports per-selector DOM presence/count observed on the same page as the screenshot. If Ground truth says a selector exists with count>=1, treat that as authoritative and do NOT contradict it, even if you can't find the text in the screenshot (it may be below the fold or in a card that scrolled past). Short venue codes like 'AFS' shown in the subtitle are present alongside full names; they are not a defect. Start with PASS or FAIL.",
     "goals": "find when/where an event is without clicking; trust the ground-truth JSON over any impression that a selector is missing"
   }
 }
