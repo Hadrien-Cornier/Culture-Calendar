@@ -122,10 +122,12 @@ def _load_script_module(module_name: str, relative_path: str):
 def generate_subscribable_feeds(website_data: list) -> None:
     """Write the ICS + RSS feeds consumed by the masthead subscribe links.
 
-    Invokes ``scripts/build_ics_feed.py`` (calendar.ics + top-picks.ics) and
-    ``scripts/build_rss_feed.py`` (feed.xml) using the freshly generated
-    event list. Failures are logged but non-fatal — the site itself ships
-    from ``docs/data.json`` regardless of feed-generation status.
+    Invokes ``scripts/build_ics_feed.py`` (calendar.ics + top-picks.ics),
+    ``scripts/build_rss_feed.py`` (feed.xml), ``scripts/build_event_shells.py``
+    (per-event HTML shells), and ``scripts/build_event_ics.py`` (per-event
+    ``.ics`` follow feeds under ``docs/events/<slug>.ics``) using the freshly
+    generated event list. Failures are logged but non-fatal — the site itself
+    ships from ``docs/data.json`` regardless of feed-generation status.
     """
     try:
         build_ics_feed = _load_script_module(
@@ -157,6 +159,15 @@ def generate_subscribable_feeds(website_data: list) -> None:
         print(f"Wrote {shell_count} event shell pages to docs/events/")
     except Exception as e:
         print(f"Warning: build_event_shells failed: {e}")
+
+    try:
+        build_event_ics = _load_script_module(
+            "build_event_ics", "scripts/build_event_ics.py"
+        )
+        ics_count = build_event_ics.write_event_ics(website_data)
+        print(f"Wrote {ics_count} per-event ICS files to docs/events/")
+    except Exception as e:
+        print(f"Warning: build_event_ics failed: {e}")
 
 
 def generate_agent_surfaces(website_data: list) -> None:
