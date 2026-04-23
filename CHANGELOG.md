@@ -44,6 +44,11 @@
 - files: scripts/build_event_ics.py, tests/test_build_event_ics.py, docs/events/*.ics (229 per-event ICS files)
 - validation: green
 
+### task-T1.2 — DONE — 2026-04-23T04:56:55Z
+- commit: 6d62ee2af8c71c83434c56034d333ceec71d809a
+- files: update_website_data.py
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
