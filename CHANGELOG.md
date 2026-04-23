@@ -33,6 +33,12 @@
 - files: scripts/persona_critique.py, scripts/bench_personas.py, tests/test_persona_critique_bedrock.py
 - validation: green
 
+### task-T0.4 — DONE — 2026-04-23T04:35:51Z
+- commit: 52bba7f6cf691ebb4e274c9a0e53bed0edab6a5d
+- files: scripts/build_event_shells.py, tests/test_build_event_shells.py, docs/events/*.html (229 shells regenerated)
+- summary: Regenerated 229 event shells with venue display names, streetAddress/postalCode in PostalAddress blocks, offers, aggregateRating, and BreadcrumbList JSON-LD. Adds _parse_postal_address and _load_venue_metadata_from_config helpers; grows test suite from 15 to 33 cases.
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
