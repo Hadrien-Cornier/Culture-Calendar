@@ -425,16 +425,62 @@ def run_shared_page_capture(
     content — personas otherwise flag already-implemented features as
     missing just because they're scrolled out of the default viewport.
     """
+    passed, exit_code, stdout, stderr, shot_b64, snippet, _ = (
+        run_shared_page_capture_with_ground_truth(
+            spec,
+            launch=launch,
+            full_page=full_page,
+            dom_max_bytes=dom_max_bytes,
+        )
+    )
+    return passed, exit_code, stdout, stderr, shot_b64, snippet
+
+
+def run_shared_page_capture_with_ground_truth(
+    spec: dict[str, Any],
+    launch: Callable[..., Awaitable[Any]] | None = None,
+    *,
+    full_page: bool = True,
+    dom_max_bytes: int = DOM_SNIPPET_MAX_BYTES,
+) -> tuple[bool, int, str, str, str, str, dict[str, dict[str, Any]]]:
+    """Same as :func:`run_shared_page_capture` plus per-selector ground truth.
+
+    The seventh tuple element maps CSS selectors derived from the persona
+    spec (asserts, click_before_assert, pre_screenshot_actions — see
+    :func:`check_live_site.derive_ground_truth_selectors`) to
+    ``{"exists": bool, "count": int}`` observations against the live page.
+    The orchestrator injects this dict into the LLM prompt so the persona
+    cannot hallucinate that a selector is missing when the DOM proves
+    otherwise.
+    """
     cls = _load_check_live_site_module()
-    failures, shot_b64, dom_html = asyncio.run(
-        cls.run_spec_and_capture(spec, launch=launch, full_page=full_page)
+    failures, shot_b64, dom_html, ground_truth = asyncio.run(
+        cls.run_spec_capture_and_ground_truth(
+            spec,
+            launch=launch,
+            full_page=full_page,
+            collect_ground_truth=True,
+        )
     )
     passed = len(failures) == 0
     exit_code = 0 if passed else 1
     stdout = "OK\n" if passed else ""
     stderr = "" if passed else "\n".join(f.format() for f in failures)
     snippet = dom_html[:dom_max_bytes] if dom_max_bytes else dom_html
-    return passed, exit_code, stdout, stderr, shot_b64, snippet
+    return passed, exit_code, stdout, stderr, shot_b64, snippet, ground_truth
+
+
+def format_ground_truth_for_prompt(
+    ground_truth: dict[str, dict[str, Any]]
+) -> str:
+    """Render ``{selector: {exists, count}}`` as a compact JSON block.
+
+    Empty inputs return an empty string so callers can omit the section
+    without producing a stub prompt element.
+    """
+    if not ground_truth:
+        return ""
+    return json.dumps(ground_truth, separators=(",", ":"), sort_keys=True)
 
 
 # --- Anthropic call ------------------------------------------------------
@@ -445,8 +491,16 @@ def build_anthropic_messages(
     result: PersonaResult,
     screenshot_b64: str,
     dom_snippet: str,
+    ground_truth: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[str, list[dict[str, Any]]]:
-    """Return (system_prompt, messages) for the Anthropic call."""
+    """Return (system_prompt, messages) for the Anthropic call.
+
+    ``ground_truth`` (when provided and non-empty) is injected as a
+    dedicated text block labelled ``Ground truth``. The prompt instructs
+    the model that this dict is observed fact — if the persona would be
+    inclined to flag a selector as missing, they must cross-check this
+    block first.
+    """
     llm = persona.get("llm") or {}
     system_prompt = (llm.get("system_prompt") or "").strip()
     goals = (llm.get("goals") or "").strip()
@@ -486,6 +540,19 @@ def build_anthropic_messages(
         },
         {"type": "text", "text": user_text},
     ]
+    gt_text = format_ground_truth_for_prompt(ground_truth or {})
+    if gt_text:
+        user_content.append(
+            {
+                "type": "text",
+                "text": (
+                    "Ground truth (observed DOM facts — per-selector "
+                    "presence/count captured from the same page as the "
+                    "screenshot above; do NOT contradict these without "
+                    "explicit evidence in the screenshot):\n" + gt_text
+                ),
+            }
+        )
     if dom_snippet:
         user_content.append(
             {
@@ -556,6 +623,7 @@ def call_anthropic_critique(
     run_id: str | None = None,
     context: str = "persona_critique",
     log_fn: Callable[[dict[str, Any]], None] = _log_cost_event,
+    ground_truth: dict[str, dict[str, Any]] | None = None,
 ) -> PersonaCritique:
     """One Anthropic call using tool-use to force a structured verdict.
 
@@ -566,9 +634,14 @@ def call_anthropic_critique(
     On success, emits a JSONL cost-event via ``log_fn``. The default
     :func:`_log_cost_event` appends to :data:`COSTS_LOG_PATH`; tests can pass
     a no-op.
+
+    ``ground_truth`` (per-selector presence/count captured by
+    :func:`run_shared_page_capture_with_ground_truth`) is forwarded to
+    :func:`build_anthropic_messages` so the prompt can anchor the model to
+    observed DOM facts.
     """
     system_prompt, messages = build_anthropic_messages(
-        persona, result, screenshot_b64, dom_snippet
+        persona, result, screenshot_b64, dom_snippet, ground_truth=ground_truth
     )
     kwargs: dict[str, Any] = {
         "model": model,
@@ -954,7 +1027,7 @@ def run_all_personas(
     use_shared_page = (
         not fast and capture_fn is None
     )
-    shared_fn = shared_page_fn or run_shared_page_capture
+    shared_fn = shared_page_fn or run_shared_page_capture_with_ground_truth
 
     results: list[PersonaResult] = []
     for path in paths:
@@ -963,6 +1036,7 @@ def run_all_personas(
 
         shot: str | None = None
         dom: str | None = None
+        ground_truth: dict[str, dict[str, Any]] = {}
         shared_error: str | None = None
 
         if use_shared_page:
@@ -972,7 +1046,11 @@ def run_all_personas(
                     f"of {max_llm_calls} Anthropic calls per run"
                 )
             try:
-                passed, rc, stdout, stderr, shot, dom = shared_fn(persona)
+                shared_out = shared_fn(persona)
+                if len(shared_out) == 7:
+                    passed, rc, stdout, stderr, shot, dom, ground_truth = shared_out
+                else:
+                    passed, rc, stdout, stderr, shot, dom = shared_out
             except Exception as exc:  # noqa: BLE001
                 passed, rc, stdout, stderr = False, 2, "", f"{type(exc).__name__}: {exc}"
                 shared_error = f"{type(exc).__name__}: {exc}"
@@ -1016,6 +1094,7 @@ def run_all_personas(
                     model=model,
                     run_id=run_id,
                     context="persona_critique",
+                    ground_truth=ground_truth,
                 )
             except Exception as exc:  # noqa: BLE001
                 critique_error = f"{type(exc).__name__}: {exc}"

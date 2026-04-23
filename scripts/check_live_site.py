@@ -212,6 +212,63 @@ async def _evaluate_asserts(
     return failures
 
 
+def derive_ground_truth_selectors(spec: dict[str, Any]) -> list[str]:
+    """Collect CSS selectors worth probing as ground truth for the LLM.
+
+    Order of precedence:
+
+    1. ``spec["ground_truth_selectors"]`` when present (explicit opt-in).
+    2. Otherwise, the union of selectors already referenced in ``asserts``
+       (any assert type that carries a ``selector`` field),
+       ``click_before_assert``, and ``pre_screenshot_actions``.
+
+    Duplicates are removed while preserving first-seen order so the JSON
+    shown to the LLM is stable across runs.
+    """
+    explicit = spec.get("ground_truth_selectors")
+    if isinstance(explicit, list) and explicit:
+        return [s for s in explicit if isinstance(s, str)]
+    collected: list[str] = []
+
+    def _add(sel: Any) -> None:
+        if isinstance(sel, str) and sel and sel not in collected:
+            collected.append(sel)
+
+    for a in spec.get("asserts") or []:
+        if isinstance(a, dict):
+            _add(a.get("selector"))
+    for sel in spec.get("click_before_assert") or []:
+        _add(sel)
+    for action in spec.get("pre_screenshot_actions") or []:
+        if isinstance(action, dict):
+            _add(action.get("selector"))
+    return collected
+
+
+async def _collect_ground_truth(
+    page: Any, selectors: list[str]
+) -> dict[str, dict[str, Any]]:
+    """Run ``document.querySelectorAll(sel).length`` for each selector.
+
+    Returns a dict mapping ``selector -> {"exists": bool, "count": int}``
+    (plus ``"error": str`` if the evaluation raised). Injected into the
+    persona LLM prompt so the model cannot hallucinate that a feature is
+    absent when the live DOM contradicts the claim.
+    """
+    result: dict[str, dict[str, Any]] = {}
+    for sel in selectors:
+        try:
+            count = await page.evaluate(
+                "(s) => document.querySelectorAll(s).length", sel
+            )
+            count_int = int(count or 0)
+        except Exception as exc:  # noqa: BLE001
+            result[sel] = {"exists": False, "count": 0, "error": str(exc)}
+            continue
+        result[sel] = {"exists": count_int > 0, "count": count_int}
+    return result
+
+
 async def _run_pre_screenshot_actions(
     page: Any, actions: list[dict[str, Any]]
 ) -> None:
@@ -290,6 +347,33 @@ async def run_spec_and_capture(
     one ``page.goto`` per persona keeps the asserted state and the captured
     image consistent.
     """
+    failures, b64, html, _gt = await run_spec_capture_and_ground_truth(
+        spec, launch=launch, full_page=full_page, collect_ground_truth=False
+    )
+    return failures, b64, html
+
+
+async def run_spec_capture_and_ground_truth(
+    spec: dict[str, Any],
+    launch: Callable[..., Awaitable[Any]] | None = None,
+    *,
+    full_page: bool = False,
+    collect_ground_truth: bool = True,
+) -> tuple[list[AssertionFailure], str, str, dict[str, dict[str, Any]]]:
+    """Same as :func:`run_spec_and_capture` plus ground-truth JSON.
+
+    The fourth tuple element maps each probed CSS selector to
+    ``{"exists": bool, "count": int}`` (and ``"error": str`` on failure).
+    The LLM persona consumer injects this payload into its prompt so the
+    model cannot claim a feature is absent when the live DOM proves
+    otherwise — ground-truth replaces model hallucination with observed
+    fact.
+
+    Selectors are derived via :func:`derive_ground_truth_selectors` unless
+    ``collect_ground_truth=False`` is passed (in which case the returned
+    dict is empty — the short-circuit path used by the legacy
+    ``run_spec_and_capture`` wrapper).
+    """
     if launch is None:
         from pyppeteer import launch as _launch
         launch = _launch
@@ -302,13 +386,18 @@ async def run_spec_and_capture(
         page = await browser.newPage()
         await _prepare_page(page, spec)
         failures = await _evaluate_asserts(page, spec)
+        ground_truth: dict[str, dict[str, Any]] = {}
+        if collect_ground_truth:
+            selectors = derive_ground_truth_selectors(spec)
+            if selectors:
+                ground_truth = await _collect_ground_truth(page, selectors)
         pre_actions = spec.get("pre_screenshot_actions") or []
         if pre_actions:
             await _run_pre_screenshot_actions(page, pre_actions)
         shot_bytes = await page.screenshot({"type": "png", "fullPage": full_page})
         html = await page.content()
         b64 = base64.b64encode(shot_bytes).decode("ascii")
-        return failures, b64, html
+        return failures, b64, html, ground_truth
     finally:
         await browser.close()
 
