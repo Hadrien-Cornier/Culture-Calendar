@@ -117,6 +117,11 @@
 - files: scripts/check_live_site.py, scripts/persona_critique.py, tests/test_persona_ground_truth.py
 - validation: green
 
+### task-T2.5 — DONE — 2026-04-23T16:46:37Z
+- commit: 21fe849c457f7a42973c20637b4ab304f3d63ced
+- files: .overnight/personas/comprehensiveness-user.json, .overnight/personas/continuity-user.json, .overnight/personas/logistics-user.json, .overnight/personas/mobile-user.json, .overnight/personas/review-reader.json, .overnight/personas/search-user.json
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
