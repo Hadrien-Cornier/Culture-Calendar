@@ -112,6 +112,11 @@
 - files: scripts/check_live_site.py, tests/test_check_live_site_pre_actions.py
 - validation: green
 
+### task-T2.4 — DONE — 2026-04-23T16:25:00Z
+- commit: 82dda4d88c12e5442228eba79bd610e293beec34
+- files: scripts/check_live_site.py, scripts/persona_critique.py, tests/test_persona_ground_truth.py
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
