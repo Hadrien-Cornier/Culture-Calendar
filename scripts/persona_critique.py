@@ -1131,6 +1131,13 @@ def render_markdown(results: Sequence[PersonaResult], *, fast: bool) -> str:
 
     lines.append("## Structural results")
     lines.append("")
+    passed_count = sum(1 for r in results if r.passed)
+    total = len(results)
+    overall = "PASS" if passed_count == total and total > 0 else "FAIL"
+    lines.append(
+        f"**Overall: {overall} {passed_count}/{total} personas.**"
+    )
+    lines.append("")
     lines.append("| Persona | Result | Exit code |")
     lines.append("|---|---|---|")
     for r in results:

@@ -4,6 +4,8 @@ Mode: **fast (structural asserts only; Anthropic skipped)**. Personas evaluated:
 
 ## Structural results
 
+**Overall: PASS 6/6 personas.**
+
 | Persona | Result | Exit code |
 |---|---|---|
 | comprehensiveness-user | PASS | 0 |
