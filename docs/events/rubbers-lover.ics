@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of RUBBER’S LOVER
+X-WR-CALNAME:Culture Calendar — RUBBER’S LOVER
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[3/10] RUBBER’S LOVER
+DTSTART;TZID=America/Chicago:20260612T210000
+DTEND;TZID=America/Chicago:20260612T230000
+DTSTAMP:20260423T044925Z
+UID:rubber’s-lover-2026-06-12-2100@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHallucinatory Japanese body horror unleashes s
+ urgical gore and psychedelic disorientation relentl...\n\nDetails: https:/
+ /www.austinfilm.org/screening/rubbers-lover/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/rubbers-lover/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] RUBBER’S LOVER
+DTSTART;TZID=America/Chicago:20260613T211500
+DTEND;TZID=America/Chicago:20260613T231500
+DTSTAMP:20260423T044925Z
+UID:rubber’s-lover-2026-06-13-2115@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHallucinatory Japanese body horror unleashes s
+ urgical gore and psychedelic disorientation relentl...\n\nDetails: https:/
+ /www.austinfilm.org/screening/rubbers-lover/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/rubbers-lover/
+END:VEVENT
+END:VCALENDAR

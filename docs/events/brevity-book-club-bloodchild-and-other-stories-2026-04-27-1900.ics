@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Brevity Book Club - Bloodchild and Other St
+ ories
+X-WR-CALNAME:Culture Calendar — Brevity Book Club - Bloodchild and Other
+  Stories
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] Brevity Book Club - Bloodchild and Other Stories
+DTSTART;TZID=America/Chicago:20260427T190000
+DTEND;TZID=America/Chicago:20260427T210000
+DTSTAMP:20260423T044925Z
+UID:brevity-book-club---bloodchild-and-other-stories---2026-04-27-1900-202
+ 6-04-27-1900@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nButler's speculative stories probe consent\, c
+ olonialism\, and survival through intense alien enco...\n\nDetails: https:
+ //www.firstlightaustin.com/book-club
+LOCATION:FirstLight
+URL:https://www.firstlightaustin.com/book-club
+END:VEVENT
+END:VCALENDAR

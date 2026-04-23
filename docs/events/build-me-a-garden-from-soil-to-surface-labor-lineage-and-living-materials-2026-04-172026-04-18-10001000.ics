@@ -1,0 +1,62 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Build Me A Garden: From Soil to Surface Lab
+ or\, Lineage\, and Living Materials
+X-WR-CALNAME:Culture Calendar — Build Me A Garden: From Soil to Surface 
+ Labor\, Lineage\, and Living Materials
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[3/10] Build Me A Garden: From Soil to Surface Labor\, Lineage\, a
+ nd Living Materials
+DTSTART;TZID=America/Chicago:20260417T100000
+DTEND;TZID=America/Chicago:20260417T120000
+DTSTAMP:20260423T044925Z
+UID:build-me-a-garden-from-soil-to-surface-labor-lineage-and-living-materi
+ als---2026-04-172026-04-18-10001000-2026-04-17-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 3/10\n\nSoil-based installation exploring labor\, line
+ age\, and material transformation through living earth.\n\nDetails: https:
+ //nowplayingaustin.com/event/build-me-a-garden-from-soil-to-surface-labor-
+ lineage-and-living-materials/
+LOCATION:Dougherty Arts Center\, Austin
+URL:https://nowplayingaustin.com/event/build-me-a-garden-from-soil-to-surf
+ ace-labor-lineage-and-living-materials/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] Build Me A Garden: From Soil to Surface Labor\, Lineage\, a
+ nd Living Materials
+DTSTART;TZID=America/Chicago:20260418T100000
+DTEND;TZID=America/Chicago:20260418T120000
+DTSTAMP:20260423T044925Z
+UID:build-me-a-garden-from-soil-to-surface-labor-lineage-and-living-materi
+ als---2026-04-172026-04-18-10001000-2026-04-18-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 3/10\n\nSoil-based installation exploring labor\, line
+ age\, and material transformation through living earth.\n\nDetails: https:
+ //nowplayingaustin.com/event/build-me-a-garden-from-soil-to-surface-labor-
+ lineage-and-living-materials/
+LOCATION:Dougherty Arts Center\, Austin
+URL:https://nowplayingaustin.com/event/build-me-a-garden-from-soil-to-surf
+ ace-labor-lineage-and-living-materials/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,143 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of PALESTINE ’36
+X-WR-CALNAME:Culture Calendar — PALESTINE ’36
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[3/10] PALESTINE ’36
+DTSTART;TZID=America/Chicago:20260417T201500
+DTEND;TZID=America/Chicago:20260417T221500
+DTSTAMP:20260423T044925Z
+UID:palestine-’36-2026-04-17-2015@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHistorical drama exploring 1936 Palestinian re
+ sistance and colonial tensions.\n\nDetails: https://www.austinfilm.org/scr
+ eening/palestine-36/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/palestine-36/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] PALESTINE ’36
+DTSTART;TZID=America/Chicago:20260418T150000
+DTEND;TZID=America/Chicago:20260418T170000
+DTSTAMP:20260423T044925Z
+UID:palestine-’36-2026-04-18-1500@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHistorical drama exploring 1936 Palestinian re
+ sistance and colonial tensions.\n\nDetails: https://www.austinfilm.org/scr
+ eening/palestine-36/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/palestine-36/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] PALESTINE ’36
+DTSTART;TZID=America/Chicago:20260419T123000
+DTEND;TZID=America/Chicago:20260419T143000
+DTSTAMP:20260423T044925Z
+UID:palestine-’36-2026-04-19-1230@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHistorical drama exploring 1936 Palestinian re
+ sistance and colonial tensions.\n\nDetails: https://www.austinfilm.org/scr
+ eening/palestine-36/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/palestine-36/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] PALESTINE ’36
+DTSTART;TZID=America/Chicago:20260419T181500
+DTEND;TZID=America/Chicago:20260419T201500
+DTSTAMP:20260423T044925Z
+UID:palestine-’36-2026-04-19-1815@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHistorical drama exploring 1936 Palestinian re
+ sistance and colonial tensions.\n\nDetails: https://www.austinfilm.org/scr
+ eening/palestine-36/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/palestine-36/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] PALESTINE ’36
+DTSTART;TZID=America/Chicago:20260420T163000
+DTEND;TZID=America/Chicago:20260420T183000
+DTSTAMP:20260423T044925Z
+UID:palestine-’36-2026-04-20-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHistorical drama exploring 1936 Palestinian re
+ sistance and colonial tensions.\n\nDetails: https://www.austinfilm.org/scr
+ eening/palestine-36/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/palestine-36/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] PALESTINE ’36
+DTSTART;TZID=America/Chicago:20260420T193000
+DTEND;TZID=America/Chicago:20260420T213000
+DTSTAMP:20260423T044925Z
+UID:palestine-’36-2026-04-20-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHistorical drama exploring 1936 Palestinian re
+ sistance and colonial tensions.\n\nDetails: https://www.austinfilm.org/scr
+ eening/palestine-36/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/palestine-36/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] PALESTINE ’36
+DTSTART;TZID=America/Chicago:20260421T164500
+DTEND;TZID=America/Chicago:20260421T184500
+DTSTAMP:20260423T044925Z
+UID:palestine-’36-2026-04-21-1645@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHistorical drama exploring 1936 Palestinian re
+ sistance and colonial tensions.\n\nDetails: https://www.austinfilm.org/scr
+ eening/palestine-36/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/palestine-36/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] PALESTINE ’36
+DTSTART;TZID=America/Chicago:20260422T190000
+DTEND;TZID=America/Chicago:20260422T210000
+DTSTAMP:20260423T044925Z
+UID:palestine-’36-2026-04-22-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHistorical drama exploring 1936 Palestinian re
+ sistance and colonial tensions.\n\nDetails: https://www.austinfilm.org/scr
+ eening/palestine-36/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/palestine-36/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] PALESTINE ’36
+DTSTART;TZID=America/Chicago:20260423T190000
+DTEND;TZID=America/Chicago:20260423T210000
+DTSTAMP:20260423T044925Z
+UID:palestine-’36-2026-04-23-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nHistorical drama exploring 1936 Palestinian re
+ sistance and colonial tensions.\n\nDetails: https://www.austinfilm.org/scr
+ eening/palestine-36/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/palestine-36/
+END:VEVENT
+END:VCALENDAR

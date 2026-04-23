@@ -1,0 +1,154 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of National Sumi-e Exhbition: East Asian Brush
+  Painting & Calligraphy
+X-WR-CALNAME:Culture Calendar — National Sumi-e Exhbition: East Asian Br
+ ush Painting & Calligraphy
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] National Sumi-e Exhbition: East Asian Brush Painting & Call
+ igraphy
+DTSTART;TZID=America/Chicago:20260417T130000
+DTEND;TZID=America/Chicago:20260417T150000
+DTSTAMP:20260423T044925Z
+UID:national-sumi-e-exhbition-east-asian-brush-painting-&-calligraphy---20
+ 26-04-172026-04-182026-04-222026-04-232026-04-242026-04-252026-04-29-13001
+ 30013001300130013001300-2026-04-17-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nInk masters render classical bamboo and mounta
+ ins with technical precision\, tradition over innova...\n\nDetails: https:
+ //nowplayingaustin.com/event/national-sumi-e-exhbition-east-asian-brush-pa
+ inting-calligraphy/
+LOCATION:Bee Cave Art Foundation
+URL:https://nowplayingaustin.com/event/national-sumi-e-exhbition-east-asia
+ n-brush-painting-calligraphy/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] National Sumi-e Exhbition: East Asian Brush Painting & Call
+ igraphy
+DTSTART;TZID=America/Chicago:20260418T130000
+DTEND;TZID=America/Chicago:20260418T150000
+DTSTAMP:20260423T044925Z
+UID:national-sumi-e-exhbition-east-asian-brush-painting-&-calligraphy---20
+ 26-04-172026-04-182026-04-222026-04-232026-04-242026-04-252026-04-29-13001
+ 30013001300130013001300-2026-04-18-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nInk masters render classical bamboo and mounta
+ ins with technical precision\, tradition over innova...\n\nDetails: https:
+ //nowplayingaustin.com/event/national-sumi-e-exhbition-east-asian-brush-pa
+ inting-calligraphy/
+LOCATION:Bee Cave Art Foundation
+URL:https://nowplayingaustin.com/event/national-sumi-e-exhbition-east-asia
+ n-brush-painting-calligraphy/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] National Sumi-e Exhbition: East Asian Brush Painting & Call
+ igraphy
+DTSTART;TZID=America/Chicago:20260422T130000
+DTEND;TZID=America/Chicago:20260422T150000
+DTSTAMP:20260423T044925Z
+UID:national-sumi-e-exhbition-east-asian-brush-painting-&-calligraphy---20
+ 26-04-172026-04-182026-04-222026-04-232026-04-242026-04-252026-04-29-13001
+ 30013001300130013001300-2026-04-22-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nInk masters render classical bamboo and mounta
+ ins with technical precision\, tradition over innova...\n\nDetails: https:
+ //nowplayingaustin.com/event/national-sumi-e-exhbition-east-asian-brush-pa
+ inting-calligraphy/
+LOCATION:Bee Cave Art Foundation
+URL:https://nowplayingaustin.com/event/national-sumi-e-exhbition-east-asia
+ n-brush-painting-calligraphy/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] National Sumi-e Exhbition: East Asian Brush Painting & Call
+ igraphy
+DTSTART;TZID=America/Chicago:20260423T130000
+DTEND;TZID=America/Chicago:20260423T150000
+DTSTAMP:20260423T044925Z
+UID:national-sumi-e-exhbition-east-asian-brush-painting-&-calligraphy---20
+ 26-04-172026-04-182026-04-222026-04-232026-04-242026-04-252026-04-29-13001
+ 30013001300130013001300-2026-04-23-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nInk masters render classical bamboo and mounta
+ ins with technical precision\, tradition over innova...\n\nDetails: https:
+ //nowplayingaustin.com/event/national-sumi-e-exhbition-east-asian-brush-pa
+ inting-calligraphy/
+LOCATION:Bee Cave Art Foundation
+URL:https://nowplayingaustin.com/event/national-sumi-e-exhbition-east-asia
+ n-brush-painting-calligraphy/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] National Sumi-e Exhbition: East Asian Brush Painting & Call
+ igraphy
+DTSTART;TZID=America/Chicago:20260424T130000
+DTEND;TZID=America/Chicago:20260424T150000
+DTSTAMP:20260423T044925Z
+UID:national-sumi-e-exhbition-east-asian-brush-painting-&-calligraphy---20
+ 26-04-172026-04-182026-04-222026-04-232026-04-242026-04-252026-04-29-13001
+ 30013001300130013001300-2026-04-24-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nInk masters render classical bamboo and mounta
+ ins with technical precision\, tradition over innova...\n\nDetails: https:
+ //nowplayingaustin.com/event/national-sumi-e-exhbition-east-asian-brush-pa
+ inting-calligraphy/
+LOCATION:Bee Cave Art Foundation
+URL:https://nowplayingaustin.com/event/national-sumi-e-exhbition-east-asia
+ n-brush-painting-calligraphy/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] National Sumi-e Exhbition: East Asian Brush Painting & Call
+ igraphy
+DTSTART;TZID=America/Chicago:20260425T130000
+DTEND;TZID=America/Chicago:20260425T150000
+DTSTAMP:20260423T044925Z
+UID:national-sumi-e-exhbition-east-asian-brush-painting-&-calligraphy---20
+ 26-04-172026-04-182026-04-222026-04-232026-04-242026-04-252026-04-29-13001
+ 30013001300130013001300-2026-04-25-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nInk masters render classical bamboo and mounta
+ ins with technical precision\, tradition over innova...\n\nDetails: https:
+ //nowplayingaustin.com/event/national-sumi-e-exhbition-east-asian-brush-pa
+ inting-calligraphy/
+LOCATION:Bee Cave Art Foundation
+URL:https://nowplayingaustin.com/event/national-sumi-e-exhbition-east-asia
+ n-brush-painting-calligraphy/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] National Sumi-e Exhbition: East Asian Brush Painting & Call
+ igraphy
+DTSTART;TZID=America/Chicago:20260429T130000
+DTEND;TZID=America/Chicago:20260429T150000
+DTSTAMP:20260423T044925Z
+UID:national-sumi-e-exhbition-east-asian-brush-painting-&-calligraphy---20
+ 26-04-172026-04-182026-04-222026-04-232026-04-242026-04-252026-04-29-13001
+ 30013001300130013001300-2026-04-29-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nInk masters render classical bamboo and mounta
+ ins with technical precision\, tradition over innova...\n\nDetails: https:
+ //nowplayingaustin.com/event/national-sumi-e-exhbition-east-asian-brush-pa
+ inting-calligraphy/
+LOCATION:Bee Cave Art Foundation
+URL:https://nowplayingaustin.com/event/national-sumi-e-exhbition-east-asia
+ n-brush-painting-calligraphy/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Music for a Consort of Viols
+X-WR-CALNAME:Culture Calendar — Music for a Consort of Viols
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] Music for a Consort of Viols
+DTSTART;TZID=America/Chicago:20251004T150000
+DTEND;TZID=America/Chicago:20251004T170000
+DTSTAMP:20260423T044925Z
+UID:music-for-a-consort-of-viols---2025-10-04-1500-2025-10-04-1500@culture
+ calendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 5/10\n\nLuscious viol consort music blending English\,
+  French\, and Italian traditions.\n\nDetails: https://www.lafolliaaustin.o
+ rg
+LOCATION:LaFollia
+URL:https://www.lafolliaaustin.org
+END:VEVENT
+END:VCALENDAR

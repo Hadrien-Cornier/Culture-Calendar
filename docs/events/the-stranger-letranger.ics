@@ -1,0 +1,104 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of THE STRANGER (L’ETRANGER)
+X-WR-CALNAME:Culture Calendar — THE STRANGER (L’ETRANGER)
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260417T173000
+DTEND;TZID=America/Chicago:20260417T193000
+DTSTAMP:20260423T044925Z
+UID:the-stranger-(l’etranger)-2026-04-17-1730@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260418T174500
+DTEND;TZID=America/Chicago:20260418T194500
+DTSTAMP:20260423T044925Z
+UID:the-stranger-(l’etranger)-2026-04-18-1745@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260419T151500
+DTEND;TZID=America/Chicago:20260419T171500
+DTSTAMP:20260423T044925Z
+UID:the-stranger-(l’etranger)-2026-04-19-1515@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260420T160000
+DTEND;TZID=America/Chicago:20260420T180000
+DTSTAMP:20260423T044925Z
+UID:the-stranger-(l’etranger)-2026-04-20-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260422T160000
+DTEND;TZID=America/Chicago:20260422T180000
+DTSTAMP:20260423T044925Z
+UID:the-stranger-(l’etranger)-2026-04-22-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] THE STRANGER (L’ETRANGER)
+DTSTART;TZID=America/Chicago:20260423T160000
+DTEND;TZID=America/Chicago:20260423T180000
+DTSTAMP:20260423T044925Z
+UID:the-stranger-(l’etranger)-2026-04-23-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nCamus's existential alienation adapted by Ozon
+  at AFS cinema.\n\nDetails: https://www.austinfilm.org/screening/the-stran
+ ger-letranger/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-stranger-letranger/
+END:VEVENT
+END:VCALENDAR

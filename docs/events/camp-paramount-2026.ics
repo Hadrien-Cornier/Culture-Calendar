@@ -1,0 +1,91 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Camp Paramount 2026
+X-WR-CALNAME:Culture Calendar — Camp Paramount 2026
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[3/10] Camp Paramount 2026
+DTSTART;TZID=America/Chicago:20260601T090000
+DTEND;TZID=America/Chicago:20260601T110000
+DTSTAMP:20260423T044925Z
+UID:camp-paramount-2026-2026-06-01-0900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nMysterious sci-fi venture arrives with minimal
+  critical detail or clear artistic vision.\n\nDetails: https://tickets.aus
+ tintheatre.org/12977/13048
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/12977/13048
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] Camp Paramount 2026
+DTSTART;TZID=America/Chicago:20260608T090000
+DTEND;TZID=America/Chicago:20260608T110000
+DTSTAMP:20260423T044925Z
+UID:camp-paramount-2026-2026-06-08-0900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nMysterious sci-fi venture arrives with minimal
+  critical detail or clear artistic vision.\n\nDetails: https://tickets.aus
+ tintheatre.org/12977/13163
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/12977/13163
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] Camp Paramount 2026
+DTSTART;TZID=America/Chicago:20260615T090000
+DTEND;TZID=America/Chicago:20260615T110000
+DTSTAMP:20260423T044925Z
+UID:camp-paramount-2026-2026-06-15-0900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nMysterious sci-fi venture arrives with minimal
+  critical detail or clear artistic vision.\n\nDetails: https://tickets.aus
+ tintheatre.org/12977/13164
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/12977/13164
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] Camp Paramount 2026
+DTSTART;TZID=America/Chicago:20260706T090000
+DTEND;TZID=America/Chicago:20260706T110000
+DTSTAMP:20260423T044925Z
+UID:camp-paramount-2026-2026-07-06-0900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nMysterious sci-fi venture arrives with minimal
+  critical detail or clear artistic vision.\n\nDetails: https://tickets.aus
+ tintheatre.org/12977/13165
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/12977/13165
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] Camp Paramount 2026
+DTSTART;TZID=America/Chicago:20260713T090000
+DTEND;TZID=America/Chicago:20260713T110000
+DTSTAMP:20260423T044925Z
+UID:camp-paramount-2026-2026-07-13-0900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nMysterious sci-fi venture arrives with minimal
+  critical detail or clear artistic vision.\n\nDetails: https://tickets.aus
+ tintheatre.org/12977/13198
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/12977/13198
+END:VEVENT
+END:VCALENDAR

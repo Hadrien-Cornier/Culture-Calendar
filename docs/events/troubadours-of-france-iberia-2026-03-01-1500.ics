@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Troubadours of France & Iberia
+X-WR-CALNAME:Culture Calendar — Troubadours of France & Iberia
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] Troubadours of France & Iberia
+DTSTART;TZID=America/Chicago:20260301T150000
+DTEND;TZID=America/Chicago:20260301T170000
+DTSTAMP:20260423T044925Z
+UID:troubadours-of-france-&-iberia---2026-03-01-1500-2026-03-01-1500@cultu
+ recalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 8/10\n\nPassionate medieval troubadour songs brought t
+ o life with scholarly artistry.\n\nDetails: https://www.early-music.org
+LOCATION:EarlyMusic
+URL:https://www.early-music.org
+END:VEVENT
+END:VCALENDAR

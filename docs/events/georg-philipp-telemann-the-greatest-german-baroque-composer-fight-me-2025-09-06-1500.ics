@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Georg Philipp Telemann: The Greatest German
+  Baroque Composer [Fight me!]
+X-WR-CALNAME:Culture Calendar — Georg Philipp Telemann: The Greatest Ger
+ man Baroque Composer [Fight me!]
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] Georg Philipp Telemann: The Greatest German Baroque Compose
+ r [Fight me!]
+DTSTART;TZID=America/Chicago:20250906T150000
+DTEND;TZID=America/Chicago:20250906T170000
+DTSTAMP:20260423T044925Z
+UID:georg-philipp-telemann-the-greatest-german-baroque-composer-[fight-me!
+ ]---2025-09-06-1500-2025-09-06-1500@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 5/10\n\nExuberant Baroque masterworks showcasing Telem
+ ann's imaginative genius on period instruments\n\nDetails: https://www.laf
+ olliaaustin.org
+LOCATION:LaFollia
+URL:https://www.lafolliaaustin.org
+END:VEVENT
+END:VCALENDAR

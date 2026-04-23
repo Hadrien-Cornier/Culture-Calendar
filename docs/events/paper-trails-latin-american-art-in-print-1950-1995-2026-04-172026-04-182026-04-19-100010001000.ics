@@ -1,0 +1,76 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Paper Trails: Latin American Art in Print (
+ 1950-1995)
+X-WR-CALNAME:Culture Calendar — Paper Trails: Latin American Art in Prin
+ t (1950-1995)
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Paper Trails: Latin American Art in Print (1950-1995)
+DTSTART;TZID=America/Chicago:20260417T100000
+DTEND;TZID=America/Chicago:20260417T120000
+DTSTAMP:20260423T044925Z
+UID:paper-trails-latin-american-art-in-print-(1950-1995)---2026-04-172026-
+ 04-182026-04-19-100010001000-2026-04-17-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nDecades of Latin American printmaking reveal p
+ olitical urgency and artistic innovation across bor...\n\nDetails: https:/
+ /nowplayingaustin.com/event/paper-trails-latin-american-art-in-print-1950-
+ 1995/
+LOCATION:Blanton Museum of Art\, Austin
+URL:https://nowplayingaustin.com/event/paper-trails-latin-american-art-in-
+ print-1950-1995/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Paper Trails: Latin American Art in Print (1950-1995)
+DTSTART;TZID=America/Chicago:20260418T100000
+DTEND;TZID=America/Chicago:20260418T120000
+DTSTAMP:20260423T044925Z
+UID:paper-trails-latin-american-art-in-print-(1950-1995)---2026-04-172026-
+ 04-182026-04-19-100010001000-2026-04-18-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nDecades of Latin American printmaking reveal p
+ olitical urgency and artistic innovation across bor...\n\nDetails: https:/
+ /nowplayingaustin.com/event/paper-trails-latin-american-art-in-print-1950-
+ 1995/
+LOCATION:Blanton Museum of Art\, Austin
+URL:https://nowplayingaustin.com/event/paper-trails-latin-american-art-in-
+ print-1950-1995/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Paper Trails: Latin American Art in Print (1950-1995)
+DTSTART;TZID=America/Chicago:20260419T100000
+DTEND;TZID=America/Chicago:20260419T120000
+DTSTAMP:20260423T044925Z
+UID:paper-trails-latin-american-art-in-print-(1950-1995)---2026-04-172026-
+ 04-182026-04-19-100010001000-2026-04-19-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nDecades of Latin American printmaking reveal p
+ olitical urgency and artistic innovation across bor...\n\nDetails: https:/
+ /nowplayingaustin.com/event/paper-trails-latin-american-art-in-print-1950-
+ 1995/
+LOCATION:Blanton Museum of Art\, Austin
+URL:https://nowplayingaustin.com/event/paper-trails-latin-american-art-in-
+ print-1950-1995/
+END:VEVENT
+END:VCALENDAR

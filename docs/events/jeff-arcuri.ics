@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Jeff Arcuri
+X-WR-CALNAME:Culture Calendar — Jeff Arcuri
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[3/10] Jeff Arcuri
+DTSTART;TZID=America/Chicago:20260417T190000
+DTEND;TZID=America/Chicago:20260417T210000
+DTSTAMP:20260423T044925Z
+UID:jeff-arcuri-2026-04-17-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nMiddling stand-up special trades observational
+  humor for predictable family-life punchlines.\n\nDetails: https://tickets
+ .austintheatre.org/13112/13113
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/13112/13113
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] Jeff Arcuri
+DTSTART;TZID=America/Chicago:20260418T160000
+DTEND;TZID=America/Chicago:20260418T180000
+DTSTAMP:20260423T044925Z
+UID:jeff-arcuri-2026-04-18-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nMiddling stand-up special trades observational
+  humor for predictable family-life punchlines.\n\nDetails: https://tickets
+ .austintheatre.org/13112/13114
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/13112/13114
+END:VEVENT
+END:VCALENDAR

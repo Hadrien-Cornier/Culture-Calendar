@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of NATCHEZ
+X-WR-CALNAME:Culture Calendar — NATCHEZ
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[3/10] NATCHEZ
+DTSTART;TZID=America/Chicago:20260619T190000
+DTEND;TZID=America/Chicago:20260619T210000
+DTSTAMP:20260423T044925Z
+UID:natchez-2026-06-19-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nSuzannah Herbert's documentary explores the Mi
+ ssissippi River town's complex history and contempo...\n\nDetails: https:/
+ /www.austinfilm.org/screening/natchez/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/natchez/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] NATCHEZ
+DTSTART;TZID=America/Chicago:20260621T130000
+DTEND;TZID=America/Chicago:20260621T150000
+DTSTAMP:20260423T044925Z
+UID:natchez-2026-06-21-1300@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nSuzannah Herbert's documentary explores the Mi
+ ssissippi River town's complex history and contempo...\n\nDetails: https:/
+ /www.austinfilm.org/screening/natchez/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/natchez/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,78 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of AMADEUS
+X-WR-CALNAME:Culture Calendar — AMADEUS
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] AMADEUS
+DTSTART;TZID=America/Chicago:20260522T174500
+DTEND;TZID=America/Chicago:20260522T194500
+DTSTAMP:20260423T044925Z
+UID:amadeus-2026-05-22-1745@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMozart's genius and madness collide in Forman'
+ s operatic masterpiece.\n\nDetails: https://www.austinfilm.org/screening/a
+ madeus/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/amadeus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMADEUS
+DTSTART;TZID=America/Chicago:20260523T180000
+DTEND;TZID=America/Chicago:20260523T200000
+DTSTAMP:20260423T044925Z
+UID:amadeus-2026-05-23-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMozart's genius and madness collide in Forman'
+ s operatic masterpiece.\n\nDetails: https://www.austinfilm.org/screening/a
+ madeus/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/amadeus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMADEUS
+DTSTART;TZID=America/Chicago:20260524T161500
+DTEND;TZID=America/Chicago:20260524T181500
+DTSTAMP:20260423T044925Z
+UID:amadeus-2026-05-24-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMozart's genius and madness collide in Forman'
+ s operatic masterpiece.\n\nDetails: https://www.austinfilm.org/screening/a
+ madeus/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/amadeus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMADEUS
+DTSTART;TZID=America/Chicago:20260525T140000
+DTEND;TZID=America/Chicago:20260525T160000
+DTSTAMP:20260423T044925Z
+UID:amadeus-2026-05-25-1400@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMozart's genius and madness collide in Forman'
+ s operatic masterpiece.\n\nDetails: https://www.austinfilm.org/screening/a
+ madeus/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/amadeus/
+END:VEVENT
+END:VCALENDAR

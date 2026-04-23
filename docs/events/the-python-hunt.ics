@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of THE PYTHON HUNT
+X-WR-CALNAME:Culture Calendar — THE PYTHON HUNT
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] THE PYTHON HUNT
+DTSTART;TZID=America/Chicago:20260515T203000
+DTEND;TZID=America/Chicago:20260515T223000
+DTSTAMP:20260423T044925Z
+UID:the-python-hunt-2026-05-15-2030@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nObscure creature-pursuit film shrouded in myst
+ ery and missing documentation.\n\nDetails: https://www.austinfilm.org/scre
+ ening/the-python-hunt/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-python-hunt/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] THE PYTHON HUNT
+DTSTART;TZID=America/Chicago:20260516T154500
+DTEND;TZID=America/Chicago:20260516T174500
+DTSTAMP:20260423T044925Z
+UID:the-python-hunt-2026-05-16-1545@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nObscure creature-pursuit film shrouded in myst
+ ery and missing documentation.\n\nDetails: https://www.austinfilm.org/scre
+ ening/the-python-hunt/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-python-hunt/
+END:VEVENT
+END:VCALENDAR

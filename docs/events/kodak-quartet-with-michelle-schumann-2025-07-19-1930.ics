@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Kodak Quartet with Michelle Schumann
+X-WR-CALNAME:Culture Calendar — Kodak Quartet with Michelle Schumann
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Kodak Quartet with Michelle Schumann
+DTSTART;TZID=America/Chicago:20250719T193000
+DTEND;TZID=America/Chicago:20250719T213000
+DTSTAMP:20260423T044925Z
+UID:kodak-quartet-with-michelle-schumann---2025-07-19-1930-2025-07-19-1930
+ @culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nKodak Quartet and pianist explore Brahms\, Zor
+ n\, and Dohnányi masterworks\n\nDetails: https://austinchambermusic.org
+LOCATION:Chamber Music
+URL:https://austinchambermusic.org
+END:VEVENT
+END:VCALENDAR

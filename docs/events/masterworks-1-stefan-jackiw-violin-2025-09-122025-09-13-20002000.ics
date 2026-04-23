@@ -1,0 +1,54 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Masterworks 1: Stefan Jackiw\, violin
+X-WR-CALNAME:Culture Calendar — Masterworks 1: Stefan Jackiw\, violin
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 1: Stefan Jackiw\, violin
+DTSTART;TZID=America/Chicago:20250912T200000
+DTEND;TZID=America/Chicago:20250912T220000
+DTSTAMP:20260423T044925Z
+UID:masterworks-1-stefan-jackiw-violin---2025-09-122025-09-13-20002000-202
+ 5-09-12-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nPolished violin virtuosity spanning contempora
+ ry\, modern\, and romantic masterworks.\n\nDetails: https://austinsymphony
+ .org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Masterworks 1: Stefan Jackiw\, violin
+DTSTART;TZID=America/Chicago:20250913T200000
+DTEND;TZID=America/Chicago:20250913T220000
+DTSTAMP:20260423T044925Z
+UID:masterworks-1-stefan-jackiw-violin---2025-09-122025-09-13-20002000-202
+ 5-09-13-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nPolished violin virtuosity spanning contempora
+ ry\, modern\, and romantic masterworks.\n\nDetails: https://austinsymphony
+ .org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR

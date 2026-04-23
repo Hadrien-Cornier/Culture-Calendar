@@ -1,0 +1,54 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Masterworks 3: Rhapsody Spectacular
+X-WR-CALNAME:Culture Calendar — Masterworks 3: Rhapsody Spectacular
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Masterworks 3: Rhapsody Spectacular
+DTSTART;TZID=America/Chicago:20251121T200000
+DTEND;TZID=America/Chicago:20251121T220000
+DTSTAMP:20260423T044925Z
+UID:masterworks-3-rhapsody-spectacular---2025-11-212025-11-22-20002000-202
+ 5-11-21-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 6/10\n\nVirtuosic rhapsodies spanning folkloric tradit
+ ions culminating in Beethoven's triumphant Fifth.\n\nDetails: https://aust
+ insymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] Masterworks 3: Rhapsody Spectacular
+DTSTART;TZID=America/Chicago:20251122T200000
+DTEND;TZID=America/Chicago:20251122T220000
+DTSTAMP:20260423T044925Z
+UID:masterworks-3-rhapsody-spectacular---2025-11-212025-11-22-20002000-202
+ 5-11-22-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 6/10\n\nVirtuosic rhapsodies spanning folkloric tradit
+ ions culminating in Beethoven's triumphant Fifth.\n\nDetails: https://aust
+ insymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR

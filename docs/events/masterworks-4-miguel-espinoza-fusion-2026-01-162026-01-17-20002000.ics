@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Masterworks 4: Miguel Espinoza Fusion
+X-WR-CALNAME:Culture Calendar — Masterworks 4: Miguel Espinoza Fusion
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Masterworks 4: Miguel Espinoza Fusion
+DTSTART;TZID=America/Chicago:20260116T200000
+DTEND;TZID=America/Chicago:20260116T220000
+DTSTAMP:20260423T044925Z
+UID:masterworks-4-miguel-espinoza-fusion---2026-01-162026-01-17-20002000-2
+ 026-01-16-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 6/10\n\nFusion ensemble blends world premiere with orc
+ hestral classics innovatively.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] Masterworks 4: Miguel Espinoza Fusion
+DTSTART;TZID=America/Chicago:20260117T200000
+DTEND;TZID=America/Chicago:20260117T220000
+DTSTAMP:20260423T044925Z
+UID:masterworks-4-miguel-espinoza-fusion---2026-01-162026-01-17-20002000-2
+ 026-01-17-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 6/10\n\nFusion ensemble blends world premiere with orc
+ hestral classics innovatively.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR

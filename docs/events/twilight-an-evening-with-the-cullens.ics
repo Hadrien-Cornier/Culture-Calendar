@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Twilight: An Evening with the Cullens
+X-WR-CALNAME:Culture Calendar — Twilight: An Evening with the Cullens
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[3/10] Twilight: An Evening with the Cullens
+DTSTART;TZID=America/Chicago:20260609T190000
+DTEND;TZID=America/Chicago:20260609T210000
+DTSTAMP:20260423T044925Z
+UID:twilight-an-evening-with-the-cullens-2026-06-09-1900@culturecalendar.l
+ ocal
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nVampire melodrama stumbles through static stag
+ ing and flat cinematography.\n\nDetails: https://tickets.austintheatre.org
+ /13753/13754
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/13753/13754
+END:VEVENT
+END:VCALENDAR

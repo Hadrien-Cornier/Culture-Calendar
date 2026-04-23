@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of LUMIÈRE\, LE CINÉMA!
+X-WR-CALNAME:Culture Calendar — LUMIÈRE\, LE CINÉMA!
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[3/10] LUMIÈRE\, LE CINÉMA!
+DTSTART;TZID=America/Chicago:20260526T190000
+DTEND;TZID=America/Chicago:20260526T210000
+DTSTAMP:20260423T044925Z
+UID:lumière-le-cinéma!-2026-05-26-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nRestored Lumière actualities: a chronological
+  procession of early cinema's mundane moments\, compe...\n\nDetails: https
+ ://www.austinfilm.org/screening/lumiere-le-cinema/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/lumiere-le-cinema/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] LUMIÈRE\, LE CINÉMA!
+DTSTART;TZID=America/Chicago:20260530T161500
+DTEND;TZID=America/Chicago:20260530T181500
+DTSTAMP:20260423T044925Z
+UID:lumière-le-cinéma!-2026-05-30-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nRestored Lumière actualities: a chronological
+  procession of early cinema's mundane moments\, compe...\n\nDetails: https
+ ://www.austinfilm.org/screening/lumiere-le-cinema/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/lumiere-le-cinema/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[3/10] LUMIÈRE\, LE CINÉMA!
+DTSTART;TZID=America/Chicago:20260531T181000
+DTEND;TZID=America/Chicago:20260531T201000
+DTSTAMP:20260423T044925Z
+UID:lumière-le-cinéma!-2026-05-31-1810@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 3/10\n\nRestored Lumière actualities: a chronological
+  procession of early cinema's mundane moments\, compe...\n\nDetails: https
+ ://www.austinfilm.org/screening/lumiere-le-cinema/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/lumiere-le-cinema/
+END:VEVENT
+END:VCALENDAR

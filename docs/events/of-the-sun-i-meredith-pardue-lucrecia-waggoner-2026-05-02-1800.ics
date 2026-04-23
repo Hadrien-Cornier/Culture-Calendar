@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Of the Sun I Meredith Pardue & Lucrecia Wag
+ goner
+X-WR-CALNAME:Culture Calendar — Of the Sun I Meredith Pardue & Lucrecia 
+ Waggoner
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] Of the Sun I Meredith Pardue & Lucrecia Waggoner
+DTSTART;TZID=America/Chicago:20260502T180000
+DTEND;TZID=America/Chicago:20260502T200000
+DTSTAMP:20260423T044925Z
+UID:of-the-sun-i-meredith-pardue-&-lucrecia-waggoner---2026-05-02-1800-202
+ 6-05-02-1800@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nTwo artists explore solar imagery through unte
+ sted formal strategies.\n\nDetails: https://nowplayingaustin.com/event/of-
+ the-sun-i-meredith-pardue-lucrecia-waggoner/
+LOCATION:Laura Rathe Fine Art\, Austin
+URL:https://nowplayingaustin.com/event/of-the-sun-i-meredith-pardue-lucrec
+ ia-waggoner/
+END:VEVENT
+END:VCALENDAR

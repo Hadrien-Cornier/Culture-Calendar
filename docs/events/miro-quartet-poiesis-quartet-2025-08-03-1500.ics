@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Miró Quartet & Poiesis Quartet
+X-WR-CALNAME:Culture Calendar — Miró Quartet & Poiesis Quartet
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] Miró Quartet & Poiesis Quartet
+DTSTART;TZID=America/Chicago:20250803T150000
+DTEND;TZID=America/Chicago:20250803T170000
+DTSTAMP:20260423T044925Z
+UID:miró-quartet-&-poiesis-quartet---2025-08-03-1500-2025-08-03-1500@cult
+ urecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 5/10\n\nTwo acclaimed quartets perform Beethoven and M
+ endelssohn chamber masterpieces.\n\nDetails: https://austinchambermusic.or
+ g
+LOCATION:Chamber Music
+URL:https://austinchambermusic.org
+END:VEVENT
+END:VCALENDAR

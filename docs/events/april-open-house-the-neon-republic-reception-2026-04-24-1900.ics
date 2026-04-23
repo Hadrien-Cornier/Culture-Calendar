@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of April Open House: The Neon Republic Recepti
+ on
+X-WR-CALNAME:Culture Calendar — April Open House: The Neon Republic Rece
+ ption
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[3/10] April Open House: The Neon Republic Reception
+DTSTART;TZID=America/Chicago:20260424T190000
+DTEND;TZID=America/Chicago:20260424T210000
+DTSTAMP:20260423T044925Z
+UID:april-open-house-the-neon-republic-reception---2026-04-24-1900-2026-04
+ -24-1900@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 3/10\n\nDetails: https://nowplayingaustin.com/event/ap
+ ril-open-house-the-neon-republic-reception/
+LOCATION:The Cathedral\, Austin
+URL:https://nowplayingaustin.com/event/april-open-house-the-neon-republic-
+ reception/
+END:VEVENT
+END:VCALENDAR

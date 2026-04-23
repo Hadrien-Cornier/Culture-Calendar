@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of World Wide What Book Club - Nervous Conditi
+ ons
+X-WR-CALNAME:Culture Calendar — World Wide What Book Club - Nervous Cond
+ itions
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] World Wide What Book Club - Nervous Conditions
+DTSTART;TZID=America/Chicago:20260511T190000
+DTEND;TZID=America/Chicago:20260511T210000
+DTSTAMP:20260423T044925Z
+UID:world-wide-what-book-club---nervous-conditions---2026-05-11-1900-2026-
+ 05-11-1900@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 5/10\n\nShona girl navigates colonial education\, fami
+ ly fracture\, cultural erasure.\n\nDetails: https://www.firstlightaustin.c
+ om/book-club
+LOCATION:FirstLight
+URL:https://www.firstlightaustin.com/book-club
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Pirates of the Caribbean in Concert
+X-WR-CALNAME:Culture Calendar — Pirates of the Caribbean in Concert
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Pirates of the Caribbean in Concert
+DTSTART;TZID=America/Chicago:20260227T200000
+DTEND;TZID=America/Chicago:20260227T220000
+DTSTAMP:20260423T044925Z
+UID:pirates-of-the-caribbean-in-concert---2026-02-272026-02-28-20002000-20
+ 26-02-27-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nEnergetic Hollywood blockbuster score delivere
+ d with solid orchestral spectacle.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Pirates of the Caribbean in Concert
+DTSTART;TZID=America/Chicago:20260228T200000
+DTEND;TZID=America/Chicago:20260228T220000
+DTSTAMP:20260423T044925Z
+UID:pirates-of-the-caribbean-in-concert---2026-02-272026-02-28-20002000-20
+ 26-02-28-2000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 7/10\n\nEnergetic Hollywood blockbuster score delivere
+ d with solid orchestral spectacle.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR
