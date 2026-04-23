@@ -1,789 +1,202 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Overnight Loop Protocol (active through 2026-04-15)
-
-If you are running inside `scripts/overnight_loop.sh` on branch `fix/calendar-oracle`:
-
-1. **Read CHANGELOG.md.** Pick the first `- [ ]` line under the "Calendar fix" section. That is your subtask. Do **not** pick a later one — the queue is ordered by dependency.
-2. **Do that subtask, nothing else.** No refactors, no drive-by cleanups. If you spot a separate bug, add a new `- [ ]` line instead of fixing it inline.
-3. **Verify before declaring done:**
-   ```
-   .venv/bin/python -m pytest -q
-   .venv/bin/python scripts/verify_calendar.py --offline
-   ```
-   Both must print success. If either fails, keep iterating on the same subtask.
-4. **Commit with the required identity and push:**
-   ```
-   git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m "feat(calendar): <subtask-id> <what>"
-   git push origin fix/calendar-oracle
-   ```
-   Never touch `main`. Never `--no-verify`. Never force-push. Never `git reset --hard` — the only destructive move allowed is reverting a single just-made commit via `git revert HEAD --no-edit` if its tests regressed.
-5. **Tick the box in CHANGELOG.md** before committing: replace `- [ ]` with `- [x] YYYY-MM-DD HH:MM`.
-6. **If blocked**, append `BLOCKED: <subtask-id>: <why>` under the queue and move on. Don't thrash.
-7. **Exit criterion:** `scripts/verify_calendar.py --live` prints PASS two iterations in a row. Until then, keep picking subtasks.
+Guidance for Claude Code working in this repository.
 
 ## Project Overview
 
-Culture Calendar is an automated system that scrapes Austin cultural events (films, concerts, book clubs, opera, ballet) from multiple venues, enriches them with AI-powered analysis and ratings, and publishes them to a GitHub Pages website with calendar/ICS export functionality.
+Culture Calendar scrapes Austin cultural events (films, concerts, book clubs, opera, ballet, visual arts) from multiple venues, enriches them with AI ratings/analysis, and publishes them to GitHub Pages at `https://hadrien-cornier.github.io/Culture-Calendar/` with ICS/RSS export.
 
-**Current Venues**: Austin Film Society, Hyperreal Film Club, Austin Symphony, Early Music Austin, La Follia, Austin Opera, Ballet Austin, Alienated Majesty Books, First Light Austin, Arts on Alexander
+**Current venues**: Austin Film Society, Hyperreal Film Club, Austin Symphony, Early Music Austin, La Follia, Austin Opera, Ballet Austin, Alienated Majesty Books, First Light Austin, Arts on Alexander, NowPlayingAustin (visual arts).
 
 ## Development Commands
 
 ### Setup
 ```bash
-# Install dependencies
 pip install -r requirements.txt
-
-# Setup environment
-cp .env.example .env
-# Add PERPLEXITY_API_KEY and ANTHROPIC_API_KEY to .env
+cp .env.example .env  # add PERPLEXITY_API_KEY + ANTHROPIC_API_KEY
 ```
 
-### Running the System
+### Running
 ```bash
-# Full scrape and update (all venues, all events)
-python update_website_data.py
-
-# Test mode (current week only)
-python update_website_data.py --test-week
-
-# Force reprocess all events (ignore cache)
-python update_website_data.py --force-reprocess
-
-# Enable smart validation (fail-fast on scraper failures)
-python update_website_data.py --validate
+python update_website_data.py              # full scrape + update
+python update_website_data.py --test-week  # current week only
+python update_website_data.py --force-reprocess  # ignore cache
+python update_website_data.py --validate   # fail-fast on scraper failures
 ```
 
 ### Testing
 ```bash
-# Run all tests
-pytest tests/
-
-# Run unit tests only (no live scraping)
-pytest tests/ -m "not live and not integration"
-
-# Run specific scraper tests
-pytest tests/test_afs_scraper_unit.py -v
-pytest tests/test_enrichment_layer.py -v
-
-# Run with coverage
-pytest tests/ --cov=src --cov-report=html
+pytest tests/                                     # all tests
+pytest tests/ -m "not live and not integration"   # unit only
+pytest tests/test_afs_scraper_unit.py -v          # specific scraper
+pytest tests/ --cov=src --cov-report=html         # with coverage
 ```
 
-### Code Quality
+### Code quality
 ```bash
-# Format code with Black
 black src/ tests/ *.py
-
-# Pre-commit checks (formatting + tests)
-python pre_commit_checks.py
-
-# Auto-fix only
+python pre_commit_checks.py                 # format + tests
 python pre_commit_checks.py --fix-only
 ```
 
 ## Architecture
 
-### Two-Phase Scraping Pipeline
+### Two-phase pipeline
 
-**Phase One: Normalization**
-- Each venue scraper extends `BaseScraper` (src/base_scraper.py:20)
-- Scraper-specific logic extracts raw event data from websites
-- Events normalized to config-driven schema (snake_case, YYYY-MM-DD dates, HH:mm times)
-- LLM extraction used for complex/dynamic websites (book clubs, some film venues)
+**Phase 1 — Normalization.** Each scraper extends `BaseScraper` (src/base_scraper.py:20), extracts raw events, normalizes to the config-driven schema (snake_case, YYYY-MM-DD, HH:mm). LLM extraction used for dynamic sites (Hyperreal, Alienated Majesty, First Light).
 
-**Phase Two: Enrichment** (Optional per venue)
-- Classification: LLM determines event_category (movie/concert/book_club/opera/dance/other)
-- Field Extraction: LLM fills missing required fields with evidence validation
-- Only proceeds if classification enabled in config/master_config.yaml
-- See src/enrichment_layer.py:40 for orchestration logic
+**Phase 2 — Enrichment** (optional per venue). LLM classifies `event_category` and fills missing required fields with evidence validation. Orchestrated at src/enrichment_layer.py:40.
 
-### Key Components
+### Key components
 
-**Configuration System** (config/master_config.yaml)
-- Centralized schema definitions via templates (movie, concert, book_club, opera, dance, other)
-- Per-venue policies: scraping frequency, classification enabled/disabled, assumed categories
-- Field requirements, validation rules, date/time formats
-- Loaded via ConfigLoader (src/config_loader.py)
+- **Config** — `config/master_config.yaml` is single source of truth (templates: movie, concert, book_club, opera, dance, visual_arts, other; per-venue policies for frequency, classification on/off, assumed category). Loaded via `ConfigLoader` (src/config_loader.py).
+- **BaseScraper** (src/base_scraper.py) — abstract base with LLM service, session management, `format_event()`, `validate_event()`.
+- **MultiVenueScraper** (src/scraper.py:28) — orchestrates all venue scrapers, handles dedup.
+- **LLMService** (src/llm_service.py) — abstracts Perplexity (Sonar) + Anthropic (Claude).
+- **EventProcessor** (src/processor.py:19) — AI ratings/reviews via Perplexity.
+- **EnrichmentLayer** (src/enrichment_layer.py:17) — classification + field extraction with evidence validation.
+- **SummaryGenerator** (src/summary_generator.py) — one-line hooks via Claude.
 
-**Scraper Architecture**
-- `BaseScraper` (src/base_scraper.py): Abstract base with LLM service, session management, format_event(), validate_event()
-- Individual scrapers in src/scrapers/: Each implements scrape_events() method
-- `MultiVenueScraper` (src/scraper.py:28): Orchestrates all venue scrapers, manages duplicate detection
-- LLM-powered extraction for dynamic content (Hyperreal, Alienated Majesty, First Light)
-- Static JSON loading for season-based venues (Symphony, Opera, Ballet)
+Static JSON loading is used for season-based venues (Symphony, Opera, Ballet).
 
-**Event Processing Pipeline**
-1. Scraping: MultiVenueScraper.scrape_all_venues() � normalized events
-2. Validation (optional): EventValidationService checks scraper health, fail-fast on widespread failures
-3. Enrichment: EventProcessor.process_events() � AI ratings, descriptions, one-liners
-4. Website Generation: update_website_data.py � docs/data.json with grouped events
+### Data flow
 
-**AI Integration**
-- `LLMService` (src/llm_service.py): Abstracts Perplexity (Sonar) and Anthropic (Claude) APIs
-- `EventProcessor` (src/processor.py:19): Generates AI ratings/reviews using Perplexity
-- `EnrichmentLayer` (src/enrichment_layer.py:17): Classification and field extraction with evidence validation
-- `SummaryGenerator` (src/summary_generator.py): Creates one-line summaries using Claude
+1. `MultiVenueScraper.scrape_all_venues()` → raw events (Phase 1).
+2. `EventValidationService` (optional, `--validate`) → health check; fail-fast on systematic failures.
+3. `EventProcessor.process_events()` → AI ratings + descriptions.
+4. `SummaryGenerator` → one-line hooks.
+5. `update_website_data.py` → `docs/data.json` (grouped by title for movies, unique for others).
+6. ICS/RSS builders → `docs/calendar.ics`, `docs/top-picks.ics`, per-event `docs/events/<slug>.ics`, `docs/feed.xml`.
+7. GitHub Pages serves `docs/`.
 
-### Event Schema
+### Event schema
 
-All events follow master_config.yaml templates with these common fields:
-- **dates/times**: Arrays with pairwise_equal_length zip rule (YYYY-MM-DD, HH:mm)
-- **occurrences**: Generated array of {date, time, url, venue} objects for each showing
-- **event_category**: movie | concert | book_club | opera | dance | other
-- **rating**: 0-10 AI-generated score based on artistic merit
-- **description**: AI-generated analysis (French cin�aste style for films, distinguished criticism for music)
-- **one_liner_summary**: Claude-generated concise hook
+Common fields (per master_config.yaml):
+- `dates` / `times` — arrays with pairwise `zip` rule (YYYY-MM-DD, HH:mm).
+- `occurrences` — `[{date, time, url, venue}, ...]`.
+- `event_category` — movie | concert | book_club | opera | dance | visual_arts | other.
+- `rating` — 0–10 AI score on artistic merit.
+- `review_confidence` — low | medium | high | unknown.
+- `description` — AI analysis (French cinéaste style for films, distinguished criticism for music).
+- `one_liner_summary` — Claude-generated hook.
+- `venue_address`, `venue_display_name`.
 
-Type-specific fields defined in config templates (e.g., movies have director/country/language, concerts have composers/works).
+Category-specific fields per template (movies: director/country/language; concerts: composers/works; etc.).
 
 ## Common Development Tasks
 
-### Adding a New Venue
+### Add a new venue
+1. Extend `BaseScraper` in `src/scrapers/<venue>_scraper.py`; implement `scrape_events()`.
+2. Add venue config under `venues:` in `config/master_config.yaml`.
+3. Register in `src/scrapers/__init__.py` + `MultiVenueScraper.__init__()` + `scrape_all_venues()` (src/scraper.py).
+4. Unit tests at `tests/test_<venue>_scraper_unit.py`.
+5. Smoke: `python update_website_data.py --test-week`.
 
-1. Create scraper class in src/scrapers/new_venue_scraper.py extending BaseScraper
-2. Implement scrape_events() method returning normalized events
-3. Add venue config to config/master_config.yaml under venues:
-4. Register in src/scrapers/__init__.py
-5. Add to MultiVenueScraper.__init__() and scrape_all_venues() in src/scraper.py
-6. Create unit tests in tests/test_new_venue_scraper_unit.py
-7. Test with: `python update_website_data.py --test-week`
+### Debug scraper failures
+- Run with `--validate` for health report.
+- Check if the website structure changed (most common cause).
+- Review LLM extraction prompts for smart scrapers.
+- Inspect enrichment telemetry (classifications, abstentions, fields accepted/rejected).
 
-### Debugging Scraper Failures
-
-1. Check validation report if using --validate flag
-2. Run individual scraper in test mode
-3. Verify website structure hasn't changed (common failure cause)
-4. Check LLM extraction prompts if using smart extraction
-5. Review enrichment telemetry: classifications, abstentions, fields_accepted/rejected
-
-### Modifying Event Schema
-
-1. Update template in config/master_config.yaml (add fields, change requirements)
-2. Update scraper to populate new fields
-3. Update enrichment prompts if field requires LLM extraction
-4. Modify update_website_data.py:build_event_from_template() if special handling needed
-5. Update tests with new schema
+### Modify schema
+- Edit template in `config/master_config.yaml`.
+- Update scraper to populate new fields.
+- Update enrichment prompts if the field needs LLM extraction.
+- Adjust `update_website_data.py:build_event_from_template()` for special handling.
+- Update tests.
 
 ## Known Issues
 
-1. **Pyppeteer threading**: Cannot run all scrapers in parallel due to "signal only works in main thread" error with pyppeteer
-2. **Read review button**: Can crash site (mentioned in README problems section)
-3. **Rating distribution**: Ratings not very customized/spread out (needs preference tuning)
-
-## Data Flow
-
-1. **Scraping**: MultiVenueScraper � raw events (Phase One normalization)
-2. **Validation**: EventValidationService � health checks, fail-fast on systematic failures
-3. **Enrichment**: EventProcessor � AI ratings + descriptions
-4. **Summary Generation**: SummaryGenerator � one-line hooks
-5. **Website Data**: update_website_data.py � docs/data.json (grouped by title for movies, unique for others)
-6. **ICS Export**: Calendar files generated on-demand via website download button
-7. **GitHub Pages**: docs/ folder served at hadrien-cornier.github.io/Culture-Calendar
+1. **Pyppeteer threading** — can't run all scrapers in parallel ("signal only works in main thread").
+2. **Read-review button** — can crash the site (README problems).
+3. **Rating distribution** — not well spread; needs preference tuning.
 
 ## Testing Strategy
 
-- **Unit tests**: Mock scrapers, test parsing logic without network calls
-- **Integration tests**: Test full pipeline with cached responses
-- **Live tests**: Marked with @pytest.mark.live, test actual website scraping
-- Test data stored in tests/{Venue}_test_data/ directories
-- Validation service has comprehensive integration tests (tests/test_validation_integration.py)
+- **Unit**: mock scrapers, parsing logic, no network.
+- **Integration**: full pipeline with cached responses.
+- **Live**: `@pytest.mark.live`, real scraping.
+- Fixtures under `tests/{Venue}_test_data/`.
+- Validation service: `tests/test_validation_integration.py`.
 
 ## Configuration Notes
 
-- All scrapers use master_config.yaml as single source of truth
-- Date inference handled dynamically at runtime for book clubs (current year vs next year logic)
-- Venue policies control classification/enrichment (AFS has classification disabled, assumed movie category)
-- Field defaults defined at config level to ensure consistency
-- snake_case enforced across all field names per config style rules
+- `master_config.yaml` is single source of truth.
+- Book-club year inferred at runtime (current vs next).
+- Venue policies drive classification (e.g. AFS assumes `movie`, classification disabled).
+- Field defaults at config level.
+- `snake_case` enforced.
+
+---
+
+## GitNexus — code intelligence
+
+Indexed as **Culture-Calendar** (1511 symbols, 3370 relationships, 119 execution flows). If any tool warns the index is stale, run `npm run analyze` — **not `npx gitnexus`** (breaks on Node v24 via tree-sitter-swift rebuild bug).
+
+### Hard rules
+- MUST run `gitnexus_impact({target, direction: "upstream"})` before editing any function/class/method. Report blast radius; WARN on HIGH/CRITICAL.
+- MUST run `gitnexus_detect_changes()` before committing to confirm scope.
+- For unfamiliar code, `gitnexus_query({query: "concept"})` beats grep.
+- Rename via `gitnexus_rename({dry_run: true})` → review → `dry_run: false`. Never find-and-replace.
+- Extract/split: `gitnexus_context({name})` + `gitnexus_impact({direction: "upstream"})` before moving code.
+- Never ignore HIGH/CRITICAL risk warnings.
+- After any refactor: `gitnexus_detect_changes({scope: "all"})` to verify only expected files changed.
+
+### Tools
+| Tool | When | Example |
+|------|------|---------|
+| `query` | find code by concept | `gitnexus_query({query: "auth validation"})` |
+| `context` | 360° symbol view | `gitnexus_context({name: "validateUser"})` |
+| `impact` | blast radius before edit | `gitnexus_impact({target: "X", direction: "upstream"})` |
+| `detect_changes` | pre-commit scope | `gitnexus_detect_changes({scope: "staged"})` |
+| `rename` | safe multi-file rename | `gitnexus_rename({symbol_name, new_name, dry_run: true})` |
+| `cypher` | custom graph queries | `gitnexus_cypher({query: "MATCH ..."})` |
+
+### Risk levels
+- **d=1** — WILL BREAK (direct callers) → MUST update.
+- **d=2** — LIKELY AFFECTED (indirect deps) → should test.
+- **d=3** — MAY NEED TESTING (transitive) → test if critical path.
+
+### Debugging flow
+1. `gitnexus_query({query: "<error/symptom>"})` → find execution flows.
+2. `gitnexus_context({name: "<suspect>"})` → callers + callees + process participation.
+3. `READ gitnexus://repo/Culture-Calendar/process/{name}` → step-by-step trace.
+4. Regression: `gitnexus_detect_changes({scope: "compare", base_ref: "main"})` → see what the branch changed.
+
+### Resources
+- `gitnexus://repo/Culture-Calendar/context` — overview, freshness.
+- `gitnexus://repo/Culture-Calendar/clusters` — functional areas.
+- `gitnexus://repo/Culture-Calendar/processes` — execution flows.
+- `gitnexus://repo/Culture-Calendar/process/{name}` — step-by-step trace.
+
+### Keeping the index fresh
+After committing, run `npm run analyze` (deletes prior embeddings) or `./node_modules/.bin/gitnexus analyze --embeddings` (preserves). Check `.gitnexus/meta.json` `stats.embeddings`. A PostToolUse hook handles this after `git commit`/`git merge`.
+
+### Skill files
+| Task | File |
+|------|------|
+| Understand architecture | `.claude/skills/gitnexus/gitnexus-exploring/SKILL.md` |
+| Blast radius | `.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md` |
+| Trace bugs | `.claude/skills/gitnexus/gitnexus-debugging/SKILL.md` |
+| Refactor | `.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md` |
+| Schema reference | `.claude/skills/gitnexus/gitnexus-guide/SKILL.md` |
+| CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
+
+### Self-check before finishing
+1. `gitnexus_impact` was run on all modified symbols.
+2. No HIGH/CRITICAL risk ignored.
+3. `gitnexus_detect_changes()` scope matches expected.
+4. All d=1 (WILL BREAK) dependents updated.
+
+---
 
-<!-- gitnexus:start -->
-# GitNexus — Code Intelligence
-
-This project is indexed by GitNexus as **Culture-Calendar** (1511 symbols, 3370 relationships, 119 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
-
-> If any GitNexus tool warns the index is stale, run `npm run analyze` (or `./node_modules/.bin/gitnexus analyze`) in terminal first. **Do not use `npx gitnexus`** — it fails on Node v24 due to a tree-sitter-swift rebuild bug.
-
-## Always Do
-
-- **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
-- **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
-- **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
-- When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
-- When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
-
-## When Debugging
-
-1. `gitnexus_query({query: "<error or symptom>"})` — find execution flows related to the issue
-2. `gitnexus_context({name: "<suspect function>"})` — see all callers, callees, and process participation
-3. `READ gitnexus://repo/Culture-Calendar/process/{processName}` — trace the full execution flow step by step
-4. For regressions: `gitnexus_detect_changes({scope: "compare", base_ref: "main"})` — see what your branch changed
-
-## When Refactoring
-
-- **Renaming**: MUST use `gitnexus_rename({symbol_name: "old", new_name: "new", dry_run: true})` first. Review the preview — graph edits are safe, text_search edits need manual review. Then run with `dry_run: false`.
-- **Extracting/Splitting**: MUST run `gitnexus_context({name: "target"})` to see all incoming/outgoing refs, then `gitnexus_impact({target: "target", direction: "upstream"})` to find all external callers before moving code.
-- After any refactor: run `gitnexus_detect_changes({scope: "all"})` to verify only expected files changed.
-
-## Never Do
-
-- NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
-- NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
-- NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
-- NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
-
-## Tools Quick Reference
-
-| Tool | When to use | Command |
-|------|-------------|---------|
-| `query` | Find code by concept | `gitnexus_query({query: "auth validation"})` |
-| `context` | 360-degree view of one symbol | `gitnexus_context({name: "validateUser"})` |
-| `impact` | Blast radius before editing | `gitnexus_impact({target: "X", direction: "upstream"})` |
-| `detect_changes` | Pre-commit scope check | `gitnexus_detect_changes({scope: "staged"})` |
-| `rename` | Safe multi-file rename | `gitnexus_rename({symbol_name: "old", new_name: "new", dry_run: true})` |
-| `cypher` | Custom graph queries | `gitnexus_cypher({query: "MATCH ..."})` |
-
-## Impact Risk Levels
-
-| Depth | Meaning | Action |
-|-------|---------|--------|
-| d=1 | WILL BREAK — direct callers/importers | MUST update these |
-| d=2 | LIKELY AFFECTED — indirect deps | Should test |
-| d=3 | MAY NEED TESTING — transitive | Test if critical path |
-
-## Resources
-
-| Resource | Use for |
-|----------|---------|
-| `gitnexus://repo/Culture-Calendar/context` | Codebase overview, check index freshness |
-| `gitnexus://repo/Culture-Calendar/clusters` | All functional areas |
-| `gitnexus://repo/Culture-Calendar/processes` | All execution flows |
-| `gitnexus://repo/Culture-Calendar/process/{name}` | Step-by-step execution trace |
-
-## Self-Check Before Finishing
-
-Before completing any code modification task, verify:
-1. `gitnexus_impact` was run for all modified symbols
-2. No HIGH/CRITICAL risk warnings were ignored
-3. `gitnexus_detect_changes()` confirms changes match expected scope
-4. All d=1 (WILL BREAK) dependents were updated
-
-## Keeping the Index Fresh
-
-After committing code changes, the GitNexus index becomes stale. Re-run analyze to update it:
-
-```bash
-npm run analyze
-```
-
-If the index previously included embeddings, preserve them by adding `--embeddings`:
-
-```bash
-./node_modules/.bin/gitnexus analyze --embeddings
-```
-
-To check whether embeddings exist, inspect `.gitnexus/meta.json` — the `stats.embeddings` field shows the count (0 means no embeddings). **Running analyze without `--embeddings` will delete any previously generated embeddings.**
-
-> Claude Code users: A PostToolUse hook handles this automatically after `git commit` and `git merge`.
-
-## CLI
-
-| Task | Read this skill file |
-|------|---------------------|
-| Understand architecture / "How does X work?" | `.claude/skills/gitnexus/gitnexus-exploring/SKILL.md` |
-| Blast radius / "What breaks if I change X?" | `.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md` |
-| Trace bugs / "Why is X failing?" | `.claude/skills/gitnexus/gitnexus-debugging/SKILL.md` |
-| Rename / extract / split / refactor | `.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md` |
-| Tools, resources, schema reference | `.claude/skills/gitnexus/gitnexus-guide/SKILL.md` |
-| Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
-
-<!-- gitnexus:end -->
-
-<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18 -->
-## Overnight run — 2026-04-18
-
-> **AUTONOMOUS RUN — do not edit while running.**
-> Owner: HCornier · Branch: `overnight/2026-04-18` · Deadline: 2026-04-19T12:00:00Z (safety cap; open-ended)
-> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`.
-
-### Goal
-
-Five fixes on the promoted v11 site:
-1. **Rating "/10" clarity** — bare integers on badges gain a scale suffix + aria-label.
-2. **Incomplete reviews** (Nish Kumar + Paper Cuts) — add description-level refusal filter in `src/processor.py`; classify Paper Cuts as a pop-up bookshop with factual pre-filled text; harden Paramount scraper against sparse metadata.
-3. **Duplicate "Opera" in tags** — case-insensitive dedup in the category chips + subtitle.
-4. **About section** — collapsible methodology at page bottom.
-5. **Read-aloud via Web Speech API** — client-side TTS button on every expanded review. Cross-browser targets: iPhone Safari, iOS DuckDuckGo, Android Chrome, Android DuckDuckGo, mobile Firefox, desktop Chrome/Safari/Firefox. No generated audio files, no repo growth.
-
-### Definition of done
-
-- `.venv/bin/python -m pytest -q` green
-- Rating badge shows "X / 10" with aria-label "rated X out of 10"
-- No duplicate category chip or subtitle tag; case-insensitive dedup in JS
-- `is_refusal_response(e.description)` is False for every event in `docs/data.json`
-- Paper Cuts events have `type != "book_club"` and factual pre-filled descriptions
-- Paramount scraper skips (or placeholder-fills) events with only a bare title
-- `docs/ABOUT.md` exists and the About section is visible in `docs/index.html`
-- `docs/script.js` calls `window.speechSynthesis.speak()` and listens for `voiceschanged`
-- `STATUS-2026-04-18.md` written with morning checklist
-
-### Hard constraints
-
-- Branch: `overnight/2026-04-18` only. Never touch `main` / `master`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does **NOT** push.
-- No new paid API deps. Web Speech API is browser-native, free, client-side only.
-- No new Python deps. If a task thinks it needs one → write BLOCKED with reason `needs-dep: <name>`.
-- No generated audio files committed. TTS runs in the browser; no MP3s in the repo, no GHA changes needed.
-- No interactive prompts. No `--no-verify` on commits.
-- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m '...'`. Never mutate `~/.gitconfig`.
-- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`. `.overnight/` is gitignored; do not `git add` it.
-- Scope fence: `src/`, `scripts/`, `docs/`, `tests/`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-18.md`.
-- GitNexus impact analysis MANDATORY before editing `src/processor.py`, `src/scrapers/alienated_majesty_scraper.py`, `src/scrapers/paramount_scraper.py`.
-
-### Validation oracle (run before every commit)
-
-```
-.venv/bin/python -m pytest -q
-```
-
-Pytest must exit 0. The task's own `validate` command (from queue.tsv) is also required.
-
-**Do NOT run `verify_calendar.py --offline` as a per-task oracle** — its 22 checks include some that pre-exist red and would block unrelated tasks. Only T6.1 runs it.
-
-If the per-task oracle fails twice in a row, write BLOCKED and rotate.
-
-### Commit cadence
-
-One commit per DONE task. Message format: `<type>(task-<ID>): <TITLE>` (feat/fix/docs/chore/refactor/test). Stage only files in the task's `files` column; never `git add -A`.
-
-### Changelog entry per task
-
-After each DONE commit, append one entry to the fenced overnight block in `CHANGELOG.md`:
-
-```
-### task-<ID> — DONE — <ISO timestamp>
-- commit: <sha>
-- files: <comma-separated>
-- validation: green
-```
-
-### Stop conditions
-
-- All queue tasks DONE → `RUN_COMPLETE`
-- Deadline (2026-04-19T12:00:00Z) reached → `RUN_HALTED: deadline`
-- 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`
-- `STATUS-2026-04-18.md` contains line `HALT` (manual override) → `RUN_HALTED: manual`
-
-### Blocker protocol
-
-A task blocks when validation fails twice. Append to CHANGELOG under today's fenced block:
-```
-BLOCKED: task-<ID>: <one-line reason + failing-command head/tail>
-```
-Then write `.overnight/task-result.json` with `{"status": "BLOCKED", "task_id": "task-<ID>", "reason": "<one line>"}`. The runner rotates.
-
-### Task queue (human view; source of truth is `.overnight/queue.tsv`)
-
-- **T1.2** — Rating badge `/10` suffix + aria-label (picks + listings)
-- **T1.3** — Case-insensitive category dedup (`uniqueCategories`, subtitle)
-- **T2.1** — Description-level refusal filter in `src/processor.py` + test
-- **T2.2** — Classify Paper Cuts as pop-up bookshop (type=other, pre-filled)
-- **T2.3** — Paramount scraper: skip/placeholder sparse-metadata events
-- **T2.4** — Clean existing refusal-shaped descriptions in `docs/data.json`
-- **T3.1** — Methodology `docs/ABOUT.md` + collapsible `.about-section`
-- **T4.1** — Read-aloud button via Web Speech API (cross-browser)
-- **T6.1** — Final gate
-- **T6.2** — `STATUS-2026-04-18.md` handoff
-
-<!-- END OVERNIGHT-PLAN: 2026-04-18 -->
-
-<!-- BEGIN OVERNIGHT-PLAN: 2026-04-19 -->
-## Overnight run — 2026-04-19
-
-> **AUTONOMOUS RUN — do not edit while running.**
-> Owner: HCornier · Branch: `overnight/2026-04-19` · Deadline: 2026-04-19T03:38:09Z (24h safety cap; user requested open-ended)
-> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`. Date tag passed to runner: `2026-04-19`.
-
-### Goal
-
-Three threads bundled as one batch:
-
-**Primary (must ship):** A `visual_arts` event category lands in the schema, a NowPlayingAustin visual-arts scraper feeds events into `docs/data.json`, an art-critic AI rating branch runs in `src/processor.py`, and tests cover all of it.
-
-**Secondary (best-effort):** Audit Alienated Majesty for artist-talk events and extend its scraper. Add a Libra Books scraper if T0.1 finds a public events page; if not, T2.2 self-blocks and the run continues.
-
-**Tertiary (best-effort):** 10-variant filter-bar redesign under `docs/variants/v12{a..j}/`. Each variant scored by `critique` (40%) + `layout` (30%) + `audit` (20%) + `polish` (10%). Winner promoted to live `docs/`.
-
-**Quaternary (last-hour polish):** Coverage matrix in `docs/COVERAGE.md` proving every event category has ≥1 well-formed event in `docs/data.json`.
-
-### Hard constraints
-
-- Branch `overnight/2026-04-19` only. Never touch `main`. Never `git reset --hard`, `git push --force`, or rewrite history. Runner does NOT push.
-- No new Python deps (`pip install` forbidden). If a task thinks it needs one → BLOCKED with reason `needs-dep: <name>`.
-- No new paid API deps. LLM calls reuse Perplexity (Sonar) + Anthropic from `.env`.
-- Web Speech API stays browser-native — no audio files committed.
-- No interactive prompts. No `--no-verify`.
-- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com commit -m '...'`. Never mutate `~/.gitconfig`.
-- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`. `.overnight/` stays gitignored.
-- Scope fence: `src/`, `scripts/`, `docs/`, `tests/`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-19.md`.
-- GitNexus impact analysis MANDATORY before editing `src/processor.py`, `src/scraper.py`, `src/scrapers/alienated_majesty_scraper.py`, `update_website_data.py`.
-- **Filter-redesign scope fence:** T3.x writes only under `docs/variants/v12<x>/` until T3.4, which promotes the winner to `docs/index.html` / `script.js` / `styles.css`.
-
-### Validation oracle (run before every commit)
-
-```
-.venv/bin/python -m pytest -q
-```
-
-Pytest must exit 0. Each task's per-task `validate` command (from queue.tsv) is also required.
-
-**Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle** — same reasoning as 2026-04-18: pre-existing red items would block unrelated tasks. Only T5.1 runs it, and only as a delta-vs-main check.
-
-### Commit cadence
-
-One commit per DONE task. Message format: `<type>(task-<ID>): <TITLE>` (feat / fix / docs / chore / refactor / test). Stage only files in the task's `files` column; never `git add -A`. Research-only tasks (T0.1, T0.2, T3.1, T3.3, T5.1) write to gitignored `.overnight/` — they SKIP steps 4 (commit) and 5 (CHANGELOG) of the contract and write `task-result.json` with status=DONE directly.
-
-### Changelog entry per task
-
-After each DONE commit (skip for research-only tasks), append one entry to the fenced overnight block in `CHANGELOG.md`:
-
-```
-### task-<ID> — DONE — <ISO timestamp>
-- commit: <sha>
-- files: <comma-separated>
-- validation: green
-```
-
-### Stop conditions
-
-- All queue tasks DONE → `RUN_COMPLETE`
-- Deadline reached (2026-04-19T03:38:09Z) → `RUN_HALTED: deadline`
-- 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`
-- `STATUS.md` (not date-tagged — runner only watches this exact file) contains line `HALT` → `RUN_HALTED: manual`
-
-### Task queue (human view; source of truth is `.overnight/queue.tsv`)
-
-**Phase 0 — Research (no commits)**
-- **T0.1** — Find Libra Books events page; write `.overnight/libra-resolution.md` with `url:` or `BLOCKED:` verdict
-- **T0.2** — Audit Alienated Majesty events for artist-talk signals → `.overnight/am-artist-events.md`
-
-**Phase 1 — visual_arts category (core goal)**
-- **T1.1** — Add `visual_arts` to `ontology.labels`
-- **T1.2** — Add `visual_arts` template (model on `concert`)
-- **T1.3** — Build `now_playing_austin_visual_arts_scraper.py`
-- **T1.4** — Register scraper in `__init__.py` + `MultiVenueScraper`
-- **T1.5** — Snapshot fixtures + unit tests for the scraper
-- **T1.6** — Add `_get_visual_arts_rating()` branch in `EventProcessor`
-- **T1.7** — End-to-end smoke: pipeline emits ≥1 visual_arts event into data.json
-- **T1.8** — Refusal-guard sweep on visual_arts entries
-
-**Phase 2 — Bookstore artist-talks (secondary)**
-- **T2.1** — Extend Alienated Majesty scraper for artist-talks
-- **T2.2** — Build Libra Books scraper (auto-blocks if T0.1 BLOCKED)
-
-**Phase 3 — Filter redesign (tertiary)**
-- **T3.1** — Variant spec → `.overnight/filter-redesign-spec.md`
-- **T3.2** — Generate 10 variants under `docs/variants/v12{a..j}/`
-- **T3.3** — Score variants via critique+layout+audit+polish skills
-- **T3.4** — Promote winner to `docs/index.html` / `script.js` / `styles.css`
-- **T3.5** — Filter smoke test
-
-**Phase 4 — Coverage (quaternary)**
-- **T4.1** — `scripts/check_event_coverage.py` covers every event_category
-- **T4.2** — `docs/COVERAGE.md` per-category counts table
-
-**Phase 5 — Final gate**
-- **T5.1** — Full pytest + coverage + verify_calendar.py delta check
-- **T5.2** — `STATUS-2026-04-19.md` handoff
-
-<!-- END OVERNIGHT-PLAN: 2026-04-19 -->
-
-<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-2 -->
-## Overnight run — 2026-04-18-2
-
-> **AUTONOMOUS RUN — do not edit while running.**
-> Owner: HCornier · Branch: `main` (direct commits/pushes) · Deadline: 2026-04-19T14:14:20 local (24h safety cap)
-> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`. Date tag: `2026-04-18-2`.
-
-### Why this run exists
-
-The 2026-04-19 merge (`c45fdfd` + `7a477cb` + `2c83a39`) shipped the `visual_arts` category and v12i filter-bar redesign, but the live site now has five regressions the user flagged:
-
-1. **Mobile filter sheet** — opens half-cut-off on iOS, can't be closed
-2. **Top Picks** — shows top-N by rating across ALL events; user wants top picks **of the week** (next 7d)
-3. **Review expansion** — mechanism works, but content is unformatted (single-paragraph textContent instead of the pre-v12i `parseReview()` structured sections)
-4. **Subtitle leak** — `<p class="masthead-subtitle">Sticky chip-drawer with active summary</p>` is v12i's internal design-note text, not a user-facing tagline
-5. **About section** — the collapsible methodology section added by 2026-04-18 T3.1 (`c03f617`) was dropped when v12i was promoted; `docs/ABOUT.md` still exists but isn't referenced from `index.html`
-
-Plus a meta-requirement: the 2026-04-19 push-then-discover-404 episode eroded trust. Every task in this run **pushes to main and verifies against the live site** before declaring DONE.
-
-### Goal / definition of done
-
-All five regressions fixed and verified live at `https://hadrien-cornier.github.io/Culture-Calendar/`:
-- Subtitle reads "Austin cultural events, AI-curated"
-- About section present with collapsible methodology from `docs/ABOUT.md`
-- Top Picks heading says "TOP PICKS OF THE WEEK" and only includes events within next 7d
-- Review panels render with sections (h3/h4 headings + paragraph spacing), not plain text
-- Mobile filter sheet opens, closes (close button + escape + click-outside), and stays fully within viewport (375×812)
-
-### Hard constraints
-
-- **Branch `main` direct.** User explicitly authorized per-task pushes to main for this run because each fix must be verifiable against the live site. Never `git reset --hard`, `git push --force`, or rewrite history.
-- Each task: commit → push → wait for GH Pages → run live-check → if check fails, `git revert HEAD --no-edit` + push + BLOCK. Never leaves a broken live state.
-- No new Python or JS deps. No `pip install` / `npm install`. Pyppeteer is already installed (v2.0.0) — that's our verification tool.
-- No interactive prompts. No `--no-verify`.
-- Git identity: every commit (including reverts) via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
-- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `.overnight/`, `skills-lock.json`.
-- **Scope fence**: `docs/` (index.html/script.js/styles.css/ABOUT.md), `src/`, `scripts/check_live_site.py`, `tests/test_check_live_site.py`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-18-2.md`. Nothing else without BLOCK-and-ask.
-- **Do NOT edit `docs/variants/v12i/`** — that's the archival variant; the live `docs/*` is a sibling copy.
-
-### Live-site verification tool
-
-`scripts/check_live_site.py` (built by T0.1) uses pyppeteer to load a URL, optionally with mobile viewport, evaluate assertions from a JSON spec file, and exit 0/non-zero. Each subsequent task writes its spec file to `.overnight/check-T<ID>.json` (gitignored) and invokes the checker via the validate command.
-
-Spec schema: `{url, mobile, wait_ms, wait_for_selector, click_before_assert[], asserts[]}` — assertion types: `body_contains`, `body_not_contains`, `selector_exists`, `selector_min_count`, `selector_max_count`, `js_truthy`.
-
-### Validation oracle (before every commit)
-
-```
-.venv/bin/python -m pytest -q
-```
-
-Must exit 0 locally. The per-task `validate` from queue.tsv is the LIVE-SITE check and runs AFTER push + deploy-wait.
-
-Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle — pre-existing red items.
-
-### Deploy-wait discipline
-
-After `git push origin main`, poll a file changed in the push (commonly `docs/script.js`, `docs/styles.css`, or `docs/index.html`) at `https://hadrien-cornier.github.io/Culture-Calendar/<file>` every 15-20s until the served content matches the pushed content. Timeout 5 min → BLOCKED `deploy-timeout`.
-
-Each task adds at least one unique string (e.g., new commit-specific marker or content) that can be grepped during the poll.
-
-### Revert protocol (when live-check fails)
-
-```
-git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com revert HEAD --no-edit
-git push origin main
-# wait for deploy
-# re-run validate to confirm site is stable after revert
-```
-
-Then BLOCKED with reason explaining why the validate failed.
-
-### Commit cadence + changelog
-
-One DONE commit per task (plus possibly 1 revert commit on failure). Message format: `<type>(task-<ID>): <TITLE>`. Append CHANGELOG entry inside today's fence:
-
-```
-### task-<ID> — DONE — <ISO timestamp>
-- commit: <sha>
-- files: <comma-separated>
-- live-check: passed after <N>s deploy wait
-```
-
-On BLOCKED (revert committed):
-
-```
-### task-<ID> — BLOCKED — <ISO timestamp>
-- attempted: <original-sha>
-- reverted: <revert-sha>
-- reason: <one-line>
-```
-
-### Stop conditions
-
-- All queue tasks DONE → `RUN_COMPLETE`
-- Deadline 2026-04-19T14:14:20 local → `RUN_HALTED: deadline`
-- 3 consecutive BLOCKED → `RUN_HALTED: consecutive-blockers`
-- `STATUS.md` contains `HALT` → `RUN_HALTED: manual`
-
-### Task queue (human view; source of truth is `.overnight/queue.tsv`)
-
-**Phase 0 — tooling**
-- **T0.1** — Build `scripts/check_live_site.py` + pytest unit tests
-
-**Phase 1 — small independent fixes**
-- **T1.1** — Subtitle → "Austin cultural events, AI-curated"
-- **T1.2a** — Restore `<section class="about-section">` HTML + CSS
-- **T1.2b** — Inline `docs/ABOUT.md` content into About body
-
-**Phase 2 — Top Picks of the Week**
-- **T2.1** — Date-filter picks to events within next 7d, re-sort
-- **T2.2** — Rename heading to "TOP PICKS OF THE WEEK"
-
-**Phase 3 — Review formatting**
-- **T3.1** — Port `parseReview()` from `d13f975:docs/script.js:1157-1207`
-- **T3.2** — Review-section CSS (headings, paragraph spacing)
-
-**Phase 4 — Mobile filter sheet**
-- **T4.1** — Close mechanism (X button + click-outside + Escape)
-- **T4.2** — Viewport cutoff fix (100dvh + safe-area-inset)
-
-**Phase 5 — gate**
-- **T5.1** — Final composite live-site smoke (desktop + mobile)
-- **T5.2** — `STATUS-2026-04-18-2.md` handoff
-
-<!-- END OVERNIGHT-PLAN: 2026-04-18-2 -->
-
-<!-- BEGIN OVERNIGHT-PLAN: 2026-04-18-3 -->
-## Overnight run — 2026-04-18-3
-
-> **AUTONOMOUS RUN — do not edit while running.**
-> Owner: HCornier · Branch: `main` (direct commits/pushes) · Deadline: 2026-04-19T18:00:00 local (24h safety cap)
-> Runner: `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`. Queue: `.overnight/queue.tsv`. Date tag: `2026-04-18-3`.
-
-### Why this run exists
-
-The 2026-04-18-2 merge fixed 5 regressions from the v12i promotion, but the user pushed back with **deeper structural issues**:
-
-1. **Filter chips cluttered** — wants a search bar with autocomplete on venues / titles / categories instead.
-2. **Top Picks aren't readable** — can't click through to see the AI review for a recommended event.
-3. **Merit listings hide logistics** — date/time only visible after clicking expand.
-4. **Unfair low ratings** — movies with sparse Perplexity sources score low because the model defaults to 5/10 on thin evidence; no surface for "we couldn't research this well."
-5. **One-liner contrast too low** — italic `#d4a574` on white (~2.8:1) fails WCAG AA.
-6. **Read-aloud TTS regression** — added in `986877e` (2026-04-18 T4.1), silently removed in `c45fdfd` (2026-04-19 v12i promotion). Same pattern as the About section.
-7. **No persona-driven critique** — every overnight run rediscovers regressions by hand.
-8. **No feature inventory** — features get dropped silently during redesigns.
-9. **No venue prospecting** — visual_arts has 8 events from one aggregator; user wants Perplexity-driven discovery.
-
-### Goal / definition of done
-
-- Search bar replaces chip drawer; typing filters listings + shows grouped suggestions
-- Top Pick cards expand to reveal the AI review on click
-- Merit-listing cards show date/time on the header line (no click needed)
-- One-liner contrast ≥ WCAG AA 4.5:1
-- Read-aloud button present inside every expanded review panel, calling `window.speechSynthesis`
-- `review_confidence: low | medium | high | unknown` field on every event; low-confidence events render in a separate collapsed "Pending more research" section
-- 6 persona spec files under `.overnight/personas/` AND `scripts/persona_critique.py` that runs them (default = full LLM council, `--fast` = DOM-asserts only)
-- `.overnight/feature-inventory.json` committed; per-task discipline requires each feature task append its own entry
-- `README.md` "Venue Wishlist" section seeded with roadmap candidates; Phase 4 appends Perplexity-discovered additions
-- `docs/PERSONAS-fast.md` + `docs/PERSONAS.md` scorecards committed
-- `STATUS-2026-04-18-3.md` handoff written
-
-### Hard constraints
-
-- **Branch `main` direct.** User authorized per-task pushes to main because every fix must be verifiable against the live site. Never `git reset --hard`, `git push --force`, or rewrite history.
-- Each task that touches `docs/`: commit → push → wait for GH Pages → live-check → if check fails, `git revert HEAD --no-edit` + push + BLOCK. Backend tasks (`src/`, `scripts/`, `tests/`, `config/`) push without deploy-wait since they don't change the served site directly.
-- No new Python or JS deps. No `pip install` / `npm install`.
-- No interactive prompts. No `--no-verify`.
-- Git identity: every commit (including reverts) via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
-- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or `.overnight/<working-files>` (`.overnight/queue.tsv`, `.overnight/runner-prompt.txt`, `.overnight/events.log`, `.overnight/task-result.json`, `.overnight/check-*.json`, `.overnight/task-*.log`, `.overnight/archive-*/`, `.overnight/venue-prospects/`). The ONLY committed subpaths under `.overnight/` are `.overnight/personas/` and `.overnight/feature-inventory.json` — these are persistent across runs.
-- **Scope fence**: `docs/` (index.html/script.js/styles.css/ABOUT.md/PERSONAS.md/PERSONAS-fast.md), `src/processor.py`, `scripts/check_live_site.py`, `scripts/persona_critique.py`, `scripts/prospect_venues.py`, `tests/test_review_confidence.py`, `tests/test_persona_critique.py`, `tests/test_prospect_venues.py`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, `STATUS-2026-04-18-3.md`, `README.md` (Venue Wishlist append only), `.overnight/personas/*.json`, `.overnight/feature-inventory.json`. Nothing else without BLOCK-and-ask.
-- **Do NOT edit `docs/variants/v12i/`** — that's the archival variant; live `docs/*` is a sibling copy.
-- **GitNexus impact analysis MANDATORY** before editing `src/processor.py`, `update_website_data.py`, `src/scrapers/__init__.py`, `src/scraper.py`.
-
-### Feature-inventory discipline (NEW)
-
-Every task that adds a user-visible feature MUST append its entry to `.overnight/feature-inventory.json` BEFORE committing. Entry shape:
-
-```json
-{"id": "<slug>", "name": "<human name>", "selector": "<CSS selector>", "since_commit": "<this-commit>", "smoke_assertion": "<selector_exists | click_then_visible | js_truthy:...>"}
-```
-
-The continuity-user persona reads this file on every future run and asserts each listed selector still resolves on the live site. Omitting the append step is the same regression pattern that deleted TTS and About; this discipline is the enforcement mechanism.
-
-### Validation oracle (before every commit)
-
-```
-.venv/bin/python -m pytest -q
-```
-
-Must exit 0 locally. The per-task `validate` from queue.tsv runs AFTER push + deploy-wait (docs/ tasks) or directly as the per-task oracle (backend tasks). Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle — pre-existing red items.
-
-### Deploy-wait discipline (docs/ tasks only)
-
-After `git push origin main`, poll a file changed in the push at `https://hadrien-cornier.github.io/Culture-Calendar/<file>` every 15-20s until served content matches pushed content. Timeout 5 min → BLOCKED `deploy-timeout`. Each task adds at least one unique string that can be grepped during the poll.
-
-Backend tasks (no `docs/` changes) skip deploy-wait; their validate command runs immediately after push.
-
-### Revert protocol (when live-check fails on docs/ tasks)
-
-```
-git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com revert HEAD --no-edit
-git push origin main
-# wait for deploy
-# re-run validate to confirm site is stable after revert
-```
-
-Then BLOCKED with reason explaining why validate failed.
-
-### Commit cadence + changelog
-
-One DONE commit per task (plus possibly 1 revert commit on failure). Message format: `<type>(task-<ID>): <TITLE>`. Append CHANGELOG entry inside today's fence:
-
-```
-### task-<ID> — DONE — <ISO timestamp>
-- commit: <sha>
-- files: <comma-separated>
-- live-check: <passed after Ns | n/a (backend)>
-```
-
-On BLOCKED (revert committed):
-
-```
-### task-<ID> — BLOCKED — <ISO timestamp>
-- attempted: <original-sha>
-- reverted: <revert-sha>
-- reason: <one-line>
-```
-
-### Stop conditions
-
-- All queue tasks DONE → `RUN_COMPLETE`
-- Deadline 2026-04-19T18:00:00 local → `RUN_HALTED: deadline`
-- 3 consecutive BLOCKED → `RUN_HALTED: consecutive-blockers`
-- `STATUS.md` contains `HALT` → `RUN_HALTED: manual`
-
-### Task queue (human view; source of truth is `.overnight/queue.tsv`)
-
-**Phase 0 — inventory + wishlist seeds (backend)**
-- **T0.1** — Seed `.overnight/feature-inventory.json` with currently-live features + add Feature Inventory section to CLAUDE.md
-- **T0.2** — Seed `## Venue Wishlist` section in README.md from existing Phase 4/8 roadmap
-
-**Phase 1 — user-visible UX (docs/ — live-checked)**
-- **T1.1a** — Remove chip-drawer filter sheet entirely
-- **T1.1b** — Add search bar + grouped suggestions in masthead
-- **T1.2** — Make Top Picks cards expandable with review
-- **T1.3** — Show date/time on merit-listing card headers
-- **T1.4** — Raise one-liner text contrast to WCAG AA
-- **T1.5** — Restore TTS Read-aloud button in expanded reviews
-
-**Phase 2 — review_confidence backend + UI bucket**
-- **T2.1** — Add `review_confidence` signal in `_parse_ai_response`
-- **T2.2** — Add `review_confidence` field to all category templates
-- **T2.3** — Expose `review_confidence` in event JSON builder
-- **T2.4** — Cache-aware re-rate of refusal-shaped cached entries
-- **T2.5** — Render "Pending more research" section for low-confidence reviews
-- **T2.6** — Harden review_confidence test coverage
-
-**Phase 3 — persona council framework**
-- **T3.1** — Write 6 persona spec files under `.overnight/personas/`
-- **T3.2** — Build `scripts/persona_critique.py` (LLM council default, `--fast` flag)
-- **T3.3** — Extend personas with LLM framing (goals + system_prompt)
-
-**Phase 4 — Perplexity venue prospecting (drafts only)**
-- **T4.1** — Build `scripts/prospect_venues.py`
-- **T4.2** — Run prospector for visual_arts + concert, append to README wishlist
-- **T4.3** — Harden prospector test coverage
-
-**Phase 5 — gate + handoff**
-- **T5.1** — Final structural gate (fast persona council)
-- **T5.2** — Full LLM persona council critique (6 Anthropic calls, ~$0.50)
-- **T5.3** — Write `STATUS-2026-04-18-3.md` handoff
-
-<!-- END OVERNIGHT-PLAN: 2026-04-18-3 -->
-
-<!-- BEGIN FEATURE-INVENTORY -->
 ## Feature Inventory
 
-The canonical list of user-visible features lives in `.overnight/feature-inventory.json`. Each entry records the CSS selector and smoke assertion proving the feature is live.
+Canonical list of user-visible features lives at `.overnight/feature-inventory.json`. Each entry records the CSS selector + smoke assertion proving the feature is live.
 
-**Discipline:** every task that adds or changes a user-visible feature MUST append its entry to that JSON file BEFORE committing. The continuity-user persona reads the file on every overnight run and asserts each listed selector still resolves on the live site. Skipping the append step is the regression pattern that previously dropped the TTS button (`986877e` → `c45fdfd`) and the About section (`c03f617` → v12i promotion).
+**Discipline:** every task adding or changing a user-visible feature MUST append its entry BEFORE committing. The continuity-user persona asserts each listed selector on the live site on every run. Skipping the append step is the regression pattern that previously dropped the TTS button (`986877e` → `c45fdfd`) and the About section (`c03f617` → v12i promotion).
 
-**Entry shape:**
-
+Entry shape:
 ```json
 {
   "id": "<slug>",
@@ -794,359 +207,245 @@ The canonical list of user-visible features lives in `.overnight/feature-invento
 }
 ```
 
-**Update rules:**
+Rules:
+- Append only; never reorder or rewrite existing entries (preserves git-blame).
+- If removing a feature, delete the entry in the same commit and note it in CHANGELOG.
+- Selectors must resolve on the LIVE site, not just source.
 
-- Append new entries — never reorder or rewrite existing ones (preserves git-blame history).
-- If a feature is intentionally removed, add a removal note in CHANGELOG and delete the entry in the same commit.
-- Selectors must resolve on the LIVE site (`https://hadrien-cornier.github.io/Culture-Calendar/`), not just in source.
-<!-- END FEATURE-INVENTORY -->
+---
 
 ## Persona critique gate
 
-Every significant modification to the live site is expected to pass through the LLM persona council — six personas (logistics-user, review-reader, search-user, comprehensiveness-user, continuity-user, mobile-user) that critique the site from distinct user lenses via `scripts/persona_critique.py` (Claude Sonnet 4.6 by default, chosen by `scripts/bench_personas.py`; see `docs/persona_model_benchmark.md`).
+Six personas (logistics-user, review-reader, search-user, comprehensiveness-user, continuity-user, mobile-user) critique the site via `scripts/persona_critique.py`. Model: Claude Sonnet 4.6 by default, chosen by `scripts/bench_personas.py`; see `docs/persona_model_benchmark.md`.
 
-**Local-only design.** The LLM council runs on your workstation before push — not in CI. No Anthropic API key lives on GitHub; no per-push CI cost; no GitHub-hosted audit trail. The trade-off: continuity regressions between `[persona-gate]` runs aren't auto-detected (handled via a manual `scripts/persona_critique.py` run whenever you want a fresh scorecard).
+**Local-only.** Council runs on your workstation before push, not in CI — no Anthropic API key on GitHub, no per-push CI cost. Trade-off: regressions between `[persona-gate]` runs aren't auto-detected; run `scripts/persona_critique.py` manually for a fresh scorecard.
 
-### Opt-in blocking gate via `[persona-gate]` commit tag
-
-For deliberately significant changes (architectural UI refactors, feature removals/restorations, redesigns), tag the commit subject with the literal marker `[persona-gate]`. Example:
-
+### `[persona-gate]` commit tag
+Tag the commit subject with literal `[persona-gate]` for significant changes (architectural UI refactors, feature removals/restorations, redesigns). Example:
 ```
 feat(ui): [persona-gate] replace chip drawer with combobox search
-
-Significant IA change — wants persona approval before landing.
 ```
-
-The pre-push hook at `.githooks/pre-push` scans each outgoing commit subject for the marker. When it finds one:
-
-1. Spins up `python -m http.server` rooted at `docs/` on a free local port.
-2. Copies persona JSONs to a tempdir with URLs rewritten from the live host to `http://127.0.0.1:<port>/`.
+`.githooks/pre-push` scans outgoing commits for the marker. On match:
+1. Starts `python -m http.server` rooted at `docs/` on a free port.
+2. Copies persona JSONs to tempdir, rewriting URLs to `http://127.0.0.1:<port>/`.
 3. Runs `scripts/require_persona_approval.py` → persona_critique in LLM mode.
-4. Aborts the push if any persona verdict is FAIL; prints the scorecard path (`.overnight/gate-b-scorecard.md`) for inspection.
+4. Aborts push on any FAIL; scorecard at `.overnight/gate-b-scorecard.md`.
 
-**Activate per-clone** (not enforced globally):
+Activate per-clone: `git config core.hooksPath .githooks`.
 
-```
-git config core.hooksPath .githooks
-```
-
-**When to tag `[persona-gate]`:**
-- Removing a user-visible feature (chip drawer, TTS button, About section, etc.).
-- Redesigning a primary surface (masthead, top picks, merit listings).
-- Any change a reviewer would call "a new direction" rather than "a fix."
-
-**When NOT to tag:**
-- Bug fixes, copy tweaks, CSS polish, data refreshes, dependency bumps.
-- Changes you're willing to ship without a persona-level review.
-
-**Emergency bypass:** `git push --no-verify`. Use once and revisit the failing verdict in the morning.
+**Tag when:** removing a user-visible feature; redesigning a primary surface; any change a reviewer would call "a new direction" rather than "a fix."
+**Don't tag:** bug fixes, copy tweaks, CSS polish, data refreshes, dep bumps.
+**Emergency bypass:** `git push --no-verify` — revisit the failing verdict afterward.
 
 ### On-demand audit
-
-Run `./venv/bin/python scripts/persona_critique.py --out docs/PERSONAS.md` any time you want a fresh scorecard against the deployed site. Commit the file if you want the audit to live in git history; leave uncommitted if it's just for local review. This is the equivalent of what a CI audit would do — you choose when to pay the Anthropic call.
+`./venv/bin/python scripts/persona_critique.py --out docs/PERSONAS.md` — commit if you want audit history, skip for local review.
 
 ### Key files
-
 | File | Purpose |
 |---|---|
-| `scripts/persona_critique.py` | Runs all personas, emits structured scorecard + cost JSONL |
-| `scripts/bench_personas.py` | Benchmarks Haiku/Sonnet/Opus to pick the cheapest model that agrees with the reference on ≥5/6 personas |
-| `scripts/require_persona_approval.py` | Local preflight harness used by Gate B |
-| `scripts/check_live_site.py` | Pyppeteer-based structural-assertion runner consumed by personas |
-| `.overnight/personas/*.json` | 6 persona specs (gitignored parent, persona subdir whitelisted) |
-| `.overnight/feature-inventory.json` | Continuity-user source of truth (gitignored parent, file whitelisted) |
-| `.overnight/persona-costs.jsonl` | Per-call cost log (gitignored; local only) |
-| `config/persona_model.json` | Selected model (written by `bench_personas.py`) |
-| `docs/PERSONAS.md` | Latest persona scorecard (overwritten by on-demand `persona_critique.py` runs) |
-| `docs/persona_model_benchmark.md` | Benchmark run results justifying the model pick |
-| `.githooks/pre-push` | Opt-in pre-push hook triggered by `[persona-gate]` commit tag |
+| `scripts/persona_critique.py` | Runs personas, emits scorecard + cost JSONL |
+| `scripts/bench_personas.py` | Benchmarks Haiku/Sonnet/Opus to pick cheapest w/ ≥5/6 agreement |
+| `scripts/require_persona_approval.py` | Local preflight for Gate B |
+| `scripts/check_live_site.py` | Pyppeteer structural-assertion runner |
+| `.overnight/personas/*.json` | 6 persona specs (gitignored parent, subdir whitelisted) |
+| `.overnight/feature-inventory.json` | Continuity-user truth source (gitignored parent, file whitelisted) |
+| `.overnight/persona-costs.jsonl` | Per-call cost log (local only) |
+| `config/persona_model.json` | Selected model (written by bench) |
+| `docs/PERSONAS.md` | Latest scorecard |
+| `docs/persona_model_benchmark.md` | Benchmark results |
+| `.githooks/pre-push` | Opt-in pre-push hook |
 
-<!-- BEGIN LONG-RUN: 20260419-235117 -->
-## Long run — 20260419-235117
+---
 
-> **AUTONOMOUS RUN — do not edit while running.**
-> Owner: Hadrien-Cornier · Started: 2026-04-19T23:51:17 CDT · Deadline: 2026-04-21T11:54:03 CDT (36h safety cap) · Branch: `long-run/20260419-235117`
+## Autonomous Run Baseline
 
-### Goal
-
-Build "Consumption Surface v1" — turn the static listings site into a multi-surface subscribable/personalizable product without new paid deps. 28 tasks across 9 phases: subscribable feeds (ICS + RSS), JSON-LD + OG cards + deep links, client-side taste graph (thumbs/save/re-rank), weekly digest + audio brief, venue/people SEO pages, sitemap + share button, Plausible analytics, and weekend-stretch (composer essay, screenshot harness, per-person webcal follow feeds).
-
-Strategic frame derived via `gstack-openclaw-ceo-review` (SCOPE EXPANSION) + `business-strategy-v2` frameworks (JTBD, Category Design, 7 Powers, Blue Ocean ERRC, AI Factory, Cold Start, Traction Bullseye). Full plan at `~/.claude/plans/use-the-gstack-skills-elegant-adleman.md`.
-
-### Definition of done
-
-By the deadline, the following must all be true:
-
-- `docs/calendar.ics` and `docs/top-picks.ics` exist, parse as valid iCalendar, and are linked from the masthead via `webcal://`
-- `docs/feed.xml` exists and is valid RSS/Atom
-- `docs/sitemap.xml` exists and enumerates all pages (index + weekly + venues + people + features)
-- Event modals inject JSON-LD `Event` schema; index head has OG + Twitter card meta
-- `#event=<id>` deep-link handler works (loads, scrolls, expands)
-- Thumbs up/down + save buttons persist to localStorage; top picks re-rank based on taste; "because you liked X" annotation renders
-- `docs/weekly/<yyyy-ww>.html` static digest page with top picks; 5-min audio-brief button via Web Speech API
-- `docs/venues/<slug>.html` per venue (≥10); `docs/people/<slug>.html` per composer/director/author with ≥2 events
-- `docs/people/<slug>.ics` per-person webcal follow feeds
-- Share button uses Web Share API with mailto/twitter/clipboard fallbacks
-- Plausible analytics tag present + 7 custom events (`cc_subscribe_ics`, `cc_subscribe_rss`, `cc_thumb_up`, `cc_thumb_down`, `cc_save`, `cc_share`, `cc_play_brief`)
-- `docs/features/composer-<yyyy-ww>.html` auto-generated weekly composer essay
-- `docs/preview/` populated by pyppeteer screenshot harness
-- `.overnight/feature-inventory.json` has ≥18 new entries
-- `STATUS-20260419-235117.md` handoff written
-- `pytest -q` exits 0
+All autonomous overnight/long runs inherit these rules. Each run's own section below only lists its unique goals, scope, and task queue. Runs are driven by `~/.claude/skills/overnight-plan/scripts/overnight-runner.sh` via `nohup`, with a per-run `queue.tsv` as source of truth for tasks.
 
 ### Hard constraints
-
-The runner and any spawned `claude -p` instance must obey these:
-
-- Branch: `long-run/20260419-235117` only — never push, never switch to `main`. The runner does NOT push. User merges after review.
-- Never rewrite git history (`git rebase`, `git reset --hard`, `git push --force`).
-- Never `pip install` / `npm install` new dependencies. If a task thinks it needs one → BLOCKED with reason `needs-dep: <name>`.
-- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or `.overnight/` working files (only `.overnight/feature-inventory.json` and `.overnight/personas/` are whitelisted).
-- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
-- No interactive prompts. No `--no-verify`.
-- Network policy: LLM API calls reuse existing Perplexity + Anthropic keys from `.env`. No new third-party services. Plausible is a single `<script>` tag, no auth needed.
-
-### Scope fence
-
-In-scope paths:
-
-- `scripts/` — new build_*.py generators (ics, rss, og, weekly digest, venues, people, sitemap, wishlist, composer feature, screenshots)
-- `tests/` — unit tests for each new generator
-- `docs/` — `index.html`, `script.js`, `styles.css`, `ABOUT.md`, plus new `docs/calendar.ics`, `docs/top-picks.ics`, `docs/feed.xml`, `docs/sitemap.xml`, `docs/robots.txt`, `docs/og/`, `docs/weekly/`, `docs/venues/`, `docs/people/`, `docs/features/`, `docs/preview/`, `docs/wishlist.html`
-- `update_website_data.py` — orchestrate new builders in final step
-- `src/` — read-only reuse of `calendar_generator.py`, `llm_service.py`, `processor.py` patterns. Direct edits ONLY allowed in `src/processor.py` for composer-essay branch (T8.1) AND require GitNexus impact analysis first.
-- `CLAUDE.md` — only inside this run's fenced markers (`<!-- BEGIN LONG-RUN: 20260419-235117 -->`).
-- `CHANGELOG.md` — only inside this run's fenced markers.
-- `STATUS-20260419-235117.md` — final handoff file.
-- `.overnight/feature-inventory.json` — append-only.
-- `.gitignore` — if needed.
-
-Anything else is read-only.
-
-### Validation oracle (run before every commit)
-
-```
-.venv/bin/python -m pytest -q
-```
-
-Pytest must exit 0. The per-task `validate` command from `queue.tsv` is the second oracle and is task-specific.
-
-Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle — pre-existing red items would block unrelated tasks.
-
-### Working agreement
-
-- Commit cadence: one commit per task. Message format: `<type>(task-<ID>): <title>` where `<type>` is the `ctype=` prefix in the task's notes column (feat / fix / chore / refactor / test / docs).
-- Stage only files in the task's `files` column; never `git add -A`.
-- Append one entry to `CHANGELOG.md` inside this run's fenced block after each DONE commit (format in runner-prompt.txt step 5).
-- Feature-inventory discipline: every task adding a user-visible feature MUST append its entry to `.overnight/feature-inventory.json` BEFORE committing (same regression-prevention pattern as prior runs).
-
-### Stop conditions
-
-- All 28 tasks `DONE` → `RUN_COMPLETE`
-- Wall clock ≥ 2026-04-21T11:54:03 CDT → `RUN_HALTED: deadline`
-- 3 consecutive `BLOCKED` tasks → `RUN_HALTED: consecutive-blockers`
-- `STATUS.md` (bare — no date tag; runner watches this exact name) contains `HALT` → `RUN_HALTED: manual`
-
-### Handoff
-
-When the runner stops, it emits final event to `.long-run/20260419-235117/events.log`. The `long-run/20260419-235117` branch stays local — Hadrien reviews and merges to `main` in the morning. The runner does NOT push.
-
-<!-- END LONG-RUN: 20260419-235117 -->
-
-<!-- BEGIN LONG-RUN: 20260421-225013 -->
-## Long run — 20260421-225013
-
-> **AUTONOMOUS RUN — do not edit while running.**
-> Owner: Hadrien-Cornier · Started: 2026-04-22T03:50:13Z · Deadline: 2026-04-23T15:50:13Z (36h safety cap) · Branch: `long-run/20260421-225013`
-
-### Goal
-
-Build "Consumption Surface v2" on top of v1's live foundation (RSS / iCal feeds, per-event shells, OG / Twitter / JSON-LD, taste graph, weekly digest, Plausible analytics). Close the four gaps surfaced after v1 shipped:
-
-1. **Rich social share** — replace the bare `mailto:` digest button and extend the pick-card share popover from 3 platforms (mailto, Twitter, clipboard) to 9 (Twitter/X, Threads, Bluesky, Mastodon, LinkedIn, WhatsApp, SMS, Email, Copy). Per-platform Plausible events.
-2. **Mailing list** — Buttondown-backed (free tier, user-confirmed). UI + config-driven endpoint + stub fallback + archive + subscribed/unsubscribed landings.
-3. **Agent-friendly surfaces** — `llms.txt`, `llms-full.txt`, `/api/*.json` aggregates, per-event JSON, `.well-known/ai-agent.json`, AI-crawler allowlist in `robots.txt`.
-4. **SEO maximization** — WebSite / Organization / ItemList JSON-LD on index, BreadcrumbList on generated pages, `aggregateRating` + `offers.url` in event JSON-LD, canonical + meta description on every page, rel=prev/next on weekly archive, humans.txt.
-
-Plan document: `~/.claude/plans/use-the-gstack-skills-elegant-adleman.md` (applies gstack SCOPE EXPANSION + business-strategy-v2 frameworks).
-
-### Definition of done
-
-By the deadline:
-
-- `docs/llms.txt` + `docs/llms-full.txt` emitted; `docs/api/{events,top-picks,venues,people,categories}.json` exist and parse; per-event `docs/events/<slug>.json` mirror of JSON-LD emitted.
-- `docs/robots.txt` allows GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended, Meta-ExternalAgent, Amazonbot.
-- `docs/.well-known/ai-agent.json` served with >=5 endpoints.
-- Index head has WebSite + Organization + ItemList JSON-LD. Venue / people / weekly / event-shell pages emit BreadcrumbList; all generated pages carry canonical + meta description.
-- Event shell JSON-LD includes `offers.url` + `aggregateRating`.
-- Share popover iterates 9 platforms; `email-digest-button` uses the same share module; each emits a per-platform `cc_share_<platform>` Plausible event.
-- Masthead signup form reads `window.CC_CONFIG.buttondown_endpoint` (from `docs/config.json`) and falls back to a "Coming soon" stub when unset; submits fire `cc_subscribe_email`.
-- `docs/archive.html` lists every weekly digest; `docs/subscribed.html` + `docs/unsubscribed.html` exist.
-- `docs/ABOUT.md` and `README.md` document the mailing list and agent surfaces.
-- `.overnight/feature-inventory.json` has >=12 new entries appended (total >=42).
-- `STATUS-20260421-225013.md` written with verification checklist and post-run manual-step list.
-- `pytest -q` exits 0.
-
-### Hard constraints
-
-- Branch `long-run/20260421-225013` only. Runner does NOT push. User reviews and merges to `main` manually after the run. Never `git reset --hard`, `git push --force`, `git rebase`, or rewrite history.
-- No new Python deps. No `pip install`. Stdlib only (`json`, `xml.etree.ElementTree`, `html`, `pathlib`).
-- No new JS deps. No `npm install`. Share-menu icons via unicode or inline SVG.
-- No paid dep commitments from us. Buttondown free tier is the user's account; we only POST to their endpoint when configured.
-- All-static output. Everything hostable on GitHub Pages.
+- Branch: the run's own branch only (or `main` if the run explicitly authorizes direct pushes). Never `git reset --hard`, `git push --force`, `git rebase`, or rewrite history. Runner does NOT push unless the run specifies otherwise.
+- No new deps — no `pip install`, no `npm install`. A task needing one → BLOCKED `needs-dep: <name>`.
+- No paid API deps. LLM calls reuse Perplexity + Anthropic from `.env`. Web Speech API and Plausible are browser-native/free.
 - No interactive prompts. No `--no-verify` on commits.
-- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
-- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or `.long-run/<RUN_ID>/` runtime files (events.log, task-*.log, task-result.json, reviews/*.log, task-judge.log, active.pid).
-- GitNexus impact analysis MANDATORY before editing `docs/script.js` and `update_website_data.py`.
-- Persona-gate commit tag for T1.1 (share-menu refactor), T2.2 (signup form), T3.4 (AI-crawler allowlist policy).
+- Git identity: every commit (incl. reverts) via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
+- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or runtime working files under `.overnight/` / `.long-run/<RUN_ID>/` (events.log, task-*.log, task-result.json, reviews/*.log, task-judge.log, active.pid, scorecard.md, check-*.json, archive-*, venue-prospects/, queue.tsv, runner-prompt.txt). Persistent whitelisted entries under `.overnight/`: `personas/*.json` + `feature-inventory.json`.
+- Feature-inventory discipline: every task adding a user-visible feature appends its entry to `.overnight/feature-inventory.json` BEFORE committing.
+- GitNexus impact analysis MANDATORY before editing any symbol.
 
-### Scope fence
-
-In-scope (writeable):
-- `docs/` (except `docs/variants/`)
-- `scripts/` (new builders + extensions of existing)
-- `tests/` (new unit tests)
-- `update_website_data.py` (orchestration only)
-- `config/master_config.yaml` (add `distribution.buttondown_endpoint` key)
-- `README.md` (append only — "For AI agents" + "Subscribe" sections)
-- `CLAUDE.md` (inside this run's fenced markers only)
-- `CHANGELOG.md` (inside this run's fenced markers only)
-- `STATUS-20260421-225013.md`
-- `.overnight/feature-inventory.json` (append only)
-- `.gitignore` (append only)
-
-Anything else is read-only. Do NOT touch `src/` (except read-only reference), `docs/variants/`, or prior-run STATUS files.
-
-### Validation oracle (per task before commit)
-
-```bash
+### Validation oracle
+Every task before commit:
+```
 .venv/bin/python -m pytest -q
 ```
+Must exit 0. Plus the task's own `validate` command from `queue.tsv`. **Never** run `scripts/verify_calendar.py --offline` as a per-task oracle — pre-existing red items block unrelated tasks. Only explicitly-named final-gate tasks run it.
 
-Plus the task's own `validate` command from `.long-run/20260421-225013/queue.tsv`. Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle (pre-existing red items).
-
-### Working agreement
-
-- Commit cadence: one code commit per task + one CHANGELOG commit per task (two small commits, per runner-prompt template).
-- Message format: `<type>(task-<ID>): <title>` where `<type>` is from the task's `ctype=` prefix in the notes column.
-- Stage only files in the task's `files` column; never `git add -A`.
-- Feature-inventory discipline: every task adding a user-visible feature appends its entry to `.overnight/feature-inventory.json` in the same code commit.
-
-### LLM council
-
-Default council active (4 task-level reviewers + 1 run-level). Judge model: `claude-sonnet-4-6` (default). Expected cost: ~31 × 5 + 1 = 156 `claude -p` invocations plus 6 Anthropic persona-council calls at RUN_COMPLETE (~$0.50). T6.3 opts out via `[no-council]` in its notes column because it IS the council run.
-
-### Stop conditions
-
-- All queue tasks DONE → `RUN_COMPLETE`
-- Wall clock ≥ 2026-04-23T15:50:13Z → `RUN_HALTED: deadline`
-- 3 consecutive BLOCKED (council rejections count) → `RUN_HALTED: consecutive-blockers`
-- Bare `STATUS.md` at repo root contains `HALT` → `RUN_HALTED: manual`
-
-### Handoff
-
-When the runner stops, it emits final event to `.long-run/20260421-225013/events.log`. The `long-run/20260421-225013` branch stays local — Hadrien reviews `.long-run/20260421-225013/scorecard.md` and merges to `main` manually. The runner does NOT push.
-
-<!-- END LONG-RUN: 20260421-225013 -->
-
-<!-- BEGIN LONG-RUN: 20260422-203219 -->
-## Long run — 20260422-203219
-
-> **AUTONOMOUS RUN — do not edit while running.**
-> Owner: Hadrien-Cornier · Started: 2026-04-22T20:32:19Z · Deadline: 2026-04-24T08:32:21Z (36h safety cap) · Branch: `long-run/20260422-203219` (branched off `main` after v2 FF-merged)
-
-### Goal
-
-"Persona-Gate Resolution + Calendar Intents v3" — a focused quality pass that makes the v2 persona council's 5/6 LLM FAIL verdicts actually actionable. Two parallel workstreams:
-
-**Site fixes (9 findings):** venue addresses rendered on every card face, "Get Tickets →" CTA inside expanded panels, full venue display-names replacing opaque short codes, keyboard-accessible expand affordance, mobile hardening (subscribe-links wrap, title word-break, expand-indicator min-width, 320px breakpoint, search padding), 2-line clamp on event-oneliner.
-
-**Harness fixes (4 findings):** share pyppeteer page between `check_live_site.py` and `persona_critique.py` (no fresh `page.goto()` before screenshot), full-page screenshot, DOM snippet cap raised 10KB → 40KB, `pre_screenshot_actions` replay support, per-selector ground-truth JSON injected into the LLM prompt so personas stop claiming features are missing when they're just below-the-fold.
-
-**User ask bundled in:** per-event `.ics` files under `docs/events/<slug>.ics` + Google Calendar (`calendar.google.com/calendar/render?action=TEMPLATE&...`) and Apple Calendar (`webcal://…/events/<slug>.ics`) entries added to the share-menu `PLATFORMS` registry.
-
-### Durable rule driving this run (saved to memory as `feedback_persona_gate_strict.md`)
-
-Every persona FAIL — LLM or structural — blocks delivery. Age of the issue is irrelevant. Two valid responses: (a) fix the site, or (b) fix the persona's view. "Pre-existing on main / inherited from v1" is never acceptable justification.
-
-### Definition of done
-
-By the deadline:
-
-- `config/master_config.yaml` venues block has `address:` for every venue.
-- `docs/data.json` events carry `venue_address` + `venue_display_name`; `docs/api/venues.json` entries include both.
-- `docs/events/<slug>.html` JSON-LD location blocks carry `streetAddress` + `postalCode`.
-- `docs/events/<slug>.ics` files emitted per event; each parses as valid iCalendar.
-- `docs/script.js` PLATFORMS array includes `google-calendar` (rendering to `calendar.google.com/calendar/render?…`) and `apple-calendar` (rendering to `webcal://…/events/<slug>.ics`). Both fire `cc_share_<platform>` Plausible events.
-- Card renderers show venue display-name + street address on card face; "Get Tickets →" button inside expanded panel (`.event-ticket-link`).
-- `.event-header` has `role="button"`, `tabindex="0"`, `aria-label`, Enter/Space keyboard handling; `.expand-indicator` is not `aria-hidden`.
-- `.event-oneliner` on card face has `-webkit-line-clamp: 2`; expanded panel shows full text.
-- Mobile CSS hardening: `.subscribe-links flex-wrap`, `.event-title-text word-break`, `.expand-indicator min-width: 32px + flex-shrink: 0`, `#event-search padding-right`, 320px breakpoint.
-- `scripts/persona_critique.py` captures screenshot + DOM from the same pyppeteer page as `check_live_site.py`, with `fullPage: True` and `DOM_SNIPPET_MAX_BYTES = 40_000`.
-- `scripts/check_live_site.py` supports `pre_screenshot_actions` (scroll/type/click) and emits per-selector ground-truth JSON the persona LLM ingests.
-- All 6 persona JSONs under `.overnight/personas/` updated with `pre_screenshot_actions` and ground-truth-aware `llm.goals`.
-- `.overnight/feature-inventory.json` has ≥6 new entries appended (total ≥48).
-- `STATUS-20260422-203219.md` handoff written.
-- `pytest -q` exits 0.
-- **Final gate T5.3:** full LLM persona council returns 6/6 PASS on BOTH structural AND LLM layers — zero `Verdict: FAIL` strings in `docs/PERSONAS.md`. Any remaining FAIL halts the run with BLOCKED `persona-regression-v3`.
-
-### Hard constraints
-
-- Branch `long-run/20260422-203219` only. Runner does NOT push. User reviews and merges to `main` manually (same pattern as v1, v2). Never `git reset --hard`, `git push --force`, `git rebase`, or rewrite history.
-- No new Python deps. No `pip install`. Stdlib only.
-- No new JS deps. No `npm install`. Calendar icons are unicode.
-- No paid dep commitments. All-static output.
-- No interactive prompts. No `--no-verify` on commits.
-- Git identity: every commit via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
-- Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or `.long-run/<RUN_ID>/` runtime files (events.log, task-*.log, task-result.json, reviews/*.log, task-judge.log, active.pid, scorecard.md). Committed scaffold: queue.tsv + personas/*.json + runner-prompt.txt only.
-- GitNexus impact analysis MANDATORY before editing `update_website_data.py`, `docs/script.js`, `scripts/persona_critique.py`, `scripts/check_live_site.py`.
-- Persona-gate commit tag (`[persona-gate]`) for T2.5 (persona goals rewrite), T3.1 (venue display-name is a content-layer shift), T3.3 (keyboard-expand redefines interaction).
-
-### Scope fence
-
-In-scope (writeable):
-- `config/master_config.yaml` (add `address:` per venue)
-- `docs/` (except `docs/variants/`)
-- `scripts/` (new builders + extensions; persona_critique.py + check_live_site.py refactors)
-- `tests/` (new unit tests per task)
-- `update_website_data.py` (orchestration + venue-metadata lookup)
-- `.overnight/personas/*.json` (all 6 persona specs)
-- `.overnight/feature-inventory.json` (append only)
-- `CLAUDE.md` (inside this run's fenced markers only)
-- `CHANGELOG.md` (inside this run's fenced markers only)
-- `STATUS-20260422-203219.md`
-
-Out-of-scope: `src/` (read-only except where explicitly called out; none in this run), `docs/variants/`, prior-run STATUS files.
-
-### Validation oracle (per task before commit)
-
-```bash
-.venv/bin/python -m pytest -q
+### Commit cadence
+One commit per task (runs using the two-commit template add a separate CHANGELOG commit). Message format: `<type>(task-<ID>): <title>` where `<type>` comes from the task's `ctype=` prefix (feat / fix / chore / refactor / test / docs). Stage only files listed in the task's `files` column; never `git add -A`. Append one CHANGELOG entry inside the run's fenced block:
+```
+### task-<ID> — DONE — <ISO timestamp>
+- commit: <sha>
+- files: <comma-separated>
+- validation: green
 ```
 
-Plus the task's own `validate` command from `.long-run/20260422-203219/queue.tsv`. Do NOT run `scripts/verify_calendar.py --offline` as a per-task oracle (pre-existing red items from v1/v2).
+### Deploy-wait (runs pushing directly to `main`)
+After `git push origin main`, poll a changed file at `https://hadrien-cornier.github.io/Culture-Calendar/<file>` every 15–20s until served content matches pushed. Timeout 5 min → BLOCKED `deploy-timeout`. Each task adds a unique grep-able marker.
 
-### Working agreement
-
-- Commit cadence: one code commit per task + one CHANGELOG commit per task (two small commits, per runner-prompt template).
-- Message format: `<type>(task-<ID>): <title>` where `<type>` is from the task's `ctype=` prefix in the notes column.
-- Stage only files in the task's `files` column; never `git add -A`.
-- Feature-inventory discipline: every task adding a user-visible feature appends its entry to `.overnight/feature-inventory.json` in the same code commit.
-
-### LLM council
-
-Default council active (4 task-level reviewers + 1 run-level), same personas as v2. Judge model: `claude-sonnet-4-6` (default). Expected cost: ~24 × 5 + 1 = 121 `claude -p` invocations plus 6 Anthropic persona-council calls at T5.3 (~$0.50). T5.3 opts out via `[no-council]` in its notes column because it IS the council run.
+### Revert protocol (live-check fails on docs/ tasks pushing to `main`)
+```
+git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com revert HEAD --no-edit
+git push origin main
+# wait for deploy; re-run validate to confirm stable
+```
+Then BLOCKED with the failure reason + CHANGELOG entry:
+```
+### task-<ID> — BLOCKED — <ISO timestamp>
+- attempted: <original-sha>
+- reverted: <revert-sha>
+- reason: <one-line>
+```
 
 ### Stop conditions
-
-- All queue tasks DONE → `RUN_COMPLETE`
-- Wall clock ≥ 2026-04-24T08:32:21Z → `RUN_HALTED: deadline`
-- 3 consecutive BLOCKED (council rejections count) → `RUN_HALTED: consecutive-blockers`
-- Final gate T5.3 returns any LLM FAIL → runner HALT via BLOCKED (no retry — manual triage)
-- Bare `STATUS.md` at repo root contains `HALT` → `RUN_HALTED: manual`
+- All queue tasks DONE → `RUN_COMPLETE`.
+- Wall-clock past the deadline → `RUN_HALTED: deadline`.
+- 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`.
+- Bare `STATUS.md` at repo root contains `HALT` → `RUN_HALTED: manual`.
 
 ### Handoff
+Runner emits its final event to `.long-run/<RUN_ID>/events.log` (or `.overnight/events.log` for earlier runs). Branch stays local; user reviews scorecard + merges to `main` manually unless the run explicitly authorized direct-main pushes.
 
-When the runner stops, it emits final event to `.long-run/20260422-203219/events.log`. The `long-run/20260422-203219` branch stays local — Hadrien reviews `.long-run/20260422-203219/scorecard.md` + `docs/PERSONAS.md` and merges to `main` manually via PR. The runner does NOT push.
+---
 
-<!-- END LONG-RUN: 20260422-203219 -->
+## Run log
+
+Completed runs listed chronologically. Each entry gives goals, unique constraints, and task IDs — full queues live in the corresponding `queue.tsv`. All inherit the Autonomous Run Baseline above unless noted.
+
+### 2026-04-15 → 2026-04-18 — `fix/calendar-oracle` (overnight loop, completed)
+CHANGELOG-driven calendar-fix queue. Picks the first `- [ ]` line under "Calendar fix" in CHANGELOG.md — the queue is ordered by dependency. Workflow: do ONLY that subtask (no drive-by fixes; spotted bugs become new `- [ ]` lines); verify with `.venv/bin/python -m pytest -q` + `.venv/bin/python scripts/verify_calendar.py --offline` (both must be green); tick the box (replace `- [ ]` with `- [x] YYYY-MM-DD HH:MM`); commit `feat(calendar): <subtask-id> <what>` + push. Destructive moves: only `git revert HEAD --no-edit` of a just-made commit if tests regressed. Block protocol: append `BLOCKED: <subtask-id>: <why>` under the queue and move on. Exit criterion: `scripts/verify_calendar.py --live` prints PASS two iterations in a row.
+
+### 2026-04-18 — `overnight/2026-04-18` (completed)
+Five v11-site fixes, handoff `STATUS-2026-04-18.md`:
+1. Rating `/10` suffix + aria-label "rated X out of 10" on badges (picks + listings).
+2. Incomplete reviews — description-level refusal filter in `src/processor.py` + test; classify Paper Cuts as pop-up bookshop (type≠book_club, factual pre-filled descriptions); Paramount scraper skips or placeholder-fills events with only a bare title.
+3. Case-insensitive category dedup in `uniqueCategories` + subtitle.
+4. Collapsible About section from `docs/ABOUT.md`, visible in `docs/index.html`.
+5. Web Speech API read-aloud button (`window.speechSynthesis.speak()`, `voiceschanged` listener) on every expanded review. Cross-browser: iOS Safari/DuckDuckGo, Android Chrome/DuckDuckGo, mobile Firefox, desktop Chrome/Safari/Firefox. No audio files committed.
+
+Tasks: T1.2, T1.3, T2.1–T2.4, T3.1, T4.1, T6.1 (final gate runs `verify_calendar.py`), T6.2. Scope fence: `src/`, `scripts/`, `docs/`, `tests/`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, STATUS file. GitNexus impact required for `src/processor.py`, `src/scrapers/alienated_majesty_scraper.py`, `src/scrapers/paramount_scraper.py`. DoD includes `is_refusal_response(e.description) is False` for every event in `docs/data.json`.
+
+### 2026-04-19 — `overnight/2026-04-19` (completed)
+Three bundled threads, handoff `STATUS-2026-04-19.md`:
+
+- **Primary (must ship):** `visual_arts` event category lands in the schema, NowPlayingAustin visual-arts scraper feeds into `docs/data.json`, art-critic AI rating branch in `src/processor.py`, tests cover it. Tasks T1.1 ontology.labels, T1.2 template (modeled on `concert`), T1.3 `now_playing_austin_visual_arts_scraper.py`, T1.4 register, T1.5 fixtures + unit tests, T1.6 `_get_visual_arts_rating()` branch, T1.7 end-to-end smoke (≥1 visual_arts event in data.json), T1.8 refusal-guard sweep.
+- **Secondary (best-effort):** T2.1 extend Alienated Majesty scraper for artist-talks; T2.2 Libra Books scraper (self-blocks if T0.1 research finds no events page).
+- **Tertiary (best-effort):** 10-variant filter-bar redesign under `docs/variants/v12{a..j}/`. Scored `critique(40%)+layout(30%)+audit(20%)+polish(10%)`. Winner promoted to live `docs/` (T3.4). T3.x writes only under `docs/variants/v12<x>/` until T3.4.
+- **Quaternary:** T4.1 `scripts/check_event_coverage.py`, T4.2 `docs/COVERAGE.md` per-category counts.
+- **Phase 5:** T5.1 full pytest + coverage + `verify_calendar.py` delta-vs-main, T5.2 STATUS handoff.
+
+Research-only tasks (T0.1, T0.2, T3.1, T3.3, T5.1) skip commits/CHANGELOG and write `.overnight/task-result.json` with `status=DONE` directly. GitNexus impact required for `src/processor.py`, `src/scraper.py`, `src/scrapers/alienated_majesty_scraper.py`, `update_website_data.py`.
+
+### 2026-04-18-2 — `main` direct-push (completed, live-verified)
+Five regressions from the v12i promotion (`c45fdfd` + `7a477cb` + `2c83a39`):
+1. Mobile filter sheet cut off + can't close.
+2. Top Picks shows top-N by rating across all events — wants top picks of the week (next 7d).
+3. Review expansion unformatted (lost pre-v12i `parseReview()` structured sections).
+4. Subtitle leak — `"Sticky chip-drawer with active summary"` was v12i's internal design-note, not a user-facing tagline.
+5. About section dropped (restored from `c03f617`); `docs/ABOUT.md` still existed but wasn't referenced from `index.html`.
+
+User explicitly authorized per-task pushes to `main` because each fix must be verifiable live. Per-task contract: commit → push → deploy-wait → live-check via `scripts/check_live_site.py` → `git revert HEAD --no-edit` + push + BLOCK on failure. Never leaves a broken live state.
+
+Live-site checker (T0.1): pyppeteer-based, loads a URL with optional mobile viewport, evaluates JSON spec, exits 0/non-zero. Spec schema `{url, mobile, wait_ms, wait_for_selector, click_before_assert[], asserts[]}`; assertion types `body_contains`, `body_not_contains`, `selector_exists`, `selector_min_count`, `selector_max_count`, `js_truthy`. Each task writes `.overnight/check-T<ID>.json`.
+
+DoD goals verified live:
+- Subtitle reads `"Austin cultural events, AI-curated"`.
+- About section present with collapsible methodology from `docs/ABOUT.md`.
+- Top Picks heading `"TOP PICKS OF THE WEEK"`, only events within next 7d.
+- Review panels render with h3/h4 headings + paragraph spacing.
+- Mobile filter sheet opens, closes (X button + escape + click-outside), stays within 375×812 viewport.
+
+Tasks: T0.1 (checker + tests), T1.1, T1.2a, T1.2b, T2.1, T2.2, T3.1 (port `parseReview()` from `d13f975:docs/script.js:1157-1207`), T3.2, T4.1, T4.2, T5.1, T5.2. Scope fence: `docs/`, `src/`, `scripts/check_live_site.py`, `tests/test_check_live_site.py`, `CLAUDE.md`, `CHANGELOG.md`, STATUS file. Pyppeteer 2.0.0 already installed. Do NOT edit `docs/variants/v12i/` — archival variant.
+
+CHANGELOG entry template adds `- live-check: passed after <N>s deploy wait`. BLOCKED entry includes attempted + reverted shas + reason. Handoff `STATUS-2026-04-18-2.md`.
+
+### 2026-04-18-3 — `main` direct-push (completed, live-verified)
+Nine deeper structural issues raised after 2026-04-18-2 shipped:
+1. Filter chips cluttered — replace chip-drawer with search bar + autocomplete on venues/titles/categories.
+2. Top Picks not readable — can't click through to the AI review.
+3. Merit listings hide logistics — date/time only visible after expand.
+4. Unfair low ratings — movies with sparse Perplexity sources default to 5/10; need a "couldn't research this well" surface.
+5. One-liner contrast — italic `#d4a574` on white (~2.8:1) fails WCAG AA 4.5:1.
+6. Read-aloud TTS regression — added `986877e`, silently removed `c45fdfd` (v12i promotion). Same pattern as About.
+7. No persona-driven critique — every run rediscovers regressions by hand.
+8. No feature inventory — features dropped silently during redesigns.
+9. No venue prospecting — `visual_arts` has 8 events from one aggregator; user wants Perplexity-driven discovery.
+
+Phases:
+- **0 — inventory + wishlist seeds (backend):** T0.1 seed `.overnight/feature-inventory.json` with live features + add Feature Inventory section to CLAUDE.md; T0.2 seed `## Venue Wishlist` in README.md.
+- **1 — user-visible UX (docs/, live-checked):** T1.1a remove chip-drawer; T1.1b add search bar + grouped suggestions in masthead; T1.2 Top Picks expand w/ review; T1.3 date/time on merit card headers; T1.4 raise one-liner contrast to WCAG AA; T1.5 restore TTS button.
+- **2 — review_confidence backend + UI bucket:** T2.1 `review_confidence` signal in `_parse_ai_response`; T2.2 field in all category templates; T2.3 expose in JSON builder; T2.4 cache-aware re-rate of refusal-shaped cached entries; T2.5 render "Pending more research" section for low-confidence reviews; T2.6 harden tests.
+- **3 — persona council framework:** T3.1 six persona spec files under `.overnight/personas/`; T3.2 `scripts/persona_critique.py` (LLM council default, `--fast` = DOM-asserts only); T3.3 extend personas with `goals` + `system_prompt` LLM framing.
+- **4 — Perplexity venue prospecting:** T4.1 `scripts/prospect_venues.py`; T4.2 run for visual_arts + concert, append to README wishlist; T4.3 harden tests.
+- **5 — gate + handoff:** T5.1 final structural gate (fast persona council); T5.2 full LLM council (6 Anthropic calls, ~$0.50); T5.3 `STATUS-2026-04-18-3.md`.
+
+docs/ tasks live-checked with deploy-wait + revert. Backend tasks (`src/`, `scripts/`, `tests/`, `config/`) push without deploy-wait; validate runs immediately. Scope fence: `docs/` (+ PERSONAS.md, PERSONAS-fast.md), `src/processor.py`, `scripts/check_live_site.py`, `scripts/persona_critique.py`, `scripts/prospect_venues.py`, `tests/test_review_confidence.py`, `tests/test_persona_critique.py`, `tests/test_prospect_venues.py`, `update_website_data.py`, `config/master_config.yaml`, `CLAUDE.md`, `CHANGELOG.md`, STATUS file, `README.md` (Venue Wishlist append only), `.overnight/personas/*.json`, `.overnight/feature-inventory.json`. GitNexus impact required for `src/processor.py`, `update_website_data.py`, `src/scrapers/__init__.py`, `src/scraper.py`. Do NOT edit `docs/variants/v12i/`. CHANGELOG entry adds `- live-check: <passed after Ns | n/a (backend)>`.
+
+### 20260419-235117 — `long-run/20260419-235117` (completed)
+"Consumption Surface v1" — 28 tasks / 9 phases turning static listings into a subscribable/personalizable product. Handoff `STATUS-20260419-235117.md`. Strategic frame: gstack SCOPE EXPANSION + business-strategy-v2 frameworks (JTBD, Category Design, 7 Powers, Blue Ocean ERRC, AI Factory, Cold Start, Traction Bullseye). Full plan at `~/.claude/plans/use-the-gstack-skills-elegant-adleman.md`.
+
+DoD (must all be true by deadline):
+- `docs/calendar.ics` + `docs/top-picks.ics` parse as iCalendar; linked from masthead via `webcal://`.
+- `docs/feed.xml` valid RSS/Atom.
+- `docs/sitemap.xml` enumerates all pages (index + weekly + venues + people + features).
+- Event modals inject JSON-LD `Event` schema; index head has OG + Twitter card meta.
+- `#event=<id>` deep-link handler (load + scroll + expand).
+- Thumbs up/down + save persist to localStorage; top picks re-rank on taste; "because you liked X" annotation renders.
+- `docs/weekly/<yyyy-ww>.html` digest + 5-min audio-brief button (Web Speech API).
+- ≥10 `docs/venues/<slug>.html`; `docs/people/<slug>.html` per composer/director/author with ≥2 events.
+- `docs/people/<slug>.ics` per-person webcal follow feeds.
+- Share button via Web Share API w/ mailto/twitter/clipboard fallbacks.
+- Plausible tag + 7 custom events: `cc_subscribe_ics`, `cc_subscribe_rss`, `cc_thumb_up`, `cc_thumb_down`, `cc_save`, `cc_share`, `cc_play_brief`.
+- Weekly composer essay at `docs/features/composer-<yyyy-ww>.html`.
+- `docs/preview/` populated by pyppeteer screenshot harness.
+- ≥18 new feature-inventory entries.
+
+Scope: `scripts/` (build_*.py generators for ics/rss/og/weekly-digest/venues/people/sitemap/wishlist/composer-feature/screenshots), `tests/`, `docs/` (index/script/styles/ABOUT + new `docs/calendar.ics`, `docs/top-picks.ics`, `docs/feed.xml`, `docs/sitemap.xml`, `docs/robots.txt`, `docs/og/`, `docs/weekly/`, `docs/venues/`, `docs/people/`, `docs/features/`, `docs/preview/`, `docs/wishlist.html`), `update_website_data.py` (orchestrate new builders in final step), `CLAUDE.md` + `CHANGELOG.md` fenced blocks only, STATUS file, `.overnight/feature-inventory.json`, `.gitignore`. `src/` read-only except `src/processor.py` for composer-essay branch (T8.1) — GitNexus impact required. Network: LLM calls reuse Perplexity + Anthropic from `.env`. Plausible is a single `<script>` tag.
+
+### 20260421-225013 — `long-run/20260421-225013` (completed)
+"Consumption Surface v2" on v1's live foundation. Closes four post-v1 gaps. Handoff `STATUS-20260421-225013.md`. Plan: `~/.claude/plans/use-the-gstack-skills-elegant-adleman.md`.
+
+1. **Rich social share** — extend pick-card share popover from 3 (mailto/Twitter/clipboard) to 9 (Twitter/X, Threads, Bluesky, Mastodon, LinkedIn, WhatsApp, SMS, Email, Copy); replace digest button's bare `mailto:` with same share module. Per-platform `cc_share_<platform>` Plausible events.
+2. **Mailing list** — Buttondown (user-confirmed free tier). Masthead signup reads `window.CC_CONFIG.buttondown_endpoint` from `docs/config.json`; "Coming soon" stub fallback when unset; submits fire `cc_subscribe_email`. `docs/archive.html` lists every weekly digest; `docs/subscribed.html` + `docs/unsubscribed.html` exist.
+3. **Agent-friendly surfaces** — `docs/llms.txt` + `docs/llms-full.txt`; `docs/api/{events,top-picks,venues,people,categories}.json`; per-event `docs/events/<slug>.json` mirror of JSON-LD; `docs/.well-known/ai-agent.json` with ≥5 endpoints; `docs/robots.txt` allows GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended, Meta-ExternalAgent, Amazonbot.
+4. **SEO maximization** — WebSite + Organization + ItemList JSON-LD on index; BreadcrumbList on venue/people/weekly/event-shell pages; `aggregateRating` + `offers.url` in event JSON-LD; canonical + meta description on every page; rel=prev/next on weekly archive; humans.txt.
+
+DoD additions: `docs/ABOUT.md` + `README.md` document mailing list + agent surfaces; ≥12 new feature-inventory entries (total ≥42).
+
+Stdlib only for Python (`json`, `xml.etree.ElementTree`, `html`, `pathlib`). Share-menu icons via unicode or inline SVG. Scope: `docs/` (not `docs/variants/`), `scripts/` (new + extensions), `tests/`, `update_website_data.py` (orchestration only), `config/master_config.yaml` (add `distribution.buttondown_endpoint`), `README.md` (append "For AI agents" + "Subscribe"), `CLAUDE.md` + `CHANGELOG.md` fenced blocks, STATUS file, `.overnight/feature-inventory.json`, `.gitignore`. `src/` read-only.
+
+Commit cadence: two small commits per task (code + CHANGELOG). LLM council active (4 task-level reviewers + 1 run-level); judge `claude-sonnet-4-6`; T6.3 opts out via `[no-council]` (it IS the council run). GitNexus impact required for `docs/script.js` + `update_website_data.py`. Persona-gate tag for T1.1 (share-menu refactor), T2.2 (signup form), T3.4 (AI-crawler allowlist policy).
+
+### 20260422-203219 — `long-run/20260422-203219` (completed 2026-04-23; branched off `main` after v2 FF-merged)
+"Persona-Gate Resolution + Calendar Intents v3" — quality pass making v2 persona council's 5/6 LLM FAIL verdicts actionable. Handoff `STATUS-20260422-203219.md`.
+
+**Durable rule driving this run** (saved to memory as `feedback_persona_gate_strict.md`): every persona FAIL (LLM or structural) blocks delivery. Age of the issue is irrelevant. Two valid responses: fix the site, or fix the persona's view. "Pre-existing on main / inherited from v1" is never acceptable.
+
+**Site fixes (9):**
+- Venue addresses on every card face.
+- "Get Tickets →" CTA inside expanded panel (`.event-ticket-link`).
+- Full venue display-names replacing opaque short codes.
+- Keyboard-accessible expand: `.event-header` has `role="button"`, `tabindex="0"`, `aria-label`, Enter/Space handler; `.expand-indicator` not `aria-hidden`.
+- Mobile hardening: `.subscribe-links flex-wrap`, `.event-title-text word-break`, `.expand-indicator min-width: 32px + flex-shrink: 0`, `#event-search padding-right`, 320px breakpoint.
+- 2-line clamp on `.event-oneliner` card face (`-webkit-line-clamp: 2`); full text in expanded panel.
+
+**Harness fixes (4):**
+- Share pyppeteer page between `check_live_site.py` and `persona_critique.py` (no fresh `page.goto()` before screenshot).
+- `fullPage: True`.
+- `DOM_SNIPPET_MAX_BYTES = 40_000` (up from 10 KB).
+- `pre_screenshot_actions` replay (scroll/type/click); per-selector ground-truth JSON injected into persona LLM prompt so below-the-fold features aren't misreported missing.
+
+**User ask bundled in:** per-event `docs/events/<slug>.ics` files (valid iCalendar); `PLATFORMS` in `docs/script.js` adds `google-calendar` (→ `calendar.google.com/calendar/render?action=TEMPLATE&...`) and `apple-calendar` (→ `webcal://…/events/<slug>.ics`); both fire `cc_share_<platform>` events.
+
+Outputs: `config/master_config.yaml` venues block gets `address:` per venue; `docs/data.json` + `docs/api/venues.json` entries carry `venue_address` + `venue_display_name`; `docs/events/<slug>.html` JSON-LD `location` has `streetAddress` + `postalCode`; all 6 `.overnight/personas/*.json` updated with `pre_screenshot_actions` + ground-truth-aware `llm.goals`; ≥6 new feature-inventory entries (total ≥48).
+
+**Final gate T5.3:** full LLM persona council returns 6/6 PASS on BOTH structural + LLM layers — zero `Verdict: FAIL` in `docs/PERSONAS.md`. Any remaining FAIL halts via BLOCKED `persona-regression-v3` (no retry, manual triage).
+
+Scope: `config/master_config.yaml` (venue addresses), `docs/` (not `docs/variants/`), `scripts/` (extensions to persona_critique.py + check_live_site.py), `tests/`, `update_website_data.py` (orchestration + venue-metadata lookup), `.overnight/personas/*.json`, `.overnight/feature-inventory.json`, `CLAUDE.md` + `CHANGELOG.md` fenced blocks, STATUS file. `src/` read-only. Stdlib only. No new JS deps — calendar icons are unicode. GitNexus impact required for `update_website_data.py`, `docs/script.js`, `scripts/persona_critique.py`, `scripts/check_live_site.py`. Persona-gate tag for T2.5 (persona goals rewrite), T3.1 (venue display-name is a content-layer shift), T3.3 (keyboard-expand redefines interaction). Commit cadence: two small commits per task (code + CHANGELOG). LLM council active (4 task-level + 1 run-level), judge `claude-sonnet-4-6`; T5.3 opts out via `[no-council]`.
