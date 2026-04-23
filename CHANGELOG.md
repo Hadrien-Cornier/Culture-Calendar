@@ -102,6 +102,11 @@
 - files: .overnight/feature-inventory.json
 - validation: green
 
+### task-T2.2 — DONE — 2026-04-23T15:44:18Z
+- commit: caf94985a7469226d739a91edff0c165afc916e5
+- files: scripts/persona_critique.py, tests/test_persona_fullpage_screenshot.py
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
