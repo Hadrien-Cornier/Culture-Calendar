@@ -1679,6 +1679,34 @@
   }
   initEmailDigest();
 
+  /* task-T3.3: shared keyboard-accessibility contract for the
+     event-header element. Applies role="button", tabindex="0",
+     and aria-label="Expand details" so screen-reader and
+     keyboard users can discover and operate the expand
+     affordance. The handler wires Enter/Space to .click() and
+     Escape to collapse when open. */
+  function makeHeaderExpandable(header, card, openClass, onOpen) {
+    header.setAttribute("role", "button");
+    header.setAttribute("tabindex", "0");
+    header.setAttribute("aria-label", "Expand details");
+    header.setAttribute("aria-expanded", "false");
+    header.addEventListener("click", function () {
+      var open = card.classList.toggle(openClass);
+      header.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open && typeof onOpen === "function") onOpen();
+    });
+    header.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        header.click();
+      }
+      if (event.key === "Escape" && card.classList.contains(openClass)) {
+        card.classList.remove(openClass);
+        header.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
   function buildPickCard(ev, reason) {
     var card = document.createElement("li");
     card.className = "event-card pick-card";
@@ -1744,7 +1772,12 @@
     var arrow = document.createElement("span");
     arrow.className = "expand-indicator";
     arrow.textContent = "▶";
-    arrow.setAttribute("aria-hidden", "true");
+    /* task-T3.3: surface the indicator to assistive tech instead of
+       hiding it. The glyph communicates expand state via the
+       aria-expanded attribute on the header; a descriptive label
+       turns the visual cue into a screen-reader cue. */
+    arrow.setAttribute("role", "img");
+    arrow.setAttribute("aria-label", "Expand");
     header.appendChild(arrow);
     card.appendChild(header);
 
@@ -1823,20 +1856,8 @@
     panel.appendChild(pickActions);
     card.appendChild(panel);
 
-    header.setAttribute("role", "button");
-    header.setAttribute("tabindex", "0");
-    header.setAttribute("aria-expanded", "false");
-    header.addEventListener("click", function () {
-      var open = card.classList.toggle("is-open");
-      header.setAttribute("aria-expanded", open ? "true" : "false");
-      if (open) injectEventJsonLd(card, ev);
-    });
-    header.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); header.click(); }
-      if (e.key === "Escape" && card.classList.contains("is-open")) {
-        card.classList.remove("is-open");
-        header.setAttribute("aria-expanded", "false");
-      }
+    makeHeaderExpandable(header, card, "is-open", function () {
+      injectEventJsonLd(card, ev);
     });
     registerCardForHash(card, ev, header, "is-open");
     return card;
@@ -1898,7 +1919,12 @@
     var arrow = document.createElement("span");
     arrow.className = "expand-indicator";
     arrow.textContent = "▶";
-    arrow.setAttribute("aria-hidden", "true");
+    /* task-T3.3: surface the indicator to assistive tech. The header
+       tracks expand state via aria-expanded; a descriptive label on
+       the glyph keeps the visual affordance perceivable to screen
+       readers without duplicating the header's button role. */
+    arrow.setAttribute("role", "img");
+    arrow.setAttribute("aria-label", "Expand");
     header.appendChild(arrow);
     card.appendChild(header);
 
@@ -1979,20 +2005,8 @@
     if (listingActions.childNodes.length > 0) panel.appendChild(listingActions);
     if (panel.childNodes.length > 0) card.appendChild(panel);
 
-    header.setAttribute("role", "button");
-    header.setAttribute("tabindex", "0");
-    header.setAttribute("aria-expanded", "false");
-    header.addEventListener("click", function () {
-      var exp = card.classList.toggle("is-expanded");
-      header.setAttribute("aria-expanded", exp ? "true" : "false");
-      if (exp) injectEventJsonLd(card, ev);
-    });
-    header.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); header.click(); }
-      if (e.key === "Escape" && card.classList.contains("is-expanded")) {
-        card.classList.remove("is-expanded");
-        header.setAttribute("aria-expanded", "false");
-      }
+    makeHeaderExpandable(header, card, "is-expanded", function () {
+      injectEventJsonLd(card, ev);
     });
     registerCardForHash(card, ev, header, "is-expanded");
     return card;
