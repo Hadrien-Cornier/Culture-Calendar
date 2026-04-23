@@ -63,6 +63,7 @@
 ### task-T2.1 — DONE — 2026-04-23T05:36:44Z
 - commit: 98ba2137284b1d3e41186f57485d0da93ce31005
 - files: scripts/check_live_site.py, scripts/persona_critique.py, tests/test_persona_critique_shared_page.py
+- summary: Unified persona critique into a single pyppeteer session (one page.goto per persona instead of two back-to-back loads) so the assert phase and the screenshot phase share DOM state. Fixes the below-the-fold false-negatives v2's council flagged — personas were reporting "section missing" when the section existed but was merely scrolled out of view on the second, independent navigation. Legacy two-session capture_fn path preserved for bench_personas.py backward-compat; new shared-page contract covered by tests/test_persona_critique_shared_page.py.
 - validation: green
 
 ### task-T3.1 — DONE — 2026-04-23T06:19:54Z

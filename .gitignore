@@ -53,10 +53,13 @@ node_modules/
 *.sqlite-shm
 *.sqlite-wal
 .long-run/active.pid
+.long-run/_shim/
 .long-run/*/events.log
 .long-run/*/task-*.log
 .long-run/*/task-result.json
 .long-run/*/task-judge.log
+.long-run/*/queue.tsv.bak
+.long-run/*/queue.tsv.*
 .long-run/*/reviews/*.log
 .long-run/*/scorecard.md
 
