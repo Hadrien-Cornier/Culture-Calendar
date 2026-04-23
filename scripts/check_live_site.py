@@ -12,6 +12,12 @@ Spec JSON schema:
       "wait_ms": 1000,                       # optional settle delay
       "wait_for_selector": ".ready",         # optional CSS selector
       "click_before_assert": [".trigger"],   # optional sequential clicks
+      "pre_screenshot_actions": [             # optional — replayed after asserts,
+        {"type": "scroll", "y": 800},         #   before screenshot/DOM capture,
+        {"type": "click",  "selector": ".x"}, #   so LLM personas see a
+        {"type": "type",   "selector": "#q",  #   deliberately-chosen state
+         "text": "austin"}                    #   (below-the-fold content,
+      ],                                      #   opened disclosures, search
       "asserts": [                            # required list
         {"type": "body_contains",     "text": "..."},
         {"type": "body_not_contains", "text": "..."},
@@ -73,6 +79,9 @@ def load_spec(path: Path) -> dict[str, Any]:
     clicks = data.get("click_before_assert", [])
     if clicks is not None and not isinstance(clicks, list):
         raise ValueError("'click_before_assert' must be a list")
+    pre_actions = data.get("pre_screenshot_actions")
+    if pre_actions is not None and not isinstance(pre_actions, list):
+        raise ValueError("'pre_screenshot_actions' must be a list")
     return data
 
 
@@ -203,6 +212,47 @@ async def _evaluate_asserts(
     return failures
 
 
+async def _run_pre_screenshot_actions(
+    page: Any, actions: list[dict[str, Any]]
+) -> None:
+    """Replay scroll/click/type directives on ``page`` in declared order.
+
+    Personas use these to put the page into a specific visual state before
+    the LLM sees the screenshot — scrolled to a section, disclosure panels
+    opened, search inputs populated — so the model doesn't flag implemented
+    features as missing merely because they're below the fold.
+
+    Raises ``ValueError`` on unknown action types to surface spec typos
+    instead of silently dropping them.
+    """
+    for action in actions:
+        if not isinstance(action, dict):
+            raise ValueError(
+                f"pre_screenshot_actions entries must be objects, got {type(action).__name__}"
+            )
+        t = action.get("type")
+        if t == "scroll":
+            x = int(action.get("x", 0))
+            y = int(action.get("y", 0))
+            await page.evaluate(
+                "(c) => window.scrollTo(c.x, c.y)", {"x": x, "y": y}
+            )
+            await asyncio.sleep(CLICK_SETTLE_MS / 1000.0)
+        elif t == "click":
+            sel = action["selector"]
+            await page.waitForSelector(sel, timeout=DEFAULT_SELECTOR_TIMEOUT_MS)
+            await page.click(sel)
+            await asyncio.sleep(CLICK_SETTLE_MS / 1000.0)
+        elif t == "type":
+            sel = action["selector"]
+            text = action.get("text", "")
+            await page.waitForSelector(sel, timeout=DEFAULT_SELECTOR_TIMEOUT_MS)
+            await page.type(sel, text)
+            await asyncio.sleep(CLICK_SETTLE_MS / 1000.0)
+        else:
+            raise ValueError(f"unknown pre_screenshot_action type {t!r}")
+
+
 async def run_spec(
     spec: dict[str, Any],
     launch: Callable[..., Awaitable[Any]] | None = None,
@@ -252,6 +302,9 @@ async def run_spec_and_capture(
         page = await browser.newPage()
         await _prepare_page(page, spec)
         failures = await _evaluate_asserts(page, spec)
+        pre_actions = spec.get("pre_screenshot_actions") or []
+        if pre_actions:
+            await _run_pre_screenshot_actions(page, pre_actions)
         shot_bytes = await page.screenshot({"type": "png", "fullPage": full_page})
         html = await page.content()
         b64 = base64.b64encode(shot_bytes).decode("ascii")
