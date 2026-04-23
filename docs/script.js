@@ -73,7 +73,8 @@
      Per-platform share events (T1.1): cc_share_twitter, cc_share_bluesky,
      cc_share_threads, cc_share_mastodon, cc_share_linkedin,
      cc_share_whatsapp, cc_share_sms, cc_share_email, cc_share_copy.
-     Calendar intents (T1.3): cc_share_google_calendar.
+     Calendar intents (T1.3, T1.4): cc_share_google_calendar,
+     cc_share_apple_calendar.
      Mailing list (T2.2): cc_subscribe_email. All platform IDs plus
      cc_subscribe_email must stay greppable in this file; the T5.1 queue
      validator asserts both with a plain grep so silent removals fail CI. */
@@ -316,6 +317,15 @@
       var first = _firstShowing(ev);
       var location = (first && first.venue) || (ev && ev.venue) || "";
       var gcalDates = first ? _gcalDates(first.date, first.time) : "";
+      /* task-T1.4: Apple Calendar handoff. iOS / macOS subscribe to a
+         webcal:// URL pointing at the per-event .ics file emitted by
+         scripts/build_event_ics.py (task-T1.1) into docs/events/<slug>.ics.
+         The webcal:// scheme triggers the native Calendar add-event sheet
+         on Apple platforms and falls back to the default .ics handler on
+         other OSes. Omitted when the event has no slug. */
+      var icsUrl = slug
+        ? "webcal://hadrien-cornier.github.io/Culture-Calendar/events/" + slug + ".ics"
+        : "";
       return {
         title: title,
         text: shareText,
@@ -323,7 +333,8 @@
         subject: "Culture Calendar: " + title,
         body: shareText + "\n\n" + url + "\n",
         location: location,
-        gcalDates: gcalDates
+        gcalDates: gcalDates,
+        icsUrl: icsUrl
       };
     }
 
@@ -420,6 +431,19 @@
             + (s.location ? "&location=" + enc(s.location) : "");
         }
       },
+      /* task-T1.4: Apple Calendar webcal:// intent. Only rendered when the
+         shareable carries icsUrl (per-event shares do; digest shares don't
+         — there's no single .ics for a digest). webcal:// is the canonical
+         Apple handoff scheme: iOS / macOS hijack it to open the Calendar
+         add-subscription / add-event sheet. Falls back gracefully on
+         Android / Windows which treat webcal:// as plain http for .ics. */
+      {
+        id: "apple-calendar",
+        label: "🍎 Apple Calendar",
+        appliesTo: function (s) { return !!s.icsUrl; },
+        href: function (s) { return s.icsUrl; },
+        sameTab: true
+      },
       {
         id: "copy",
         label: "📋 Copy link",
@@ -463,10 +487,11 @@
          cc_share_twitter, cc_share_threads, cc_share_bluesky,
          cc_share_mastodon, cc_share_linkedin, cc_share_whatsapp,
          cc_share_sms, cc_share_email, cc_share_copy,
-         cc_share_google_calendar (task-T1.3).
-         IDs may contain dashes (e.g. "google-calendar"); Plausible event
-         names convert to underscores so the analytics catalog in the
-         top-of-file header stays a clean grep target. */
+         cc_share_google_calendar (task-T1.3),
+         cc_share_apple_calendar (task-T1.4).
+         IDs may contain dashes (e.g. "google-calendar", "apple-calendar");
+         Plausible event names convert to underscores so the analytics
+         catalog in the top-of-file header stays a clean grep target. */
       var slug = String(id).replace(/-/g, "_");
       try { window.plausible("cc_share_" + slug); } catch (e) { /* no-op */ }
     }
