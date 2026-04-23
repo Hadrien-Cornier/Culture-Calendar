@@ -411,5 +411,19 @@
     "selector": "docs/styles.css",
     "since_commit": "task-T4.1",
     "smoke_assertion": "contains_text:max-width: 320px@/styles.css"
+  },
+  {
+    "id": "share-facebook",
+    "name": "Share-menu Facebook intent emitting facebook.com/sharer/sharer.php URLs",
+    "selector": ".share-menu [data-share-platform=\"facebook\"]",
+    "since_commit": "share-facebook-telegram",
+    "smoke_assertion": "contains_text:cc_share_facebook@/script.js"
+  },
+  {
+    "id": "share-telegram",
+    "name": "Share-menu Telegram intent emitting t.me/share/url URLs",
+    "selector": ".share-menu [data-share-platform=\"telegram\"]",
+    "since_commit": "share-facebook-telegram",
+    "smoke_assertion": "contains_text:cc_share_telegram@/script.js"
   }
 ]

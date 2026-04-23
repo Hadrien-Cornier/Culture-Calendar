@@ -75,6 +75,7 @@
      cc_share_whatsapp, cc_share_sms, cc_share_email, cc_share_copy.
      Calendar intents (T1.3, T1.4): cc_share_google_calendar,
      cc_share_apple_calendar.
+     Facebook + Telegram additions: cc_share_facebook, cc_share_telegram.
      Mailing list (T2.2): cc_subscribe_email. All platform IDs plus
      cc_subscribe_email must stay greppable in this file; the T5.1 queue
      validator asserts both with a plain grep so silent removals fail CI. */
@@ -392,10 +393,26 @@
         }
       },
       {
+        id: "facebook",
+        label: "📘 Facebook",
+        href: function (s) {
+          return "https://www.facebook.com/sharer/sharer.php?u="
+            + enc(s.url) + "&quote=" + enc(s.text);
+        }
+      },
+      {
         id: "whatsapp",
         label: "💬 WhatsApp",
         href: function (s) {
           return "https://wa.me/?text=" + enc(s.text + " " + s.url);
+        }
+      },
+      {
+        id: "telegram",
+        label: "✈ Telegram",
+        href: function (s) {
+          return "https://t.me/share/url?url=" + enc(s.url)
+            + "&text=" + enc(s.text);
         }
       },
       {
@@ -485,7 +502,8 @@
     function trackPlatform(id) {
       /* Per-platform Plausible events:
          cc_share_twitter, cc_share_threads, cc_share_bluesky,
-         cc_share_mastodon, cc_share_linkedin, cc_share_whatsapp,
+         cc_share_mastodon, cc_share_linkedin, cc_share_facebook,
+         cc_share_whatsapp, cc_share_telegram,
          cc_share_sms, cc_share_email, cc_share_copy,
          cc_share_google_calendar (task-T1.3),
          cc_share_apple_calendar (task-T1.4).
