@@ -131,7 +131,7 @@ def benchmark_models(
                         "name": pc.PERSONA_CRITIQUE_TOOL["name"],
                     },
                 }
-                if model not in pc.MODELS_WITHOUT_TEMPERATURE:
+                if pc._model_accepts_temperature(model):
                     call_kwargs["temperature"] = pc.DEFAULT_TEMPERATURE
                 resp = client.messages.create(**call_kwargs)
                 usage = getattr(resp, "usage", None)
@@ -320,9 +320,15 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
-    if not os.environ.get("ANTHROPIC_API_KEY"):
+    pc = _load_persona_critique_module()
+    # When Bedrock is active we rely on AWS credentials (env, profile, or IAM
+    # role) — no ANTHROPIC_API_KEY required. Otherwise the direct API still
+    # needs the key up-front so operators don't spend minutes on a browser
+    # spin-up before the factory errors out.
+    if not pc._bedrock_mode() and not os.environ.get("ANTHROPIC_API_KEY"):
         print(
-            "error: ANTHROPIC_API_KEY missing; benchmark requires live Anthropic",
+            "error: ANTHROPIC_API_KEY missing; benchmark requires live Anthropic "
+            "(or set CLAUDE_CODE_USE_BEDROCK=1 to use AWS Bedrock)",
             file=sys.stderr,
         )
         return 2

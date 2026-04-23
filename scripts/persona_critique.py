@@ -41,15 +41,73 @@ load_dotenv()
 
 MAX_LLM_CALLS = 6
 DOM_SNIPPET_MAX_BYTES = 10_000
-SONNET_MODEL = "claude-sonnet-4-6"
-HAIKU_MODEL = "claude-haiku-4-5-20251001"
-OPUS_MODEL = "claude-opus-4-7"
+
+
+def _bedrock_mode() -> bool:
+    """Whether the harness should route calls through AWS Bedrock.
+
+    Mirrors Claude Code's ``CLAUDE_CODE_USE_BEDROCK`` convention — set to
+    ``1`` / ``true`` to prefer ``anthropic.AnthropicBedrock`` over the direct
+    API. Defaults to direct API for backwards compatibility.
+    """
+    return os.environ.get("CLAUDE_CODE_USE_BEDROCK", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+
+
+# Direct-API model IDs (original defaults; used when Bedrock is disabled).
+_DIRECT_SONNET_DEFAULT = "claude-sonnet-4-6"
+_DIRECT_HAIKU_DEFAULT = "claude-haiku-4-5-20251001"
+_DIRECT_OPUS_DEFAULT = "claude-opus-4-7"
+
+# Bedrock inference-profile IDs (used when CLAUDE_CODE_USE_BEDROCK=1).
+_BEDROCK_SONNET_DEFAULT = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+_BEDROCK_HAIKU_DEFAULT = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
+_BEDROCK_OPUS_DEFAULT = "us.anthropic.claude-opus-4-1-20250805-v1:0"
+
+
+def _resolve_model(env_name: str, bedrock_default: str, direct_default: str) -> str:
+    """Return the configured model ID for a tier.
+
+    Precedence: explicit env var → bedrock default (if Bedrock mode) →
+    direct-API default.
+    """
+    override = os.environ.get(env_name)
+    if override and override.strip():
+        return override.strip()
+    return bedrock_default if _bedrock_mode() else direct_default
+
+
+SONNET_MODEL = _resolve_model(
+    "ANTHROPIC_DEFAULT_SONNET_MODEL",
+    _BEDROCK_SONNET_DEFAULT,
+    _DIRECT_SONNET_DEFAULT,
+)
+HAIKU_MODEL = _resolve_model(
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL",
+    _BEDROCK_HAIKU_DEFAULT,
+    _DIRECT_HAIKU_DEFAULT,
+)
+OPUS_MODEL = _resolve_model(
+    "ANTHROPIC_DEFAULT_OPUS_MODEL",
+    _BEDROCK_OPUS_DEFAULT,
+    _DIRECT_OPUS_DEFAULT,
+)
 DEFAULT_MODEL = HAIKU_MODEL
 DEFAULT_MAX_TOKENS = 1024
 DEFAULT_TEMPERATURE = 0.2
 # Models that reject the ``temperature`` parameter (API returns 400 since
-# 2026-04). Keep narrow — any unknown model still receives the default.
+# 2026-04). Any model whose ID contains ``opus`` is treated as temperature-free
+# so both direct-API and Bedrock Opus IDs are covered without a hardcoded list.
 MODELS_WITHOUT_TEMPERATURE: frozenset[str] = frozenset({OPUS_MODEL})
+
+
+def _model_accepts_temperature(model: str) -> bool:
+    if model in MODELS_WITHOUT_TEMPERATURE:
+        return False
+    return "opus" not in model.lower()
 
 DEFAULT_PERSONAS_DIR = Path(".overnight/personas")
 DEFAULT_CHECK_SCRIPT = Path("scripts/check_live_site.py")
@@ -479,7 +537,7 @@ def call_anthropic_critique(
         "tools": [PERSONA_CRITIQUE_TOOL],
         "tool_choice": {"type": "tool", "name": PERSONA_CRITIQUE_TOOL["name"]},
     }
-    if model not in MODELS_WITHOUT_TEMPERATURE:
+    if _model_accepts_temperature(model):
         kwargs["temperature"] = temperature
     if system_prompt:
         kwargs["system"] = system_prompt
@@ -514,6 +572,18 @@ def call_anthropic_critique(
 
 def _default_anthropic_client_factory() -> Any:  # pragma: no cover
     import anthropic
+
+    if _bedrock_mode():
+        # AnthropicBedrock relies on the AWS SDK's default credential chain
+        # (env vars, ~/.aws/credentials, IAM role). We don't surface a
+        # pre-flight check here so operators can use any AWS auth flavor.
+        bedrock_cls = getattr(anthropic, "AnthropicBedrock", None)
+        if bedrock_cls is None:
+            raise RuntimeError(
+                "anthropic.AnthropicBedrock not available; upgrade the "
+                "anthropic SDK or unset CLAUDE_CODE_USE_BEDROCK."
+            )
+        return bedrock_cls()
 
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
