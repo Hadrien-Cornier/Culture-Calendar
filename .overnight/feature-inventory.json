@@ -348,5 +348,26 @@
     "selector": "docs/script.js",
     "since_commit": "task-T5.1",
     "smoke_assertion": "contains_text:cc_share_bluesky"
+  },
+  {
+    "id": "card-venue-address",
+    "name": "Venue display-name and street address rendered on event card face",
+    "selector": ".event-venue-address",
+    "since_commit": "task-T3.1",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "card-ticket-link",
+    "name": "Get Tickets button inside expanded event panel",
+    "selector": ".event-ticket-link",
+    "since_commit": "task-T3.2",
+    "smoke_assertion": "selector_exists_after_expand"
+  },
+  {
+    "id": "keyboard-expand",
+    "name": "Keyboard-accessible expand affordance on event-header (role=button, tabindex=0, Enter/Space)",
+    "selector": ".event-header[role=\"button\"][tabindex=\"0\"]",
+    "since_commit": "task-T3.3",
+    "smoke_assertion": "selector_exists"
   }
 ]
