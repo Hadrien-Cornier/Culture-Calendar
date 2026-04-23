@@ -369,5 +369,26 @@
     "selector": ".event-header[role=\"button\"][tabindex=\"0\"]",
     "since_commit": "task-T3.3",
     "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "share-google-calendar",
+    "name": "Share-menu Google Calendar intent emitting calendar.google.com/calendar/render TEMPLATE URLs",
+    "selector": ".share-menu [data-share-platform=\"google-calendar\"]",
+    "since_commit": "task-T1.3",
+    "smoke_assertion": "contains_text:cc_share_google_calendar@/script.js"
+  },
+  {
+    "id": "share-apple-calendar",
+    "name": "Share-menu Apple Calendar intent emitting webcal:// URLs to per-event .ics",
+    "selector": ".share-menu [data-share-platform=\"apple-calendar\"]",
+    "since_commit": "task-T1.4",
+    "smoke_assertion": "contains_text:cc_share_apple_calendar@/script.js"
+  },
+  {
+    "id": "per-event-ics",
+    "name": "Per-event .ics files at docs/events/<slug>.ics for calendar subscribe/download",
+    "selector": "docs/events/*.ics",
+    "since_commit": "task-T1.1",
+    "smoke_assertion": "selector_exists@/events/8-1-2.ics"
   }
 ]
