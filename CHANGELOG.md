@@ -71,6 +71,11 @@
 - summary: buildPickCard and buildListingCard now surface venue_display_name as the primary venue label (falling back to the raw venue field) and append a new .event-venue-address line below the subtitle whenever the event carries a street address; matching CSS rule added to docs/styles.css. Test coverage in tests/test_venue_card_rendering.py extracts each card-builder body and asserts (1) the venue_display_name || venue fallback, (2) the conditional .event-venue-address render with ev.venue_address as textContent, (3) that the address node is gated on if (ev.venue_address) so no empty line leaks, and (4) that .event-venue-address has a stylesheet rule — addressing the council's NO_TEST_COVERAGE_FOR_BEHAVIOR finding without introducing a pyppeteer dependency.
 - validation: green
 
+### task-T3.2 — DONE — 2026-04-23T06:38:12Z
+- commit: 5ebec75d28a833687ba2f4428ef1cf0b13f4b821
+- files: docs/script.js, docs/styles.css
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
