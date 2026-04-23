@@ -37,7 +37,29 @@ from scripts._slug_util import safe_slug  # noqa: E402
 
 DATA_PATH = REPO_ROOT / "docs" / "data.json"
 OUT_DIR = REPO_ROOT / "docs" / "events"
+CONFIG_PATH = REPO_ROOT / "config" / "master_config.yaml"
 SITE_BASE_URL = "https://hadrien-cornier.github.io/Culture-Calendar/"
+
+# Venue *code* (stamped on events by ``MultiVenueScraper``) → config key under
+# ``venues:`` in ``config/master_config.yaml``. Mirrors the mapping in
+# ``update_website_data.py`` so this script can fall back to the master config
+# when events in ``docs/data.json`` predate the T0.2 enrichment step.
+_VENUE_CODE_TO_CONFIG_KEY: dict[str, str] = {
+    "AFS": "afs",
+    "Hyperreal": "hyperreal",
+    "Paramount": "paramount",
+    "AlienatedMajesty": "alienated_majesty",
+    "FirstLight": "first_light",
+    "Symphony": "austin_symphony",
+    "Opera": "austin_opera",
+    "Chamber Music": "austin_chamber_music",
+    "EarlyMusic": "early_music_austin",
+    "LaFollia": "la_follia",
+    "BalletAustin": "ballet_austin",
+    "ArtsOnAlexander": "arts_on_alexander",
+    "NowPlayingAustinVisualArts": "now_playing_austin_visual_arts",
+    "LivraBooks": "libra_books",
+}
 
 LOG = logging.getLogger("build_event_shells")
 
@@ -58,6 +80,83 @@ class EventShell:
     canonical_url: str
     anchor_url: str
     ticket_url: str
+    venue_display_name: str = ""
+    venue_address: str = ""
+
+
+# Matches "Austin, TX 78702" or "Austin, TX 78701-1234" at the end of the
+# string. The postal code is optional because a few aggregator venues (e.g.
+# NowPlayingAustin) only carry "Austin, TX". The leading comma is also
+# optional so a bare "Austin, TX" string (no street prefix) still parses
+# into locality + region. The parser never raises; it returns empty strings
+# for fields it cannot locate.
+_ADDRESS_TAIL_RE = re.compile(
+    r"(?:^|,)\s*(?P<locality>[^,]+?)\s*,\s*(?P<region>[A-Z]{2})"
+    r"(?:\s+(?P<postal>\d{5}(?:-\d{4})?))?\s*$"
+)
+
+
+def _parse_postal_address(raw: str) -> dict[str, str]:
+    """Split a free-form US address into schema.org ``PostalAddress`` fields.
+
+    Expected shape: ``"<street>, <city>, <ST> <ZIP>"``. When only the tail is
+    present (e.g. ``"Austin, TX"``) the street becomes empty. The return dict
+    always carries all four keys so the JSON-LD builder can omit blanks with a
+    simple truthiness check.
+    """
+    text = (raw or "").strip()
+    out = {
+        "streetAddress": "",
+        "addressLocality": "",
+        "addressRegion": "",
+        "postalCode": "",
+    }
+    if not text:
+        return out
+    match = _ADDRESS_TAIL_RE.search(text)
+    if match:
+        head = text[: match.start()].strip(", ").strip()
+        out["streetAddress"] = head
+        out["addressLocality"] = match.group("locality").strip()
+        out["addressRegion"] = match.group("region").strip()
+        out["postalCode"] = (match.group("postal") or "").strip()
+    else:
+        # No region/postal tail matched — treat the whole string as street.
+        out["streetAddress"] = text
+    return out
+
+
+def _load_venue_metadata_from_config(
+    config_path: Path = CONFIG_PATH,
+) -> dict[str, dict]:
+    """Return ``{venue_code: {display_name, address}}`` from master config.
+
+    Falls back to an empty dict when the file is missing or PyYAML is not
+    importable — shell generation never hard-requires the config, it just
+    enriches JSON-LD when available.
+    """
+    try:
+        import yaml  # PyYAML; installed as part of the project requirements.
+    except Exception:  # pragma: no cover - defensive guard
+        return {}
+    if not config_path.is_file():
+        return {}
+    try:
+        with config_path.open("r", encoding="utf-8") as handle:
+            parsed = yaml.safe_load(handle) or {}
+    except Exception:  # pragma: no cover - config must be readable in CI
+        return {}
+    venues_cfg = parsed.get("venues") or {}
+    out: dict[str, dict] = {}
+    for code, key in _VENUE_CODE_TO_CONFIG_KEY.items():
+        entry = venues_cfg.get(key)
+        if not isinstance(entry, dict):
+            continue
+        out[code] = {
+            "display_name": str(entry.get("display_name") or "").strip(),
+            "address": str(entry.get("address") or "").strip(),
+        }
+    return out
 
 
 _slugify = safe_slug  # back-compat alias; uses shared scripts._slug_util.safe_slug
@@ -111,8 +210,18 @@ def _ticket_url(event: dict, *, fallback: str) -> str:
     return fallback
 
 
-def _shell_from_event(event: dict, *, base_url: str = SITE_BASE_URL) -> Optional[EventShell]:
-    """Build an :class:`EventShell` from a raw event dict, or ``None`` to skip."""
+def _shell_from_event(
+    event: dict,
+    *,
+    base_url: str = SITE_BASE_URL,
+    venue_metadata: Optional[dict[str, dict]] = None,
+) -> Optional[EventShell]:
+    """Build an :class:`EventShell` from a raw event dict, or ``None`` to skip.
+
+    ``venue_metadata`` maps a venue *code* to ``{display_name, address}`` and
+    is used to backfill ``venue_display_name`` / ``venue_address`` when the
+    event itself lacks them (e.g. a ``docs/data.json`` that predates T0.2).
+    """
     raw_id = event.get("id") or event.get("title") or ""
     if not raw_id:
         return None
@@ -130,6 +239,15 @@ def _shell_from_event(event: dict, *, base_url: str = SITE_BASE_URL) -> Optional
     venue = str(event.get("venue") or "").strip()
     type_ = str(event.get("type") or "").strip()
     first_date = _first_screening_date(event)
+
+    display_name = str(event.get("venue_display_name") or "").strip()
+    address = str(event.get("venue_address") or "").strip()
+    if (not display_name or not address) and venue_metadata and venue in venue_metadata:
+        fallback = venue_metadata[venue]
+        if not display_name:
+            display_name = fallback.get("display_name", "")
+        if not address:
+            address = fallback.get("address", "")
 
     base = base_url if base_url.endswith("/") else base_url + "/"
     canonical = f"{base}events/{slug}.html"
@@ -150,6 +268,8 @@ def _shell_from_event(event: dict, *, base_url: str = SITE_BASE_URL) -> Optional
         canonical_url=canonical,
         anchor_url=anchor,
         ticket_url=ticket_url,
+        venue_display_name=display_name,
+        venue_address=address,
     )
 
 
@@ -166,10 +286,29 @@ def _json_ld(shell: EventShell) -> str:
     if shell.first_date:
         payload["startDate"] = shell.first_date
     if shell.venue:
+        place_name = shell.venue_display_name or shell.venue
+        # ``PostalAddress`` gains ``streetAddress`` + ``postalCode`` whenever
+        # ``venue_address`` parses cleanly — closes the T0.4 gap flagged by
+        # the persona council (Google rich-result linter demands both).
+        address: dict[str, str] = {
+            "@type": "PostalAddress",
+            "addressLocality": "Austin",
+            "addressRegion": "TX",
+        }
+        if shell.venue_address:
+            parsed = _parse_postal_address(shell.venue_address)
+            if parsed["streetAddress"]:
+                address["streetAddress"] = parsed["streetAddress"]
+            if parsed["addressLocality"]:
+                address["addressLocality"] = parsed["addressLocality"]
+            if parsed["addressRegion"]:
+                address["addressRegion"] = parsed["addressRegion"]
+            if parsed["postalCode"]:
+                address["postalCode"] = parsed["postalCode"]
         payload["location"] = {
             "@type": "Place",
-            "name": shell.venue,
-            "address": {"@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX"},
+            "name": place_name,
+            "address": address,
         }
     # offers.url points to the ticket/venue page so search crawlers link
     # directly to purchase, falling back to the in-app anchor when the
@@ -290,13 +429,25 @@ def load_events(data_path: Path = DATA_PATH) -> list[dict]:
 
 
 def build_shells(
-    events: Iterable[dict], *, base_url: str = SITE_BASE_URL
+    events: Iterable[dict],
+    *,
+    base_url: str = SITE_BASE_URL,
+    venue_metadata: Optional[dict[str, dict]] = None,
 ) -> list[EventShell]:
-    """Build one :class:`EventShell` per event, de-duplicating by slug."""
+    """Build one :class:`EventShell` per event, de-duplicating by slug.
+
+    When ``venue_metadata`` is ``None`` the mapping is loaded lazily from
+    ``config/master_config.yaml`` so a shipped ``docs/data.json`` that lacks
+    ``venue_address`` still produces structured PostalAddress JSON-LD.
+    """
+    if venue_metadata is None:
+        venue_metadata = _load_venue_metadata_from_config()
     seen: set[str] = set()
     shells: list[EventShell] = []
     for event in events:
-        shell = _shell_from_event(event, base_url=base_url)
+        shell = _shell_from_event(
+            event, base_url=base_url, venue_metadata=venue_metadata
+        )
         if shell is None or shell.slug in seen:
             continue
         seen.add(shell.slug)

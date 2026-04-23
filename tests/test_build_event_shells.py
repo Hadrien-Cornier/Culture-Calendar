@@ -165,6 +165,128 @@ class TestRenderHtml:
         assert "<img src" not in outside_jsonld
 
 
+class TestPostalAddressParsing:
+    def test_parses_full_address(self):
+        parsed = bes._parse_postal_address("713 Congress Ave, Austin, TX 78701")
+        assert parsed["streetAddress"] == "713 Congress Ave"
+        assert parsed["addressLocality"] == "Austin"
+        assert parsed["addressRegion"] == "TX"
+        assert parsed["postalCode"] == "78701"
+
+    def test_parses_zip_plus_four(self):
+        parsed = bes._parse_postal_address("606 W 12th St, Austin, TX 78701-1234")
+        assert parsed["postalCode"] == "78701-1234"
+
+    def test_city_state_only_has_no_postal(self):
+        parsed = bes._parse_postal_address("Austin, TX")
+        assert parsed["streetAddress"] == ""
+        assert parsed["addressLocality"] == "Austin"
+        assert parsed["addressRegion"] == "TX"
+        assert parsed["postalCode"] == ""
+
+    def test_empty_returns_blanks(self):
+        parsed = bes._parse_postal_address("")
+        assert all(v == "" for v in parsed.values())
+        assert set(parsed.keys()) == {
+            "streetAddress",
+            "addressLocality",
+            "addressRegion",
+            "postalCode",
+        }
+
+    def test_freeform_without_region_tail(self):
+        parsed = bes._parse_postal_address("Somewhere undescribed")
+        # Whole string becomes street when no "<city>, <ST>" tail matches.
+        assert parsed["streetAddress"] == "Somewhere undescribed"
+        assert parsed["postalCode"] == ""
+
+
+class TestJsonLdPostalAddress:
+    def test_includes_street_address_and_postal_code(self):
+        shell = bes._shell_from_event(
+            _event(
+                venue_display_name="Paramount Theatre",
+                venue_address="713 Congress Ave, Austin, TX 78701",
+            )
+        )
+        payload = json.loads(bes._json_ld(shell))
+        address = payload["location"]["address"]
+        assert address["streetAddress"] == "713 Congress Ave"
+        assert address["postalCode"] == "78701"
+        assert address["addressLocality"] == "Austin"
+        assert address["addressRegion"] == "TX"
+        assert payload["location"]["name"] == "Paramount Theatre"
+
+    def test_uses_display_name_over_short_code(self):
+        shell = bes._shell_from_event(
+            _event(
+                venue="Paramount",
+                venue_display_name="Paramount Theatre",
+                venue_address="713 Congress Ave, Austin, TX 78701",
+            )
+        )
+        payload = json.loads(bes._json_ld(shell))
+        assert payload["location"]["name"] == "Paramount Theatre"
+
+    def test_falls_back_to_venue_name_when_no_display_name(self):
+        shell = bes._shell_from_event(_event(venue="AFS"))
+        payload = json.loads(bes._json_ld(shell))
+        assert payload["location"]["name"] == "AFS"
+
+    def test_sparse_address_omits_street_and_postal(self):
+        shell = bes._shell_from_event(_event(venue_address="Austin, TX"))
+        payload = json.loads(bes._json_ld(shell))
+        address = payload["location"]["address"]
+        assert "streetAddress" not in address
+        assert "postalCode" not in address
+        assert address["addressLocality"] == "Austin"
+        assert address["addressRegion"] == "TX"
+
+    def test_street_address_appears_in_rendered_html(self):
+        shell = bes._shell_from_event(
+            _event(
+                venue_display_name="Paramount Theatre",
+                venue_address="713 Congress Ave, Austin, TX 78701",
+            )
+        )
+        html = bes.render_shell_html(shell)
+        assert "streetAddress" in html
+        assert "postalCode" in html
+        assert "713 Congress Ave" in html
+
+    def test_venue_metadata_fallback_used_when_event_lacks_fields(self):
+        metadata = {
+            "AFS": {
+                "display_name": "Austin Film Society",
+                "address": "6226 Middle Fiskville Rd, Austin, TX 78752",
+            }
+        }
+        shell = bes._shell_from_event(
+            _event(venue="AFS", venue_display_name=None, venue_address=None),
+            venue_metadata=metadata,
+        )
+        payload = json.loads(bes._json_ld(shell))
+        assert payload["location"]["name"] == "Austin Film Society"
+        assert payload["location"]["address"]["streetAddress"] == "6226 Middle Fiskville Rd"
+        assert payload["location"]["address"]["postalCode"] == "78752"
+
+    def test_event_level_metadata_wins_over_fallback(self):
+        metadata = {
+            "AFS": {"display_name": "Should Not Win", "address": "Should Not Win"}
+        }
+        shell = bes._shell_from_event(
+            _event(
+                venue="AFS",
+                venue_display_name="Explicit Display",
+                venue_address="999 Real St, Austin, TX 78701",
+            ),
+            venue_metadata=metadata,
+        )
+        payload = json.loads(bes._json_ld(shell))
+        assert payload["location"]["name"] == "Explicit Display"
+        assert payload["location"]["address"]["streetAddress"] == "999 Real St"
+
+
 class TestBuildAll:
     def test_deduplicates_by_slug(self):
         events = [_event(id="same-slug", title="A"), _event(id="same-slug", title="B")]
