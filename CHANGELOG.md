@@ -60,6 +60,11 @@
 - summary: Added Apple Calendar platform to the PLATFORMS share-menu registry using a webcal:// URL pointing at the per-event .ics file under docs/events/<slug>.ics (emitted by T1.1); gated by appliesTo(shareable.icsUrl) so per-event shares surface it and weekly-digest shares don't; wired Plausible tracking as cc_share_apple_calendar via the existing id→underscore slug path.
 - validation: green
 
+### task-T2.1 — DONE — 2026-04-23T05:36:44Z
+- commit: 98ba2137284b1d3e41186f57485d0da93ce31005
+- files: scripts/check_live_site.py, scripts/persona_critique.py, tests/test_persona_critique_shared_page.py
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
