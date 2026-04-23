@@ -65,6 +65,11 @@
 - files: scripts/check_live_site.py, scripts/persona_critique.py, tests/test_persona_critique_shared_page.py
 - validation: green
 
+### task-T3.1 — DONE — 2026-04-23T06:07:40Z
+- commit: a6256dde008d26d3717951460256e2b09b6c0ecc
+- files: docs/script.js, docs/styles.css
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
