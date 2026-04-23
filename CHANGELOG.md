@@ -28,6 +28,11 @@
 - files: scripts/build_api_json.py, docs/api/venues.json, tests/test_build_api_json.py
 - validation: green
 
+### task-TA.1 — DONE — 2026-04-23T03:40:40Z
+- commit: db647fc8c6adce373d6eb0c0d7fc5630297c3a0a
+- files: scripts/persona_critique.py, scripts/bench_personas.py, tests/test_persona_critique_bedrock.py
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
