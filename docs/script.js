@@ -73,7 +73,8 @@
      Per-platform share events (T1.1): cc_share_twitter, cc_share_bluesky,
      cc_share_threads, cc_share_mastodon, cc_share_linkedin,
      cc_share_whatsapp, cc_share_sms, cc_share_email, cc_share_copy.
-     Mailing list (T2.2): cc_subscribe_email. All nine platform IDs plus
+     Calendar intents (T1.3): cc_share_google_calendar.
+     Mailing list (T2.2): cc_subscribe_email. All platform IDs plus
      cc_subscribe_email must stay greppable in this file; the T5.1 queue
      validator asserts both with a plain grep so silent removals fail CI. */
   window.plausible = window.plausible || function () {
@@ -259,6 +260,51 @@
        still fires on initial click for back-compat with T6.3 telemetry. */
     function enc(s) { return encodeURIComponent(s); }
 
+    function _firstShowing(ev) {
+      if (!ev) return null;
+      var list = ev.showings;
+      if (list && list.length) return list[0];
+      var dates = ev.dates || [];
+      var times = ev.times || [];
+      if (dates.length) {
+        return { date: dates[0], time: times[0] || "", venue: ev.venue || "", url: ev.url || "" };
+      }
+      return null;
+    }
+
+    /* task-T1.3: Build Google Calendar TEMPLATE URL.
+       Google's /calendar/render?action=TEMPLATE accepts:
+         dates=YYYYMMDDTHHMMSS/YYYYMMDDTHHMMSS (local) or YYYYMMDD/YYYYMMDD (all-day).
+       We emit floating-local times (no Z suffix) since event times in the data
+       are venue-local wall-clock; Google renders in the viewer's timezone which
+       is fine for Austin events viewed by Austinites. Falls back to an all-day
+       entry when no time is known. Assumes ~2h duration when only start known. */
+    function _gcalDates(date, time) {
+      if (!date) return "";
+      var d = String(date).replace(/-/g, "");
+      if (!time) {
+        var next = new Date(date + "T00:00:00");
+        next.setDate(next.getDate() + 1);
+        var y = next.getFullYear();
+        var m = String(next.getMonth() + 1).padStart(2, "0");
+        var day = String(next.getDate()).padStart(2, "0");
+        return d + "/" + y + m + day;
+      }
+      var parts = String(time).split(":");
+      var hh = (parts[0] || "00").padStart(2, "0");
+      var mm = (parts[1] || "00").padStart(2, "0");
+      var start = d + "T" + hh + mm + "00";
+      var startMs = new Date(date + "T" + hh + ":" + mm + ":00").getTime();
+      var endDate = new Date(startMs + 2 * 60 * 60 * 1000);
+      var ey = endDate.getFullYear();
+      var em = String(endDate.getMonth() + 1).padStart(2, "0");
+      var ed = String(endDate.getDate()).padStart(2, "0");
+      var eh = String(endDate.getHours()).padStart(2, "0");
+      var emin = String(endDate.getMinutes()).padStart(2, "0");
+      var end = "" + ey + em + ed + "T" + eh + emin + "00";
+      return start + "/" + end;
+    }
+
     function eventShareable(ev) {
       var rawId = (ev && (ev.id || ev.event_id || ev.title)) || "";
       var slug = _slugForShare(rawId);
@@ -267,12 +313,17 @@
       // task-T1.2: pre-craft shareText from event one_liner hook, fall back to title
       var oneLiner = (ev && (ev.one_liner_summary || ev.one_liner)) || "";
       var shareText = oneLiner ? title + " — " + String(oneLiner).trim() : title;
+      var first = _firstShowing(ev);
+      var location = (first && first.venue) || (ev && ev.venue) || "";
+      var gcalDates = first ? _gcalDates(first.date, first.time) : "";
       return {
         title: title,
         text: shareText,
         url: url,
         subject: "Culture Calendar: " + title,
-        body: shareText + "\n\n" + url + "\n"
+        body: shareText + "\n\n" + url + "\n",
+        location: location,
+        gcalDates: gcalDates
       };
     }
 
@@ -351,6 +402,24 @@
         },
         sameTab: true
       },
+      /* task-T1.3: Google Calendar TEMPLATE intent. Only rendered when the
+         shareable carries gcalDates (per-event shares do; digest shares don't,
+         since a weekly digest isn't a single event). The trackPlatform() call
+         replaces dashes in the id with underscores so the Plausible event
+         name matches the greppable cc_share_google_calendar literal used by
+         the T5.1 analytics catalog. */
+      {
+        id: "google-calendar",
+        label: "📅 Google Calendar",
+        appliesTo: function (s) { return !!s.gcalDates; },
+        href: function (s) {
+          return "https://calendar.google.com/calendar/render?action=TEMPLATE"
+            + "&text=" + enc(s.title)
+            + "&dates=" + s.gcalDates
+            + "&details=" + enc(s.body)
+            + (s.location ? "&location=" + enc(s.location) : "");
+        }
+      },
       {
         id: "copy",
         label: "📋 Copy link",
@@ -393,8 +462,13 @@
       /* Per-platform Plausible events:
          cc_share_twitter, cc_share_threads, cc_share_bluesky,
          cc_share_mastodon, cc_share_linkedin, cc_share_whatsapp,
-         cc_share_sms, cc_share_email, cc_share_copy. */
-      try { window.plausible("cc_share_" + id); } catch (e) { /* no-op */ }
+         cc_share_sms, cc_share_email, cc_share_copy,
+         cc_share_google_calendar (task-T1.3).
+         IDs may contain dashes (e.g. "google-calendar"); Plausible event
+         names convert to underscores so the analytics catalog in the
+         top-of-file header stays a clean grep target. */
+      var slug = String(id).replace(/-/g, "_");
+      try { window.plausible("cc_share_" + slug); } catch (e) { /* no-op */ }
     }
 
     function buildPopover(btn, shareable) {
@@ -403,6 +477,10 @@
       pop.setAttribute("role", "menu");
 
       PLATFORMS.forEach(function (p) {
+        /* task-T1.3: Platforms may opt out for a given shareable via
+           appliesTo() — e.g. google-calendar hides itself on the digest
+           button since there's no single event datetime to import. */
+        if (typeof p.appliesTo === "function" && !p.appliesTo(shareable)) return;
         var node;
         if (p.action === "copy") {
           node = document.createElement("button");
