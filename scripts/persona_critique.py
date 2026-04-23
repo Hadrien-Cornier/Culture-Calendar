@@ -344,7 +344,14 @@ async def _async_capture(
     spec: dict[str, Any],
     launch: Callable[..., Awaitable[Any]] | None = None,
 ) -> tuple[str, str]:
-    """Navigate to the persona URL, return (screenshot_b64, dom_snippet)."""
+    """Navigate to the persona URL, return (screenshot_b64, dom_snippet).
+
+    Legacy fresh-page path: independent browser session used only when the
+    caller explicitly wants a capture detached from any assertion run (e.g.
+    ``bench_personas.py`` still does the assertion pass via subprocess).
+    For shared-page captures that stay consistent with the asserted state,
+    see :func:`run_shared_page_capture`.
+    """
     cls = _load_check_live_site_module()
     if launch is None:
         from pyppeteer import launch as _launch
@@ -395,6 +402,35 @@ def capture_screenshot_and_dom(
 ) -> tuple[str, str]:
     """Sync wrapper around :func:`_async_capture`."""
     return asyncio.run(_async_capture(spec, launch=launch))
+
+
+def run_shared_page_capture(
+    spec: dict[str, Any],
+    launch: Callable[..., Awaitable[Any]] | None = None,
+    *,
+    full_page: bool = False,
+    dom_max_bytes: int = DOM_SNIPPET_MAX_BYTES,
+) -> tuple[bool, int, str, str, str, str]:
+    """Run asserts + capture screenshot/DOM from the same pyppeteer page.
+
+    Returns ``(passed, exit_code, stdout, stderr, screenshot_b64, dom_snippet)``.
+    The tuple prefix mirrors :func:`run_check_live_site` so
+    :func:`run_all_personas` can drop it in without special-casing.
+
+    This is the shared-page entry point: one ``browser.newPage`` + one
+    ``page.goto`` per persona, asserts evaluated against the same DOM that
+    feeds the screenshot. No second navigation before screenshot capture.
+    """
+    cls = _load_check_live_site_module()
+    failures, shot_b64, dom_html = asyncio.run(
+        cls.run_spec_and_capture(spec, launch=launch, full_page=full_page)
+    )
+    passed = len(failures) == 0
+    exit_code = 0 if passed else 1
+    stdout = "OK\n" if passed else ""
+    stderr = "" if passed else "\n".join(f.format() for f in failures)
+    snippet = dom_html[:dom_max_bytes] if dom_max_bytes else dom_html
+    return passed, exit_code, stdout, stderr, shot_b64, snippet
 
 
 # --- Anthropic call ------------------------------------------------------
@@ -605,12 +641,27 @@ def run_all_personas(
     check_retries: int = DEFAULT_CHECK_RETRIES,
     subprocess_runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
     capture_fn: Callable[[dict[str, Any]], tuple[str, str]] | None = None,
+    shared_page_fn: Callable[[dict[str, Any]], tuple[bool, int, str, str, str, str]]
+    | None = None,
     anthropic_client_factory: Callable[[], Any] | None = None,
     python_exe: str | None = None,
     max_llm_calls: int = MAX_LLM_CALLS,
     model: str = DEFAULT_MODEL,
 ) -> list[PersonaResult]:
-    """Run every persona spec and return per-persona results."""
+    """Run every persona spec and return per-persona results.
+
+    Two check-live-site modes:
+
+    - **fast mode** (``fast=True``): shells out to ``check_live_site.py`` via
+      ``subprocess_runner`` and skips Anthropic entirely.
+    - **LLM mode** (``fast=False``): single pyppeteer session per persona
+      where asserts and screenshot/DOM come from the same page. This is the
+      shared-page flow (T2.1); the asserted state and the captured image
+      are guaranteed to match. Callers may still override with ``capture_fn``
+      (legacy two-navigation path) to preserve backward compatibility — in
+      that case assertions run via ``subprocess_runner`` first, then the
+      capture_fn navigates a fresh page for the screenshot.
+    """
     paths = load_persona_paths(personas_dir)
     if not check_script.is_file():
         raise FileNotFoundError(f"check script not found: {check_script}")
@@ -623,29 +674,56 @@ def run_all_personas(
         factory = anthropic_client_factory or _default_anthropic_client_factory
         client = factory()
 
+    use_shared_page = (
+        not fast and capture_fn is None
+    )
+    shared_fn = shared_page_fn or run_shared_page_capture
+
     results: list[PersonaResult] = []
     for path in paths:
         persona = json.loads(path.read_text(encoding="utf-8"))
         name = persona.get("persona") or path.stem
-        passed, rc, stdout, stderr = run_check_live_site(
-            check_script,
-            path,
-            retries=check_retries,
-            python_exe=python_exe,
-            subprocess_runner=subprocess_runner,
-        )
-        critique: PersonaCritique | None = None
-        critique_error: str | None = None
-        if not fast:
+
+        shot: str | None = None
+        dom: str | None = None
+        shared_error: str | None = None
+
+        if use_shared_page:
             if llm_calls_used >= max_llm_calls:
                 raise RuntimeError(
                     f"persona_critique: refusing to exceed cost cap "
                     f"of {max_llm_calls} Anthropic calls per run"
                 )
             try:
-                shot, dom = (capture_fn or capture_screenshot_and_dom)(
-                    persona
-                )
+                passed, rc, stdout, stderr, shot, dom = shared_fn(persona)
+            except Exception as exc:  # noqa: BLE001
+                passed, rc, stdout, stderr = False, 2, "", f"{type(exc).__name__}: {exc}"
+                shared_error = f"{type(exc).__name__}: {exc}"
+        else:
+            passed, rc, stdout, stderr = run_check_live_site(
+                check_script,
+                path,
+                retries=check_retries,
+                python_exe=python_exe,
+                subprocess_runner=subprocess_runner,
+            )
+
+        critique: PersonaCritique | None = None
+        critique_error: str | None = None
+        if not fast:
+            if not use_shared_page:
+                if llm_calls_used >= max_llm_calls:
+                    raise RuntimeError(
+                        f"persona_critique: refusing to exceed cost cap "
+                        f"of {max_llm_calls} Anthropic calls per run"
+                    )
+            try:
+                if shared_error is not None:
+                    raise RuntimeError(shared_error)
+                if shot is None or dom is None:
+                    shot, dom = (capture_fn or capture_screenshot_and_dom)(
+                        persona
+                    )
                 critique = call_anthropic_critique(
                     persona,
                     PersonaResult(

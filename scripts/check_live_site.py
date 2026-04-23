@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import base64
 import json
 import re
 import sys
@@ -164,6 +165,44 @@ def _resolve_browser_executable() -> str | None:
     return None
 
 
+async def _prepare_page(page: Any, spec: dict[str, Any]) -> None:
+    """Navigate ``page`` to the spec URL and apply its wait/click directives.
+
+    Extracted so the assert-only path and the capture-also path share one
+    implementation — navigating twice would defeat the shared-page refactor.
+    """
+    viewport = MOBILE_VIEWPORT if spec.get("mobile") else DESKTOP_VIEWPORT
+    await page.setViewport(viewport)
+    await page.goto(
+        spec["url"],
+        waitUntil="networkidle2",
+        timeout=DEFAULT_NAV_TIMEOUT_MS,
+    )
+    wait_for_selector = spec.get("wait_for_selector")
+    if wait_for_selector:
+        await page.waitForSelector(
+            wait_for_selector, timeout=DEFAULT_SELECTOR_TIMEOUT_MS
+        )
+    wait_ms = spec.get("wait_ms")
+    if wait_ms:
+        await asyncio.sleep(wait_ms / 1000.0)
+    for sel in spec.get("click_before_assert") or []:
+        await page.waitForSelector(sel, timeout=DEFAULT_SELECTOR_TIMEOUT_MS)
+        await page.click(sel)
+        await asyncio.sleep(CLICK_SETTLE_MS / 1000.0)
+
+
+async def _evaluate_asserts(
+    page: Any, spec: dict[str, Any]
+) -> list[AssertionFailure]:
+    failures: list[AssertionFailure] = []
+    for i, a in enumerate(spec.get("asserts") or []):
+        reason = await _evaluate_assert(page, a)
+        if reason:
+            failures.append(AssertionFailure(i, a.get("type", "?"), reason))
+    return failures
+
+
 async def run_spec(
     spec: dict[str, Any],
     launch: Callable[..., Awaitable[Any]] | None = None,
@@ -179,31 +218,44 @@ async def run_spec(
     browser = await launch(**launch_kwargs)
     try:
         page = await browser.newPage()
-        viewport = MOBILE_VIEWPORT if spec.get("mobile") else DESKTOP_VIEWPORT
-        await page.setViewport(viewport)
-        await page.goto(
-            spec["url"],
-            waitUntil="networkidle2",
-            timeout=DEFAULT_NAV_TIMEOUT_MS,
-        )
-        wait_for_selector = spec.get("wait_for_selector")
-        if wait_for_selector:
-            await page.waitForSelector(
-                wait_for_selector, timeout=DEFAULT_SELECTOR_TIMEOUT_MS
-            )
-        wait_ms = spec.get("wait_ms")
-        if wait_ms:
-            await asyncio.sleep(wait_ms / 1000.0)
-        for sel in spec.get("click_before_assert") or []:
-            await page.waitForSelector(sel, timeout=DEFAULT_SELECTOR_TIMEOUT_MS)
-            await page.click(sel)
-            await asyncio.sleep(CLICK_SETTLE_MS / 1000.0)
-        failures: list[AssertionFailure] = []
-        for i, a in enumerate(spec.get("asserts") or []):
-            reason = await _evaluate_assert(page, a)
-            if reason:
-                failures.append(AssertionFailure(i, a.get("type", "?"), reason))
-        return failures
+        await _prepare_page(page, spec)
+        return await _evaluate_asserts(page, spec)
+    finally:
+        await browser.close()
+
+
+async def run_spec_and_capture(
+    spec: dict[str, Any],
+    launch: Callable[..., Awaitable[Any]] | None = None,
+    *,
+    full_page: bool = False,
+) -> tuple[list[AssertionFailure], str, str]:
+    """Run asserts AND capture screenshot + DOM on the same page.
+
+    Returns ``(failures, screenshot_b64, dom_html)``. The screenshot is a
+    base64-encoded PNG; ``dom_html`` is the page's full outer HTML. Callers
+    may truncate the DOM to fit LLM context limits.
+
+    Shared-page is the point: persona_critique must not navigate twice —
+    one ``page.goto`` per persona keeps the asserted state and the captured
+    image consistent.
+    """
+    if launch is None:
+        from pyppeteer import launch as _launch
+        launch = _launch
+    launch_kwargs: dict[str, Any] = {"headless": True, "args": ["--no-sandbox"]}
+    exe = _resolve_browser_executable()
+    if exe:
+        launch_kwargs["executablePath"] = exe
+    browser = await launch(**launch_kwargs)
+    try:
+        page = await browser.newPage()
+        await _prepare_page(page, spec)
+        failures = await _evaluate_asserts(page, spec)
+        shot_bytes = await page.screenshot({"type": "png", "fullPage": full_page})
+        html = await page.content()
+        b64 = base64.b64encode(shot_bytes).decode("ascii")
+        return failures, b64, html
     finally:
         await browser.close()
 
