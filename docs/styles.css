@@ -449,11 +449,25 @@ body {
   border-top: 1px solid var(--rule);
 }
 
-.event-oneliner {
+/* task-T3.4: clamp the card-face one-liner to 2 lines so long hooks
+   do not push the card into a tall block; expanding the card restores
+   the full text. Uses -webkit-line-clamp with display:-webkit-box,
+   the widely-supported recipe across Safari/Chrome/Firefox. */
+.event-oneliner { -webkit-line-clamp: 2; line-clamp: 2;
   font-style: italic;
   color: #5a4a3a;
   font-weight: 500;
   margin: 0 0 12px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.event-card.is-expanded .event-oneliner,
+.event-card.is-open .event-oneliner {
+  -webkit-line-clamp: initial;
+  line-clamp: initial;
+  display: block;
+  overflow: visible;
 }
 
 .event-review {
