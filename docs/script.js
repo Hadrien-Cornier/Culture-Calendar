@@ -1713,10 +1713,20 @@
     sub.className = "event-subtitle";
     var next = ev.showings && ev.showings[0];
     var sp = [CATEGORY_LABELS[ev.type] || (ev.type || "").replace(/_/g, " ")];
-    if (ev.venue) sp.unshift(ev.venue);
+    var venueLabel = ev.venue_display_name || ev.venue;
+    if (venueLabel) sp.unshift(venueLabel);
     if (next) sp.push(formatDate(next.date) + (next.time ? " · " + formatTime(next.time) : ""));
     sub.textContent = sp.join(" · ");
     col.appendChild(sub);
+
+    /* task-T3.1: surface the venue's street address on a secondary line
+       so logistics-focused users can see where to go without expanding. */
+    if (ev.venue_address) {
+      var addr = document.createElement("div");
+      addr.className = "event-venue-address";
+      addr.textContent = ev.venue_address;
+      col.appendChild(addr);
+    }
 
     /* task-T3.4: surface the strongest positive taste signal that
        promoted this pick. Rendered as a one-liner under the subtitle
@@ -1849,10 +1859,21 @@
     var sub = document.createElement("div");
     sub.className = "event-subtitle";
     var sp = [];
-    if (ev.venue) sp.push(ev.venue);
+    var venueLabel = ev.venue_display_name || ev.venue;
+    if (venueLabel) sp.push(venueLabel);
     sp.push(CATEGORY_LABELS[ev.type] || ev.type.replace(/_/g, " "));
     sub.textContent = sp.join(" · ");
     col.appendChild(sub);
+
+    /* task-T3.1: street address rendered below the subtitle so the
+       full venue location is visible on the card face without needing
+       to expand the review panel. */
+    if (ev.venue_address) {
+      var addr = document.createElement("div");
+      addr.className = "event-venue-address";
+      addr.textContent = ev.venue_address;
+      col.appendChild(addr);
+    }
 
     var firstShowing = ev.showings && ev.showings[0];
     var whenText = firstShowing ? formatWhen(firstShowing.date, firstShowing.time) : "";

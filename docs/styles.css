@@ -371,6 +371,18 @@ body {
   letter-spacing: 0.01em;
 }
 
+/* task-T3.1: venue street address rendered under the subtitle on the
+   card face so logistics-focused users can see where to go without
+   expanding the review panel. */
+.event-venue-address {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  letter-spacing: 0.01em;
+  font-style: italic;
+}
+
 /* task-T3.4: "Because you liked X" annotation on re-ranked picks.
    Sits under the subtitle so it is visible without expanding. Uses
    accent color to mark it as a personalized signal, lighter weight
