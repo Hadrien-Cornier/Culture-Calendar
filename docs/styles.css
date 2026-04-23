@@ -1016,3 +1016,21 @@ body {
   color: var(--ink);
   border-bottom-color: var(--accent);
 }
+
+/* task-T4.1: Mobile hardening — keep primary controls within narrow viewports
+   (subscribe-links wrap, long titles break, expand chevron has a minimum
+   tappable width, search input reserves room for the clear affordance, and
+   a 320px breakpoint tightens spacing on the smallest phones). */
+.subscribe-links { flex-wrap: wrap; }
+.event-title-text { word-break: break-word; overflow-wrap: anywhere; }
+.expand-indicator { min-width: 32px; flex-shrink: 0; text-align: center; }
+#event-search { padding-right: 44px; }
+
+@media (max-width: 320px) {
+  .masthead-title { font-size: 28px; }
+  .event-header { grid-template-columns: 56px 1fr 32px; gap: 8px; padding: 10px; }
+  .event-title-text { font-size: 16px; }
+  .event-panel, .event-card.is-expanded .event-panel { padding-left: 72px; padding-right: 10px; }
+  .subscribe-links { gap: 10px; font-size: 10px; }
+  #event-search { font-size: 13px; padding: 9px 40px 9px 12px; }
+}
