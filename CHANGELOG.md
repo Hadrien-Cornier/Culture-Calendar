@@ -39,6 +39,11 @@
 - summary: Regenerated 229 event shells with venue display names, streetAddress/postalCode in PostalAddress blocks, offers, aggregateRating, and BreadcrumbList JSON-LD. Adds _parse_postal_address and _load_venue_metadata_from_config helpers; grows test suite from 15 to 33 cases.
 - validation: green
 
+### task-T1.1 — DONE — 2026-04-23T05:02:10Z
+- commit: 7c71e94bdeb792bb26c2cdf045262f051dc3d932
+- files: scripts/build_event_ics.py, tests/test_build_event_ics.py, docs/events/*.ics (229 per-event ICS files)
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
