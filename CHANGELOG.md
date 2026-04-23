@@ -65,9 +65,10 @@
 - files: scripts/check_live_site.py, scripts/persona_critique.py, tests/test_persona_critique_shared_page.py
 - validation: green
 
-### task-T3.1 — DONE — 2026-04-23T06:07:40Z
-- commit: a6256dde008d26d3717951460256e2b09b6c0ecc
-- files: docs/script.js, docs/styles.css
+### task-T3.1 — DONE — 2026-04-23T06:19:54Z
+- commit: a6256dde008d26d3717951460256e2b09b6c0ecc (code), 6bbb0df1dccf0f3beca50a0e811b032b1f8a0b9a (tests)
+- files: docs/script.js, docs/styles.css, tests/test_venue_card_rendering.py
+- summary: buildPickCard and buildListingCard now surface venue_display_name as the primary venue label (falling back to the raw venue field) and append a new .event-venue-address line below the subtitle whenever the event carries a street address; matching CSS rule added to docs/styles.css. Test coverage in tests/test_venue_card_rendering.py extracts each card-builder body and asserts (1) the venue_display_name || venue fallback, (2) the conditional .event-venue-address render with ev.venue_address as textContent, (3) that the address node is gated on if (ev.venue_address) so no empty line leaks, and (4) that .event-venue-address has a stylesheet rule — addressing the council's NO_TEST_COVERAGE_FOR_BEHAVIOR finding without introducing a pyppeteer dependency.
 - validation: green
 
 <!-- END LONG-RUN: 20260422-203219 -->
