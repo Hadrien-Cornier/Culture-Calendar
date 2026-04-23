@@ -122,6 +122,11 @@
 - files: .overnight/personas/comprehensiveness-user.json, .overnight/personas/continuity-user.json, .overnight/personas/logistics-user.json, .overnight/personas/mobile-user.json, .overnight/personas/review-reader.json, .overnight/personas/search-user.json
 - validation: green
 
+### task-T5.1 — DONE — 2026-04-23T16:59:43Z
+- commit: 23c316f5aba7f0a0c3c9a0c90140e339d8bbda1d
+- files: .overnight/feature-inventory.json
+- validation: green
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
