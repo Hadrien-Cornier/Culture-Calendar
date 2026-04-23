@@ -20,8 +20,11 @@
       "expression": "var p=document.querySelector('.top-picks .event-card.is-open .event-panel'); if(!p) return false; var text=p.textContent.trim(); window.__reviewLen=text.length; return text.length >= 200;"
     }
   ],
+  "pre_screenshot_actions": [
+    {"type": "scroll", "y": 400}
+  ],
   "llm": {
-    "system_prompt": "You are the review-reader. Your goals: understand whether to attend a top pick. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Start with PASS or FAIL.",
-    "goals": "understand whether to attend a top pick"
+    "system_prompt": "You are the review-reader. Your goals: understand whether to attend a top pick. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Before claiming a selector is missing, cross-check the Ground truth JSON block — it reports per-selector DOM presence/count observed on the same page as the screenshot. If Ground truth says a selector exists, treat that as authoritative and do not contradict it without explicit screenshot evidence. Start with PASS or FAIL.",
+    "goals": "understand whether to attend a top pick; trust the ground-truth JSON over any impression that a selector is missing"
   }
 }

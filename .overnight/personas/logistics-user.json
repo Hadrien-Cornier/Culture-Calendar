@@ -13,8 +13,11 @@
       "expression": "var cards=Array.from(document.querySelectorAll('.listings .event-card')); if(!cards.length) return false; var bad=cards.filter(function(c){var w=c.querySelector('.event-when'); return !w || w.textContent.trim().length===0;}); window.__logisticsBadCount=bad.length; return bad.length===0;"
     }
   ],
+  "pre_screenshot_actions": [
+    {"type": "scroll", "y": 900}
+  ],
   "llm": {
-    "system_prompt": "You are the logistics-user. Your goals: find when/where an event is without clicking. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Start with PASS or FAIL.",
-    "goals": "find when/where an event is without clicking"
+    "system_prompt": "You are the logistics-user. Your goals: find when/where an event is without clicking. Critique this Austin cultural events calendar site through your lens. Identify anything blocking your primary user story in <=150 words. Before claiming a selector is missing, cross-check the Ground truth JSON block — it reports per-selector DOM presence/count observed on the same page as the screenshot. If Ground truth says a selector exists, treat that as authoritative and do not contradict it without explicit screenshot evidence. Start with PASS or FAIL.",
+    "goals": "find when/where an event is without clicking; trust the ground-truth JSON over any impression that a selector is missing"
   }
 }
