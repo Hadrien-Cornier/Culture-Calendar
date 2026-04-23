@@ -138,6 +138,12 @@
 - validation: green (6/6 LLM PASS; 0 Verdict.*FAIL)
 - summary: Closed the strict persona gate by fixing three stacked issues — (a) search-user persona double-typed "Para" via assert+pre_actions producing "ParaPara" vs intermediate ground truth; dropped the redundant pre_actions; (b) logistics-user asserts didn't include .event-venue-address so the LLM couldn't ground-truth verify it; added the assert plus system-prompt naming of venue DOM nodes; (c) docs/script.js:groupEvents() dropped venue_display_name + venue_address when rebuilding event dicts by title; widened the whitelist. Backfilled venue metadata into 229 events of stale docs/data.json via new scripts/backfill_venue_metadata.py. Added tests/test_persona_spec_consistency.py as regression guard on "asserts and pre_actions may not both drive the same input selector" invariant.
 
+### task-T5.4 — DONE — 2026-04-23T19:45:00Z
+- commit: 8086dc8
+- files: STATUS-20260422-203219.md, .long-run/20260422-203219/queue.tsv
+- validation: green
+- summary: Final handoff for long-run 20260422-203219. Documents 26/26 tasks DONE, the T5.3 halt-and-recover flow, per-task commit SHAs, verification checklist, and merge instructions.
+
 <!-- END LONG-RUN: 20260422-203219 -->
 
 <!-- BEGIN LONG-RUN: 20260421-225013 -->
