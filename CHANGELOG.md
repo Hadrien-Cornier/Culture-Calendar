@@ -12,6 +12,12 @@
 - CLAUDE.md run-log entry appended
 - CHANGELOG.md fenced block prepended
 
+### task-T1 — DONE — 2026-04-25T23:23:29Z
+- commit: 685b09c
+- files: docs/script.js, .overnight/feature-inventory.json
+- summary: Added isFutureOrToday(ev, now) helper; renderAll() now mutates merit through it before rendering, so renderListings(merit) and downstream picks both see only events with showings[0].date >= today's midnight (reusing the Top Picks 7-day-window date-parse pattern).
+- validation: green
+
 <!-- END LONG-RUN: 20260425-175347 -->
 
 <!-- BEGIN LONG-RUN: 20260422-203219 -->
