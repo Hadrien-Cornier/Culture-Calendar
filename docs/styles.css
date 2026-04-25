@@ -1,11 +1,11 @@
 :root {
-  --bg: #fff;
+  --bg: #f5efe1;
   --ink: #111;
   --muted: #666;
   --rule: #ddd;
   --accent: #d4a574;
   --accent-soft: #f5f0e8;
-  --chip-bg: #fff;
+  --chip-bg: #f5efe1;
   --chip-border: #ccc;
   --chip-ink: #222;
   --chip-active-bg: #111;

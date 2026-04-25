@@ -446,5 +446,12 @@
     "selector": ".expand-indicator svg",
     "since_commit": "task-T3",
     "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "aged-paper-bg",
+    "name": "Aged-newspaper warm off-white page background (#f5efe1) replacing pure white",
+    "selector": "body",
+    "since_commit": "task-T4",
+    "smoke_assertion": "js_truthy:getComputedStyle(document.body).backgroundColor!=='rgb(255, 255, 255)'"
   }
 ]
