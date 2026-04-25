@@ -30,6 +30,12 @@
 - summary: Replaced both `arrow.textContent = "▶"` assignments in buildPickCard and buildListingCard with an inline SVG polyline chevron (viewBox 0 0 10 10, stroke-width 1.5, currentColor); added a `.expand-indicator svg { width:14px; height:14px; display:block }` rule plus inline-flex centering on `.expand-indicator` so the chevron sizes cleanly on mobile while the existing `.event-card.is-expanded .expand-indicator { transform: rotate(90deg) }` rotation continues to work on the parent span.
 - validation: green
 
+### task-T4 — DONE — 2026-04-25T23:33:15Z
+- commit: ad74205
+- files: docs/styles.css, .overnight/feature-inventory.json
+- summary: Switched `:root` design tokens `--bg` and `--chip-bg` from `#fff` to `#f5efe1` (warm aged-paper off-white) so the body, event-card, and form-input backgrounds inherit a newsprint tone via the existing `var(--bg)` references; verified WCAG AAA contrast on `--ink #111` (~15.8:1) and AA on `--muted #666` (~5.3:1) against the new background.
+- validation: green
+
 <!-- END LONG-RUN: 20260425-175347 -->
 
 <!-- BEGIN LONG-RUN: 20260422-203219 -->
