@@ -24,6 +24,12 @@
 - summary: Removed the titles bucket from collectSuggestions() and the third appendSuggestionGroup("Titles", ...) call in renderSuggestions(); search autocomplete dropdown now lists only Venues + Categories groups while typing into #event-search still narrows listings via the unchanged title-text branch in filterEvents().
 - validation: green
 
+### task-T3 — DONE — 2026-04-25T23:29:33Z
+- commit: f032697
+- files: docs/script.js, docs/styles.css, .overnight/feature-inventory.json
+- summary: Replaced both `arrow.textContent = "▶"` assignments in buildPickCard and buildListingCard with an inline SVG polyline chevron (viewBox 0 0 10 10, stroke-width 1.5, currentColor); added a `.expand-indicator svg { width:14px; height:14px; display:block }` rule plus inline-flex centering on `.expand-indicator` so the chevron sizes cleanly on mobile while the existing `.event-card.is-expanded .expand-indicator { transform: rotate(90deg) }` rotation continues to work on the parent span.
+- validation: green
+
 <!-- END LONG-RUN: 20260425-175347 -->
 
 <!-- BEGIN LONG-RUN: 20260422-203219 -->
