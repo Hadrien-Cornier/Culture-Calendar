@@ -582,9 +582,16 @@
       window.plausible("cc_share");
       if (navigator.share) {
         try {
+          // Pass title + url only (no `text`). When iMessage / Slack / Discord
+          // receive a Web Share with both `text` and `url`, some renderers
+          // smear the description after the URL in the visible message, and
+          // greedy URL detectors on the receiver side then build a clickable
+          // string that includes the description — producing 404s like
+          //   /events/<slug>.html <description...>
+          // The og:description meta on the destination already gives the
+          // receiving app a rich preview; no need to double-inject text.
           navigator.share({
             title: shareable.title,
-            text: shareable.text,
             url: shareable.url
           }).catch(function () { /* user cancel */ });
           return;
