@@ -1,5 +1,19 @@
 # CHANGELOG
 
+<!-- BEGIN LONG-RUN: 20260425-175347 -->
+## Long run — 20260425-175347
+
+*Branch:* `long-run/20260425-175347` · *Started:* 2026-04-25T17:53:47Z · *Deadline:* 2026-04-25T23:53:47Z (6h) · *Scope:* Editorial Polish (5 tasks — past-events filter, search-titles drop, NYT chevron, aged-paper bg, final gate)
+
+### task-SCAFFOLD — DONE — 2026-04-25T17:53:47Z
+- queue.tsv written with 5 tasks (T1, T2, T3, T4, T5)
+- runner-prompt.txt copied from long-run skill template
+- personas copied (4 task-level: scope-fence-auditor, test-integrity-critic, regression-sentinel, morning-reviewer; 1 run-level: run-summary-skeptic)
+- CLAUDE.md run-log entry appended
+- CHANGELOG.md fenced block prepended
+
+<!-- END LONG-RUN: 20260425-175347 -->
+
 <!-- BEGIN LONG-RUN: 20260422-203219 -->
 ## Long run — 20260422-203219
 
