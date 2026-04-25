@@ -65,6 +65,8 @@ node_modules/
 
 # Generated OG cards — regenerated at build time from docs/data.json
 docs/og/*.svg
+# Hand-crafted site-default OG card (used when no event-specific card applies)
+!docs/og/site-default.svg
 
 # Transient subdirs created when require_persona_approval.py chdirs into docs/
 docs/.long-run/

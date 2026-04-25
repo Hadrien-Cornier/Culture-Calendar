@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="Didot, 'Bodoni Moda', 'Playfair Display', Georgia, serif">
+  <rect width="1200" height="630" fill="#f5efe1"/>
+
+  <!-- Subtle paper texture: faint horizontal rules like newsprint columns -->
+  <g stroke="#e8dfca" stroke-width="1" opacity="0.6">
+    <line x1="60" y1="80" x2="1140" y2="80"/>
+    <line x1="60" y1="550" x2="1140" y2="550"/>
+  </g>
+
+  <!-- Top-left masthead: serif name + warm rule -->
+  <text x="60" y="190"
+        font-weight="800"
+        font-size="124"
+        letter-spacing="-3"
+        fill="#111">Culture Calendar</text>
+  <rect x="60" y="220" width="280" height="6" fill="#d4a574"/>
+
+  <!-- Tagline -->
+  <text x="60" y="295"
+        font-family="'Helvetica Neue', Arial, sans-serif"
+        font-size="40"
+        font-weight="500"
+        fill="#333">Austin cultural events, AI-curated.</text>
+
+  <!-- Category strip (sans, ALL CAPS like a paper's section bar) -->
+  <text x="60" y="370"
+        font-family="'Helvetica Neue', Arial, sans-serif"
+        font-size="22"
+        font-weight="600"
+        letter-spacing="6"
+        fill="#666">FILMS · CONCERTS · OPERA · BALLET · BOOKS · VISUAL ARTS</text>
+
+  <!-- URL footer -->
+  <text x="60" y="495"
+        font-family="'Helvetica Neue', Arial, sans-serif"
+        font-size="24"
+        font-weight="500"
+        letter-spacing="2"
+        fill="#999">hadrien-cornier.github.io/Culture-Calendar</text>
+
+  <!-- Bottom-right monogram chip -->
+  <g transform="translate(1010, 430)">
+    <rect width="130" height="130" rx="14" fill="#111"/>
+    <text x="65" y="92"
+          text-anchor="middle"
+          font-weight="700"
+          font-size="78"
+          letter-spacing="-2"
+          fill="#f5efe1">CC</text>
+    <rect x="35" y="100" width="60" height="4" rx="2" fill="#d4a574"/>
+  </g>
+</svg>
