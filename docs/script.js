@@ -1279,6 +1279,15 @@
     return filtered;
   }
 
+  // task-T1: shared with the Top Picks 7-day window — keeps date-parse logic
+  // in one place so main listings and picks agree on what "future" means.
+  function isFutureOrToday(ev, now) {
+    if (!ev.showings || !ev.showings[0]) return false;
+    var p = ev.showings[0].date.split("-");
+    var d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+    return d >= now;
+  }
+
   function renderAll() {
     cardIndex = {};
     var filtered = filterEvents(allEvents);
@@ -1293,6 +1302,8 @@
     now.setHours(0, 0, 0, 0);
     var cap = new Date(now);
     cap.setDate(cap.getDate() + 7);
+    // task-T1: hide past events from main listings (and downstream picks).
+    merit = merit.filter(function (ev) { return isFutureOrToday(ev, now); });
     var thisWeek = merit.filter(function (ev) {
       if (!ev.showings || !ev.showings[0]) return false;
       var p = ev.showings[0].date.split("-");

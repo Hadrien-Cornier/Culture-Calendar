@@ -425,5 +425,12 @@
     "selector": ".share-menu [data-share-platform=\"telegram\"]",
     "since_commit": "share-facebook-telegram",
     "smoke_assertion": "contains_text:cc_share_telegram@/script.js"
+  },
+  {
+    "id": "hide-past-events",
+    "name": "Past events hidden from main listings (date >= today)",
+    "selector": "#listings",
+    "since_commit": "task-T1",
+    "smoke_assertion": "contains_text:isFutureOrToday@/script.js"
   }
 ]
