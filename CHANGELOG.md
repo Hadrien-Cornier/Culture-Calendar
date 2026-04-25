@@ -36,6 +36,12 @@
 - summary: Switched `:root` design tokens `--bg` and `--chip-bg` from `#fff` to `#f5efe1` (warm aged-paper off-white) so the body, event-card, and form-input backgrounds inherit a newsprint tone via the existing `var(--bg)` references; verified WCAG AAA contrast on `--ink #111` (~15.8:1) and AA on `--muted #666` (~5.3:1) against the new background.
 - validation: green
 
+### task-T5 — DONE — 2026-04-25T23:36:30Z
+- commit: 562d9e5
+- files: STATUS-20260425-175347.md
+- summary: Wrote STATUS-20260425-175347.md handoff at repo root (disposition RUN_COMPLETE, per-task code+changelog SHAs for T1..T4, suggested next actions, verification checklist); pytest green at 777 passed / 22 skipped; verified `.overnight/feature-inventory.json` has 4 new entries (`hide-past-events`, `search-suggestions-no-titles`, `expand-chevron-svg`, `aged-paper-bg`, total 65) and the CHANGELOG run-block reads cold.
+- validation: green
+
 <!-- END LONG-RUN: 20260425-175347 -->
 
 <!-- BEGIN LONG-RUN: 20260422-203219 -->
