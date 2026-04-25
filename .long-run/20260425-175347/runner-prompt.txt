@@ -50,9 +50,12 @@ Read `CLAUDE.md` for the full run context, especially the **Hard constraints**, 
    ### task-{{ID}} — DONE — {{ISO_NOW}}
    - commit: <exact SHA from step 5, full or short — never guess>
    - files: <comma-separated list of files you actually touched, matching the diff>
+   - summary: <ONE-SENTENCE description of what changed and why — name the function/symbol/value, not just the file. e.g. "Added isFutureOrToday() helper; main listings now filter past events using the same date-parse pattern as Top Picks". The morning-reviewer reviewer treats a missing or vague summary as a high-severity finding and re-queues the task.>
    - validation: green
    ```
    Two small commits per task (code + changelog) is fine — the council accepts this. A single amended commit would also work but requires `git commit --amend` which is allowed for your own HEAD only.
+
+   Project-specific note for Culture Calendar: this repo has Python tests under `tests/` but **no JavaScript test framework**. Behavior changes inside `docs/script.js` and `docs/styles.css` are validated via (a) the task's `validate` grep check, (b) `tests/test_check_live_site.py` (pyppeteer DOM-assertion harness), and (c) the persona council's structural checks. If a reviewer flags `NO_TESTS_FOR_BEHAVIOR_CHANGE` for a JS-only change, **rebut it** — the project's design choice is no JS test framework. Cite this paragraph as evidence in `.long-run/{{RUN_ID}}/rebuttals/task-{{ID}}-test-integrity-critic.md`.
 6. **As your absolute last action**, write a result file the runner will read. This is how the runner knows your disposition — `claude -p`'s exit code is not enough. Use the `Write` tool to create `.long-run/{{RUN_ID}}/task-result.json` (overwriting any prior content) with one of these exact shapes:
 
    On success:
