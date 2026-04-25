@@ -1797,7 +1797,7 @@
 
     var arrow = document.createElement("span");
     arrow.className = "expand-indicator";
-    arrow.textContent = "▶";
+    arrow.innerHTML = '<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3.5,2 6.5,5 3.5,8"/></svg>';
     /* task-T3.3: surface the indicator to assistive tech instead of
        hiding it. The glyph communicates expand state via the
        aria-expanded attribute on the header; a descriptive label
@@ -1944,7 +1944,7 @@
 
     var arrow = document.createElement("span");
     arrow.className = "expand-indicator";
-    arrow.textContent = "▶";
+    arrow.innerHTML = '<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3.5,2 6.5,5 3.5,8"/></svg>';
     /* task-T3.3: surface the indicator to assistive tech. The header
        tracks expand state via aria-expanded; a descriptive label on
        the glyph keeps the visual affordance perceivable to screen

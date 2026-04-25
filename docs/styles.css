@@ -405,7 +405,14 @@ body {
 .expand-indicator {
   color: var(--muted);
   transition: transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
+/* task-T3: inline SVG chevron replaces the prior triangle glyph; the
+   size below holds the chevron at a similar visual weight to the old
+   16px text triangle and inherits color via stroke="currentColor". */
+.expand-indicator svg { width: 14px; height: 14px; display: block; }
 .event-card.is-expanded .expand-indicator { transform: rotate(90deg); color: var(--accent); }
 
 .event-panel {

@@ -439,5 +439,12 @@
     "selector": "#search-suggestions",
     "since_commit": "task-T2",
     "smoke_assertion": "js_truthy:!/script.js:Titles"
+  },
+  {
+    "id": "expand-chevron-svg",
+    "name": "Expand-indicator uses thin inline SVG chevron (NYT-style) instead of triangle emoji",
+    "selector": ".expand-indicator svg",
+    "since_commit": "task-T3",
+    "smoke_assertion": "selector_exists"
   }
 ]
