@@ -18,6 +18,12 @@
 - summary: Added isFutureOrToday(ev, now) helper; renderAll() now mutates merit through it before rendering, so renderListings(merit) and downstream picks both see only events with showings[0].date >= today's midnight (reusing the Top Picks 7-day-window date-parse pattern).
 - validation: green
 
+### task-T2 — DONE — 2026-04-25T23:26:33Z
+- commit: 4e6a581
+- files: docs/script.js, .overnight/feature-inventory.json
+- summary: Removed the titles bucket from collectSuggestions() and the third appendSuggestionGroup("Titles", ...) call in renderSuggestions(); search autocomplete dropdown now lists only Venues + Categories groups while typing into #event-search still narrows listings via the unchanged title-text branch in filterEvents().
+- validation: green
+
 <!-- END LONG-RUN: 20260425-175347 -->
 
 <!-- BEGIN LONG-RUN: 20260422-203219 -->
