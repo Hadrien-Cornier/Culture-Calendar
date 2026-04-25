@@ -432,5 +432,12 @@
     "selector": "#listings",
     "since_commit": "task-T1",
     "smoke_assertion": "contains_text:isFutureOrToday@/script.js"
+  },
+  {
+    "id": "search-suggestions-no-titles",
+    "name": "Search autocomplete dropdown shows only Venues + Categories groups (no Titles bucket)",
+    "selector": "#search-suggestions",
+    "since_commit": "task-T2",
+    "smoke_assertion": "js_truthy:!/script.js:Titles"
   }
 ]

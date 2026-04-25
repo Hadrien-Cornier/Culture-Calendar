@@ -1543,20 +1543,16 @@
 
   function collectSuggestions(q) {
     var venues = {};
-    var titles = {};
     var cats = {};
     allEvents.forEach(function (ev) {
       var venue = ev.venue || "";
-      var title = ev.title || "";
       var type = (ev.type || ev.event_category || "").toLowerCase();
       var label = categoryLabel(type);
       if (venue && venue.toLowerCase().indexOf(q) !== -1) venues[venue] = true;
-      if (title && title.toLowerCase().indexOf(q) !== -1) titles[title] = true;
       if (label && label.toLowerCase().indexOf(q) !== -1) cats[label] = true;
     });
     return {
       venues: Object.keys(venues).sort(),
-      titles: Object.keys(titles).sort(),
       categories: Object.keys(cats).sort()
     };
   }
@@ -1568,7 +1564,6 @@
     searchSuggestions.innerHTML = "";
     var frag = document.createDocumentFragment();
     var total = appendSuggestionGroup(frag, "Venues", grouped.venues, "venue")
-      + appendSuggestionGroup(frag, "Titles", grouped.titles, "title")
       + appendSuggestionGroup(frag, "Categories", grouped.categories, "category");
     if (total === 0) {
       var empty = document.createElement("li");
