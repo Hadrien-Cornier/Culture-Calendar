@@ -850,9 +850,26 @@ body {
   .masthead-title { font-size: 36px; }
   .event-header { grid-template-columns: 64px 1fr 24px; gap: 10px; padding: 12px; }
   .event-title-text { font-size: 17px; }
-  .event-panel, .event-card.is-expanded .event-panel { padding-left: 86px; padding-right: 12px; }
+  /* Mobile: drop the deep left indent under the rating column so review
+     text uses the full viewport width — desktop alignment trades too much
+     readable width on a 375px phone. */
+  .event-panel, .event-card.is-expanded .event-panel { padding-left: 16px; padding-right: 16px; }
   .picks-list.top-picks .event-card .event-header { grid-template-columns: 28px 64px 1fr 24px; gap: 10px; padding: 12px; }
-  .picks-list.top-picks .event-card.is-open .event-panel { padding-left: 108px; padding-right: 12px; }
+  .picks-list.top-picks .event-card.is-open .event-panel { padding-left: 16px; padding-right: 16px; }
+  /* Mobile: bump body + heading sizes so reviews are comfortable to read. */
+  .event-review p, .event-review-body { font-size: 16px; line-height: 1.65; }
+  .event-review h3, .event-review h4, .event-review-heading, .event-review strong { font-size: 14px; }
+  /* Mobile: never clamp the one-liner — vertical space is cheap on phones
+     and truncation looks broken. Wrap long tokens instead of overflowing. */
+  .event-oneliner {
+    -webkit-line-clamp: initial;
+    line-clamp: initial;
+    display: block;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-size: 16px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
