@@ -1187,13 +1187,24 @@
   function parseReview(html) {
     if (!html) return { rating: "", sections: [], flat: "" };
     var doc = new DOMParser().parseFromString("<div>" + html + "</div>", "text/html");
-    var ps = doc.querySelectorAll("p");
+    var rawPs = Array.prototype.slice.call(doc.querySelectorAll("p"));
+    var ps = [];
+    rawPs.forEach(function (p) {
+      if (p.querySelectorAll("strong").length <= 1) { ps.push(p); return; }
+      var fragments = (p.innerHTML || "").split(/<br\s*\/?>/i);
+      fragments.forEach(function (frag) {
+        if (!frag || !frag.trim()) return;
+        var virtual = doc.createElement("p");
+        virtual.innerHTML = frag;
+        ps.push(virtual);
+      });
+    });
     var rating = "";
     var sections = [];
     ps.forEach(function (p) {
       var text = (p.textContent || "").trim();
       if (!text) return;
-      var rMatch = text.match(/^★\s*Rating:\s*(\d+(?:\.\d+)?)\s*\/\s*10/i);
+      var rMatch = text.match(/^★\s*Rating:\s*\[?\s*(\d+(?:\.\d+)?)\s*\/\s*10/i);
       if (rMatch) { rating = rMatch[1]; return; }
       var strong = p.querySelector("strong");
       var label = "", body = text;
@@ -1206,6 +1217,9 @@
       }
       var leading = text.match(/^([\p{Extended_Pictographic}\p{Emoji}]+)/u);
       var emoji = leading ? leading[1] : "";
+      if (emoji && label) {
+        label = label.replace(/^[\p{Extended_Pictographic}\p{Emoji}\s]+/u, "").trim();
+      }
       if (label || body) sections.push({ emoji: emoji, label: label, body: body });
     });
     var flat = sections.map(function (s) { return s.body; }).join("\n\n");

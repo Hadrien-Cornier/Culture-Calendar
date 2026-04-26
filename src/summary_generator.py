@@ -39,6 +39,16 @@ import os
 import time
 from typing import Dict, Optional
 
+
+def _trim_to_word_boundary(summary: str, max_len: int = 140, min_word_cut: int = 80) -> str:
+    """Trim summary at the last whitespace before max_len so we don't cut mid-word."""
+    if len(summary) <= max_len:
+        return summary
+    cut = summary.rfind(" ", 0, max_len - 1)
+    if cut < min_word_cut:
+        cut = max_len - 1
+    return summary[:cut].rstrip(",;:.- ") + "…"
+
 import anthropic
 from dotenv import load_dotenv
 
@@ -483,9 +493,7 @@ class SummaryGenerator:
                 print(f"  Summary appears incomplete, rejecting: {summary}")
                 return None
 
-            # Ensure it's not too long (max ~100 characters for good UI)
-            if len(summary) > 100:
-                summary = summary[:97] + "..."
+            summary = _trim_to_word_boundary(summary)
 
             print(f"  Generated summary: {summary}")
             return summary
