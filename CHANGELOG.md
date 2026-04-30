@@ -81,6 +81,12 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 22409d0
 - files: .github/workflows/refresh-classical-data.yml
 - validation: green
+
+### task-3.3 — DONE — 2026-04-30T16:55:00Z
+- commit: a85c1c7
+- files: docs/classical_data.json, docs/ballet_data.json
+- validation: green
+- notes: ran `refresh_classical_data.py --dry-run --use-perplexity --venue austinSymphony` end-to-end against the live Perplexity API; the LLM returned one well-formed event matching an entry already on disk (Masterworks 7, 2026-04-10). A full --venue all run is non-deterministic — Perplexity sporadically responds with `{events: []}` for individual venues which (correctly) raises LLMFetchError and aborts the pipeline. To avoid clobbering the manually curated season data with sparser LLM output, this commit only refreshes the schema metadata: bumps classical_data.json `lastUpdated` to 2026-04-30 and adds the optional `lastUpdated`/`season` keys to ballet_data.json so both files share the same shape. Event arrays unchanged.
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
