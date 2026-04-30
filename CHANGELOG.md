@@ -41,6 +41,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 465c12b
 - files: CHANGELOG.md
 - validation: green
+
+### task-2.1 — DONE — 2026-04-30T16:02:08Z
+- commit: 1510b62
+- files: src/scrapers/ballet_austin_scraper.py
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
