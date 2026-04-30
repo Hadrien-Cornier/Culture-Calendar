@@ -49,6 +49,9 @@ node_modules/
 # OpenClaw Claude Code runtime logs (do not commit)
 .openclaw/claude-code/logs/
 
+# Root-level pipeline logs (transient; do not commit)
+/*.log
+
 # SQLite sidecars (if any)
 *.sqlite-shm
 *.sqlite-wal
