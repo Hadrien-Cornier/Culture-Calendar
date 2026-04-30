@@ -6,6 +6,12 @@
 Scope: typography overhaul + ballet review fix + classical refresh automation + new LLM reviewers + aggressive nanochat-style minimalism. 38 tasks, 12h budget, branch-only on `long-run/20260430-102637`. Plan: `~/.claude/plans/i-want-to-improve-sparkling-simon.md`.
 
 Per-task entries below — one per completed task, appended by the runner.
+
+### task-1.1 — DONE — 2026-04-30T15:34:52Z
+- commit: 3ac999b
+- files: src/summary_generator.py, tests/test_summary_generator.py
+- summary: `_build_book_prompt` now returns `None` (and the caller in `generate_one_liner_summary` short-circuits with a skip message and returns `None`) when both `book` and `author` are absent from the event dict, replacing the prior `ValueError` raise. The other validation guards (missing title, missing description, sub-50-char analysis, missing event dict) still raise `ValueError` because those represent upstream pipeline failures rather than normal-shape data gaps. Net effect: book-club events that arrive with only a title (e.g. "Book Club at Alienated Majesty") no longer error out the summary stage; they simply skip one-liner generation while the rest of enrichment proceeds. Test coverage added covers both the new None-return paths (no metadata, only-book, only-author) and the still-raising paths (empty title/description/event, short analysis).
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
