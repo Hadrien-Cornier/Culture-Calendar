@@ -187,6 +187,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 335db0bfa2fd7d852377f0f7c2ff29e76f34be72
 - files: scripts/analyze_hubs.py, scripts/backfill_venue_metadata.py, scripts/check_data_json_visual_arts.py, scripts/check_filter_smoke.py, scripts/check_variant.mjs, scripts/gitnexus_workflow.sh, scripts/overnight_loop.sh
 - validation: green
+
+### task-7.1 — DONE — 2026-04-30T19:27:53Z
+- commit: fc4d0abd0bc9d7d7a7a1a76a3d0d63c91849d0be
+- files: (none — empty marker commit; docs/data.json already in post-task-2.5 state)
+- validation: green (pytest 856 passed/25 skipped; verify_calendar --offline 22/22; persona council 34 passed; refresh_classical_data --dry-run ok; review_quality_check --help ok)
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
