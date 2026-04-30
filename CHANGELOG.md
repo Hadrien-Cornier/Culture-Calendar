@@ -66,6 +66,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 14a4caa
 - files: docs/data.json, cache/summary_cache.json
 - validation: green
+
+### task-3.1a — DONE — 2026-04-30T16:24:00Z
+- commit: 6d62375
+- files: scripts/refresh_classical_data.py, tests/test_refresh_classical_data.py
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
