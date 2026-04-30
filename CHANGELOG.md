@@ -209,6 +209,12 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - files: .gitignore
 - validation: green
 - summary: Harden .gitignore against future .long-run session accumulation. Broaden task-result.json -> task-result*.json (covers .bak/.prev variants), and add three new patterns under .long-run/*/: STATUS* (per-run status snapshots), HALT (manual halt marker), *.pid (per-run pid files; the existing .long-run/active.pid pattern only covered the top-level pid). No historical run dirs to delete in this worktree (only the active 20260430-102637 dir exists); the patterns are purely preventive against future accumulation.
+
+### task-6.6a — DONE — 2026-04-30T22:40:58Z
+- commit: 4b109e15829a61acebafb4ff0531318e0f3aea2c
+- files: src/scrapers/_static_json_scraper.py, tests/test_static_json_scraper.py
+- validation: green
+- summary: New StaticJsonScraper base class for venues backed by docs/classical_data.json or docs/ballet_data.json. Resolves event ``type`` from per-event JSON → venue config (``ConfigLoader.get_assumed_event_category``) → constructor default, instead of hardcoding it at scrape time (the bug class behind task-2.1). Supports both layouts the existing scrapers use: ``expand_dates=True`` fans a multi-date production into one event per date (Ballet/Opera/Early Music/La Follia/Chamber Music), ``expand_dates=False`` preserves parallel ``dates``/``times`` arrays (Austin Symphony). 17 unit tests cover all three rungs of the type-resolution ladder, the dance-venue-never-emits-concert regression guard, both layouts, default-time padding, missing/malformed file fallback, and the standardized field shape. No existing per-venue scrapers were touched — task-6.6b will migrate them onto the new base.
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
