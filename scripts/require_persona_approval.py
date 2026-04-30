@@ -36,7 +36,7 @@ from pathlib import Path
 from typing import Sequence
 
 LIVE_HOST = "https://hadrien-cornier.github.io/Culture-Calendar/"
-DEFAULT_PERSONAS_DIR = Path(".overnight/personas")
+DEFAULT_PERSONAS_DIR = Path("personas/live-site")
 DEFAULT_DOCS_DIR = Path("docs")
 DEFAULT_OUT = Path(".overnight/gate-b-scorecard.md")
 
