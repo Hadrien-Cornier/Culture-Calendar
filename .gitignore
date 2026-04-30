@@ -62,8 +62,12 @@ node_modules/
 .long-run/*/queue.tsv.bak
 .long-run/*/queue.tsv.*
 .long-run/*/reviews/*.log
+.long-run/*/reviews/*.json
+.long-run/*/reviews/*.prev.json
 .long-run/*/rebuttals/
 .long-run/*/scorecard.md
+.long-run/*/council-preflight.log
+.long-run/*/rebuttal-rounds.tsv
 
 # Generated OG cards — regenerated at build time from docs/data.json
 docs/og/*.svg
