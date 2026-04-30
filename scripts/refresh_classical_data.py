@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """LLM-driven monthly refresh for ``docs/classical_data.json`` and ``docs/ballet_data.json``.
 
-This script is the skeleton stage (task 3.1a). Phase 3.1b will wire
-:meth:`src.llm_service.LLMService.call_perplexity` into :func:`fetch_venue_data`;
-phase 3.2 will add the GitHub Actions cron that opens a PR with the diff.
-For now the skeleton supplies:
+Phase 3.1a delivered the schema validator + stub pipeline. Phase 3.1b
+(this commit) wires :meth:`src.llm_service.LLMService.call_perplexity`
+into :func:`fetch_venue_data_via_perplexity` and exposes it through
+``--use-perplexity``. Phase 3.2 will add the GitHub Actions cron that
+flips the live-mode disk write on and opens a PR with the diff.
+
+The script supplies:
 
 * ``validate_classical_data`` — schema check used by the validator unit tests
   AND by phases 3.1b/3.2 before they overwrite the on-disk JSON.
-* ``--dry-run`` — runs the full pipeline against an in-memory stub instead
-  of hitting Perplexity, so CI / the runner can exercise the script safely.
+* ``--dry-run`` — runs the full pipeline without touching disk. Defaults to
+  the in-memory stub fetcher; pass ``--use-perplexity`` to exercise the real
+  crawler against the live Perplexity API.
 * ``--venue`` — restricts the refresh to one venue key (used by 3.1b's
   per-venue smoke run).
 
@@ -219,6 +223,202 @@ def stub_fetch(venue_key: str) -> list[dict[str, Any]]:
 
 
 # ---------------------------------------------------------------------------
+# Perplexity-backed fetcher
+# ---------------------------------------------------------------------------
+
+
+class LLMFetchError(RuntimeError):
+    """Raised when the LLM crawler returns nothing usable for a venue."""
+
+
+def _load_master_config(path: Path | None = None) -> Mapping[str, Any]:
+    """Load ``master_config.yaml`` lazily so unit tests don't pay the import cost."""
+    import yaml  # local import — script entry only path that needs PyYAML
+
+    target = path or (_REPO_ROOT / "config" / "master_config.yaml")
+    with target.open("r", encoding="utf-8") as handle:
+        return yaml.safe_load(handle) or {}
+
+
+def _venue_refresh_meta(
+    config: Mapping[str, Any], venue_key: str
+) -> Mapping[str, Any]:
+    refresh = config.get("classical_refresh") or {}
+    venues = refresh.get("venues") or {}
+    cfg = venues.get(venue_key)
+    return cfg if isinstance(cfg, dict) else {}
+
+
+def _venue_display(
+    config: Mapping[str, Any],
+    venue_key: str,
+    refresh_meta: Mapping[str, Any],
+) -> tuple[str, str, str]:
+    """Return ``(display_name, address, expected_event_type)`` for ``venue_key``."""
+    config_key = refresh_meta.get("config_key") or ""
+    event_type = refresh_meta.get("event_type") or (
+        "dance" if venue_key in BALLET_VENUE_KEYS else "concert"
+    )
+    venue_meta = (config.get("venues") or {}).get(config_key) or {}
+    display = venue_meta.get("display_name") or refresh_meta.get("display_name") or venue_key
+    address = venue_meta.get("address") or "Austin, TX"
+    return str(display), str(address), str(event_type)
+
+
+def _build_perplexity_prompt(
+    *,
+    display_name: str,
+    address: str,
+    event_type: str,
+    season: str,
+    season_url: str | None,
+) -> str:
+    source_hint = (
+        f"Use the venue's official season page ({season_url}) and printed program "
+        "announcements as primary sources. "
+        if season_url
+        else "Use the venue's official website and printed program announcements as primary sources. "
+    )
+    return (
+        f"List every public {event_type} event scheduled by {display_name} ({address}) "
+        f"during the {season} season. {source_hint}"
+        "Respond with a SINGLE JSON object — no prose, no markdown, no code fences — "
+        "matching this exact shape: "
+        '{"events": [{"title": str, "program": str, "dates": [str], "times": [str], '
+        '"venue_name": str, "series": str, "featured_artist": str, '
+        '"composers": [str], "works": [str], "type": str}]}. '
+        "Rules: (1) every entry in `dates` MUST be YYYY-MM-DD; "
+        "(2) `times` MUST have the same length as `dates` (pairwise zip); "
+        f"(3) `type` MUST equal {event_type!r}; "
+        "(4) include only events with confirmed dates; "
+        "(5) leave string fields as empty strings and list fields as empty lists "
+        "when information is genuinely unavailable — never invent dates or composers."
+    )
+
+
+def _normalize_event(
+    event: Any, *, expected_type: str, expected_venue_name: str | None
+) -> dict[str, Any] | None:
+    """Coerce one Perplexity event into the on-disk schema, or return None."""
+    if not isinstance(event, dict):
+        return None
+    title = str(event.get("title") or "").strip()
+    if not title:
+        return None
+    venue_name = str(event.get("venue_name") or event.get("venue") or "").strip()
+    if not venue_name and expected_venue_name:
+        venue_name = expected_venue_name
+    if not venue_name:
+        return None
+    raw_dates = event.get("dates")
+    if isinstance(raw_dates, str):
+        raw_dates = [raw_dates]
+    raw_times = event.get("times")
+    if isinstance(raw_times, str):
+        raw_times = [raw_times]
+    if not isinstance(raw_dates, list) or not isinstance(raw_times, list):
+        return None
+    dates = [str(d).strip() for d in raw_dates if str(d).strip()]
+    times = [str(t).strip() for t in raw_times if str(t).strip()]
+    if not dates or not times or len(dates) != len(times):
+        return None
+    composers = event.get("composers") or []
+    works = event.get("works") or []
+    if not isinstance(composers, list) or not isinstance(works, list):
+        return None
+    event_type = str(event.get("type") or expected_type).strip() or expected_type
+    return {
+        "title": title,
+        "program": str(event.get("program") or "").strip(),
+        "dates": dates,
+        "times": times,
+        "venue_name": venue_name,
+        "series": str(event.get("series") or "").strip(),
+        "featured_artist": str(event.get("featured_artist") or "").strip(),
+        "composers": [str(c).strip() for c in composers if str(c).strip()],
+        "works": [str(w).strip() for w in works if str(w).strip()],
+        "type": event_type,
+    }
+
+
+def _coerce_perplexity_events(
+    payload: Any, *, expected_type: str, expected_venue_name: str | None
+) -> list[dict[str, Any]]:
+    """Normalize the LLM response (dict-with-`events`, list, etc.) to event dicts."""
+    if isinstance(payload, dict):
+        for key in ("events", "results", "data", "items"):
+            value = payload.get(key)
+            if isinstance(value, list):
+                payload = value
+                break
+        else:
+            payload = []
+    if not isinstance(payload, list):
+        return []
+    out: list[dict[str, Any]] = []
+    for event in payload:
+        normalized = _normalize_event(
+            event,
+            expected_type=expected_type,
+            expected_venue_name=expected_venue_name,
+        )
+        if normalized is not None:
+            out.append(normalized)
+    return out
+
+
+def fetch_venue_data_via_perplexity(
+    venue_key: str,
+    *,
+    llm_service: Any,
+    config: Mapping[str, Any] | None = None,
+    season: str | None = None,
+) -> list[dict[str, Any]]:
+    """Fetch a venue's current-season events via :class:`LLMService`.
+
+    Always validates the Perplexity output against the same schema the on-disk
+    files use; raises :class:`LLMFetchError` if nothing usable comes back.
+    """
+    config = config or _load_master_config()
+    refresh_meta = _venue_refresh_meta(config, venue_key)
+    if not refresh_meta:
+        raise LLMFetchError(
+            f"no classical_refresh entry for venue {venue_key!r} — "
+            "add it under classical_refresh.venues in master_config.yaml"
+        )
+    display, address, event_type = _venue_display(config, venue_key, refresh_meta)
+    season = season or infer_season()
+    season_url = refresh_meta.get("season_url")
+    prompt = _build_perplexity_prompt(
+        display_name=display,
+        address=address,
+        event_type=event_type,
+        season=season,
+        season_url=season_url if isinstance(season_url, str) else None,
+    )
+    recency = (config.get("classical_refresh") or {}).get("recency_filter") or "month"
+    response = llm_service.call_perplexity(
+        prompt,
+        temperature=0.1,
+        search_recency_filter=recency,
+    )
+    if response is None:
+        raise LLMFetchError(
+            f"Perplexity returned no response for {venue_key!r} — "
+            "check PERPLEXITY_API_KEY and network reachability"
+        )
+    events = _coerce_perplexity_events(
+        response, expected_type=event_type, expected_venue_name=display
+    )
+    if not events:
+        raise LLMFetchError(
+            f"Perplexity response for {venue_key!r} did not contain any "
+            f"well-formed events; raw response: {response!r}"
+        )
+    return events
+
+
+# ---------------------------------------------------------------------------
 # Pipeline
 # ---------------------------------------------------------------------------
 
@@ -283,6 +483,35 @@ def infer_season(now: datetime | None = None) -> str:
 # ---------------------------------------------------------------------------
 
 
+def _build_perplexity_fetcher() -> tuple[Callable[[str], list[dict[str, Any]]], str]:
+    """Construct the Perplexity-backed fetcher used by ``--use-perplexity``.
+
+    Imports :class:`LLMService` lazily so plain ``--dry-run`` (stub) doesn't
+    pay the cost of pulling in the LLM client stack.
+    """
+    try:
+        from src.llm_service import LLMService  # type: ignore
+    except ImportError as exc:  # pragma: no cover — guarded on the script path
+        raise LLMFetchError(
+            f"could not import src.llm_service.LLMService ({exc})"
+        ) from exc
+
+    config = _load_master_config()
+    llm = LLMService()
+    if llm.provider is None and not llm.perplexity_api_key:
+        raise LLMFetchError(
+            "no LLM provider configured — set PERPLEXITY_API_KEY or "
+            "ANTHROPIC_API_KEY in the environment / .env"
+        )
+
+    def fetcher(venue_key: str) -> list[dict[str, Any]]:
+        return fetch_venue_data_via_perplexity(
+            venue_key, llm_service=llm, config=config
+        )
+
+    return fetcher, "perplexity"
+
+
 def _resolve_venues(requested: str | None) -> tuple[Sequence[str], Sequence[str]]:
     """Return ``(classical_keys, ballet_keys)`` to refresh given ``--venue``."""
     if requested in (None, "", "all"):
@@ -314,7 +543,17 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Use stub data instead of Perplexity; do not write to disk.",
+        help="Run the pipeline without writing to disk.",
+    )
+    parser.add_argument(
+        "--use-perplexity",
+        action="store_true",
+        help=(
+            "Fetch events from Perplexity (via src.llm_service.LLMService) "
+            "instead of the in-memory stub. Requires PERPLEXITY_API_KEY (or "
+            "the Anthropic fallback). Combine with --dry-run for a smoke run "
+            "that does not touch on-disk data."
+        ),
     )
     parser.add_argument(
         "--out-classical",
@@ -334,17 +573,28 @@ def main(argv: Sequence[str] | None = None) -> int:
     classical_keys, ballet_keys = _resolve_venues(args.venue)
 
     if not args.dry_run:
-        # Real Perplexity wiring lands in task 3.1b. Until then, refusing to
-        # write avoids accidentally clobbering on-disk data with empty output.
+        # The Perplexity crawler exists (see fetch_venue_data_via_perplexity),
+        # but disk-write orchestration + PR-on-diff lands in task 3.2's
+        # workflow. Refuse here so an accidental local invocation can't clobber
+        # on-disk data with a partially-fetched payload.
         print(
-            "refresh_classical_data: live mode not implemented yet (task 3.1b). "
-            "Re-run with --dry-run to exercise the skeleton.",
+            "refresh_classical_data: live mode not implemented yet — "
+            "disk write + PR opening land in task 3.2. "
+            "Re-run with --dry-run (stub) or --dry-run --use-perplexity "
+            "(real crawler, no disk write) to exercise the pipeline.",
             file=sys.stderr,
         )
         return 2
 
-    fetcher = stub_fetch
-    source_label = "stub"
+    if args.use_perplexity:
+        try:
+            fetcher, source_label = _build_perplexity_fetcher()
+        except LLMFetchError as exc:
+            print(f"refresh_classical_data: {exc}", file=sys.stderr)
+            return 1
+    else:
+        fetcher = stub_fetch
+        source_label = "stub"
 
     classical_results = refresh_venues(classical_keys, fetcher=fetcher, source_label=source_label)
     ballet_results = refresh_venues(ballet_keys, fetcher=fetcher, source_label=source_label)
