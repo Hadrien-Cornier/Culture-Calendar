@@ -162,6 +162,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: c57cd3e
 - files: CLAUDE.md, archive/CLAUDE-runs.md
 - validation: green
+
+### task-6.3 — DONE — 2026-04-30T18:25:18Z
+- commit: 30fc1fb
+- files: CHANGELOG.md, archive/CHANGELOG-history.md
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
