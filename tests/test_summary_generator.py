@@ -192,3 +192,97 @@ def test_retrospective_in_title_still_rejects_without_metadata(generator):
         "venue": "Some Theater",
     }
     assert generator._is_specific_event(event) is False
+
+
+# Dance prompt builder — must read program and series fields from the event
+# dict so the dance-specific hook can name the repertoire / season.
+
+def test_build_dance_prompt_includes_program_and_series(generator):
+    event = {
+        "venue": "The Long Center",
+        "company": "Ballet Austin",
+        "choreographer": "Stephen Mills",
+        "program": ["Light: The Holocaust & Humanity Project"],
+        "series": "2026 Spring Season",
+    }
+    result = generator._build_dance_prompt(
+        "Light", LONG_DESCRIPTION, event
+    )
+    assert isinstance(result, str)
+    assert "Light: The Holocaust & Humanity Project" in result
+    assert "2026 Spring Season" in result
+    assert "Stephen Mills" in result
+    assert "Ballet Austin" in result
+
+
+def test_build_dance_prompt_handles_program_as_string(generator):
+    event = {
+        "venue": "The Long Center",
+        "program": "Swan Lake",
+        "series": "Classical Series",
+    }
+    result = generator._build_dance_prompt(
+        "Swan Lake", LONG_DESCRIPTION, event
+    )
+    assert isinstance(result, str)
+    assert "Swan Lake" in result
+    assert "Classical Series" in result
+
+
+def test_build_dance_prompt_missing_title_raises(generator):
+    event = {"program": "Giselle", "series": "Spring", "venue": "X"}
+    with pytest.raises(ValueError, match="missing required title"):
+        generator._build_dance_prompt("", LONG_DESCRIPTION, event)
+
+
+def test_build_dance_prompt_missing_description_raises(generator):
+    event = {"program": "Giselle", "series": "Spring", "venue": "X"}
+    with pytest.raises(ValueError, match="missing required AI analysis"):
+        generator._build_dance_prompt("Giselle", "", event)
+
+
+def test_build_dance_prompt_short_description_raises(generator):
+    event = {"program": "Giselle", "series": "Spring", "venue": "X"}
+    with pytest.raises(ValueError, match="insufficient AI analysis"):
+        generator._build_dance_prompt("Giselle", "too short", event)
+
+
+def test_build_dance_prompt_missing_event_dict_raises(generator):
+    with pytest.raises(ValueError, match="missing event data dictionary"):
+        generator._build_dance_prompt("Giselle", LONG_DESCRIPTION, None)
+
+
+def test_build_dance_prompt_no_metadata_raises(generator):
+    event = {"title": "Giselle"}  # has-something dict, but no dance metadata
+    with pytest.raises(ValueError, match="missing essential metadata"):
+        generator._build_dance_prompt("Giselle", LONG_DESCRIPTION, event)
+
+
+def test_call_claude_api_dispatches_dance_to_dance_prompt(generator, monkeypatch):
+    """End-to-end: type=dance routes to _build_dance_prompt, not the generic builder."""
+    captured = {"prompt": None}
+
+    def fake_create(*, model, system, temperature, max_tokens, messages):
+        captured["prompt"] = messages[0]["content"]
+
+        class _Resp:
+            content = [type("X", (), {"text": "Mills' Light reckons with the Holocaust through ten urgent dancers."})()]
+
+        return _Resp()
+
+    monkeypatch.setattr(generator.client.messages, "create", fake_create)
+
+    event = {
+        "title": "Light",
+        "description": LONG_DESCRIPTION,
+        "type": "dance",
+        "venue": "The Long Center",
+        "company": "Ballet Austin",
+        "program": ["Light: The Holocaust & Humanity Project"],
+        "series": "2026 Spring Season",
+    }
+    summary = generator._call_claude_api(event)
+    assert summary is not None
+    assert "Program / Repertoire:" in captured["prompt"]
+    assert "Light: The Holocaust & Humanity Project" in captured["prompt"]
+    assert "2026 Spring Season" in captured["prompt"]

@@ -363,6 +363,8 @@ class SummaryGenerator:
                 prompt = self._build_movie_prompt(title, description, event)
             elif event_type == "concert":
                 prompt = self._build_concert_prompt(title, description, event)
+            elif event_type == "dance":
+                prompt = self._build_dance_prompt(title, description, event)
             elif event_type == "book_club":
                 prompt = self._build_book_prompt(title, description, event)
                 if prompt is None:
@@ -633,6 +635,70 @@ Extract the core musical style, period, and atmosphere from this analysis. Examp
 - "Ligeti electronic studies on prepared piano meet Bartók folk dances"
 - "All-Beethoven program anchored by the Emperor Concerto"
 - "Tallis 40-part motet headlines an a-cappella Renaissance set"
+
+Your one-line summary (8-12 words):"""
+
+    def _build_dance_prompt(self, title: str, description: str, event: Dict) -> str:
+        """Build prompt for dance/ballet events.
+
+        Reads ``program`` (list of works on the program) and ``series``
+        (e.g. season name or repertory grouping) from the event dict
+        alongside ``venue``, ``company``, and ``choreographer`` so the
+        one-liner can name the repertoire and the troupe — the two
+        signals most useful for a dance card hook.
+        """
+
+        # Fail fast - validate required inputs
+        if not title or not title.strip():
+            raise ValueError(
+                "Dance event missing required title - cannot generate summary without performance name"
+            )
+
+        if not description or not description.strip():
+            raise ValueError(
+                f"Dance event '{title}' missing required AI analysis description - summary generation requires dance analysis from Perplexity API"
+            )
+
+        if len(description.strip()) < 50:
+            raise ValueError(
+                f"Dance event '{title}' has insufficient AI analysis (only {len(description.strip())} characters) - need at least 50 characters of dance analysis for quality summary"
+            )
+
+        if not event:
+            raise ValueError(
+                f"Dance event '{title}' missing event data dictionary - cannot extract program, series, company, choreographer information"
+            )
+
+        venue = event.get("venue", "")
+        program = event.get("program", "")
+        series = event.get("series", "")
+        company = event.get("company", "") or venue
+        choreographer = event.get("choreographer", "")
+
+        # Validate that we have at least some dance metadata
+        if not program and not series and not company and not choreographer:
+            raise ValueError(
+                f"Dance event '{title}' missing essential metadata - need at least program, series, company, or choreographer to generate meaningful summary"
+            )
+
+        program_text = ", ".join(program) if isinstance(program, list) else program
+
+        return f"""Based on this detailed dance performance analysis, create a compelling one-line summary that captures the performance's essence in 8-12 words.
+
+Title: {title}
+Company: {company}
+Choreographer: {choreographer}
+Series: {series}
+Program / Repertoire: {program_text}
+Venue: {venue}
+
+Detailed Analysis:
+{description}
+
+Extract the choreographic style, repertoire, and dramatic atmosphere from this analysis. Examples:
+- "Balanchine neoclassicism meets Forsythe's fractured geometry on Ballet Austin's stage"
+- "All-Tharp evening pairs Nine Sinatra Songs with In the Upper Room"
+- "Stowell's Swan Lake — full-length romantic tragedy with live orchestra"
 
 Your one-line summary (8-12 words):"""
 
