@@ -132,6 +132,7 @@ python update_website_data.py
 Once set up, the system runs automatically:
 - **Weekly**: Saturdays at 9 PM UTC (fresh data)
 - **Monthly**: 1st of month at 6 AM UTC (full refresh)
+- **Classical refresh**: 1st of month at 12 PM UTC — `.github/workflows/refresh-classical-data.yml` runs `scripts/refresh_classical_data.py --dry-run --use-perplexity` to re-fetch the season-based classical + ballet payloads (Austin Symphony, Early Music Austin, La Follia, Austin Chamber Music, Austin Opera, Ballet Austin) and opens a PR with the diff. The PR is **never auto-merged** — a human reviews each refresh before the new `docs/classical_data.json` / `docs/ballet_data.json` ships. Local dry-run: `python scripts/refresh_classical_data.py --dry-run [--use-perplexity] [--venue austinSymphony]`. Requires `PERPLEXITY_API_KEY` (and `ANTHROPIC_API_KEY` for downstream summary generation) in repo secrets.
 - **Manual**: Trigger workflows anytime via GitHub Actions
 
 ## 📁 Project Structure

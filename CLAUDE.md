@@ -105,6 +105,17 @@ Category-specific fields per template (movies: director/country/language; concer
 - Adjust `update_website_data.py:build_event_from_template()` for special handling.
 - Update tests.
 
+### Classical refresh pipeline
+
+Season-based classical/ballet venues (Austin Symphony, Early Music Austin, La Follia, Austin Chamber Music, Austin Opera, Ballet Austin) ship as static JSON in `docs/classical_data.json` + `docs/ballet_data.json`, not via per-event scrapers. `scripts/refresh_classical_data.py` is the LLM-driven monthly refresh that keeps those two files in sync with each venue's published season.
+
+- **Cron**: `.github/workflows/refresh-classical-data.yml` fires at `0 12 1 * *` (12:00 UTC, 1st of month). Manual run: `gh workflow run refresh-classical-data.yml`.
+- **What the workflow does**: runs `python scripts/refresh_classical_data.py --dry-run --use-perplexity`, parses the JSON summary from stdout, writes the validated `classical_payload` and `ballet_payload` to disk, and opens a PR titled `chore: monthly classical/ballet data refresh` on a `bot/classical-refresh-<date>` branch. **The PR is intentionally never auto-merged** — a human reviews the LLM-fetched diff before it ships.
+- **Local dry-run**: `.venv/bin/python scripts/refresh_classical_data.py --dry-run` uses the in-memory stub fetcher; add `--use-perplexity` for the live API. `--venue <key>` (any key in `CLASSICAL_VENUE_KEYS` / `BALLET_VENUE_KEYS`, e.g. `austinSymphony`) restricts to one venue.
+- **Schema validation**: `validate_classical_data` in the same script enforces `dates` (YYYY-MM-DD) / `times` (HH:mm) / `type ∈ {concert, opera, dance}` / `REQUIRED_EVENT_FIELDS`. It runs before any disk write in both dry-run and live modes; a `ValueError` aborts the refresh.
+- **Failure modes**: Perplexity sporadically returns `{events: []}` for individual venues, which raises `LLMFetchError` from `src/llm_service.py` and (correctly) aborts the pipeline before the curated on-disk JSON gets clobbered with sparser LLM output. This is why the cadence is monthly, not weekly.
+- **Secrets**: the workflow needs `PERPLEXITY_API_KEY` and `ANTHROPIC_API_KEY` in repo secrets, plus `contents: write` + `pull-requests: write` permissions (already declared in the YAML).
+
 ## Known Issues
 
 1. **Pyppeteer threading** — can't run all scrapers in parallel ("signal only works in main thread").
