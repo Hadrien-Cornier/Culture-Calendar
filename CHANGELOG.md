@@ -177,6 +177,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 39902627086a1b43c8b5115febafcaef37a2e91a
 - files: .long-run/20260421-225013, .long-run/20260422-203219, .long-run/20260425-175347
 - validation: green
+
+### task-6.5 — DONE — 2026-04-30T18:47:19Z
+- commit: 7c610872a4383d050ab59fcdfbcc06d3ba0757a8
+- files: .gitignore
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
