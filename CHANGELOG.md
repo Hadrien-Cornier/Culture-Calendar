@@ -127,6 +127,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 02675a7
 - files: docs/TYPOGRAPHY.md
 - validation: green
+
+### task-5.2 — DONE — 2026-04-30T17:24:34Z
+- commit: 851bd76
+- files: docs/index.html, docs/styles.css
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
