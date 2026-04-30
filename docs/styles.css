@@ -14,8 +14,8 @@
   --mid: #c08030;
   --lo: #a02020;
   --max: 1000px;
-  --serif: "Saol Display", "Didot", "Bodoni Moda", "Playfair Display", serif;
-  --sans: "Helvetica Neue", "Arial", sans-serif;
+  --serif: "Source Serif 4", "Source Serif Pro", "Saol Display", "Didot", "Bodoni Moda", "Playfair Display", Georgia, serif;
+  --sans: "Inter", "Helvetica Neue", "Arial", system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
