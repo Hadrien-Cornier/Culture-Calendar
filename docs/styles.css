@@ -19,9 +19,12 @@
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
-  --text-md: 1.1875rem;
-  --text-lg: 1.75rem;
-  --text-xl: 3.5rem;
+  /* task-5.5: heading-tier scales use clamp() so type fluidly shrinks on
+     phones without per-breakpoint pixel overrides. Lower bounds match the
+     prior @320px / @480px overrides; upper bounds match the desktop values. */
+  --text-md: clamp(1rem, 0.875rem + 0.4vw, 1.1875rem);
+  --text-lg: clamp(1.5rem, 1.25rem + 1.25vw, 1.75rem);
+  --text-xl: clamp(1.75rem, 0.95rem + 4vw, 3.5rem);
 }
 
 * { box-sizing: border-box; }
@@ -853,9 +856,9 @@ body {
 .status.error { color: var(--lo); }
 
 @media (max-width: 480px) {
-  .masthead-title { font-size: 36px; }
+  /* task-5.5: masthead-title and event-title-text font-sizes now flow from
+     clamp() in :root, so no per-breakpoint pixel override needed here. */
   .event-header { grid-template-columns: 64px 1fr 24px; gap: 10px; padding: 12px; }
-  .event-title-text { font-size: 17px; }
   /* Mobile: drop the deep left indent under the rating column so review
      text uses the full viewport width — desktop alignment trades too much
      readable width on a 375px phone. */
@@ -1057,9 +1060,9 @@ body {
 #event-search { padding-right: 44px; }
 
 @media (max-width: 320px) {
-  .masthead-title { font-size: 28px; }
+  /* task-5.5: masthead-title and event-title-text are sized via clamp() in
+     :root; the lower bounds already cover this breakpoint. */
   .event-header { grid-template-columns: 56px 1fr 32px; gap: 8px; padding: 10px; }
-  .event-title-text { font-size: 16px; }
   .event-panel, .event-card.is-expanded .event-panel { padding-left: 72px; padding-right: 10px; }
   .subscribe-links { gap: 10px; font-size: 10px; }
   #event-search { font-size: 13px; padding: 9px 40px 9px 12px; }
