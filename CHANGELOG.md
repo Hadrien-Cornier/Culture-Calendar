@@ -12,6 +12,13 @@ Per-task entries below — one per completed task, appended by the runner.
 - files: src/summary_generator.py, tests/test_summary_generator.py
 - summary: `_build_book_prompt` now returns `None` (and the caller in `generate_one_liner_summary` short-circuits with a skip message and returns `None`) when both `book` and `author` are absent from the event dict, replacing the prior `ValueError` raise. The other validation guards (missing title, missing description, sub-50-char analysis, missing event dict) still raise `ValueError` because those represent upstream pipeline failures rather than normal-shape data gaps. Net effect: book-club events that arrive with only a title (e.g. "Book Club at Alienated Majesty") no longer error out the summary stage; they simply skip one-liner generation while the rest of enrichment proceeds. Test coverage added covers both the new None-return paths (no metadata, only-book, only-author) and the still-raising paths (empty title/description/event, short analysis).
 - validation: green
+
+### task-1.2 — DONE — 2026-04-30T15:51:30Z
+- commit: 627bd63
+- files: src/summary_generator.py, tests/test_summary_generator.py
+- summary: `_is_specific_event` no longer rejects events solely because the title contains "festival", "workshop", "gala", or "tribute" when the event carries rich metadata (director / book / author / featured_artist / composers). A new `metadata_overridable_indicators` set carves out those four keywords (plus `movie festival` and `auteur festival`) from both the `title_non_specific_indicators` and `series_indicators` rejection loops (substring `in` checks, not regex — task title was loose shorthand), so a "Bergman Festival" with director set, a "Workshop with Pollini" with featured_artist, a "Symphony Gala" with composers, or a "Tribute to Toni Morrison" with author all pass through to summary generation. The short-circuit `has_key_metadata` predicate also gained `composers` so concert events qualify under the same override. Strict rejection still applies for unambiguous non-events (symposium, conference, lecture, seminar, panel discussion, awards ceremony, retrospective) regardless of metadata. Tests cover the four allow-with-metadata paths, three still-reject-without-metadata paths, and two still-reject-even-with-metadata paths for unambiguous formats.
+- validation: green
+- council-round-1: morning-reviewer FAIL — commit subject said "regex" but implementation is substring matching. Amended subject to suggested "Allow festival/workshop/gala/tribute in titles when metadata present"; CHANGELOG body now explicitly notes substring-vs-regex distinction. Other 3 reviewers passed unchanged.
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
