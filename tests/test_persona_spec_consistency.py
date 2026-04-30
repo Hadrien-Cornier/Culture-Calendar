@@ -19,7 +19,7 @@ from pathlib import Path
 
 import pytest
 
-PERSONAS_DIR = Path(__file__).resolve().parent.parent / ".overnight" / "personas"
+PERSONAS_DIR = Path(__file__).resolve().parent.parent / "personas" / "live-site"
 TYPE_ACTION_RE = re.compile(
     r"""document\.getElementById\(['"](?P<id>[^'"]+)['"]\)|
         querySelector\(['"](?P<sel>[^'"]+)['"]\)""",

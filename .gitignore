@@ -3,9 +3,7 @@
 venv/
 .venv/
 .overnight.log
-/.overnight/*
-!/.overnight/personas/
-!/.overnight/feature-inventory.json
+/.overnight/
 *.pyc
 docs/calendars/
 cache/*
