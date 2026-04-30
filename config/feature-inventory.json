@@ -467,5 +467,47 @@
     "selector": "personas/code-review/repo-minimalism.json",
     "since_commit": "task-4.3",
     "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "typography-source-serif-4",
+    "name": "Source Serif 4 variable serif loaded as web font for editorial display + body",
+    "selector": "link[href*=\"Source+Serif+4\"]",
+    "since_commit": "task-5.2",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "typography-inter",
+    "name": "Inter variable sans-serif loaded as web font for UI metadata, chips, buttons",
+    "selector": "link[href*=\"Inter\"]",
+    "since_commit": "task-5.2",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "typography-scale-vars",
+    "name": "Type-scale CSS variables (--text-xs..--text-xl) declared on :root and drive body/heading sizes",
+    "selector": "body",
+    "since_commit": "task-5.3",
+    "smoke_assertion": "js_truthy:getComputedStyle(document.documentElement).getPropertyValue('--text-base').trim()==='1rem'"
+  },
+  {
+    "id": "typography-fluid-clamp",
+    "name": "Heading-tier scales use clamp() so type fluidly shrinks on phones without breakpoint overrides",
+    "selector": "body",
+    "since_commit": "task-5.5",
+    "smoke_assertion": "js_truthy:getComputedStyle(document.documentElement).getPropertyValue('--text-xl').includes('clamp')"
+  },
+  {
+    "id": "typography-optical-sizing",
+    "name": "Body opts into Source Serif 4's optical-size axis (Display/Subhead/Small cuts at appropriate sizes)",
+    "selector": "body",
+    "since_commit": "task-5.6",
+    "smoke_assertion": "js_truthy:getComputedStyle(document.body).fontOpticalSizing==='auto'"
+  },
+  {
+    "id": "typography-tabular-numerals",
+    "name": "Rating badges use Inter's tabular figures (tnum) so numeric columns align across cards",
+    "selector": ".pick-rating, .event-rating-badge",
+    "since_commit": "task-5.6",
+    "smoke_assertion": "js_truthy:getComputedStyle(document.querySelector('.pick-rating, .event-rating-badge')||document.body).fontFeatureSettings.includes('tnum')"
   }
 ]

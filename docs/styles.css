@@ -37,6 +37,11 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
+  /* task-5.6: Source Serif 4 ships an optical-size axis — opt in so the body
+     copy uses the Subhead/Small cuts at 14–17px and the Display cut at the
+     masthead, matching the rationale in docs/TYPOGRAPHY.md. */
+  font-optical-sizing: auto;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 .masthead {
@@ -321,6 +326,10 @@ body {
   border-radius: 3px;
   color: #fff;
   white-space: nowrap;
+  /* task-5.6: Inter's tabular figures keep "10/10" and "7/10" the same width
+     so rating columns align across cards — primary reason for choosing Inter
+     over the prior Helvetica fallback (see docs/TYPOGRAPHY.md). */
+  font-feature-settings: "tnum" 1, "cv01" 1;
 }
 
 .pick-rating--high, .rating-high { background: var(--hi); }
