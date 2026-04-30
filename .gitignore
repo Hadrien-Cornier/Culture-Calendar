@@ -57,7 +57,7 @@ node_modules/
 .long-run/_shim/
 .long-run/*/events.log
 .long-run/*/task-*.log
-.long-run/*/task-result.json
+.long-run/*/task-result*.json
 .long-run/*/task-judge.log
 .long-run/*/queue.tsv.bak
 .long-run/*/queue.tsv.*
@@ -68,6 +68,9 @@ node_modules/
 .long-run/*/scorecard.md
 .long-run/*/council-preflight.log
 .long-run/*/rebuttal-rounds.tsv
+.long-run/*/STATUS*
+.long-run/*/HALT
+.long-run/*/*.pid
 
 # Generated OG cards — regenerated at build time from docs/data.json
 docs/og/*.svg
