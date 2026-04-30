@@ -105,3 +105,90 @@ def test_call_claude_api_returns_none_for_book_event_missing_metadata(
     }
     assert generator._call_claude_api(event) is None
     assert called["count"] == 0
+
+
+# Title-rejection scope: festival/workshop/gala/tribute words alone should
+# not veto an event when richer metadata (director / book / author /
+# featured artist / composers) confirms it's a specific, summarizable thing.
+
+def test_festival_title_with_director_is_specific(generator):
+    event = {
+        "title": "Bergman Festival",
+        "description": "Short description",
+        "director": "Ingmar Bergman",
+    }
+    assert generator._is_specific_event(event) is True
+
+
+def test_workshop_title_with_featured_artist_is_specific(generator):
+    event = {
+        "title": "Piano Workshop with Pollini",
+        "description": "Brief blurb",
+        "featured_artist": "Maurizio Pollini",
+    }
+    assert generator._is_specific_event(event) is True
+
+
+def test_gala_title_with_composers_is_specific(generator):
+    event = {
+        "title": "Symphony Gala",
+        "description": "Brief blurb",
+        "composers": ["Ludwig van Beethoven"],
+    }
+    assert generator._is_specific_event(event) is True
+
+
+def test_tribute_title_with_author_is_specific(generator):
+    event = {
+        "title": "Tribute to Toni Morrison",
+        "description": "Brief blurb",
+        "author": "Toni Morrison",
+    }
+    assert generator._is_specific_event(event) is True
+
+
+def test_festival_title_without_metadata_still_rejected(generator):
+    event = {
+        "title": "Generic Movie Festival",
+        "description": "Brief blurb",
+        "venue": "Some Theater",
+    }
+    assert generator._is_specific_event(event) is False
+
+
+def test_workshop_title_without_metadata_still_rejected(generator):
+    event = {
+        "title": "Songwriting Workshop",
+        "description": "Brief blurb",
+        "venue": "Some Studio",
+    }
+    assert generator._is_specific_event(event) is False
+
+
+def test_symposium_still_rejects_even_with_metadata(generator):
+    """Non-overridable indicators stay strict — symposium/conference/lecture
+    are formats, not specific summarizable events."""
+    event = {
+        "title": "Annual Film Symposium",
+        "description": "Brief blurb",
+        "director": "Some Director",
+    }
+    assert generator._is_specific_event(event) is False
+
+
+def test_lecture_still_rejects_even_with_metadata(generator):
+    event = {
+        "title": "Lecture on Cinema",
+        "description": "Brief blurb",
+        "director": "Some Director",
+    }
+    assert generator._is_specific_event(event) is False
+
+
+def test_retrospective_in_title_still_rejects_without_metadata(generator):
+    event = {
+        "title": "Cinema Retrospective",
+        "description": "Brief blurb",
+        "venue": "Some Theater",
+    }
+    assert generator._is_specific_event(event) is False

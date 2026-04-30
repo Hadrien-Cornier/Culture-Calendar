@@ -211,7 +211,8 @@ class SummaryGenerator:
             event.get("director") or
             event.get("book") or
             event.get("author") or
-            event.get("featured_artist")
+            event.get("featured_artist") or
+            event.get("composers")
         )
         if has_substantial_description and has_key_metadata:
             return True
@@ -259,9 +260,26 @@ class SummaryGenerator:
             "celebration",
         ]
 
+        # Indicators that should NOT reject when the event carries rich
+        # metadata (director / book / author / featured artist / composers).
+        # A "Bergman Festival" with director="Ingmar Bergman", a "Workshop
+        # with Pollini" featuring an artist, a "Symphony Gala" with
+        # composers, or a "Tribute to Toni Morrison" with author all describe
+        # specific summarizable events — the bare keyword shouldn't veto them.
+        metadata_overridable_indicators = {
+            "movie festival",
+            " festival",
+            "auteur festival",
+            "workshop",
+            "gala",
+            "tribute",
+        }
+
         # Check title for non-specific indicators
         for indicator in title_non_specific_indicators:
             if indicator in title:
+                if indicator in metadata_overridable_indicators and has_key_metadata:
+                    continue
                 print(
                     f"DEBUG: Title '{title}' rejected for title indicator: '{indicator}'"
                 )
@@ -272,6 +290,8 @@ class SummaryGenerator:
             if indicator in title:
                 # Skip "A Season Of" series titles - they're about specific books
                 if "season of" in title and (event.get("book") or event.get("author")):
+                    continue
+                if indicator in metadata_overridable_indicators and has_key_metadata:
                     continue
                 print(
                     f"DEBUG: Title '{title}' rejected for series indicator: '{indicator}'"
