@@ -122,6 +122,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 3f3e0c7
 - files: personas/README.md, CLAUDE.md, config/feature-inventory.json
 - validation: green
+
+### task-5.1 — DONE — 2026-04-30T17:21:57Z
+- commit: 02675a7
+- files: docs/TYPOGRAPHY.md
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
