@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
-# Gate B: pre-push hook that blocks pushes when any outgoing commit
-# subject contains the literal [persona-gate] marker and the LLM
-# persona council (run against a local server) would FAIL.
+# Pre-push gates:
+#   1. Repo-minimalism gate — runs on every push. Validates that
+#      personas/code-review/repo-minimalism.json is present and parses,
+#      then announces the gate. The LLM evaluation itself is driven by
+#      the long-run council harness (~/.claude/skills/long-run/scripts/
+#      task-judge.sh) during long-runs; for stand-alone pushes the spec
+#      governs reviewer behavior at scorecard time. The gate exits
+#      non-zero if the spec is missing or malformed (misconfigured).
+#   2. Persona gate (Gate B) — blocks pushes when any outgoing commit
+#      subject contains the literal [persona-gate] marker and the
+#      live-site LLM persona council (run against a local server) FAILs.
 #
 # Activation (per-clone; not enforced globally):
 #
@@ -18,25 +26,26 @@ set -eu
 repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root"
 
-gate_script="scripts/require_persona_approval.py"
 marker='[persona-gate]'
+minimalism_persona="personas/code-review/repo-minimalism.json"
+gate_script="scripts/require_persona_approval.py"
 
-if [ ! -f "$gate_script" ]; then
-  # Hook installed but script missing — warn and pass (don't block on infra gaps).
-  echo "[pre-push] $gate_script missing; skipping persona gate." >&2
-  exit 0
+# Resolve a Python interpreter once. Used by both gates below.
+if [ -x ".venv/bin/python" ]; then
+  py=".venv/bin/python"
+else
+  py="$(command -v python3 || command -v python || true)"
 fi
 
-# Collect every outgoing commit subject for the push.
+# Walk every refspec on stdin, collecting outgoing ranges and any commits
+# tagged with the [persona-gate] marker.
+ranges=()
 tagged_commits=()
 while read -r local_ref local_sha remote_ref remote_sha; do
-  # Deletions: local_sha is 40 zeros. Nothing to scan.
   if [ "$local_sha" = "0000000000000000000000000000000000000000" ]; then
     continue
   fi
   if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
-    # New branch → scan from the default branch's merge-base so we don't
-    # re-gate the entire history.
     base=$(git merge-base "$local_sha" origin/main 2>/dev/null || echo "")
     if [ -n "$base" ]; then
       range="$base..$local_sha"
@@ -46,16 +55,34 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   else
     range="$remote_sha..$local_sha"
   fi
+  ranges+=("$range")
 
-  # Find commits whose subject contains the marker.
   while IFS= read -r sha; do
     [ -z "$sha" ] && continue
     tagged_commits+=("$sha")
   done < <(git log --format='%H %s' "$range" 2>/dev/null | awk -v m="$marker" 'index($0, m) { print $1 }')
 done
 
+# Repo-minimalism gate (every push, regardless of [persona-gate] tag).
+if [ ${#ranges[@]} -gt 0 ]; then
+  if [ ! -f "$minimalism_persona" ]; then
+    echo "[pre-push] $minimalism_persona missing; minimalism gate cannot run." >&2
+    exit 1
+  fi
+  if [ -n "$py" ] && ! "$py" -c "import json,sys; json.load(open(sys.argv[1]))" "$minimalism_persona" >/dev/null 2>&1; then
+    echo "[pre-push] $minimalism_persona is not valid JSON; minimalism gate misconfigured." >&2
+    exit 1
+  fi
+  echo "[pre-push] repo-minimalism gate active: $minimalism_persona"
+fi
+
+# Persona gate (Gate B) — only when at least one outgoing commit is tagged.
 if [ ${#tagged_commits[@]} -eq 0 ]; then
-  # Nothing tagged; let the push through.
+  exit 0
+fi
+
+if [ ! -f "$gate_script" ]; then
+  echo "[pre-push] $gate_script missing; skipping persona gate." >&2
   exit 0
 fi
 
@@ -65,12 +92,6 @@ for sha in "${tagged_commits[@]}"; do
   echo "  - $short: $(git log -1 --format='%s' "$sha")"
 done
 
-# Need a venv Python for the deps.
-if [ -x ".venv/bin/python" ]; then
-  py=".venv/bin/python"
-else
-  py="$(command -v python3 || command -v python)"
-fi
 if [ -z "$py" ]; then
   echo "[pre-push] no python interpreter found; cannot run persona gate." >&2
   exit 1
