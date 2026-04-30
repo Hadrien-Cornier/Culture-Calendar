@@ -453,5 +453,19 @@
     "selector": "body",
     "since_commit": "task-T4",
     "smoke_assertion": "js_truthy:getComputedStyle(document.body).backgroundColor!=='rgb(255, 255, 255)'"
+  },
+  {
+    "id": "review-quality-reviewer",
+    "name": "review-quality code-review persona spec (senior-engineer lens on AI review generation)",
+    "selector": "personas/code-review/review-quality.json",
+    "since_commit": "task-4.2",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "repo-minimalism-reviewer",
+    "name": "repo-minimalism code-review persona spec (Karpathy/nanochat lens, wired into pre-push gate)",
+    "selector": "personas/code-review/repo-minimalism.json",
+    "since_commit": "task-4.3",
+    "smoke_assertion": "selector_exists"
   }
 ]

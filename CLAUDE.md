@@ -203,7 +203,7 @@ After committing, run `npm run analyze` (deletes prior embeddings) or `./node_mo
 
 ## Feature Inventory
 
-Canonical list of user-visible features lives at `.overnight/feature-inventory.json`. Each entry records the CSS selector + smoke assertion proving the feature is live.
+Canonical list of user-visible features lives at `config/feature-inventory.json`. Each entry records the CSS selector + smoke assertion proving the feature is live.
 
 **Discipline:** every task adding or changing a user-visible feature MUST append its entry BEFORE committing. The continuity-user persona asserts each listed selector on the live site on every run. Skipping the append step is the regression pattern that previously dropped the TTS button (`986877e` → `c45fdfd`) and the About section (`c03f617` → v12i promotion).
 
@@ -227,9 +227,21 @@ Rules:
 
 ## Persona critique gate
 
-Six personas (logistics-user, review-reader, search-user, comprehensiveness-user, continuity-user, mobile-user) critique the site via `scripts/persona_critique.py`. Model: Claude Sonnet 4.6 by default, chosen by `scripts/bench_personas.py`; see `docs/persona_model_benchmark.md`.
+Two persona layers, both authored as JSON specs that an LLM consumes. See `personas/README.md` for per-persona detail.
+
+### Live-site UX critique (`personas/live-site/`)
+Six personas — logistics-user, review-reader, search-user, comprehensiveness-user, continuity-user, mobile-user — critique the deployed site via `scripts/persona_critique.py`. Model: Claude Sonnet 4.6 by default, chosen by `scripts/bench_personas.py`; see `docs/persona_model_benchmark.md`.
 
 **Local-only.** Council runs on your workstation before push, not in CI — no Anthropic API key on GitHub, no per-push CI cost. Trade-off: regressions between `[persona-gate]` runs aren't auto-detected; run `scripts/persona_critique.py` manually for a fresh scorecard.
+
+### Code-review critique (`personas/code-review/`)
+Two permanent reviewers grade pending diffs, not the website:
+- `review-quality.json` — senior-engineer lens; flags diffs that weaken AI review generation (dropped evidence requirements, lowered confidence thresholds, generic prompts replacing category-specific dispatch).
+- `repo-minimalism.json` — Karpathy/nanochat lens; flags ceremony, helper graveyards, premature abstraction, parallel near-duplicate files, bloat in `CLAUDE.md` / `CHANGELOG.md`.
+
+Manual run: `.venv/bin/python scripts/review_quality_check.py` (defaults to staged + worktree; `--commit` for `HEAD~1..HEAD`, `--staged` for cached only, `--no-llm` to print the prompt). Both reviewers also fire automatically inside the long-run council harness; any FAIL re-queues the task.
+
+`.githooks/pre-push` validates `personas/code-review/repo-minimalism.json` parses on every push and announces the gate.
 
 ### `[persona-gate]` commit tag
 Tag the commit subject with literal `[persona-gate]` for significant changes (architectural UI refactors, feature removals/restorations, redesigns). Example:
@@ -254,17 +266,19 @@ Activate per-clone: `git config core.hooksPath .githooks`.
 ### Key files
 | File | Purpose |
 |---|---|
-| `scripts/persona_critique.py` | Runs personas, emits scorecard + cost JSONL |
+| `personas/README.md` | Per-persona index and schema reference |
+| `personas/live-site/*.json` | 6 UX-critique persona specs |
+| `personas/code-review/*.json` | 2 diff-critique reviewer specs (review-quality, repo-minimalism) |
+| `config/feature-inventory.json` | Continuity-user truth source |
+| `scripts/persona_critique.py` | Runs live-site personas, emits scorecard + cost JSONL |
 | `scripts/bench_personas.py` | Benchmarks Haiku/Sonnet/Opus to pick cheapest w/ ≥5/6 agreement |
 | `scripts/require_persona_approval.py` | Local preflight for Gate B |
 | `scripts/check_live_site.py` | Pyppeteer structural-assertion runner |
-| `.overnight/personas/*.json` | 6 persona specs (gitignored parent, subdir whitelisted) |
-| `.overnight/feature-inventory.json` | Continuity-user truth source (gitignored parent, file whitelisted) |
-| `.overnight/persona-costs.jsonl` | Per-call cost log (local only) |
+| `scripts/review_quality_check.py` | Manual driver for the review-quality reviewer |
 | `config/persona_model.json` | Selected model (written by bench) |
 | `docs/PERSONAS.md` | Latest scorecard |
 | `docs/persona_model_benchmark.md` | Benchmark results |
-| `.githooks/pre-push` | Opt-in pre-push hook |
+| `.githooks/pre-push` | Opt-in pre-push hook (repo-minimalism gate + Gate B) |
 
 ---
 
@@ -279,7 +293,7 @@ All autonomous overnight/long runs inherit these rules. Each run's own section b
 - No interactive prompts. No `--no-verify` on commits.
 - Git identity: every commit (incl. reverts) via `git -c user.name=Hadrien-Cornier -c user.email=hadrien.cornier@gmail.com`. Never mutate `~/.gitconfig`.
 - Never commit `.env`, `cache/llm_cache.json`, `.agents/`, `skills-lock.json`, or runtime working files under `.overnight/` / `.long-run/<RUN_ID>/` (events.log, task-*.log, task-result.json, reviews/*.log, task-judge.log, active.pid, scorecard.md, check-*.json, archive-*, venue-prospects/, queue.tsv, runner-prompt.txt). Persistent whitelisted entries under `.overnight/`: `personas/*.json` + `feature-inventory.json`.
-- Feature-inventory discipline: every task adding a user-visible feature appends its entry to `.overnight/feature-inventory.json` BEFORE committing.
+- Feature-inventory discipline: every task adding a user-visible feature appends its entry to `config/feature-inventory.json` BEFORE committing.
 - GitNexus impact analysis MANDATORY before editing any symbol.
 
 ### Validation oracle
