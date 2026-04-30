@@ -152,6 +152,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 5920ed4
 - files: docs/styles.css, config/feature-inventory.json
 - validation: green
+
+### task-6.1 — DONE — 2026-04-30T17:42:17Z
+- commit: 23fdf56
+- files: .gitignore, archive/runs/STATUS-2026-04-16.md, archive/runs/STATUS-2026-04-17.md, archive/runs/STATUS-2026-04-18-2.md, archive/runs/STATUS-2026-04-18-3.md, archive/runs/STATUS-2026-04-18.md, archive/runs/STATUS-2026-04-19.md, archive/runs/STATUS-20260419-235117.md, archive/runs/STATUS-20260421-225013.md, archive/runs/STATUS-20260422-203219.md, archive/runs/STATUS-20260425-175347.md, after_merge_run.log, quick_update.log, update_after_summary_patch.log, update_final.log, update_fix_movies.log, update_full.log, update_run_1775348131.log
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
