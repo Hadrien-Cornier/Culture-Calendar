@@ -345,6 +345,11 @@ class SummaryGenerator:
                 prompt = self._build_concert_prompt(title, description, event)
             elif event_type == "book_club":
                 prompt = self._build_book_prompt(title, description, event)
+                if prompt is None:
+                    print(
+                        f"  Skipping book club summary (missing book/author metadata): {title}"
+                    )
+                    return None
             else:
                 prompt = self._build_generic_prompt(title, description, event)
         except ValueError as e:
@@ -611,8 +616,18 @@ Extract the core musical style, period, and atmosphere from this analysis. Examp
 
 Your one-line summary (8-12 words):"""
 
-    def _build_book_prompt(self, title: str, description: str, event: Dict) -> str:
-        """Build prompt for book club events"""
+    def _build_book_prompt(
+        self, title: str, description: str, event: Dict
+    ) -> Optional[str]:
+        """Build prompt for book club events.
+
+        Returns ``None`` when book/author metadata is absent — book-club
+        summaries without a specific title or author have no useful hook
+        to surface, so the caller skips the LLM call rather than raising.
+        Other malformed inputs (missing title/description, sub-50-char
+        analysis, missing event dict) still raise ``ValueError`` because
+        those are upstream pipeline failures, not normal-shape data gaps.
+        """
 
         # Fail fast - validate required inputs
         if not title or not title.strip():
@@ -632,18 +647,17 @@ Your one-line summary (8-12 words):"""
 
         if not event:
             raise ValueError(
-                f"Book club event '{title}' missing event data dictionary - cannot extract venue, book, author information"
+                f"Book club event '{title}' missing essential event data dictionary - cannot extract venue, book, author information"
             )
 
         venue = event.get("venue", "")
         book = event.get("book", "")
         author = event.get("author", "")
 
-        # Validate that we have at least some book metadata
+        # Skip gracefully when book/author metadata is absent: a generic
+        # one-liner adds no signal beyond the title already on the card.
         if not book and not author:
-            raise ValueError(
-                f"Book club event '{title}' missing essential metadata - need at least book title or author to generate meaningful summary"
-            )
+            return None
 
         return f"""Based on this detailed book analysis, create a compelling one-line summary that captures the book's essence in 8-12 words.
 
