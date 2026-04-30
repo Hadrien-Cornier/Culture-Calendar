@@ -203,6 +203,12 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 47e78fa68daccbd0d5f5018f8e3be60eeb37cd1c
 - files: .long-run/20260430-102637/queue.tsv
 - validation: green
+
+### task-6.5 — DONE — 2026-04-30T22:32:42Z
+- commit: 271a7489cfc509e364c932397957582217567c3e
+- files: .gitignore
+- validation: green
+- summary: Harden .gitignore against future .long-run session accumulation. Broaden task-result.json -> task-result*.json (covers .bak/.prev variants), and add three new patterns under .long-run/*/: STATUS* (per-run status snapshots), HALT (manual halt marker), *.pid (per-run pid files; the existing .long-run/active.pid pattern only covered the top-level pid). No historical run dirs to delete in this worktree (only the active 20260430-102637 dir exists); the patterns are purely preventive against future accumulation.
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
