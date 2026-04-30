@@ -16,6 +16,12 @@
   --max: 1000px;
   --serif: "Source Serif 4", "Source Serif Pro", "Saol Display", "Didot", "Bodoni Moda", "Playfair Display", Georgia, serif;
   --sans: "Inter", "Helvetica Neue", "Arial", system-ui, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.1875rem;
+  --text-lg: 1.75rem;
+  --text-xl: 3.5rem;
 }
 
 * { box-sizing: border-box; }
