@@ -56,6 +56,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: a4d537a
 - files: src/summary_generator.py, tests/test_summary_generator.py
 - validation: green
+
+### task-2.4 — DONE — 2026-04-30T16:10:00Z
+- commit: 617f912
+- files: tests/test_ballet_dance_review.py
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
