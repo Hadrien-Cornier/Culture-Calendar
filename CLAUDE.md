@@ -464,3 +464,104 @@ Goals (all presentation-layer; `src/` and `update_website_data.py` read-only):
 DoD: zero `.event-card` with date < today's midnight in main listings; search dropdown shows only `Venues` + `Categories` group headers; every `.expand-indicator` contains an `<svg>` (no `▶` literal under `.event-card *`); `getComputedStyle(document.body).backgroundColor` ≠ `rgb(255, 255, 255)`.
 
 Scope: `docs/` (not `docs/variants/`), `.overnight/feature-inventory.json`, `CLAUDE.md` + `CHANGELOG.md` fenced blocks, `STATUS-20260425-175347.md`. `src/`, `update_website_data.py`, `config/`, `scripts/` read-only. Stdlib only. No new deps (no `pip install`, no `npm install`). GitNexus impact required for `docs/script.js` and `docs/styles.css`. Commit cadence: two small commits per task (code + CHANGELOG). LLM council active (4 task-level + 1 run-level reviewers); judge `claude-sonnet-4-6`. T5 opts out via `[no-council]`. T4 carries `[persona-gate]` tag.
+
+<!-- BEGIN LONG-RUN: 20260430-102637 -->
+## Long run — 20260430-102637
+
+> **AUTONOMOUS RUN — do not edit while running.**
+> Owner: Hadrien-Cornier · Started: 2026-04-30T15:32:24Z · Deadline: 2026-05-01T03:32:24Z · Branch: `long-run/20260430-102637`
+
+### Goal
+
+Five overlapping workstreams: (1) NYT-inspired typography on docs/ with real web fonts; (2) fix Ballet review quality (root cause: `ballet_austin_scraper.py:66` hardcodes `type=concert` instead of `dance`, and there is no `_get_dance_rating()` method); (3) automate the classical-music data refresh via a monthly LLM-driven script + new GitHub Action (existing `update-calendar.yml` has been failing weekly cron since Apr 18); (4) introduce two permanent LLM reviewers (`personas/code-review/review-quality.json` + `personas/code-review/repo-minimalism.json`) wired into pre-push and a manual command; (5) aggressive karpathy/nanochat-style cleanup including removing `.overnight/`, trimming CLAUDE.md + CHANGELOG.md, archiving `.long-run/` history, and consolidating 5 near-identical classical-music scrapers.
+
+### Definition of done
+
+By the deadline above, the following must all be true:
+
+- `update-calendar.yml` and `pr-validation.yml` workflows pass on the long-run branch.
+- Ballet events tagged `type=dance`; `_get_dance_rating()` exists and is invoked; reviews mention choreographer/company/repertoire.
+- `scripts/refresh_classical_data.py` exists with `--dry-run` mode + `.github/workflows/refresh-classical-data.yml` cron monthly.
+- `personas/live-site/*.json` × 6 (migrated) and `personas/code-review/{review-quality,repo-minimalism}.json` (new) exist and are wired in.
+- Source Serif 4 + Inter loaded as web fonts; CSS type-scale variables drive every typographic font-size in `docs/styles.css`.
+- `.overnight/` deleted; root has no `*.log`; `CLAUDE.md` < 250 lines; `CHANGELOG.md` < 800 lines; `.long-run/` retains only the active run dir.
+- 5 classical scrapers consolidated into `_static_json_scraper.py` + thin per-venue config.
+- `.venv/bin/python -m pytest -q` exits 0; `scripts/verify_calendar.py --offline` passes; live-site persona council 6/6 PASS.
+- ≥6 new feature-inventory entries (typography surfaces + new reviewers).
+- `STATUS-20260430-102637.md` handoff written.
+
+### Hard constraints
+
+- Branch: `long-run/20260430-102637` only — no commits to `main`, no per-task push to `main`.
+- Never `git push --force`, `git rebase`, `git reset --hard`, no rewriting history.
+- No `pip install` / `npm install` / new deps. Stdlib only for new Python.
+- Commits authored as `Hadrien-Cornier <hadrien.cornier@gmail.com>`. Never `hcornier@talroo.com`.
+- Never `--no-verify` on commits.
+- Touch only the files in each task's `files` column or in the scope fence below.
+
+### Scope fence
+
+In-scope:
+- `src/` — for T2.x (dance handler), T6.6a/b (scraper consolidation).
+- `scripts/` — for T1.x (verify_calendar tolerance), T3.x (refresh script), T4.5 (review_quality_check.py), T6.7 (audit).
+- `tests/` — every task's tests live here.
+- `docs/` (NOT `docs/variants/`) — for T5.x typography, T2.5 data refresh, T1.3 fixture, T7.1 data.json.
+- `config/master_config.yaml` — for T3.1b (season URLs), T6.6 (scraper config), T4.1 (feature-inventory move).
+- `personas/` (new directory) — for T4.x.
+- `archive/` (new directory) — for T6.1, T6.2, T6.3 historical files.
+- `.github/workflows/` — for T1.5, T3.2, plus targeted edits in T1.x.
+- `.githooks/pre-push` — for T4.4.
+- `.gitignore` — for T6.x cleanup additions.
+- `.long-run/20260430-102637/` — runner state.
+- `CLAUDE.md`, `CHANGELOG.md` — fenced blocks only.
+- `STATUS-20260430-102637.md` — handoff in T7.2.
+
+Read-only (must not edit):
+- `docs/variants/` — archival.
+- Other `STATUS-*.md` files — historical.
+- Any prior `.long-run/2026*/` directories (those get DELETED in T6.5, not edited).
+
+### Validation oracle
+
+Every task before commit:
+```
+.venv/bin/python -m pytest -q
+```
+Plus the task's own `validate` from `.long-run/20260430-102637/queue.tsv`. Both must exit 0. Never run `scripts/verify_calendar.py --offline` as a per-task oracle — pre-existing red items would block unrelated tasks. Only T1.4 and T7.1 dispatch verify_calendar.
+
+### Task queue
+
+Source of truth: `.long-run/20260430-102637/queue.tsv` — 38 tasks across 7 phases (1.1 → 7.3). See `~/.claude/plans/i-want-to-improve-sparkling-simon.md` for the full plan.
+
+Phase 1 (1.1–1.5) — fix GitHub Actions (data is stale).
+Phase 2 (2.1–2.5) — Ballet dance handler.
+Phase 3 (3.1a–3.4) — classical refresh script + new monthly workflow.
+Phase 4 (4.1–4.6) — new LLM reviewers in `personas/`.
+Phase 5 (5.1–5.6) — NYT-inspired typography (`[persona-gate]` on T5.6).
+Phase 6 (6.1–6.7) — aggressive minimalism cleanup.
+Phase 7 (7.1–7.3) — final gate + handoff.
+
+### `[persona-gate]` tags
+
+Apply to commits for: T1.5 (workflow gate change), T4.4 (gate-config change), T5.6 (typography redesign), T6.4 (`.overnight/` removal — discoverability shift). Pre-push hook will run live-site council against local server.
+
+### GitNexus impact required before editing
+
+- T2.1 — `ballet_austin_scraper.py` symbol used downstream.
+- T2.2 — `processor._get_classical_rating` and the rating dispatch.
+- T2.3 — `summary_generator._build_concert_prompt`.
+- T4.1 — persona path constants.
+- T6.4 — `.overnight/` references across scripts.
+- T6.6a/b — every scraper class in `src/scrapers/__init__.py`.
+
+### Stop conditions
+
+- All tasks DONE → `RUN_COMPLETE`.
+- Wall clock ≥ deadline (2026-05-01T03:32:24Z) → `RUN_HALTED: deadline`.
+- 3 consecutive BLOCKED tasks → `RUN_HALTED: consecutive-blockers`.
+- `STATUS.md` at repo root contains `HALT` → `RUN_HALTED: manual`.
+
+### Handoff
+
+Runner emits final event to `.long-run/20260430-102637/events.log`. Branch stays local; user reviews scorecard at `.long-run/20260430-102637/scorecard.md` and merges manually.
+<!-- END LONG-RUN: 20260430-102637 -->

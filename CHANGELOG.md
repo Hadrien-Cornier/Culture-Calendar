@@ -1,5 +1,13 @@
 # CHANGELOG
 
+<!-- BEGIN LONG-RUN: 20260430-102637 -->
+## Long run — 20260430-102637
+
+Scope: typography overhaul + ballet review fix + classical refresh automation + new LLM reviewers + aggressive nanochat-style minimalism. 38 tasks, 12h budget, branch-only on `long-run/20260430-102637`. Plan: `~/.claude/plans/i-want-to-improve-sparkling-simon.md`.
+
+Per-task entries below — one per completed task, appended by the runner.
+<!-- END LONG-RUN: 20260430-102637 -->
+
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
 ## Long run — 20260425-175347
 
