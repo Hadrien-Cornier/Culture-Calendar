@@ -107,6 +107,11 @@ Triage outcome for `.github/workflows/claude-code-review.yml`. The file is NOT i
 - commit: 50b87dc
 - files: personas/code-review/repo-minimalism.json
 - validation: green
+
+### task-4.4 — DONE — 2026-04-30T17:04:32Z
+- commit: c6665a5
+- files: .githooks/pre-push
+- validation: green
 <!-- END LONG-RUN: 20260430-102637 -->
 
 <!-- BEGIN LONG-RUN: 20260425-175347 -->
