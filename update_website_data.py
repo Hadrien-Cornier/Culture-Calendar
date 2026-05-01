@@ -108,13 +108,19 @@ _VENUE_CODE_TO_CONFIG_KEY: dict[str, str] = {
 
 
 def _load_script_module(module_name: str, relative_path: str):
-    """Import a top-level ``scripts/`` module without a package __init__."""
+    """Import a top-level ``scripts/`` module without a package __init__.
+
+    Registers in ``sys.modules`` before ``exec_module`` so module-level
+    ``@dataclass`` declarations can resolve ``sys.modules[__module__]``
+    (Python 3.13 ``_is_type`` does this lookup at class-eval time).
+    """
     spec = importlib.util.spec_from_file_location(
         module_name, _REPO_ROOT / relative_path
     )
     if spec is None or spec.loader is None:
         raise ImportError(f"Could not load {module_name} from {relative_path}")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
     spec.loader.exec_module(module)
     return module
 
@@ -168,6 +174,30 @@ def generate_subscribable_feeds(website_data: list) -> None:
         print(f"Wrote {ics_count} per-event ICS files to docs/events/")
     except Exception as e:
         print(f"Warning: build_event_ics failed: {e}")
+
+
+def generate_weekly_digests(weeks_ahead: int = 4) -> None:
+    """Render ISO-week digest pages under ``docs/weekly/``.
+
+    The share button at ``docs/script.js:initEmailDigest`` derives its URL
+    from the current ISO week at page-load time, so a digest must exist for
+    every upcoming week or the link 404s. Reads the freshly-written
+    ``docs/data.json`` and writes ``docs/weekly/<YYYY-Www>.html`` for the
+    current week plus every upcoming week with screenings inside ``weeks_ahead``.
+    """
+    try:
+        build_weekly_digest = _load_script_module(
+            "build_weekly_digest", "scripts/build_weekly_digest.py"
+        )
+        rc = build_weekly_digest.main(
+            ["--all-upcoming", "--weeks-ahead", str(weeks_ahead), "--quiet"]
+        )
+        if rc != 0:
+            print(f"Warning: build_weekly_digest exited with rc={rc}")
+        else:
+            print(f"Wrote weekly digests under docs/weekly/ (weeks-ahead={weeks_ahead})")
+    except Exception as e:
+        print(f"Warning: build_weekly_digest failed: {e}")
 
 
 def generate_agent_surfaces(website_data: list) -> None:
@@ -954,6 +984,9 @@ def main(
 
             print("\nBuilding agent surfaces (llms.txt + API + AI manifest)...")
             generate_agent_surfaces(website_data)
+
+            print("\nBuilding weekly digests (docs/weekly/)...")
+            generate_weekly_digests()
 
         print("Website update completed successfully!")
 
