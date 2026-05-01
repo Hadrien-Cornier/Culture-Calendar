@@ -1,0 +1,82 @@
+name: Monthly Classical Data Refresh
+
+on:
+  schedule:
+    # 12:00 UTC on the 1st of each month (~7 AM CST / 8 AM CDT in Austin).
+    - cron: '0 12 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Refresh classical + ballet data via Perplexity
+        env:
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          # The script validates the Perplexity response in --dry-run mode and
+          # prints a JSON summary including the assembled classical/ballet
+          # payloads. We parse stdout and write the validated payloads to disk
+          # here in the workflow so the next step can diff them against main.
+          python scripts/refresh_classical_data.py --dry-run --use-perplexity > /tmp/refresh.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          summary = json.loads(Path("/tmp/refresh.json").read_text())
+          targets = [
+              ("classical_payload", "docs/classical_data.json"),
+              ("ballet_payload", "docs/ballet_data.json"),
+          ]
+          for key, path in targets:
+              payload = summary.get(key)
+              if payload is None:
+                  continue
+              Path(path).write_text(
+                  json.dumps(payload, indent=2, sort_keys=True) + "\n"
+              )
+          PY
+
+      - name: Open PR if data changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet docs/classical_data.json docs/ballet_data.json; then
+            echo "No changes detected — skipping PR creation."
+            exit 0
+          fi
+
+          BRANCH="bot/classical-refresh-$(date -u +%Y-%m-%d)"
+          git config user.email "action@github.com"
+          git config user.name "github-actions[bot]"
+          git checkout -b "$BRANCH"
+          git add docs/classical_data.json docs/ballet_data.json
+          git commit -m "chore: monthly classical/ballet data refresh"
+          git push -u origin "$BRANCH"
+
+          # Intentionally NOT calling `gh pr merge --auto` — a human reviews the
+          # LLM-fetched events before they ship to production.
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "chore: monthly classical/ballet data refresh" \
+            --body "Automated monthly refresh produced by \`scripts/refresh_classical_data.py --dry-run --use-perplexity\`. Review the diff before merging — this PR is intentionally not auto-merged so a human can sanity-check the LLM-fetched events."

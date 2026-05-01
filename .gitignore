@@ -3,9 +3,7 @@
 venv/
 .venv/
 .overnight.log
-/.overnight/*
-!/.overnight/personas/
-!/.overnight/feature-inventory.json
+/.overnight/
 *.pyc
 docs/calendars/
 cache/*
@@ -49,6 +47,9 @@ node_modules/
 # OpenClaw Claude Code runtime logs (do not commit)
 .openclaw/claude-code/logs/
 
+# Root-level pipeline logs (transient; do not commit)
+/*.log
+
 # SQLite sidecars (if any)
 *.sqlite-shm
 *.sqlite-wal
@@ -56,12 +57,20 @@ node_modules/
 .long-run/_shim/
 .long-run/*/events.log
 .long-run/*/task-*.log
-.long-run/*/task-result.json
+.long-run/*/task-result*.json
 .long-run/*/task-judge.log
 .long-run/*/queue.tsv.bak
 .long-run/*/queue.tsv.*
 .long-run/*/reviews/*.log
+.long-run/*/reviews/*.json
+.long-run/*/reviews/*.prev.json
+.long-run/*/rebuttals/
 .long-run/*/scorecard.md
+.long-run/*/council-preflight.log
+.long-run/*/rebuttal-rounds.tsv
+.long-run/*/STATUS*
+.long-run/*/HALT
+.long-run/*/*.pid
 
 # Generated OG cards — regenerated at build time from docs/data.json
 docs/og/*.svg

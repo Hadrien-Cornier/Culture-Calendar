@@ -15,7 +15,7 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = REPO_ROOT / "docs" / "script.js"
-INVENTORY_PATH = REPO_ROOT / ".overnight" / "feature-inventory.json"
+INVENTORY_PATH = REPO_ROOT / "config" / "feature-inventory.json"
 
 
 def _extract_platform_entry(source: str, platform_id: str) -> str:

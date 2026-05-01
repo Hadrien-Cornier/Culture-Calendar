@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Persona critique orchestrator.
 
-Iterates ``.overnight/personas/*.json``, runs ``scripts/check_live_site.py``
+Iterates ``personas/live-site/*.json``, runs ``scripts/check_live_site.py``
 against each persona spec, and optionally asks Anthropic Claude Sonnet 4.6
 for a qualitative critique given a pyppeteer-captured screenshot plus a DOM
 snippet.
@@ -109,7 +109,7 @@ def _model_accepts_temperature(model: str) -> bool:
         return False
     return "opus" not in model.lower()
 
-DEFAULT_PERSONAS_DIR = Path(".overnight/personas")
+DEFAULT_PERSONAS_DIR = Path("personas/live-site")
 DEFAULT_CHECK_SCRIPT = Path("scripts/check_live_site.py")
 DEFAULT_CHECK_RETRIES = 0
 SUBPROCESS_TIMEOUT_S = 180

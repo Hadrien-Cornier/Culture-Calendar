@@ -211,7 +211,8 @@ class SummaryGenerator:
             event.get("director") or
             event.get("book") or
             event.get("author") or
-            event.get("featured_artist")
+            event.get("featured_artist") or
+            event.get("composers")
         )
         if has_substantial_description and has_key_metadata:
             return True
@@ -259,9 +260,26 @@ class SummaryGenerator:
             "celebration",
         ]
 
+        # Indicators that should NOT reject when the event carries rich
+        # metadata (director / book / author / featured artist / composers).
+        # A "Bergman Festival" with director="Ingmar Bergman", a "Workshop
+        # with Pollini" featuring an artist, a "Symphony Gala" with
+        # composers, or a "Tribute to Toni Morrison" with author all describe
+        # specific summarizable events — the bare keyword shouldn't veto them.
+        metadata_overridable_indicators = {
+            "movie festival",
+            " festival",
+            "auteur festival",
+            "workshop",
+            "gala",
+            "tribute",
+        }
+
         # Check title for non-specific indicators
         for indicator in title_non_specific_indicators:
             if indicator in title:
+                if indicator in metadata_overridable_indicators and has_key_metadata:
+                    continue
                 print(
                     f"DEBUG: Title '{title}' rejected for title indicator: '{indicator}'"
                 )
@@ -272,6 +290,8 @@ class SummaryGenerator:
             if indicator in title:
                 # Skip "A Season Of" series titles - they're about specific books
                 if "season of" in title and (event.get("book") or event.get("author")):
+                    continue
+                if indicator in metadata_overridable_indicators and has_key_metadata:
                     continue
                 print(
                     f"DEBUG: Title '{title}' rejected for series indicator: '{indicator}'"
@@ -343,8 +363,15 @@ class SummaryGenerator:
                 prompt = self._build_movie_prompt(title, description, event)
             elif event_type == "concert":
                 prompt = self._build_concert_prompt(title, description, event)
+            elif event_type == "dance":
+                prompt = self._build_dance_prompt(title, description, event)
             elif event_type == "book_club":
                 prompt = self._build_book_prompt(title, description, event)
+                if prompt is None:
+                    print(
+                        f"  Skipping book club summary (missing book/author metadata): {title}"
+                    )
+                    return None
             else:
                 prompt = self._build_generic_prompt(title, description, event)
         except ValueError as e:
@@ -611,8 +638,82 @@ Extract the core musical style, period, and atmosphere from this analysis. Examp
 
 Your one-line summary (8-12 words):"""
 
-    def _build_book_prompt(self, title: str, description: str, event: Dict) -> str:
-        """Build prompt for book club events"""
+    def _build_dance_prompt(self, title: str, description: str, event: Dict) -> str:
+        """Build prompt for dance/ballet events.
+
+        Reads ``program`` (list of works on the program) and ``series``
+        (e.g. season name or repertory grouping) from the event dict
+        alongside ``venue``, ``company``, and ``choreographer`` so the
+        one-liner can name the repertoire and the troupe — the two
+        signals most useful for a dance card hook.
+        """
+
+        # Fail fast - validate required inputs
+        if not title or not title.strip():
+            raise ValueError(
+                "Dance event missing required title - cannot generate summary without performance name"
+            )
+
+        if not description or not description.strip():
+            raise ValueError(
+                f"Dance event '{title}' missing required AI analysis description - summary generation requires dance analysis from Perplexity API"
+            )
+
+        if len(description.strip()) < 50:
+            raise ValueError(
+                f"Dance event '{title}' has insufficient AI analysis (only {len(description.strip())} characters) - need at least 50 characters of dance analysis for quality summary"
+            )
+
+        if not event:
+            raise ValueError(
+                f"Dance event '{title}' missing event data dictionary - cannot extract program, series, company, choreographer information"
+            )
+
+        venue = event.get("venue", "")
+        program = event.get("program", "")
+        series = event.get("series", "")
+        company = event.get("company", "") or venue
+        choreographer = event.get("choreographer", "")
+
+        # Validate that we have at least some dance metadata
+        if not program and not series and not company and not choreographer:
+            raise ValueError(
+                f"Dance event '{title}' missing essential metadata - need at least program, series, company, or choreographer to generate meaningful summary"
+            )
+
+        program_text = ", ".join(program) if isinstance(program, list) else program
+
+        return f"""Based on this detailed dance performance analysis, create a compelling one-line summary that captures the performance's essence in 8-12 words.
+
+Title: {title}
+Company: {company}
+Choreographer: {choreographer}
+Series: {series}
+Program / Repertoire: {program_text}
+Venue: {venue}
+
+Detailed Analysis:
+{description}
+
+Extract the choreographic style, repertoire, and dramatic atmosphere from this analysis. Examples:
+- "Balanchine neoclassicism meets Forsythe's fractured geometry on Ballet Austin's stage"
+- "All-Tharp evening pairs Nine Sinatra Songs with In the Upper Room"
+- "Stowell's Swan Lake — full-length romantic tragedy with live orchestra"
+
+Your one-line summary (8-12 words):"""
+
+    def _build_book_prompt(
+        self, title: str, description: str, event: Dict
+    ) -> Optional[str]:
+        """Build prompt for book club events.
+
+        Returns ``None`` when book/author metadata is absent — book-club
+        summaries without a specific title or author have no useful hook
+        to surface, so the caller skips the LLM call rather than raising.
+        Other malformed inputs (missing title/description, sub-50-char
+        analysis, missing event dict) still raise ``ValueError`` because
+        those are upstream pipeline failures, not normal-shape data gaps.
+        """
 
         # Fail fast - validate required inputs
         if not title or not title.strip():
@@ -632,18 +733,17 @@ Your one-line summary (8-12 words):"""
 
         if not event:
             raise ValueError(
-                f"Book club event '{title}' missing event data dictionary - cannot extract venue, book, author information"
+                f"Book club event '{title}' missing essential event data dictionary - cannot extract venue, book, author information"
             )
 
         venue = event.get("venue", "")
         book = event.get("book", "")
         author = event.get("author", "")
 
-        # Validate that we have at least some book metadata
+        # Skip gracefully when book/author metadata is absent: a generic
+        # one-liner adds no signal beyond the title already on the card.
         if not book and not author:
-            raise ValueError(
-                f"Book club event '{title}' missing essential metadata - need at least book title or author to generate meaningful summary"
-            )
+            return None
 
         return f"""Based on this detailed book analysis, create a compelling one-line summary that captures the book's essence in 8-12 words.
 

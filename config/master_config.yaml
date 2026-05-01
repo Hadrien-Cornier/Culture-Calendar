@@ -697,4 +697,39 @@ venues:
     enrichment:
       enabled: true
 
+# ---------------------------------------------------------------------------
+# Classical / opera / ballet season refresh (scripts/refresh_classical_data.py)
+# Maps the JSON keys in docs/classical_data.json + docs/ballet_data.json to
+# the snake_case venue keys above so the Perplexity prompt builder can pull
+# display_name / address. Keep keys in sync with CLASSICAL_VENUE_KEYS and
+# BALLET_VENUE_KEYS in scripts/refresh_classical_data.py.
+# ---------------------------------------------------------------------------
+classical_refresh:
+  recency_filter: month
+  venues:
+    austinSymphony:
+      config_key: austin_symphony
+      event_type: concert
+      season_url: "https://my.austinsymphony.org/events"
+    earlyMusicAustin:
+      config_key: early_music_austin
+      event_type: concert
+      season_url: "https://www.early-music.org/concerts"
+    laFolliaAustin:
+      config_key: la_follia
+      event_type: concert
+      season_url: "https://lafollia.org/concerts"
+    austinChamberMusic:
+      config_key: austin_chamber_music
+      event_type: concert
+      season_url: "https://austinchambermusic.org/concerts"
+    austinOpera:
+      config_key: austin_opera
+      event_type: opera
+      season_url: "https://austinopera.org/season"
+    balletAustin:
+      config_key: ballet_austin
+      event_type: dance
+      season_url: "https://balletaustin.org/performances"
+
 

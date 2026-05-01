@@ -14,8 +14,17 @@
   --mid: #c08030;
   --lo: #a02020;
   --max: 1000px;
-  --serif: "Saol Display", "Didot", "Bodoni Moda", "Playfair Display", serif;
-  --sans: "Helvetica Neue", "Arial", sans-serif;
+  --serif: "Source Serif 4", "Source Serif Pro", "Saol Display", "Didot", "Bodoni Moda", "Playfair Display", Georgia, serif;
+  --sans: "Inter", "Helvetica Neue", "Arial", system-ui, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  /* task-5.5: heading-tier scales use clamp() so type fluidly shrinks on
+     phones without per-breakpoint pixel overrides. Lower bounds match the
+     prior @320px / @480px overrides; upper bounds match the desktop values. */
+  --text-md: clamp(1rem, 0.875rem + 0.4vw, 1.1875rem);
+  --text-lg: clamp(1.5rem, 1.25rem + 1.25vw, 1.75rem);
+  --text-xl: clamp(1.75rem, 0.95rem + 4vw, 3.5rem);
 }
 
 * { box-sizing: border-box; }
@@ -24,10 +33,15 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--serif);
-  font-size: 16px;
+  font-size: var(--text-base);
   line-height: 1.6;
   margin: 0;
   padding: 0;
+  /* task-5.6: Source Serif 4 ships an optical-size axis — opt in so the body
+     copy uses the Subhead/Small cuts at 14–17px and the Display cut at the
+     masthead, matching the rationale in docs/TYPOGRAPHY.md. */
+  font-optical-sizing: auto;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 .masthead {
@@ -42,7 +56,7 @@ body {
 }
 
 .masthead-title {
-  font-size: 56px;
+  font-size: var(--text-xl);
   font-weight: 800;
   letter-spacing: -0.02em;
   margin: 0;
@@ -312,6 +326,10 @@ body {
   border-radius: 3px;
   color: #fff;
   white-space: nowrap;
+  /* task-5.6: Inter's tabular figures keep "10/10" and "7/10" the same width
+     so rating columns align across cards — primary reason for choosing Inter
+     over the prior Helvetica fallback (see docs/TYPOGRAPHY.md). */
+  font-feature-settings: "tnum" 1, "cv01" 1;
 }
 
 .pick-rating--high, .rating-high { background: var(--hi); }
@@ -348,7 +366,7 @@ body {
 
 .event-title-text {
   font-family: var(--serif);
-  font-size: 19px;
+  font-size: var(--text-md);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: -0.01em;
@@ -847,9 +865,9 @@ body {
 .status.error { color: var(--lo); }
 
 @media (max-width: 480px) {
-  .masthead-title { font-size: 36px; }
+  /* task-5.5: masthead-title and event-title-text font-sizes now flow from
+     clamp() in :root, so no per-breakpoint pixel override needed here. */
   .event-header { grid-template-columns: 64px 1fr 24px; gap: 10px; padding: 12px; }
-  .event-title-text { font-size: 17px; }
   /* Mobile: drop the deep left indent under the rating column so review
      text uses the full viewport width — desktop alignment trades too much
      readable width on a 375px phone. */
@@ -1007,7 +1025,7 @@ body {
 }
 .landing-heading {
   font-family: var(--serif);
-  font-size: 28px;
+  font-size: var(--text-lg);
   font-weight: 700;
   letter-spacing: -0.01em;
   margin: 0 0 16px;
@@ -1051,9 +1069,9 @@ body {
 #event-search { padding-right: 44px; }
 
 @media (max-width: 320px) {
-  .masthead-title { font-size: 28px; }
+  /* task-5.5: masthead-title and event-title-text are sized via clamp() in
+     :root; the lower bounds already cover this breakpoint. */
   .event-header { grid-template-columns: 56px 1fr 32px; gap: 8px; padding: 10px; }
-  .event-title-text { font-size: 16px; }
   .event-panel, .event-card.is-expanded .event-panel { padding-left: 72px; padding-right: 10px; }
   .subscribe-links { gap: 10px; font-size: 10px; }
   #event-search { font-size: 13px; padding: 9px 40px 9px 12px; }

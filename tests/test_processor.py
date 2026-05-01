@@ -148,3 +148,132 @@ def test_process_events_routes_visual_arts_to_visual_arts_rating(monkeypatch):
     assert calls == ["visual_arts"]
     assert enriched["ai_rating"] == {"score": 7, "summary": "stub visual arts review"}
     assert enriched["description"] == "stub visual arts review"
+
+
+SAMPLE_DANCE_REVIEW = (
+    "★ Rating: 8/10\n"
+    "🎭 Choreographic Craft — Stephen Mills threads neoclassical phrases "
+    "through unison passages that carry real architectural weight.\n"
+    "✨ Performance Quality — the company dances with precise upper-body "
+    "carriage and a willingness to let silences in the score breathe.\n"
+    "📚 Cultural Significance — Ballet Austin's commitment to commissioned "
+    "work continues to position the city as a regional touchstone.\n"
+    "💡 Historical Context — the program nods to Balanchine's "
+    "string-quartet tradition while extending Mills's own vocabulary."
+)
+
+NISH_KUMAR_DANCE_REFUSAL = (
+    "I cannot provide a critical review of this performance because the "
+    "search results do not surface any specific information about it. "
+    "Writing such a review would be speculative rather than grounded in sources."
+)
+
+
+def _dance_event() -> Dict:
+    return {
+        "title": "The Sleeping Beauty",
+        "type": "dance",
+        "event_category": "dance",
+        "venue": "BalletAustin",
+        "url": "https://example.org/sleeping-beauty",
+        "dates": ["2026-05-15"],
+        "times": ["19:30"],
+        "program": "Tchaikovsky's The Sleeping Beauty",
+        "series": "Ballet Austin 2025-2026 Season",
+    }
+
+
+@pytest.mark.unit
+def test_get_dance_rating_returns_default_without_api_key(monkeypatch):
+    processor = _make_processor(monkeypatch, api_key=None)
+    result = processor._get_dance_rating(_dance_event())
+    assert result == {"score": 5, "summary": "No API key provided"}
+
+
+@pytest.mark.unit
+def test_get_dance_rating_parses_successful_response(monkeypatch):
+    processor = _make_processor(monkeypatch)
+    monkeypatch.setattr(processor, "_call_perplexity", lambda prompt: SAMPLE_DANCE_REVIEW)
+
+    result = processor._get_dance_rating(_dance_event())
+
+    assert result["score"] == 8
+    assert "Choreographic Craft" in result["summary"]
+
+
+@pytest.mark.unit
+def test_get_dance_rating_retries_on_refusal(monkeypatch):
+    processor = _make_processor(monkeypatch)
+    responses = iter([NISH_KUMAR_DANCE_REFUSAL, NISH_KUMAR_DANCE_REFUSAL, SAMPLE_DANCE_REVIEW])
+    monkeypatch.setattr(processor, "_call_perplexity", lambda prompt: next(responses))
+
+    result = processor._get_dance_rating(_dance_event())
+
+    assert result["score"] == 8
+    assert "Choreographic Craft" in result["summary"]
+
+
+@pytest.mark.unit
+def test_get_dance_rating_falls_through_on_all_refusals(monkeypatch):
+    processor = _make_processor(monkeypatch)
+    monkeypatch.setattr(processor, "_call_perplexity", lambda prompt: NISH_KUMAR_DANCE_REFUSAL)
+    monkeypatch.setattr(
+        processor,
+        "_claude_fallback_dance",
+        lambda event, details: None,
+    )
+
+    result = processor._get_dance_rating(_dance_event())
+
+    assert result["score"] == 5
+    assert "Unable to evaluate" in result["summary"]
+    assert "The Sleeping Beauty" in result["summary"]
+
+
+@pytest.mark.unit
+def test_dance_strict_prompt_uses_dance_critic_sections(monkeypatch):
+    processor = _make_processor(monkeypatch)
+    details = (
+        "Performance: The Sleeping Beauty\n"
+        "Company: BalletAustin\n"
+        "Choreographer: Stephen Mills\n"
+        "Program / Repertoire: Tchaikovsky's The Sleeping Beauty"
+    )
+
+    prompt = processor._build_dance_prompt_strict(details)
+
+    # Dance-critic framing — choreography, performance, repertoire context.
+    assert "dance critic" in prompt.lower()
+    assert "Choreographic Craft" in prompt
+    assert "Performance Quality" in prompt
+    assert "Historical Context" in prompt
+    # Must NOT reuse cinematic / musical / visual-arts framing.
+    assert "Artistic Merit" not in prompt
+    assert "Intellectual Depth" not in prompt
+    assert "Formal Qualities" not in prompt
+
+
+@pytest.mark.unit
+def test_process_events_routes_dance_to_dance_rating(monkeypatch):
+    processor = _make_processor(monkeypatch)
+
+    calls: List[str] = []
+
+    def _dance_stub(event: Dict) -> Dict:
+        calls.append("dance")
+        return {"score": 7, "summary": "stub dance review"}
+
+    def _fail(*_args, **_kwargs):  # pragma: no cover - guard, should not run
+        raise AssertionError("wrong rating branch taken for dance event")
+
+    monkeypatch.setattr(processor, "_get_dance_rating", _dance_stub)
+    monkeypatch.setattr(processor, "_get_classical_rating", _fail)
+    monkeypatch.setattr(processor, "_get_book_club_rating", _fail)
+    monkeypatch.setattr(processor, "_get_visual_arts_rating", _fail)
+    monkeypatch.setattr(processor, "_get_ai_rating", _fail)
+
+    [enriched] = processor.process_events([_dance_event()])
+
+    assert calls == ["dance"]
+    assert enriched["ai_rating"] == {"score": 7, "summary": "stub dance review"}
+    assert enriched["description"] == "stub dance review"
