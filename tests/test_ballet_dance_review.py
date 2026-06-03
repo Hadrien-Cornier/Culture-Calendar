@@ -30,8 +30,9 @@ from typing import Dict, List
 
 import pytest
 
+from src.config_loader import ConfigLoader
 from src.processor import EventProcessor
-from src.scrapers.ballet_austin_scraper import BalletAustinScraper
+from src.scrapers._static_json_scraper import StaticJsonScraper
 from src.summary_generator import SummaryGenerator
 
 # ---------------------------------------------------------------------------
@@ -104,15 +105,28 @@ def ballet_data_file(tmp_path: Path) -> Path:
 
 
 @pytest.fixture
-def ballet_scraper(ballet_data_file: Path, monkeypatch) -> BalletAustinScraper:
-    """A BalletAustinScraper pointed at the fixture instead of docs/."""
+def ballet_scraper(ballet_data_file: Path, monkeypatch) -> StaticJsonScraper:
+    """A StaticJsonScraper configured for Ballet Austin from the consolidated
+    ``static_json_scrapers`` config, pointed at the fixture instead of docs/."""
     # No API keys needed — the scraper just reads JSON. LLMService init in
     # BaseScraper tolerates missing keys (it logs a warning and continues).
     monkeypatch.delenv("PERPLEXITY_API_KEY", raising=False)
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
-    scraper = BalletAustinScraper()
-    scraper.data_file = str(ballet_data_file)
+    config = ConfigLoader()
+    params = config.get_static_json_scrapers()["ballet_austin"]
+    scraper = StaticJsonScraper(
+        base_url=params["base_url"],
+        venue_name=params["venue_name"],
+        venue_key="ballet_austin",
+        config=config,
+        data_file=str(ballet_data_file),
+        top_level_key=params["top_level_key"],
+        default_event_type=params["default_event_type"],
+        default_time=params["default_time"],
+        default_location=params["default_location"],
+        expand_dates=params["expand_dates"],
+    )
     return scraper
 
 
