@@ -18,12 +18,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Pull latest changes
-        # Reconcile explicitly (merge, no editor) so the step is robust when
-        # the checked-out ref has diverged from main — e.g. a workflow_dispatch
-        # run on a feature branch. On a scheduled run against main this is a
-        # no-op fast-forward. Without this, git 2.27+ aborts with "Need to
-        # specify how to reconcile divergent branches".
-        run: git pull --no-edit --no-rebase origin main
+        # Best-effort: pick up any commits that landed on main since this run
+        # was queued. This must never abort the job — on a workflow_dispatch
+        # against a feature branch the shallow checkout shares no history with
+        # main ("refusing to merge unrelated histories" / "divergent
+        # branches"), so fall back to the already-checked-out ref. On a
+        # scheduled run against main it's a no-op fast-forward.
+        run: git pull --no-edit --no-rebase origin main || echo "Skipping pull; using checked-out ref"
 
       - name: Set up Python
         uses: actions/setup-python@v5
