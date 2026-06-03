@@ -203,9 +203,13 @@ class EventValidationService:
             }}
             """
 
-            # Get LLM validation - use anthropic client directly
+            # Get LLM validation - use anthropic client directly.
+            # Use the model the LLMService configured for its active provider
+            # (claude-haiku-4-5 on Anthropic) instead of a hardcoded id; the
+            # previous "google/gemini-2.5-flash" 404'd against the Anthropic
+            # client, silently disabling all content validation in CI.
             response = self.llm_service.anthropic.messages.create(
-                model="google/gemini-2.5-flash",
+                model=self.llm_service.model,
                 max_tokens=200,
                 temperature=0.1,
                 messages=[{"role": "user", "content": prompt}],

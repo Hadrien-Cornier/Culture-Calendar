@@ -355,4 +355,9 @@ class MultiVenueScraper:
         elif venue == "Paramount":
             return self.paramount_scraper.get_event_details(event)
         else:
-            return self.afs_scraper.get_event_details(event["url"])
+            # Only AFS-style events with a detail URL can be expanded here.
+            # Other venues (e.g. Livra book clubs) have no per-event URL and no
+            # AFS detail handler, so keep the list-level data we already have.
+            if "url" in event and hasattr(self.afs_scraper, "get_event_details"):
+                return self.afs_scraper.get_event_details(event["url"])
+            return {}

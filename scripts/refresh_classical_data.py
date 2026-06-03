@@ -432,7 +432,14 @@ def refresh_venues(
     """Call ``fetcher(venue_key)`` for each requested venue, validating each result."""
     results: list[RefreshResult] = []
     for venue_key in venue_keys:
-        events = fetcher(venue_key)
+        try:
+            events = fetcher(venue_key)
+        except LLMFetchError as exc:
+            # A single venue with no confirmed upcoming events (e.g. a symphony
+            # in its off-season) must not abort the entire monthly refresh.
+            # Skip it and keep going so the other venues still update.
+            print(f"  WARNING: skipping {venue_key}: {exc}", file=sys.stderr)
+            continue
         if not isinstance(events, list):
             raise ValueError(f"fetcher for {venue_key} returned {type(events).__name__}, expected list")
         for idx, ev in enumerate(events):

@@ -1,0 +1,68 @@
+name: Daily Incremental Update
+
+on:
+  schedule:
+    # Every day at 11:00 UTC (6 AM CST / 5 AM CDT in Austin), before the
+    # workday. Incremental: only newly discovered events are AI-processed, so
+    # most days are cheap cache hits. Keeps the site from drifting stale between
+    # the Saturday weekly run and the monthly classical refresh.
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  daily-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install playwright
+
+      - name: Install Playwright Chromium
+        # Needed by AlienatedMajesty scraper (book-clubs page is JS-rendered).
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run daily incremental update
+        env:
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "Running daily incremental update (7-day look-ahead)"
+          python update_website_data.py --days 7 --validate
+
+      - name: Verify update results
+        run: |
+          python scripts/verify_calendar.py --offline
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action - Daily Update"
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add docs/data.json docs/source_update_times.json docs/weekly/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Daily incremental update - $(date -u +%Y-%m-%d)"
+            git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+          fi
