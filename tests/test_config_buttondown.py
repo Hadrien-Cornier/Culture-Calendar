@@ -38,8 +38,7 @@ def test_distribution_config_returns_dict(config: ConfigLoader) -> None:
 @pytest.mark.unit
 def test_buttondown_endpoint_round_trips(tmp_path) -> None:
     """Write a config with a non-empty endpoint and verify the loader reads it back."""
-    sample = textwrap.dedent(
-        """
+    sample = textwrap.dedent("""
         version: 1
         style:
           field_naming: snake_case
@@ -78,8 +77,7 @@ def test_buttondown_endpoint_round_trips(tmp_path) -> None:
             classification:
               enabled: false
               assumed_event_category: movie
-        """
-    ).strip()
+        """).strip()
 
     config_file = tmp_path / "sample_master_config.yaml"
     config_file.write_text(sample, encoding="utf-8")
@@ -100,8 +98,7 @@ def test_buttondown_endpoint_round_trips(tmp_path) -> None:
 @pytest.mark.unit
 def test_buttondown_endpoint_empty_when_section_missing(tmp_path) -> None:
     """Loader returns empty string when the distribution section is absent."""
-    sample = textwrap.dedent(
-        """
+    sample = textwrap.dedent("""
         version: 1
         style:
           field_naming: snake_case
@@ -131,8 +128,7 @@ def test_buttondown_endpoint_empty_when_section_missing(tmp_path) -> None:
             classification:
               enabled: false
               assumed_event_category: movie
-        """
-    ).strip()
+        """).strip()
 
     config_file = tmp_path / "sample_no_distribution.yaml"
     config_file.write_text(sample, encoding="utf-8")

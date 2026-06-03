@@ -5,6 +5,7 @@ Guards the shared slug contract consumed by ``build_event_shells`` and
 so that ``#event=<slug>`` deep links resolve consistently across feed
 subscribers, crawlers, and in-app navigation.
 """
+
 from __future__ import annotations
 
 import sys

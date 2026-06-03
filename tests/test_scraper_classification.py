@@ -152,7 +152,9 @@ def test_processor_skips_llm_for_type_other_with_prefilled_description(monkeypat
     }
 
     def _fail(*_args, **_kwargs):
-        raise AssertionError("LLM path must not run for type=other with pre-filled description")
+        raise AssertionError(
+            "LLM path must not run for type=other with pre-filled description"
+        )
 
     # If any of these are invoked, the short-circuit is broken.
     monkeypatch.setattr(processor, "_get_ai_rating", _fail)

@@ -18,7 +18,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Pull latest changes
-        run: git pull origin main
+        # Best-effort: pick up any commits that landed on main since this run
+        # was queued. This must never abort the job — on a workflow_dispatch
+        # against a feature branch the shallow checkout shares no history with
+        # main ("refusing to merge unrelated histories" / "divergent
+        # branches"), so fall back to the already-checked-out ref. On a
+        # scheduled run against main it's a no-op fast-forward.
+        run: git pull --no-edit --no-rebase origin main || echo "Skipping pull; using checked-out ref"
 
       - name: Set up Python
         uses: actions/setup-python@v5

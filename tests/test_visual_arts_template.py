@@ -57,18 +57,18 @@ def test_visual_arts_required_fields(visual_arts_template: dict) -> None:
 def test_visual_arts_optional_fields_declared(visual_arts_template: dict) -> None:
     fields = set(visual_arts_template.get("fields", []))
     for optional_field in ("artist", "artists", "medium", "series"):
-        assert optional_field in fields, (
-            f"visual_arts template is missing optional field '{optional_field}'"
-        )
+        assert (
+            optional_field in fields
+        ), f"visual_arts template is missing optional field '{optional_field}'"
 
 
 @pytest.mark.unit
 def test_visual_arts_optional_fields_not_required(visual_arts_template: dict) -> None:
     required = set(visual_arts_template.get("required_on_publish", []))
     for optional_field in ("artist", "artists", "medium", "series"):
-        assert optional_field not in required, (
-            f"'{optional_field}' should be optional, not required_on_publish"
-        )
+        assert (
+            optional_field not in required
+        ), f"'{optional_field}' should be optional, not required_on_publish"
 
 
 @pytest.mark.unit
@@ -92,6 +92,6 @@ def test_visual_arts_grouping_via_helper(config: ConfigLoader) -> None:
 def test_visual_arts_artists_field_is_list_type(visual_arts_template: dict) -> None:
     field_defs = visual_arts_template.get("field_definitions", {})
     if "artists" in field_defs:
-        assert field_defs["artists"].get("type") == "array", (
-            "artists field should be declared as array type"
-        )
+        assert (
+            field_defs["artists"].get("type") == "array"
+        ), "artists field should be declared as array type"

@@ -4,6 +4,7 @@ Covers ISO-week selection, pick ranking, review-section porting from
 ``parseReview`` (docs/script.js:561-587), and HTML rendering contracts
 (webcal link, deep-link anchors, rating badge, empty-week fallback).
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -38,7 +39,7 @@ SUNDAY = date(2026, 4, 26)
 
 SAMPLE_DESC = (
     "<p>\u2605 <strong>Rating: 8/10</strong></p>"
-    "<p>\U0001F3AD <strong>Artistic Merit</strong> \u2013 "
+    "<p>\U0001f3ad <strong>Artistic Merit</strong> \u2013 "
     "Crisp period performance of Castello canzonas with keen articulation.</p>"
     "<p>\u2728 <strong>Originality</strong> \u2013 Pulls from obscure figures "
     "beyond the Monteverdi canon.</p>"
@@ -160,7 +161,7 @@ def test_parse_review_collects_labelled_sections():
 def test_parse_review_captures_leading_emoji():
     review = bwd.parse_review(SAMPLE_DESC)
     emojis = [s.emoji for s in review.sections]
-    assert emojis[0] == "\U0001F3AD"  # 🎭
+    assert emojis[0] == "\U0001f3ad"  # 🎭
     assert emojis[1] == "\u2728"  # ✨
 
 
@@ -350,6 +351,7 @@ def test_main_all_upcoming_generates_one_file_per_week(tmp_path, monkeypatch):
                 @staticmethod
                 def date():
                     return frozen
+
             return _D()
 
     monkeypatch.setattr(bwd, "datetime", _FrozenDateTime)

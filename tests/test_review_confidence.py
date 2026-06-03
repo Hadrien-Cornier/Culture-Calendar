@@ -13,7 +13,6 @@ import pytest
 
 from src.processor import EventProcessor
 
-
 REFUSAL_STYLE_SUMMARY = (
     "I cannot provide a critical review of this show because the search "
     "results do not contain any relevant information about the performer. "

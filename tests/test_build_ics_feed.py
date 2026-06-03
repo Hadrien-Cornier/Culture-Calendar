@@ -3,6 +3,7 @@
 Covers screening flattening, datetime parsing, top-picks filtering, and
 that the emitted ICS bytes parse back through ``icalendar.Calendar``.
 """
+
 from __future__ import annotations
 
 import importlib.util

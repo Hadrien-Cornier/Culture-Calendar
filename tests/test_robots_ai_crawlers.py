@@ -8,6 +8,7 @@ Pins:
 * The ``Sitemap`` directive points at the configured base URL.
 * The generator is idempotent.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -48,9 +49,9 @@ br = _load_module()
 def test_render_robots_contains_agent_block(agent: str) -> None:
     body = br.render_robots()
     pattern = rf"^User-agent:\s*{re.escape(agent)}\s*$"
-    assert re.search(pattern, body, flags=re.MULTILINE), (
-        f"Missing explicit User-agent block for {agent}"
-    )
+    assert re.search(
+        pattern, body, flags=re.MULTILINE
+    ), f"Missing explicit User-agent block for {agent}"
 
 
 def test_render_robots_preserves_wildcard_allow() -> None:
@@ -111,9 +112,9 @@ def test_live_robots_file_allowlists_agent(agent: str) -> None:
     assert LIVE_ROBOTS.is_file(), "docs/robots.txt missing — regenerate it"
     body = LIVE_ROBOTS.read_text(encoding="utf-8")
     pattern = rf"^User-agent:\s*{re.escape(agent)}\s*$"
-    assert re.search(pattern, body, flags=re.MULTILINE), (
-        f"docs/robots.txt missing {agent} block — run scripts/build_robots.py"
-    )
+    assert re.search(
+        pattern, body, flags=re.MULTILINE
+    ), f"docs/robots.txt missing {agent} block — run scripts/build_robots.py"
 
 
 def test_live_robots_file_has_sitemap_line() -> None:

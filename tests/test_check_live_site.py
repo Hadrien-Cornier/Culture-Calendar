@@ -5,6 +5,7 @@ Pyppeteer is fully mocked: no real browser launches here. The module's
 touched during tests. One subprocess-based test verifies ``--help``
 still exits 0 without any spec file.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -144,7 +145,10 @@ def test_body_contains_pass():
 
 
 def test_body_contains_fail():
-    spec = {"url": "about:blank", "asserts": [{"type": "body_contains", "text": "nope"}]}
+    spec = {
+        "url": "about:blank",
+        "asserts": [{"type": "body_contains", "text": "nope"}],
+    }
     failures, _ = _run_spec(spec, [False])
     assert len(failures) == 1
     assert "nope" in failures[0].reason
@@ -152,26 +156,38 @@ def test_body_contains_fail():
 
 
 def test_body_not_contains_pass():
-    spec = {"url": "about:blank", "asserts": [{"type": "body_not_contains", "text": "bad"}]}
+    spec = {
+        "url": "about:blank",
+        "asserts": [{"type": "body_not_contains", "text": "bad"}],
+    }
     failures, _ = _run_spec(spec, [False])
     assert failures == []
 
 
 def test_body_not_contains_fail():
-    spec = {"url": "about:blank", "asserts": [{"type": "body_not_contains", "text": "bad"}]}
+    spec = {
+        "url": "about:blank",
+        "asserts": [{"type": "body_not_contains", "text": "bad"}],
+    }
     failures, _ = _run_spec(spec, [True])
     assert len(failures) == 1
     assert "bad" in failures[0].reason
 
 
 def test_selector_exists_pass():
-    spec = {"url": "about:blank", "asserts": [{"type": "selector_exists", "selector": ".x"}]}
+    spec = {
+        "url": "about:blank",
+        "asserts": [{"type": "selector_exists", "selector": ".x"}],
+    }
     failures, _ = _run_spec(spec, [3])
     assert failures == []
 
 
 def test_selector_exists_fail_on_zero():
-    spec = {"url": "about:blank", "asserts": [{"type": "selector_exists", "selector": ".x"}]}
+    spec = {
+        "url": "about:blank",
+        "asserts": [{"type": "selector_exists", "selector": ".x"}],
+    }
     failures, _ = _run_spec(spec, [0])
     assert len(failures) == 1
     assert ".x" in failures[0].reason
@@ -337,9 +353,7 @@ def _make_launch_fn(evaluate_returns_per_attempt):
 def test_execute_retries_then_passes():
     spec = {"url": "about:blank", "asserts": [{"type": "body_contains", "text": "ok"}]}
     fake_launch, state = _make_launch_fn([[False], [False], [True]])
-    failures = cls.execute(
-        spec, retries=2, launch=fake_launch, sleep_fn=lambda _: None
-    )
+    failures = cls.execute(spec, retries=2, launch=fake_launch, sleep_fn=lambda _: None)
     assert failures == []
     assert state["call"] == 3
 
@@ -347,9 +361,7 @@ def test_execute_retries_then_passes():
 def test_execute_returns_failures_after_retries_exhausted():
     spec = {"url": "about:blank", "asserts": [{"type": "body_contains", "text": "no"}]}
     fake_launch, state = _make_launch_fn([[False], [False]])
-    failures = cls.execute(
-        spec, retries=1, launch=fake_launch, sleep_fn=lambda _: None
-    )
+    failures = cls.execute(spec, retries=1, launch=fake_launch, sleep_fn=lambda _: None)
     assert len(failures) == 1
     assert state["call"] == 2
 
@@ -357,9 +369,7 @@ def test_execute_returns_failures_after_retries_exhausted():
 def test_execute_zero_retries_single_attempt():
     spec = {"url": "about:blank", "asserts": [{"type": "body_contains", "text": "no"}]}
     fake_launch, state = _make_launch_fn([[False]])
-    failures = cls.execute(
-        spec, retries=0, launch=fake_launch, sleep_fn=lambda _: None
-    )
+    failures = cls.execute(spec, retries=0, launch=fake_launch, sleep_fn=lambda _: None)
     assert len(failures) == 1
     assert state["call"] == 1
 

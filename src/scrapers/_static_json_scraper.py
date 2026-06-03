@@ -150,9 +150,7 @@ class StaticJsonScraper(BaseScraper):
             else:
                 if not times and dates:
                     times = [self.default_time] * len(dates)
-                standardized.append(
-                    self._build_event(event, dates=dates, times=times)
-                )
+                standardized.append(self._build_event(event, dates=dates, times=times))
 
         print(f"Loaded {len(standardized)} {self.venue_name} events from JSON")
         return standardized

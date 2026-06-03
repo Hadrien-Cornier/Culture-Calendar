@@ -5,6 +5,7 @@ first), HTML rendering contracts (weekly/ hrefs, rating-agnostic count
 fallback, empty-dir placeholder), and end-to-end ``write_archive``
 round-tripping through a temp directory.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -31,7 +32,7 @@ ba = _load_module()
 SAMPLE_HTML_WITH_META = (
     "<!DOCTYPE html>\n"
     '<html lang="en"><head><meta charset="utf-8">'
-    '<title>Top Picks · Week of Apr 20, 2026 — Culture Calendar</title>'
+    "<title>Top Picks · Week of Apr 20, 2026 — Culture Calendar</title>"
     '<meta name="description" content="AI-curated Austin cultural events for '
     'April 20–26, 2026. 20 top picks with reviews."></head>'
     '<body class="weekly-digest"><ol class="weekly-picks">'

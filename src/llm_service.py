@@ -123,7 +123,9 @@ class LLMService:
         if self.provider is None and not self.perplexity_api_key:
             print("Warning: No LLM API keys found. LLM features will be disabled.")
 
-    def _chat(self, system: str, user: str, max_tokens: int = 2000, temperature: float = 0.1) -> Optional[str]:
+    def _chat(
+        self, system: str, user: str, max_tokens: int = 2000, temperature: float = 0.1
+    ) -> Optional[str]:
         """Send a system+user prompt, return the assistant text or None on error."""
         if self.provider == "anthropic":
             try:
@@ -181,9 +183,15 @@ class LLMService:
         prompt = self._create_extraction_prompt(content, schema, content_type)
         time.sleep(1)
 
-        text = self._chat(_EXTRACTION_SYSTEM_PROMPT, prompt, max_tokens=2000, temperature=0.1)
+        text = self._chat(
+            _EXTRACTION_SYSTEM_PROMPT, prompt, max_tokens=2000, temperature=0.1
+        )
         if text is None:
-            error_result = {"success": False, "error": "LLM call returned no text", "data": {}}
+            error_result = {
+                "success": False,
+                "error": "LLM call returned no text",
+                "data": {},
+            }
             self.extraction_cache[cache_key] = error_result
             return error_result
 
@@ -217,10 +225,14 @@ class LLMService:
             print("Using cached validation result")
             return self.validation_cache[cache_key]
 
-        prompt = self._create_validation_prompt(extracted_data, schema, original_content)
+        prompt = self._create_validation_prompt(
+            extracted_data, schema, original_content
+        )
         time.sleep(1)
 
-        text = self._chat(_VALIDATION_SYSTEM_PROMPT, prompt, max_tokens=1000, temperature=0.1)
+        text = self._chat(
+            _VALIDATION_SYSTEM_PROMPT, prompt, max_tokens=1000, temperature=0.1
+        )
         if text is None:
             error_result = {
                 "is_valid": False,
@@ -270,7 +282,9 @@ Reason: [brief explanation]
 """
 
             time.sleep(1)
-            content_text = self._chat(_VALIDATION_SYSTEM_PROMPT, prompt, max_tokens=500, temperature=0.1)
+            content_text = self._chat(
+                _VALIDATION_SYSTEM_PROMPT, prompt, max_tokens=500, temperature=0.1
+            )
             if content_text is None:
                 return self._simple_similarity(event1, event2)
 
@@ -543,25 +557,25 @@ Focus on whether the data represents a plausible real-world event.
         schema_hash = hashlib.md5(str(schema).encode("utf-8")).hexdigest()[:16]
 
         return f"{operation}_{content_hash}_{schema_hash}"
-    
+
     def call_perplexity(
-        self, 
-        prompt: str, 
+        self,
+        prompt: str,
         temperature: float = 0.2,
         model: str = "sonar",
         search_domain_filter: Optional[list] = None,
-        search_recency_filter: Optional[str] = None
+        search_recency_filter: Optional[str] = None,
     ) -> Optional[Dict]:
         """
         Call Perplexity API for classification and enrichment
-        
+
         Args:
             prompt: User prompt for the query
             temperature: Temperature for response generation (0.0-2.0)
             model: Perplexity model to use
             search_domain_filter: List of domains to restrict search to
             search_recency_filter: Time filter for search results (e.g., "day", "week", "month", "year")
-            
+
         Returns:
             Parsed response or None if error
         """
@@ -570,7 +584,7 @@ Focus on whether the data represents a plausible real-world event.
             if self.provider is not None:
                 return self._call_anthropic_json(prompt, temperature)
             return None
-        
+
         try:
             # Build request payload
             payload = {
@@ -578,57 +592,58 @@ Focus on whether the data represents a plausible real-world event.
                 "messages": [
                     {
                         "role": "system",
-                        "content": "You are a precise event classification and data extraction assistant. Always respond in valid JSON format only."
+                        "content": "You are a precise event classification and data extraction assistant. Always respond in valid JSON format only.",
                     },
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
+                    {"role": "user", "content": prompt},
                 ],
                 "temperature": temperature,
                 "top_p": 0.9,
-                "frequency_penalty": 1
+                "frequency_penalty": 1,
             }
-            
+
             # Add search filters if provided
             if search_domain_filter:
                 payload["search_domain_filter"] = search_domain_filter
             if search_recency_filter:
                 payload["search_recency_filter"] = search_recency_filter
-            
+
             # Make API request
             headers = {
                 "Authorization": f"Bearer {self.perplexity_api_key}",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             }
-            
+
             response = requests.post(
                 f"{self.perplexity_base_url}/chat/completions",
                 headers=headers,
                 json=payload,
-                timeout=30
+                timeout=30,
             )
-            
+
             if response.status_code == 200:
                 data = response.json()
-                content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
-                
+                content = (
+                    data.get("choices", [{}])[0].get("message", {}).get("content", "")
+                )
+
                 # Parse JSON from response
                 json_start = content.find("{")
                 json_end = content.rfind("}") + 1
-                
+
                 if json_start != -1 and json_end > json_start:
                     json_str = content[json_start:json_end]
                     return json.loads(json_str)
             else:
                 print(f"Perplexity API error: {response.status_code} - {response.text}")
-                
+
         except Exception as e:
             print(f"Error calling Perplexity API: {e}")
-        
+
         return None
-    
-    def _call_anthropic_json(self, prompt: str, temperature: float = 0.2) -> Optional[Dict]:
+
+    def _call_anthropic_json(
+        self, prompt: str, temperature: float = 0.2
+    ) -> Optional[Dict]:
         """Call the configured LLM and parse the response as JSON.
 
         Despite the historical method name, this routes through whichever
@@ -636,7 +651,9 @@ Focus on whether the data represents a plausible real-world event.
         the parsed dict, or None if the call fails or the response isn't JSON.
         """
         time.sleep(1)
-        text = self._chat(_EXTRACTION_SYSTEM_PROMPT, prompt, max_tokens=2000, temperature=temperature)
+        text = self._chat(
+            _EXTRACTION_SYSTEM_PROMPT, prompt, max_tokens=2000, temperature=temperature
+        )
         if not text:
             return None
         try:

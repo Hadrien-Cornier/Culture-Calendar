@@ -3,6 +3,7 @@
 Covers: event normalization, title wrapping, XML-escaping, rating badge
 selection, filename safety, stale-card cleanup, and CLI entrypoint.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -95,7 +96,9 @@ def test_wrap_title_respects_max_lines_with_ellipsis():
 
 
 def test_wrap_title_handles_oversized_word():
-    lines = boc._wrap_title("supercalifragilisticexpialidocious", max_chars=10, max_lines=2)
+    lines = boc._wrap_title(
+        "supercalifragilisticexpialidocious", max_chars=10, max_lines=2
+    )
     assert lines[0].endswith("\u2026")
     assert len(lines[0]) == 10
 
@@ -188,7 +191,7 @@ def test_render_svg_escapes_dangerous_title_chars():
 def test_render_svg_is_well_formed_xml():
     card = boc.CardData(
         event_id="id-4",
-        title="Some & <chars> like \"quotes\"",
+        title='Some & <chars> like "quotes"',
         venue="Venue",
         date="2026-05-01",
         rating=7,

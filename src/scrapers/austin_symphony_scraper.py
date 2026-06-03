@@ -11,7 +11,9 @@ from src.scrapers._static_json_scraper import StaticJsonScraper
 
 
 class AustinSymphonyScraper(StaticJsonScraper):
-    def __init__(self, config: Optional[Any] = None, venue_key: str = "austin_symphony"):
+    def __init__(
+        self, config: Optional[Any] = None, venue_key: str = "austin_symphony"
+    ):
         super().__init__(
             base_url="https://austinsymphony.org",
             venue_name="Symphony",

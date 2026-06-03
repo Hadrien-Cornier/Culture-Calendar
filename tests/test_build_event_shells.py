@@ -150,7 +150,7 @@ class TestRenderHtml:
     def test_json_ld_escapes_closing_script(self):
         """A hostile ``</script>`` inside a JSON-LD string must not terminate the block."""
         shell = bes._shell_from_event(
-            _event(title='X</script><img src=x onerror=alert(1)>', id="json-xss")
+            _event(title="X</script><img src=x onerror=alert(1)>", id="json-xss")
         )
         html = bes.render_shell_html(shell)
         match = re.search(
@@ -267,7 +267,10 @@ class TestJsonLdPostalAddress:
         )
         payload = json.loads(bes._json_ld(shell))
         assert payload["location"]["name"] == "Austin Film Society"
-        assert payload["location"]["address"]["streetAddress"] == "6226 Middle Fiskville Rd"
+        assert (
+            payload["location"]["address"]["streetAddress"]
+            == "6226 Middle Fiskville Rd"
+        )
         assert payload["location"]["address"]["postalCode"] == "78752"
 
     def test_event_level_metadata_wins_over_fallback(self):

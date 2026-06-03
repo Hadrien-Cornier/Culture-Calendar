@@ -10,6 +10,7 @@ hallucinate that a feature is absent when the DOM proves otherwise.
 
 Pyppeteer is mocked everywhere — no browser launches.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -111,7 +112,9 @@ def _make_page(
     page.waitForSelector = AsyncMock()
     page.click = AsyncMock()
     page.type = AsyncMock()
-    page.evaluate = AsyncMock(side_effect=eval_fn) if eval_fn else AsyncMock(return_value=0)
+    page.evaluate = (
+        AsyncMock(side_effect=eval_fn) if eval_fn else AsyncMock(return_value=0)
+    )
     page.screenshot = AsyncMock(return_value=screenshot_bytes)
     page.content = AsyncMock(return_value=html)
     return page
@@ -217,9 +220,7 @@ def test_run_spec_and_capture_backcompat_three_tuple():
     page = _make_page()
     launcher, _ = _make_launcher(page)
     out = asyncio.run(
-        cls.run_spec_and_capture(
-            {"url": "about:blank", "asserts": []}, launch=launcher
-        )
+        cls.run_spec_and_capture({"url": "about:blank", "asserts": []}, launch=launcher)
     )
     assert len(out) == 3
 
@@ -476,7 +477,8 @@ def test_run_all_personas_forwards_ground_truth_to_build_messages(tmp_path):
         (
             b
             for b in user_content
-            if isinstance(b, dict) and b.get("type") == "text"
+            if isinstance(b, dict)
+            and b.get("type") == "text"
             and "Ground truth" in b.get("text", "")
         ),
         None,
@@ -541,11 +543,17 @@ def test_default_shared_fn_is_ground_truth_aware(monkeypatch, tmp_path):
 
     def stub_with_gt(spec):
         called.append("gt")
-        return (True, 0, "OK\n", "", "B64", "<html/>", {".a": {"exists": True, "count": 1}})
+        return (
+            True,
+            0,
+            "OK\n",
+            "",
+            "B64",
+            "<html/>",
+            {".a": {"exists": True, "count": 1}},
+        )
 
-    monkeypatch.setattr(
-        pc, "run_shared_page_capture_with_ground_truth", stub_with_gt
-    )
+    monkeypatch.setattr(pc, "run_shared_page_capture_with_ground_truth", stub_with_gt)
 
     class _FakeBlock:
         type = "tool_use"

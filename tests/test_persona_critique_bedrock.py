@@ -10,6 +10,7 @@ Each ``_fresh_module`` call reloads ``persona_critique`` under a fabricated
 ``os.environ`` so the module-level model-ID constants pick up the right
 defaults for the scenario under test.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -82,15 +83,18 @@ def _fresh_bench(monkeypatch: pytest.MonkeyPatch, env: dict[str, str | None]) ->
 # --- Bedrock mode flag ----------------------------------------------------
 
 
-@pytest.mark.parametrize("raw,expected", [
-    ("1", True),
-    ("true", True),
-    ("TRUE", True),
-    ("yes", True),
-    ("0", False),
-    ("false", False),
-    ("", False),
-])
+@pytest.mark.parametrize(
+    "raw,expected",
+    [
+        ("1", True),
+        ("true", True),
+        ("TRUE", True),
+        ("yes", True),
+        ("0", False),
+        ("false", False),
+        ("", False),
+    ],
+)
 def test_bedrock_mode_recognizes_truthy_values(
     monkeypatch: pytest.MonkeyPatch, raw: str, expected: bool
 ) -> None:
@@ -275,17 +279,13 @@ def test_model_accepts_temperature_skips_opus_substring(
     # Opus variants — direct + Bedrock inference profiles — both skip temp.
     assert mod._model_accepts_temperature("claude-opus-4-7") is False
     assert (
-        mod._model_accepts_temperature(
-            "us.anthropic.claude-opus-4-1-20250805-v1:0"
-        )
+        mod._model_accepts_temperature("us.anthropic.claude-opus-4-1-20250805-v1:0")
         is False
     )
     # Sonnet + Haiku accept temperature.
     assert mod._model_accepts_temperature("claude-sonnet-4-6") is True
     assert (
-        mod._model_accepts_temperature(
-            "us.anthropic.claude-haiku-4-5-20251001-v1:0"
-        )
+        mod._model_accepts_temperature("us.anthropic.claude-haiku-4-5-20251001-v1:0")
         is True
     )
 
@@ -335,15 +335,9 @@ def test_bench_personas_skips_api_key_check_in_bedrock_mode(
     )
 
     fake_per_model = {"claude-sonnet-4-6": {}}
-    monkeypatch.setattr(
-        bench, "benchmark_models", lambda *a, **kw: fake_per_model
-    )
-    monkeypatch.setattr(
-        bench, "select_model", lambda pm: ("claude-sonnet-4-6", {})
-    )
-    monkeypatch.setattr(
-        bench, "render_markdown", lambda pm, chosen, agreements: "# md"
-    )
+    monkeypatch.setattr(bench, "benchmark_models", lambda *a, **kw: fake_per_model)
+    monkeypatch.setattr(bench, "select_model", lambda pm: ("claude-sonnet-4-6", {}))
+    monkeypatch.setattr(bench, "render_markdown", lambda pm, chosen, agreements: "# md")
 
     out_md = tmp_path / "bench.md"
     out_config = tmp_path / "config.json"

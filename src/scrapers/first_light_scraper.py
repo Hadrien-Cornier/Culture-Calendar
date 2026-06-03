@@ -68,7 +68,11 @@ class FirstLightAustinScraper(BaseScraper):
             today = datetime.now()
             for fmt in ("%Y %A, %B %d", "%Y %B %d"):
                 try:
-                    base = cleaned_date.split(", ")[-1] if fmt == "%Y %B %d" else cleaned_date
+                    base = (
+                        cleaned_date.split(", ")[-1]
+                        if fmt == "%Y %B %d"
+                        else cleaned_date
+                    )
                     date_obj = datetime.strptime(f"{today.year} {base}", fmt)
                     if date_obj.month < today.month:
                         date_obj = date_obj.replace(year=today.year + 1)
@@ -240,7 +244,9 @@ class FirstLightAustinScraper(BaseScraper):
                         book_title = by_split[0].strip()
                         # Strip a trailing 'Meeting' fragment that crept in when there's no
                         # period between author name and the 'Meeting…' sentence.
-                        author = re.sub(r"\s*Meeting\s+the\b.*$", "", by_split[1]).strip()
+                        author = re.sub(
+                            r"\s*Meeting\s+the\b.*$", "", by_split[1]
+                        ).strip()
                     else:
                         book_title = selection_text
 

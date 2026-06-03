@@ -5,6 +5,7 @@ exclusion of ``variants/`` and ``og/``), URL canonicalisation for the
 index, XML round-tripping, ``lastmod`` emission, and the
 ``robots.txt`` body.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -165,7 +166,9 @@ def test_build_sitemap_emits_valid_xml(fake_docs: Path, tmp_path: Path):
 
     first_loc = url_elements[0].find(f"{{{bsm.SITEMAP_NS}}}loc")
     assert first_loc is not None and first_loc.text
-    assert first_loc.text.startswith("https://hadrien-cornier.github.io/Culture-Calendar/")
+    assert first_loc.text.startswith(
+        "https://hadrien-cornier.github.io/Culture-Calendar/"
+    )
 
 
 def test_build_sitemap_includes_lastmod_when_present(tmp_path: Path):
@@ -178,9 +181,7 @@ def test_build_sitemap_includes_lastmod_when_present(tmp_path: Path):
     out = tmp_path / "sitemap.xml"
     bsm.write_sitemap(entries, out_path=out)
     root = ET.parse(out).getroot()
-    lastmod = root.find(
-        f"{{{bsm.SITEMAP_NS}}}url/{{{bsm.SITEMAP_NS}}}lastmod"
-    )
+    lastmod = root.find(f"{{{bsm.SITEMAP_NS}}}url/{{{bsm.SITEMAP_NS}}}lastmod")
     assert lastmod is not None
     assert lastmod.text == "2026-04-20"
 
@@ -201,7 +202,10 @@ def test_render_robots_references_sitemap():
     body = bsm.render_robots()
     assert "User-agent: *" in body
     assert "Allow: /" in body
-    assert "Sitemap: https://hadrien-cornier.github.io/Culture-Calendar/sitemap.xml" in body
+    assert (
+        "Sitemap: https://hadrien-cornier.github.io/Culture-Calendar/sitemap.xml"
+        in body
+    )
 
 
 def test_write_robots_creates_file(tmp_path: Path):

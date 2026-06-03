@@ -4,6 +4,7 @@ Covers the public API shape of each endpoint (events, top-picks,
 venues, people, categories), HTML stripping, ranking / sorting,
 envelope invariants, the CLI entrypoint, and empty-input resilience.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -31,7 +32,13 @@ bapi = _load_module()
 
 
 NOW = datetime(2026, 4, 22, 5, 53, 8, tzinfo=timezone.utc)
-ENDPOINTS = ("events.json", "top-picks.json", "venues.json", "people.json", "categories.json")
+ENDPOINTS = (
+    "events.json",
+    "top-picks.json",
+    "venues.json",
+    "people.json",
+    "categories.json",
+)
 
 
 def _sample_events() -> list[dict]:
@@ -122,7 +129,9 @@ def test_html_to_text_handles_empty():
 
 def test_slugify_folds_diacritics_and_punctuation():
     assert bapi.slugify("Camille Saint-Saëns") == "camille-saint-saens"
-    assert bapi.slugify("Blanton Museum of Art, Austin") == "blanton-museum-of-art-austin"
+    assert (
+        bapi.slugify("Blanton Museum of Art, Austin") == "blanton-museum-of-art-austin"
+    )
     assert bapi.slugify("") == ""
 
 
@@ -570,7 +579,9 @@ def test_build_event_jsonld_uses_description_when_one_liner_missing(tmp_path):
 
 
 def test_build_event_jsonld_falls_back_to_title_when_no_copy(tmp_path):
-    payload = bapi.build_event_jsonld({"id": "x", "title": "Just A Title"}, og_dir=tmp_path)
+    payload = bapi.build_event_jsonld(
+        {"id": "x", "title": "Just A Title"}, og_dir=tmp_path
+    )
     assert payload is not None
     assert payload["description"] == "Just A Title"
     # No startDate / location when not supplied.

@@ -17,6 +17,7 @@ without pulling in a browser runtime (no pyppeteer, no headless Chrome,
 no npm install). Both builders are checked independently so a regression
 in either one fails a dedicated test.
 """
+
 from __future__ import annotations
 
 import re
@@ -93,12 +94,12 @@ def test_listing_card_uses_venue_display_name_with_fallback(
 @pytest.mark.unit
 def test_pick_card_renders_venue_address_when_present(pick_card_body: str) -> None:
     """When venue_address is truthy, buildPickCard appends a .event-venue-address node."""
-    assert "ev.venue_address" in pick_card_body, (
-        "buildPickCard must gate the address node on ev.venue_address"
-    )
-    assert '"event-venue-address"' in pick_card_body, (
-        "buildPickCard must assign the .event-venue-address class"
-    )
+    assert (
+        "ev.venue_address" in pick_card_body
+    ), "buildPickCard must gate the address node on ev.venue_address"
+    assert (
+        '"event-venue-address"' in pick_card_body
+    ), "buildPickCard must assign the .event-venue-address class"
     assert re.search(
         r'className\s*=\s*"event-venue-address"[\s\S]{0,400}?'
         r"textContent\s*=\s*ev\.venue_address",
@@ -111,12 +112,12 @@ def test_listing_card_renders_venue_address_when_present(
     listing_card_body: str,
 ) -> None:
     """When venue_address is truthy, buildListingCard appends a .event-venue-address node."""
-    assert "ev.venue_address" in listing_card_body, (
-        "buildListingCard must gate the address node on ev.venue_address"
-    )
-    assert '"event-venue-address"' in listing_card_body, (
-        "buildListingCard must assign the .event-venue-address class"
-    )
+    assert (
+        "ev.venue_address" in listing_card_body
+    ), "buildListingCard must gate the address node on ev.venue_address"
+    assert (
+        '"event-venue-address"' in listing_card_body
+    ), "buildListingCard must assign the .event-venue-address class"
     assert re.search(
         r'className\s*=\s*"event-venue-address"[\s\S]{0,400}?'
         r"textContent\s*=\s*ev\.venue_address",
@@ -136,8 +137,7 @@ def test_pick_card_address_render_is_conditional(pick_card_body: str) -> None:
     leak an empty italic line onto every card.
     """
     assert re.search(
-        r"if\s*\(\s*ev\.venue_address\s*\)\s*\{[\s\S]{0,400}?"
-        r'"event-venue-address"',
+        r"if\s*\(\s*ev\.venue_address\s*\)\s*\{[\s\S]{0,400}?" r'"event-venue-address"',
         pick_card_body,
     ), "buildPickCard must only render .event-venue-address when the field is truthy"
 
@@ -146,8 +146,7 @@ def test_pick_card_address_render_is_conditional(pick_card_body: str) -> None:
 def test_listing_card_address_render_is_conditional(listing_card_body: str) -> None:
     """The address element must live inside an ``if (ev.venue_address)`` block."""
     assert re.search(
-        r"if\s*\(\s*ev\.venue_address\s*\)\s*\{[\s\S]{0,400}?"
-        r'"event-venue-address"',
+        r"if\s*\(\s*ev\.venue_address\s*\)\s*\{[\s\S]{0,400}?" r'"event-venue-address"',
         listing_card_body,
     ), "buildListingCard must only render .event-venue-address when the field is truthy"
 

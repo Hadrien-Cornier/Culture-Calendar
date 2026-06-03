@@ -6,7 +6,9 @@ from src.scrapers._static_json_scraper import StaticJsonScraper
 
 
 class AustinChamberMusicScraper(StaticJsonScraper):
-    def __init__(self, config: Optional[Any] = None, venue_key: str = "austin_chamber_music"):
+    def __init__(
+        self, config: Optional[Any] = None, venue_key: str = "austin_chamber_music"
+    ):
         super().__init__(
             base_url="https://austinchambermusic.org",
             venue_name="Chamber Music",

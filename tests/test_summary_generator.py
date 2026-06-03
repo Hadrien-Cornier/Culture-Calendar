@@ -30,9 +30,7 @@ LONG_DESCRIPTION = (
 
 def test_build_book_prompt_missing_book_and_author_returns_none(generator):
     event = {"venue": "Alienated Majesty Books"}
-    result = generator._build_book_prompt(
-        "January Book Club", LONG_DESCRIPTION, event
-    )
+    result = generator._build_book_prompt("January Book Club", LONG_DESCRIPTION, event)
     assert result is None
 
 
@@ -55,9 +53,7 @@ def test_build_book_prompt_with_author_only_returns_prompt(generator):
         "book": "",
         "author": "Susan Sontag",
     }
-    result = generator._build_book_prompt(
-        "Sontag Discussion", LONG_DESCRIPTION, event
-    )
+    result = generator._build_book_prompt("Sontag Discussion", LONG_DESCRIPTION, event)
     assert isinstance(result, str)
     assert "Susan Sontag" in result
 
@@ -110,6 +106,7 @@ def test_call_claude_api_returns_none_for_book_event_missing_metadata(
 # Title-rejection scope: festival/workshop/gala/tribute words alone should
 # not veto an event when richer metadata (director / book / author /
 # featured artist / composers) confirms it's a specific, summarizable thing.
+
 
 def test_festival_title_with_director_is_specific(generator):
     event = {
@@ -197,6 +194,7 @@ def test_retrospective_in_title_still_rejects_without_metadata(generator):
 # Dance prompt builder — must read program and series fields from the event
 # dict so the dance-specific hook can name the repertoire / season.
 
+
 def test_build_dance_prompt_includes_program_and_series(generator):
     event = {
         "venue": "The Long Center",
@@ -205,9 +203,7 @@ def test_build_dance_prompt_includes_program_and_series(generator):
         "program": ["Light: The Holocaust & Humanity Project"],
         "series": "2026 Spring Season",
     }
-    result = generator._build_dance_prompt(
-        "Light", LONG_DESCRIPTION, event
-    )
+    result = generator._build_dance_prompt("Light", LONG_DESCRIPTION, event)
     assert isinstance(result, str)
     assert "Light: The Holocaust & Humanity Project" in result
     assert "2026 Spring Season" in result
@@ -221,9 +217,7 @@ def test_build_dance_prompt_handles_program_as_string(generator):
         "program": "Swan Lake",
         "series": "Classical Series",
     }
-    result = generator._build_dance_prompt(
-        "Swan Lake", LONG_DESCRIPTION, event
-    )
+    result = generator._build_dance_prompt("Swan Lake", LONG_DESCRIPTION, event)
     assert isinstance(result, str)
     assert "Swan Lake" in result
     assert "Classical Series" in result
@@ -266,7 +260,15 @@ def test_call_claude_api_dispatches_dance_to_dance_prompt(generator, monkeypatch
         captured["prompt"] = messages[0]["content"]
 
         class _Resp:
-            content = [type("X", (), {"text": "Mills' Light reckons with the Holocaust through ten urgent dancers."})()]
+            content = [
+                type(
+                    "X",
+                    (),
+                    {
+                        "text": "Mills' Light reckons with the Holocaust through ten urgent dancers."
+                    },
+                )()
+            ]
 
         return _Resp()
 

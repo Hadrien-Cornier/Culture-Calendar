@@ -24,7 +24,6 @@ from scripts.oracle_hyperreal import (  # noqa: E402
 from src.config_loader import ConfigLoader  # noqa: E402
 from src.scrapers.hyperreal_scraper import HyperrealScraper  # noqa: E402
 
-
 TEST_DATA = ROOT / "tests" / "Hyperreal_test_data"
 ORACLE_FIXTURE = ROOT / "tests" / "april-2026-hyperreal.md"
 
@@ -42,6 +41,7 @@ SAVED_FIXTURE_FILES = _discover_hyperreal_fixtures()
 def _build_url_map() -> dict[str, str]:
     """Map URL path (e.g. /events/4-1/the-mummy-movie-screening) → fixture filename."""
     import re
+
     calendar = (TEST_DATA / "calendar_april_2026.html").read_text(encoding="utf-8")
     paths = sorted(set(re.findall(r'href="(/events/[^"]+)"', calendar)))
     out: dict[str, str] = {}
@@ -104,12 +104,12 @@ class TestHyperrealIntegration:
         plus 1 live-event page; the scraper filters out the live event, so we
         expect ~4. Live mode in scripts/verify_calendar.py covers full breadth.
         """
-        assert len(scraped_events) >= 3, (
-            f"Too few events: {len(scraped_events)} (have {len(SAVED_FIXTURES)} fixtures)"
-        )
-        assert len(scraped_events) <= len(SAVED_FIXTURES) + 2, (
-            f"Got {len(scraped_events)} events, expected at most {len(SAVED_FIXTURES) + 2}"
-        )
+        assert (
+            len(scraped_events) >= 3
+        ), f"Too few events: {len(scraped_events)} (have {len(SAVED_FIXTURES)} fixtures)"
+        assert (
+            len(scraped_events) <= len(SAVED_FIXTURES) + 2
+        ), f"Got {len(scraped_events)} events, expected at most {len(SAVED_FIXTURES) + 2}"
 
     def test_every_event_has_core_fields(self, scraped_events):
         required = {"title", "dates", "times", "venue", "url"}
@@ -126,11 +126,14 @@ class TestHyperrealIntegration:
         for e in scraped_events:
             for t in e.get("times", []):
                 normalized = t.replace("\u202f", " ").strip().upper()
-                assert normalized in ("7:30 PM", "19:30"), (
-                    f"{e.get('title')} has unexpected time: {t!r}"
-                )
+                assert normalized in (
+                    "7:30 PM",
+                    "19:30",
+                ), f"{e.get('title')} has unexpected time: {t!r}"
 
-    def test_oracle_titles_for_saved_fixtures_match(self, scraped_events, oracle_entries):
+    def test_oracle_titles_for_saved_fixtures_match(
+        self, scraped_events, oracle_entries
+    ):
         """Every saved fixture's title must appear in the oracle.
 
         With the pruned fixture set, this checks correctness ('do the

@@ -7,6 +7,7 @@ because those features rendered below the fold or lived deeper in the HTML
 than the 10KB slice reached. Raising the DOM cap to 40KB and defaulting
 screenshots to ``fullPage: True`` gives the LLM the whole page to score.
 """
+
 from __future__ import annotations
 
 import asyncio

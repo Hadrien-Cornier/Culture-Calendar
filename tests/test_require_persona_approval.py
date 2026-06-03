@@ -1,4 +1,5 @@
 """Unit tests for scripts/require_persona_approval.py (Gate B)."""
+
 from __future__ import annotations
 
 import importlib.util
@@ -12,7 +13,9 @@ SCRIPT_PATH = REPO_ROOT / "scripts" / "require_persona_approval.py"
 
 
 def _load_module() -> Any:
-    spec = importlib.util.spec_from_file_location("require_persona_approval", SCRIPT_PATH)
+    spec = importlib.util.spec_from_file_location(
+        "require_persona_approval", SCRIPT_PATH
+    )
     assert spec is not None and spec.loader is not None
     mod = importlib.util.module_from_spec(spec)
     sys.modules["require_persona_approval"] = mod

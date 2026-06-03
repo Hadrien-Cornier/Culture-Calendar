@@ -84,11 +84,13 @@ class ParamountScraper(BaseScraper):
                     placeholder = (
                         f"{event['title']} at the Paramount — see venue for details"
                     )
-                    result.append({
-                        **event,
-                        "description": placeholder,
-                        "one_liner_summary": placeholder,
-                    })
+                    result.append(
+                        {
+                            **event,
+                            "description": placeholder,
+                            "one_liner_summary": placeholder,
+                        }
+                    )
                 else:
                     result.append(event)
             return result
@@ -143,6 +145,7 @@ class ParamountScraper(BaseScraper):
     def _fetch_via_api(self) -> List[Dict]:
         """POST to the productions API and translate each performance to an event."""
         from datetime import timedelta
+
         try:
             today = datetime.now()
             payload = {
@@ -190,17 +193,24 @@ class ParamountScraper(BaseScraper):
                 if not display_time:
                     continue
                 m = re.fullmatch(r"(\d{1,2}):(\d{2})(AM|PM)", display_time)
-                time_str = f"{int(m.group(1))}:{m.group(2)} {m.group(3)}" if m else display_time
+                time_str = (
+                    f"{int(m.group(1))}:{m.group(2)} {m.group(3)}"
+                    if m
+                    else display_time
+                )
                 action_url = perf.get("actionUrl") or production.get("actionUrl") or ""
-                events.append({
-                    "title": title,
-                    "type": "movie",
-                    "dates": [date_iso],
-                    "times": [time_str],
-                    "venue": self.venue_name,
-                    "url": action_url or f"{self.base_url}/{production.get('productionSeasonId','')}",
-                    "description": description,
-                })
+                events.append(
+                    {
+                        "title": title,
+                        "type": "movie",
+                        "dates": [date_iso],
+                        "times": [time_str],
+                        "venue": self.venue_name,
+                        "url": action_url
+                        or f"{self.base_url}/{production.get('productionSeasonId','')}",
+                        "description": description,
+                    }
+                )
         return events
 
     # ---------- Internal helpers ----------
@@ -352,4 +362,4 @@ class ParamountScraper(BaseScraper):
 
     def get_event_details(self, event: Dict) -> Dict:
         """Return extra details for a Paramount event (not needed currently)."""
-        return {} 
+        return {}

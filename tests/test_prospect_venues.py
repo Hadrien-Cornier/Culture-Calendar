@@ -1,4 +1,5 @@
 """Unit tests for scripts.prospect_venues."""
+
 from __future__ import annotations
 
 import importlib.util
@@ -9,7 +10,6 @@ from types import SimpleNamespace
 from typing import Any
 
 import pytest
-
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _SCRIPT_PATH = _REPO_ROOT / "scripts" / "prospect_venues.py"
@@ -105,7 +105,12 @@ def test_load_existing_venues_reads_display_names(tmp_path: Path):
 def test_coerce_candidates_from_dict_with_candidates_key():
     payload = {
         "candidates": [
-            {"name": "Blanton Museum", "url": "https://blanton.org", "sample_event": "x", "why_relevant": "y"},
+            {
+                "name": "Blanton Museum",
+                "url": "https://blanton.org",
+                "sample_event": "x",
+                "why_relevant": "y",
+            },
         ]
     }
     out = prospect_venues._coerce_candidates(payload)
@@ -114,7 +119,9 @@ def test_coerce_candidates_from_dict_with_candidates_key():
 
 
 def test_coerce_candidates_from_list():
-    payload = [{"name": "Foo", "url": "https://foo", "sample_event": "", "why_relevant": ""}]
+    payload = [
+        {"name": "Foo", "url": "https://foo", "sample_event": "", "why_relevant": ""}
+    ]
     out = prospect_venues._coerce_candidates(payload)
     assert out[0]["name"] == "Foo"
 
@@ -142,8 +149,18 @@ def test_coerce_candidates_returns_empty_on_garbage():
 
 def test_dedupe_drops_case_insensitive_matches_with_existing_venues():
     candidates = [
-        {"name": "Austin Film Society", "url": "x", "sample_event": "", "why_relevant": ""},
-        {"name": "BLANTON MUSEUM OF ART", "url": "x", "sample_event": "", "why_relevant": ""},
+        {
+            "name": "Austin Film Society",
+            "url": "x",
+            "sample_event": "",
+            "why_relevant": "",
+        },
+        {
+            "name": "BLANTON MUSEUM OF ART",
+            "url": "x",
+            "sample_event": "",
+            "why_relevant": "",
+        },
     ]
     existing = ["austin film society", "Some Other Venue"]
     out = prospect_venues.dedupe_candidates(candidates, existing)
@@ -187,8 +204,14 @@ def test_format_section_renders_header_and_checklist_lines():
         category="visual_arts",
         now=now,
     )
-    assert "## Prospecting run: 2026-04-18T12:00:00+00:00 — category visual_arts" in section
-    assert "- [ ] Blanton Museum (visual_arts) — Major visual arts venue — https://blanton.org" in section
+    assert (
+        "## Prospecting run: 2026-04-18T12:00:00+00:00 — category visual_arts"
+        in section
+    )
+    assert (
+        "- [ ] Blanton Museum (visual_arts) — Major visual arts venue — https://blanton.org"
+        in section
+    )
 
 
 def test_format_section_empty_candidates_still_writes_header():
@@ -226,7 +249,12 @@ def test_run_writes_markdown_and_dedupes_against_existing(tmp_path: Path):
         response={
             "candidates": [
                 # dedup: matches existing "Blanton Museum" case-insensitively
-                {"name": "blanton museum", "url": "x", "sample_event": "", "why_relevant": "skip me"},
+                {
+                    "name": "blanton museum",
+                    "url": "x",
+                    "sample_event": "",
+                    "why_relevant": "skip me",
+                },
                 {
                     "name": "Mexic-Arte Museum",
                     "url": "https://mexic-artemuseum.org",
@@ -251,7 +279,9 @@ def test_run_writes_markdown_and_dedupes_against_existing(tmp_path: Path):
     assert survivors[0]["name"] == "Mexic-Arte Museum"
 
     body = out_path.read_text()
-    assert "## Prospecting run: 2026-04-18T09:30:00+00:00 — category visual_arts" in body
+    assert (
+        "## Prospecting run: 2026-04-18T09:30:00+00:00 — category visual_arts" in body
+    )
     assert "- [ ] Mexic-Arte Museum (visual_arts)" in body
     assert "blanton" not in body.lower()  # dedup stripped it
 
@@ -262,20 +292,32 @@ def test_run_writes_markdown_and_dedupes_against_existing(tmp_path: Path):
 
 
 def test_run_is_append_not_overwrite_on_second_invocation(tmp_path: Path):
-    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    config_path = _write_config(
+        tmp_path, {"afs": {"display_name": "Austin Film Society"}}
+    )
     out_path = tmp_path / "prospects.md"
 
     llm_first = _StubLLM(
         response={
             "candidates": [
-                {"name": "First Venue", "url": "https://a", "sample_event": "", "why_relevant": "r1"},
+                {
+                    "name": "First Venue",
+                    "url": "https://a",
+                    "sample_event": "",
+                    "why_relevant": "r1",
+                },
             ]
         }
     )
     llm_second = _StubLLM(
         response={
             "candidates": [
-                {"name": "Second Venue", "url": "https://b", "sample_event": "", "why_relevant": "r2"},
+                {
+                    "name": "Second Venue",
+                    "url": "https://b",
+                    "sample_event": "",
+                    "why_relevant": "r2",
+                },
             ]
         }
     )
@@ -306,7 +348,9 @@ def test_run_is_append_not_overwrite_on_second_invocation(tmp_path: Path):
 
 
 def test_run_handles_llm_returning_none(tmp_path: Path):
-    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    config_path = _write_config(
+        tmp_path, {"afs": {"display_name": "Austin Film Society"}}
+    )
     out_path = tmp_path / "out.md"
     llm = _StubLLM(response=None)
 
@@ -346,7 +390,9 @@ def test_default_out_path_has_category_and_date():
 
 
 def test_main_invokes_run_with_parsed_args(monkeypatch, tmp_path: Path):
-    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    config_path = _write_config(
+        tmp_path, {"afs": {"display_name": "Austin Film Society"}}
+    )
     out_path = tmp_path / "out.md"
 
     captured: dict[str, Any] = {}
@@ -393,7 +439,9 @@ def _candidate(name: str, url: str = "https://example.org") -> dict[str, str]:
 
 def test_run_with_five_candidates_writes_five_checkboxes(tmp_path: Path):
     """(1) 5 Perplexity candidates, 0 dedup matches -> markdown has 5 `- [ ]` lines."""
-    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    config_path = _write_config(
+        tmp_path, {"afs": {"display_name": "Austin Film Society"}}
+    )
     out_path = tmp_path / "prospects" / "visual_arts.md"
     llm = _StubLLM(
         response={
@@ -483,11 +531,17 @@ def test_run_second_invocation_on_same_out_appends_new_prospecting_run_section(
     """(3) Re-running against the same --out must append a new `## Prospecting run:`
     section rather than overwriting the file.
     """
-    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    config_path = _write_config(
+        tmp_path, {"afs": {"display_name": "Austin Film Society"}}
+    )
     out_path = tmp_path / "prospects.md"
 
-    first_llm = _StubLLM(response={"candidates": [_candidate("Venue One", "https://one")]})
-    second_llm = _StubLLM(response={"candidates": [_candidate("Venue Two", "https://two")]})
+    first_llm = _StubLLM(
+        response={"candidates": [_candidate("Venue One", "https://one")]}
+    )
+    second_llm = _StubLLM(
+        response={"candidates": [_candidate("Venue Two", "https://two")]}
+    )
 
     prospect_venues.run(
         category="concert",
@@ -536,7 +590,9 @@ def test_run_propagates_llm_exception_and_does_not_write_output(tmp_path: Path):
     NOT leave a stale markdown file behind — the exception propagates so the
     CLI exits non-zero.
     """
-    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    config_path = _write_config(
+        tmp_path, {"afs": {"display_name": "Austin Film Society"}}
+    )
     out_path = tmp_path / "should_not_exist.md"
     llm = _RaisingLLM(RuntimeError("perplexity: upstream 503 Service Unavailable"))
 
@@ -560,7 +616,9 @@ def test_cli_exits_nonzero_and_prints_error_when_perplexity_raises(
     """(4b) Invoking `main()` with a raising LLMService must yield a non-zero
     exit status and surface the error on stderr (not silent, not exit 0).
     """
-    config_path = _write_config(tmp_path, {"afs": {"display_name": "Austin Film Society"}})
+    config_path = _write_config(
+        tmp_path, {"afs": {"display_name": "Austin Film Society"}}
+    )
     out_path = tmp_path / "out.md"
 
     raising = _RaisingLLM(RuntimeError("perplexity: auth failed (401)"))

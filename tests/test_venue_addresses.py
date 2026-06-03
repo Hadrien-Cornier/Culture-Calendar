@@ -39,7 +39,9 @@ def test_every_venue_has_address(venues: dict) -> None:
 def test_addresses_are_non_empty_strings(venues: dict) -> None:
     for key, cfg in venues.items():
         address = cfg.get("address")
-        assert isinstance(address, str), f"{key} address must be a string, got {type(address)!r}"
+        assert isinstance(
+            address, str
+        ), f"{key} address must be a string, got {type(address)!r}"
         assert address.strip(), f"{key} address must not be empty/whitespace"
 
 
@@ -47,7 +49,9 @@ def test_addresses_are_non_empty_strings(venues: dict) -> None:
 def test_display_names_are_non_empty_strings(venues: dict) -> None:
     for key, cfg in venues.items():
         name = cfg.get("display_name")
-        assert isinstance(name, str), f"{key} display_name must be a string, got {type(name)!r}"
+        assert isinstance(
+            name, str
+        ), f"{key} display_name must be a string, got {type(name)!r}"
         assert name.strip(), f"{key} display_name must not be empty/whitespace"
 
 
@@ -61,6 +65,6 @@ def test_austin_addresses_reference_austin_or_tx(venues: dict) -> None:
     """
     for key, cfg in venues.items():
         address = cfg["address"]
-        assert "Austin" in address or "TX" in address, (
-            f"{key} address {address!r} does not reference Austin or TX"
-        )
+        assert (
+            "Austin" in address or "TX" in address
+        ), f"{key} address {address!r} does not reference Austin or TX"

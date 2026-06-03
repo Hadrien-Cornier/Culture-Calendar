@@ -1,14 +1,19 @@
-name: Complete Batch Reload
+name: Daily Incremental Update
 
 on:
-  # Manual only — this wipes cache and re-runs every LLM call.
+  schedule:
+    # Every day at 11:00 UTC (6 AM CST / 5 AM CDT in Austin), before the
+    # workday. Incremental: only newly discovered events are AI-processed, so
+    # most days are cheap cache hits. Keeps the site from drifting stale between
+    # the Saturday weekly run and the monthly classical refresh.
+    - cron: '0 11 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  complete-reload:
+  daily-update:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,8 +21,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Pull latest changes
-        # Best-effort; no-op fast-forward on main, and must not abort the job
-        # when a workflow_dispatch runs on a diverged branch.
+        # Best-effort; no-op fast-forward on a scheduled main run, and must not
+        # abort the job when a workflow_dispatch runs on a diverged branch.
         run: git pull --no-edit --no-rebase origin main || echo "Skipping pull; using checked-out ref"
 
       - name: Set up Python
@@ -32,39 +37,34 @@ jobs:
           pip install playwright
 
       - name: Install Playwright Chromium
+        # Needed by AlienatedMajesty scraper (book-clubs page is JS-rendered).
         run: python -m playwright install --with-deps chromium
 
-      - name: Wipe cached data
-        run: |
-          echo "Wiping docs/data.json and cache/"
-          rm -f docs/data.json
-          rm -f docs/source_update_times.json
-          rm -rf cache/
-
-      - name: Complete batch reload (force-reprocess all ratings)
+      - name: Run daily incremental update
         env:
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          python update_website_data.py --force-reprocess --validate
+          echo "Running daily incremental update (7-day look-ahead)"
+          python update_website_data.py --days 7 --validate
 
-      - name: End-to-end verification
+      - name: Verify update results
         run: |
           python scripts/verify_calendar.py --offline
 
       - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action - Complete Reload"
+          git config --local user.name "GitHub Action - Daily Update"
 
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git add docs/data.json docs/source_update_times.json
+          git add docs/data.json docs/source_update_times.json docs/weekly/
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Complete batch reload - $(date -u +%Y-%m-%d)"
+            git commit -m "Daily incremental update - $(date -u +%Y-%m-%d)"
             git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           fi

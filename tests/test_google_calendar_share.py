@@ -14,6 +14,7 @@ pulled in (no pyppeteer, no Node, no npm install). That keeps the fence
 of "no new deps" from CLAUDE.md while covering every new behavior the
 test-integrity-critic flagged in the T1.3 review.
 """
+
 from __future__ import annotations
 
 import re
@@ -217,7 +218,9 @@ def test_gcal_dates_timed_format_includes_T_separator(
 @pytest.mark.unit
 def test_gcal_dates_pads_hours_and_minutes(gcal_dates_body: str) -> None:
     """Single-digit hh/mm must be zero-padded ("07:05" not "7:5")."""
-    pad_start_count = len(re.findall(r'padStart\s*\(\s*2\s*,\s*"0"\s*\)', gcal_dates_body))
+    pad_start_count = len(
+        re.findall(r'padStart\s*\(\s*2\s*,\s*"0"\s*\)', gcal_dates_body)
+    )
     assert (
         pad_start_count >= 4
     ), "_gcalDates must pad hour + minute for both start and end (4+ padStart calls)"
@@ -323,9 +326,9 @@ def test_track_platform_emits_cc_share_prefix(track_platform_body: str) -> None:
     assert re.search(
         r'"cc_share_"\s*\+', track_platform_body
     ), "trackPlatform must emit 'cc_share_' + slug as the Plausible event name"
-    assert "window.plausible" in track_platform_body, (
-        "trackPlatform must call window.plausible(...)"
-    )
+    assert (
+        "window.plausible" in track_platform_body
+    ), "trackPlatform must call window.plausible(...)"
 
 
 @pytest.mark.unit
@@ -347,15 +350,15 @@ def test_event_shareable_plumbs_gcal_dates(script_source: str) -> None:
     google-calendar appliesTo() filter evaluates correctly downstream.
     """
     body = _extract_function_body(script_source, "function eventShareable")
-    assert "_firstShowing" in body, (
-        "eventShareable must call _firstShowing to get the datetime source"
-    )
-    assert "_gcalDates" in body, (
-        "eventShareable must call _gcalDates to build the google-calendar dates param"
-    )
-    assert re.search(r"gcalDates\s*:", body), (
-        "eventShareable return value must carry a gcalDates field"
-    )
-    assert re.search(r"location\s*:", body), (
-        "eventShareable return value must carry a location field (used by gcal URL)"
-    )
+    assert (
+        "_firstShowing" in body
+    ), "eventShareable must call _firstShowing to get the datetime source"
+    assert (
+        "_gcalDates" in body
+    ), "eventShareable must call _gcalDates to build the google-calendar dates param"
+    assert re.search(
+        r"gcalDates\s*:", body
+    ), "eventShareable return value must carry a gcalDates field"
+    assert re.search(
+        r"location\s*:", body
+    ), "eventShareable return value must carry a location field (used by gcal URL)"

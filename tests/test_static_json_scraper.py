@@ -332,7 +332,9 @@ def test_standard_fields_carry_through(tmp_path: Path):
 
 @pytest.mark.unit
 def test_default_location_used_when_venue_name_absent(tmp_path: Path):
-    payload = {"things": [{"title": "T", "dates": ["2026-09-12"], "times": ["8:00 PM"]}]}
+    payload = {
+        "things": [{"title": "T", "dates": ["2026-09-12"], "times": ["8:00 PM"]}]
+    }
     scraper = _make(
         tmp_path,
         payload=payload,

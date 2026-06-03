@@ -9,6 +9,7 @@ below-the-fold in a freshly-loaded viewport.
 T2.1 unifies this: one ``browser.newPage`` + one ``page.goto`` per persona,
 asserts evaluated against the same page that feeds the screenshot.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -252,7 +253,10 @@ def test_llm_mode_uses_shared_page_fn_not_subprocess(tmp_path):
     def forbidden_subprocess(cmd, **_kwargs):
         subprocess_calls.append(list(cmd))
         return subprocess.CompletedProcess(
-            args=cmd, returncode=99, stdout="", stderr="",
+            args=cmd,
+            returncode=99,
+            stdout="",
+            stderr="",
         )
 
     shared_calls: list[str] = []
@@ -281,9 +285,9 @@ def test_llm_mode_uses_shared_page_fn_not_subprocess(tmp_path):
     )
 
     assert len(results) == 2
-    assert subprocess_calls == [], (
-        "shared-page flow must not shell out to check_live_site.py"
-    )
+    assert (
+        subprocess_calls == []
+    ), "shared-page flow must not shell out to check_live_site.py"
     assert shared_calls == ["p1", "p2"]
     # Each persona got exactly one Anthropic call using the shared capture.
     assert client.messages.create.call_count == 2
@@ -334,7 +338,14 @@ def test_shared_page_propagates_assert_failures_to_persona_result(tmp_path):
     _make_persona_file(tmp_path, "p1")
 
     def failing_shared_page(_persona):
-        return (False, 1, "", "assert[0] (selector_exists): missing .x", "B64", "<html/>")
+        return (
+            False,
+            1,
+            "",
+            "assert[0] (selector_exists): missing .x",
+            "B64",
+            "<html/>",
+        )
 
     tool_block = types.SimpleNamespace(
         type="tool_use",
@@ -413,9 +424,7 @@ def test_explicit_capture_fn_preserves_legacy_two_session_path(tmp_path):
         return ("LEGACY_B64", "<html>legacy</html>")
 
     def forbidden_shared_page(_persona):
-        raise AssertionError(
-            "shared_page_fn must not run when capture_fn is supplied"
-        )
+        raise AssertionError("shared_page_fn must not run when capture_fn is supplied")
 
     tool_block = types.SimpleNamespace(
         type="tool_use",
