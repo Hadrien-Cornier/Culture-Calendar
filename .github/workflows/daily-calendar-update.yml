@@ -21,7 +21,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Pull latest changes
-        run: git pull origin main
+        # Explicit merge (no editor); no-op fast-forward on a scheduled main
+        # run, and safe when a workflow_dispatch runs on a diverged branch.
+        run: git pull --no-edit --no-rebase origin main
 
       - name: Set up Python
         uses: actions/setup-python@v5
