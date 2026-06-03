@@ -72,7 +72,7 @@ Pyppeteer threading blocks running all scrapers in parallel ("signal only works 
 
 ## Testing Strategy
 
-Unit tests mock scrapers, no network. Integration tests use cached responses. Live tests via `@pytest.mark.live`. Fixtures under `tests/{Venue}_test_data/`. Validation service: `tests/test_validation_integration.py`.
+Unit tests mock scrapers, no network. Integration tests use cached responses. Live tests via `@pytest.mark.live`. Fixtures under `tests/{Venue}_test_data/`.
 
 ## GitNexus — code intelligence
 

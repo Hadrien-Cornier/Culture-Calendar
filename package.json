@@ -1,7 +1,7 @@
 {
   "name": "culture-calendar",
   "version": "1.0.0",
-  "description": "An automated system that transforms Austin cultural events into a curated, intelligent calendar experience. Features AI-powered analysis for films, classical music, and book clubs, with personalized ratings and a beautiful web interface covering **7 major Austin cultural venues**.",
+  "description": "An automated system that transforms Austin cultural events into a curated, intelligent calendar experience. Features AI-powered analysis across film, classical music, opera, ballet, book clubs, and visual arts, with personalized ratings and a beautiful web interface covering Austin's major cultural venues.",
   "main": "index.js",
   "directories": {
     "doc": "docs",
@@ -17,10 +17,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "better-sqlite3": "^12.2.0",
-    "claude-flow": "^2.0.0-alpha.73"
-  },
+  "dependencies": {},
   "devDependencies": {
     "gitnexus": "^1.6.1"
   }
