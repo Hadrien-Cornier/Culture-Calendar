@@ -17,7 +17,9 @@ import pytest
 from src.scrapers.hyperreal_scraper import HyperrealScraper
 
 
-@pytest.mark.skip(reason="stale API: methods referenced here no longer exist on HyperrealScraper; replaced by MC integration test")
+@pytest.mark.skip(
+    reason="stale API: methods referenced here no longer exist on HyperrealScraper; replaced by MC integration test"
+)
 class TestHyperrealScraper:
     """Test cases for Hyperreal Movie Club scraper."""
 

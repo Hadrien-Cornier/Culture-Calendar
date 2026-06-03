@@ -40,7 +40,9 @@ import time
 from typing import Dict, Optional
 
 
-def _trim_to_word_boundary(summary: str, max_len: int = 140, min_word_cut: int = 80) -> str:
+def _trim_to_word_boundary(
+    summary: str, max_len: int = 140, min_word_cut: int = 80
+) -> str:
     """Trim summary at the last whitespace before max_len so we don't cut mid-word."""
     if len(summary) <= max_len:
         return summary
@@ -48,6 +50,7 @@ def _trim_to_word_boundary(summary: str, max_len: int = 140, min_word_cut: int =
     if cut < min_word_cut:
         cut = max_len - 1
     return summary[:cut].rstrip(",;:.- ") + "…"
+
 
 import anthropic
 from dotenv import load_dotenv
@@ -72,6 +75,7 @@ class SummaryGenerator:
         else:
             # Late import so tests without the openai package don't fail.
             from openai import OpenAI
+
             self.provider = "openrouter"
             self.client = OpenAI(
                 base_url="https://openrouter.ai/api/v1",
@@ -208,11 +212,11 @@ class SummaryGenerator:
         # Short-circuit: if description is substantial and has key metadata, it's specific
         has_substantial_description = len(description) > 500
         has_key_metadata = bool(
-            event.get("director") or
-            event.get("book") or
-            event.get("author") or
-            event.get("featured_artist") or
-            event.get("composers")
+            event.get("director")
+            or event.get("book")
+            or event.get("author")
+            or event.get("featured_artist")
+            or event.get("composers")
         )
         if has_substantial_description and has_key_metadata:
             return True
@@ -382,6 +386,7 @@ class SummaryGenerator:
             ) from e
 
         from .processor import _style_rubric
+
         rubric = _style_rubric()
         system_prompt = (
             f"{rubric}\n\n"

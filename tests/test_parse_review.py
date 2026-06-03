@@ -112,7 +112,12 @@ def test_tiny_words_splits_into_distinct_sections_via_node():
     out = _run_parse_review(TINY_WORDS_DESC)
     sections = out["sections"]
     labels = [s["label"] for s in sections if s["label"]]
-    assert {"Artistic Merit", "Originality", "Cultural Significance", "Intellectual Depth"} <= set(labels)
+    assert {
+        "Artistic Merit",
+        "Originality",
+        "Cultural Significance",
+        "Intellectual Depth",
+    } <= set(labels)
     cs = next(s for s in sections if s["label"] == "Cultural Significance")
     assert "Intellectual Depth" not in cs["body"]
     assert "Skewers Japan" in cs["body"]

@@ -8,6 +8,7 @@ run but before :py:meth:`page.screenshot`.
 
 Pyppeteer is fully mocked — no browser launches.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -162,9 +163,7 @@ def test_type_action_invokes_page_type():
     launcher, _ = _make_launcher(page)
     spec = {
         "url": "about:blank",
-        "pre_screenshot_actions": [
-            {"type": "type", "selector": "#q", "text": "hello"}
-        ],
+        "pre_screenshot_actions": [{"type": "type", "selector": "#q", "text": "hello"}],
         "asserts": [],
     }
     asyncio.run(cls.run_spec_and_capture(spec, launch=launcher))
@@ -259,9 +258,7 @@ def test_pre_actions_run_after_asserts():
     }
     asyncio.run(cls.run_spec_and_capture(spec, launch=launcher))
     # The assert's body_contains evaluate must happen before the post-assert click.
-    assert_idx = next(
-        i for i, x in enumerate(call_order) if x.startswith("evaluate:")
-    )
+    assert_idx = next(i for i, x in enumerate(call_order) if x.startswith("evaluate:"))
     click_idx = call_order.index("click:.post-assert")
     assert assert_idx < click_idx
 

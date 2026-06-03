@@ -4,6 +4,7 @@ Covers the llmstxt.org index format, HTML-to-text extraction used for
 the full content dump, event ranking, page discovery, and the top-level
 ``main`` entrypoint.
 """
+
 from __future__ import annotations
 
 import importlib.util

@@ -5,6 +5,7 @@ Covers the per-role extraction (composer / director / author),
 contracts (deep-link anchor, rating aria-label, empty-state fallback,
 XSS escaping), and ``main`` end-to-end writing.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -182,9 +183,10 @@ def test_slugify_handles_empty_input():
 
 def test_extract_directors_handles_string_and_list():
     assert bpp._extract_directors({"director": "Roger Corman"}) == ["Roger Corman"]
-    assert bpp._extract_directors(
-        {"directors": ["Roger Corman", "Joe Dante"]}
-    ) == ["Roger Corman", "Joe Dante"]
+    assert bpp._extract_directors({"directors": ["Roger Corman", "Joe Dante"]}) == [
+        "Roger Corman",
+        "Joe Dante",
+    ]
 
 
 def test_extract_composers_filters_placeholders():
@@ -196,21 +198,23 @@ def test_extract_composers_filters_placeholders():
 def test_extract_composers_dedupes_case_insensitively():
     # "Beethoven" canonicalises to "Ludwig van Beethoven"; repeated input
     # should still dedupe to one canonical entry.
-    assert bpp._extract_composers(
-        {"composers": ["Beethoven", "beethoven"]}
-    ) == ["Ludwig van Beethoven"]
+    assert bpp._extract_composers({"composers": ["Beethoven", "beethoven"]}) == [
+        "Ludwig van Beethoven"
+    ]
 
 
 def test_extract_composers_filters_various_and_ensembles():
     # Programme-note placeholders that are NOT people must be rejected:
     # various, consort-of, scottish songs.
     assert bpp._extract_composers(
-        {"composers": [
-            "Various Medieval Composers",
-            "Consort of Viols",
-            "Scottish Songs",
-            "Henry Purcell",
-        ]}
+        {
+            "composers": [
+                "Various Medieval Composers",
+                "Consort of Viols",
+                "Scottish Songs",
+                "Henry Purcell",
+            ]
+        }
     ) == ["Henry Purcell"]
 
 
@@ -223,9 +227,7 @@ def test_slugify_strips_diacritics():
 def test_extract_authors_handles_blank_and_unknown():
     assert bpp._extract_authors({"author": ""}) == []
     assert bpp._extract_authors({"author": "Unknown"}) == []
-    assert bpp._extract_authors({"author": "Antoine Volodine"}) == [
-        "Antoine Volodine"
-    ]
+    assert bpp._extract_authors({"author": "Antoine Volodine"}) == ["Antoine Volodine"]
 
 
 # ---------- group_by_person ---------------------------------------------------

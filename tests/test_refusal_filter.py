@@ -4,7 +4,6 @@ import pytest
 
 from src.refusal import REFUSAL_STUB, filter_refusal, is_refusal_response
 
-
 NISH_KUMAR_STYLE_REFUSAL = (
     "I cannot provide a critical review of this comedy special because "
     "the search results do not contain any relevant information about "

@@ -138,7 +138,14 @@ class EventValidationService:
 
             # Validate event_category (from master_config ontology labels)
             event_category = event.get("event_category")
-            if event_category and event_category not in ["movie", "concert", "book_club", "opera", "dance", "other"]:
+            if event_category and event_category not in [
+                "movie",
+                "concert",
+                "book_club",
+                "opera",
+                "dance",
+                "other",
+            ]:
                 return ValidationResult(
                     passed=False,
                     level=ValidationLevel.WARNING,
@@ -349,7 +356,9 @@ class EventValidationService:
             health_checks.append(health_check)
 
             # Log results
-            if health_check.success_rate >= 0.5:  # 50% success threshold for individual scrapers
+            if (
+                health_check.success_rate >= 0.5
+            ):  # 50% success threshold for individual scrapers
                 successful_scrapers += 1
                 self.logger.info(
                     f"✅ {scraper_name}: {health_check.events_validated}/"
@@ -373,13 +382,15 @@ class EventValidationService:
         should_continue = failed_scrapers == 0
 
         total_validated = successful_scrapers + failed_scrapers
-        
+
         if total_validated > 0:
             self.logger.info(
                 f"📊 Validation Summary: {successful_scrapers}/{total_validated} scrapers passed"
             )
         else:
-            self.logger.info("📊 Validation Summary: No scrapers had events to validate")
+            self.logger.info(
+                "📊 Validation Summary: No scrapers had events to validate"
+            )
 
         if should_continue:
             self.logger.info("✅ Pipeline validation passed - continuing...")

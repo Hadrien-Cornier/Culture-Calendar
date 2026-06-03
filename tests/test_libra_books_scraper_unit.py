@@ -10,7 +10,6 @@ import pytest
 
 from src.scrapers.libra_books_scraper import LibraBooksScraper
 
-
 FIXTURE_DIR = Path(__file__).parent / "libra_books_test_data"
 SAMPLE = FIXTURE_DIR / "sample_listing.html"
 EMPTY = FIXTURE_DIR / "empty_listing.html"
@@ -61,7 +60,9 @@ def test_every_event_has_required_fields(events: List[dict]) -> None:
         missing = required - event.keys()
         assert not missing, f"missing {missing} in {event}"
         assert event["title"].strip(), f"empty title: {event}"
-        assert event["url"].startswith("https://www.livrabooks.com/events/"), event["url"]
+        assert event["url"].startswith("https://www.livrabooks.com/events/"), event[
+            "url"
+        ]
         assert event["venue"] == "Livra Books"
 
 
@@ -79,9 +80,7 @@ def test_dates_and_times_are_parallel_arrays(events: List[dict]) -> None:
 
 @pytest.mark.unit
 def test_book_club_event_is_classified_as_book_club(events: List[dict]) -> None:
-    dracula = next(
-        (e for e in events if "Dracula" in e["title"]), None
-    )
+    dracula = next((e for e in events if "Dracula" in e["title"]), None)
     assert dracula is not None
     assert dracula["type"] == "book_club"
     assert dracula["dates"] == ["2025-11-02"]
@@ -92,9 +91,7 @@ def test_book_club_event_is_classified_as_book_club(events: List[dict]) -> None:
 
 @pytest.mark.unit
 def test_pop_up_event_is_classified_as_other(events: List[dict]) -> None:
-    popup = next(
-        (e for e in events if e["title"].lower().startswith("pop-up")), None
-    )
+    popup = next((e for e in events if e["title"].lower().startswith("pop-up")), None)
     assert popup is not None
     assert popup["type"] == "other"
     assert popup["dates"] == ["2025-10-18"]
@@ -104,9 +101,7 @@ def test_pop_up_event_is_classified_as_other(events: List[dict]) -> None:
 
 @pytest.mark.unit
 def test_theory_night_event_is_classified_as_other(events: List[dict]) -> None:
-    theory = next(
-        (e for e in events if "THEORY NIGHT" in e["title"]), None
-    )
+    theory = next((e for e in events if "THEORY NIGHT" in e["title"]), None)
     assert theory is not None
     assert theory["type"] == "other"
     assert theory["dates"] == ["2026-03-17"]
@@ -115,9 +110,7 @@ def test_theory_night_event_is_classified_as_other(events: List[dict]) -> None:
 
 @pytest.mark.unit
 def test_nature_book_club_without_description(events: List[dict]) -> None:
-    nature = next(
-        (e for e in events if e["title"] == "Livra Nature Book Club"), None
-    )
+    nature = next((e for e in events if e["title"] == "Livra Nature Book Club"), None)
     assert nature is not None
     assert nature["type"] == "book_club"
     assert nature["description"] == ""

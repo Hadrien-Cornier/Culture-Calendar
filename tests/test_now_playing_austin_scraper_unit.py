@@ -13,7 +13,6 @@ from src.scrapers.now_playing_austin_visual_arts_scraper import (
     Occurrence,
 )
 
-
 FIXTURE_DIR = Path(__file__).parent / "now_playing_austin_test_data"
 FIXTURE = FIXTURE_DIR / "sample_listing.html"
 EMPTY_FIXTURE = FIXTURE_DIR / "empty_listing.html"
@@ -52,9 +51,7 @@ def scraper() -> NowPlayingAustinVisualArtsScraper:
 
 
 @pytest.fixture(scope="module")
-def events(
-    scraper: NowPlayingAustinVisualArtsScraper, listing_html: str
-) -> List[dict]:
+def events(scraper: NowPlayingAustinVisualArtsScraper, listing_html: str) -> List[dict]:
     return scraper.parse_listing(listing_html)
 
 
@@ -100,9 +97,9 @@ def test_dates_and_times_are_parallel_arrays(events: List[dict]) -> None:
         dates = event["dates"]
         times = event["times"]
         assert isinstance(dates, list) and isinstance(times, list)
-        assert len(dates) == len(times) > 0, (
-            f"dates/times length mismatch or empty: {event}"
-        )
+        assert (
+            len(dates) == len(times) > 0
+        ), f"dates/times length mismatch or empty: {event}"
         for d in dates:
             assert date_pattern.match(d), f"Bad date format: {d}"
         for t in times:
@@ -113,11 +110,7 @@ def test_dates_and_times_are_parallel_arrays(events: List[dict]) -> None:
 def test_known_event_is_extracted(events: List[dict]) -> None:
     """The cached fixture contains 'Build Me A Garden'; assert key fields."""
     target = next(
-        (
-            e
-            for e in events
-            if e["title"].startswith("Build Me A Garden")
-        ),
+        (e for e in events if e["title"].startswith("Build Me A Garden")),
         None,
     )
     assert target is not None, "Expected 'Build Me A Garden' event in fixture"
@@ -205,9 +198,7 @@ def test_parse_listing_with_single_event_extracts_expected_fields(
     assert len(events) == 1
     event = events[0]
     assert event["title"] == "Solo Single Opening Reception"
-    assert event["url"] == (
-        "https://nowplayingaustin.com/event/solo-single-opening/"
-    )
+    assert event["url"] == ("https://nowplayingaustin.com/event/solo-single-opening/")
     assert "Example Gallery" in event["venue"]
     assert event["type"] == "visual_arts"
     assert event["event_category"] == "visual_arts"

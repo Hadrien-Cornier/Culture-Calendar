@@ -1,4 +1,5 @@
 """Unit tests for scripts.refresh_classical_data (task 3.1a skeleton)."""
+
 from __future__ import annotations
 
 import importlib.util
@@ -10,7 +11,6 @@ from typing import Any
 
 import pytest
 
-
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _SCRIPT_PATH = _REPO_ROOT / "scripts" / "refresh_classical_data.py"
 
@@ -19,8 +19,12 @@ def _load_module():
     """Dynamically load scripts/refresh_classical_data.py as an importable module."""
     if str(_REPO_ROOT) not in sys.path:
         sys.path.insert(0, str(_REPO_ROOT))
-    spec = importlib.util.spec_from_file_location("refresh_classical_data", _SCRIPT_PATH)
-    assert spec and spec.loader, "Failed to create module spec for refresh_classical_data.py"
+    spec = importlib.util.spec_from_file_location(
+        "refresh_classical_data", _SCRIPT_PATH
+    )
+    assert (
+        spec and spec.loader
+    ), "Failed to create module spec for refresh_classical_data.py"
     module = importlib.util.module_from_spec(spec)
     sys.modules["refresh_classical_data"] = module
     spec.loader.exec_module(module)
@@ -166,9 +170,10 @@ def test_validate_classical_data_rejects_non_string_lastupdated():
 
 def test_validate_classical_data_accepts_subset_of_keys_when_requested():
     payload = {"austinSymphony": [_good_event()]}
-    assert refresh.validate_classical_data(
-        payload, expected_venue_keys=["austinSymphony"]
-    ) == []
+    assert (
+        refresh.validate_classical_data(payload, expected_venue_keys=["austinSymphony"])
+        == []
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -258,7 +263,9 @@ def test_assemble_payload_groups_events_by_venue_with_metadata():
 
 def test_infer_season_august_starts_new_season():
     assert refresh.infer_season(datetime(2025, 8, 1, tzinfo=timezone.utc)) == "2025-26"
-    assert refresh.infer_season(datetime(2025, 12, 31, tzinfo=timezone.utc)) == "2025-26"
+    assert (
+        refresh.infer_season(datetime(2025, 12, 31, tzinfo=timezone.utc)) == "2025-26"
+    )
 
 
 def test_infer_season_january_to_july_belongs_to_prior_year():
@@ -271,7 +278,9 @@ def test_infer_season_january_to_july_belongs_to_prior_year():
 # ---------------------------------------------------------------------------
 
 
-def test_dry_run_main_exits_zero_and_emits_valid_payload(capsys: pytest.CaptureFixture[str]):
+def test_dry_run_main_exits_zero_and_emits_valid_payload(
+    capsys: pytest.CaptureFixture[str],
+):
     rc = refresh.main(["--dry-run"])
     assert rc == 0
     captured = capsys.readouterr()
@@ -313,7 +322,9 @@ def test_unknown_venue_argument_exits_with_systemexit():
         refresh.main(["--dry-run", "--venue", "not-a-real-venue"])
 
 
-def test_live_mode_not_implemented_yet_returns_nonzero(capsys: pytest.CaptureFixture[str]):
+def test_live_mode_not_implemented_yet_returns_nonzero(
+    capsys: pytest.CaptureFixture[str],
+):
     """Until task 3.1b lands, live mode must refuse to write rather than emit empty data."""
     rc = refresh.main([])
     assert rc != 0

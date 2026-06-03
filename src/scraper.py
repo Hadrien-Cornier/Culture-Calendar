@@ -26,6 +26,7 @@ Add a new venue by:
 See ``CLAUDE.md §Adding a New Venue`` for the full checklist and
 ``src/scrapers/afs_scraper.py`` as the canonical pattern.
 """
+
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -125,9 +126,19 @@ class MultiVenueScraper:
         # Define all venue scrapers with their configurations
         venue_configs = [
             ("AFS", self.afs_scraper, "Austin Movie Society", {}),
-            ("Hyperreal", self.hyperreal_scraper, "Hyperreal Movie Club", {"days_ahead": days_ahead} if days_ahead else {}),
+            (
+                "Hyperreal",
+                self.hyperreal_scraper,
+                "Hyperreal Movie Club",
+                {"days_ahead": days_ahead} if days_ahead else {},
+            ),
             ("Paramount", self.paramount_scraper, "Paramount Theatre", {}),
-            ("AlienatedMajesty", self.alienated_majesty_scraper, "Alienated Majesty Books", {}),
+            (
+                "AlienatedMajesty",
+                self.alienated_majesty_scraper,
+                "Alienated Majesty Books",
+                {},
+            ),
             ("FirstLight", self.first_light_scraper, "First Light Austin", {}),
             (
                 "ArtsOnAlexander",

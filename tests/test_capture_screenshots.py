@@ -7,6 +7,7 @@ A separate integration-style test verifies the local ``http.server``
 helper serves files from the provided directory and that ``--help``
 exits cleanly without needing a browser.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -70,7 +71,9 @@ def test_cli_help_exits_zero():
 
 def test_cli_offline_errors_when_docs_dir_missing(tmp_path, capsys):
     missing = tmp_path / "nope"
-    rc = cls.run(["--offline", "--docs", str(missing), "--out-dir", str(tmp_path / "preview")])
+    rc = cls.run(
+        ["--offline", "--docs", str(missing), "--out-dir", str(tmp_path / "preview")]
+    )
     assert rc == 2
     captured = capsys.readouterr()
     assert "docs dir not found" in captured.err
@@ -239,7 +242,9 @@ def test_pick_free_port_returns_listenable_port():
 
 def test_serve_directory_returns_working_url(tmp_path):
     # Create a small docs tree.
-    (tmp_path / "index.html").write_text("<html><body>hello</body></html>", encoding="utf-8")
+    (tmp_path / "index.html").write_text(
+        "<html><body>hello</body></html>", encoding="utf-8"
+    )
     (tmp_path / "data.json").write_text('{"ok": true}', encoding="utf-8")
 
     with cls.serve_directory(tmp_path) as (port, base_url):
@@ -310,13 +315,15 @@ def test_run_offline_populates_out_dir(tmp_path, monkeypatch, capsys):
 
     monkeypatch.setattr(cls, "capture_all", _fake_capture_all)
 
-    rc = cls.run([
-        "--offline",
-        "--docs",
-        str(docs_dir),
-        "--out-dir",
-        str(out_dir),
-    ])
+    rc = cls.run(
+        [
+            "--offline",
+            "--docs",
+            str(docs_dir),
+            "--out-dir",
+            str(out_dir),
+        ]
+    )
     assert rc == 0
     files = sorted(p.name for p in out_dir.iterdir())
     assert "index-desktop.png" in files

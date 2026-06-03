@@ -6,6 +6,7 @@ PLATFORMS entries are present with the correct share URL shapes, and that
 the Plausible analytics catalog comments include both new event names so
 the T5.1 grep validator won't silently miss them.
 """
+
 from __future__ import annotations
 
 import re
@@ -132,12 +133,12 @@ def test_analytics_catalog_lists_new_events(script_source: str) -> None:
     underscores; facebook and telegram IDs have no dashes, so the resulting
     Plausible event names are exactly cc_share_facebook and cc_share_telegram.
     """
-    assert "cc_share_facebook" in script_source, (
-        "cc_share_facebook must appear in the T5.1 greppable catalog"
-    )
-    assert "cc_share_telegram" in script_source, (
-        "cc_share_telegram must appear in the T5.1 greppable catalog"
-    )
+    assert (
+        "cc_share_facebook" in script_source
+    ), "cc_share_facebook must appear in the T5.1 greppable catalog"
+    assert (
+        "cc_share_telegram" in script_source
+    ), "cc_share_telegram must appear in the T5.1 greppable catalog"
 
 
 # --- Feature inventory ----------------------------------------------------

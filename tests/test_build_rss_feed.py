@@ -3,6 +3,7 @@
 Covers ranking, top-N selection, description composition, deep-link
 anchors, and XML round-tripping through ``xml.etree.ElementTree``.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -155,7 +156,10 @@ def test_build_anchor_uses_event_id():
 def test_build_anchor_slugifies_unsafe_chars():
     """Slashes, apostrophes, diacritics must not leak into the URL."""
     assert brf._build_anchor("8 1/2") == brf.SITE_URL + "events/8-1-2.html"
-    assert brf._build_anchor("Don't Look Back") == brf.SITE_URL + "events/don-t-look-back.html"
+    assert (
+        brf._build_anchor("Don't Look Back")
+        == brf.SITE_URL + "events/don-t-look-back.html"
+    )
     assert brf._build_anchor("Café") == brf.SITE_URL + "events/cafe.html"
 
 
@@ -224,9 +228,7 @@ def test_atom_self_link_present(events, tmp_path):
     out = tmp_path / "feed.xml"
     brf.write_feed(events, out_path=out, now=NOW)
     root = ET.parse(out).getroot()
-    atom_links = root.findall(
-        "channel/{http://www.w3.org/2005/Atom}link"
-    )
+    atom_links = root.findall("channel/{http://www.w3.org/2005/Atom}link")
     assert any(l.attrib.get("rel") == "self" for l in atom_links)
 
 

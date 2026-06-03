@@ -3,6 +3,7 @@
 Covers master_config extraction, default handling when the yaml is
 missing or malformed, JSON output shape, and the CLI entry point.
 """
+
 from __future__ import annotations
 
 import importlib.util

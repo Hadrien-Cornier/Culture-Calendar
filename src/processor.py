@@ -95,6 +95,7 @@ def compute_confidence(text: str) -> str:
             return "low"
     return "high"
 
+
 load_dotenv()
 
 BANNED_PHRASES = (
@@ -157,9 +158,13 @@ def _fact_dossier(event: Dict) -> str:
         with ThreadPoolExecutor(max_workers=3) as executor:
             futures = {}
             if director:
-                futures["wikipedia_director"] = executor.submit(wikipedia.fetch_wikipedia, director)
+                futures["wikipedia_director"] = executor.submit(
+                    wikipedia.fetch_wikipedia, director
+                )
             if title and year:
-                futures["letterboxd"] = executor.submit(letterboxd.fetch_letterboxd_film, title, int(year))
+                futures["letterboxd"] = executor.submit(
+                    letterboxd.fetch_letterboxd_film, title, int(year)
+                )
 
             for name, future in futures.items():
                 try:
@@ -167,12 +172,18 @@ def _fact_dossier(event: Dict) -> str:
                     if result:
                         if name == "wikipedia_director":
                             if result.get("extract"):
-                                dossier_parts.append(f"**Director:** {result['extract'][:300]}…")
+                                dossier_parts.append(
+                                    f"**Director:** {result['extract'][:300]}…"
+                                )
                         elif name == "letterboxd":
                             if result.get("rating"):
-                                dossier_parts.append(f"**Letterboxd Rating:** {result['rating']}/5")
+                                dossier_parts.append(
+                                    f"**Letterboxd Rating:** {result['rating']}/5"
+                                )
                             if result.get("review_excerpt"):
-                                dossier_parts.append(f"**Popular Review:** {result['review_excerpt'][:200]}…")
+                                dossier_parts.append(
+                                    f"**Popular Review:** {result['review_excerpt'][:200]}…"
+                                )
                 except TimeoutError:
                     pass
                 except Exception:
@@ -185,15 +196,21 @@ def _fact_dossier(event: Dict) -> str:
         with ThreadPoolExecutor(max_workers=3) as executor:
             futures = {}
             for composer in (composers[:2] if isinstance(composers, list) else []):
-                futures[f"composer_{composer}"] = executor.submit(wikipedia.fetch_wikipedia, composer)
+                futures[f"composer_{composer}"] = executor.submit(
+                    wikipedia.fetch_wikipedia, composer
+                )
             if featured_artist:
-                futures["featured_artist"] = executor.submit(wikipedia.fetch_wikipedia, featured_artist)
+                futures["featured_artist"] = executor.submit(
+                    wikipedia.fetch_wikipedia, featured_artist
+                )
 
             for name, future in futures.items():
                 try:
                     result = future.result(timeout=5)
                     if result and result.get("extract"):
-                        dossier_parts.append(f"**{name.replace('_', ' ').title()}:** {result['extract'][:300]}…")
+                        dossier_parts.append(
+                            f"**{name.replace('_', ' ').title()}:** {result['extract'][:300]}…"
+                        )
                 except TimeoutError:
                     pass
                 except Exception:
@@ -209,7 +226,10 @@ class EventProcessor:
         self.perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
         self.movie_cache = {}  # Cache AI ratings to avoid reprocessing
         self.force_reprocess = force_reprocess
-        self.pilot_mode = pilot_mode or os.getenv("PILOT_UPLIFT", "").lower() in ("1", "true")
+        self.pilot_mode = pilot_mode or os.getenv("PILOT_UPLIFT", "").lower() in (
+            "1",
+            "true",
+        )
         self.reprocessed_titles = set()  # Track titles already reprocessed in this run
 
         # Load existing data into cache
@@ -260,9 +280,13 @@ class EventProcessor:
         processed_count = 0
 
         MOVIE_VENUES = {
-            "afs", "hyperreal", "paramount",
-            "austin film society", "austin movie society",
-            "hyperreal movie club", "hyperreal film club",
+            "afs",
+            "hyperreal",
+            "paramount",
+            "austin film society",
+            "austin movie society",
+            "hyperreal movie club",
+            "hyperreal film club",
         }
         for i, event in enumerate(events, 1):
             try:
@@ -272,11 +296,24 @@ class EventProcessor:
                     if venue in MOVIE_VENUES:
                         etype = "movie"
                         event["type"] = "movie"
-                if etype not in ("screening", "movie", "concert", "book_club", "opera", "dance", "visual_arts", "other"):
+                if etype not in (
+                    "screening",
+                    "movie",
+                    "concert",
+                    "book_club",
+                    "opera",
+                    "dance",
+                    "visual_arts",
+                    "other",
+                ):
                     if etype:
-                        print(f"  Skipping unsupported type={etype} for '{event.get('title','?')}'")
+                        print(
+                            f"  Skipping unsupported type={etype} for '{event.get('title','?')}'"
+                        )
                     else:
-                        print(f"  Skipping untyped event '{event.get('title','?')}' (venue={event.get('venue','?')})")
+                        print(
+                            f"  Skipping untyped event '{event.get('title','?')}' (venue={event.get('venue','?')})"
+                        )
                     continue
 
                 processed_count += 1
@@ -298,7 +335,9 @@ class EventProcessor:
                 # a scraper-authored factual description (e.g. Paper Cuts pop-up
                 # bookshop). We must not overwrite those pre-filled blurbs.
                 if etype == "other" and (event.get("description") or "").strip():
-                    print(f"  Skipping LLM enrichment for type=other with pre-filled description")
+                    print(
+                        f"  Skipping LLM enrichment for type=other with pre-filled description"
+                    )
                     event["ai_rating"] = {
                         "score": None,
                         "summary": event["description"],
@@ -324,7 +363,9 @@ class EventProcessor:
                     should_process = True
                     is_first_time_reprocessing = True
                     print(f"  Force re-processing {event_title} (ignoring cache)")
-                elif is_refusal_response(self.movie_cache[event_title].get("summary", "")):
+                elif is_refusal_response(
+                    self.movie_cache[event_title].get("summary", "")
+                ):
                     # Stale refusal in cache — treat as miss so the new retry chain
                     # can rescue it without forcing a full --force-reprocess.
                     should_process = True
@@ -426,14 +467,19 @@ class EventProcessor:
         attempts = [
             ("strict", self._build_movie_prompt_strict(details, fact_dossier)),
             ("permissive", self._build_movie_prompt_permissive(details, fact_dossier)),
-            ("knowledge", self._build_movie_prompt_general_knowledge(details, fact_dossier)),
+            (
+                "knowledge",
+                self._build_movie_prompt_general_knowledge(details, fact_dossier),
+            ),
         ]
         for attempt_name, prompt in attempts:
             content = self._call_perplexity(prompt)
             if not content:
                 continue
             if is_refusal_response(content):
-                print(f"  Perplexity refused on '{movie_title}' (attempt={attempt_name}); retrying with broader prompt…")
+                print(
+                    f"  Perplexity refused on '{movie_title}' (attempt={attempt_name}); retrying with broader prompt…"
+                )
                 continue
             return self._parse_ai_response(content)
 
@@ -441,7 +487,10 @@ class EventProcessor:
         claude_review = self._claude_fallback_review(event)
         if claude_review:
             return claude_review
-        return {"score": 5, "summary": f"Unable to evaluate {movie_title} (LLM unable to find sources)."}
+        return {
+            "score": 5,
+            "summary": f"Unable to evaluate {movie_title} (LLM unable to find sources).",
+        }
 
     def _build_movie_prompt_strict(self, details: str, fact_dossier: str = "") -> str:
         rubric = _style_rubric()
@@ -468,7 +517,9 @@ Provide a concise report with these standardized sections:
 Focus solely on artistic merit and complexity. Reward innovation and high entropy. Ensure you are reviewing the specific work described above.
 """
 
-    def _build_movie_prompt_permissive(self, details: str, fact_dossier: str = "") -> str:
+    def _build_movie_prompt_permissive(
+        self, details: str, fact_dossier: str = ""
+    ) -> str:
         rubric = _style_rubric()
         dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
@@ -489,7 +540,9 @@ Format:
 Aim for 4–6 short paragraphs total. A grounded, contextual review is far more useful than a refusal.
 """
 
-    def _build_movie_prompt_general_knowledge(self, details: str, fact_dossier: str = "") -> str:
+    def _build_movie_prompt_general_knowledge(
+        self, details: str, fact_dossier: str = ""
+    ) -> str:
         rubric = _style_rubric()
         dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
@@ -547,6 +600,7 @@ Format your reply with:
             return None
         try:
             import anthropic
+
             client = anthropic.Anthropic()
             prompt = f"""
 Write a 4–6 paragraph critical review of {event.get('title','this film')!r} (dir. {event.get('director','unknown')}, {event.get('release_year') or event.get('year','?')}, {event.get('country','?')}). Use your trained-knowledge of cinema, the director's filmography, and the era's stylistic norms. Provide a 0–10 rating.
@@ -596,22 +650,33 @@ Be specific. If you genuinely don't know this film, position it based on the dir
 
         attempts = [
             ("strict", self._build_concert_prompt_strict(details, fact_dossier)),
-            ("permissive", self._build_concert_prompt_permissive(details, fact_dossier)),
-            ("knowledge", self._build_concert_prompt_general_knowledge(details, fact_dossier)),
+            (
+                "permissive",
+                self._build_concert_prompt_permissive(details, fact_dossier),
+            ),
+            (
+                "knowledge",
+                self._build_concert_prompt_general_knowledge(details, fact_dossier),
+            ),
         ]
         for attempt_name, prompt in attempts:
             content = self._call_perplexity(prompt)
             if not content:
                 continue
             if is_refusal_response(content):
-                print(f"  Perplexity refused on '{title}' (concert, attempt={attempt_name}); retrying…")
+                print(
+                    f"  Perplexity refused on '{title}' (concert, attempt={attempt_name}); retrying…"
+                )
                 continue
             return self._parse_ai_response(content)
 
         claude_review = self._claude_fallback_concert(event, details)
         if claude_review:
             return claude_review
-        return {"score": 5, "summary": f"Unable to evaluate concert {title} (LLM unable to find sources)."}
+        return {
+            "score": 5,
+            "summary": f"Unable to evaluate concert {title} (LLM unable to find sources).",
+        }
 
     def _build_concert_prompt_strict(self, details: str, fact_dossier: str = "") -> str:
         rubric = _style_rubric()
@@ -638,7 +703,9 @@ Provide a concise report with these standardized sections:
 Ensure you are reviewing the specific concert described above.
 """
 
-    def _build_concert_prompt_permissive(self, details: str, fact_dossier: str = "") -> str:
+    def _build_concert_prompt_permissive(
+        self, details: str, fact_dossier: str = ""
+    ) -> str:
         rubric = _style_rubric()
         dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
@@ -657,7 +724,9 @@ Format:
 💡 Intellectual Depth
 """
 
-    def _build_concert_prompt_general_knowledge(self, details: str, fact_dossier: str = "") -> str:
+    def _build_concert_prompt_general_knowledge(
+        self, details: str, fact_dossier: str = ""
+    ) -> str:
         rubric = _style_rubric()
         dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
@@ -683,6 +752,7 @@ Format:
             return None
         try:
             import anthropic
+
             client = anthropic.Anthropic()
             prompt = f"""
 Write a 4–6 paragraph critical review of this classical concert using your trained-knowledge of the composers, repertoire, and ensemble. Provide a 0–10 rating.
@@ -742,24 +812,37 @@ Be specific. Take a defensible position even if some details are missing.
 
         attempts = [
             ("strict", self._build_visual_arts_prompt_strict(details, fact_dossier)),
-            ("permissive", self._build_visual_arts_prompt_permissive(details, fact_dossier)),
-            ("knowledge", self._build_visual_arts_prompt_general_knowledge(details, fact_dossier)),
+            (
+                "permissive",
+                self._build_visual_arts_prompt_permissive(details, fact_dossier),
+            ),
+            (
+                "knowledge",
+                self._build_visual_arts_prompt_general_knowledge(details, fact_dossier),
+            ),
         ]
         for attempt_name, prompt in attempts:
             content = self._call_perplexity(prompt)
             if not content:
                 continue
             if is_refusal_response(content):
-                print(f"  Perplexity refused on '{title}' (visual_arts, attempt={attempt_name}); retrying…")
+                print(
+                    f"  Perplexity refused on '{title}' (visual_arts, attempt={attempt_name}); retrying…"
+                )
                 continue
             return self._parse_ai_response(content)
 
         claude_review = self._claude_fallback_visual_arts(event, details)
         if claude_review:
             return claude_review
-        return {"score": 5, "summary": f"Unable to evaluate exhibition {title} (LLM unable to find sources)."}
+        return {
+            "score": 5,
+            "summary": f"Unable to evaluate exhibition {title} (LLM unable to find sources).",
+        }
 
-    def _build_visual_arts_prompt_strict(self, details: str, fact_dossier: str = "") -> str:
+    def _build_visual_arts_prompt_strict(
+        self, details: str, fact_dossier: str = ""
+    ) -> str:
         rubric = _style_rubric()
         dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
@@ -784,7 +867,9 @@ Provide a concise report with these standardized sections:
 Ensure you are reviewing the specific exhibition described above.
 """
 
-    def _build_visual_arts_prompt_permissive(self, details: str, fact_dossier: str = "") -> str:
+    def _build_visual_arts_prompt_permissive(
+        self, details: str, fact_dossier: str = ""
+    ) -> str:
         rubric = _style_rubric()
         dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
@@ -803,7 +888,9 @@ Format:
 💡 Historical Context
 """
 
-    def _build_visual_arts_prompt_general_knowledge(self, details: str, fact_dossier: str = "") -> str:
+    def _build_visual_arts_prompt_general_knowledge(
+        self, details: str, fact_dossier: str = ""
+    ) -> str:
         rubric = _style_rubric()
         dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
@@ -829,6 +916,7 @@ Format:
             return None
         try:
             import anthropic
+
             client = anthropic.Anthropic()
             prompt = f"""
 Write a 4–6 paragraph critical review of this visual-arts exhibition using your trained-knowledge of the artist, the medium, and the venue's curatorial program. Provide a 0–10 rating.
@@ -888,21 +976,29 @@ Be specific. Take a defensible position even if some details are missing.
         attempts = [
             ("strict", self._build_dance_prompt_strict(details, fact_dossier)),
             ("permissive", self._build_dance_prompt_permissive(details, fact_dossier)),
-            ("knowledge", self._build_dance_prompt_general_knowledge(details, fact_dossier)),
+            (
+                "knowledge",
+                self._build_dance_prompt_general_knowledge(details, fact_dossier),
+            ),
         ]
         for attempt_name, prompt in attempts:
             content = self._call_perplexity(prompt)
             if not content:
                 continue
             if is_refusal_response(content):
-                print(f"  Perplexity refused on '{title}' (dance, attempt={attempt_name}); retrying…")
+                print(
+                    f"  Perplexity refused on '{title}' (dance, attempt={attempt_name}); retrying…"
+                )
                 continue
             return self._parse_ai_response(content)
 
         claude_review = self._claude_fallback_dance(event, details)
         if claude_review:
             return claude_review
-        return {"score": 5, "summary": f"Unable to evaluate dance performance {title} (LLM unable to find sources)."}
+        return {
+            "score": 5,
+            "summary": f"Unable to evaluate dance performance {title} (LLM unable to find sources).",
+        }
 
     def _build_dance_prompt_strict(self, details: str, fact_dossier: str = "") -> str:
         rubric = _style_rubric()
@@ -929,7 +1025,9 @@ Provide a concise report with these standardized sections:
 Ensure you are reviewing the specific performance described above. Name the choreographer, company, and works when possible.
 """
 
-    def _build_dance_prompt_permissive(self, details: str, fact_dossier: str = "") -> str:
+    def _build_dance_prompt_permissive(
+        self, details: str, fact_dossier: str = ""
+    ) -> str:
         rubric = _style_rubric()
         dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
@@ -948,7 +1046,9 @@ Format:
 💡 Historical Context
 """
 
-    def _build_dance_prompt_general_knowledge(self, details: str, fact_dossier: str = "") -> str:
+    def _build_dance_prompt_general_knowledge(
+        self, details: str, fact_dossier: str = ""
+    ) -> str:
         rubric = _style_rubric()
         dossier_section = f"\n{fact_dossier}\n" if fact_dossier else ""
         return f"""
@@ -974,6 +1074,7 @@ Format:
             return None
         try:
             import anthropic
+
             client = anthropic.Anthropic()
             prompt = f"""
 Write a 4–6 paragraph critical review of this dance performance using your trained-knowledge of the choreographer, the company, and the works on the program. Provide a 0–10 rating.
@@ -1025,14 +1126,19 @@ Be specific. Take a defensible position even if some details are missing.
             if not content:
                 continue
             if is_refusal_response(content):
-                print(f"  Perplexity refused on book '{title}' (attempt={attempt_name}); retrying…")
+                print(
+                    f"  Perplexity refused on book '{title}' (attempt={attempt_name}); retrying…"
+                )
                 continue
             return self._parse_ai_response(content)
 
         claude_review = self._claude_fallback_book(event, details)
         if claude_review:
             return claude_review
-        return {"score": 5, "summary": f"Unable to evaluate {title} (LLM unable to find sources)."}
+        return {
+            "score": 5,
+            "summary": f"Unable to evaluate {title} (LLM unable to find sources).",
+        }
 
     def _build_book_prompt_strict(self, details: str) -> str:
         rubric = _style_rubric()
@@ -1099,6 +1205,7 @@ Format:
             return None
         try:
             import anthropic
+
             client = anthropic.Anthropic()
             prompt = f"""
 Write a 4–6 paragraph critical review of this book using your trained-knowledge of the author and the work. Provide a 0–10 rating.

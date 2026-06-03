@@ -24,7 +24,6 @@ sys.path.insert(0, str(ROOT))
 from scripts.oracle_afs import FilmScreening, parse_afs_schedule  # noqa: E402
 from src.scrapers.afs_scraper import AFSScraper  # noqa: E402
 
-
 TEST_DATA = ROOT / "tests" / "AFS_test_data"
 ORACLE_FIXTURE = ROOT / "tests" / "april-may-2026-schedule-afs.md"
 
@@ -34,7 +33,9 @@ def _discover_saved_fixtures() -> dict[str, str]:
     out: dict[str, str] = {}
     for path in TEST_DATA.glob("screening_*_2026.html"):
         # screening_<slug_with_underscores>_2026.html → slug (hyphens)
-        slug = path.stem.removeprefix("screening_").removesuffix("_2026").replace("_", "-")
+        slug = (
+            path.stem.removeprefix("screening_").removesuffix("_2026").replace("_", "-")
+        )
         out[slug] = path.name
     return out
 
@@ -62,7 +63,9 @@ def _mock_session_get(*args: Any, **kwargs: Any) -> MagicMock:
     if "/calendar/" in url or "/screenings/" in url:
         return _make_response(_load_fixture("calendar_snapshot_2026_04.html"))
     for slug, filename in SAVED_FIXTURES_FILES.items():
-        if f"/screening/{slug}/" in url or url.rstrip("/").endswith(f"/screening/{slug}"):
+        if f"/screening/{slug}/" in url or url.rstrip("/").endswith(
+            f"/screening/{slug}"
+        ):
             return _make_response(_load_fixture(filename))
     return _make_response("", 404)
 
@@ -94,7 +97,9 @@ class TestAFSIntegration:
             missing = required - set(e.keys())
             assert not missing, f"{e.get('title','?')} missing {missing}"
             assert e["dates"] and e["times"], f"{e['title']} has empty dates/times"
-            assert len(e["dates"]) == len(e["times"]), f"{e['title']} has mismatched dates/times"
+            assert len(e["dates"]) == len(
+                e["times"]
+            ), f"{e['title']} has mismatched dates/times"
 
     def test_metadata_is_populated(self, scraped_events):
         """Director, release_year, country, runtime_minutes should usually be set.
@@ -141,6 +146,7 @@ class TestAFSIntegration:
         assert expected_triples, "No oracle titles match any scraper output"
 
         from scripts.oracle_afs import _to_24h
+
         scraped_triples: set[tuple[str, str, str]] = set()
         for e in scraped_events:
             title_norm = _norm(e.get("title") or "")
@@ -160,7 +166,9 @@ class TestAFSIntegration:
 
     def test_palestine_multi_time_row(self, scraped_events):
         """'PALESTINE '36' appears on Apr 19 at both 12:30 PM and 6:15 PM in the oracle."""
-        palestine_events = [e for e in scraped_events if "PALESTINE" in (e.get("title") or "")]
+        palestine_events = [
+            e for e in scraped_events if "PALESTINE" in (e.get("title") or "")
+        ]
         assert palestine_events, "PALESTINE '36 not found in scraper output"
         all_dates_times = set()
         for e in palestine_events:
@@ -170,9 +178,9 @@ class TestAFSIntegration:
         assert apr19_times, "No PALESTINE screenings on 2026-04-19"
         # Times come back in 12h format from the scraper; accept either 12h or 24h.
         expected_patterns = {"12:30 PM", "6:15 PM", "12:30", "18:15"}
-        assert any(t in expected_patterns for t in apr19_times), (
-            f"PALESTINE Apr 19 times {apr19_times} don't include 12:30 PM / 6:15 PM"
-        )
+        assert any(
+            t in expected_patterns for t in apr19_times
+        ), f"PALESTINE Apr 19 times {apr19_times} don't include 12:30 PM / 6:15 PM"
 
     def test_every_oracle_film_has_full_metadata(self, scraped_events, oracle_films):
         """MB.5: for every film the oracle knows about, scraper output must
@@ -203,4 +211,6 @@ class TestAFSIntegration:
                 f"{ {f: e.get(f) for f in metadata_fields} }"
             )
             checked += 1
-        assert checked >= 20, f"Only {checked} oracle films in scraper output (expected ≥20)"
+        assert (
+            checked >= 20
+        ), f"Only {checked} oracle films in scraper output (expected ≥20)"

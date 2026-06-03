@@ -13,7 +13,6 @@ import pytest
 
 from src.processor import EventProcessor
 
-
 SAMPLE_VISUAL_ARTS_REVIEW = (
     "★ Rating: 8/10\n"
     "🎭 Formal Qualities — the series of chromogenic prints exploits a "
@@ -70,7 +69,9 @@ def test_get_visual_arts_rating_returns_default_without_api_key(monkeypatch):
 @pytest.mark.unit
 def test_get_visual_arts_rating_parses_successful_response(monkeypatch):
     processor = _make_processor(monkeypatch)
-    monkeypatch.setattr(processor, "_call_perplexity", lambda prompt: SAMPLE_VISUAL_ARTS_REVIEW)
+    monkeypatch.setattr(
+        processor, "_call_perplexity", lambda prompt: SAMPLE_VISUAL_ARTS_REVIEW
+    )
 
     result = processor._get_visual_arts_rating(_visual_arts_event())
 
@@ -81,7 +82,9 @@ def test_get_visual_arts_rating_parses_successful_response(monkeypatch):
 @pytest.mark.unit
 def test_get_visual_arts_rating_retries_on_refusal(monkeypatch):
     processor = _make_processor(monkeypatch)
-    responses = iter([NISH_KUMAR_STYLE_REFUSAL, NISH_KUMAR_STYLE_REFUSAL, SAMPLE_VISUAL_ARTS_REVIEW])
+    responses = iter(
+        [NISH_KUMAR_STYLE_REFUSAL, NISH_KUMAR_STYLE_REFUSAL, SAMPLE_VISUAL_ARTS_REVIEW]
+    )
     monkeypatch.setattr(processor, "_call_perplexity", lambda prompt: next(responses))
 
     result = processor._get_visual_arts_rating(_visual_arts_event())
@@ -94,7 +97,9 @@ def test_get_visual_arts_rating_retries_on_refusal(monkeypatch):
 @pytest.mark.unit
 def test_get_visual_arts_rating_falls_through_on_all_refusals(monkeypatch):
     processor = _make_processor(monkeypatch)
-    monkeypatch.setattr(processor, "_call_perplexity", lambda prompt: NISH_KUMAR_STYLE_REFUSAL)
+    monkeypatch.setattr(
+        processor, "_call_perplexity", lambda prompt: NISH_KUMAR_STYLE_REFUSAL
+    )
     monkeypatch.setattr(
         processor,
         "_claude_fallback_visual_arts",
@@ -193,7 +198,9 @@ def test_get_dance_rating_returns_default_without_api_key(monkeypatch):
 @pytest.mark.unit
 def test_get_dance_rating_parses_successful_response(monkeypatch):
     processor = _make_processor(monkeypatch)
-    monkeypatch.setattr(processor, "_call_perplexity", lambda prompt: SAMPLE_DANCE_REVIEW)
+    monkeypatch.setattr(
+        processor, "_call_perplexity", lambda prompt: SAMPLE_DANCE_REVIEW
+    )
 
     result = processor._get_dance_rating(_dance_event())
 
@@ -204,7 +211,9 @@ def test_get_dance_rating_parses_successful_response(monkeypatch):
 @pytest.mark.unit
 def test_get_dance_rating_retries_on_refusal(monkeypatch):
     processor = _make_processor(monkeypatch)
-    responses = iter([NISH_KUMAR_DANCE_REFUSAL, NISH_KUMAR_DANCE_REFUSAL, SAMPLE_DANCE_REVIEW])
+    responses = iter(
+        [NISH_KUMAR_DANCE_REFUSAL, NISH_KUMAR_DANCE_REFUSAL, SAMPLE_DANCE_REVIEW]
+    )
     monkeypatch.setattr(processor, "_call_perplexity", lambda prompt: next(responses))
 
     result = processor._get_dance_rating(_dance_event())
@@ -216,7 +225,9 @@ def test_get_dance_rating_retries_on_refusal(monkeypatch):
 @pytest.mark.unit
 def test_get_dance_rating_falls_through_on_all_refusals(monkeypatch):
     processor = _make_processor(monkeypatch)
-    monkeypatch.setattr(processor, "_call_perplexity", lambda prompt: NISH_KUMAR_DANCE_REFUSAL)
+    monkeypatch.setattr(
+        processor, "_call_perplexity", lambda prompt: NISH_KUMAR_DANCE_REFUSAL
+    )
     monkeypatch.setattr(
         processor,
         "_claude_fallback_dance",

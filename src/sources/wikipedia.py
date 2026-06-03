@@ -53,15 +53,14 @@ def fetch_wikipedia(query: str) -> Optional[dict]:
         "explaintext": "true",
         "redirects": "true",
         "titles": query,
-        "format": "json"
+        "format": "json",
     }
 
     url = "https://en.wikipedia.org/w/api.php?" + urllib.parse.urlencode(params)
 
     try:
         req = urllib.request.Request(
-            url,
-            headers={"User-Agent": "Culture-Calendar/1.0"}
+            url, headers={"User-Agent": "Culture-Calendar/1.0"}
         )
         with urllib.request.urlopen(req, timeout=10) as response:
             data = json.loads(response.read().decode())
@@ -79,7 +78,7 @@ def fetch_wikipedia(query: str) -> Optional[dict]:
     result = {
         "title": page.get("title", ""),
         "extract": page.get("extract", ""),
-        "url": f"https://en.wikipedia.org/wiki/{urllib.parse.quote(page.get('title', ''))}"
+        "url": f"https://en.wikipedia.org/wiki/{urllib.parse.quote(page.get('title', ''))}",
     }
 
     cache_dir.mkdir(parents=True, exist_ok=True)

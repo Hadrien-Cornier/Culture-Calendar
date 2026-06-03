@@ -195,7 +195,9 @@ def generate_weekly_digests(weeks_ahead: int = 4) -> None:
         if rc != 0:
             print(f"Warning: build_weekly_digest exited with rc={rc}")
         else:
-            print(f"Wrote weekly digests under docs/weekly/ (weeks-ahead={weeks_ahead})")
+            print(
+                f"Wrote weekly digests under docs/weekly/ (weeks-ahead={weeks_ahead})"
+            )
     except Exception as e:
         print(f"Warning: build_weekly_digest failed: {e}")
 
@@ -326,7 +328,9 @@ def strip_banned_from_events(events: list) -> list:
         if "description" in event and event["description"]:
             event["description"] = strip_banned_phrases(event["description"])
         if "one_liner_summary" in event and event["one_liner_summary"]:
-            event["one_liner_summary"] = strip_banned_phrases(event["one_liner_summary"])
+            event["one_liner_summary"] = strip_banned_phrases(
+                event["one_liner_summary"]
+            )
     return events
 
 
@@ -444,7 +448,9 @@ def determine_event_type(event: dict) -> str:
         return "movie"
 
     # Field-based inference (typical film metadata)
-    if any(k in event for k in ("director", "runtime", "runtime_minutes", "release_year")):
+    if any(
+        k in event for k in ("director", "runtime", "runtime_minutes", "release_year")
+    ):
         # Don't overwrite explicit non-movie types
         if raw_type in ("", "other"):
             return "movie"
@@ -602,8 +608,12 @@ def finalize_website_data(combined_data: dict) -> list:
         )
 
         # Hoist dates/times from screenings so they always match
-        screening_dates = sorted({s["date"] for s in event_data["screenings"] if s.get("date")})
-        screening_times = sorted({s["time"] for s in event_data["screenings"] if s.get("time")})
+        screening_dates = sorted(
+            {s["date"] for s in event_data["screenings"] if s.get("date")}
+        )
+        screening_times = sorted(
+            {s["time"] for s in event_data["screenings"] if s.get("time")}
+        )
         event_data["dates"] = screening_dates
         event_data["times"] = screening_times
 
@@ -661,11 +671,7 @@ def _merge_companion_events(events: list) -> list:
         paired_date = companion_hint.get("date")
         target_idx = None
         for (film_title, film_date), film_idx in film_index.items():
-            if (
-                film_date == paired_date
-                and paired_title
-                and paired_title in film_title
-            ):
+            if film_date == paired_date and paired_title and paired_title in film_title:
                 target_idx = film_idx
                 break
 
@@ -690,9 +696,7 @@ def _merge_companion_events(events: list) -> list:
     return remaining
 
 
-def _lookup_venue_metadata(
-    venue_code: str, venues_config: dict
-) -> tuple[str, str]:
+def _lookup_venue_metadata(venue_code: str, venues_config: dict) -> tuple[str, str]:
     """Resolve ``venue_display_name`` and ``venue_address`` for a venue code.
 
     Events carry short venue codes like ``"AFS"`` or facility names like
@@ -749,8 +753,12 @@ def generate_website_data(events):
 
     counts = {k: len(v) for k, v in events_by_type.items()}
     print(f"Processing events by type: {counts}")
-    if counts.get("movie", 0) == 0 and any(e.get("venue") in {"AFS", "Hyperreal"} for e in events):
-        print("WARNING: 0 'movie' events after typing, but AFS/Hyperreal events exist → check type normalization/templates")
+    if counts.get("movie", 0) == 0 and any(
+        e.get("venue") in {"AFS", "Hyperreal"} for e in events
+    ):
+        print(
+            "WARNING: 0 'movie' events after typing, but AFS/Hyperreal events exist → check type normalization/templates"
+        )
 
     # Process events using templates
     combined_data = {}
@@ -780,8 +788,8 @@ def generate_website_data(events):
                 # Unique event (concert, book_club, etc.)
                 unique_key = create_unique_key(event)
                 combined_data[unique_key] = output_event
-                combined_data[unique_key]["screenings"] = (
-                    create_screenings_from_arrays(event, date_time_spec)
+                combined_data[unique_key]["screenings"] = create_screenings_from_arrays(
+                    event, date_time_spec
                 )
 
     # Finalize website data (grouping + sorting), then attach per-venue
@@ -902,7 +910,9 @@ def main(
                 # Keep other types too (e.g., if typing happens later)
                 detailed_events.append(event)
         if dropped_on_details:
-            print(f"Note: {dropped_on_details} events lost during details stage (should be 0)")
+            print(
+                f"Note: {dropped_on_details} events lost during details stage (should be 0)"
+            )
 
         # Keep all events - no date filtering applied
         upcoming_events = detailed_events
@@ -918,8 +928,7 @@ def main(
                 "SHIFTING BASELINES",
             }
             upcoming_events = [
-                e for e in upcoming_events
-                if e.get("title", "") in pilot_titles
+                e for e in upcoming_events if e.get("title", "") in pilot_titles
             ]
             print(f"Filtered to {len(upcoming_events)} pilot events")
 

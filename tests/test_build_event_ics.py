@@ -4,6 +4,7 @@ Exercises slug→.ics emission, iCalendar round-trip, multi-screening
 events collapsing into one file with N VEVENTs, skipping of
 unidentifiable or un-dated events, and the CLI entry point.
 """
+
 from __future__ import annotations
 
 import importlib.util

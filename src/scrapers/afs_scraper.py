@@ -15,12 +15,12 @@ from src.base_scraper import BaseScraper
 class AFSScraper(BaseScraper):
     """Austin Movie Society scraper - extracts movie screenings from website."""
 
-    def __init__(self, config=None, venue_key='afs'):
+    def __init__(self, config=None, venue_key="afs"):
         super().__init__(
-            base_url="https://www.austinfilm.org", 
+            base_url="https://www.austinfilm.org",
             venue_name="Austin Movie Society",
             venue_key=venue_key,
-            config=config
+            config=config,
         )
         # Set better headers to bypass anti-bot protection
         headers = {
@@ -77,8 +77,12 @@ class AFSScraper(BaseScraper):
                             movie_response = self.session.get(movie_url, timeout=10)
                             if movie_response.status_code != 200:
                                 continue
-                            movie_soup = BeautifulSoup(movie_response.text, "html.parser")
-                            all_events.extend(self._extract_movie_page_events(movie_soup, movie_url))
+                            movie_soup = BeautifulSoup(
+                                movie_response.text, "html.parser"
+                            )
+                            all_events.extend(
+                                self._extract_movie_page_events(movie_soup, movie_url)
+                            )
                         except Exception as e:
                             print(f"  AFS: failed on {movie_url}: {e!r}")
                             continue
@@ -115,7 +119,9 @@ class AFSScraper(BaseScraper):
                 urls.append(href)
         return urls
 
-    def _extract_movie_page_events(self, soup: BeautifulSoup, source_url: str) -> List[Dict]:
+    def _extract_movie_page_events(
+        self, soup: BeautifulSoup, source_url: str
+    ) -> List[Dict]:
         """Pull every (title, date, time) screening event from one movie page."""
         title_elem = soup.find("h1") or soup.find("h2")
         title = title_elem.get_text(strip=True) if title_elem else None
@@ -146,7 +152,9 @@ class AFSScraper(BaseScraper):
             language = self._parse_languages_from_info(info_text, country)
 
         desc_elem = soup.find("div", class_="c-screening-content")
-        description = desc_elem.get_text(separator=" ", strip=True) if desc_elem else None
+        description = (
+            desc_elem.get_text(separator=" ", strip=True) if desc_elem else None
+        )
 
         date_map = self._extract_date_map(soup)
 
@@ -159,20 +167,22 @@ class AFSScraper(BaseScraper):
                 time_str = btn.get_text(strip=True)
                 if not time_str:
                     continue
-                events.append({
-                    "title": title,
-                    "type": "movie",
-                    "director": director,
-                    "release_year": year,
-                    "country": country,
-                    "language": language,
-                    "runtime_minutes": self._parse_duration_to_minutes(duration),
-                    "dates": [date_fmt],
-                    "times": [time_str],
-                    "venue": "AFS Cinema",
-                    "description": description,
-                    "url": source_url,
-                })
+                events.append(
+                    {
+                        "title": title,
+                        "type": "movie",
+                        "director": director,
+                        "release_year": year,
+                        "country": country,
+                        "language": language,
+                        "runtime_minutes": self._parse_duration_to_minutes(duration),
+                        "dates": [date_fmt],
+                        "times": [time_str],
+                        "venue": "AFS Cinema",
+                        "description": description,
+                        "url": source_url,
+                    }
+                )
         return events
 
     @staticmethod
@@ -186,16 +196,20 @@ class AFSScraper(BaseScraper):
         for li in soup.select(".c-showtime-select__trigger"):
             data_target = li.get("data-target")
             if data_target and len(data_target) == 8:
-                date_map[data_target] = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
+                date_map[data_target] = (
+                    f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
+                )
         if not date_map:
             for div in soup.select("div.c-showtime-display"):
                 div_id = div.get("id", "")
                 if div_id.startswith("showtime-") and len(div_id) == 17:
                     data_target = div_id.removeprefix("showtime-")
                     if len(data_target) == 8:
-                        date_map[data_target] = f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
+                        date_map[data_target] = (
+                            f"{data_target[:4]}-{data_target[4:6]}-{data_target[6:]}"
+                        )
         return date_map
-    
+
     def _parse_duration_to_minutes(self, duration_str):
         """Parse duration string into total minutes.
 
@@ -216,7 +230,7 @@ class AFSScraper(BaseScraper):
 
         s = text.lower()
         # Normalize punctuation/abbreviations
-        s = s.replace("\u00A0", " ")  # non-breaking space
+        s = s.replace("\u00a0", " ")  # non-breaking space
         s = s.replace(".", "")
         s = s.replace("mins", "min")
         s = s.replace("minutes", "min")
@@ -256,7 +270,9 @@ class AFSScraper(BaseScraper):
 
         return None
 
-    def _parse_languages_from_info(self, info_text: str, country: Optional[str]) -> Optional[str]:
+    def _parse_languages_from_info(
+        self, info_text: str, country: Optional[str]
+    ) -> Optional[str]:
         """Extract language(s) from the info text.
 
         Examples handled:
@@ -286,14 +302,16 @@ class AFSScraper(BaseScraper):
                 return "English"
             return None
 
-        s = info_text.replace("\u00A0", " ")
+        s = info_text.replace("\u00a0", " ")
         # Look for a segment beginning with "In "
         m = re.search(r"\bIn\s+(.+)$", s, re.IGNORECASE)
         lang_segment = None
         if m:
             lang_segment = m.group(1)
             # Cut off subtitles or trailing punctuation after languages
-            lang_segment = re.split(r"\s+with\s+[^.]*?subtitles?", lang_segment, flags=re.IGNORECASE)[0]
+            lang_segment = re.split(
+                r"\s+with\s+[^.]*?subtitles?", lang_segment, flags=re.IGNORECASE
+            )[0]
             lang_segment = re.split(r"[.;\n\r]", lang_segment)[0]
 
         if lang_segment:

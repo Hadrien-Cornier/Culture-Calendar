@@ -7,6 +7,7 @@ because it requires boto3-resolvable IAM credentials, while the Claude CLI
 honors ``AWS_BEARER_TOKEN_BEDROCK`` directly. See the class docstring in
 ``scripts/persona_critique.py``.
 """
+
 from __future__ import annotations
 
 import base64
@@ -41,9 +42,7 @@ def pc_module(monkeypatch: pytest.MonkeyPatch) -> Iterator[Any]:
     sys.modules.pop("persona_critique", None)
 
 
-def _make_user_message(
-    *, with_image: bool, with_dom: bool
-) -> list[dict[str, Any]]:
+def _make_user_message(*, with_image: bool, with_dom: bool) -> list[dict[str, Any]]:
     content: list[dict[str, Any]] = []
     if with_image:
         # 1×1 PNG — minimum valid payload (transparent pixel).
@@ -57,12 +56,18 @@ def _make_user_message(
         content.append(
             {
                 "type": "image",
-                "source": {"type": "base64", "media_type": "image/png", "data": tiny_png},
+                "source": {
+                    "type": "base64",
+                    "media_type": "image/png",
+                    "data": tiny_png,
+                },
             }
         )
     content.append({"type": "text", "text": "Score this page as persona X."})
     if with_dom:
-        content.append({"type": "text", "text": "DOM snippet (truncated):\n<html>...</html>"})
+        content.append(
+            {"type": "text", "text": "DOM snippet (truncated):\n<html>...</html>"}
+        )
     return content
 
 
@@ -73,6 +78,7 @@ def _stub_subprocess_run(
     captured: dict[str, Any],
 ) -> None:
     """Replace ``subprocess.run`` inside the persona_critique module only."""
+
     class _Proc:
         def __init__(self) -> None:
             self.returncode = 0
@@ -113,9 +119,7 @@ def test_shim_round_trip_with_image_and_dom(
     }
     _stub_subprocess_run(monkeypatch, pc_module, envelope, captured)
 
-    client = pc_module._ClaudeCodeSubprocessClient(
-        scratch_dir=tmp_path / "shim"
-    )
+    client = pc_module._ClaudeCodeSubprocessClient(scratch_dir=tmp_path / "shim")
     tool = pc_module.PERSONA_CRITIQUE_TOOL
 
     resp = client.messages.create(
@@ -124,7 +128,12 @@ def test_shim_round_trip_with_image_and_dom(
         tools=[tool],
         tool_choice={"type": "tool", "name": tool["name"]},
         system="You are the logistics-user persona.",
-        messages=[{"role": "user", "content": _make_user_message(with_image=True, with_dom=True)}],
+        messages=[
+            {
+                "role": "user",
+                "content": _make_user_message(with_image=True, with_dom=True),
+            }
+        ],
     )
 
     assert len(resp.content) == 1
@@ -145,7 +154,10 @@ def test_shim_command_uses_model_and_bedrock_safe_flags(
     other shape breaks JSON envelope parsing.
     """
     captured: dict[str, Any] = {}
-    envelope = {"result": '{"verdict":"PASS","summary":"ok","findings":[]}', "usage": {}}
+    envelope = {
+        "result": '{"verdict":"PASS","summary":"ok","findings":[]}',
+        "usage": {},
+    }
     _stub_subprocess_run(monkeypatch, pc_module, envelope, captured)
 
     client = pc_module._ClaudeCodeSubprocessClient(scratch_dir=tmp_path)
@@ -154,7 +166,12 @@ def test_shim_command_uses_model_and_bedrock_safe_flags(
         model=model,
         max_tokens=256,
         tools=[pc_module.PERSONA_CRITIQUE_TOOL],
-        messages=[{"role": "user", "content": _make_user_message(with_image=False, with_dom=False)}],
+        messages=[
+            {
+                "role": "user",
+                "content": _make_user_message(with_image=False, with_dom=False),
+            }
+        ],
     )
     cmd = captured["cmd"]
     assert cmd[0] == "claude"
@@ -173,7 +190,10 @@ def test_shim_prompt_includes_schema_and_screenshot_path(
     absolute path to the screenshot so the CLI's Read tool can open it.
     """
     captured: dict[str, Any] = {}
-    envelope = {"result": '{"verdict":"PASS","summary":"ok","findings":[]}', "usage": {}}
+    envelope = {
+        "result": '{"verdict":"PASS","summary":"ok","findings":[]}',
+        "usage": {},
+    }
     _stub_subprocess_run(monkeypatch, pc_module, envelope, captured)
 
     client = pc_module._ClaudeCodeSubprocessClient(scratch_dir=tmp_path)
@@ -181,7 +201,12 @@ def test_shim_prompt_includes_schema_and_screenshot_path(
         model="us.anthropic.claude-sonnet-4-5-20250929-v1:0",
         max_tokens=512,
         tools=[pc_module.PERSONA_CRITIQUE_TOOL],
-        messages=[{"role": "user", "content": _make_user_message(with_image=True, with_dom=False)}],
+        messages=[
+            {
+                "role": "user",
+                "content": _make_user_message(with_image=True, with_dom=False),
+            }
+        ],
     )
     prompt = captured["input"]
     # Schema fields from PERSONA_CRITIQUE_TOOL.input_schema.
@@ -202,7 +227,10 @@ def test_shim_writes_screenshot_png_to_scratch_dir(
     can open it; otherwise the Read tool reference is a dead link.
     """
     captured: dict[str, Any] = {}
-    envelope = {"result": '{"verdict":"PASS","summary":"ok","findings":[]}', "usage": {}}
+    envelope = {
+        "result": '{"verdict":"PASS","summary":"ok","findings":[]}',
+        "usage": {},
+    }
     _stub_subprocess_run(monkeypatch, pc_module, envelope, captured)
 
     scratch = tmp_path / "shim-scratch"
@@ -211,7 +239,12 @@ def test_shim_writes_screenshot_png_to_scratch_dir(
         model="us.anthropic.claude-sonnet-4-5-20250929-v1:0",
         max_tokens=512,
         tools=[pc_module.PERSONA_CRITIQUE_TOOL],
-        messages=[{"role": "user", "content": _make_user_message(with_image=True, with_dom=False)}],
+        messages=[
+            {
+                "role": "user",
+                "content": _make_user_message(with_image=True, with_dom=False),
+            }
+        ],
     )
     pngs = list(scratch.glob("screenshot-*.png"))
     assert len(pngs) == 1, "exactly one screenshot file expected"
@@ -230,9 +263,11 @@ def test_shim_strips_markdown_code_fences_from_model_output(
     shim must tolerate that rather than crash.
     """
     captured: dict[str, Any] = {}
-    fenced = "```json\n" + json.dumps(
-        {"verdict": "FAIL", "summary": "s", "findings": []}
-    ) + "\n```"
+    fenced = (
+        "```json\n"
+        + json.dumps({"verdict": "FAIL", "summary": "s", "findings": []})
+        + "\n```"
+    )
     envelope = {"result": fenced, "usage": {}}
     _stub_subprocess_run(monkeypatch, pc_module, envelope, captured)
 
@@ -241,7 +276,12 @@ def test_shim_strips_markdown_code_fences_from_model_output(
         model="us.anthropic.claude-sonnet-4-5-20250929-v1:0",
         max_tokens=256,
         tools=[pc_module.PERSONA_CRITIQUE_TOOL],
-        messages=[{"role": "user", "content": _make_user_message(with_image=False, with_dom=False)}],
+        messages=[
+            {
+                "role": "user",
+                "content": _make_user_message(with_image=False, with_dom=False),
+            }
+        ],
     )
     assert resp.content[0].input["verdict"] == "FAIL"
 
@@ -268,7 +308,12 @@ def test_shim_extracts_embedded_json_when_model_adds_prose(
         model="us.anthropic.claude-sonnet-4-5-20250929-v1:0",
         max_tokens=256,
         tools=[pc_module.PERSONA_CRITIQUE_TOOL],
-        messages=[{"role": "user", "content": _make_user_message(with_image=False, with_dom=False)}],
+        messages=[
+            {
+                "role": "user",
+                "content": _make_user_message(with_image=False, with_dom=False),
+            }
+        ],
     )
     assert resp.content[0].input["verdict"] == "PASS"
 
@@ -296,7 +341,12 @@ def test_shim_raises_when_cli_exits_nonzero(
             model="us.anthropic.claude-sonnet-4-5-20250929-v1:0",
             max_tokens=256,
             tools=[pc_module.PERSONA_CRITIQUE_TOOL],
-            messages=[{"role": "user", "content": _make_user_message(with_image=False, with_dom=False)}],
+            messages=[
+                {
+                    "role": "user",
+                    "content": _make_user_message(with_image=False, with_dom=False),
+                }
+            ],
         )
 
 
@@ -315,7 +365,12 @@ def test_shim_raises_when_cli_not_on_path(
             model="us.anthropic.claude-sonnet-4-5-20250929-v1:0",
             max_tokens=256,
             tools=[pc_module.PERSONA_CRITIQUE_TOOL],
-            messages=[{"role": "user", "content": _make_user_message(with_image=False, with_dom=False)}],
+            messages=[
+                {
+                    "role": "user",
+                    "content": _make_user_message(with_image=False, with_dom=False),
+                }
+            ],
         )
 
 
@@ -325,19 +380,23 @@ def test_shim_raises_on_timeout(
 ) -> None:
     def fake_run(cmd: list[str], **kwargs: Any) -> Any:
         import subprocess as _sp
+
         raise _sp.TimeoutExpired(cmd[0], timeout=1)
 
     monkeypatch.setattr(pc_module.subprocess, "run", fake_run)
 
-    client = pc_module._ClaudeCodeSubprocessClient(
-        scratch_dir=tmp_path, timeout_s=1
-    )
+    client = pc_module._ClaudeCodeSubprocessClient(scratch_dir=tmp_path, timeout_s=1)
     with pytest.raises(RuntimeError, match=r"timed out after 1s"):
         client.messages.create(
             model="us.anthropic.claude-sonnet-4-5-20250929-v1:0",
             max_tokens=256,
             tools=[pc_module.PERSONA_CRITIQUE_TOOL],
-            messages=[{"role": "user", "content": _make_user_message(with_image=False, with_dom=False)}],
+            messages=[
+                {
+                    "role": "user",
+                    "content": _make_user_message(with_image=False, with_dom=False),
+                }
+            ],
         )
 
 
@@ -364,7 +423,10 @@ def test_call_anthropic_critique_works_with_subprocess_shim(
             }
         ],
     }
-    envelope = {"result": json.dumps(critique), "usage": {"input_tokens": 100, "output_tokens": 50}}
+    envelope = {
+        "result": json.dumps(critique),
+        "usage": {"input_tokens": 100, "output_tokens": 50},
+    }
     _stub_subprocess_run(monkeypatch, pc_module, envelope, captured)
 
     # Build a PersonaResult with the minimum fields the code reads.

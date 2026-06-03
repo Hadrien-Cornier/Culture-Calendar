@@ -26,8 +26,8 @@ from bs4 import BeautifulSoup
 def _slugify(title: str) -> str:
     """Convert title to Letterboxd-style slug."""
     slug = title.lower()
-    slug = re.sub(r'[^a-z0-9]+', '-', slug)
-    slug = slug.strip('-')
+    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    slug = slug.strip("-")
     return slug
 
 

@@ -23,7 +23,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src", "scrapers")
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 
 
-@pytest.mark.skip(reason="book-club scraper deferred to Milestone G.2; tests reference legacy API")
+@pytest.mark.skip(
+    reason="book-club scraper deferred to Milestone G.2; tests reference legacy API"
+)
 class TestAlienatedMajestyBooksScraper(unittest.TestCase):
     """Unit tests for Alienated Majesty Books scraper"""
 

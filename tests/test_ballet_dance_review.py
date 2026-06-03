@@ -34,7 +34,6 @@ from src.processor import EventProcessor
 from src.scrapers.ballet_austin_scraper import BalletAustinScraper
 from src.summary_generator import SummaryGenerator
 
-
 # ---------------------------------------------------------------------------
 # Canned LLM responses
 # ---------------------------------------------------------------------------
@@ -117,7 +116,9 @@ def ballet_scraper(ballet_data_file: Path, monkeypatch) -> BalletAustinScraper:
     return scraper
 
 
-def _make_processor(monkeypatch, *, with_summary_generator: bool = False) -> EventProcessor:
+def _make_processor(
+    monkeypatch, *, with_summary_generator: bool = False
+) -> EventProcessor:
     """Build an EventProcessor isolated from docs/data.json and the network."""
     monkeypatch.setenv("PERPLEXITY_API_KEY", "test-key")
     if with_summary_generator:
@@ -176,9 +177,7 @@ def test_scraper_emits_dance_type_for_every_event(ballet_scraper):
 
     assert events, "scraper produced no events from the fixture"
     types = {e.get("type") for e in events}
-    assert types == {"dance"}, (
-        f"Ballet events must all be type=dance, got {types}"
-    )
+    assert types == {"dance"}, f"Ballet events must all be type=dance, got {types}"
     # And explicitly never concert — the precise bug we are guarding against.
     assert "concert" not in types
 

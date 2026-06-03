@@ -3,6 +3,7 @@
 The external side-effects (subprocess, pyppeteer, Anthropic SDK) are all
 injected or mocked so the tests never hit the network or launch a browser.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -54,7 +55,9 @@ def _make_persona_file(
     return path
 
 
-def _fake_completed(returncode: int, stdout: str = "", stderr: str = "") -> subprocess.CompletedProcess:
+def _fake_completed(
+    returncode: int, stdout: str = "", stderr: str = ""
+) -> subprocess.CompletedProcess:
     return subprocess.CompletedProcess(
         args=["python", "check_live_site.py"],
         returncode=returncode,
@@ -162,7 +165,9 @@ def test_build_anthropic_messages_includes_screenshot_and_dom():
         stdout="",
         stderr="",
     )
-    system, messages = pc.build_anthropic_messages(persona, result, "BASE64==", "<html>foo</html>")
+    system, messages = pc.build_anthropic_messages(
+        persona, result, "BASE64==", "<html>foo</html>"
+    )
     assert system == "SYS"
     assert len(messages) == 1
     content = messages[0]["content"]
@@ -178,7 +183,9 @@ def test_build_anthropic_messages_includes_screenshot_and_dom():
 
 def test_build_anthropic_messages_omits_system_when_absent():
     persona = {"persona": "p1", "url": "https://x.invalid/", "llm": {}}
-    result = pc.PersonaResult(name="p1", passed=False, exit_code=1, stdout="", stderr="err")
+    result = pc.PersonaResult(
+        name="p1", passed=False, exit_code=1, stdout="", stderr="err"
+    )
     system, messages = pc.build_anthropic_messages(persona, result, "B", "")
     assert system == ""
     # Text block still exists even without DOM snippet
@@ -211,7 +218,11 @@ def _build_fake_client(
 
 
 def test_call_anthropic_critique_defaults_to_configured_model():
-    persona = {"persona": "p", "url": "u", "llm": {"system_prompt": "SYS", "goals": "g"}}
+    persona = {
+        "persona": "p",
+        "url": "u",
+        "llm": {"system_prompt": "SYS", "goals": "g"},
+    }
     result = pc.PersonaResult(name="p", passed=True, exit_code=0, stdout="", stderr="")
     client = _build_fake_client(verdict="PASS", summary="quite nice indeed")
     critique = pc.call_anthropic_critique(persona, result, "B", "<html></html>", client)
@@ -342,8 +353,12 @@ def test_fast_mode_skips_anthropic_entirely(tmp_path, monkeypatch):
     _make_persona_file(tmp_path, "p3")
     runner = _TrackingRunner([_fake_completed(0, "OK", "")] * 3)
 
-    factory = MagicMock(side_effect=AssertionError("factory must not be invoked in --fast"))
-    capture = MagicMock(side_effect=AssertionError("capture must not be invoked in --fast"))
+    factory = MagicMock(
+        side_effect=AssertionError("factory must not be invoked in --fast")
+    )
+    capture = MagicMock(
+        side_effect=AssertionError("capture must not be invoked in --fast")
+    )
 
     results = pc.run_all_personas(
         tmp_path,
@@ -600,7 +615,9 @@ def test_log_cost_event_silently_ignores_failure(tmp_path):
 
 def test_call_anthropic_critique_emits_cost_event():
     persona = {"persona": "hero", "url": "u", "llm": {}}
-    result = pc.PersonaResult(name="hero", passed=True, exit_code=0, stdout="", stderr="")
+    result = pc.PersonaResult(
+        name="hero", passed=True, exit_code=0, stdout="", stderr=""
+    )
     # Fake usage object attached to response
     tool_block = types.SimpleNamespace(
         type="tool_use",
@@ -680,7 +697,11 @@ def test_main_writes_scorecard_and_returns_zero_on_all_pass(tmp_path, monkeypatc
     out = tmp_path / "out.md"
 
     def fake_run_all(*_args, **_kwargs):
-        return [pc.PersonaResult(name="only", passed=True, exit_code=0, stdout="", stderr="")]
+        return [
+            pc.PersonaResult(
+                name="only", passed=True, exit_code=0, stdout="", stderr=""
+            )
+        ]
 
     monkeypatch.setattr(pc, "run_all_personas", fake_run_all)
     rc = pc.main(
@@ -706,7 +727,11 @@ def test_main_returns_nonzero_on_structural_failure(tmp_path, monkeypatch):
     out = tmp_path / "out.md"
 
     def fake_run_all(*_args, **_kwargs):
-        return [pc.PersonaResult(name="only", passed=False, exit_code=1, stdout="", stderr="x")]
+        return [
+            pc.PersonaResult(
+                name="only", passed=False, exit_code=1, stdout="", stderr="x"
+            )
+        ]
 
     monkeypatch.setattr(pc, "run_all_personas", fake_run_all)
     rc = pc.main(

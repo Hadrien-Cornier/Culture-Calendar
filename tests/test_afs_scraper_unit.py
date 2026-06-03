@@ -45,7 +45,9 @@ class TestAFSScraper(unittest.TestCase):
         with self.subTest(test_case=test_case_name):
             self.assertIn("title", actual, f"Missing title in {test_case_name}")
             self.assertEqual(actual["title"], expected["title"])
-            self.assertEqual(actual.get("type"), "movie", f"type must be 'movie' in {test_case_name}")
+            self.assertEqual(
+                actual.get("type"), "movie", f"type must be 'movie' in {test_case_name}"
+            )
 
             field_map = {
                 "director": "director",
@@ -62,7 +64,9 @@ class TestAFSScraper(unittest.TestCase):
                     )
 
             if expected.get("duration") is not None:
-                expected_minutes = self.scraper._parse_duration_to_minutes(expected["duration"])
+                expected_minutes = self.scraper._parse_duration_to_minutes(
+                    expected["duration"]
+                )
                 self.assertEqual(
                     actual.get("runtime_minutes"),
                     expected_minutes,
@@ -70,7 +74,9 @@ class TestAFSScraper(unittest.TestCase):
                 )
 
             if "dates" in expected:
-                self.assertIn("dates", actual, f"Missing dates array in {test_case_name}")
+                self.assertIn(
+                    "dates", actual, f"Missing dates array in {test_case_name}"
+                )
                 for date in actual["dates"]:
                     self.assertIn(
                         date,
@@ -79,7 +85,9 @@ class TestAFSScraper(unittest.TestCase):
                     )
 
             if "times" in expected:
-                self.assertIn("times", actual, f"Missing times array in {test_case_name}")
+                self.assertIn(
+                    "times", actual, f"Missing times array in {test_case_name}"
+                )
                 self.assertEqual(
                     len(actual["dates"]),
                     len(actual["times"]),
@@ -104,6 +112,7 @@ class TestAFSScraper(unittest.TestCase):
         html_content = self._load_test_html("jane_austen_movie_page.html")
         with patch("requests.Session.get") as mock_get:
             import unittest.mock
+
             mock_response = unittest.mock.MagicMock()
             mock_response.status_code = 200
             mock_response.text = html_content
@@ -160,6 +169,7 @@ class TestAFSScraper(unittest.TestCase):
         html_content = self._load_test_html("jane_austen_movie_page.html")
         with patch("requests.Session.get") as mock_get:
             import unittest.mock
+
             mock_response = unittest.mock.MagicMock()
             mock_response.status_code = 200
             mock_response.text = html_content
@@ -172,6 +182,7 @@ class TestAFSScraper(unittest.TestCase):
         self.assertIn("times", event)
         self.assertTrue(len(event["dates"]) >= 1 and len(event["times"]) >= 1)
         import re
+
         self.assertRegex(event["dates"][0], r"^\d{4}-\d{2}-\d{2}$")
         self.assertTrue("AM" in event["times"][0] or "PM" in event["times"][0])
 

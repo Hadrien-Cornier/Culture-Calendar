@@ -4,6 +4,7 @@ Covers slug generation, venue grouping, upcoming-only filtering,
 HTML render contracts (deep-link anchor, rating aria-label, empty-state
 fallback, XSS escaping), and ``main`` end-to-end writing.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -118,9 +119,7 @@ def test_slugify_strips_commas_and_collapses_runs():
 
 
 def test_slugify_strips_leading_and_trailing_hyphens():
-    assert bvp.slugify("  -- The Cathedral, Austin  --  ") == (
-        "the-cathedral-austin"
-    )
+    assert bvp.slugify("  -- The Cathedral, Austin  --  ") == ("the-cathedral-austin")
 
 
 def test_slugify_handles_internal_symbols():

@@ -3,6 +3,7 @@
 Covers the endpoint catalogue, absolute-URL construction, manifest
 envelope, file-writing side effects, and the ``main`` entrypoint.
 """
+
 from __future__ import annotations
 
 import importlib.util
@@ -18,7 +19,9 @@ SCRIPT_PATH = REPO_ROOT / "scripts" / "build_ai_agent_manifest.py"
 
 
 def _load_module():
-    spec = importlib.util.spec_from_file_location("build_ai_agent_manifest", SCRIPT_PATH)
+    spec = importlib.util.spec_from_file_location(
+        "build_ai_agent_manifest", SCRIPT_PATH
+    )
     assert spec is not None and spec.loader is not None
     mod = importlib.util.module_from_spec(spec)
     sys.modules["build_ai_agent_manifest"] = mod
@@ -63,16 +66,22 @@ def test_build_endpoints_have_stable_unique_ids():
     ids = [e.id for e in endpoints]
     assert len(ids) == len(set(ids)), "endpoint ids must be unique"
     # A handful of known-essential endpoints callers may diff against.
-    for required in ("llms_index", "api_events", "api_top_picks", "rss_top_picks", "ical_all"):
+    for required in (
+        "llms_index",
+        "api_events",
+        "api_top_picks",
+        "rss_top_picks",
+        "ical_all",
+    ):
         assert required in ids
 
 
 def test_build_endpoints_urls_are_absolute():
     endpoints = baa.build_endpoints()
     for e in endpoints:
-        assert e.url.startswith("https://") or e.url.startswith("http://"), (
-            f"endpoint {e.id} must use absolute URL"
-        )
+        assert e.url.startswith("https://") or e.url.startswith(
+            "http://"
+        ), f"endpoint {e.id} must use absolute URL"
 
 
 def test_endpoint_to_payload_includes_params_only_when_present():

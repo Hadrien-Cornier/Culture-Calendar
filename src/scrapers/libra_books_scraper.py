@@ -25,7 +25,6 @@ from bs4 import BeautifulSoup, Tag
 
 from ..base_scraper import BaseScraper
 
-
 _TITLE_POP_UP = re.compile(r"pop[-\s]?up", re.IGNORECASE)
 _TITLE_THEORY_NIGHT = re.compile(r"theory\s+night", re.IGNORECASE)
 _TITLE_BOOK_CLUB = re.compile(r"book\s+club", re.IGNORECASE)
@@ -114,7 +113,9 @@ class LibraBooksScraper(BaseScraper):
 
     # ---------- Field extractors ----------
 
-    def _extract_title_and_url(self, article: Tag) -> tuple[Optional[str], Optional[str]]:
+    def _extract_title_and_url(
+        self, article: Tag
+    ) -> tuple[Optional[str], Optional[str]]:
         link = article.select_one("h1.eventlist-title a.eventlist-title-link")
         if link is None:
             return None, None

@@ -13,25 +13,26 @@ def _load_events():
         return json.load(f)
 
 
-def _find_stranger(events):
-    for evt in events:
-        if "STRANGER" in evt.get("title", "").upper():
-            return evt
-    pytest.fail("THE STRANGER (L'ETRANGER) not found in docs/data.json")
+def test_the_stranger_dates_match_screenings():
+    """If THE STRANGER is in the data, its dates[] must equal its unique
+    screening dates (the movie-consolidation invariant).
 
-
-def test_the_stranger_6_dates():
-    """THE STRANGER must have dates == set of unique screening dates."""
+    The exact number of screenings depends on what AFS happens to be showing,
+    so don't hardcode a count; skip when the film isn't currently scheduled.
+    The generic invariant for all events is covered by the test below.
+    """
     events = _load_events()
-    stranger = _find_stranger(events)
+    stranger = next(
+        (e for e in events if "STRANGER" in e.get("title", "").upper()), None
+    )
+    if stranger is None:
+        pytest.skip("THE STRANGER not in current docs/data.json (not playing)")
 
     screening_dates = sorted({s["date"] for s in stranger.get("screenings", [])})
-    assert len(screening_dates) >= 6, f"Expected >=6 screening dates, got {screening_dates}"
-
     event_dates = sorted(stranger.get("dates", []))
-    assert event_dates == screening_dates, (
-        f"dates field {event_dates} != screening dates {screening_dates}"
-    )
+    assert (
+        event_dates == screening_dates
+    ), f"dates field {event_dates} != screening dates {screening_dates}"
 
 
 def test_all_events_dates_match_screenings():
