@@ -509,5 +509,12 @@
     "selector": ".pick-rating, .event-rating-badge",
     "since_commit": "task-5.6",
     "smoke_assertion": "js_truthy:getComputedStyle(document.querySelector('.pick-rating, .event-rating-badge')||document.body).fontFeatureSettings.includes('tnum')"
+  },
+  {
+    "id": "search-by-date",
+    "name": "Typed-date search: search bar filters events by date (ISO / month-name / M/D / today / tomorrow)",
+    "selector": "#event-search",
+    "since_commit": "task-date-search",
+    "smoke_assertion": "contains_text:parseDateQuery@/script.js"
   }
 ]
