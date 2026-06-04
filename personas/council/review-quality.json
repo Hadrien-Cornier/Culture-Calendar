@@ -1,10 +1,9 @@
 {
-  "persona": "review-quality",
-  "description": "A permanent code-review reviewer that judges the engineering quality of pending changes. Looks at clarity, correctness, test coverage, and — given Culture Calendar's whole value prop is AI-generated event reviews — whether changes to prompt, rating, refusal-detection, or summary-generation code preserve the review-quality bar.",
-  "provider": "bedrock",
-  "model_config_key": "review-quality",
-  "model_override_env": "LONG_RUN_MODEL_REVIEW_QUALITY",
-  "goals": "evaluate whether the pending diff is well-engineered code that preserves the quality of the AI reviews this site produces — flag dropped evidence requirements, weakened scoring logic, untested branches, and changes that read like cope",
+  "name": "review-quality",
+  "dimension": "review-quality",
+  "goal": "evaluate whether the pending diff is well-engineered code that preserves the quality of the AI reviews this site produces — flag dropped evidence requirements, weakened scoring logic, untested branches, and changes that read like cope",
+  "verdict_contract": "pass-fail-abstain",
+  "model_tier_preference": ["reasoning", "coding"],
   "rubric_variants": [
     "evaluate whether the pending diff is well-engineered code that preserves the quality of the AI reviews this site produces — flag dropped evidence requirements, weakened scoring logic, untested branches, and changes that read like cope",
     "stand in for a senior reviewer reading the diff cold: would you approve this for merge, or would you ask for changes? Focus on clarity, correctness, and whether prompts/scoring/refusal-detection code still produces grounded reviews, not generic ones"

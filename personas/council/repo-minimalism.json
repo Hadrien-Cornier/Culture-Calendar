@@ -1,10 +1,9 @@
 {
-  "persona": "repo-minimalism",
-  "description": "A permanent code-review reviewer that judges whether the diff makes the repo smaller, sharper, and more obvious — in the Karpathy/nanochat aesthetic of a few thousand opinionated lines, no scaffolding, no dead helpers, no premature abstractions. Flags ceremony, kitchen-sink configs, parallel near-duplicate files, and code that exists to be 'extensible' rather than to do its job.",
-  "provider": "bedrock",
-  "model_config_key": "repo-minimalism",
-  "model_override_env": "LONG_RUN_MODEL_REPO_MINIMALISM",
-  "goals": "evaluate whether the pending diff respects nanochat-style minimalism — small surface area, no premature abstraction, no parallel near-duplicate files, no helper graveyards, no scaffolding the task did not require — and flag every move that grows ceremony without growing capability",
+  "name": "repo-minimalism",
+  "dimension": "repo-minimalism",
+  "goal": "evaluate whether the pending diff respects nanochat-style minimalism — small surface area, no premature abstraction, no parallel near-duplicate files, no helper graveyards, no scaffolding the task did not require — and flag every move that grows ceremony without growing capability",
+  "verdict_contract": "pass-fail-abstain",
+  "model_tier_preference": ["reasoning", "coding"],
   "rubric_variants": [
     "evaluate whether the pending diff respects nanochat-style minimalism — small surface area, no premature abstraction, no parallel near-duplicate files, no helper graveyards, no scaffolding the task did not require — and flag every move that grows ceremony without growing capability",
     "stand in for Karpathy reading this diff: would he merge it, or would he say 'why are we adding 400 lines to do 20 lines of work'? Focus on whether the new code earns its bytes, whether old ceremony was deleted instead of paved over, and whether the final repo is smaller and sharper than before"

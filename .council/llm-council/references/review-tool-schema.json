@@ -1,0 +1,46 @@
+{
+  "name": "record_review",
+  "description": "Record the reviewer's verdict on the change as structured data. Verdict is PASS if the change faithfully delivers the goal within scope; FAIL if something worth blocking is wrong; ABSTAIN if the evidence available to the reviewer is insufficient to decide with reasonable confidence. List every concern as a finding.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "verdict": {
+        "type": "string",
+        "enum": ["PASS", "FAIL", "ABSTAIN"],
+        "description": "PASS if the goal is met AND nothing worth blocking is wrong. FAIL if you would want the maker to fix something before this ships. ABSTAIN if the diff/log/context is genuinely insufficient to decide (empty diff, missing output, ambiguous spec). Do NOT use ABSTAIN to duck hard calls."
+      },
+      "summary": {
+        "type": "string",
+        "description": "2-4 sentence qualitative critique through this reviewer's lens. What did they look at, what did they conclude, and why?"
+      },
+      "findings": {
+        "type": "array",
+        "description": "Structured issues. Empty list when verdict=PASS and the reviewer has no concerns. One entry per distinct issue.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Stable machine-readable code in SCREAMING_SNAKE_CASE, e.g. SCOPE_FENCE_LEAK, TEST_ASSERTION_WEAKENED. Use the same code for the same underlying issue across runs so we can diff."
+            },
+            "severity": {
+              "type": "string",
+              "enum": ["critical", "high", "medium", "low"],
+              "description": "critical = the change should be blocked. high = surfaces prominently in the council scorecard but does not block by itself. medium/low = logged for awareness."
+            },
+            "evidence": {
+              "type": "string",
+              "description": "Specific line, file path, command output, or diff hunk that demonstrates the issue."
+            },
+            "suggested_fix": {
+              "type": "string",
+              "description": "Concrete one-line fix proposal."
+            }
+          },
+          "required": ["code", "severity", "evidence", "suggested_fix"]
+        }
+      }
+    },
+    "required": ["verdict", "summary", "findings"]
+  }
+}

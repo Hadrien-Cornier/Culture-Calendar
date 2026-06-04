@@ -8,7 +8,6 @@ Single class :class:`LLMService` that every AI-using subsystem imports:
 - :mod:`src.enrichment_layer` — classification + field extraction.
 - :mod:`src.summary_generator` — one-liner hooks.
 - ``scripts/prospect_venues.py`` — Perplexity-driven venue discovery.
-- ``scripts/persona_critique.py`` — LLM persona council critiques.
 
 **Public surface**
 

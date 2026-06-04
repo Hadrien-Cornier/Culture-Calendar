@@ -77,6 +77,13 @@ docs/og/*.svg
 # Hand-crafted site-default OG card (used when no event-specific card applies)
 !docs/og/site-default.svg
 
-# Transient subdirs created when require_persona_approval.py chdirs into docs/
+# Transient subdirs created when a script chdirs into docs/ to serve it locally
 docs/.long-run/
 docs/.overnight/
+
+# LLM-council runtime outputs. The manifests (.council/*.json) and the vendored
+# runtime (.council/llm-council/) ARE committed; these are per-run artifacts.
+.council/reviews-*/
+.council/*-reviews/
+.council/live-site-context.md
+.council/pr-diff.txt
