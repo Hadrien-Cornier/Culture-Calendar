@@ -86,7 +86,7 @@ docs/.overnight/
 .council/reviews-*/
 .council/*-reviews/
 .council/live-site-context.md
-.council/pr-diff.txt
+.council/pr-diff*.txt
 
 # Built site output (assembled by scripts/build_site.py, published to gh-pages).
 /_site/

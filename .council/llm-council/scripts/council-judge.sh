@@ -174,6 +174,12 @@ call_openrouter() {
       max_tokens: 4096
     }')
 
+  # Send the body from a file, not as a -d argv string: a large context (e.g. a
+  # big PR diff) overflows ARG_MAX and curl dies with "Argument list too long".
+  local payload_file
+  payload_file=$(mktemp -t council-payload.XXXXXX.json)
+  printf '%s' "$payload" > "$payload_file"
+
   local resp_file http_code t0 t1 latency_ms
   resp_file=$(mktemp -t council-resp.XXXXXX.json)
   t0=$(now_ms)
@@ -183,7 +189,7 @@ call_openrouter() {
     -H "Content-Type: application/json" \
     -H "HTTP-Referer: $OPENROUTER_REFERER" \
     -H "X-Title: $OPENROUTER_TITLE" \
-    -d "$payload" \
+    --data-binary @"$payload_file" \
     "$OPENROUTER_ENDPOINT")
 
   t1=$(now_ms)
@@ -210,6 +216,7 @@ call_openrouter() {
       "$OPENROUTER_ENDPOINT")
     echo "--- retry http_code: $http_code ---" >> "$log_file"
   fi
+  rm -f "$payload_file"
 
   if [[ "$http_code" != "200" ]]; then
     rm -f "$resp_file"; return 3
