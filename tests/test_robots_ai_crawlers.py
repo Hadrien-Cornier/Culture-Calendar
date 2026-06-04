@@ -1,5 +1,8 @@
-"""Unit tests for ``scripts/build_robots.py`` and the published
-``docs/robots.txt``.
+"""Unit tests for ``scripts/build_robots.py``.
+
+robots.txt is generated at build time and published to the gh-pages branch
+(it is no longer committed under ``docs/`` — ``main`` is source-only), so these
+tests assert the generator's output rather than a committed file.
 
 Pins:
 
@@ -20,7 +23,6 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = REPO_ROOT / "scripts" / "build_robots.py"
-LIVE_ROBOTS = REPO_ROOT / "docs" / "robots.txt"
 
 REQUIRED_AGENTS = (
     "GPTBot",
@@ -108,17 +110,22 @@ def test_ai_crawlers_constant_matches_required_agents() -> None:
 
 
 @pytest.mark.parametrize("agent", REQUIRED_AGENTS)
-def test_live_robots_file_allowlists_agent(agent: str) -> None:
-    assert LIVE_ROBOTS.is_file(), "docs/robots.txt missing — regenerate it"
-    body = LIVE_ROBOTS.read_text(encoding="utf-8")
+def test_generated_robots_file_allowlists_agent(agent: str, tmp_path: Path) -> None:
+    # robots.txt is generated + published to gh-pages, not committed; assert the
+    # generator writes a file with each AI-crawler block (the published contract).
+    out = tmp_path / "robots.txt"
+    br.write_robots(out_path=out)
+    body = out.read_text(encoding="utf-8")
     pattern = rf"^User-agent:\s*{re.escape(agent)}\s*$"
     assert re.search(
         pattern, body, flags=re.MULTILINE
-    ), f"docs/robots.txt missing {agent} block — run scripts/build_robots.py"
+    ), f"generated robots.txt missing {agent} block — check scripts/build_robots.py"
 
 
-def test_live_robots_file_has_sitemap_line() -> None:
-    body = LIVE_ROBOTS.read_text(encoding="utf-8")
+def test_generated_robots_file_has_sitemap_line(tmp_path: Path) -> None:
+    out = tmp_path / "robots.txt"
+    br.write_robots(out_path=out)
+    body = out.read_text(encoding="utf-8")
     assert re.search(
         r"^Sitemap:\s+https?://\S+/sitemap\.xml\s*$",
         body,
