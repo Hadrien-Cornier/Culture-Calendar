@@ -1,13 +1,13 @@
 # 🎬 Culture Calendar
 
-An automated system that transforms Austin cultural events into a curated, intelligent calendar experience. Features AI-powered analysis for films, classical music, and book clubs, with personalized ratings and a beautiful web interface covering **7 major Austin cultural venues**.
+An automated system that transforms Austin cultural events into a curated, intelligent calendar experience. Features AI-powered analysis across film, classical music, opera, ballet, book clubs, and visual arts, with personalized ratings and a beautiful web interface covering **13 active Austin cultural venues**.
 
 ## 🌟 Features
 
 ### 🤖 Smart Event Processing
-- **7-Venue Integration**: Comprehensive coverage across film, music, and literary venues
-- **AI-Powered Analysis**: French cinéaste film reviews, distinguished music criticism, and sophisticated literary analysis
-- **Multi-Format Support**: Movies, concerts, chamber music, and book club discussions
+- **Multi-Venue Integration**: Comprehensive coverage across film, classical music, opera, ballet, literary, and visual-arts venues
+- **AI-Powered Analysis**: French cinéaste film reviews, distinguished music criticism, sophisticated literary analysis, and art-critic exhibition writeups
+- **Multi-Format Support**: Movies, concerts, opera, ballet/dance, book-club discussions, and visual-arts exhibitions
 - **Dynamic Web Scraping**: Real-time data extraction with intelligent fallbacks
 - **Personal Preference Scoring**: Customizable ratings based on your cultural taste
 - **Special Event Detection**: Q&As, 35mm prints, special screenings, and exclusive performances
@@ -15,7 +15,7 @@ An automated system that transforms Austin cultural events into a curated, intel
 
 ### 🌐 Modern Web Interface
 - **GitHub Pages Website**: Beautiful, responsive single-page application
-- **7-Venue Coverage**: Film, music, and book club events with distinctive venue tags
+- **Multi-Venue Coverage**: Film, music, opera, ballet, book-club, and visual-arts events with distinctive venue tags
 - **Dual View Modes**: Toggle between list and calendar views  
 - **Event Aggregation**: Multiple showtimes/dates grouped under single event cards
 - **Rich Event Cards**: Duration, director/author, country, year, language, and venue badges
@@ -35,17 +35,21 @@ An automated system that transforms Austin cultural events into a curated, intel
 
 ### 🌐 Use the Live Website
 Visit **[hadrien-cornier.github.io/Culture-Calendar](https://hadrien-cornier.github.io/Culture-Calendar)** to:
-- Browse **117+ cultural events** across 7 Austin venues
+- Browse cultural events across 13 active Austin venues
 - Filter by **venue, rating, country** with real-time updates
 - Switch between **list and calendar views** 
 - Download **custom .ics calendar files** generated when you click "Download"
-- Read **AI-powered cultural analysis** for films, concerts, and books
+- Read **AI-powered cultural analysis** for films, concerts, opera, ballet, books, and exhibitions
 - Export events to your calendar via **on-the-fly ICS download**
 
-**Current Venues:**
-🎬 **Film**: Austin Film Society, Hyperreal Film Club  
-🎼 **Music**: Paramount Theater, Austin Symphony, Early Music Austin, La Follia  
-📚 **Books**: Alienated Majesty Books, First Light Austin
+**Current Venues** (active in `config/master_config.yaml` + `src/scraper.py`):
+
+🎬 **Film**: Austin Film Society, Hyperreal Film Club, Paramount Theatre  
+🎼 **Classical / Opera / Ballet**: Austin Symphony, Early Music Austin, La Follia, Austin Chamber Music, Austin Opera, Ballet Austin  
+📚 **Book Clubs**: Alienated Majesty Books, First Light Austin, Livra Books  
+🎨 **Visual Arts**: NowPlayingAustin (visual-arts listings)
+
+> _Disabled in config (not scraped):_ Arts on Alexander. The classical/opera/ballet venues are not scraped per-event — they ship as static season JSON via a config-driven registry (see [Architecture](#-architecture)).
 
 ## 🤖 For AI agents
 
@@ -75,24 +79,24 @@ Endpoints designed for agents — LLM tools, crawlers, and downstream automation
    ```bash
    cp .env.example .env
    # Edit .env and add:
-   # PERPLEXITY_API_KEY=your_key_here
+   # PERPLEXITY_API_KEY=your_key_here    # AI ratings/reviews (required)
+   # ANTHROPIC_API_KEY=your_key_here     # one-line summaries
+   # OPENROUTER_API_KEY=your_key_here    # LLM Council quality gate (optional)
    ```
 
 4. **Customize Preferences**
    Edit `preferences.txt` with your favorite directors, genres, and keywords. For book club events, you can also add classic authors in `literature_preferences.txt`.
 
 5. **Enable GitHub Pages & Actions**
-   - Go to repository Settings > Pages
-   - Set source to "main branch /docs folder"
-   - Go to Settings > Actions > General  
-   - Enable "Read and write permissions"
-   - Add `PERPLEXITY_API_KEY` to repository secrets
+   - Go to Settings > Actions > General, enable "Read and write permissions"
+   - Add `PERPLEXITY_API_KEY` (and `ANTHROPIC_API_KEY`) to repository secrets
+   - Optionally add `OPENROUTER_API_KEY` to enable the LLM Council gate in CI
+   - Configure GitHub Pages **after** the first deploy — see [Deployment](#-deployment) (Pages serves from the `gh-pages` branch, not `main`)
 
 6. **Install Node Dependencies & Index with GitNexus** _(optional, for AI code intelligence)_
    ```bash
    npm install
    npm run analyze
-   # Output: 781 nodes | 1,928 edges | 56 clusters | 63 flows
 
    # Generate wiki (requires OPENAI_API_KEY or GITNEXUS_API_KEY):
    export OPENAI_API_KEY=sk-...
@@ -110,16 +114,25 @@ The GitHub Pages website provides the easiest way to use Culture Calendar:
 - **🎚️ Rating Filter**: Adjust slider to filter movies by minimum rating
 - **⬇️ Download**: Generate custom .ics files for Google Calendar
 
-### 🔧 Manual Local Run
+### 🔧 Commands
+
 ```bash
-# Activate virtual environment
-source venv/bin/activate
+# Setup
+pip install -r requirements.txt
 
-# Generate calendar data
-python main.py
+# Scrape + enrich + write docs/data.json
+python update_website_data.py              # full scrape + enrichment
+python update_website_data.py --test-week  # current week only
+python update_website_data.py --force-reprocess  # ignore cache
+python update_website_data.py --validate   # fail-fast on scraper failures
 
-# Update website data  
-python update_website_data.py
+# Tests
+pytest tests/ -m "not live and not integration"  # unit only (no network)
+pytest tests/                                     # all tests
+
+# Code quality
+black src/ tests/ *.py            # format
+python pre_commit_checks.py       # format + tests
 ```
 
 ### 📅 Import to Google Calendar
@@ -138,34 +151,96 @@ Once set up, the system runs automatically:
 ## 📁 Project Structure
 
 ```
-Culture-Calendar/
-├── 🌐 Website Files
-│   └── docs/
-│       ├── index.html              # Main website
-│       ├── style.css               # Responsive design  
-│       ├── script.js               # Interactive features
-│       ├── data.json               # Movie data (auto-generated)
+Culture-Calendar/                   # `main` is SOURCE-ONLY (see Deployment)
+├── 🌐 Site source (docs/)
+│   ├── index.html                  # Hand-authored single-page app
+│   ├── styles.css                  # Responsive design
+│   ├── script.js                   # Interactive features
+│   ├── config.json                 # Front-end config
+│   ├── ABOUT.md                    # About copy
+│   ├── data.json                   # Enriched event data (canonical, committed)
+│   ├── classical_data.json         # Season JSON for classical/opera venues
+│   ├── ballet_data.json            # Season JSON for ballet
+│   └── source_update_times.json    # Per-venue last-updated stamps
+│       # Generated artifacts (events/, api/, people/, venues/, weekly/,
+│       # feeds, sitemap, robots, llms.txt) are NOT tracked in main —
+│       # scripts/build_site.py regenerates them for the gh-pages publish.
 │
 ├── 🤖 Automation
 │   ├── .github/workflows/
-│   │   ├── update-calendar.yml     # Weekly updates
-│   │   └── monthly-calendar-update.yml # Monthly updates
-│   ├── update_website_data.py      # Website data generator
-│   └── main.py                     # CLI calendar generator
+│   │   ├── update-calendar.yml         # Weekly scrape + enrich → main
+│   │   ├── daily-calendar-update.yml   # Daily refresh
+│   │   ├── refresh-classical-data.yml  # Monthly season-JSON refresh (PR)
+│   │   ├── deploy-pages.yml            # Build full site → gh-pages
+│   │   └── pr-validation.yml           # Tests + LLM Council on PR diff
+│   ├── update_website_data.py          # Scrape + enrich pipeline entry point
+│   └── scripts/build_site.py           # Assemble full site into _site/
 │
-├── 🔧 Core Logic  
+├── 🔧 Core Logic
 │   └── src/
-│       ├── scraper.py              # 7-venue web scraping with intelligent fallbacks
-│       ├── processor.py            # AI analysis for films, concerts, and book clubs
+│       ├── scraper.py              # MultiVenueScraper orchestrator + dedup
+│       ├── scrapers/               # Per-venue BaseScraper subclasses
+│       ├── enrichment_layer.py     # LLM classification + field extraction
+│       ├── processor.py            # AI ratings/reviews (Perplexity)
+│       ├── summary_generator.py    # One-line hooks (Claude)
 │       └── calendar_generator.py   # ICS file creation
 │
+├── 🧪 Quality gates
+│   ├── personas/council/           # Cross-family LLM Council judge personas
+│   ├── personas/live-site-specs/   # Structural specs for check_live_site.py
+│   └── .council/                   # Council manifests + vendored council-judge.sh
+│
 └── ⚙️ Configuration
+    ├── config/master_config.yaml   # Single source of truth (venues, templates,
+    │                               #   static_json_scrapers registry)
     ├── preferences.txt             # Personal taste preferences
     ├── literature_preferences.txt  # Classic literature interests
     ├── requirements.txt            # Python dependencies
-    ├── .env.example               # Environment template
-    └── CLAUDE.md                  # AI assistant instructions
+    ├── .env.example                # Environment template
+    └── CLAUDE.md                   # AI assistant instructions
 ```
+
+## 🏗️ Architecture
+
+**Two-phase, config-driven pipeline.** `config/master_config.yaml` is the single source of truth — event templates (`movie`, `concert`, `book_club`, `opera`, `dance`, `visual_arts`, `other`), per-venue scrape/classification/enrichment policies, and the static-JSON scraper registry.
+
+```
+venues (HTML / static season JSON)
+    │
+    ▼  Phase 1 — src/scrapers/*.py (extend BaseScraper)
+    │  src/scraper.py:MultiVenueScraper.scrape_all_venues() — orchestrate + dedup
+    │     • HTML scrapers: AFS, Hyperreal, Paramount, book clubs, visual arts
+    │     • Static-JSON venues (Symphony, Early Music, La Follia, Chamber Music,
+    │       Opera, Ballet) are built in a loop from the `static_json_scrapers:`
+    │       registry — one StaticJsonScraper per entry, no per-venue wrapper class
+    │
+    ▼  Phase 2 (optional per venue) — src/enrichment_layer.py
+    │  classify event_category, fill required fields with evidence validation
+    │  src/processor.py (Perplexity ratings/reviews) → src/summary_generator.py (Claude hooks)
+    │
+    ▼  update_website_data.py → writes docs/data.json
+    ▼  scripts/build_site.py → assembles full site → published to gh-pages
+```
+
+The six classical/opera/ballet venues are NOT scraped per event. They ship as static season JSON (`docs/classical_data.json` + `docs/ballet_data.json`), refreshed monthly by `scripts/refresh_classical_data.py`. The `static_json_scrapers:` block in `master_config.yaml` (read via `ConfigLoader.get_static_json_scrapers()`) defines each one; `src/scraper.py` builds them in a loop, which replaced six near-identical wrapper classes.
+
+## 🚢 Deployment
+
+`main` is **source-only**. The rendered site lives on a separate `gh-pages` branch so `main` does not track the ~900 generated files (`events/`, `api/`, `people/`, `venues/`, `weekly/`, feeds, sitemap, robots, `llms.txt`).
+
+- **`main` tracks**: the hand-authored `docs/` source (`index.html`, `script.js`, `styles.css`, `config.json`, `ABOUT.md`) plus the canonical data/cache JSON (`docs/data.json`, `docs/classical_data.json`, `docs/ballet_data.json`, `docs/source_update_times.json`).
+- **`.github/workflows/deploy-pages.yml`** runs on push to `main` (and manual dispatch). It builds the full site with `python scripts/build_site.py --out _site --docs-dir docs`, then publishes `_site/` to `gh-pages` via `peaceiris/actions-gh-pages` (`force_orphan: true`, so `gh-pages` stays a single rolling commit).
+- **One-time maintainer step**: after the first successful deploy creates the `gh-pages` branch, set **Settings → Pages → Source → Deploy from a branch → `gh-pages` / (root)**. The public URL is unchanged.
+
+## 🧑‍⚖️ LLM Council quality gate
+
+Quality is enforced by the reusable **`llm-council`** skill — a judge panel with **enforced cross-family diversity**: the maker family (Anthropic) is **excluded from judging**, and every juror is a distinct non-Anthropic family (OpenAI, DeepSeek, Moonshot, z-ai, Google, Xiaomi). The vendored runtime is `.council/llm-council/scripts/council-judge.sh`. The council needs `OPENROUTER_API_KEY` and degrades gracefully (skips, never hard-blocks) when it is absent. See `personas/README.md` for the full layout.
+
+Personas live in `personas/council/*.json` (judge specs, conforming to the llm-council skill schema); manifests in `.council/` pin each persona to a model/family. There are three gates:
+
+1. **Pre-push** (`.githooks/pre-push`) — runs the live-site council (`.council/live-site.json`) against a local server rooted at `docs/`, triggered when an outgoing commit subject contains `[persona-gate]`. Activate per-clone: `git config core.hooksPath .githooks`.
+2. **PR validation** (`.github/workflows/pr-validation.yml` → `council-review` job) — runs the council on the PR diff using `.council/culture-calendar.json`. Report-only; degrades gracefully without the secret.
+3. **Long-run tasks** — the autonomous-run harness judges each task with `.council/culture-calendar.json`; any FAIL re-queues the task.
 
 ## 🎯 Rating System
 
@@ -210,10 +285,10 @@ innovative approach to horror cinema and social commentary.
 ## 🔧 Troubleshooting
 
 ### Common Issues
-- **Website not loading**: Check GitHub Pages is enabled in repository settings
+- **Website not loading**: Confirm GitHub Pages Source is set to `gh-pages` / (root), and that `deploy-pages.yml` ran successfully
 - **No calendar data**: Verify GitHub Actions have repository write permissions  
 - **API errors**: Ensure `PERPLEXITY_API_KEY` is added to repository secrets
-- **Missing events**: AFS website structure may have changed (check scraper.py)
+- **Missing events**: a venue's website structure may have changed (check `src/scrapers/`); run `python update_website_data.py --validate`
 
 ### GitHub Actions Issues
 - **403 Permission Error**: Enable "Read and write permissions" in Settings > Actions
@@ -222,9 +297,8 @@ innovative approach to horror cinema and social commentary.
 
 ### Debug Mode
 ```bash
-# Test locally with debug output
-source venv/bin/activate  
-python main.py --debug
+# Test locally on the current week only
+python update_website_data.py --test-week --validate
 ```
 
 ## 🗺️ Roadmap
@@ -235,12 +309,12 @@ python main.py --debug
 - ✅ **Phase 2.1**: Enhanced UI with movie aggregation and markdown rendering
 - ✅ **Phase 2.2**: Multi-venue support with Hyperreal Film Club integration
 - ✅ **Phase 2.3**: Austin Symphony Orchestra integration with full 2025-2026 season data
-- ✅ **Phase 3**: Complete 7-venue integration
+- ✅ **Phase 3**: Multi-venue integration
   - ✅ **Paramount Theatre**: Full web scraping and event processing
-  - ✅ **Early Music Austin**: Season-based classical music events
-  - ✅ **La Follia Austin**: Chamber music concerts with AI analysis
-  - ✅ **Alienated Majesty Books**: Dynamic book club scraping with fallbacks
-  - ✅ **First Light Austin**: Multiple book clubs with intelligent parsing
+  - ✅ **Early Music Austin / La Follia / Austin Chamber Music**: Season-based classical events
+  - ✅ **Austin Opera / Ballet Austin**: Season-based opera + dance
+  - ✅ **Alienated Majesty / First Light / Livra Books**: Dynamic book-club scraping
+  - ✅ **NowPlayingAustin**: Visual-arts exhibition listings
 
 ### 🔮 Future Enhancements
 - **📚 Phase 4**: Additional Austin venues
