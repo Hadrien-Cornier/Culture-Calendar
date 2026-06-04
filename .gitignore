@@ -87,3 +87,27 @@ docs/.overnight/
 .council/*-reviews/
 .council/live-site-context.md
 .council/pr-diff.txt
+
+# Built site output (assembled by scripts/build_site.py, published to gh-pages).
+/_site/
+
+# Generated site artifacts. The site now publishes to the gh-pages branch
+# (deploy-pages.yml runs build_site.py), so main is source-only: hand-authored
+# pages + the canonical data/cache (data.json, classical_data.json,
+# ballet_data.json, source_update_times.json, config.json) stay tracked; these
+# regenerated artifacts do not. (docs/variants/ and docs/archive/ have no
+# generator and remain tracked.)
+docs/events/
+docs/people/
+docs/venues/
+docs/weekly/*.html
+docs/api/*.json
+docs/api/index.html
+docs/sitemap.xml
+docs/robots.txt
+docs/feed.xml
+docs/calendar.ics
+docs/top-picks.ics
+docs/llms.txt
+docs/llms-full.txt
+docs/.well-known/ai-agent.json
