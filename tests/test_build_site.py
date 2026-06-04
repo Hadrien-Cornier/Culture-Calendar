@@ -84,7 +84,7 @@ def test_build_site_no_generators_has_empty_parity_gap(
 
     captured = capsys.readouterr().out
     assert "Parity gap is EMPTY" in captured
-    assert "missing (docs/ but NOT out/): 0" in captured
+    assert "file MISSING from out/): 0" in captured
 
 
 def test_restore_brings_back_files_deleted_by_a_generator(

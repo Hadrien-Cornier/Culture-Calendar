@@ -317,18 +317,55 @@ def run_generators(out_dir: Path, generators: list[dict]) -> list[str]:
     return warned
 
 
-def restore_deleted_seed(docs_dir: Path, out_dir: Path) -> list[str]:
-    """Copy back any ``docs/`` file a generator deleted from ``out/``.
+# Directories/files produced by generators (mirrors .gitignore). Generator
+# output is AUTHORITATIVE for these: build_event_shells.py etc. delete stale
+# artifacts before writing, so the seed must never resurrect a pruned file —
+# that is exactly how stale event shells (from docs/data-pilot.json drift) used
+# to leak back onto the published site. Static, no-generator content
+# (docs/variants/, docs/archive/, hand-authored pages) is still restored.
+_GENERATED_PREFIXES = ("events/", "people/", "venues/", "weekly/", "og/")
+_GENERATED_FILES = {
+    "sitemap.xml",
+    "robots.txt",
+    "feed.xml",
+    "calendar.ics",
+    "top-picks.ics",
+    "llms.txt",
+    "llms-full.txt",
+    ".well-known/ai-agent.json",
+}
 
-    Generators that clean stale artifacts (event shells/ics/json, og cards)
-    remove seeded files that no longer match the current ``data.json``. To
-    keep the "nothing is lost on publish" guarantee, restore any file present
-    in ``docs/`` but now missing from ``out/``. Returns the restored paths.
+
+def _is_generator_owned(rel: str) -> bool:
+    """True if ``rel`` is produced by a generator (so the seed must not override it).
+
+    ``api/`` is mixed: ``api/*.json`` + ``api/index.html`` are generated, but
+    ``api/README.md`` is hand-authored, so api is matched specifically rather
+    than by a blanket prefix.
+    """
+    rel = rel.replace("\\", "/")
+    if rel.startswith(_GENERATED_PREFIXES):
+        return True
+    if rel.startswith("api/") and (rel.endswith(".json") or rel == "api/index.html"):
+        return True
+    return rel in _GENERATED_FILES
+
+
+def restore_deleted_seed(docs_dir: Path, out_dir: Path) -> list[str]:
+    """Copy back any *non-generated* ``docs/`` file missing from ``out/``.
+
+    Static, no-generator content (variants/, archive/, hand-authored pages) is
+    restored so nothing hand-made is lost. Generator-owned artifacts that a
+    generator pruned (stale event shells/ics/json, og cards, feeds) are left
+    pruned — the generator output reflects the current ``data.json`` and is
+    authoritative. Returns the restored paths.
     """
     docs_files = _relative_file_set(docs_dir)
     out_files = _relative_file_set(out_dir)
     restored: list[str] = []
     for rel in sorted(docs_files - out_files):
+        if _is_generator_owned(rel):
+            continue  # generator pruned a stale artifact — keep it pruned
         src = docs_dir / rel
         dest = out_dir / rel
         dest.parent.mkdir(parents=True, exist_ok=True)
@@ -336,8 +373,8 @@ def restore_deleted_seed(docs_dir: Path, out_dir: Path) -> list[str]:
         restored.append(rel)
     if restored:
         print(
-            f"[build_site] restored {len(restored)} seed file(s) deleted by "
-            f"generators (docs/ drifted from data.json)"
+            f"[build_site] restored {len(restored)} static seed file(s) "
+            f"(no-generator content not reproduced by any generator)"
         )
     return restored
 
@@ -352,6 +389,11 @@ def parity_check(docs_dir: Path, out_dir: Path, warned: list[str]) -> set[str]:
     docs_files = _relative_file_set(docs_dir)
     out_files = _relative_file_set(out_dir)
     missing = docs_files - out_files
+    # Split: a missing STATIC file is a real regression; a missing GENERATED
+    # file is an intentionally-pruned stale artifact (docs/ drifted from the
+    # current data.json) and is expected, not a loss.
+    lost = {rel for rel in missing if not _is_generator_owned(rel)}
+    pruned = missing - lost
     extra = out_files - docs_files
 
     print()
@@ -360,24 +402,30 @@ def parity_check(docs_dir: Path, out_dir: Path, warned: list[str]) -> set[str]:
     print("=" * 64)
     print(f"  files in docs/ : {len(docs_files)}")
     print(f"  files in out/  : {len(out_files)}")
-    print(f"  missing (docs/ but NOT out/): {len(missing)}")
-    print(f"  extra   (out/ but NOT docs/): {len(extra)}")
+    print(f"  lost   (static docs/ file MISSING from out/): {len(lost)}")
+    print(f"  pruned (stale generated artifact dropped)   : {len(pruned)}")
+    print(f"  extra  (out/ but NOT docs/, fresh content)  : {len(extra)}")
     if warned:
         print(f"  generators WARNed: {len(warned)} -> {', '.join(warned)}")
     else:
         print("  generators WARNed: 0")
 
-    if missing:
+    if lost:
         print()
-        print("  !!! REGRESSION: the following docs/ files are MISSING from out/:")
-        for rel in sorted(missing):
+        print("  !!! REGRESSION: static docs/ files MISSING from out/:")
+        for rel in sorted(lost):
             print(f"      - {rel}")
     else:
         print()
-        print("  OK: no docs/ file is missing from out/. Parity gap is EMPTY.")
+        print("  OK: no static docs/ file is missing from out/. Parity gap is EMPTY.")
+        if pruned:
+            print(
+                f"  ({len(pruned)} stale generated artifact(s) pruned to match "
+                "current data.json — expected.)"
+            )
 
     print("=" * 64)
-    return missing
+    return lost
 
 
 def build_site(out_dir: Path, docs_dir: Path, generators: list[dict]) -> set[str]:
