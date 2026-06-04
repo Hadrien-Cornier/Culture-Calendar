@@ -14,7 +14,7 @@ No network, no re-rating, no API or Chromium calls. The flow is:
    every hand-authored page, the four committed data/cache files
    (``data.json``, ``source_update_times.json``, ``classical_data.json``,
    ``ballet_data.json``), ``config.json``, AND the no-generator artifacts
-   (``variants/``, ``archive/v0/``). So even if a generator is missing or
+   (e.g. ``archive/v0/``). So even if a generator is missing or
    fails, the file still exists in ``out/``.
 3. Run each site generator INTO ``out/`` (best-effort) so generated
    artifacts are freshened. Each generator reads the *seeded*
@@ -322,7 +322,7 @@ def run_generators(out_dir: Path, generators: list[dict]) -> list[str]:
 # artifacts before writing, so the seed must never resurrect a pruned file —
 # that is exactly how stale event shells (from docs/data-pilot.json drift) used
 # to leak back onto the published site. Static, no-generator content
-# (docs/variants/, docs/archive/, hand-authored pages) is still restored.
+# (docs/archive/, hand-authored pages) is still restored.
 _GENERATED_PREFIXES = ("events/", "people/", "venues/", "weekly/", "og/")
 _GENERATED_FILES = {
     "sitemap.xml",
@@ -354,7 +354,7 @@ def _is_generator_owned(rel: str) -> bool:
 def restore_deleted_seed(docs_dir: Path, out_dir: Path) -> list[str]:
     """Copy back any *non-generated* ``docs/`` file missing from ``out/``.
 
-    Static, no-generator content (variants/, archive/, hand-authored pages) is
+    Static, no-generator content (archive/, hand-authored pages) is
     restored so nothing hand-made is lost. Generator-owned artifacts that a
     generator pruned (stale event shells/ics/json, og cards, feeds) are left
     pruned — the generator output reflects the current ``data.json`` and is
