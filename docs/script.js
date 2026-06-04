@@ -13,7 +13,7 @@
  *   166-215 Grouping (groupEvents, dedupeShowings).
  *   217-245 Rating + review parsing helpers.
  *   247-285 Date/time formatters.
- *   287-336 Search + filter (getSearchQuery, matchesQuery, filterEvents).
+ *   287-336 Search + filter (getSearchQuery, parseDateQuery, matchesQuery, filterEvents).
  *   338-449 Search UI (suggestions dropdown + autocomplete).
  *   451-584 Top-picks renderer (buildPickCard, renderPicks).
  *   585-705 Merit-listings renderer (buildListingCard, renderListings).
@@ -48,6 +48,16 @@
   };
   var MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   var WEEKDAY_SHORT = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  // task-date-search: month-name → 1-based month index, for typed-date
+  // search ("jun 14", "june 14", "14 june", bare "june"). Common
+  // abbreviations and full names both map; unknown words fall through so
+  // matchesQuery() can still text-match them.
+  var MONTH_NAMES = {
+    jan: 1, january: 1, feb: 2, february: 2, mar: 3, march: 3,
+    apr: 4, april: 4, may: 5, jun: 6, june: 6, jul: 7, july: 7,
+    aug: 8, august: 8, sep: 9, sept: 9, september: 9, oct: 10,
+    october: 10, nov: 11, november: 11, dec: 12, december: 12
+  };
 
   var picksList = document.getElementById("picks-list");
   var listingsEl = document.getElementById("listings");
@@ -1275,16 +1285,141 @@
     return CATEGORY_LABELS[key] || key.replace(/_/g, " ");
   }
 
-  function matchesQuery(ev, q) {
+  /* task-date-search: typed-date search.
+     Users can type a date into the masthead search box to filter the
+     listing down to events happening on that date. Supported forms:
+       - ISO            "2026-06-14"  (single-digit month/day tolerated)
+       - month + day    "jun 14", "june 14", "14 june"  (year optional)
+       - numeric slash  "6/14", "6/14/2026", "06/14/26"
+       - bare month     "june"  (matches every showing that month)
+       - relative       "today", "tomorrow"
+     parseDateQuery returns a matcher { label, match } or null when the
+     query is not a recognizable date — in which case matchesQuery() falls
+     back to plain text matching. A matcher with no explicit year ignores
+     the year so the current season's events match regardless of which
+     calendar year the pipeline tagged them with. Date search composes ON
+     TOP of the existing future-or-today filter (task-T1), so a past date
+     simply yields no listings rather than resurrecting hidden events. */
+  function parseShowingDate(dateStr) {
+    if (!dateStr) return null;
+    var p = String(dateStr).split("-");
+    if (p.length !== 3) return null;
+    var y = parseInt(p[0], 10), m = parseInt(p[1], 10), d = parseInt(p[2], 10);
+    if (isNaN(y) || isNaN(m) || isNaN(d)) return null;
+    return { y: y, m: m, d: d };
+  }
+
+  function makeDateMatcher(label, test) {
+    return {
+      label: label,
+      match: function (dateStr) {
+        var dt = parseShowingDate(dateStr);
+        return dt ? test(dt) : false;
+      }
+    };
+  }
+
+  function parseDateQuery(q) {
+    if (!q) return null;
+    var s = q.trim().toLowerCase();
+    if (!s) return null;
+
+    if (s === "today" || s === "tomorrow") {
+      var base = new Date();
+      base.setHours(0, 0, 0, 0);
+      if (s === "tomorrow") base.setDate(base.getDate() + 1);
+      var ty = base.getFullYear(), tm = base.getMonth() + 1, td = base.getDate();
+      var rel = (s === "today" ? "Today" : "Tomorrow")
+        + " (" + MONTHS_SHORT[tm - 1] + " " + td + ")";
+      return makeDateMatcher(rel, function (dt) {
+        return dt.y === ty && dt.m === tm && dt.d === td;
+      });
+    }
+
+    var iso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if (iso) {
+      var iy = +iso[1], im = +iso[2], id = +iso[3];
+      if (im < 1 || im > 12 || id < 1 || id > 31) return null;
+      return makeDateMatcher(MONTHS_SHORT[im - 1] + " " + id + ", " + iy,
+        function (dt) { return dt.y === iy && dt.m === im && dt.d === id; });
+    }
+
+    var slash = s.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?$/);
+    if (slash) {
+      var sm = +slash[1], sd = +slash[2];
+      if (sm < 1 || sm > 12 || sd < 1 || sd > 31) return null;
+      var sy = slash[3] ? +slash[3] : null;
+      if (sy !== null && sy < 100) sy += 2000;
+      return makeDateMatcher(
+        MONTHS_SHORT[sm - 1] + " " + sd + (sy !== null ? ", " + sy : ""),
+        function (dt) {
+          return dt.m === sm && dt.d === sd && (sy === null || dt.y === sy);
+        });
+    }
+
+    var mdWords = s.match(/^([a-z]+)\.?\s+(\d{1,2})(?:[,\s]+(\d{4}))?$/);
+    var dmWords = s.match(/^(\d{1,2})\s+([a-z]+)\.?(?:[,\s]+(\d{4}))?$/);
+    var monthOnly = s.match(/^([a-z]+)\.?$/);
+    var monNum, dayNum = null, yrNum = null;
+    if (mdWords) {
+      monNum = MONTH_NAMES[mdWords[1]]; dayNum = +mdWords[2];
+      yrNum = mdWords[3] ? +mdWords[3] : null;
+    } else if (dmWords) {
+      monNum = MONTH_NAMES[dmWords[2]]; dayNum = +dmWords[1];
+      yrNum = dmWords[3] ? +dmWords[3] : null;
+    } else if (monthOnly) {
+      monNum = MONTH_NAMES[monthOnly[1]];
+    } else {
+      return null;
+    }
+    if (!monNum) return null;
+    if (dayNum !== null && (dayNum < 1 || dayNum > 31)) return null;
+
+    var label = MONTHS_SHORT[monNum - 1]
+      + (dayNum !== null ? " " + dayNum : "")
+      + (yrNum !== null ? ", " + yrNum : "");
+    return makeDateMatcher(label, function (dt) {
+      if (dt.m !== monNum) return false;
+      if (dayNum !== null && dt.d !== dayNum) return false;
+      if (yrNum !== null && dt.y !== yrNum) return false;
+      return true;
+    });
+  }
+
+  // task-date-search: collect every showing date from a RAW event (filter
+  // runs before groupEvents builds .showings, so read .screenings/.dates).
+  function eventDates(ev) {
+    var out = [];
+    if (Array.isArray(ev.screenings)) {
+      ev.screenings.forEach(function (s) { if (s && s.date) out.push(s.date); });
+    }
+    if (Array.isArray(ev.dates)) {
+      ev.dates.forEach(function (d) { if (d) out.push(d); });
+    }
+    return out;
+  }
+
+  function matchesQuery(ev, q, dateMatcher) {
     if (!q) return true;
     var title = (ev.title || "").toLowerCase();
     var venue = (ev.venue || "").toLowerCase();
     var type = (ev.type || ev.event_category || "").toLowerCase();
     var label = categoryLabel(type).toLowerCase();
-    return title.indexOf(q) !== -1
+    if (title.indexOf(q) !== -1
       || venue.indexOf(q) !== -1
       || type.indexOf(q) !== -1
-      || label.indexOf(q) !== -1;
+      || label.indexOf(q) !== -1) {
+      return true;
+    }
+    // task-date-search: union text matching with date matching so a typed
+    // date narrows by date while plain text still narrows by text.
+    if (dateMatcher) {
+      var dates = eventDates(ev);
+      for (var i = 0; i < dates.length; i++) {
+        if (dateMatcher.match(dates[i])) return true;
+      }
+    }
+    return false;
   }
 
   /* task-T3.2: My Picks filter state — when true, only events saved to
@@ -1294,8 +1429,9 @@
 
   function filterEvents(events) {
     var q = getSearchQuery();
+    var dateMatcher = parseDateQuery(q);
     var filtered = events;
-    if (q) filtered = filtered.filter(function (ev) { return matchesQuery(ev, q); });
+    if (q) filtered = filtered.filter(function (ev) { return matchesQuery(ev, q, dateMatcher); });
     if (myPicksOnly) filtered = filtered.filter(function (ev) { return taste.isSaved(ev); });
     return filtered;
   }
@@ -1584,7 +1720,11 @@
     var grouped = collectSuggestions(q);
     searchSuggestions.innerHTML = "";
     var frag = document.createDocumentFragment();
-    var total = appendSuggestionGroup(frag, "Venues", grouped.venues, "venue")
+    // task-date-search: when the query parses as a date, lead the dropdown
+    // with a confirming "Events on <date>" hint so users see their typed
+    // date was understood. Selecting it just re-applies the same query.
+    var total = appendDateSuggestion(frag, parseDateQuery(q), q)
+      + appendSuggestionGroup(frag, "Venues", grouped.venues, "venue")
       + appendSuggestionGroup(frag, "Categories", grouped.categories, "category");
     if (total === 0) {
       var empty = document.createElement("li");
@@ -1593,6 +1733,29 @@
       frag.appendChild(empty);
     }
     searchSuggestions.appendChild(frag);
+  }
+
+  // task-date-search: render the single "Events on <date>" hint row under a
+  // "Dates" group header. data-value is the raw query so clicking it via the
+  // existing suggestion mousedown handler re-applies the same date filter.
+  function appendDateSuggestion(frag, dateMatcher, q) {
+    if (!dateMatcher) return 0;
+    var header = document.createElement("li");
+    header.className = "suggestion-group";
+    header.setAttribute("role", "presentation");
+    header.textContent = "Dates";
+    frag.appendChild(header);
+    var li = document.createElement("li");
+    li.className = "suggestion suggestion-date";
+    li.setAttribute("role", "option");
+    li.setAttribute("data-type", "date");
+    li.setAttribute("data-value", q);
+    var span = document.createElement("span");
+    span.className = "suggestion-label";
+    span.textContent = "📅 Events on " + dateMatcher.label;
+    li.appendChild(span);
+    frag.appendChild(li);
+    return 1;
   }
 
   function appendSuggestionGroup(frag, label, values, type) {
