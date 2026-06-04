@@ -1,0 +1,20 @@
+{
+  "persona": "logistics-user",
+  "description": "A Friday-afternoon planner who scans the listings page for when and where events happen. Demands that every merit-listing card surface a non-empty .event-when (date + time) on the card header, no expand needed.",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "mobile": false,
+  "wait_for_selector": ".listings .event-card",
+  "wait_ms": 1500,
+  "asserts": [
+    {"type": "selector_min_count", "selector": ".listings .event-card", "min": 10},
+    {"type": "selector_min_count", "selector": ".listings .event-card .event-when", "min": 10},
+    {"type": "selector_min_count", "selector": ".event-venue-address", "min": 1},
+    {
+      "type": "js_truthy",
+      "expression": "var cards=Array.from(document.querySelectorAll('.listings .event-card')); if(!cards.length) return false; var bad=cards.filter(function(c){var w=c.querySelector('.event-when'); return !w || w.textContent.trim().length===0;}); window.__logisticsBadCount=bad.length; return bad.length===0;"
+    }
+  ],
+  "pre_screenshot_actions": [
+    {"type": "scroll", "y": 900}
+  ]
+}

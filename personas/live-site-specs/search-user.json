@@ -1,0 +1,21 @@
+{
+  "persona": "search-user",
+  "description": "A user who types into the masthead search bar expecting grouped autocomplete by venue / title / category. Also confirms the deprecated chip-drawer filter sheet is fully gone.",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "mobile": false,
+  "wait_for_selector": "#event-search",
+  "wait_ms": 1500,
+  "asserts": [
+    {"type": "selector_exists", "selector": "#event-search"},
+    {"type": "body_not_contains", "text": "Sticky chip-drawer with active summary"},
+    {"type": "selector_max_count", "selector": "details.filter-sheet", "max": 0},
+    {"type": "selector_max_count", "selector": ".chip-drawer", "max": 0},
+    {
+      "type": "js_truthy",
+      "expression": "var i=document.getElementById('event-search'); if(!i) return false; i.focus(); i.value='Para'; i.dispatchEvent(new Event('input',{bubbles:true})); return new Promise(function(r){setTimeout(function(){r(true);},400);});"
+    },
+    {"type": "selector_min_count", "selector": ".search-suggestions .suggestion", "min": 1},
+    {"type": "selector_min_count", "selector": ".search-suggestions .suggestion-group", "min": 1}
+  ],
+  "pre_screenshot_actions": []
+}

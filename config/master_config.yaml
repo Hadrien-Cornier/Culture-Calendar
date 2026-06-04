@@ -732,4 +732,72 @@ classical_refresh:
       event_type: dance
       season_url: "https://balletaustin.org/performances"
 
+# ---------------------------------------------------------------------------
+# Static-JSON scraper registry (consumed by src/scraper.py).
+# Each entry fully specifies a StaticJsonScraper instance; MultiVenueScraper
+# builds one per entry instead of a per-venue wrapper class (the six near-
+# identical wrappers were collapsed into this config). data_file is repo-
+# relative and resolved at runtime via BaseScraper.get_project_path. venue_key
+# must match a key under `venues:` so event-type resolution stays config-driven
+# (get_assumed_event_category). venue_name doubles as the venue_code emitted by
+# scrape_all_venues. Irregularities preserved from the old wrappers: Symphony
+# alone uses expand_dates: false; Ballet alone reads ballet_data.json and is
+# typed dance; Opera is typed opera.
+# ---------------------------------------------------------------------------
+static_json_scrapers:
+  austin_symphony:
+    base_url: "https://austinsymphony.org"
+    venue_name: "Symphony"
+    top_level_key: austinSymphony
+    default_event_type: concert
+    default_time: "8:00 PM"
+    default_location: "Dell Hall at Long Center"
+    expand_dates: false
+    data_file: "docs/classical_data.json"
+  early_music_austin:
+    base_url: "https://www.early-music.org"
+    venue_name: "EarlyMusic"
+    top_level_key: earlyMusicAustin
+    default_event_type: concert
+    default_time: "7:30 PM"
+    default_location: "Various Austin Venues"
+    expand_dates: true
+    data_file: "docs/classical_data.json"
+  la_follia:
+    base_url: "https://www.lafolliaaustin.org"
+    venue_name: "LaFollia"
+    top_level_key: laFolliaAustin
+    default_event_type: concert
+    default_time: "7:30 PM"
+    default_location: "Various Austin Venues"
+    expand_dates: true
+    data_file: "docs/classical_data.json"
+  austin_chamber_music:
+    base_url: "https://austinchambermusic.org"
+    venue_name: "Chamber Music"
+    top_level_key: austinChamberMusic
+    default_event_type: concert
+    default_time: "7:30 PM"
+    default_location: "Austin Chamber Music Center"
+    expand_dates: true
+    data_file: "docs/classical_data.json"
+  austin_opera:
+    base_url: "https://austinopera.org"
+    venue_name: "Opera"
+    top_level_key: austinOpera
+    default_event_type: opera
+    default_time: "8:00 PM"
+    default_location: "Long Center for the Performing Arts"
+    expand_dates: true
+    data_file: "docs/classical_data.json"
+  ballet_austin:
+    base_url: "https://balletaustin.org"
+    venue_name: "BalletAustin"
+    top_level_key: balletAustin
+    default_event_type: dance
+    default_time: "7:30 PM"
+    default_location: "The Long Center"
+    expand_dates: true
+    data_file: "docs/ballet_data.json"
+
 

@@ -28,17 +28,17 @@ See ``CLAUDE.md §Adding a New Venue`` for the full checklist.
 from .afs_scraper import AFSScraper
 from .alienated_majesty_scraper import AlienatedMajestyBooksScraper
 from .arts_on_alexander_scraper import ArtsOnAlexanderScraper
-from .austin_chamber_music_scraper import AustinChamberMusicScraper
-from .austin_opera_scraper import AustinOperaScraper
-from .austin_symphony_scraper import AustinSymphonyScraper
-from .ballet_austin_scraper import BalletAustinScraper
-from .early_music_scraper import EarlyMusicAustinScraper
 from .first_light_scraper import FirstLightAustinScraper
 from .hyperreal_scraper import HyperrealScraper
-from .la_follia_scraper import LaFolliaAustinScraper
 from .libra_books_scraper import LibraBooksScraper
 from .now_playing_austin_visual_arts_scraper import NowPlayingAustinVisualArtsScraper
 from .paramount_scraper import ParamountScraper
+
+# Season-based venues (Austin Symphony, Early Music, La Follia, Austin Chamber
+# Music, Austin Opera, Ballet Austin) no longer have per-venue wrapper classes:
+# they are config-driven StaticJsonScraper instances built by
+# MultiVenueScraper from master_config's `static_json_scrapers` block.
+from ._static_json_scraper import StaticJsonScraper
 
 __all__ = [
     "FirstLightAustinScraper",
@@ -46,13 +46,8 @@ __all__ = [
     "HyperrealScraper",
     "AlienatedMajestyBooksScraper",
     "ArtsOnAlexanderScraper",
-    "AustinChamberMusicScraper",
-    "AustinOperaScraper",
-    "AustinSymphonyScraper",
-    "BalletAustinScraper",
-    "EarlyMusicAustinScraper",
-    "LaFolliaAustinScraper",
     "LibraBooksScraper",
     "NowPlayingAustinVisualArtsScraper",
     "ParamountScraper",
+    "StaticJsonScraper",
 ]

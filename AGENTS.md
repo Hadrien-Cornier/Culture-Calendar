@@ -25,7 +25,8 @@ venues (HTML / JSON)
     ▼   update_website_data.py            ← assemble docs/data.json
     ▼   docs/index.html + script.js       ← render in browser
     ▼   scripts/check_live_site.py        ← pyppeteer assertions on live URL
-    ▼   scripts/persona_critique.py       ← LLM council judges the deployed UX
+    ▼   scripts/capture_live_site_context.py + .council/llm-council/scripts/council-judge.sh
+                                          ← cross-family LLM council judges the deployed UX
 ```
 
 Every hop writes a normalized event shape defined in `config/master_config.yaml` (templates: `movie`, `concert`, `book_club`, `opera`, `dance`, `visual_arts`, `other`).
@@ -42,8 +43,9 @@ Every hop writes a normalized event shape defined in `config/master_config.yaml`
 | Add a venue to the wishlist | `README.md §Venue Wishlist` — human-curated, not auto-loaded |
 | Tweak frontend UX | `docs/index.html` (markup) + `docs/script.js` (render/filter) + `docs/styles.css` |
 | Verify a frontend change against live | write a spec JSON; run `scripts/check_live_site.py --spec <path>` |
-| Run persona LLM council | `.venv/bin/python scripts/persona_critique.py --out docs/PERSONAS.md` |
-| Benchmark models for the council | `scripts/bench_personas.py` (18 Anthropic calls, ~$2) |
+| Run the live-site LLM council | `scripts/capture_live_site_context.py` → `.council/llm-council/scripts/council-judge.sh --council .council/live-site.json --context-file <captured.md>` (needs `OPENROUTER_API_KEY`) |
+| Run the code-review LLM council | `.council/llm-council/scripts/council-judge.sh --council .council/culture-calendar.json --context-file <diff>` |
+| (Re)pick council models | refresh with the llm-council skill's `scripts/refresh-model-pool.py`, then re-pick one slug per non-Anthropic family in `.council/*.json` |
 | Block push on significant changes | Tag commit subject with `[persona-gate]`; requires `.githooks/pre-push` activation |
 | Prospect new venues via Perplexity | `scripts/prospect_venues.py --category <cat>` → append to `README.md §Venue Wishlist` |
 | Generate an ICS calendar | `src/calendar_generator.py` (invoked from the website download button) |
@@ -61,8 +63,7 @@ Every hop writes a normalized event shape defined in `config/master_config.yaml`
 ## Common agentic pitfalls (historical regressions)
 
 - **Wholesale v12i promotion** dropped TTS, About, search bar (`c45fdfd`, 2026-04-19). Fixed across 2026-04-18-2 and 2026-04-18-3 runs. **Never copy `docs/variants/*` wholesale**; cherry-pick features instead.
-- **`@dataclass` + importlib under Python 3.13** requires `sys.modules` registration before `exec_module`, else `AttributeError: 'NoneType' object has no attribute '__dict__'` at decoration time. See `scripts/persona_critique.py:_load_check_live_site_module` for the fix pattern.
-- **Opus 4.7 deprecated `temperature`** — `MODELS_WITHOUT_TEMPERATURE` guard in `scripts/persona_critique.py`. Add new models here when Anthropic makes similar changes.
+- **`@dataclass` + importlib under Python 3.13** requires `sys.modules` registration before `exec_module`, else `AttributeError: 'NoneType' object has no attribute '__dict__'` at decoration time. See `scripts/capture_live_site_context.py` (which loads `check_live_site` as a module) for the fix pattern.
 - **pyppeteer async js_truthy** — `check_live_site.py:_wrap_expr` only adds an explicit return when the expression contains `;` or `return`. For async IIFEs, assign to `window.__foo = (async()=>{...})()` then `return window.__foo`, else the outer wrapper drops the Promise.
 
 ## Entry points — quick CLI reference
@@ -80,14 +81,19 @@ python update_website_data.py --force-reprocess
 # Run unit tests (no network)
 .venv/bin/python -m pytest -q -m "not live and not integration"
 
-# Verify live site
+# Verify live site (structural asserts)
 .venv/bin/python scripts/check_live_site.py --spec <path-to-spec.json>
 
-# Persona LLM council against deployed site
-.venv/bin/python scripts/persona_critique.py --out docs/PERSONAS.md
+# Live-site LLM council against deployed UX (cross-family; needs OPENROUTER_API_KEY)
+.venv/bin/python scripts/capture_live_site_context.py \
+    --specs-dir personas/live-site-specs --docs-dir docs --out .council/live-site-context.md
+bash .council/llm-council/scripts/council-judge.sh \
+    --council .council/live-site.json --context-file .council/live-site-context.md
 
-# Benchmark models for the council (~$2)
-.venv/bin/python scripts/bench_personas.py
+# Code-review LLM council against a diff
+git diff origin/main...HEAD > .council/pr-diff.txt
+bash .council/llm-council/scripts/council-judge.sh \
+    --council .council/culture-calendar.json --context-file .council/pr-diff.txt
 ```
 
 ## Agent workflow discipline
@@ -103,7 +109,7 @@ Before you edit, in this order:
 After you edit:
 
 1. `.venv/bin/python -m pytest -q` — must exit 0.
-2. If you touched `docs/`, run `scripts/check_live_site.py` locally before push; `scripts/require_persona_approval.py` is available if the change warrants the LLM council.
+2. If you touched `docs/`, run `scripts/check_live_site.py` locally before push; tag the commit `[persona-gate]` (and set `OPENROUTER_API_KEY`) to run the cross-family live-site council via `.githooks/pre-push` when the change warrants it.
 3. Commit with the pinned identity (see invariants).
 
 ---

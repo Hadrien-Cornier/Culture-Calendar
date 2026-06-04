@@ -1,0 +1,53 @@
+{
+  "$schema_version": 1,
+  "goal": "Culture Calendar live-site UX gate: the deployed site (served locally from docs/) must stay usable, comprehensive, and regression-free across logistics, review-reading, search, coverage/comprehensiveness, feature continuity, and mobile. Treat the structural ground truth in the context file as authoritative.",
+  "maker": { "openrouter_id": "anthropic/claude-opus-4", "family": "anthropic" },
+  "scope": {},
+  "_note": "Six UX lenses, each judged by a distinct non-Anthropic family for maximum diversity (Anthropic excluded as maker). No separate synthesis layer: deterministic per-feature regressions are caught by scripts/check_live_site.py (structural asserts in personas/live-site-specs/), and the council adds cross-family holistic judgment. Model slugs from the skill's cache/model-pool.json (2026-05-28); refresh + re-pick when the frontier moves. persona_spec_path is relative to the repo root.",
+  "panel": [
+    {
+      "persona": "logistics-user",
+      "dimension": "live-logistics",
+      "verdict_contract": "pass-fail-abstain",
+      "model": { "openrouter_id": "openai/gpt-5", "family": "openai", "tier": "reasoning" },
+      "persona_spec_path": "personas/council/logistics-user.json"
+    },
+    {
+      "persona": "review-reader",
+      "dimension": "live-review",
+      "verdict_contract": "pass-fail-abstain",
+      "model": { "openrouter_id": "deepseek/deepseek-v4-pro", "family": "deepseek", "tier": "reasoning" },
+      "persona_spec_path": "personas/council/review-reader.json"
+    },
+    {
+      "persona": "search-user",
+      "dimension": "live-search",
+      "verdict_contract": "pass-fail-abstain",
+      "model": { "openrouter_id": "moonshotai/kimi-k2", "family": "moonshot", "tier": "reasoning" },
+      "persona_spec_path": "personas/council/search-user.json"
+    },
+    {
+      "persona": "comprehensiveness-user",
+      "dimension": "live-coverage",
+      "verdict_contract": "pass-fail-abstain",
+      "model": { "openrouter_id": "z-ai/glm-5", "family": "zai", "tier": "reasoning" },
+      "persona_spec_path": "personas/council/comprehensiveness-user.json"
+    },
+    {
+      "persona": "continuity-user",
+      "dimension": "live-continuity",
+      "verdict_contract": "pass-fail-abstain",
+      "model": { "openrouter_id": "google/gemini-3-pro-image-preview", "family": "google", "tier": "fast" },
+      "persona_spec_path": "personas/council/continuity-user.json"
+    },
+    {
+      "persona": "mobile-user",
+      "dimension": "live-mobile",
+      "verdict_contract": "pass-fail-abstain",
+      "model": { "openrouter_id": "xiaomi/mimo-v2-omni", "family": "xiaomi", "tier": "fast" },
+      "persona_spec_path": "personas/council/mobile-user.json"
+    }
+  ],
+  "synthesis": null,
+  "acceptance_rule": "unanimous-pass; any FAIL blocks"
+}

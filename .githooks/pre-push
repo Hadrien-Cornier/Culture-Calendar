@@ -27,8 +27,10 @@ repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root"
 
 marker='[persona-gate]'
-minimalism_persona="personas/code-review/repo-minimalism.json"
-gate_script="scripts/require_persona_approval.py"
+minimalism_persona="personas/council/repo-minimalism.json"
+capture_script="scripts/capture_live_site_context.py"
+council_judge=".council/llm-council/scripts/council-judge.sh"
+council_manifest=".council/live-site.json"
 
 # Resolve a Python interpreter once. Used by both gates below.
 if [ -x ".venv/bin/python" ]; then
@@ -81,30 +83,58 @@ if [ ${#tagged_commits[@]} -eq 0 ]; then
   exit 0
 fi
 
-if [ ! -f "$gate_script" ]; then
-  echo "[pre-push] $gate_script missing; skipping persona gate." >&2
-  exit 0
-fi
-
-echo "[pre-push] ${#tagged_commits[@]} commit(s) tagged $marker; running persona gate..."
+echo "[pre-push] ${#tagged_commits[@]} commit(s) tagged $marker; running live-site council gate..."
 for sha in "${tagged_commits[@]}"; do
   short=$(git rev-parse --short "$sha")
   echo "  - $short: $(git log -1 --format='%s' "$sha")"
 done
 
+# The cross-family council calls OpenRouter. Without a key (e.g. a contributor
+# who hasn't set one), degrade gracefully so the push isn't hard-blocked — CI
+# and the long-run harness still enforce the gate with the key present.
+if [ -z "${OPENROUTER_API_KEY:-}" ]; then
+  echo "[pre-push] OPENROUTER_API_KEY unset; skipping live-site council gate." >&2
+  echo "[pre-push] (export it locally to enforce cross-family UX review before pushing.)" >&2
+  exit 0
+fi
 if [ -z "$py" ]; then
-  echo "[pre-push] no python interpreter found; cannot run persona gate." >&2
+  echo "[pre-push] no python interpreter found; cannot capture live-site context." >&2
   exit 1
 fi
-
-if ! "$py" "$gate_script"; then
-  echo "" >&2
-  echo "[pre-push] PUSH BLOCKED — persona gate rejected the change." >&2
-  echo "Inspect the scorecard at .overnight/gate-b-scorecard.md, address" >&2
-  echo "the findings, and amend the commit. To push anyway (emergency only):" >&2
-  echo "  git push --no-verify" >&2
-  exit 1
+if [ ! -f "$capture_script" ] || [ ! -f "$council_judge" ] || [ ! -f "$council_manifest" ]; then
+  echo "[pre-push] council components missing; skipping live-site gate." >&2
+  echo "           (need $capture_script, $council_judge, $council_manifest)" >&2
+  exit 0
 fi
 
-echo "[pre-push] persona gate passed; proceeding with push."
-exit 0
+# 1) Capture the deployed-site structural ground truth (spins a localhost
+#    http.server rooted at docs/ and runs the personas/live-site-specs asserts).
+if ! "$py" "$capture_script" \
+      --specs-dir personas/live-site-specs \
+      --docs-dir docs \
+      --out .council/live-site-context.md; then
+  echo "[pre-push] live-site capture failed; skipping council gate (not blocking)." >&2
+  exit 0
+fi
+
+# 2) Judge the captured context with the cross-family council (Anthropic excluded).
+rc=0
+bash "$council_judge" \
+  --council "$council_manifest" \
+  --context-file .council/live-site-context.md \
+  --reviews-dir .council/live-site-reviews || rc=$?
+case "$rc" in
+  0)
+    echo "[pre-push] live-site council ACCEPT; proceeding with push."
+    exit 0 ;;
+  2)
+    echo "[pre-push] live-site council ESCALATE (all abstained / dispatch failed)." >&2
+    echo "Review .council/live-site-reviews/ then 'git push --no-verify' if intended." >&2
+    exit 1 ;;
+  *)
+    echo "" >&2
+    echo "[pre-push] PUSH BLOCKED — live-site council REJECT." >&2
+    echo "Inspect .council/live-site-reviews/aggregate-verdict.json, address the" >&2
+    echo "findings, and amend the commit. Emergency override: git push --no-verify" >&2
+    exit 1 ;;
+esac

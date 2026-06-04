@@ -1,0 +1,67 @@
+name: Deploy site to gh-pages
+
+# Builds the full published site (source + data + all generated artifacts) into
+# _site/ and pushes it to the gh-pages branch. GitHub Pages serves from gh-pages
+# so `main` stays source-only (no ~900 generated files tracked there).
+#
+# Triggered on push to main (so data commits from the weekly/wipe-reload jobs and
+# merged classical-refresh PRs republish automatically) and manually.
+#
+# ONE-TIME SETUP (manual, by a maintainer): after the first successful run creates
+# the gh-pages branch, set Settings -> Pages -> Source -> Deploy from a branch ->
+# Branch: gh-pages / (root). The project URL is unchanged.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - 'scripts/build_site.py'
+      - 'scripts/build_*.py'
+      - 'update_website_data.py'
+      - '.github/workflows/deploy-pages.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install playwright
+
+      - name: Install Playwright Chromium
+        # Some generators capture/screenshot via a browser; install it so the
+        # full site builds. build_site.py is best-effort per generator regardless.
+        run: python -m playwright install --with-deps chromium
+
+      - name: Build full site into _site/
+        run: python scripts/build_site.py --out _site --docs-dir docs
+
+      - name: Publish _site/ to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./_site
+          # Keep gh-pages a single rolling commit (no 900-file history bloat).
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'

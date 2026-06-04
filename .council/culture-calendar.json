@@ -1,0 +1,31 @@
+{
+  "$schema_version": 1,
+  "goal": "Culture Calendar code change: deliver the task while preserving AI-review quality (evidence-grounded, category-specific reviews) and nanochat-style repo minimalism.",
+  "maker": { "openrouter_id": "anthropic/claude-opus-4", "family": "anthropic" },
+  "scope": {},
+  "_note": "Cross-family panel, Anthropic excluded (maker family). Each juror a distinct family per the llm-council family-exclusion invariant. Model slugs come from the skill's cache/model-pool.json (refreshed 2026-05-28); refresh with refresh-model-pool.py and re-pick when the frontier moves. persona_spec_path is relative to the repo root (council-judge.sh is invoked there in every gate).",
+  "panel": [
+    {
+      "persona": "review-quality",
+      "dimension": "review-quality",
+      "verdict_contract": "pass-fail-abstain",
+      "model": { "openrouter_id": "openai/gpt-5", "family": "openai", "tier": "reasoning" },
+      "persona_spec_path": "personas/council/review-quality.json"
+    },
+    {
+      "persona": "repo-minimalism",
+      "dimension": "repo-minimalism",
+      "verdict_contract": "pass-fail-abstain",
+      "model": { "openrouter_id": "deepseek/deepseek-v4-pro", "family": "deepseek", "tier": "reasoning" },
+      "persona_spec_path": "personas/council/repo-minimalism.json"
+    }
+  ],
+  "synthesis": {
+    "persona": "synthesis-judge",
+    "dimension": "synthesis",
+    "verdict_contract": "pass-fail-abstain",
+    "model": { "openrouter_id": "moonshotai/kimi-k2", "family": "moonshot", "tier": "reasoning" },
+    "persona_spec_path": "personas/council/synthesis-judge.json"
+  },
+  "acceptance_rule": "unanimous-pass; any FAIL blocks"
+}

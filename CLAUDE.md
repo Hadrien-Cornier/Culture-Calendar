@@ -43,7 +43,7 @@ python pre_commit_checks.py                 # format + tests
 - `EventProcessor` (src/processor.py:19) — AI ratings/reviews via Perplexity.
 - `SummaryGenerator` (src/summary_generator.py) — one-line hooks via Claude.
 
-Static JSON loading is used for season-based venues (Symphony, Opera, Ballet) — see Classical refresh below.
+Static JSON loading is used for season-based venues (Symphony, Early Music, La Follia, Chamber Music, Opera, Ballet) — `src/scraper.py` builds one `StaticJsonScraper` per entry in the `static_json_scrapers:` registry in master_config.yaml (config-driven; no per-venue wrapper classes). See Classical refresh below.
 
 **Data flow**: `MultiVenueScraper.scrape_all_venues()` → `EventProcessor.process_events()` → `SummaryGenerator` → `update_website_data.py` writes `docs/data.json` + ICS/RSS builders → GitHub Pages serves `docs/`.
 
@@ -51,7 +51,8 @@ Static JSON loading is used for season-based venues (Symphony, Opera, Ballet) �
 
 ## Common Development Tasks
 
-- **Add a venue**: extend `BaseScraper` in `src/scrapers/<venue>_scraper.py`; add config under `venues:` in master_config.yaml; register in `src/scrapers/__init__.py` + `MultiVenueScraper`; unit tests at `tests/test_<venue>_scraper_unit.py`; smoke with `python update_website_data.py --test-week`.
+- **Add a venue (HTML)**: extend `BaseScraper` in `src/scrapers/<venue>_scraper.py`; add config under `venues:` in master_config.yaml; register in `src/scrapers/__init__.py` + `MultiVenueScraper`; unit tests at `tests/test_<venue>_scraper_unit.py`; smoke with `python update_website_data.py --test-week`.
+- **Add a venue (static season JSON)**: no wrapper class needed. Add a `venues:` entry (for classification policy) AND a `static_json_scrapers:` entry in master_config.yaml — `src/scraper.py` builds one `StaticJsonScraper` per registry entry in a loop via `ConfigLoader.get_static_json_scrapers()` (the six classical/opera/ballet wrappers were collapsed into this block).
 - **Debug scraper failures**: run with `--validate`; check if site structure changed (most common cause); review LLM prompts for smart scrapers; inspect enrichment telemetry.
 - **Modify schema**: edit template in master_config.yaml; update scraper; update enrichment prompts; adjust `update_website_data.py:build_event_from_template()`; update tests.
 
@@ -72,7 +73,7 @@ Pyppeteer threading blocks running all scrapers in parallel ("signal only works 
 
 ## Testing Strategy
 
-Unit tests mock scrapers, no network. Integration tests use cached responses. Live tests via `@pytest.mark.live`. Fixtures under `tests/{Venue}_test_data/`. Validation service: `tests/test_validation_integration.py`.
+Unit tests mock scrapers, no network. Integration tests use cached responses. Live tests via `@pytest.mark.live`. Fixtures under `tests/{Venue}_test_data/`.
 
 ## GitNexus — code intelligence
 
@@ -93,19 +94,18 @@ Canonical user-visible feature list at `config/feature-inventory.json` — entri
 
 Entry shape: `{id, name, selector, since_commit, smoke_assertion}` where `smoke_assertion` is `selector_exists | contains_text:<...> | js_truthy:<...>`. Append-only; never reorder. If removing a feature, delete the entry in the same commit and note in CHANGELOG. Selectors must resolve on the LIVE site.
 
-## Persona critique gate
+## LLM Council quality gate
 
-Two persona layers, both authored as JSON specs an LLM consumes. See `personas/README.md` for per-persona detail.
+Quality is enforced by the reusable **llm-council** skill: a cross-family judge panel with **enforced diversity** — the maker family (Anthropic) is **excluded from judging**, and every juror is a distinct non-Anthropic family (OpenAI, DeepSeek, Moonshot, z-ai, Google, Xiaomi). Runtime is the vendored `.council/llm-council/scripts/council-judge.sh` (reads a manifest + a `--context-file`, calls OpenRouter, writes per-persona review JSONs, aggregates: any FAIL → exit 1 REJECT, all ABSTAIN → exit 2 ESCALATE, else 0 ACCEPT). Judge personas live in `personas/council/*.json`; manifests in `.council/` pin each persona to a model/family. Needs `OPENROUTER_API_KEY`; degrades gracefully (skips, never hard-blocks) when absent. See `personas/README.md` for layout.
 
-**Live-site UX critique** (`personas/live-site/`): six personas (logistics-user, review-reader, search-user, comprehensiveness-user, continuity-user, mobile-user) critique the deployed site via `scripts/persona_critique.py`. Default model: Claude Sonnet 4.6. **Local-only** — runs on workstation before push, not in CI.
+**Three gates:**
+1. **Pre-push** (`.githooks/pre-push`) — when an outgoing commit subject contains `[persona-gate]`, `scripts/capture_live_site_context.py` serves `docs/` locally and runs the `personas/live-site-specs/*.json` structural asserts, then `council-judge.sh --council .council/live-site.json` judges the captured context (6 UX lenses). Activate per-clone: `git config core.hooksPath .githooks`. Emergency bypass: `git push --no-verify`. The hook also validates `personas/council/repo-minimalism.json` parses on every push (misconfig → exit 1).
+2. **PR validation** (`.github/workflows/pr-validation.yml` → `council-review` job) — runs `council-judge.sh --council .council/culture-calendar.json` against the PR diff. Report-only (writes the verdict to the job summary); skips neutrally when `OPENROUTER_API_KEY` is unset (fork PRs).
+3. **Long-run tasks** — the autonomous-run harness judges each task with `.council/culture-calendar.json`; any FAIL re-queues the task.
 
-**Code-review critique** (`personas/code-review/`): two permanent reviewers grade pending diffs:
-- `review-quality.json` — senior-engineer lens; flags diffs that weaken AI review generation (dropped evidence requirements, lowered confidence thresholds, generic prompts).
-- `repo-minimalism.json` — Karpathy/nanochat lens; flags ceremony, helper graveyards, premature abstraction, parallel near-duplicates, bloat in `CLAUDE.md`/`CHANGELOG.md`.
+**`[persona-gate]` commit tag**: tag commit subject with literal `[persona-gate]` for significant changes (architectural UI refactors, feature removals/restorations, redesigns — anything a reviewer would call "a new direction"). Don't tag bug fixes, copy tweaks, CSS polish, data refreshes, or dep bumps.
 
-Manual run: `.venv/bin/python scripts/review_quality_check.py` (defaults to staged + worktree; `--commit` for `HEAD~1..HEAD`, `--staged` for cached only, `--no-llm` to print prompt). Both reviewers also fire automatically inside the long-run council; any FAIL re-queues the task. `.githooks/pre-push` validates `personas/code-review/repo-minimalism.json` parses on every push.
-
-**`[persona-gate]` commit tag**: tag commit subject with literal `[persona-gate]` for significant changes (architectural UI refactors, feature removals/restorations, redesigns — anything a reviewer would call "a new direction"). Don't tag bug fixes, copy tweaks, CSS polish, data refreshes, or dep bumps. `.githooks/pre-push` scans outgoing commits for the marker; on match starts a local server, runs `scripts/require_persona_approval.py` → `persona_critique` in LLM mode, aborts push on any FAIL. Activate per-clone: `git config core.hooksPath .githooks`. Emergency bypass: `git push --no-verify`.
+**(Re)generating manifests**: refresh the model pool with the skill's `scripts/refresh-model-pool.py`, then re-pick one slug per distinct non-Anthropic family in `.council/*.json`, keeping Anthropic excluded. See `personas/README.md`.
 
 ## Autonomous Run Baseline
 

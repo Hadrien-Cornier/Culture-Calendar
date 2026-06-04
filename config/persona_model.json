@@ -1,9 +1,0 @@
-{
-  "model": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
-  "reference": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
-  "agreement_threshold": 5,
-  "agreements": {
-    "us.anthropic.claude-haiku-4-5-20251001-v1:0": 4,
-    "us.anthropic.claude-sonnet-4-5-20250929-v1:0": 6
-  }
-}

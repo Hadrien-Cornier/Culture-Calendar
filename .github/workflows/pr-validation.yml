@@ -130,22 +130,81 @@ jobs:
               print(f'OK {name}')
           "
 
+  council-review:
+    runs-on: ubuntu-latest
+    name: LLM Council (cross-family diff review)
+    needs: [test-suite]
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # need base..head for the diff
+
+      - name: Capture PR diff as council context
+        run: |
+          mkdir -p .council
+          git fetch --no-tags --depth=200 origin "${{ github.base_ref }}" || git fetch --no-tags origin "${{ github.base_ref }}"
+          # Review the meaningful surface only: exclude generated artifacts, the
+          # large data/cache JSON, and the lockfile (noise that drowns the diff
+          # and bloats the model prompt). Then cap to keep the prompt bounded.
+          git diff --no-color "origin/${{ github.base_ref }}...${{ github.sha }}" -- . \
+            ':(exclude)docs/events/**' ':(exclude)docs/people/**' ':(exclude)docs/venues/**' \
+            ':(exclude)docs/weekly/**' ':(exclude)docs/api/**' ':(exclude)docs/og/**' \
+            ':(exclude)docs/*.json' ':(exclude)package-lock.json' \
+            > .council/pr-diff.full.txt || true
+          head -c 200000 .council/pr-diff.full.txt > .council/pr-diff.txt
+          echo "diff bytes (capped): $(wc -c < .council/pr-diff.txt) of $(wc -c < .council/pr-diff.full.txt) total"
+
+      - name: Council gate (cross-family; blocks on REJECT/ESCALATE)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -z "${OPENROUTER_API_KEY:-}" ]; then
+            echo "::notice title=LLM Council::OPENROUTER_API_KEY absent (fork PR or secret unset) — council skipped (neutral)."
+            exit 0
+          fi
+          if [ ! -s .council/pr-diff.txt ]; then
+            echo "::notice title=LLM Council::empty review surface (only generated/data files changed) — nothing to review."
+            exit 0
+          fi
+          rc=0
+          bash .council/llm-council/scripts/council-judge.sh \
+            --council .council/culture-calendar.json \
+            --context-file .council/pr-diff.txt \
+            --reviews-dir .council/pr-reviews || rc=$?
+          {
+            echo "## LLM Council (cross-family) — exit $rc (0=ACCEPT, 1=REJECT, 2=ESCALATE)"
+            if [ -f .council/pr-reviews/aggregate-verdict.json ]; then
+              echo '```json'; cat .council/pr-reviews/aggregate-verdict.json; echo; echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$rc" -eq 1 ]; then
+            echo "::error title=LLM Council::REJECT — a juror blocked the change. See the job summary / .council/pr-reviews/."
+          elif [ "$rc" -eq 2 ]; then
+            echo "::error title=LLM Council::ESCALATE — no consensus (all abstained or dispatch failed). May be transient; re-run, or inspect .council/pr-reviews/."
+          fi
+          # Blocking: the council decision gates the check.
+          exit "$rc"
+
   pr-summary:
     runs-on: ubuntu-latest
     name: PR Validation Summary
-    needs: [code-quality, test-suite, offline-verify, scraper-smoke]
+    needs: [code-quality, test-suite, offline-verify, scraper-smoke, council-review]
     if: always()
 
     steps:
       - name: Summary
         run: |
           echo "## PR Validation Results" >> $GITHUB_STEP_SUMMARY
-          for job in code-quality test-suite offline-verify scraper-smoke; do
+          for job in code-quality test-suite offline-verify scraper-smoke council-review; do
             case $job in
               code-quality) result="${{ needs.code-quality.result }}" ;;
               test-suite) result="${{ needs.test-suite.result }}" ;;
               offline-verify) result="${{ needs.offline-verify.result }}" ;;
               scraper-smoke) result="${{ needs.scraper-smoke.result }}" ;;
+              council-review) result="${{ needs.council-review.result }}" ;;
             esac
             if [[ "$result" == "success" ]]; then
               echo "- ✅ $job" >> $GITHUB_STEP_SUMMARY

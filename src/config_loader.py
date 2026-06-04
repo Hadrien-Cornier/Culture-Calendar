@@ -193,6 +193,21 @@ class ConfigLoader:
 
         return None
 
+    def get_static_json_scrapers(self) -> Dict[str, Any]:
+        """
+        Get the static-JSON scraper registry.
+
+        Each entry fully specifies a :class:`StaticJsonScraper` instance for a
+        season-based venue (Symphony, Opera, Chamber Music, Early Music, La
+        Follia, Ballet) that ships its season as a curated JSON file rather
+        than scraping a live site. Consumed by
+        :meth:`src.scraper.MultiVenueScraper._init_static_json_scrapers`.
+
+        Returns:
+            Mapping of venue_key -> scraper params (empty dict if unset).
+        """
+        return self._config.get("static_json_scrapers", {})
+
     def get_validation_rules(self) -> Dict[str, Any]:
         """
         Get validation rules

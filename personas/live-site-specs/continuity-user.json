@@ -1,0 +1,26 @@
+{
+  "persona": "continuity-user",
+  "description": "A regression watchdog. Reads config/feature-inventory.json (at spec-write time) and asserts one selector_exists per recorded feature, so silent deletions during redesigns are caught. Clicks the first top-pick card so post-expand selectors (TTS, open panel) are reachable.",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "mobile": false,
+  "wait_for_selector": ".top-picks .event-card",
+  "wait_ms": 1500,
+  "click_before_assert": [
+    ".top-picks .event-card:first-child .event-header"
+  ],
+  "asserts": [
+    {"type": "selector_exists", "selector": ".about-section", "_feature_id": "about-section"},
+    {"type": "selector_exists", "selector": ".event-oneliner", "_feature_id": "one-liner"},
+    {"type": "selector_exists", "selector": ".event-panel", "_feature_id": "listing-card-render"},
+    {"type": "selector_exists", "selector": ".picks-list .event-card", "_feature_id": "top-pick-render"},
+    {"type": "selector_exists", "selector": ".masthead-subtitle", "_feature_id": "masthead-subtitle"},
+    {"type": "selector_exists", "selector": "#event-search", "_feature_id": "event-search"},
+    {"type": "selector_exists", "selector": ".top-picks .event-card .event-panel", "_feature_id": "top-picks-expand"},
+    {"type": "selector_exists", "selector": ".listings .event-card .event-when", "_feature_id": "card-when"},
+    {"type": "selector_exists", "selector": ".event-card.is-open .tts-button", "_feature_id": "tts"},
+    {"type": "selector_exists", "selector": ".needs-research-section", "_feature_id": "needs-research"}
+  ],
+  "pre_screenshot_actions": [
+    {"type": "scroll", "y": 1500}
+  ]
+}

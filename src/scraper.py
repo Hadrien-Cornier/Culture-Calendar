@@ -41,18 +41,13 @@ from .scrapers import (
     AFSScraper,
     AlienatedMajestyBooksScraper,
     ArtsOnAlexanderScraper,
-    AustinChamberMusicScraper,
-    AustinOperaScraper,
-    AustinSymphonyScraper,
-    BalletAustinScraper,
-    EarlyMusicAustinScraper,
     FirstLightAustinScraper,
     HyperrealScraper,
-    LaFolliaAustinScraper,
     LibraBooksScraper,
     NowPlayingAustinVisualArtsScraper,
     ParamountScraper,
 )
+from .scrapers._static_json_scraper import StaticJsonScraper
 from .recurring_events import RecurringEventGenerator
 
 
@@ -83,24 +78,11 @@ class MultiVenueScraper:
         self.arts_on_alexander_scraper = ArtsOnAlexanderScraper(
             config=self.config, venue_key="arts_on_alexander"
         )
-        self.austin_symphony_scraper = AustinSymphonyScraper(
-            config=self.config, venue_key="austin_symphony"
-        )
-        self.austin_opera_scraper = AustinOperaScraper(
-            config=self.config, venue_key="austin_opera"
-        )
-        self.austin_chamber_music_scraper = AustinChamberMusicScraper(
-            config=self.config, venue_key="austin_chamber_music"
-        )
-        self.early_music_scraper = EarlyMusicAustinScraper(
-            config=self.config, venue_key="early_music_austin"
-        )
-        self.la_follia_scraper = LaFolliaAustinScraper(
-            config=self.config, venue_key="la_follia"
-        )
-        self.ballet_austin_scraper = BalletAustinScraper(
-            config=self.config, venue_key="ballet_austin"
-        )
+        # Static-JSON season venues (Symphony, Opera, Chamber Music, Early
+        # Music, La Follia, Ballet) are config-driven — one StaticJsonScraper
+        # per entry in master_config's static_json_scrapers block — instead of
+        # six near-identical wrapper classes.
+        self._init_static_json_scrapers()
         self.now_playing_austin_visual_arts_scraper = NowPlayingAustinVisualArtsScraper(
             config=self.config, venue_key="now_playing_austin_visual_arts"
         )
@@ -113,6 +95,40 @@ class MultiVenueScraper:
 
         self.existing_events_cache = set()  # Cache for duplicate detection
         self.last_updated = {}
+
+    def _init_static_json_scrapers(self) -> None:
+        """Build one StaticJsonScraper per ``static_json_scrapers`` config entry.
+
+        Each scraper is exposed under its legacy attribute name so
+        :meth:`scrape_all_venues`, :meth:`get_event_details`, and the
+        ``pr-validation`` scraper-smoke test keep referencing them by name.
+        ``early_music_austin`` maps to ``early_music_scraper`` — the attribute
+        historically dropped the ``_austin`` suffix.
+        """
+        attr_aliases = {
+            "austin_symphony": "austin_symphony_scraper",
+            "early_music_austin": "early_music_scraper",
+            "la_follia": "la_follia_scraper",
+            "austin_chamber_music": "austin_chamber_music_scraper",
+            "austin_opera": "austin_opera_scraper",
+            "ballet_austin": "ballet_austin_scraper",
+        }
+        for venue_key, cfg in self.config.get_static_json_scrapers().items():
+            scraper = StaticJsonScraper(
+                base_url=cfg["base_url"],
+                venue_name=cfg["venue_name"],
+                venue_key=venue_key,
+                config=self.config,
+                data_file="",
+                top_level_key=cfg["top_level_key"],
+                default_event_type=cfg["default_event_type"],
+                default_time=cfg.get("default_time", "7:30 PM"),
+                default_location=cfg.get("default_location", ""),
+                expand_dates=cfg.get("expand_dates", True),
+            )
+            # Resolve data_file as an instance method, like the old wrappers.
+            scraper.data_file = scraper.get_project_path(*cfg["data_file"].split("/"))
+            setattr(self, attr_aliases.get(venue_key, f"{venue_key}_scraper"), scraper)
 
     def scrape_all_venues(
         self, target_week: bool = False, days_ahead: int = None
