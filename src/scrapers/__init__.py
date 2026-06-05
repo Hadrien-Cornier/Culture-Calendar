@@ -7,6 +7,8 @@ Scraper categories:
 
 - **Live HTML scrape + LLM extraction**: AFS, Hyperreal, Paramount,
   Alienated Majesty, First Light, Libra Books.
+- **Live HTML + JSON-LD scrape (no LLM)**: ISHIDA Dance (homepage →
+  ThunderTix schema.org Event JSON-LD + performances table).
 - **Static JSON (season files, manually curated)**: Austin Symphony,
   Early Music Austin, La Follia, Austin Chamber Music, Austin Opera,
   Ballet Austin, NowPlaying Austin Visual Arts.
@@ -30,6 +32,7 @@ from .alienated_majesty_scraper import AlienatedMajestyBooksScraper
 from .arts_on_alexander_scraper import ArtsOnAlexanderScraper
 from .first_light_scraper import FirstLightAustinScraper
 from .hyperreal_scraper import HyperrealScraper
+from .ishida_dance_scraper import IshidaDanceScraper
 from .libra_books_scraper import LibraBooksScraper
 from .now_playing_austin_visual_arts_scraper import NowPlayingAustinVisualArtsScraper
 from .paramount_scraper import ParamountScraper
@@ -46,6 +49,7 @@ __all__ = [
     "HyperrealScraper",
     "AlienatedMajestyBooksScraper",
     "ArtsOnAlexanderScraper",
+    "IshidaDanceScraper",
     "LibraBooksScraper",
     "NowPlayingAustinVisualArtsScraper",
     "ParamountScraper",

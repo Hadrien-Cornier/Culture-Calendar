@@ -661,6 +661,18 @@ venues:
     enrichment:
       enabled: false
 
+  ishida_dance:
+    display_name: ISHIDA Dance Company
+    address: "5901 Southwest Pkwy, Austin, TX 78735"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: dance
+    enrichment:
+      enabled: false
+
   arts_on_alexander:
     display_name: Arts on Alexander
     address: "4800 Alexander Ave, Austin, TX 78756"

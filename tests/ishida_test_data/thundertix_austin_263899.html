@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- Minimal ThunderTix fixture (Austin run). Contains only what
+     IshidaDanceScraper reads: the schema.org Event JSON-LD (title,
+     description with an &nbsp; to exercise cleaning, Austin location) and the
+     #performances table with one <time> row per show. Trimmed from the full
+     live page (see git history). -->
+<html lang="en">
+  <head>
+    <title>ISHIDA - waiting / REX via ThunderTix</title>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Event",
+     "name":"ISHIDA - waiting / REX",
+     "description":"Nationally renowned&nbsp;ISHIDA Dance Company&nbsp;is back. waiting / REX reimagines Samuel Beckett's Waiting for Godot and Sophocles' Oedipus Tyrannus through physical dance.",
+     "startDate":"2026-06-18T20:00-05:00","endDate":"2026-06-20T20:00-05:00",
+     "location":{"@type":"Place","name":"Dell Fine Arts Center St Andrew's",
+       "address":{"@type":"PostalAddress","streetAddress":"5901 Southwest Pkwy",
+         "addressLocality":"Austin","addressRegion":"TX","postalCode":"78735","addressCountry":"US"}}}
+    </script>
+  </head>
+  <body>
+    <table id="performances" class="table">
+      <tr class="event-wrapper" id="performance_3251916"><td><time>Thursday, June 18, 2026 - 08:00 PM CDT</time></td></tr>
+      <tr class="event-wrapper" id="performance_3251917"><td><time>Friday, June 19, 2026 - 08:00 PM CDT</time></td></tr>
+      <tr class="event-wrapper" id="performance_3251918"><td><time>Saturday, June 20, 2026 - 08:00 PM CDT</time></td></tr>
+    </table>
+  </body>
+</html>

@@ -43,6 +43,7 @@ from .scrapers import (
     ArtsOnAlexanderScraper,
     FirstLightAustinScraper,
     HyperrealScraper,
+    IshidaDanceScraper,
     LibraBooksScraper,
     NowPlayingAustinVisualArtsScraper,
     ParamountScraper,
@@ -88,6 +89,9 @@ class MultiVenueScraper:
         )
         self.libra_books_scraper = LibraBooksScraper(
             config=self.config, venue_key="libra_books"
+        )
+        self.ishida_dance_scraper = IshidaDanceScraper(
+            config=self.config, venue_key="ishida_dance"
         )
 
         # Initialize recurring events generator
@@ -173,6 +177,12 @@ class MultiVenueScraper:
             ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
             ("LaFollia", self.la_follia_scraper, "La Follia", {}),
             ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
+            (
+                "IshidaDance",
+                self.ishida_dance_scraper,
+                "ISHIDA Dance Company",
+                {},
+            ),
             (
                 "NowPlayingAustinVisualArts",
                 self.now_playing_austin_visual_arts_scraper,

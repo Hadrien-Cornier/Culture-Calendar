@@ -170,23 +170,89 @@ jobs:
             exit 0
           fi
           rc=0
+          # --council-judge prints per-juror summary + findings + dispatch meta
+          # to stderr; tee it so the reasoning lands in the job log (not just
+          # PASS/FAIL), then mirror the structured reviews into the log + summary.
           bash .council/llm-council/scripts/council-judge.sh \
             --council .council/culture-calendar.json \
             --context-file .council/pr-diff.txt \
             --reviews-dir .council/pr-reviews || rc=$?
+
+          # --- Per-juror reasoning, straight into the job log (the thing
+          #     `gh run view --log` shows). Each verdict carries why it landed.
+          echo "::group::LLM Council — per-juror reviews"
+          for f in .council/pr-reviews/*.json; do
+            [ "$f" = ".council/pr-reviews/aggregate-verdict.json" ] && continue
+            [ -f "$f" ] || continue
+            echo "----- $(basename "$f") -----"
+            jq -r '
+              "verdict: \(.verdict // "?")   model: \(._meta.model // "?")   " +
+              (if ._meta.dispatch_failed then "DISPATCH FAILED" else "http=\(._meta.http_status // "?") finish=\(._meta.finish_reason // "?") latency_ms=\(._meta.latency_ms // "?")" end),
+              "summary: \(.summary // "")",
+              ( (.findings // []) | to_entries[]
+                | "  - [\(.value.severity // "?")/\(.value.code // "NO_CODE")] \(.value.evidence // "")\n      fix: \(.value.suggested_fix // "")" )
+            ' "$f" 2>/dev/null || cat "$f"
+            echo
+          done
+          echo "::endgroup::"
+
+          # --- Job summary: the aggregate decision + a readable per-juror table.
           {
             echo "## LLM Council (cross-family) — exit $rc (0=ACCEPT, 1=REJECT, 2=ESCALATE)"
             if [ -f .council/pr-reviews/aggregate-verdict.json ]; then
-              echo '```json'; cat .council/pr-reviews/aggregate-verdict.json; echo; echo '```'
+              echo "### Verdict"
+              jq -r '"**\(.decision)**" + (if .dissenting_personas then " — dissenters: \(.dissenting_personas)" elif .passing_personas then " — passed: \(.passing_personas)" else "" end)' \
+                .council/pr-reviews/aggregate-verdict.json 2>/dev/null || true
+              echo
+              echo "### Per-juror"
+              jq -r '
+                (.reviews // [])[]
+                | "<details><summary>\(.persona) — **\(.verdict)** (\(.model // "?"))\(if .dispatch_failed then " — DISPATCH FAILED" else "" end)</summary>\n\n\(.summary // "")\n\n"
+                  + ((.findings // []) | map("- `[\(.severity // "?")/\(.code // "NO_CODE")]` \(.evidence // "")\n  - fix: \(.suggested_fix // "")") | join("\n"))
+                  + "\n</details>"' \
+                .council/pr-reviews/aggregate-verdict.json 2>/dev/null || true
+              echo
+              echo "<details><summary>Raw aggregate-verdict.json</summary>"
+              echo; echo '```json'; cat .council/pr-reviews/aggregate-verdict.json; echo; echo '```'; echo '</details>'
             fi
           } >> "$GITHUB_STEP_SUMMARY"
+
           if [ "$rc" -eq 1 ]; then
-            echo "::error title=LLM Council::REJECT — a juror blocked the change. See the job summary / .council/pr-reviews/."
+            echo "::error title=LLM Council::REJECT — a juror blocked the change. Reasons are in the 'per-juror reviews' log group, the job summary, and the uploaded council-reviews artifact."
           elif [ "$rc" -eq 2 ]; then
-            echo "::error title=LLM Council::ESCALATE — no consensus (all abstained or dispatch failed). May be transient; re-run, or inspect .council/pr-reviews/."
+            echo "::error title=LLM Council::ESCALATE — no consensus (all abstained or dispatch failed). Often transient (model timeout); re-run, or inspect the per-juror log group / artifact."
           fi
           # Blocking: the council decision gates the check.
           exit "$rc"
+
+      - name: Upload council reviews (prompts, raw responses, verdicts)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: council-reviews
+          path: .council/pr-reviews/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Comment council verdict on PR
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f .council/pr-reviews/aggregate-verdict.json ] || exit 0
+          body=$(jq -r '
+            "## 🏛️ LLM Council — **\(.decision)**\n"
+            + (if .dissenting_personas then "Dissenters: `\(.dissenting_personas)`\n" elif .passing_personas then "Passed: `\(.passing_personas)`\n" else "" end)
+            + "\n"
+            + ((.reviews // []) | map(
+                "### \(.persona) — **\(.verdict)** (`\(.model // "?")`)\(if .dispatch_failed then " — ⚠️ dispatch failed" else "" end)\n"
+                + "\(.summary // "")\n"
+                + ((.findings // []) | map("- **[\(.severity // "?")/\(.code // "NO_CODE")]** \(.evidence // "")\n  - _fix:_ \(.suggested_fix // "")") | join("\n"))
+              ) | join("\n\n"))
+            + "\n\n_Re-run this job if the failure looks transient (a juror model timed out). Full prompts + raw responses are in the `council-reviews` artifact._"
+          ' .council/pr-reviews/aggregate-verdict.json)
+          gh pr comment "${{ github.event.pull_request.number }}" --body "$body" || \
+            echo "::notice title=LLM Council::could not post PR comment (token scope?) — verdict is in the job summary."
 
   pr-summary:
     runs-on: ubuntu-latest
