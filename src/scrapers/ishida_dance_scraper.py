@@ -197,19 +197,25 @@ class IshidaDanceScraper(BaseScraper):
         scope = table if table is not None else soup
         text = scope.get_text(" ", strip=True)
 
-        pairs: List[tuple[str, str]] = []
-        seen: set[str] = set()
+        # Dedupe on (date, time), NOT date alone — a single day can hold both a
+        # matinee and an evening show (Ishida does this on tour), and collapsing
+        # by date would silently drop one. Sort chronologically via a 24h key.
+        rows: List[tuple[str, str, str]] = []  # (date, sort_key_24h, display_time)
+        seen: set[tuple[str, str]] = set()
         for month, day, year, clock in _PERF_DATETIME.findall(text):
             iso = self._to_iso(month, day, year)
             time_str = self._normalize_time(clock)
-            if iso is None or time_str is None or iso in seen:
+            key24 = self._to_24h(clock)
+            if iso is None or time_str is None or key24 is None:
                 continue
-            seen.add(iso)
-            pairs.append((iso, time_str))
+            if (iso, key24) in seen:
+                continue
+            seen.add((iso, key24))
+            rows.append((iso, key24, time_str))
 
-        pairs.sort(key=lambda p: p[0])
-        dates = [d for d, _ in pairs]
-        times = [t for _, t in pairs]
+        rows.sort(key=lambda r: (r[0], r[1]))
+        dates = [r[0] for r in rows]
+        times = [r[2] for r in rows]
         return dates, times
 
     # ---------- Helpers ----------
@@ -239,6 +245,15 @@ class IshidaDanceScraper(BaseScraper):
         cleaned = re.sub(r"\s+", " ", clock.strip().upper())
         try:
             return datetime.strptime(cleaned, "%I:%M %p").strftime("%-I:%M %p")
+        except ValueError:
+            return None
+
+    @staticmethod
+    def _to_24h(clock: str) -> Optional[str]:
+        """Sortable 24h key ('08:00 PM' -> '20:00') for chronological ordering."""
+        cleaned = re.sub(r"\s+", " ", clock.strip().upper())
+        try:
+            return datetime.strptime(cleaned, "%I:%M %p").strftime("%H:%M")
         except ValueError:
             return None
 

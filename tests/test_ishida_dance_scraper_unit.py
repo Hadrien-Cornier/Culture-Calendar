@@ -127,3 +127,20 @@ def test_event_survives_format_and_validate(scraper: IshidaDanceScraper, events)
 def test_empty_homepage_yields_no_events(scraper: IshidaDanceScraper):
     scraper.session.get = MagicMock(side_effect=lambda url, *a, **k: _response(""))
     assert scraper.scrape_events() == []
+
+
+@pytest.mark.unit
+def test_same_day_matinee_and_evening_both_kept_in_order(scraper: IshidaDanceScraper):
+    # A single day with both a matinee and an evening show must not collapse to
+    # one — and must come back in chronological order, not document order.
+    from bs4 import BeautifulSoup
+
+    html_doc = """
+    <table id="performances">
+      <tr><td><time>Saturday, June 20, 2026 - 08:00 PM CDT</time></td></tr>
+      <tr><td><time>Saturday, June 20, 2026 - 02:00 PM CDT</time></td></tr>
+    </table>
+    """
+    dates, times = scraper._extract_performances(BeautifulSoup(html_doc, "html.parser"))
+    assert dates == ["2026-06-20", "2026-06-20"]
+    assert times == ["2:00 PM", "8:00 PM"]  # matinee sorted before evening

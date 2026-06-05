@@ -6,7 +6,9 @@ Every class exported here is instantiated by
 Scraper categories:
 
 - **Live HTML scrape + LLM extraction**: AFS, Hyperreal, Paramount,
-  Alienated Majesty, First Light, Libra Books, ISHIDA Dance.
+  Alienated Majesty, First Light, Libra Books.
+- **Live HTML + JSON-LD scrape (no LLM)**: ISHIDA Dance (homepage →
+  ThunderTix schema.org Event JSON-LD + performances table).
 - **Static JSON (season files, manually curated)**: Austin Symphony,
   Early Music Austin, La Follia, Austin Chamber Music, Austin Opera,
   Ballet Austin, NowPlaying Austin Visual Arts.

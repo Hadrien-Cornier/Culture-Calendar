@@ -67,9 +67,53 @@ mkdir -p "$REVIEWS_DIR"
 OPENROUTER_ENDPOINT="${OPENROUTER_ENDPOINT:-https://openrouter.ai/api/v1/chat/completions}"
 OPENROUTER_REFERER="${OPENROUTER_REFERER:-https://github.com/Hadrien-Cornier/hadrien-ai-assistant}"
 OPENROUTER_TITLE="${OPENROUTER_TITLE:-llm-council skill}"
+# Per-call wall-clock budget. Slow reasoning models (some DeepSeek/Kimi tiers)
+# routinely need >120s; too tight a cap turns a real verdict into a dispatch
+# failure → spurious ESCALATE. Override via env if a panel runs hotter/cooler.
+OPENROUTER_TIMEOUT="${OPENROUTER_TIMEOUT:-180}"
 
 log() { [[ "$QUIET" -eq 1 ]] || echo "[council-judge] $*" >&2; }
 now_ms() { python3 -c 'import time; print(int(time.time()*1000))'; }
+
+# Emit a juror's *reasoning* (summary + per-finding detail + dispatch meta) to
+# the progress log, so CI logs explain WHY a verdict landed instead of only
+# printing PASS/FAIL. Respects --quiet. Reads the persona's review JSON.
+log_verdict_detail() {
+  local review_file="$1"
+  [[ "$QUIET" -eq 1 ]] && return 0
+  [[ -f "$review_file" ]] || return 0
+
+  local summary meta
+  summary=$(jq -r '.summary // empty' "$review_file" 2>/dev/null)
+  [[ -n "$summary" ]] && log "    summary: $summary"
+
+  meta=$(jq -r '._meta // {}
+    | "model=\(.model // "?") http=\(.http_status // "?") finish=\(.finish_reason // "?") latency_ms=\(.latency_ms // "?") tok_in=\(.prompt_tokens // "?") tok_out=\(.completion_tokens // "?")"' \
+    "$review_file" 2>/dev/null)
+  [[ -n "$meta" ]] && log "    meta: $meta"
+
+  local count
+  count=$(jq -r '.findings // [] | length' "$review_file" 2>/dev/null)
+  if [[ "$count" =~ ^[0-9]+$ ]] && [[ "$count" -gt 0 ]]; then
+    while IFS= read -r finding; do
+      log "    finding: $finding"
+    done < <(jq -r '.findings[]?
+      | "[" + (.severity // "?") + "/" + (.code // "NO_CODE") + "] "
+        + (.evidence // "no evidence") + "  ->  " + (.suggested_fix // "no fix")' \
+      "$review_file" 2>/dev/null)
+  fi
+}
+
+# Print the tail of a dispatch log (HTTP code + error body) when a call fails,
+# so transport/auth/timeout failures are diagnosable straight from CI logs.
+log_dispatch_failure() {
+  local log_file="$1"
+  [[ "$QUIET" -eq 1 ]] && return 0
+  [[ -f "$log_file" ]] || return 0
+  while IFS= read -r line; do
+    log "    $line"
+  done < <(tail -n 8 "$log_file")
+}
 
 # Tag-redact content destined for <untrusted> fences. Anything that looks like
 # nested <untrusted> tags is neutralized so a hostile artifact cannot close the
@@ -184,7 +228,7 @@ call_openrouter() {
   resp_file=$(mktemp -t council-resp.XXXXXX.json)
   t0=$(now_ms)
 
-  http_code=$(curl -sS --max-time 120 -w '%{http_code}' -o "$resp_file" \
+  http_code=$(curl -sS --max-time "$OPENROUTER_TIMEOUT" -w '%{http_code}' -o "$resp_file" \
     -H "Authorization: Bearer $OPENROUTER_API_KEY" \
     -H "Content-Type: application/json" \
     -H "HTTP-Referer: $OPENROUTER_REFERER" \
@@ -207,7 +251,7 @@ call_openrouter() {
 
   if [[ "$http_code" =~ ^5 ]] || [[ "$http_code" == "429" ]]; then
     sleep 5
-    http_code=$(curl -sS --max-time 120 -w '%{http_code}' -o "$resp_file" \
+    http_code=$(curl -sS --max-time "$OPENROUTER_TIMEOUT" -w '%{http_code}' -o "$resp_file" \
       -H "Authorization: Bearer $OPENROUTER_API_KEY" \
       -H "Content-Type: application/json" \
       -H "HTTP-Referer: $OPENROUTER_REFERER" \
@@ -292,7 +336,8 @@ for i in $(seq 0 $((panel_count - 1))); do
 
   log "[$persona_name] -> $model_slug"
   if ! call_openrouter "$prompt_file" "$review_file" "$log_file" "$model_slug"; then
-    log "[$persona_name] dispatch FAILED — see $log_file"
+    log "[$persona_name] dispatch FAILED ($model_slug) — see $log_file"
+    log_dispatch_failure "$log_file"
     # Treat as ABSTAIN for aggregation (not FAIL, since we don't know the verdict).
     jq -n --arg p "$persona_name" --arg m "$model_slug" \
       '{verdict:"ABSTAIN",summary:"dispatch failed; no verdict produced",findings:[],persona:$p,_meta:{model:$m, dispatch_failed:true}}' \
@@ -312,6 +357,7 @@ for i in $(seq 0 $((panel_count - 1))); do
     ABSTAIN)                                log "[$persona_name] ABSTAIN" ;;
     *)       any_fail=1; saw_pass_or_fail=1; log "[$persona_name] UNKNOWN verdict '$verdict' — treating as FAIL" ;;
   esac
+  log_verdict_detail "$review_file"
 done
 
 # ---- synthesis layer ----
@@ -342,9 +388,11 @@ if [[ -n "$synth_persona" && "$SKIP_SYNTHESIS" -eq 0 ]]; then
         ABSTAIN)                                 log "[$synth_persona] ABSTAIN" ;;
         *)       any_fail=1; saw_pass_or_fail=1; log "[$synth_persona] UNKNOWN — treating as FAIL" ;;
       esac
+      log_verdict_detail "$review_file"
       review_files+=("$review_file")
     else
-      log "[$synth_persona] dispatch FAILED — synthesis skipped"
+      log "[$synth_persona] dispatch FAILED ($synth_model) — synthesis skipped"
+      log_dispatch_failure "$log_file"
     fi
   fi
 fi
@@ -352,8 +400,23 @@ fi
 # ---- aggregate ----
 verdict_file="$REVIEWS_DIR/aggregate-verdict.json"
 
+# Full per-juror reviews, embedded in every aggregate verdict so the reasoning
+# (summary + findings + which model, and any dispatch failure) travels with the
+# decision into the job summary / PR comment / uploaded artifact — not just a
+# truncated blocking_reason.
+reviews_json=$(jq -s '[ .[] | {
+    persona,
+    verdict: (.verdict // "FAIL"),
+    summary: (.summary // ""),
+    findings: (.findings // []),
+    model: (._meta.model // null),
+    dispatch_failed: (._meta.dispatch_failed // false)
+  } ]' "${review_files[@]}" 2>/dev/null)
+[[ -n "$reviews_json" ]] || reviews_json='[]'
+
 if [[ "$any_ran" -eq 0 ]]; then
-  jq -n '{decision:"ESCALATE",reason:"no juror produced a verdict (all dispatch failures)"}' > "$verdict_file"
+  jq -n --argjson reviews "$reviews_json" \
+    '{decision:"ESCALATE",reason:"no juror produced a verdict (all dispatch failures)",reviews:$reviews}' > "$verdict_file"
   log "DECISION: ESCALATE (no juror succeeded)"
   exit 2
 fi
@@ -364,21 +427,22 @@ if [[ "$any_fail" -gt 0 ]]; then
     [ .[] | select(.verdict=="FAIL") | .findings[]?
       | "[" + (.code // "NO_CODE") + "/" + (.severity // "low") + "] " + (.suggested_fix // .evidence // "no detail") ]
     | .[0:3] | join("; ")' "${review_files[@]}")
-  jq -n --arg d "$dissenters" --arg r "$reasons" \
-    '{decision:"REJECT",dissenting_personas:$d,blocking_reason:$r}' > "$verdict_file"
+  jq -n --arg d "$dissenters" --arg r "$reasons" --argjson reviews "$reviews_json" \
+    '{decision:"REJECT",dissenting_personas:$d,blocking_reason:$r,reviews:$reviews}' > "$verdict_file"
   log "DECISION: REJECT — dissenters=$dissenters"
   exit 1
 fi
 
 if [[ "$saw_pass_or_fail" -eq 0 ]]; then
   abstainers=$(jq -sr '[.[] | select(.verdict=="ABSTAIN") | .persona // empty | select(.!="")] | unique | join(",")' "${review_files[@]}")
-  jq -n --arg a "$abstainers" \
-    '{decision:"ESCALATE",abstaining_personas:$a,reason:"all jurors abstained — council outside its competence zone"}' > "$verdict_file"
+  jq -n --arg a "$abstainers" --argjson reviews "$reviews_json" \
+    '{decision:"ESCALATE",abstaining_personas:$a,reason:"all jurors abstained — council outside its competence zone",reviews:$reviews}' > "$verdict_file"
   log "DECISION: ESCALATE — all abstained"
   exit 2
 fi
 
 passers=$(jq -sr '[.[] | select(.verdict=="PASS") | .persona // empty | select(.!="")] | unique | join(",")' "${review_files[@]}")
-jq -n --arg p "$passers" '{decision:"ACCEPT",passing_personas:$p}' > "$verdict_file"
+jq -n --arg p "$passers" --argjson reviews "$reviews_json" \
+  '{decision:"ACCEPT",passing_personas:$p,reviews:$reviews}' > "$verdict_file"
 log "DECISION: ACCEPT — $passers"
 exit 0
