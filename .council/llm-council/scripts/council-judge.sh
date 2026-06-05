@@ -196,13 +196,17 @@ build_judge_prompt() {
 
 # Call OpenRouter with forced record_review tool_choice. Writes verdict JSON to
 # $review_file. Returns 0 on success, non-zero on dispatch failure.
-# Args: prompt_file review_file log_file model_slug
+# Args: prompt_file review_file log_file model_slug [tool_mode]
+#   tool_mode: "forced" (default) pins tool_choice to record_review; "auto"
+#   lets the model decide whether to call it. Some open-weight models (e.g.
+#   MiniMax M3) reject forced tool_choice on OpenRouter and must use "auto".
 call_openrouter() {
-  local prompt_file="$1" review_file="$2" log_file="$3" model_slug="$4"
+  local prompt_file="$1" review_file="$2" log_file="$3" model_slug="$4" tool_mode="${5:-forced}"
 
   local payload
   payload=$(jq -cn \
     --arg model "$model_slug" \
+    --arg tool_mode "$tool_mode" \
     --argjson max_tokens "$OPENROUTER_MAX_TOKENS" \
     --rawfile usr "$prompt_file" \
     --slurpfile schema "$SCHEMA_FILE" '
@@ -220,7 +224,10 @@ call_openrouter() {
           parameters: $schema[0].input_schema
         }
       }],
-      tool_choice: {type: "function", function: {name: ($schema[0].name // "record_review")}},
+      tool_choice: (if $tool_mode == "auto"
+                    then "auto"
+                    else {type: "function", function: {name: ($schema[0].name // "record_review")}}
+                    end),
       max_tokens: $max_tokens
     }')
 
@@ -327,6 +334,7 @@ for i in $(seq 0 $((panel_count - 1))); do
   persona_name=$(jq -r ".panel[$i].persona" "$COUNCIL_MANIFEST")
   persona_path=$(jq -r ".panel[$i].persona_spec_path" "$COUNCIL_MANIFEST")
   model_slug=$(jq -r ".panel[$i].model.openrouter_id" "$COUNCIL_MANIFEST")
+  tool_mode=$(jq -r ".panel[$i].tool_choice // \"forced\"" "$COUNCIL_MANIFEST")
 
   if [[ ! -f "$persona_path" ]]; then
     log "WARNING: persona spec missing: $persona_path — skipping"
@@ -340,8 +348,8 @@ for i in $(seq 0 $((panel_count - 1))); do
 
   build_judge_prompt "$persona_path" "$GOAL" "$SCOPE_JSON" "" "$prompt_file"
 
-  log "[$persona_name] -> $model_slug"
-  if ! call_openrouter "$prompt_file" "$review_file" "$log_file" "$model_slug"; then
+  log "[$persona_name] -> $model_slug (tool_choice=$tool_mode)"
+  if ! call_openrouter "$prompt_file" "$review_file" "$log_file" "$model_slug" "$tool_mode"; then
     log "[$persona_name] dispatch FAILED ($model_slug) — see $log_file"
     log_dispatch_failure "$log_file"
     # Treat as ABSTAIN for aggregation (not FAIL, since we don't know the verdict).
@@ -371,6 +379,7 @@ synth_persona=$(jq -r '.synthesis.persona // empty' "$COUNCIL_MANIFEST" 2>/dev/n
 if [[ -n "$synth_persona" && "$SKIP_SYNTHESIS" -eq 0 ]]; then
   synth_path=$(jq -r '.synthesis.persona_spec_path' "$COUNCIL_MANIFEST")
   synth_model=$(jq -r '.synthesis.model.openrouter_id' "$COUNCIL_MANIFEST")
+  synth_tool_mode=$(jq -r '.synthesis.tool_choice // "forced"' "$COUNCIL_MANIFEST")
 
   if [[ -f "$synth_path" ]]; then
     review_file="$REVIEWS_DIR/${synth_persona}.json"
@@ -383,8 +392,8 @@ if [[ -n "$synth_persona" && "$SKIP_SYNTHESIS" -eq 0 ]]; then
 
     build_judge_prompt "$synth_path" "$GOAL" "$SCOPE_JSON" "$upstream_file" "$prompt_file"
 
-    log "[$synth_persona] -> $synth_model"
-    if call_openrouter "$prompt_file" "$review_file" "$log_file" "$synth_model"; then
+    log "[$synth_persona] -> $synth_model (tool_choice=$synth_tool_mode)"
+    if call_openrouter "$prompt_file" "$review_file" "$log_file" "$synth_model" "$synth_tool_mode"; then
       any_ran=1
       jq --arg p "$synth_persona" '. + {persona:$p}' "$review_file" > "$review_file.stamped" && mv "$review_file.stamped" "$review_file"
       verdict=$(jq -r '.verdict // "FAIL"' "$review_file" 2>/dev/null || echo "FAIL")
