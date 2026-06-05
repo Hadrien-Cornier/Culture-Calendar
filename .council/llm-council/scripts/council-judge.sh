@@ -71,6 +71,11 @@ OPENROUTER_TITLE="${OPENROUTER_TITLE:-llm-council skill}"
 # routinely need >120s; too tight a cap turns a real verdict into a dispatch
 # failure → spurious ESCALATE. Override via env if a panel runs hotter/cooler.
 OPENROUTER_TIMEOUT="${OPENROUTER_TIMEOUT:-180}"
+# Completion token budget. Reasoning-tier jurors (e.g. gpt-5) spend most of
+# this on hidden reasoning before the record_review tool call; too low a cap
+# returns finish_reason=length with NO tool call → silent ABSTAIN. 4096 was not
+# enough for gpt-5. Keep generous; override via env if a juror is verbose.
+OPENROUTER_MAX_TOKENS="${OPENROUTER_MAX_TOKENS:-16384}"
 
 log() { [[ "$QUIET" -eq 1 ]] || echo "[council-judge] $*" >&2; }
 now_ms() { python3 -c 'import time; print(int(time.time()*1000))'; }
@@ -198,6 +203,7 @@ call_openrouter() {
   local payload
   payload=$(jq -cn \
     --arg model "$model_slug" \
+    --argjson max_tokens "$OPENROUTER_MAX_TOKENS" \
     --rawfile usr "$prompt_file" \
     --slurpfile schema "$SCHEMA_FILE" '
     {
@@ -215,7 +221,7 @@ call_openrouter() {
         }
       }],
       tool_choice: {type: "function", function: {name: ($schema[0].name // "record_review")}},
-      max_tokens: 4096
+      max_tokens: $max_tokens
     }')
 
   # Send the body from a file, not as a -d argv string: a large context (e.g. a
