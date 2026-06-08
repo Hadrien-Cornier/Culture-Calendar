@@ -62,26 +62,29 @@ class SummaryGenerator:
     def __init__(self):
         self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
         self.openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-        if not self.anthropic_api_key and not self.openrouter_api_key:
+
+        # OpenRouter preferred (cheaper) > Anthropic fallback. Provider + model
+        # come from the single source of truth in llm_service so the model id is
+        # config/env-driven (never a bare hardcode that can silently go stale).
+        from src.llm_service import OPENROUTER_BASE_URL, resolve_provider_model
+
+        self.provider, self.model = resolve_provider_model()
+        if self.provider is None:
             raise ValueError(
-                "Neither ANTHROPIC_API_KEY nor OPENROUTER_API_KEY is set; "
+                "Neither OPENROUTER_API_KEY nor ANTHROPIC_API_KEY is set; "
                 "at least one is required for summary generation."
             )
 
-        if self.anthropic_api_key:
-            self.provider = "anthropic"
-            self.client = anthropic.Anthropic(api_key=self.anthropic_api_key)
-            self.model = "claude-haiku-4-5-20251001"
-        else:
+        if self.provider == "openrouter":
             # Late import so tests without the openai package don't fail.
             from openai import OpenAI
 
-            self.provider = "openrouter"
             self.client = OpenAI(
-                base_url="https://openrouter.ai/api/v1",
+                base_url=OPENROUTER_BASE_URL,
                 api_key=self.openrouter_api_key,
             )
-            self.model = "google/gemini-2.5-flash"
+        else:
+            self.client = anthropic.Anthropic(api_key=self.anthropic_api_key)
 
         self.summary_cache = {}
         self._load_cache()

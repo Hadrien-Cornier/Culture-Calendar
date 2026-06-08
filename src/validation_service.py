@@ -171,11 +171,11 @@ class EventValidationService:
     def validate_event_content_with_llm(self, event: Dict) -> ValidationResult:
         """Use LLM to validate event content quality"""
         try:
-            if not self.llm_service.anthropic_api_key:
+            if self.llm_service.provider is None:
                 return ValidationResult(
                     passed=True,
                     level=ValidationLevel.INFO,
-                    message="LLM validation skipped (no API key)",
+                    message="LLM validation skipped (no LLM provider)",
                     event_data=event,
                 )
 
@@ -210,21 +210,30 @@ class EventValidationService:
             }}
             """
 
-            # Get LLM validation - use anthropic client directly.
-            # Use the model the LLMService configured for its active provider
-            # (claude-haiku-4-5 on Anthropic) instead of a hardcoded id; the
-            # previous "google/gemini-2.5-flash" 404'd against the Anthropic
-            # client, silently disabling all content validation in CI.
-            response = self.llm_service.anthropic.messages.create(
-                model=self.llm_service.model,
+            # Route through LLMService._chat so validation works on whichever
+            # provider is active (OpenRouter deepseek-v4-flash by default, or
+            # Anthropic Claude as fallback) — not hardwired to the Anthropic SDK.
+            response = self.llm_service._chat(
+                "You are a strict validator of cultural-event data. "
+                "Respond with JSON only.",
+                prompt,
                 max_tokens=200,
                 temperature=0.1,
-                messages=[{"role": "user", "content": prompt}],
             )
-            response = response.content[0].text.strip()
+            if not response:
+                return ValidationResult(
+                    passed=True,
+                    level=ValidationLevel.INFO,
+                    message="LLM validation skipped (no LLM response)",
+                    event_data=event,
+                )
 
-            # Parse response
+            # Parse response (tolerate code fences / preamble around the JSON)
             try:
+                json_start = response.find("{")
+                json_end = response.rfind("}") + 1
+                if json_start != -1 and json_end > json_start:
+                    response = response[json_start:json_end]
                 validation_data = json.loads(response)
                 is_valid = validation_data.get("is_valid", False)
                 confidence = validation_data.get("confidence", 0.0)

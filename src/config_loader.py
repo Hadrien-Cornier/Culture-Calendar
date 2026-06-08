@@ -375,6 +375,16 @@ class ConfigLoader:
         """
         return self._config.get("distribution", {})
 
+    def get_llm_config(self) -> Dict[str, Any]:
+        """
+        Get LLM provider/model configuration (default model per provider).
+
+        Returns:
+            LLM configuration dictionary (e.g. ``openrouter_model``,
+            ``anthropic_model``). Empty dict if not set.
+        """
+        return self._config.get("llm", {})
+
     def get_buttondown_endpoint(self) -> str:
         """
         Get Buttondown mailing-list endpoint URL.

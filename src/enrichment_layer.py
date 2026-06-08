@@ -519,8 +519,9 @@ Output JSON format:
             if result:
                 return result
 
-        # Fall back to direct Anthropic call
-        if self.llm.anthropic:
+        # Fall back to the configured LLM provider (OpenRouter or Anthropic);
+        # _call_anthropic_json routes through the provider-agnostic _chat.
+        if self.llm.provider:
             return self.llm._call_anthropic_json(prompt, temperature)
 
         return None

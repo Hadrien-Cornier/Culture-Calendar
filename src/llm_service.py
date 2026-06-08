@@ -81,6 +81,49 @@ _VALIDATION_SYSTEM_PROMPT = (
     "JSON shape — no preamble."
 )
 
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+DEFAULT_OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
+DEFAULT_ANTHROPIC_MODEL = "claude-haiku-4-5-20251001"
+
+
+def _llm_cfg(key: str, default: str) -> str:
+    """Read the ``llm`` block of master_config.yaml, guarded.
+
+    Returns the configured value, or ``default`` when the config can't be
+    loaded — keeps LLMService importable in minimal/test environments.
+    """
+    try:
+        from src.config_loader import ConfigLoader
+
+        return ConfigLoader().get_llm_config().get(key) or default
+    except Exception:
+        return default
+
+
+def resolve_provider_model():
+    """Pick the LLM provider and model for the Haiku-tier calls.
+
+    OpenRouter is preferred (cheaper); Anthropic Claude is the automatic
+    fallback when ``OPENROUTER_API_KEY`` is unset. The model id is resolved
+    from the environment first (``OPENROUTER_MODEL`` / ``ANTHROPIC_MODEL``),
+    then ``config/master_config.yaml``'s ``llm`` block, then a built-in
+    default — never a bare hardcode that can silently go stale (a retired
+    ``google/gemini-2.5-flash`` id is exactly what broke CI before).
+
+    Returns ``(provider, model)`` or ``(None, None)`` when no key is set.
+    """
+    if os.getenv("OPENROUTER_API_KEY"):
+        model = os.getenv("OPENROUTER_MODEL") or _llm_cfg(
+            "openrouter_model", DEFAULT_OPENROUTER_MODEL
+        )
+        return "openrouter", model
+    if os.getenv("ANTHROPIC_API_KEY"):
+        model = os.getenv("ANTHROPIC_MODEL") or _llm_cfg(
+            "anthropic_model", DEFAULT_ANTHROPIC_MODEL
+        )
+        return "anthropic", model
+    return None, None
+
 
 class LLMService:
     """Centralized service for all LLM-powered data extraction and validation.
@@ -96,24 +139,18 @@ class LLMService:
         self.perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
         self.perplexity_base_url = "https://api.perplexity.ai"
 
-        if self.anthropic_api_key:
-            self.provider = "anthropic"
-            self.anthropic = anthropic.Anthropic(api_key=self.anthropic_api_key)
-            self.openai = None
-            self.model = "claude-haiku-4-5-20251001"
-        elif self.openrouter_api_key:
-            self.provider = "openrouter"
-            self.anthropic = None
+        # OpenRouter preferred (cheaper) > Anthropic fallback. The model id is
+        # config/env-driven (see resolve_provider_model) so it can't go stale.
+        self.provider, self.model = resolve_provider_model()
+        self.anthropic = None
+        self.openai = None
+        if self.provider == "openrouter":
             self.openai = OpenAI(
-                base_url="https://openrouter.ai/api/v1",
+                base_url=OPENROUTER_BASE_URL,
                 api_key=self.openrouter_api_key,
             )
-            self.model = "google/gemini-2.5-flash"
-        else:
-            self.provider = None
-            self.anthropic = None
-            self.openai = None
-            self.model = None
+        elif self.provider == "anthropic":
+            self.anthropic = anthropic.Anthropic(api_key=self.anthropic_api_key)
 
         self.extraction_cache = {}
         self.validation_cache = {}
