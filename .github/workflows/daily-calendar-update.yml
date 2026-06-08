@@ -43,10 +43,13 @@ jobs:
       - name: Run daily incremental update
         env:
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          # OpenRouter is the preferred LLM provider (cheaper); Anthropic stays
+          # as an automatic fallback when OPENROUTER_API_KEY is unset.
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          echo "Running daily incremental update (7-day look-ahead)"
-          python update_website_data.py --days 7 --validate
+          echo "Running daily incremental update (~2-week recurring horizon)"
+          python update_website_data.py --test-week --validate
 
       - name: Verify update results
         run: |
