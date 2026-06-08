@@ -448,6 +448,29 @@ def build_site(out_dir: Path, docs_dir: Path, generators: list[dict]) -> set[str
     return parity_check(docs_dir, out_dir, warned)
 
 
+_REQUIRED_FEEDS = {"calendar.ics": 1, "top-picks.ics": 0}  # filename -> min VEVENTs
+
+
+def assert_required_feeds(out_dir: Path) -> list[str]:
+    """Return problems with the published .ics feeds (empty list == healthy).
+
+    ``calendar.ics`` is the Apple Calendar webcal source and must never ship
+    missing or empty. VEVENTs are counted from the raw bytes — build_ics_feed
+    owns iCalendar parsing/validity; here we only assert the feed reached out/.
+    ``top-picks.ics`` may legitimately be empty (a quiet rating->=8 week).
+    """
+    problems: list[str] = []
+    for name, min_vevents in _REQUIRED_FEEDS.items():
+        path = out_dir / name
+        if not path.is_file():
+            problems.append(f"{name}: MISSING from {out_dir}")
+            continue
+        count = path.read_bytes().count(b"BEGIN:VEVENT")
+        if count < min_vevents:
+            problems.append(f"{name}: {count} VEVENT(s), need >= {min_vevents}")
+    return problems
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument(
@@ -474,7 +497,17 @@ def main(argv: list[str] | None = None) -> int:
     docs_dir = docs_dir.resolve()
 
     build_site(out_dir, docs_dir, _generators())
-    # Always exit 0 — this is a build tool; the parity report is the signal.
+
+    # The .ics feeds are the Apple Calendar webcal source: a crashed or empty
+    # build_ics_feed must FAIL the build so deploy-pages skips publishing and
+    # gh-pages keeps the last good feed — rather than silently shipping a dead
+    # calendar. Other generators stay best-effort (the parity report is their
+    # signal); only the feeds are a hard gate.
+    problems = assert_required_feeds(out_dir)
+    if problems:
+        for problem in problems:
+            print(f"[build_site] ERROR required feed: {problem}")
+        return 1
     return 0
 
 

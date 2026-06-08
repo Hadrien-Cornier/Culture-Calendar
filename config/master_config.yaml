@@ -16,6 +16,13 @@ validation:
   error_on_missing_required_on_publish: true
   error_on_mismatched_dates_times_length: true
 
+# LLM provider/model selection. OpenRouter is preferred (cheaper) when
+# OPENROUTER_API_KEY is set; Anthropic Claude is the automatic fallback.
+# Override the model per-run with env OPENROUTER_MODEL / ANTHROPIC_MODEL.
+llm:
+  openrouter_model: deepseek/deepseek-v4-flash
+  anthropic_model: claude-haiku-4-5-20251001
+
 ontology:
   labels:
     - movie

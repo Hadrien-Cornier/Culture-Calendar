@@ -45,6 +45,9 @@ jobs:
       - name: Run weekly incremental update
         env:
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          # OpenRouter is the preferred LLM provider (cheaper); Anthropic stays
+          # as an automatic fallback when OPENROUTER_API_KEY is unset.
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           echo "Running weekly incremental update"

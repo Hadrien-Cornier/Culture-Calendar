@@ -136,7 +136,11 @@ def _make_processor(
     """Build an EventProcessor isolated from docs/data.json and the network."""
     monkeypatch.setenv("PERPLEXITY_API_KEY", "test-key")
     if with_summary_generator:
+        # Pin the Anthropic provider so summary_generator.client exposes the
+        # `.messages` shape these tests patch. OpenRouter is now the default
+        # provider, so its key must be cleared to make the choice deterministic.
         monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key-not-used")
+        monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
     else:
         monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     monkeypatch.setattr(EventProcessor, "_load_existing_data", lambda self: None)

@@ -110,9 +110,44 @@ def test_restore_brings_back_files_deleted_by_a_generator(
     assert missing == set()
 
 
-def test_main_exits_zero_even_with_missing_docs(tmp_path: Path, monkeypatch):
+def _write_ics(path: Path, n_vevents: int) -> None:
+    """Write a minimal iCalendar file containing ``n_vevents`` VEVENTs."""
+    body = b"BEGIN:VCALENDAR\r\n"
+    body += b"BEGIN:VEVENT\r\nSUMMARY:x\r\nEND:VEVENT\r\n" * n_vevents
+    body += b"END:VCALENDAR\r\n"
+    path.write_bytes(body)
+
+
+def test_assert_required_feeds_healthy(tmp_path: Path):
+    out = tmp_path / "_site"
+    out.mkdir()
+    _write_ics(out / "calendar.ics", 5)
+    _write_ics(out / "top-picks.ics", 0)  # top-picks may legitimately be empty
+    assert bs.assert_required_feeds(out) == []
+
+
+def test_assert_required_feeds_missing_calendar_is_a_problem(tmp_path: Path):
+    out = tmp_path / "_site"
+    out.mkdir()
+    _write_ics(out / "top-picks.ics", 2)
+    problems = bs.assert_required_feeds(out)
+    assert any("calendar.ics" in p and "MISSING" in p for p in problems)
+
+
+def test_assert_required_feeds_empty_calendar_is_a_problem(tmp_path: Path):
+    out = tmp_path / "_site"
+    out.mkdir()
+    _write_ics(out / "calendar.ics", 0)  # valid iCal but zero events == dead feed
+    _write_ics(out / "top-picks.ics", 0)
+    problems = bs.assert_required_feeds(out)
+    assert any("calendar.ics" in p and "need >= 1" in p for p in problems)
+
+
+def test_main_fails_when_required_feeds_missing(tmp_path: Path, monkeypatch):
+    # No generators + a missing docs dir means no .ics feeds are produced, so
+    # main() must FAIL (non-zero) rather than ship a deploy without a calendar.
     monkeypatch.setattr(bs, "_generators", lambda: [])
     rc = bs.main(
         ["--out", str(tmp_path / "_site"), "--docs-dir", str(tmp_path / "nope")]
     )
-    assert rc == 0
+    assert rc == 1
