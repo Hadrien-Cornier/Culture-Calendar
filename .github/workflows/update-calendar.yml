@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write  # failure-alert step opens/comments on a rolling issue
 
 jobs:
   weekly-update:
@@ -75,4 +76,24 @@ jobs:
           else
             git commit -m "Weekly incremental update - $(date -u +%Y-%m-%d)"
             git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+          fi
+
+      - name: Alert on failure via GitHub issue
+        # The pipeline must never fail silently again (it once failed daily for
+        # 17 days unnoticed). Opens one rolling issue and comments on repeats.
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create pipeline-failure --color d73a4a --description "Automated pipeline failure alert" --force || true
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          EXISTING=$(gh issue list --label pipeline-failure --state open --json number --jq '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "🔁 ${{ github.workflow }} failed again on $(date -u '+%Y-%m-%d %H:%M UTC'). Run: $RUN_URL"
+          else
+            gh issue create --title "🚨 ${{ github.workflow }} is failing" --label pipeline-failure --body "The pipeline failed on $(date -u '+%Y-%m-%d %H:%M UTC').
+
+            Run: $RUN_URL
+
+            This issue was auto-created. Each subsequent failure adds a comment; close it once the pipeline is green again."
           fi

@@ -783,7 +783,8 @@ static_json_scrapers:
     expand_dates: true
     data_file: "docs/classical_data.json"
   la_follia:
-    base_url: "https://www.lafolliaaustin.org"
+    # Domain moved in 2026; lafolliaaustin.org no longer resolves.
+    base_url: "https://www.lafollia.org"
     venue_name: "LaFollia"
     top_level_key: laFolliaAustin
     default_event_type: concert

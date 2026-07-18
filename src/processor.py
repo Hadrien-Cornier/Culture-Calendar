@@ -601,7 +601,7 @@ Format your reply with:
         try:
             import anthropic
 
-            client = anthropic.Anthropic()
+            client = anthropic.Anthropic(timeout=300.0, max_retries=1)
             prompt = f"""
 Write a 4–6 paragraph critical review of {event.get('title','this film')!r} (dir. {event.get('director','unknown')}, {event.get('release_year') or event.get('year','?')}, {event.get('country','?')}). Use your trained-knowledge of cinema, the director's filmography, and the era's stylistic norms. Provide a 0–10 rating.
 
@@ -753,7 +753,7 @@ Format:
         try:
             import anthropic
 
-            client = anthropic.Anthropic()
+            client = anthropic.Anthropic(timeout=300.0, max_retries=1)
             prompt = f"""
 Write a 4–6 paragraph critical review of this classical concert using your trained-knowledge of the composers, repertoire, and ensemble. Provide a 0–10 rating.
 
@@ -917,7 +917,7 @@ Format:
         try:
             import anthropic
 
-            client = anthropic.Anthropic()
+            client = anthropic.Anthropic(timeout=300.0, max_retries=1)
             prompt = f"""
 Write a 4–6 paragraph critical review of this visual-arts exhibition using your trained-knowledge of the artist, the medium, and the venue's curatorial program. Provide a 0–10 rating.
 
@@ -1075,7 +1075,7 @@ Format:
         try:
             import anthropic
 
-            client = anthropic.Anthropic()
+            client = anthropic.Anthropic(timeout=300.0, max_retries=1)
             prompt = f"""
 Write a 4–6 paragraph critical review of this dance performance using your trained-knowledge of the choreographer, the company, and the works on the program. Provide a 0–10 rating.
 
@@ -1206,7 +1206,7 @@ Format:
         try:
             import anthropic
 
-            client = anthropic.Anthropic()
+            client = anthropic.Anthropic(timeout=300.0, max_retries=1)
             prompt = f"""
 Write a 4–6 paragraph critical review of this book using your trained-knowledge of the author and the work. Provide a 0–10 rating.
 

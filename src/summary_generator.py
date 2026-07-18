@@ -82,9 +82,15 @@ class SummaryGenerator:
             self.client = OpenAI(
                 base_url=OPENROUTER_BASE_URL,
                 api_key=self.openrouter_api_key,
+                timeout=180.0,
+                max_retries=2,
             )
         else:
-            self.client = anthropic.Anthropic(api_key=self.anthropic_api_key)
+            # Explicit timeout: the 600s SDK default lets a hung connection
+            # stall the whole pipeline with no log output.
+            self.client = anthropic.Anthropic(
+                api_key=self.anthropic_api_key, timeout=180.0, max_retries=2
+            )
 
         self.summary_cache = {}
         self._load_cache()
@@ -401,26 +407,40 @@ class SummaryGenerator:
         try:
             time.sleep(0.5)  # Light rate limiting to stay under API caps.
 
-            if self.provider == "anthropic":
-                resp = self.client.messages.create(
-                    model=self.model,
-                    system=system_prompt,
-                    temperature=0.3,
-                    max_tokens=120,
-                    messages=[{"role": "user", "content": prompt}],
-                )
-                summary = resp.content[0].text.strip()
-            else:
-                resp = self.client.chat.completions.create(
-                    model=self.model,
-                    temperature=0.3,
-                    max_tokens=100,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": prompt},
-                    ],
-                )
-                summary = resp.choices[0].message.content.strip()
+            # Guard against empty/None completions (reasoning-style models can
+            # return content=None; crashed here with 'NoneType' strip before)
+            # with one retry, since these are usually transient.
+            summary = None
+            for attempt in (1, 2):
+                if self.provider == "anthropic":
+                    resp = self.client.messages.create(
+                        model=self.model,
+                        system=system_prompt,
+                        temperature=0.3,
+                        max_tokens=120,
+                        messages=[{"role": "user", "content": prompt}],
+                    )
+                    text = resp.content[0].text if resp.content else None
+                else:
+                    resp = self.client.chat.completions.create(
+                        model=self.model,
+                        temperature=0.3,
+                        max_tokens=100,
+                        messages=[
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user", "content": prompt},
+                        ],
+                    )
+                    choice = resp.choices[0] if resp.choices else None
+                    text = choice.message.content if choice else None
+                if text and text.strip():
+                    summary = text.strip()
+                    break
+                if attempt == 1:
+                    print("  Summary call returned empty completion, retrying...")
+            if summary is None:
+                print("  Summary call returned empty completion twice, skipping")
+                return None
 
             # Clean up the response - remove quotes and ensure it's one line
             summary = summary.strip("\"'").replace("\n", " ").strip()

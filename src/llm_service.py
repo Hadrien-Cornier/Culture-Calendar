@@ -128,8 +128,9 @@ def resolve_provider_model():
 class LLMService:
     """Centralized service for all LLM-powered data extraction and validation.
 
-    Provider preference: Anthropic Claude (Haiku 4.5) > OpenRouter Gemini Flash.
-    Only one is required; both work. Perplexity is used separately for
+    Provider preference: OpenRouter (cheaper) > Anthropic Claude. When both
+    keys are configured, :meth:`_chat` fails over to the other provider on
+    error or empty completion. Perplexity is used separately for
     rating/review generation in EventProcessor.
     """
 
@@ -142,15 +143,31 @@ class LLMService:
         # OpenRouter preferred (cheaper) > Anthropic fallback. The model id is
         # config/env-driven (see resolve_provider_model) so it can't go stale.
         self.provider, self.model = resolve_provider_model()
-        self.anthropic = None
-        self.openai = None
-        if self.provider == "openrouter":
-            self.openai = OpenAI(
+        # Initialize a client for EVERY configured key, not just the primary
+        # provider's, so _chat can fail over mid-run when the primary provider
+        # errors or returns empty completions (the deepseek-v4-flash incident:
+        # reasoning-style empty content crashed validation for weeks while an
+        # Anthropic key sat unused in the same environment).
+        # Explicit transport timeouts: the SDK defaults (600s read) let a hung
+        # connection stall the pipeline for tens of minutes with no log output.
+        # 120s is generous for the small JSON responses these prompts elicit.
+        self.anthropic = (
+            anthropic.Anthropic(
+                api_key=self.anthropic_api_key, timeout=120.0, max_retries=2
+            )
+            if self.anthropic_api_key
+            else None
+        )
+        self.openai = (
+            OpenAI(
                 base_url=OPENROUTER_BASE_URL,
                 api_key=self.openrouter_api_key,
+                timeout=120.0,
+                max_retries=2,
             )
-        elif self.provider == "anthropic":
-            self.anthropic = anthropic.Anthropic(api_key=self.anthropic_api_key)
+            if self.openrouter_api_key
+            else None
+        )
 
         self.extraction_cache = {}
         self.validation_cache = {}
@@ -159,35 +176,108 @@ class LLMService:
         if self.provider is None and not self.perplexity_api_key:
             print("Warning: No LLM API keys found. LLM features will be disabled.")
 
+    def _fallback_provider_model(self):
+        """The non-primary provider, when its key is configured; else (None, None).
+
+        Model id resolves the same way as the primary (env override, then
+        master_config.yaml, then built-in default).
+        """
+        if self.provider == "openrouter" and self.anthropic is not None:
+            model = os.getenv("ANTHROPIC_MODEL") or _llm_cfg(
+                "anthropic_model", DEFAULT_ANTHROPIC_MODEL
+            )
+            return "anthropic", model
+        if self.provider == "anthropic" and self.openai is not None:
+            model = os.getenv("OPENROUTER_MODEL") or _llm_cfg(
+                "openrouter_model", DEFAULT_OPENROUTER_MODEL
+            )
+            return "openrouter", model
+        return None, None
+
     def _chat(
         self, system: str, user: str, max_tokens: int = 2000, temperature: float = 0.1
     ) -> Optional[str]:
-        """Send a system+user prompt, return the assistant text or None on error."""
-        if self.provider == "anthropic":
-            try:
-                resp = self.anthropic.messages.create(
-                    model=self.model,
-                    max_tokens=max_tokens,
-                    temperature=temperature,
-                    system=system,
-                    messages=[{"role": "user", "content": user}],
-                )
-                return resp.content[0].text.strip()
-            except Exception as e:
-                print(f"  LLM (anthropic) error: {e}")
+        """Send a system+user prompt, return the assistant text or None on error.
+
+        Tries the primary provider first, then transparently fails over to the
+        other provider when its key is configured. An OpenRouter outage or a
+        reasoning model's empty completion must not sink the pipeline when an
+        Anthropic key is available (and vice versa).
+        """
+        attempts = [(self.provider, self.model)]
+        fallback = self._fallback_provider_model()
+        if fallback[0] is not None:
+            attempts.append(fallback)
+
+        for i, (provider, model) in enumerate(attempts):
+            if provider == "anthropic":
+                text = self._chat_anthropic(model, system, user, max_tokens, temperature)
+            elif provider == "openrouter":
+                text = self._chat_openrouter(model, system, user, max_tokens, temperature)
+            else:
+                text = None
+            if text:
+                if i > 0:
+                    print(f"  LLM failover succeeded via {provider} ({model})")
+                return text
+            if i < len(attempts) - 1:
+                print(f"  LLM failover: {provider} gave no usable text, trying {attempts[i + 1][0]}")
+        return None
+
+    def _chat_anthropic(
+        self, model: str, system: str, user: str, max_tokens: int, temperature: float
+    ) -> Optional[str]:
+        """Single Anthropic Messages call; None on error or empty completion."""
+        try:
+            resp = self.anthropic.messages.create(
+                model=model,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                system=system,
+                messages=[{"role": "user", "content": user}],
+            )
+            if not resp.content:
+                print("  LLM (anthropic) empty completion")
                 return None
-        if self.provider == "openrouter":
+            text = resp.content[0].text
+            return text.strip() if text and text.strip() else None
+        except Exception as e:
+            print(f"  LLM (anthropic) error: {e}")
+            return None
+
+    def _chat_openrouter(
+        self, model: str, system: str, user: str, max_tokens: int, temperature: float
+    ) -> Optional[str]:
+        """Single OpenRouter chat-completions call; None on error or empty completion.
+
+        Reasoning-style models can burn the entire completion budget on hidden
+        reasoning and return ``content=None`` (historically crashed here with
+        ``'NoneType' object has no attribute 'strip'``). On an empty completion
+        with ``finish_reason == 'length'``, retry once with a quadrupled token
+        budget before giving up.
+        """
+        budget = max_tokens
+        for attempt in (1, 2):
             try:
                 resp = self.openai.chat.completions.create(
-                    model=self.model,
-                    max_tokens=max_tokens,
+                    model=model,
+                    max_tokens=budget,
                     temperature=temperature,
                     messages=[
                         {"role": "system", "content": system},
                         {"role": "user", "content": user},
                     ],
                 )
-                return resp.choices[0].message.content.strip()
+                choice = resp.choices[0] if resp.choices else None
+                content = choice.message.content if choice else None
+                if content and content.strip():
+                    return content.strip()
+                finish = getattr(choice, "finish_reason", None)
+                if finish == "length" and attempt == 1:
+                    budget = max_tokens * 4
+                    continue
+                print(f"  LLM (openrouter) empty completion (finish_reason={finish})")
+                return None
             except Exception as e:
                 print(f"  LLM (openrouter) error: {e}")
                 return None

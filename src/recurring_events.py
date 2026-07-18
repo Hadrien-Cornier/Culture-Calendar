@@ -88,6 +88,11 @@ class RecurringEventGenerator:
 
             event = base_event.copy()
             event["date"] = event_date.strftime("%Y-%m-%d")
+            # Normalized pairwise arrays, matching the shape schema validation
+            # requires (recurring events bypass scraper.format_event, so they
+            # must normalize themselves). dates[i] pairs with times[i].
+            event["dates"] = [event["date"]]
+            event["times"] = [base_event["time"]]
 
             # Add week-specific details if needed
             week_number = week + 1
@@ -206,6 +211,9 @@ class RecurringEventGenerator:
 
             event = base_event.copy()
             event["date"] = event_date.strftime("%Y-%m-%d")
+            # Normalized pairwise arrays (see generate_new_yorker_meetup_events).
+            event["dates"] = [event["date"]]
+            event["times"] = [base_event["time"]]
 
             events.append(event)
 

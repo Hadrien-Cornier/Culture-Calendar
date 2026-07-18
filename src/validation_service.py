@@ -14,23 +14,30 @@ nobody notices until a user complains that "where did all the AFS
 screenings go?". Validation catches the drop before LLM calls and
 halts the build.
 
-**Severity levels** (:class:`ValidationSeverity` enum)
+**Severity levels** (:class:`ValidationLevel` enum)
 
-- ``CRITICAL`` — abort the run. E.g., historically-major venue
-  returns zero events.
-- ``WARNING`` — log and continue. E.g., a single event fails
-  schema validation.
+- ``CRITICAL`` — counts against a venue's health score. Reserved for
+  deterministic schema failures (missing title/dates/venue, bad date
+  format).
+- ``WARNING`` — log and continue. Includes LLM content-validation
+  "invalid" verdicts, which are advisory only (see incident note below).
 - ``INFO`` — telemetry only.
 
-**Thresholds**
+**Gate policy** (:meth:`validate_all_scrapers`)
 
-- Zero-events-from-historical-venue: ``CRITICAL``.
-- Schema-invalid event count > 20% of a venue's output: ``WARNING``.
-- Individual malformed event: ``INFO``.
+Publishing the healthy subset beats killing the whole run when one venue
+breaks. The pipeline aborts only on systemic failure: zero events across
+all scrapers, zero healthy scrapers, or more failed than healthy
+scrapers. A single bad venue must never stall the whole calendar — the
+July 2026 incident is the cautionary tale: the validator prompt showed
+``Date: N/A`` for every normalized ``dates[]`` event (it read the
+singular ``date`` key), deepseek-v4-flash strictly judged them all
+invalid, five scrapers "failed", and publishing froze for weeks while
+every scraper was actually healthy.
 
 Reports are collected on the service instance for post-run summary
-printing. The caller (``update_website_data.py``) inspects the
-severity roll-up and exits non-zero on any ``CRITICAL``.
+printing. The caller (``update_website_data.py``) exits non-zero only
+when the gate says the failure is systemic.
 
 **Schemas** — validation references :class:`src.schemas.SchemaRegistry`,
 not :mod:`src.config_loader`. The registry is kept hand-synced with
@@ -179,14 +186,29 @@ class EventValidationService:
                     event_data=event,
                 )
 
-            # Construct validation prompt
+            # Construct validation prompt. Read BOTH event shapes: raw
+            # scraper output may use singular `date`/`time`, while the
+            # normalized shape uses pairwise `dates[]`/`times[]` arrays.
+            # Reading only the singular keys shows the LLM "Date: N/A" for
+            # every normalized event, and strict models mark them all
+            # invalid (the July 2026 publishing freeze).
+            dates = event.get("dates") or (
+                [event["date"]] if event.get("date") else []
+            )
+            times = event.get("times") or (
+                [event["time"]] if event.get("time") else []
+            )
+            event_type = event.get("type") or event.get("event_category") or "N/A"
+            description = str(event.get("description") or "").strip()
+            if len(description) > 500:
+                description = description[:500] + "..."
             event_summary = f"""
             Title: {event.get('title', 'N/A')}
-            Date: {event.get('date', 'N/A')}
-            Time: {event.get('time', 'N/A')}
+            Dates: {', '.join(str(d) for d in dates) or 'N/A'}
+            Times: {', '.join(str(t) for t in times) or 'N/A'}
             Venue: {event.get('venue', 'N/A')}
-            Type: {event.get('type', 'N/A')}
-            Description: {str(event.get('description', 'N/A'))[:500]}...
+            Type: {event_type}
+            Description: {description or 'N/A'}
             """
 
             prompt = f"""
@@ -249,8 +271,12 @@ class EventValidationService:
                         f"LLM validation passed with low confidence: {confidence:.2f}"
                     )
                 else:
-                    level = ValidationLevel.CRITICAL
-                    message = f"LLM validation failed: {reasoning}"
+                    # Advisory only — an LLM "invalid" verdict must NOT sink
+                    # an otherwise schema-valid event. Validator models can be
+                    # over-strict or be shown an incomplete summary; the
+                    # deterministic schema check is the tripwire that counts.
+                    level = ValidationLevel.WARNING
+                    message = f"LLM validation advisory (event kept): {reasoning}"
 
                 return ValidationResult(
                     passed=is_valid and confidence > 0.5,
@@ -350,15 +376,19 @@ class EventValidationService:
         health_checks = []
         successful_scrapers = 0
         failed_scrapers = 0
+        zero_event_scrapers = []
+        total_events = sum(len(events) for events in scraper_results.values())
 
         self.logger.info("🔍 Starting comprehensive scraper validation...")
 
         for scraper_name, events in scraper_results.items():
             self.logger.info(f"Validating {scraper_name}: {len(events)} events")
 
-            # Skip validation if scraper returned no events
+            # Skip validation if scraper returned no events — but surface
+            # them in the report so a silent venue redesign is visible.
             if not events:
                 self.logger.info(f"⏭️ {scraper_name}: No events to validate")
+                zero_event_scrapers.append(scraper_name)
                 continue
 
             health_check = self.validate_scraper_health(scraper_name, events)
@@ -386,9 +416,28 @@ class EventValidationService:
                 for error in health_check.errors[:3]:  # First 3 errors
                     self.logger.warning(f"   - {error}")
 
-        # Pipeline should continue if no scrapers failed validation
-        # (scrapers with 0 events are not counted as failures)
-        should_continue = failed_scrapers == 0
+        # Degradation policy: publish the healthy subset rather than kill the
+        # whole run for isolated venue breakage. Abort only on systemic
+        # failure:
+        #   - no scraper produced any events at all (total collapse), or
+        #   - zero healthy scrapers while some failed, or
+        #   - more scrapers failed than passed (shared cause likely: network,
+        #     LLM provider outage, config breakage).
+        if total_events == 0:
+            should_continue = False
+            abort_reason = "no scraper produced any events"
+        elif successful_scrapers == 0 and failed_scrapers > 0:
+            should_continue = False
+            abort_reason = "every event-bearing scraper failed validation"
+        elif failed_scrapers > successful_scrapers:
+            should_continue = False
+            abort_reason = (
+                f"more scrapers failed ({failed_scrapers}) than passed "
+                f"({successful_scrapers})"
+            )
+        else:
+            should_continue = True
+            abort_reason = ""
 
         total_validated = successful_scrapers + failed_scrapers
 
@@ -401,11 +450,22 @@ class EventValidationService:
                 "📊 Validation Summary: No scrapers had events to validate"
             )
 
+        if zero_event_scrapers:
+            self.logger.warning(
+                f"⚠️ Zero-event venues (skipped, not counted as failures): "
+                f"{', '.join(zero_event_scrapers)}"
+            )
+
         if should_continue:
+            if failed_scrapers:
+                self.logger.warning(
+                    f"⚠️ {failed_scrapers} scraper(s) failed validation - "
+                    "continuing with the healthy subset (degraded mode)"
+                )
             self.logger.info("✅ Pipeline validation passed - continuing...")
         else:
             self.logger.error(
-                f"❌ Pipeline validation failed - {failed_scrapers} scraper(s) returned invalid events"
+                f"❌ Pipeline validation failed (systemic): {abort_reason}"
             )
 
         return should_continue, health_checks

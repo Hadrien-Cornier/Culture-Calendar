@@ -16,11 +16,12 @@ end-to-end diagram.
     re-calls Perplexity / Claude for every event. Use sparingly —
     a full run is ~40 min + real money.
 ``--validate``
-    Wire ``src.validation_service.EventValidationService`` in
-    fail-fast mode: if systematic scraper failures are detected
-    (e.g., a venue returns zero events when it historically had
-    hundreds), abort before enrichment so bad data doesn't land on
-    the live site.
+    Wire ``src.validation_service.EventValidationService`` in as a
+    health gate: isolated venue failures are logged and the healthy
+    subset still publishes (graceful degradation); the run aborts
+    only on systemic failure (no events at all, zero healthy
+    scrapers, or more failed than healthy). See the gate-policy note
+    in ``src/validation_service.py`` for the rationale.
 
 **Pipeline sequence in this file**
 
@@ -842,23 +843,13 @@ def main(
             print("\n🔍 Starting smart validation of scraped events...")
             validator = EventValidationService()
 
-            # Group events by scraper for validation
-            scraper_events = {
-                "AFS": [e for e in events if e.get("venue") == "AFS"],
-                "Hyperreal": [e for e in events if e.get("venue") == "Hyperreal"],
-                "AlienatedMajesty": [
-                    e for e in events if e.get("venue") == "AlienatedMajesty"
-                ],
-                "FirstLight": [e for e in events if e.get("venue") == "FirstLight"],
-                "Symphony": [e for e in events if e.get("venue") == "Symphony"],
-                "Opera": [e for e in events if e.get("venue") == "Opera"],
-                "Chamber Music": [
-                    e for e in events if e.get("venue") == "Chamber Music"
-                ],
-                "EarlyMusic": [e for e in events if e.get("venue") == "EarlyMusic"],
-                "LaFollia": [e for e in events if e.get("venue") == "LaFollia"],
-                "Paramount": [e for e in events if e.get("venue") == "Paramount"],
-            }
+            # Group events by venue dynamically so every scraped venue is
+            # validated — the previous hardcoded dict silently skipped venues
+            # added after it was written (BalletAustin, LivraBooks,
+            # NewYorkerMeetup, IshidaDance, visual arts, ...).
+            scraper_events = {}
+            for e in events:
+                scraper_events.setdefault(e.get("venue", "Unknown"), []).append(e)
 
             # Validate all scrapers
             should_continue, health_checks = validator.validate_all_scrapers(
@@ -869,13 +860,14 @@ def main(
             validator.log_validation_report(health_checks)
 
             if not should_continue:
-                print("\n❌ VALIDATION FAILURE - Pipeline stopped!")
-                print("Reason: Too many scrapers failed validation checks")
+                print("\n❌ VALIDATION FAILURE (systemic) - Pipeline stopped!")
+                print("The failure is broad enough that publishing would be worse")
+                print("than keeping the previous data. Isolated venue failures do NOT")
+                print("stop the pipeline - the healthy subset gets published.")
                 print("This indicates potential issues with:")
-                print("  - Website structure changes")
-                print("  - Network connectivity problems")
-                print("  - LLM extraction failures")
-                print("  - Schema validation errors")
+                print("  - Network connectivity problems (all scrapers empty)")
+                print("  - LLM provider outage affecting every venue")
+                print("  - Shared config/schema breakage")
                 print(
                     "\nPlease review the validation report above and fix issues before retrying."
                 )
