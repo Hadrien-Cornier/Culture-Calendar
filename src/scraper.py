@@ -40,6 +40,7 @@ from .config_loader import ConfigLoader
 from .scrapers import (
     AFSScraper,
     AlienatedMajestyBooksScraper,
+    ArtAustinScraper,
     ArtsOnAlexanderScraper,
     FirstLightAustinScraper,
     HyperrealScraper,
@@ -64,6 +65,9 @@ class MultiVenueScraper:
 
         # Initialize all scrapers with config
         self.afs_scraper = AFSScraper(config=self.config, venue_key="afs")
+        self.art_austin_scraper = ArtAustinScraper(
+            config=self.config, venue_key="artaustin"
+        )
         self.hyperreal_scraper = HyperrealScraper(
             config=self.config, venue_key="hyperreal"
         )
@@ -146,6 +150,7 @@ class MultiVenueScraper:
         # Define all venue scrapers with their configurations
         venue_configs = [
             ("AFS", self.afs_scraper, "Austin Movie Society", {}),
+            ("ArtAustin", self.art_austin_scraper, "Art Austin", {}),
             (
                 "Hyperreal",
                 self.hyperreal_scraper,

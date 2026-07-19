@@ -720,6 +720,18 @@ venues:
     enrichment:
       enabled: true
 
+  artaustin:
+    display_name: Art Austin
+    address: "Austin, TX"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+
 # ---------------------------------------------------------------------------
 # Classical / opera / ballet season refresh (scripts/refresh_classical_data.py)
 # Maps the JSON keys in docs/classical_data.json + docs/ballet_data.json to

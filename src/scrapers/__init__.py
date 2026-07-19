@@ -29,6 +29,7 @@ See ``CLAUDE.md §Adding a New Venue`` for the full checklist.
 
 from .afs_scraper import AFSScraper
 from .alienated_majesty_scraper import AlienatedMajestyBooksScraper
+from .art_austin_scraper import ArtAustinScraper
 from .arts_on_alexander_scraper import ArtsOnAlexanderScraper
 from .first_light_scraper import FirstLightAustinScraper
 from .hyperreal_scraper import HyperrealScraper
@@ -46,6 +47,7 @@ from ._static_json_scraper import StaticJsonScraper
 __all__ = [
     "FirstLightAustinScraper",
     "AFSScraper",
+    "ArtAustinScraper",
     "HyperrealScraper",
     "AlienatedMajestyBooksScraper",
     "ArtsOnAlexanderScraper",
