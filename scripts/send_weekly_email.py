@@ -263,7 +263,7 @@ def send_email(api_key: str, subject: str, body_html: str, draft: bool = False) 
             json={
                 "subject": subject,
                 "body": body_html,
-                "status": "draft" if draft else "about-to-send",
+                "status": "draft" if draft else "about_to_send",
             },
             timeout=30,
         )
@@ -343,7 +343,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     result = send_email(api_key, subject, body_html, draft=args.draft)
     print(
         f"Buttondown email created (id={result.get('id', '?')}, "
-        f"status={'draft' if args.draft else 'about-to-send'})."
+        f"status={'draft' if args.draft else 'about_to_send'})."
     )
     return 0
 

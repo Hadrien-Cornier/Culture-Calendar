@@ -104,7 +104,7 @@ GitHub Actions keep the site fresh with no manual work:
 
 The masthead signup form posts to Buttondown, and the Saturday workflow emails next week's top picks to subscribers via `scripts/send_weekly_email.py` (idempotent per ISO week; no-ops cleanly until configured). One-time setup:
 
-1. Create a [Buttondown](https://buttondown.email) account with username `culture-calendar` (or update `distribution.buttondown_endpoint` in `config/master_config.yaml` to match whatever username you pick).
+1. Create a [Buttondown](https://buttondown.email) account and set `distribution.buttondown_endpoint` in `config/master_config.yaml` to `https://buttondown.email/api/emails/embed-subscribe/<your-username>` (this repo's account slug is `hadrien`; `scripts/send_weekly_email.py` prints the discovered slug on every run so drift is visible).
 2. Verify your sender address in Buttondown (Settings → Sending). Optionally point the confirmation/unsubscribe redirects at `/subscribed.html` and `/unsubscribed.html`.
 3. Add `BUTTONDOWN_API_KEY` (Buttondown → Settings → API) to the GitHub repo secrets (Settings → Secrets and variables → Actions).
 

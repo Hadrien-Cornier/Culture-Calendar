@@ -523,7 +523,7 @@ distribution:
   # (docs/script.js initSignupForm). Format is fixed by Buttondown; the
   # trailing slug is the Buttondown account username. If you register a
   # different username, change it here — docs/config.json is rebuilt on deploy.
-  buttondown_endpoint: "https://buttondown.email/api/emails/embed-subscribe/culture-calendar"
+  buttondown_endpoint: "https://buttondown.email/api/emails/embed-subscribe/hadrien"
 
 venues:
   afs:

@@ -156,7 +156,7 @@ def test_send_email_posts_about_to_send(monkeypatch):
     result = swe.send_email("key", "subj", "<div>body</div>")
     assert result["id"] == "email_123"
     payload = post.call_args.kwargs["json"]
-    assert payload["status"] == "about-to-send"
+    assert payload["status"] == "about_to_send"
     assert payload["subject"] == "subj"
 
 
