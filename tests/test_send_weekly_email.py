@@ -158,6 +158,8 @@ def test_send_email_posts_about_to_send(monkeypatch):
     payload = post.call_args.kwargs["json"]
     assert payload["status"] == "about_to_send"
     assert payload["subject"] == "subj"
+    # First send via an API key 400s without this confirmation header.
+    assert post.call_args.kwargs["headers"]["X-Buttondown-Live-Dangerously"] == "true"
 
 
 def test_send_email_draft_mode(monkeypatch):

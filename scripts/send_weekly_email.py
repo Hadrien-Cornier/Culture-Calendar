@@ -256,10 +256,17 @@ def already_sent(api_key: str, subject: str, max_pages: int = 5) -> bool:
 
 
 def send_email(api_key: str, subject: str, body_html: str, draft: bool = False) -> dict:
+    # Buttondown requires the X-Buttondown-Live-Dangerously confirmation header
+    # the first time an API key creates an email with status 'about_to_send'
+    # (returns 400 sending_requires_confirmation otherwise). Sending it every
+    # time is harmless.
+    headers = _headers(api_key)
+    if not draft:
+        headers["X-Buttondown-Live-Dangerously"] = "true"
     resp = _checked(
         requests.post(
             f"{BUTTONDOWN_API}/emails",
-            headers=_headers(api_key),
+            headers=headers,
             json={
                 "subject": subject,
                 "body": body_html,
