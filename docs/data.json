@@ -2105,7 +2105,7 @@
         "venue": "ArtAustin"
       }
     ],
-    "review_confidence": "high",
+    "review_confidence": "unknown",
     "type": "visual_arts",
     "id": "closing-reception-you-should-eat-a-burger---2026-07-24-1700",
     "venue_display_name": "ArtAustin",
@@ -2535,7 +2535,7 @@
         "venue": "ArtAustin"
       }
     ],
-    "review_confidence": "high",
+    "review_confidence": "unknown",
     "type": "visual_arts",
     "id": "public-reception-where-memory-becomes-land---2026-07-26-1300",
     "venue_display_name": "ArtAustin",
@@ -3710,6 +3710,38 @@
     "venue_address": "713 Congress Ave, Austin, TX 78701"
   },
   {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 3",
+    "dates": [
+      "2026-08-04"
+    ],
+    "times": [
+      "7:00 PM"
+    ],
+    "book": "",
+    "author": "",
+    "publication_year": "",
+    "series": "The New Yorker Weekly Short Story Club",
+    "host": "Nabeel K. and others",
+    "rating": 7,
+    "one_liner_summary": "Weekly literary discussion group",
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "url": "https://www.meetup.com/atxstories/",
+    "venue": "NewYorkerMeetup",
+    "screenings": [
+      {
+        "date": "2026-08-04",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "book_club",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-3---2026-08-04-700-pm",
+    "venue_display_name": "NewYorkerMeetup",
+    "venue_address": ""
+  },
+  {
     "title": "BY HOOK OR BY CROOK",
     "dates": [
       "2026-08-05"
@@ -4108,6 +4140,38 @@
     "id": "speed-racer",
     "venue_display_name": "Paramount",
     "venue_address": "713 Congress Ave, Austin, TX 78701"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 4",
+    "dates": [
+      "2026-08-11"
+    ],
+    "times": [
+      "7:00 PM"
+    ],
+    "book": "",
+    "author": "",
+    "publication_year": "",
+    "series": "The New Yorker Weekly Short Story Club",
+    "host": "Nabeel K. and others",
+    "rating": 7,
+    "one_liner_summary": "Weekly literary discussion group",
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "url": "https://www.meetup.com/atxstories/",
+    "venue": "NewYorkerMeetup",
+    "screenings": [
+      {
+        "date": "2026-08-11",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "book_club",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-4---2026-08-11-700-pm",
+    "venue_display_name": "NewYorkerMeetup",
+    "venue_address": ""
   },
   {
     "title": "Pee Wee\u2019s Big Adventure",
@@ -4716,6 +4780,38 @@
     "venue_address": "713 Congress Ave, Austin, TX 78701"
   },
   {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 5",
+    "dates": [
+      "2026-08-18"
+    ],
+    "times": [
+      "7:00 PM"
+    ],
+    "book": "",
+    "author": "",
+    "publication_year": "",
+    "series": "The New Yorker Weekly Short Story Club",
+    "host": "Nabeel K. and others",
+    "rating": 7,
+    "one_liner_summary": "Weekly literary discussion group",
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "url": "https://www.meetup.com/atxstories/",
+    "venue": "NewYorkerMeetup",
+    "screenings": [
+      {
+        "date": "2026-08-18",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "book_club",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-5---2026-08-18-700-pm",
+    "venue_display_name": "NewYorkerMeetup",
+    "venue_address": ""
+  },
+  {
     "title": "The Worst Person in the World + Pillion",
     "dates": [
       "2026-08-19"
@@ -5090,6 +5186,38 @@
     "venue_address": "713 Congress Ave, Austin, TX 78701"
   },
   {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 6",
+    "dates": [
+      "2026-08-25"
+    ],
+    "times": [
+      "7:00 PM"
+    ],
+    "book": "",
+    "author": "",
+    "publication_year": "",
+    "series": "The New Yorker Weekly Short Story Club",
+    "host": "Nabeel K. and others",
+    "rating": 7,
+    "one_liner_summary": "Weekly literary discussion group",
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "url": "https://www.meetup.com/atxstories/",
+    "venue": "NewYorkerMeetup",
+    "screenings": [
+      {
+        "date": "2026-08-25",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "book_club",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-6---2026-08-25-700-pm",
+    "venue_display_name": "NewYorkerMeetup",
+    "venue_address": ""
+  },
+  {
     "title": "Blow-Up + Blow Out",
     "dates": [
       "2026-08-26"
@@ -5378,6 +5506,38 @@
     "venue_address": "613 W 29th St, Austin, TX 78705"
   },
   {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 7",
+    "dates": [
+      "2026-09-01"
+    ],
+    "times": [
+      "7:00 PM"
+    ],
+    "book": "",
+    "author": "",
+    "publication_year": "",
+    "series": "The New Yorker Weekly Short Story Club",
+    "host": "Nabeel K. and others",
+    "rating": 7,
+    "one_liner_summary": "Weekly literary discussion group",
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "url": "https://www.meetup.com/atxstories/",
+    "venue": "NewYorkerMeetup",
+    "screenings": [
+      {
+        "date": "2026-09-01",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "book_club",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-7---2026-09-01-700-pm",
+    "venue_display_name": "NewYorkerMeetup",
+    "venue_address": ""
+  },
+  {
     "title": "FunkyFrogBait",
     "dates": [
       "2026-09-08"
@@ -5408,6 +5568,38 @@
     "id": "funkyfrogbait",
     "venue_display_name": "Paramount",
     "venue_address": "713 Congress Ave, Austin, TX 78701"
+  },
+  {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 8",
+    "dates": [
+      "2026-09-08"
+    ],
+    "times": [
+      "7:00 PM"
+    ],
+    "book": "",
+    "author": "",
+    "publication_year": "",
+    "series": "The New Yorker Weekly Short Story Club",
+    "host": "Nabeel K. and others",
+    "rating": 7,
+    "one_liner_summary": "Weekly literary discussion group",
+    "description": "<p>Calling all literary fiction lovers of the greater Austin Area! Join our weekly discussion of The New Yorker's latest short story. We provide free copies and the first hour is for reading. Whether you're a longtime lover of literature or just curious about contemporary short fiction, you're welcome! This is an inclusive community space welcoming all backgrounds and identities.</p>",
+    "url": "https://www.meetup.com/atxstories/",
+    "venue": "NewYorkerMeetup",
+    "screenings": [
+      {
+        "date": "2026-09-08",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "book_club",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-8---2026-09-08-700-pm",
+    "venue_display_name": "NewYorkerMeetup",
+    "venue_address": ""
   },
   {
     "title": "Josh Thomas",
@@ -5596,7 +5788,7 @@
     "series": "",
     "venue": "ArtAustin",
     "rating": 0,
-    "one_liner_summary": "200 original artworks under $500 in a silent auction spree.",
+    "one_liner_summary": "Over 200 affordable original works in a silent auction spree.",
     "description": "<p>Source thin note: The provided search results describe the Red Dot Art Spree as a recurring sale event by Women & Their Work (not a single exhibition at ArtAustin with unknown artists), and they contain no images, artist names, or specific works to evaluate. I cannot assess formal qualities, originality, or historical context for a specific show because the details you supplied are missing. I can only report what the event is: a silent auction of over 200 original works priced under $500, with VIP pre-spree access and public viewing hours. I cannot produce a curatorial judgment on craft or innovation without seeing the art.</p><p>\u2605 Rating: 0/10</p><p>\ud83c\udfad Formal Qualities \u2013 No works, materials, or spatial arrangements are identified in the sources; I cannot judge composition, technique, or craft .</p><p>\u2728 Originality \u2013 The event format (silent auction of 200+ pieces under $500) is a standard community-sale model, not a conceptually innovative exhibition; no specific conceptual departure is documented .</p><p>\ud83d\udcda Cultural Significance \u2013 The Red Dot Art Spree functions as a community fundraiser for Women & Their Work, offering accessible art buying and public access, but it does not engage contemporary critical discourse as an exhibition .</p><p>\ud83d\udca1 Historical Context \u2013 This is a recurring annual event dating back at least to 2014, tied to Women & Their Work\u2019s mission rather than to any single artist\u2019s trajectory or an art-historical lineage .</p>",
     "url": "https://artaustin.org/events/",
     "screenings": [
@@ -5607,7 +5799,7 @@
         "venue": "ArtAustin"
       }
     ],
-    "review_confidence": "high",
+    "review_confidence": "unknown",
     "type": "visual_arts",
     "id": "art-event-red-dot-art-spree---2026-09-17-1900",
     "venue_display_name": "ArtAustin",
@@ -8102,7 +8294,7 @@
     ],
     "venue": "ArtsOnAlexander",
     "rating": 0,
-    "one_liner_summary": "All-Mozart program of chamber works from Arts on Alexander.",
+    "one_liner_summary": "",
     "description": "<p>\u2605 Rating: 0/10</p><p>Sources are thin: no review, recording, or public report exists for the specific \"All Mozart!\" Arts on Alexander 2026-27 concert featuring the Oboe Quartet, Clarinet Quintet, and Divertimento. I cannot see the performers, their names, or their playing. I cannot judge technical execution, interpretive depth, programming freshness, or cultural contribution without direct evidence of this event. The search results confirm Arts on Alexander's location in Austin and list other unrelated Mozart concerts from 2024\u20132026, but none document this exact program or featured artist.</p><p>Because a score above 5 requires specific evidence and I have none, I must assign the lowest possible rating. The concert remains unassessed on Artistic Merit, Originality, Cultural Significance, and Intellectual Depth. Until a review, video, or verifiable account surfaces, the work cannot be rated as competent, strong, or exceptional.</p><p>\ud83c\udfad Artistic Merit: Unassessed (no performance observed)  <br>\u2728 Originality: Unassessed (no program analysis possible)  <br>\ud83d\udcda Cultural Significance: Unassessed (no contribution documented)  <br>\ud83d\udca1 Intellectual Depth: Unassessed (no ideas conveyed in record)</p>",
     "url": "https://www.artsonalexander.org",
     "screenings": [
