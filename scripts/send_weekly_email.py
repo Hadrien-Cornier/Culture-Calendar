@@ -362,6 +362,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             print(json.dumps(_redact_secrets(result), indent=2)[:4000])
         else:
             print(json.dumps(_redact_secrets(inspect_newsletter(api_key)), indent=2)[:6000])
+            resp = _checked(
+                requests.get(f"{BUTTONDOWN_API}/emails", headers=_headers(api_key), timeout=30)
+            )
+            payload = resp.json()
+            emails = payload.get("results", payload if isinstance(payload, list) else [])
+            print(f"\nExisting emails ({len(emails)}):")
+            for e in emails[:10]:
+                print(f"  - {e.get('subject')!r} [status={e.get('status')}]")
         return 0
 
     if args.week:
