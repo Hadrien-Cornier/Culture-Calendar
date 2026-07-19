@@ -10,6 +10,11 @@ on:
         description: 'Optional: subscribe this address and send the tipsheet to it (test mode)'
         required: false
         type: string
+      inspect_only:
+        description: 'Skip the pipeline; only print Buttondown newsletter settings'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -49,6 +54,7 @@ jobs:
         run: python -m playwright install --with-deps chromium
 
       - name: Run weekly incremental update
+        if: ${{ !inputs.inspect_only }}
         env:
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
           # OpenRouter is the preferred LLM provider (cheaper); Anthropic stays
@@ -60,15 +66,18 @@ jobs:
           python update_website_data.py --validate
 
       - name: Verify update results
+        if: ${{ !inputs.inspect_only }}
         run: |
           python scripts/verify_calendar.py --offline
 
       - name: Configure Git
+        if: ${{ !inputs.inspect_only }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action - Weekly Update"
 
       - name: Commit and push changes
+        if: ${{ !inputs.inspect_only }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -93,7 +102,9 @@ jobs:
           BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
           TEST_EMAIL: ${{ inputs.test_email }}
         run: |
-          if [ -n "$TEST_EMAIL" ]; then
+          if [ "${{ inputs.inspect_only }}" = "true" ]; then
+            python scripts/send_weekly_email.py --inspect
+          elif [ -n "$TEST_EMAIL" ]; then
             python scripts/send_weekly_email.py --to "$TEST_EMAIL"
           else
             python scripts/send_weekly_email.py

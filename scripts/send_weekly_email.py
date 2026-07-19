@@ -203,16 +203,43 @@ def _checked(resp: requests.Response) -> requests.Response:
     return resp
 
 
+def _first_newsletter(api_key: str) -> dict:
+    resp = _checked(
+        requests.get(f"{BUTTONDOWN_API}/newsletters", headers=_headers(api_key), timeout=30)
+    )
+    payload = resp.json()
+    results = payload.get("results", payload if isinstance(payload, list) else [])
+    return results[0] if results else {}
+
+
 def newsletter_slug(api_key: str) -> str:
     """The account's first newsletter slug/username, for keeping
     distribution.buttondown_endpoint in sync with the actual account."""
-    resp = _checked(requests.get(f"{BUTTONDOWN_API}/newsletters", headers=_headers(api_key), timeout=30))
-    payload = resp.json()
-    results = payload.get("results", payload if isinstance(payload, list) else [])
-    if not results:
-        return ""
-    nl = results[0]
+    nl = _first_newsletter(api_key)
     return str(nl.get("slug") or nl.get("username") or nl.get("name") or "")
+
+
+def newsletter_id(api_key: str) -> str:
+    return str(_first_newsletter(api_key).get("id") or "")
+
+
+def inspect_newsletter(api_key: str) -> dict:
+    """Dump the newsletter object (settings, template fields) for diagnosis."""
+    return _first_newsletter(api_key)
+
+
+def patch_newsletter(api_key: str, fields: dict) -> dict:
+    """PATCH newsletter settings (e.g. template changes)."""
+    nl_id = newsletter_id(api_key)
+    resp = _checked(
+        requests.patch(
+            f"{BUTTONDOWN_API}/newsletters/{nl_id}",
+            headers=_headers(api_key),
+            json=fields,
+            timeout=30,
+        )
+    )
+    return resp.json()
 
 
 def active_subscriber_count(api_key: str) -> int:
@@ -295,8 +322,30 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         metavar="EMAIL",
         help="Test mode: subscribe EMAIL to the list first, then send the tipsheet",
     )
+    parser.add_argument(
+        "--inspect",
+        action="store_true",
+        help="Print the Buttondown newsletter settings JSON and exit",
+    )
+    parser.add_argument(
+        "--patch",
+        metavar="JSON",
+        help='PATCH newsletter settings, e.g. \'{"email_template": "..."}\'',
+    )
     parser.add_argument("--out", type=Path, default=Path("/tmp/weekly-email.html"))
     args = parser.parse_args(argv)
+
+    if args.inspect or args.patch:
+        api_key = os.getenv("BUTTONDOWN_API_KEY", "").strip()
+        if not api_key:
+            print("BUTTONDOWN_API_KEY not set.")
+            return 1
+        if args.patch:
+            result = patch_newsletter(api_key, json.loads(args.patch))
+            print(json.dumps(result, indent=2)[:4000])
+        else:
+            print(json.dumps(inspect_newsletter(api_key), indent=2)[:6000])
+        return 0
 
     if args.week:
         year, week = digest.parse_iso_week_arg(args.week)
