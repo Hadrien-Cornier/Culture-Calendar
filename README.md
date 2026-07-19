@@ -97,8 +97,18 @@ python pre_commit_checks.py   # format + tests
 
 GitHub Actions keep the site fresh with no manual work:
 
-- **Weekly** — Saturdays 9 PM UTC: scrape + enrich the upcoming month → `main`
+- **Weekly** — Saturdays 9 PM UTC: scrape + enrich the upcoming month → `main`, then send the weekly tipsheet email (see below)
 - **Monthly** — 1st of month 6 AM UTC: full refresh
+
+### Email newsletter (Buttondown)
+
+The masthead signup form posts to Buttondown, and the Saturday workflow emails next week's top picks to subscribers via `scripts/send_weekly_email.py` (idempotent per ISO week; no-ops cleanly until configured). One-time setup:
+
+1. Create a [Buttondown](https://buttondown.email) account with username `culture-calendar` (or update `distribution.buttondown_endpoint` in `config/master_config.yaml` to match whatever username you pick).
+2. Verify your sender address in Buttondown (Settings → Sending). Optionally point the confirmation/unsubscribe redirects at `/subscribed.html` and `/unsubscribed.html`.
+3. Add `BUTTONDOWN_API_KEY` (Buttondown → Settings → API) to the GitHub repo secrets (Settings → Secrets and variables → Actions).
+
+Until step 3 is done, the send step prints a skip notice and CI stays green.
 - **Classical refresh** — 1st of month 12 PM UTC: `refresh-classical-data.yml` re-fetches the season JSON for the six classical/opera/ballet venues and opens a **PR**. It is never auto-merged — a human reviews each refresh before the new `classical_data.json` / `ballet_data.json` ships.
 - **Manual** — any workflow can be triggered on demand from the Actions tab.
 

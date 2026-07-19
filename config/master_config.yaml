@@ -519,7 +519,11 @@ distribution:
   # Buttondown mailing-list endpoint (free tier, user-provided).
   # Empty string = feature disabled; UI renders a "Coming soon" stub
   # and no POST is attempted. See CLAUDE.md long-run 20260421-225013.
-  buttondown_endpoint: ""
+  # Buttondown embed-subscribe form URL the masthead signup form POSTs to
+  # (docs/script.js initSignupForm). Format is fixed by Buttondown; the
+  # trailing slug is the Buttondown account username. If you register a
+  # different username, change it here — docs/config.json is rebuilt on deploy.
+  buttondown_endpoint: "https://buttondown.email/api/emails/embed-subscribe/culture-calendar"
 
 venues:
   afs:

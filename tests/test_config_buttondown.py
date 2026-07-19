@@ -22,10 +22,13 @@ def test_distribution_section_present(config: ConfigLoader) -> None:
 
 
 @pytest.mark.unit
-def test_buttondown_endpoint_defaults_to_empty_string(config: ConfigLoader) -> None:
+def test_buttondown_endpoint_is_the_embed_subscribe_url(config: ConfigLoader) -> None:
+    """The masthead signup form POSTs here (docs/script.js initSignupForm).
+    The trailing slug is the Buttondown username — keep config and account in sync."""
     endpoint = config.get_buttondown_endpoint()
     assert isinstance(endpoint, str)
-    assert endpoint == ""
+    assert endpoint.startswith("https://buttondown.email/api/emails/embed-subscribe/")
+    assert len(endpoint.rsplit("/", 1)[-1]) > 0
 
 
 @pytest.mark.unit

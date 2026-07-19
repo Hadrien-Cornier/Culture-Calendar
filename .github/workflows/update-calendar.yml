@@ -78,6 +78,15 @@ jobs:
             git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           fi
 
+      - name: Send weekly tipsheet email
+        # Sends next week's top picks to Buttondown subscribers. Runs after the
+        # data push so an email failure can never block publishing. Idempotent
+        # (deterministic per-week subject); no-ops cleanly until
+        # BUTTONDOWN_API_KEY is added to repo secrets.
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+        run: python scripts/send_weekly_email.py
+
       - name: Alert on failure via GitHub issue
         # The pipeline must never fail silently again (it once failed daily for
         # 17 days unnoticed). Opens one rolling issue and comments on repeats.
