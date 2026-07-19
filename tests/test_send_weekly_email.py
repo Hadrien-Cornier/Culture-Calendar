@@ -76,9 +76,59 @@ def test_email_html_escapes_and_formats():
     assert "Test &lt;Film&gt; &amp; Friends" in html
     assert "AFS · Film" in html
     assert "Mon, Jul 27" in html
-    assert "9/10" in html
+    assert ">9</span>" in html  # score chip
     assert "Artistic Merit" in html
     assert "https://example.com/event" in html
+
+
+def test_email_structure_featured_rows_overflow():
+    """Skim contract: exactly 1 featured pick, at most ROW_COUNT compact
+    rows, and an overflow link for whatever didn't fit."""
+    monday, sunday = date(2026, 7, 27), date(2026, 8, 2)
+    picks = [_pick(title=f"Event {i:02d}", rating=10 - i) for i in range(15)]
+    html = swe.render_email_html(picks, monday, sunday, "2026-W31")
+    assert html.count("PICK OF THE WEEK") == 1
+    assert "Event 00" in html and "Event 09" in html  # 1 featured + 9 rows
+    assert "Event 10" not in html  # overflow stays on the site
+    assert "Plus 5 more rated picks" in html
+    assert "/weekly/2026-W31.html" in html
+
+
+def test_email_compact_rows_have_no_review_prose():
+    """Rows are for skimming: the review excerpt appears once (featured
+    pick only), never per-row."""
+    monday, sunday = date(2026, 7, 27), date(2026, 8, 2)
+    html = swe.render_email_html([_pick(title=f"E{i}") for i in range(4)], monday, sunday, "2026-W31")
+    assert html.count("Artistic Merit") == 1
+    assert html.count("Full review →") == 1
+
+
+def test_when_short_collapses_multiple_screenings():
+    d = swe.digest
+    pick = _pick()
+    object.__setattr__(
+        pick,
+        "in_week",
+        tuple(pick.in_week)
+        + (
+            d.WeekScreening(date="2026-07-28", time="9:00 PM", venue="AFS", url=""),
+            d.WeekScreening(date="2026-07-29", time="7:00 PM", venue="AFS", url=""),
+        ),
+    )
+    assert swe._when_short(pick) == "Mon, Jul 27 · 7:30 PM · +2 more"
+
+
+def test_excerpt_truncates_at_sentence_boundary():
+    long_text = "First sentence here. " + "Padding words. " * 30 + "Last bit."
+    out = swe._excerpt(long_text, limit=120)
+    assert len(out) <= 122  # may include the closing sentence end
+    assert out.endswith(".") or out.endswith("…")
+
+
+def test_badge_two_tones_by_rating():
+    assert swe._ACCENT in swe._badge(9)        # pine for strong picks
+    assert swe._BADGE_SOFT_BG in swe._badge(7)  # quiet sand below 8
+    assert swe._badge(None) == ""
 
 
 def test_email_html_is_self_contained():
@@ -187,7 +237,8 @@ def test_main_dry_run_writes_file(monkeypatch, tmp_path, capsys):
     rc = swe.main(["--week", "2026-W31", "--dry-run", "--out", str(out_file)])
     assert rc == 0
     html = out_file.read_text()
-    assert "CULTURE CALENDAR · 2026-W31" in html
+    assert "CULTURE CALENDAR" in html
+    assert "/weekly/2026-W31.html" in html
     assert "no API calls made" in capsys.readouterr().out
 
 

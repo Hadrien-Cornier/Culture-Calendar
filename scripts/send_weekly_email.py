@@ -102,60 +102,132 @@ def email_subject(monday: date, sunday: date) -> str:
 # ---------------------------------------------------------------------------
 # Email HTML rendering (self-contained, inline styles)
 # ---------------------------------------------------------------------------
+# Design: a skimmable weekly tipsheet inspired by heritage newsletters
+# (warm cream paper, near-black ink, thin dark rules, one restrained pine
+# accent). Structure: one featured pick with a short review excerpt, then
+# compact rows carrying only badge + title + meta + one-liner. Full-length
+# reviews stay on the site; the email's job is a 30-second skim.
 
-_FONT = "Georgia, 'Times New Roman', serif"
-_INK = "#1a1a1a"
-_MUTED = "#666666"
-_ACCENT = "#8a2b1d"
-_RULE = "border-top:1px solid #e3ddd3;"
+_SERIF = "Georgia, 'Times New Roman', serif"
+_SANS = "-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+_PAPER = "#f5f1e6"        # warm cream
+_INK = "#28241c"          # warm near-black
+_MUTED = "#6f675a"        # warm taupe
+_ACCENT = "#3e5a44"       # deep pine
+_BADGE_SOFT_BG = "#ddd5c3"  # warm sand for lower-rated picks
+_HAIRLINE = "#d9d1bd"
+
+# How much fits in a skim: 1 featured + 9 compact rows, overflow linked out.
+FEATURED_COUNT = 1
+ROW_COUNT = 9
 
 
-def _a(href: str, text: str, color: str = _ACCENT) -> str:
+def _a(href: str, text: str, color: str = _ACCENT, bold: bool = False) -> str:
+    weight = "font-weight:bold;" if bold else ""
     return (
-        f'<a href="{digest._esc(href)}" style="color:{color};text-decoration:none;">'
+        f'<a href="{digest._esc(href)}" style="color:{color};text-decoration:none;{weight}">'
         f"{digest._esc(text)}</a>"
     )
 
 
-def _render_pick_html(pick: "digest.DigestPick", ordinal: int) -> str:
-    event_url = (
-        f"{SITE_URL}#event={digest._esc(pick.event_id)}" if pick.event_id else SITE_URL
+def _event_url(pick: "digest.DigestPick") -> str:
+    return f"{SITE_URL}#event={digest._esc(pick.event_id)}" if pick.event_id else SITE_URL
+
+
+def _badge(rating: Optional[int]) -> str:
+    """Small square score chip - pine for 8+, quiet sand below."""
+    if rating is None:
+        return ""
+    if rating >= 8:
+        style = f"background:{_ACCENT};color:{_PAPER};"
+    else:
+        style = f"background:{_BADGE_SOFT_BG};color:{_INK};"
+    return (
+        f'<span style="{style}border-radius:3px;padding:1px 7px;font-size:12px;'
+        f'font-family:{_SANS};font-weight:bold;">{rating}</span>'
     )
-    title_link = _a(event_url, pick.title, color=_INK)
-    rating = (
-        f'<span style="background:{_ACCENT};color:#fff;border-radius:3px;'
-        f'padding:1px 6px;font-size:12px;">{pick.rating}/10</span> '
-        if pick.rating is not None
-        else ""
-    )
-    whens = " · ".join(digest._format_when(s) for s in pick.in_week)
-    meta = digest._esc(f"{pick.venue} · {pick.category_label}")
+
+
+def _when_short(pick: "digest.DigestPick") -> str:
+    """First in-week screening, '+N more' when there are several showings."""
+    if not pick.in_week:
+        return ""
+    first = digest._format_when(pick.in_week[0])
+    extra = len(pick.in_week) - 1
+    return f"{first} · +{extra} more" if extra else first
+
+
+def _excerpt(text: str, limit: int = 240) -> str:
+    """Sentence-aware truncation for the featured pick's review excerpt."""
+    plain = digest._strip_html(text or "").strip()
+    if len(plain) <= limit:
+        return plain
+    cut = plain[:limit]
+    for end in (". ", "! ", "? "):
+        idx = cut.rfind(end)
+        if idx >= limit // 2:
+            return cut[: idx + 1]
+    return cut.rsplit(" ", 1)[0].rstrip(",;:") + "…"
+
+
+def _render_featured(pick: "digest.DigestPick", digest_page: str) -> str:
+    """The week's top-rated event: title, one-liner, and a short review
+    excerpt - the only pick that gets any prose in the email."""
+    meta = f"{pick.venue} · {pick.category_label}"
+    when = _when_short(pick)
+    if when:
+        meta = f"{meta} · {when}"
     parts = [
-        f'<div style="{_RULE}padding:18px 0;">',
-        f'<div style="font-size:12px;color:{_MUTED};letter-spacing:1px;">{ordinal:02d}</div>',
-        f'<div style="font-size:19px;font-weight:bold;margin:2px 0;">{rating}{title_link}</div>',
-        f'<div style="font-size:13px;color:{_MUTED};">{meta} - {digest._esc(whens)}</div>',
+        '<div style="padding:20px 0 16px;">',
+        f'<div style="font-family:{_SANS};font-size:11px;letter-spacing:2px;color:{_ACCENT};font-weight:bold;">PICK OF THE WEEK</div>',
+        f'<div style="font-family:{_SERIF};font-size:26px;font-weight:bold;line-height:1.2;margin:8px 0 4px;">'
+        f"{_badge(pick.rating)} {_a(_event_url(pick), pick.title, color=_INK)}</div>",
+        f'<div style="font-family:{_SANS};font-size:13px;color:{_MUTED};">{digest._esc(meta)}</div>',
     ]
     if pick.one_liner:
         parts.append(
-            f'<div style="font-style:italic;margin:6px 0;color:{_INK};">'
+            f'<div style="font-family:{_SERIF};font-style:italic;font-size:16px;line-height:1.45;margin:10px 0 0;">'
             f"{digest._esc(pick.one_liner)}</div>"
         )
-    # Mirror build_weekly_digest._render_review: only prepend emoji+label as a
-    # heading when parse_review actually extracted a label - otherwise the body
-    # already starts with them ("🎭 Artistic Merit – ...") and we'd duplicate.
+    # Short excerpt from the first non-empty review section. Label is only
+    # prepended when parse_review extracted one - otherwise the body already
+    # carries it inline and we'd duplicate it.
     for section in pick.review.sections:
-        heading = ""
-        if section.label:
-            emoji = f"{digest._esc(section.emoji)} " if section.emoji else ""
-            heading = f"{emoji}<strong>{digest._esc(section.label)}</strong> "
+        excerpt = _excerpt(section.body)
+        if not excerpt:
+            continue
+        heading = f"<strong>{digest._esc(section.label)}.</strong> " if section.label else ""
         parts.append(
-            f'<div style="font-size:14px;line-height:1.55;margin:6px 0;">'
-            f"{heading}{digest._esc(section.body)}</div>"
+            f'<div style="font-family:{_SANS};font-size:14px;line-height:1.55;margin:8px 0 0;">'
+            f"{heading}{digest._esc(excerpt)}</div>"
         )
+        break
+    links = [_a(digest_page, "Full review →", bold=True)]
     if pick.url:
+        links.append(_a(pick.url, "Venue page →"))
+    parts.append(
+        f'<div style="font-family:{_SANS};font-size:13px;margin-top:10px;">'
+        + " &nbsp;·&nbsp; ".join(links)
+        + "</div>"
+    )
+    parts.append("</div>")
+    return "\n".join(parts)
+
+
+def _render_row(pick: "digest.DigestPick") -> str:
+    """Compact three-line row: badge + linked title, meta, one-liner."""
+    meta_bits = [pick.venue, _when_short(pick), pick.category_label]
+    meta = " · ".join(digest._esc(b) for b in meta_bits if b)
+    parts = [
+        f'<div style="border-top:1px solid {_HAIRLINE};padding:11px 0;">',
+        f'<div style="font-family:{_SERIF};font-size:17px;font-weight:bold;line-height:1.3;">'
+        f"{_badge(pick.rating)}&nbsp; {_a(_event_url(pick), pick.title, color=_INK)}</div>",
+        f'<div style="font-family:{_SANS};font-size:12px;color:{_MUTED};margin-top:2px;">{meta}</div>',
+    ]
+    if pick.one_liner:
         parts.append(
-            f'<div style="font-size:13px;margin-top:4px;">{_a(pick.url, "Official page →")}</div>'
+            f'<div style="font-family:{_SANS};font-size:13px;line-height:1.4;margin-top:3px;">'
+            f"{digest._esc(pick.one_liner)}</div>"
         )
     parts.append("</div>")
     return "\n".join(parts)
@@ -166,22 +238,48 @@ def render_email_html(
 ) -> str:
     """Standalone HTML email body: inline styles only, absolute URLs only."""
     range_label = digest._format_range(monday, sunday)
-    body_picks = "\n".join(_render_pick_html(p, i + 1) for i, p in enumerate(picks))
     digest_page = f"{SITE_URL}weekly/{week_label}.html"
-    return f"""<div style="max-width:640px;margin:0 auto;font-family:{_FONT};color:{_INK};">
-<div style="padding:16px 0;border-bottom:2px solid {_INK};">
-<div style="font-size:12px;letter-spacing:2px;color:{_MUTED};">CULTURE CALENDAR · {digest._esc(week_label)}</div>
-<div style="font-size:26px;font-weight:bold;margin-top:4px;">Top picks · week of {digest._esc(range_label)}</div>
-<div style="font-size:13px;color:{_MUTED};margin-top:4px;">
-{_a(SITE_URL, "Full calendar")} · {_a(digest_page, "Read this week on the site")} · {_a(SITE_URL + "calendar.ics", "Add to your calendar")}
-</div>
-</div>
-{body_picks}
-<div style="{_RULE}padding:14px 0;font-size:12px;color:{_MUTED};">
-You're receiving this because you subscribed at {_a(SITE_URL, "Culture Calendar")}.
-Ratings and reviews are AI-generated; double-check times with the venue.
+    featured = list(picks[:FEATURED_COUNT])
+    rows = list(picks[FEATURED_COUNT : FEATURED_COUNT + ROW_COUNT])
+    overflow = len(picks) - len(featured) - len(rows)
+
+    header = f"""<div style="font-family:{_SANS};border-bottom:1px solid {_INK};padding:14px 0 10px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td style="font-size:14px;letter-spacing:3px;font-weight:bold;color:{_INK};">CULTURE CALENDAR</td>
+<td align="right" style="font-size:11px;letter-spacing:1px;color:{_MUTED};">{digest._esc(range_label.upper())}</td>
+</tr></table>
+</div>"""
+
+    intro = f"""<div style="padding:18px 0 0;">
+<div style="font-family:{_SERIF};font-size:29px;font-weight:bold;line-height:1.15;">What's worth it this week.</div>
+<div style="font-family:{_SANS};font-size:14px;color:{_MUTED};margin-top:6px;">
+{len(picks)} top-rated events across Austin. Skim below - {_a(digest_page, "full reviews live on the site")}.
 </div>
 </div>"""
+
+    blocks = [header, intro]
+    blocks.extend(_render_featured(p, digest_page) for p in featured)
+    blocks.extend(_render_row(p) for p in rows)
+
+    if overflow > 0:
+        blocks.append(
+            f'<div style="border-top:1px solid {_HAIRLINE};padding:13px 0;font-family:{_SANS};font-size:14px;">'
+            f'{_a(digest_page, f"Plus {overflow} more rated picks in the full tipsheet →", bold=True)}</div>'
+        )
+
+    blocks.append(
+        f"""<div style="border-top:1px solid {_INK};margin-top:4px;padding:12px 0;font-family:{_SANS};font-size:12px;color:{_MUTED};line-height:1.7;">
+{_a(SITE_URL, "Full calendar")} · {_a(SITE_URL + "calendar.ics", "Add to your calendar")} · {_a(digest_page, "This week on the site")}<br/>
+You're receiving this because you subscribed at {_a(SITE_URL, "Culture Calendar")}.
+Ratings and reviews are AI-generated; double-check times with the venue.
+</div>"""
+    )
+
+    inner = "\n".join(blocks)
+    return (
+        f'<div style="background:{_PAPER};padding:26px 14px;">'
+        f'<div style="max-width:600px;margin:0 auto;color:{_INK};">{inner}</div></div>'
+    )
 
 
 # ---------------------------------------------------------------------------
