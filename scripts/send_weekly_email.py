@@ -511,8 +511,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if args.to:
         subscribe_email(api_key, args.to)
         # Test sends are repeatable and never block the real weekly send:
-        # distinct subject, no idempotency check.
-        subject = f"[TEST] {subject}"
+        # distinct subject per recipient, no idempotency check.
+        from datetime import datetime as _dt
+        subject = f"[TEST {_dt.now().strftime('%H:%M')}] {subject}"
     elif not args.draft and active_subscriber_count(api_key) == 0:
         # Buttondown rejects sends to an empty list with a 422; nothing to do.
         print("No active subscribers yet - skipping send (nothing to do).")
@@ -522,7 +523,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         print(f"An email with subject {subject!r} already exists - not sending again.")
         return 0
 
-    result = send_email(api_key, subject, body_html, draft=args.draft)
+    try:
+        result = send_email(api_key, subject, body_html, draft=args.draft)
+    except requests.exceptions.HTTPError as e:
+        if e.response is not None and e.response.status_code == 400 and "email_duplicate" in e.response.text:
+            print(f"Buttondown flagged this as a duplicate - skipping send.")
+            return 0
+        raise
     print(
         f"Buttondown email created (id={result.get('id', '?')}, "
         f"status={'draft' if args.draft else 'about_to_send'})."
