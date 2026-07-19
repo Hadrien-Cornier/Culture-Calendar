@@ -223,8 +223,13 @@ class MultiVenueScraper:
                         formatted_event = scraper.format_event(event)
                         # Validate event
                         scraper.validate_event(formatted_event)
-                        # Add venue information
-                        formatted_event["venue"] = venue_code
+                        # Add venue information. Skip the overwrite for
+                        # multi-venue directories (Art Austin) where the
+                        # scraper already set the actual gallery name.
+                        if venue_code != "ArtAustin":
+                            formatted_event["venue"] = venue_code
+                        else:
+                            formatted_event["source_venue"] = "artaustin"
                         formatted_events.append(formatted_event)
                     except ValueError as e:
                         print(f"  ⚠️  Event validation error for {venue_code}: {e}")
