@@ -193,12 +193,58 @@ def _headers(api_key: str) -> dict:
     return {"Authorization": f"Token {api_key}", "Content-Type": "application/json"}
 
 
+def _checked(resp: requests.Response) -> requests.Response:
+    """raise_for_status, but log the response body first - Buttondown's 4xx
+    bodies carry the actual validation message, which is otherwise lost."""
+    if not resp.ok:
+        print(f"Buttondown {resp.status_code} {resp.request.method} {resp.url}:")
+        print(resp.text[:2000])
+    resp.raise_for_status()
+    return resp
+
+
+def newsletter_slug(api_key: str) -> str:
+    """The account's first newsletter slug/username, for keeping
+    distribution.buttondown_endpoint in sync with the actual account."""
+    resp = _checked(requests.get(f"{BUTTONDOWN_API}/newsletters", headers=_headers(api_key), timeout=30))
+    payload = resp.json()
+    results = payload.get("results", payload if isinstance(payload, list) else [])
+    if not results:
+        return ""
+    nl = results[0]
+    return str(nl.get("slug") or nl.get("username") or nl.get("name") or "")
+
+
+def active_subscriber_count(api_key: str) -> int:
+    """Number of subscribers who would actually receive a send."""
+    resp = _checked(requests.get(f"{BUTTONDOWN_API}/subscribers", headers=_headers(api_key), timeout=30))
+    payload = resp.json()
+    results = payload.get("results", payload if isinstance(payload, list) else [])
+    return sum(1 for s in results if s.get("type") in (None, "regular", "activated"))
+
+
+def subscribe_email(api_key: str, email: str) -> None:
+    """Add an address to the list (idempotent - 'already exists' is fine)."""
+    resp = requests.post(
+        f"{BUTTONDOWN_API}/subscribers",
+        headers=_headers(api_key),
+        json={"email_address": email, "type": "regular"},
+        timeout=30,
+    )
+    if resp.ok:
+        print(f"Subscribed {email}.")
+        return
+    if resp.status_code in (400, 409) and "already" in resp.text.lower():
+        print(f"{email} is already subscribed.")
+        return
+    _checked(resp)
+
+
 def already_sent(api_key: str, subject: str, max_pages: int = 5) -> bool:
     """True if an email with this exact subject already exists."""
     url = f"{BUTTONDOWN_API}/emails"
     for _ in range(max_pages):
-        resp = requests.get(url, headers=_headers(api_key), timeout=30)
-        resp.raise_for_status()
+        resp = _checked(requests.get(url, headers=_headers(api_key), timeout=30))
         payload = resp.json()
         results = payload.get("results", payload if isinstance(payload, list) else [])
         if any(e.get("subject") == subject for e in results):
@@ -210,17 +256,18 @@ def already_sent(api_key: str, subject: str, max_pages: int = 5) -> bool:
 
 
 def send_email(api_key: str, subject: str, body_html: str, draft: bool = False) -> dict:
-    resp = requests.post(
-        f"{BUTTONDOWN_API}/emails",
-        headers=_headers(api_key),
-        json={
-            "subject": subject,
-            "body": body_html,
-            "status": "draft" if draft else "about-to-send",
-        },
-        timeout=30,
+    resp = _checked(
+        requests.post(
+            f"{BUTTONDOWN_API}/emails",
+            headers=_headers(api_key),
+            json={
+                "subject": subject,
+                "body": body_html,
+                "status": "draft" if draft else "about-to-send",
+            },
+            timeout=30,
+        )
     )
-    resp.raise_for_status()
     return resp.json()
 
 
@@ -236,6 +283,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--limit", type=int, default=digest.DEFAULT_PICK_LIMIT)
     parser.add_argument("--dry-run", action="store_true", help="Render only; no API calls")
     parser.add_argument("--draft", action="store_true", help="Create a draft, don't send")
+    parser.add_argument(
+        "--to",
+        metavar="EMAIL",
+        help="Test mode: subscribe EMAIL to the list first, then send the tipsheet",
+    )
     parser.add_argument("--out", type=Path, default=Path("/tmp/weekly-email.html"))
     args = parser.parse_args(argv)
 
@@ -268,6 +320,20 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             "BUTTONDOWN_API_KEY not set - skipping send. "
             "Add it to the repo secrets to enable the weekly tipsheet."
         )
+        return 0
+
+    # Diagnostic: surface the account slug so distribution.buttondown_endpoint
+    # in master_config.yaml can be kept in sync with the real account.
+    slug = newsletter_slug(api_key)
+    if slug:
+        print(f"Buttondown newsletter slug: {slug!r} (signup endpoint: "
+              f"https://buttondown.email/api/emails/embed-subscribe/{slug})")
+
+    if args.to:
+        subscribe_email(api_key, args.to)
+    elif not args.draft and active_subscriber_count(api_key) == 0:
+        # Buttondown rejects sends to an empty list with a 422; nothing to do.
+        print("No active subscribers yet - skipping send (nothing to do).")
         return 0
 
     if already_sent(api_key, subject):

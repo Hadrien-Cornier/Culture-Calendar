@@ -194,3 +194,80 @@ def test_main_skips_empty_week(monkeypatch, capsys):
     rc = swe.main(["--week", "2026-W31"])
     assert rc == 0
     assert "nothing to send" in capsys.readouterr().out
+
+
+# ---------------------------------------------------------------------------
+# Account helpers: slug discovery, subscribe, subscriber guard, error logging
+# ---------------------------------------------------------------------------
+
+
+def test_newsletter_slug(monkeypatch):
+    monkeypatch.setattr(
+        swe.requests, "get",
+        lambda url, **k: _resp({"results": [{"slug": "my-list", "name": "My List"}]}),
+    )
+    assert swe.newsletter_slug("key") == "my-list"
+
+
+def test_active_subscriber_count(monkeypatch):
+    monkeypatch.setattr(
+        swe.requests, "get",
+        lambda url, **k: _resp({"results": [
+            {"type": "regular"}, {"type": "unactivated"}, {"type": "regular"},
+        ]}),
+    )
+    assert swe.active_subscriber_count("key") == 2
+
+
+def test_subscribe_email_posts_and_tolerates_existing(monkeypatch):
+    post = Mock(return_value=_resp({"id": "sub1"}))
+    monkeypatch.setattr(swe.requests, "post", post)
+    swe.subscribe_email("key", "a@b.c")
+    assert post.call_args.kwargs["json"]["email_address"] == "a@b.c"
+
+    conflict = Mock(ok=False, status_code=400, text='{"email_address": ["already exists"]}',
+                    request=Mock(method="POST"), url="u")
+    monkeypatch.setattr(swe.requests, "post", Mock(return_value=conflict))
+    swe.subscribe_email("key", "a@b.c")  # must not raise
+
+
+def test_checked_logs_body_and_raises(capsys):
+    import requests as real_requests
+    bad = Mock(ok=False, status_code=422, text='{"status": ["Invalid enum"]}',
+               request=Mock(method="POST"), url="https://api.buttondown.email/v1/emails")
+    bad.raise_for_status = Mock(
+        side_effect=real_requests.exceptions.HTTPError("422 Client Error")
+    )
+    with pytest.raises(real_requests.exceptions.HTTPError):
+        swe._checked(bad)
+    assert "Invalid enum" in capsys.readouterr().out
+
+
+def test_main_skips_send_when_no_subscribers(monkeypatch, capsys):
+    monkeypatch.setenv("BUTTONDOWN_API_KEY", "k")
+    monkeypatch.setattr(swe, "newsletter_slug", lambda k: "slug")
+    monkeypatch.setattr(swe, "active_subscriber_count", lambda k: 0)
+    send = Mock()
+    monkeypatch.setattr(swe, "send_email", send)
+    rc = swe.main(["--week", "2026-W31"])
+    assert rc == 0
+    assert "No active subscribers" in capsys.readouterr().out
+    send.assert_not_called()
+
+
+def test_main_to_mode_subscribes_then_sends(monkeypatch, capsys):
+    monkeypatch.setenv("BUTTONDOWN_API_KEY", "k")
+    monkeypatch.setattr(swe, "newsletter_slug", lambda k: "slug")
+    calls = []
+    monkeypatch.setattr(swe, "subscribe_email", lambda k, e: calls.append(("sub", e)))
+    monkeypatch.setattr(swe, "already_sent", lambda k, s: False)
+    monkeypatch.setattr(
+        swe, "send_email", lambda k, s, b, draft=False: calls.append(("send", s)) or {"id": "e1"}
+    )
+    count = Mock(return_value=5)
+    monkeypatch.setattr(swe, "active_subscriber_count", count)
+    rc = swe.main(["--week", "2026-W31", "--to", "me@example.com"])
+    assert rc == 0
+    assert calls[0] == ("sub", "me@example.com")
+    assert calls[1][0] == "send"
+    count.assert_not_called()  # --to bypasses the subscriber guard

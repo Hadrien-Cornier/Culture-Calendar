@@ -5,6 +5,11 @@ on:
     # Saturday 9 PM UTC (4 PM CST / 3 PM CDT in Austin)
     - cron: '0 21 * * 6'
   workflow_dispatch:
+    inputs:
+      test_email:
+        description: 'Optional: subscribe this address and send the tipsheet to it (test mode)'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -82,10 +87,17 @@ jobs:
         # Sends next week's top picks to Buttondown subscribers. Runs after the
         # data push so an email failure can never block publishing. Idempotent
         # (deterministic per-week subject); no-ops cleanly until
-        # BUTTONDOWN_API_KEY is added to repo secrets.
+        # BUTTONDOWN_API_KEY is added to repo secrets. With the test_email
+        # dispatch input, subscribes that address first and sends to it.
         env:
           BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
-        run: python scripts/send_weekly_email.py
+          TEST_EMAIL: ${{ inputs.test_email }}
+        run: |
+          if [ -n "$TEST_EMAIL" ]; then
+            python scripts/send_weekly_email.py --to "$TEST_EMAIL"
+          else
+            python scripts/send_weekly_email.py
+          fi
 
       - name: Alert on failure via GitHub issue
         # The pipeline must never fail silently again (it once failed daily for
