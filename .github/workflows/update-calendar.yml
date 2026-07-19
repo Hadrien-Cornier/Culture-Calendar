@@ -15,6 +15,10 @@ on:
         required: false
         type: boolean
         default: false
+      buttondown_patch:
+        description: 'Optional JSON object to PATCH into the Buttondown newsletter settings'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -104,6 +108,8 @@ jobs:
         run: |
           if [ "${{ inputs.inspect_only }}" = "true" ]; then
             python scripts/send_weekly_email.py --inspect
+          elif [ -n "${{ inputs.buttondown_patch }}" ]; then
+            python scripts/send_weekly_email.py --patch '${{ inputs.buttondown_patch }}'
           elif [ -n "$TEST_EMAIL" ]; then
             python scripts/send_weekly_email.py --to "$TEST_EMAIL"
           else

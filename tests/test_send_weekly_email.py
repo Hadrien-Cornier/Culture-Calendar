@@ -272,4 +272,14 @@ def test_main_to_mode_subscribes_then_sends(monkeypatch, capsys):
     assert rc == 0
     assert calls[0] == ("sub", "me@example.com")
     assert calls[1][0] == "send"
+    assert calls[1][1].startswith("[TEST] ")  # test sends never collide with the real subject
     count.assert_not_called()  # --to bypasses the subscriber guard
+
+
+def test_redact_secrets_masks_credential_fields():
+    payload = {"name": "x", "api_key": "LEAK", "nested": [{"token": "LEAK", "ok": 1}]}
+    redacted = swe._redact_secrets(payload)
+    assert redacted["api_key"] == "***"
+    assert redacted["nested"][0]["token"] == "***"
+    assert redacted["nested"][0]["ok"] == 1
+    assert redacted["name"] == "x"

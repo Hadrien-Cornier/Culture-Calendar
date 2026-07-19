@@ -242,6 +242,23 @@ def patch_newsletter(api_key: str, fields: dict) -> dict:
     return resp.json()
 
 
+def _redact_secrets(obj):
+    """Strip credential-shaped fields from API payloads before printing.
+
+    The newsletter object embeds the account's api_key in plaintext (learned
+    the hard way: an --inspect dump put it into public CI logs). Any field
+    whose name contains key/token/secret is masked, recursively.
+    """
+    if isinstance(obj, dict):
+        return {
+            k: ("***" if any(t in k.lower() for t in ("key", "token", "secret")) else _redact_secrets(v))
+            for k, v in obj.items()
+        }
+    if isinstance(obj, list):
+        return [_redact_secrets(v) for v in obj]
+    return obj
+
+
 def active_subscriber_count(api_key: str) -> int:
     """Number of subscribers who would actually receive a send."""
     resp = _checked(requests.get(f"{BUTTONDOWN_API}/subscribers", headers=_headers(api_key), timeout=30))
@@ -342,9 +359,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             return 1
         if args.patch:
             result = patch_newsletter(api_key, json.loads(args.patch))
-            print(json.dumps(result, indent=2)[:4000])
+            print(json.dumps(_redact_secrets(result), indent=2)[:4000])
         else:
-            print(json.dumps(inspect_newsletter(api_key), indent=2)[:6000])
+            print(json.dumps(_redact_secrets(inspect_newsletter(api_key)), indent=2)[:6000])
         return 0
 
     if args.week:
@@ -387,12 +404,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     if args.to:
         subscribe_email(api_key, args.to)
+        # Test sends are repeatable and never block the real weekly send:
+        # distinct subject, no idempotency check.
+        subject = f"[TEST] {subject}"
     elif not args.draft and active_subscriber_count(api_key) == 0:
         # Buttondown rejects sends to an empty list with a 422; nothing to do.
         print("No active subscribers yet - skipping send (nothing to do).")
         return 0
 
-    if already_sent(api_key, subject):
+    if not args.to and already_sent(api_key, subject):
         print(f"An email with subject {subject!r} already exists - not sending again.")
         return 0
 
