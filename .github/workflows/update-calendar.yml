@@ -135,3 +135,13 @@ jobs:
 
             This issue was auto-created. Each subsequent failure adds a comment; close it once the pipeline is green again."
           fi
+
+      - name: Trigger self-healing agent
+        # GitHub doesn't fire `issues` events for GITHUB_TOKEN actions, so
+        # the self-heal workflow can't trigger on the issue we just created.
+        # Dispatch it directly instead.
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run self-heal.yml -f run_id=${{ github.run_id }} || true
