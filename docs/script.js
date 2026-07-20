@@ -1499,10 +1499,13 @@
         cap.setDate(cap.getDate() + 7);
       }
       filtered = filtered.filter(function (ev) {
-        if (!ev.showings || !ev.showings[0]) return false;
-        var p = ev.showings[0].date.split("-");
-        var d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
-        return d >= now && d < cap;
+        // task-T8.1 fix: use raw dates[] (showings don't exist yet at this stage)
+        var dates = ev.dates || [];
+        return dates.some(function (d) {
+          var p = d.split("-");
+          var dt = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+          return dt >= now && dt < cap;
+        });
       });
     }
     return filtered;
