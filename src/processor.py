@@ -45,6 +45,7 @@ import os
 import re
 import time
 import json
+import yaml
 from datetime import datetime
 from typing import Dict, List, Optional
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
@@ -221,6 +222,33 @@ def _fact_dossier(event: Dict) -> str:
     return ""
 
 
+def _load_rating_overrides() -> List[Dict]:
+    """Load persistent rating overrides from config/rating_overrides.yaml."""
+    path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "config", "rating_overrides.yaml",
+    )
+    if not os.path.exists(path):
+        return []
+    with open(path) as f:
+        data = yaml.safe_load(f)
+    return (data or {}).get("overrides", [])
+
+
+def _matches_override(event: Dict, override: Dict) -> bool:
+    """Check if an event matches a rating override rule."""
+    if "title" in override:
+        if override["title"].lower() not in (event.get("title") or "").lower():
+            return False
+    if "venue" in override:
+        if override["venue"] != event.get("venue"):
+            return False
+    if "type" in override:
+        if override["type"] != event.get("type"):
+            return False
+    return True
+
+
 class EventProcessor:
     def __init__(self, force_reprocess: bool = False, pilot_mode: bool = False):
         self.perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
@@ -318,6 +346,26 @@ class EventProcessor:
 
                 processed_count += 1
                 print(f"Processing ({processed_count}): {event['title']}")
+
+                # Check rating overrides first - user-specified ratings take
+                # precedence over both AI rating and recurring-event defaults.
+                overrides = _load_rating_overrides()
+                override_match = None
+                for ov in overrides:
+                    if _matches_override(event, ov):
+                        override_match = ov
+                        break
+                if override_match:
+                    print(f"  Using rating override ({override_match['rating']}/10)")
+                    event["ai_rating"] = {
+                        "score": override_match["rating"],
+                        "summary": override_match.get("summary", event.get("description", "")),
+                    }
+                    event["oneLinerSummary"] = override_match.get(
+                        "one_liner", event.get("description", "")[:80]
+                    )
+                    enriched_events.append(event)
+                    continue
 
                 # Skip AI processing for recurring events - they have predefined content
                 if event.get("is_recurring"):

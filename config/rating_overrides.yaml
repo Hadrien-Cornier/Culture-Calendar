@@ -1,0 +1,15 @@
+# Persistent rating overrides for events the user has manually rated.
+# The pipeline checks this file before calling AI rating functions.
+# Events matching an override skip AI rating entirely and use the
+# override score + summary instead.
+#
+# Match fields: any subset of title (substring, case-insensitive),
+# venue (exact match), type (exact match). All specified fields must match.
+
+overrides:
+  - title: "New Yorker Weekly Short Story Club"
+    venue: "NewYorkerMeetup"
+    type: "book_club"
+    rating: 8
+    summary: "Weekly short story discussion group at Central Market. Free copies of the current New Yorker fiction piece, first hour for reading, then open discussion. A welcoming community for literary fiction lovers."
+    reason: "User preference - recurring predictable event, no AI rating needed"
