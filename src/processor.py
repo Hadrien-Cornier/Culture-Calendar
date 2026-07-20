@@ -1259,6 +1259,14 @@ Be specific. Take a defensible position even if some details are missing.
 
             # Remove Perplexity citation numbers like [1]
             content = re.sub(r"\[\d+\]", "", content)
+            # Strip NOTE ON SOURCES / SOURCES / similar meta-commentary sections
+            # that leak AI search-process details into the user-facing review.
+            content = re.sub(
+                r"(?:NOTE ON SOURCES|NOTE ON SOURCE|SOURCES?|SOURCE NOTES?)\s*:.*?(?=\n\n|\Z)",
+                "",
+                content,
+                flags=re.IGNORECASE | re.DOTALL,
+            )
             # Use the cleaned content as summary for the French cinéaste style
             summary = content.strip()
 
