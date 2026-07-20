@@ -1274,6 +1274,19 @@
       if (emoji && label) {
         label = label.replace(/^[\p{Extended_Pictographic}\p{Emoji}\s]+/u, "").trim();
       }
+      // task-T8.6: normalize creative section titles to standard names.
+      // The AI sometimes returns inventive headers ("DISCONTINUOUS SHARDS
+      // OF MEMORY") instead of the prompt-specified ones. The emoji is the
+      // reliable signal; map it back to the canonical section name.
+      var EMOJI_TO_LABEL = {
+        "\uD83C\uDFAD": "Artistic Merit",
+        "\u2728": "Originality",
+        "\uD83D\uDCDA": "Cultural Significance",
+        "\uD83D\uDCA1": "Intellectual Depth"
+      };
+      if (emoji && EMOJI_TO_LABEL[emoji]) {
+        label = EMOJI_TO_LABEL[emoji];
+      }
       if (label || body) sections.push({ emoji: emoji, label: label, body: body });
     });
     var flat = sections.map(function (s) { return s.body; }).join("\n\n");
