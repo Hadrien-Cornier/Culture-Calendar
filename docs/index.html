@@ -138,6 +138,22 @@
       </div>
     </div>
   </header>
+  <nav class="filter-bar" id="filter-bar" aria-label="Filter events">
+    <div class="filter-row" id="time-filters" role="group" aria-label="Time filter">
+      <button type="button" class="filter-chip is-active" data-time="all">All</button>
+      <button type="button" class="filter-chip" data-time="today">Today</button>
+      <button type="button" class="filter-chip" data-time="week">This Week</button>
+    </div>
+    <div class="filter-row" id="category-filters" role="group" aria-label="Category filter">
+      <button type="button" class="filter-chip is-active" data-category="all">All</button>
+      <button type="button" class="filter-chip" data-category="movie">Film</button>
+      <button type="button" class="filter-chip" data-category="concert">Concert</button>
+      <button type="button" class="filter-chip" data-category="opera">Opera</button>
+      <button type="button" class="filter-chip" data-category="dance">Dance</button>
+      <button type="button" class="filter-chip" data-category="book_club">Book Club</button>
+      <button type="button" class="filter-chip" data-category="visual_arts">Visual Arts</button>
+    </div>
+  </nav>
   <section class="picks-section" id="picks" aria-label="Top picks of the week">
     <h2 class="picks-heading">TOP PICKS OF THE WEEK</h2>
     <ol class="picks-list" id="picks-list"></ol>

@@ -264,6 +264,52 @@ body {
   text-align: center;
 }
 
+/* task-T8.1: Filter bar — category + time chips.
+   Sticky on mobile so users always have access. */
+.filter-bar {
+  max-width: var(--max);
+  margin: 1em auto 0;
+  padding: 0 1em;
+}
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.filter-chip {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid var(--chip-border);
+  border-radius: 999px;
+  color: var(--chip-ink);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+  min-height: 36px;
+}
+.filter-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .filter-chip:hover { border-color: var(--ink); }
+}
+.filter-chip.is-active {
+  background: var(--chip-active-bg);
+  border-color: var(--chip-active-bg);
+  color: var(--chip-active-ink);
+}
+@media (max-width: 480px) {
+  .filter-bar { position: sticky; top: 0; z-index: 5; background: var(--bg); margin: 0 auto; padding: 8px 1em; border-bottom: 1px solid var(--rule); }
+  .filter-row { gap: 6px; margin-bottom: 6px; }
+  .filter-chip { font-size: 11px; padding: 6px 10px; }
+}
+
 @media (max-width: 480px) {
   .search-wrap {
     max-width: 100%;
@@ -1059,18 +1105,34 @@ body {
   border-bottom-color: var(--accent);
 }
 
-/* task-T4.1: Mobile hardening — keep primary controls within narrow viewports
-   (subscribe-links wrap, long titles break, expand chevron has a minimum
-   tappable width, search input reserves room for the clear affordance, and
-   a 320px breakpoint tightens spacing on the smallest phones). */
-.subscribe-links { flex-wrap: wrap; }
-.event-title-text { word-break: break-word; overflow-wrap: anywhere; }
-.expand-indicator { min-width: 32px; flex-shrink: 0; text-align: center; }
-#event-search { padding-right: 44px; }
+/* task-T8.4: category grouping sections */
+.category-section {
+  margin-bottom: 2.5em;
+}
+
+/* task-T8.5: mobile hardening */
+@media (max-width: 480px) {
+  .filter-bar { position: sticky; top: 0; z-index: 5; background: var(--bg); margin: 0 auto; padding: 8px 1em; border-bottom: 1px solid var(--rule); }
+  .filter-row { gap: 6px; margin-bottom: 6px; }
+  .filter-chip { font-size: 11px; padding: 6px 10px; }
+  .event-header { grid-template-columns: 64px 1fr 24px; gap: 10px; padding: 12px; }
+  .event-panel, .event-card.is-expanded .event-panel { padding-left: 16px; padding-right: 16px; }
+  .picks-list.top-picks .event-card .event-header { grid-template-columns: 28px 64px 1fr 24px; gap: 10px; padding: 12px; }
+  .picks-list.top-picks .event-card.is-open .event-panel { padding-left: 16px; padding-right: 16px; }
+  .event-review p, .event-review-body { font-size: 16px; line-height: 1.65; }
+  .event-review h3, .event-review h4, .event-review-heading, .event-review strong { font-size: 14px; }
+  .event-oneliner {
+    -webkit-line-clamp: initial;
+    line-clamp: initial;
+    display: block;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-size: 16px;
+  }
+}
 
 @media (max-width: 320px) {
-  /* task-5.5: masthead-title and event-title-text are sized via clamp() in
-     :root; the lower bounds already cover this breakpoint. */
   .event-header { grid-template-columns: 56px 1fr 32px; gap: 8px; padding: 10px; }
   .event-panel, .event-card.is-expanded .event-panel { padding-left: 72px; padding-right: 10px; }
   .subscribe-links { gap: 10px; font-size: 10px; }

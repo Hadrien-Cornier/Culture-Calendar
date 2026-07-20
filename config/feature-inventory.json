@@ -517,4 +517,47 @@
     "since_commit": "task-date-search",
     "smoke_assertion": "contains_text:parseDateQuery@/script.js"
   }
+  },
+  {
+    "id": "category-filter-chips",
+    "name": "Category filter chips (Film, Concert, Opera, Dance, Book Club, Visual Arts)",
+    "selector": "#category-filters .filter-chip",
+    "since_commit": "T8.1",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "time-filter-chips",
+    "name": "Time filter chips (All, Today, This Week)",
+    "selector": "#time-filters .filter-chip",
+    "since_commit": "T8.1",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "category-grouping",
+    "name": "Event listings grouped by category with section headings",
+    "selector": ".category-section",
+    "since_commit": "T8.4",
+    "smoke_assertion": "selector_exists"
+  },
+  {
+    "id": "derived-rating",
+    "name": "Ungraded events show derived venue-average rating instead of dash",
+    "selector": ".event-rating-badge",
+    "since_commit": "T8.2",
+    "smoke_assertion": "contains_text:derivedRating@/script.js"
+  },
+  {
+    "id": "movie-director",
+    "name": "Movie events display director name in card subtitle",
+    "selector": ".event-subtitle",
+    "since_commit": "T8.3",
+    "smoke_assertion": "contains_text:extractDirector@/script.js"
+  },
+  {
+    "id": "mobile-sticky-filter-bar",
+    "name": "Filter bar sticks to top of viewport on mobile",
+    "selector": ".filter-bar",
+    "since_commit": "T8.5",
+    "smoke_assertion": "contains_text:position: sticky@/styles.css"
+  }
 ]

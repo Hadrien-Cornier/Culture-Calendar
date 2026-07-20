@@ -984,6 +984,50 @@
 
   function ratingClass(r) { return r >= 8 ? "high" : r >= 5 ? "mid" : "low"; }
 
+  /* task-T8.2: derived rating for ungraded events (rating <= 0).
+     Uses the venue's average rating when available, falling back to 5.
+     This gives every event a numeric score so the list is fully sortable
+     and no event shows a bare "-" badge. */
+  function derivedRating(ev, venueAverages) {
+    var r = ev.rating;
+    if (typeof r === "number" && r > 0) return r;
+    var v = ev.venue || "";
+    if (venueAverages[v]) return Math.round(venueAverages[v]);
+    return 5;
+  }
+
+  function computeVenueAverages(events) {
+    var sums = {}, counts = {}, averages = {};
+    events.forEach(function (ev) {
+      var r = ev.rating;
+      if (typeof r !== "number" || r <= 0) return;
+      var v = ev.venue || "";
+      sums[v] = (sums[v] || 0) + r;
+      counts[v] = (counts[v] || 0) + 1;
+    });
+    Object.keys(sums).forEach(function (v) {
+      averages[v] = sums[v] / counts[v];
+    });
+    return averages;
+  }
+
+  /* task-T8.3: extract movie director from review text.
+     Looks for patterns like "directed by X", "director X", "X directs". */
+  function extractDirector(description) {
+    if (!description) return "";
+    var patterns = [
+      /directed by ([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)+)/,
+      /director[s]?(?: is| was|:)? ([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)+)/,
+      /([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)+) directs/,
+      /dir\. ([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)+)/
+    ];
+    for (var i = 0; i < patterns.length; i++) {
+      var m = description.match(patterns[i]);
+      if (m && m[1]) return m[1].trim();
+    }
+    return "";
+  }
+
   /* task-T2.1: JSON-LD Event schema injection.
      Runs the first time a card opens. Injects a
      <script type="application/ld+json"> tag so search engines and
@@ -1427,14 +1471,64 @@
      on top, so users can narrow saved events further. */
   var myPicksOnly = false;
 
+  /* task-T8.1: category + time filter state.
+     Category chips subset the event list by type (movie, concert, etc.).
+     Time chips subset by date (today, this week). Both compose with the
+     existing search + My Picks filters. */
+  var activeCategory = "all";
+  var activeTime = "all";
+
   function filterEvents(events) {
     var q = getSearchQuery();
     var dateMatcher = parseDateQuery(q);
     var filtered = events;
     if (q) filtered = filtered.filter(function (ev) { return matchesQuery(ev, q, dateMatcher); });
     if (myPicksOnly) filtered = filtered.filter(function (ev) { return taste.isSaved(ev); });
+    if (activeCategory !== "all") {
+      filtered = filtered.filter(function (ev) {
+        return (ev.type || "other").toLowerCase() === activeCategory;
+      });
+    }
+    if (activeTime !== "all") {
+      var now = new Date();
+      now.setHours(0, 0, 0, 0);
+      var cap = new Date(now);
+      if (activeTime === "today") {
+        cap.setDate(cap.getDate() + 1);
+      } else if (activeTime === "week") {
+        cap.setDate(cap.getDate() + 7);
+      }
+      filtered = filtered.filter(function (ev) {
+        if (!ev.showings || !ev.showings[0]) return false;
+        var p = ev.showings[0].date.split("-");
+        var d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+        return d >= now && d < cap;
+      });
+    }
     return filtered;
   }
+
+  /* task-T8.1: filter chip click handlers. */
+  (function initFilterChips() {
+    var bar = document.getElementById("filter-bar");
+    if (!bar) return;
+    bar.addEventListener("click", function (e) {
+      var chip = e.target.closest(".filter-chip");
+      if (!chip) return;
+      var row = chip.closest(".filter-row");
+      if (!row) return;
+      row.querySelectorAll(".filter-chip").forEach(function (c) {
+        c.classList.remove("is-active");
+      });
+      chip.classList.add("is-active");
+      if (row.id === "category-filters") {
+        activeCategory = chip.dataset.category || "all";
+      } else if (row.id === "time-filters") {
+        activeTime = chip.dataset.time || "all";
+      }
+      renderAll();
+    });
+  })();
 
   // task-T1: shared with the Top Picks 7-day window — keeps date-parse logic
   // in one place so main listings and picks agree on what "future" means.
@@ -1449,6 +1543,13 @@
     cardIndex = {};
     var filtered = filterEvents(allEvents);
     var grouped = groupEvents(filtered);
+    var venueAvgs = computeVenueAverages(grouped);
+    // task-T8.2: apply derived ratings so no event shows "-"
+    grouped.forEach(function (ev) {
+      if (typeof ev.rating !== "number" || ev.rating <= 0) {
+        ev._derivedRating = derivedRating(ev, venueAvgs);
+      }
+    });
     var needsResearch = [];
     var merit = [];
     grouped.forEach(function (ev) {
@@ -1928,9 +2029,10 @@
     header.className = "event-header";
 
     var badge = document.createElement("span");
-    badge.className = "event-rating-badge rating-" + ratingClass(ev.rating);
-    badge.textContent = ev.rating > 0 ? ev.rating + " / 10" : "—";
-    badge.setAttribute("aria-label", "rated " + ev.rating + " out of 10");
+    var displayRating = ev.rating > 0 ? ev.rating : (ev._derivedRating || 5);
+    badge.className = "event-rating-badge rating-" + ratingClass(displayRating);
+    badge.textContent = displayRating + " / 10";
+    badge.setAttribute("aria-label", "rated " + displayRating + " out of 10");
     header.appendChild(badge);
 
     var col = document.createElement("div");
@@ -2079,9 +2181,10 @@
     var header = document.createElement("div");
     header.className = "event-header";
     var badge = document.createElement("span");
-    badge.className = "event-rating-badge rating-" + ratingClass(ev.rating);
-    badge.textContent = ev.rating > 0 ? ev.rating + " / 10" : "—";
-    badge.setAttribute("aria-label", "rated " + ev.rating + " out of 10");
+    var displayRating = ev.rating > 0 ? ev.rating : (ev._derivedRating || 5);
+    badge.className = "event-rating-badge rating-" + ratingClass(displayRating);
+    badge.textContent = displayRating + " / 10";
+    badge.setAttribute("aria-label", "rated " + displayRating + " out of 10");
     header.appendChild(badge);
 
     var col = document.createElement("div");
@@ -2104,6 +2207,11 @@
     var venueLabel = ev.venue_display_name || ev.venue;
     if (venueLabel) sp.push(venueLabel);
     sp.push(CATEGORY_LABELS[ev.type] || ev.type.replace(/_/g, " "));
+    // task-T8.3: show director for movie events
+    if ((ev.type || "").toLowerCase() === "movie") {
+      var director = extractDirector(ev.description);
+      if (director) sp.push("dir. " + director);
+    }
     sub.textContent = sp.join(" · ");
     col.appendChild(sub);
 
@@ -2222,8 +2330,14 @@
     return card;
   }
 
+  /* task-T8.4: category order for grouped listings. */
+  var CATEGORY_ORDER = [
+    "movie", "concert", "opera", "dance", "ballet",
+    "book_club", "visual_arts", "other"
+  ];
+
   function renderListings(events) {
-    listingsEl.innerHTML = "<h2 class=\"listings-heading\">COMPLETE EVENTS — BY MERIT</h2>";
+    listingsEl.innerHTML = "";
     if (events.length === 0) {
       var empty = document.createElement("p");
       empty.className = "empty-state";
@@ -2231,8 +2345,40 @@
       listingsEl.appendChild(empty);
       return;
     }
+    // Group by category, preserving CATEGORY_ORDER
+    var byCategory = {};
+    events.forEach(function (ev) {
+      var cat = (ev.type || "other").toLowerCase();
+      if (!byCategory[cat]) byCategory[cat] = [];
+      byCategory[cat].push(ev);
+    });
     var frag = document.createDocumentFragment();
-    events.forEach(function (ev) { frag.appendChild(buildListingCard(ev)); });
+    CATEGORY_ORDER.forEach(function (cat) {
+      var list = byCategory[cat];
+      if (!list || !list.length) return;
+      var heading = document.createElement("h2");
+      heading.className = "listings-heading";
+      heading.textContent = (CATEGORY_LABELS[cat] || cat.replace(/_/g, " "));
+      frag.appendChild(heading);
+      var section = document.createElement("section");
+      section.className = "category-section";
+      list.forEach(function (ev) { section.appendChild(buildListingCard(ev)); });
+      frag.appendChild(section);
+    });
+    // Any categories not in CATEGORY_ORDER (edge cases)
+    Object.keys(byCategory).forEach(function (cat) {
+      if (CATEGORY_ORDER.indexOf(cat) !== -1) return;
+      var list = byCategory[cat];
+      if (!list || !list.length) return;
+      var heading = document.createElement("h2");
+      heading.className = "listings-heading";
+      heading.textContent = CATEGORY_LABELS[cat] || cat.replace(/_/g, " ");
+      frag.appendChild(heading);
+      var section = document.createElement("section");
+      section.className = "category-section";
+      list.forEach(function (ev) { section.appendChild(buildListingCard(ev)); });
+      frag.appendChild(section);
+    });
     listingsEl.appendChild(frag);
   }
 
