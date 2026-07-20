@@ -102,20 +102,20 @@ def email_subject(monday: date, sunday: date) -> str:
 # ---------------------------------------------------------------------------
 # Email HTML rendering (self-contained, inline styles)
 # ---------------------------------------------------------------------------
-# Design: a skimmable weekly tipsheet with a clean, minimal aesthetic -
-# white background, dark charcoal text, sans-serif throughout. Structure:
-# one featured pick with a short review excerpt, then compact rows carrying
-# only badge + title + meta + one-liner. Full-length reviews stay on the
-# site; the email's job is a 30-second skim.
+# Design: a skimmable weekly tipsheet - warm cream paper palette with
+# clean sans-serif typography. Structure: one featured pick with a short
+# review excerpt, then compact rows carrying only badge + title + meta +
+# one-liner. Full-length reviews stay on the site; the email's job is a
+# 30-second skim.
 
 _SERIF = "-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
 _SANS = "-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-_PAPER = "#ffffff"        # clean white
-_INK = "#2d2d2d"          # dark charcoal
-_MUTED = "#666666"        # medium gray
-_ACCENT = "#2d2d2d"       # same as ink (monochrome)
-_BADGE_SOFT_BG = "#e8e8e8"  # light gray for lower-rated picks
-_HAIRLINE = "#e0e0e0"     # subtle gray
+_PAPER = "#f5f1e6"        # warm cream
+_INK = "#28241c"          # warm near-black
+_MUTED = "#6f675a"        # warm taupe
+_ACCENT = "#3e5a44"       # deep pine
+_BADGE_SOFT_BG = "#ddd5c3"  # warm sand for lower-rated picks
+_HAIRLINE = "#d9d1bd"     # warm hairline
 
 # How much fits in a skim: 1 featured + 9 compact rows, overflow linked out.
 FEATURED_COUNT = 1
