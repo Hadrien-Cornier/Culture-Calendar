@@ -1238,6 +1238,57 @@
   window.cultureCalendar.updateOGMetaForEvent = updateOGMetaForEvent;
   window.cultureCalendar.resetOGMetaToDefault = resetOGMetaToDefault;
 
+  /* task-T8.7: rich-text formatter for review body paragraphs.
+     Takes the plain-text section body from parseReview and returns
+     HTML with inline formatting for scannability:
+       - Person names (First Last) bolded
+       - Work titles (in quotes or after "dir.") italicized
+       - Key critical phrases bolded
+     XSS-safe: escapes HTML first, then injects only <strong>/<em>. */
+  function formatReviewBody(raw) {
+    if (!raw) return "";
+    // Escape HTML metacharacters
+    var safe = raw
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+    // Bold person names: sequences of Title-Case words (2-4 words)
+    // that look like names (not common words, not sentence starts).
+    var COMMON_WORDS = {
+      "The Film":1, "The Story":1, "The Work":1, "The Movie":1,
+      "This Film":1, "This Work":1, "The Book":1, "The Show":1,
+      "New York":1, "Los Angeles":1, "United States":1
+    };
+    safe = safe.replace(
+      /(^|[.!?;:]\s+|\u2014\s*|\u2013\s*)([A-Z][a-z]+(?: [A-Z][a-z]+){1,3})(?=\s*[a-z,.;:!?]|\s*$)/gm,
+      function(m, prefix, name) {
+        if (COMMON_WORDS[name]) return m;
+        // Skip if it looks like a sentence start (short, ends with verb-like word)
+        if (name.split(" ").length < 2) return m;
+        return prefix + "<strong>" + name + "</strong>";
+      }
+    );
+
+    // Italicize quoted titles: "Title" or 'Title'
+    safe = safe.replace(/"([^"]{2,60})"/g, '<em>"$1"</em>');
+    safe = safe.replace(/'([^']{2,40})'/g, "<em>'$1'</em>");
+
+    // Bold key critical phrases
+    var CRITICAL_PHRASES = [
+      "masterpiece", "masterful", "brilliant", "dazzling", "searing",
+      "flat", "derivative", "disjointed", "pedestrian", "unremarkable",
+      "remarkable", "extraordinary", "disappointing", "compelling",
+      "stunning", "mediocre", "exceptional", "powerful", "gripping"
+    ];
+    CRITICAL_PHRASES.forEach(function(term) {
+      var re = new RegExp("\\b" + term + "\\b", "gi");
+      safe = safe.replace(re, function(m) { return "<strong>" + m + "</strong>"; });
+    });
+
+    return safe;
+  }
+
   function parseReview(html) {
     if (!html) return { rating: "", sections: [], flat: "" };
     var doc = new DOMParser().parseFromString("<div>" + html + "</div>", "text/html");
@@ -1285,9 +1336,39 @@
         "\uD83D\uDCA1": "Intellectual Depth"
       };
       if (emoji && EMOJI_TO_LABEL[emoji]) {
-        label = EMOJI_TO_LABEL[emoji];
+        var canonical = EMOJI_TO_LABEL[emoji];
+        // Strip the label text from the body so it doesn't render twice.
+        // Body may start with the creative title, the canonical label,
+        // or both (separated by whitespace/punctuation).
+        if (!label) {
+          // No strong tag: body starts with "emoji Creative Title rest..."
+          // Remove emoji + any leading title-case/all-caps phrase up to
+          // the first lowercase word (which starts the actual review text).
+          body = body.replace(/^[\p{Extended_Pictographic}\p{Emoji}\s]+/u, "");
+          body = body.replace(/^[A-Z][A-Z\s',-]{3,50}(?=[A-Z][a-z])/, "");
+          body = body.replace(/^[A-Z][a-zA-Z\s]{2,30}(?=\s*[A-Z][a-z])/, function(m) {
+            // Only strip if it looks like a title (short, no sentence-ending punctuation)
+            return m.indexOf(".") === -1 && m.length < 40 ? "" : m;
+          });
+          body = body.replace(/^[\s\u2013\u2014\-:,\.]+/, "").trim();
+        }
+        label = canonical;
       }
+      // Skip sections that have a label but no body (orphan headers from
+      // the AI repeating a section title on its own line).
+      if (label && !body) return;
       if (label || body) sections.push({ emoji: emoji, label: label, body: body });
+    });
+    // task-T8.6: deduplicate sections by normalized label. When the AI
+    // returns both a creative title and a standard title for the same
+    // section, normalization maps them to the same label. Keep only the
+    // first occurrence (which has the actual review text).
+    var seenLabels = {};
+    sections = sections.filter(function (s) {
+      if (!s.label) return true;
+      if (seenLabels[s.label]) return false;
+      seenLabels[s.label] = true;
+      return true;
     });
     var flat = sections.map(function (s) { return s.body; }).join("\n\n");
     return { rating: rating, sections: sections, flat: flat };
@@ -2141,7 +2222,7 @@
         }
         var bodyP = document.createElement("p");
         bodyP.className = "event-review-body";
-        bodyP.textContent = sec.body;
+        bodyP.innerHTML = formatReviewBody(sec.body);
         sectionEl.appendChild(bodyP);
         reviewWrap.appendChild(sectionEl);
       });
@@ -2151,7 +2232,7 @@
       if (flat && flat !== ev.one_liner) {
         var p = document.createElement("p");
         p.className = "event-review-body";
-        p.textContent = flat;
+        p.innerHTML = formatReviewBody(flat);
         panel.appendChild(p);
       }
     }
@@ -2294,7 +2375,7 @@
         }
         var bodyP = document.createElement("p");
         bodyP.className = "event-review-body";
-        bodyP.textContent = sec.body;
+        bodyP.innerHTML = formatReviewBody(sec.body);
         sectionEl.appendChild(bodyP);
         reviewWrap.appendChild(sectionEl);
       });
@@ -2304,7 +2385,7 @@
       if (flat && flat !== ev.one_liner) {
         var p = document.createElement("p");
         p.className = "event-review-body";
-        p.textContent = flat;
+        p.innerHTML = formatReviewBody(flat);
         panel.appendChild(p);
       }
     }
