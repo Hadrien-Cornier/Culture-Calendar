@@ -946,6 +946,11 @@
           description: ev.description || "",
           one_liner: ev.one_liner_summary || "",
           review_confidence: (ev.review_confidence || "unknown").toLowerCase(),
+          director: ev.director || "",
+          composers: ev.composers || [],
+          author: ev.author || "",
+          featured_artist: ev.featured_artist || "",
+          company: ev.company || "",
           showings: []
         };
         order.push(key);
@@ -1238,14 +1243,15 @@
   window.cultureCalendar.updateOGMetaForEvent = updateOGMetaForEvent;
   window.cultureCalendar.resetOGMetaToDefault = resetOGMetaToDefault;
 
-  /* task-T8.7: rich-text formatter for review body paragraphs.
-     Takes the plain-text section body from parseReview and returns
-     HTML with inline formatting for scannability:
-       - Person names (First Last) bolded
-       - Work titles (in quotes or after "dir.") italicized
-       - Key critical phrases bolded
+  /* task-T8.7: metadata-guided review formatting (council recommendation).
+     Replaces regex-based arbitrary bolding with deterministic formatting
+     driven by the event's structured metadata:
+       - Bold known creative figures (director, composers, author, venue)
+       - Italicize the event title when mentioned in the review
+       - Bold the first sentence of each section (the key judgment)
+     Every event gets the same treatment - no arbitrary adjective lists.
      XSS-safe: escapes HTML first, then injects only <strong>/<em>. */
-  function formatReviewBody(raw) {
+  function formatReviewBody(raw, ev) {
     if (!raw) return "";
     // Escape HTML metacharacters
     var safe = raw
@@ -1253,38 +1259,50 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
 
-    // Bold person names: sequences of Title-Case words (2-4 words)
-    // that look like names (not common words, not sentence starts).
-    var COMMON_WORDS = {
-      "The Film":1, "The Story":1, "The Work":1, "The Movie":1,
-      "This Film":1, "This Work":1, "The Book":1, "The Show":1,
-      "New York":1, "Los Angeles":1, "United States":1
-    };
-    safe = safe.replace(
-      /(^|[.!?;:]\s+|\u2014\s*|\u2013\s*)([A-Z][a-z]+(?: [A-Z][a-z]+){1,3})(?=\s*[a-z,.;:!?]|\s*$)/gm,
-      function(m, prefix, name) {
-        if (COMMON_WORDS[name]) return m;
-        // Skip if it looks like a sentence start (short, ends with verb-like word)
-        if (name.split(" ").length < 2) return m;
-        return prefix + "<strong>" + name + "</strong>";
+    // Build list of known entities to bold from event metadata
+    var entities = [];
+    if (ev) {
+      if (ev.director) entities.push(ev.director);
+      if (ev.venue) entities.push(ev.venue);
+      if (ev.venue_display_name && ev.venue_display_name !== ev.venue) {
+        entities.push(ev.venue_display_name);
       }
-    );
+      if (ev.author) entities.push(ev.author);
+      if (ev.composers && Array.isArray(ev.composers)) {
+        ev.composers.forEach(function(c) { if (c) entities.push(c); });
+      }
+      if (ev.featured_artist) entities.push(ev.featured_artist);
+      if (ev.company) entities.push(ev.company);
+    }
+    // Bold each known entity (longest first to avoid partial matches)
+    entities.sort(function(a, b) { return b.length - a.length; });
+    entities.forEach(function(name) {
+      if (!name || name.length < 3) return;
+      var escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      var re = new RegExp("\\b" + escaped + "\\b", "g");
+      safe = safe.replace(re, "<strong>" + name + "</strong>");
+    });
+
+    // Italicize the event title when mentioned in the review text
+    if (ev && ev.title) {
+      var titleEscaped = ev.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      var titleRe = new RegExp("\\b" + titleEscaped + "\\b", "g");
+      safe = safe.replace(titleRe, "<em>" + ev.title + "</em>");
+    }
 
     // Italicize quoted titles: "Title" or 'Title'
     safe = safe.replace(/"([^"]{2,60})"/g, '<em>"$1"</em>');
-    safe = safe.replace(/'([^']{2,40})'/g, "<em>'$1'</em>");
 
-    // Bold key critical phrases
-    var CRITICAL_PHRASES = [
-      "masterpiece", "masterful", "brilliant", "dazzling", "searing",
-      "flat", "derivative", "disjointed", "pedestrian", "unremarkable",
-      "remarkable", "extraordinary", "disappointing", "compelling",
-      "stunning", "mediocre", "exceptional", "powerful", "gripping"
-    ];
-    CRITICAL_PHRASES.forEach(function(term) {
-      var re = new RegExp("\\b" + term + "\\b", "gi");
-      safe = safe.replace(re, function(m) { return "<strong>" + m + "</strong>"; });
-    });
+    // Bold the first sentence (the key judgment) of each section.
+    // Split into sentences, bold the first one, rejoin.
+    var sentences = safe.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g);
+    if (sentences && sentences.length > 1) {
+      var first = sentences[0].trim();
+      if (first.length > 10 && first.length < 300) {
+        sentences[0] = "<strong>" + first + "</strong> ";
+        safe = sentences.join("");
+      }
+    }
 
     return safe;
   }
@@ -2222,7 +2240,7 @@
         }
         var bodyP = document.createElement("p");
         bodyP.className = "event-review-body";
-        bodyP.innerHTML = formatReviewBody(sec.body);
+        bodyP.innerHTML = formatReviewBody(sec.body, ev);
         sectionEl.appendChild(bodyP);
         reviewWrap.appendChild(sectionEl);
       });
@@ -2232,7 +2250,7 @@
       if (flat && flat !== ev.one_liner) {
         var p = document.createElement("p");
         p.className = "event-review-body";
-        p.innerHTML = formatReviewBody(flat);
+        p.innerHTML = formatReviewBody(flat, ev);
         panel.appendChild(p);
       }
     }
@@ -2375,7 +2393,7 @@
         }
         var bodyP = document.createElement("p");
         bodyP.className = "event-review-body";
-        bodyP.innerHTML = formatReviewBody(sec.body);
+        bodyP.innerHTML = formatReviewBody(sec.body, ev);
         sectionEl.appendChild(bodyP);
         reviewWrap.appendChild(sectionEl);
       });
@@ -2385,7 +2403,7 @@
       if (flat && flat !== ev.one_liner) {
         var p = document.createElement("p");
         p.className = "event-review-body";
-        p.innerHTML = formatReviewBody(flat);
+        p.innerHTML = formatReviewBody(flat, ev);
         panel.appendChild(p);
       }
     }
