@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Voyage Out - The Blind Owl",
+  "description": "★ Rating: 8/10 Artistic Merit, Hedayat’s prose is spare, compressed, and built for pressure, not comfort. The book’s movement between confession, fever dream, and repetition gives it a claustrophobic rhythm, and its most effective scenes turn ordinary objects…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/voyage-out-the-blind-owl-2026-07-19-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-19",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

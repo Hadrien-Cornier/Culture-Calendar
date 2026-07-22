@@ -1,0 +1,104 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Andrei Tarkovsky (director)
+X-WR-CALNAME:Culture Calendar — Andrei Tarkovsky
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[9/10] SOLARIS
+DTSTART;TZID=America/Chicago:20260731T170000
+DTEND;TZID=America/Chicago:20260731T190000
+DTSTAMP:20260722T184954Z
+UID:andrei-tarkovsky-solaris-2026-07-31-1700@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 9/10\n\nTarkovsky's space station becomes a theater of
+  guilt\, grief\, and spectral return.\n\nDetails: https://www.austinfilm.o
+ rg/screening/solaris-2/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/solaris-2/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] SOLARIS
+DTSTART;TZID=America/Chicago:20260801T181500
+DTEND;TZID=America/Chicago:20260801T201500
+DTSTAMP:20260722T184954Z
+UID:andrei-tarkovsky-solaris-2026-08-01-1815@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 9/10\n\nTarkovsky's space station becomes a theater of
+  guilt\, grief\, and spectral return.\n\nDetails: https://www.austinfilm.o
+ rg/screening/solaris-2/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/solaris-2/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] ANDREI RUBLEV
+DTSTART;TZID=America/Chicago:20260731T202000
+DTEND;TZID=America/Chicago:20260731T222000
+DTSTAMP:20260722T184954Z
+UID:andrei-tarkovsky-andrei-rublev-2026-07-31-2020@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 9/10\n\nTarkovsky's three-hour medieval epic balances 
+ mud\, faith\, and divine light.\n\nDetails: https://www.austinfilm.org/scr
+ eening/andrei-rublev/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/andrei-rublev/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] ANDREI RUBLEV
+DTSTART;TZID=America/Chicago:20260802T133000
+DTEND;TZID=America/Chicago:20260802T153000
+DTSTAMP:20260722T184954Z
+UID:andrei-tarkovsky-andrei-rublev-2026-08-02-1330@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 9/10\n\nTarkovsky's three-hour medieval epic balances 
+ mud\, faith\, and divine light.\n\nDetails: https://www.austinfilm.org/scr
+ eening/andrei-rublev/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/andrei-rublev/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] MIRROR
+DTSTART;TZID=America/Chicago:20260801T153000
+DTEND;TZID=America/Chicago:20260801T173000
+DTSTAMP:20260722T184954Z
+UID:andrei-tarkovsky-mirror-2026-08-01-1530@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 9/10\n\nTarkovsky's shattered timeline of war\, memory
+ \, and fractured love becomes a rhythmic visual poem.\n\nDetails: https://
+ www.austinfilm.org/screening/mirror/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mirror/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] MIRROR
+DTSTART;TZID=America/Chicago:20260802T183000
+DTEND;TZID=America/Chicago:20260802T203000
+DTSTAMP:20260722T184954Z
+UID:andrei-tarkovsky-mirror-2026-08-02-1830@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 9/10\n\nTarkovsky's shattered timeline of war\, memory
+ \, and fractured love becomes a rhythmic visual poem.\n\nDetails: https://
+ www.austinfilm.org/screening/mirror/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mirror/
+END:VEVENT
+END:VCALENDAR

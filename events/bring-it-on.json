@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Bring It On",
+  "description": "★ Rating: [6/10] 🎭 Artistic Merit Competent, fast-moving, and built to land its jokes and dance numbers with clean timing. The cheer routines, team rivalries, and rehearsal scenes give the film a clear visual rhythm, and the cast sells the material with enoug…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/bring-it-on.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-08",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

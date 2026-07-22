@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Brahms and the Nordic Masterpiece",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – Geneva Lewis delivers a technically secure reading of Brahms’ Violin Concerto, though the account lacks the searing intensity required to elevate the work beyond competence. The Des Moines Symphony’s accompaniment during Sibe…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/brahms-and-the-nordic-masterpiece-2026-09-112026-09-13-20001400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

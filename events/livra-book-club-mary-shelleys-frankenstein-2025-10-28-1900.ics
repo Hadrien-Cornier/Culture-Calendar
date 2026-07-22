@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Livra Book Club: Mary Shelley's Frankenstei
+ n
+X-WR-CALNAME:Culture Calendar — Livra Book Club: Mary Shelley's Frankens
+ tein
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[0/10] Livra Book Club: Mary Shelley's Frankenstein
+DTSTART;TZID=America/Chicago:20251028T190000
+DTEND;TZID=America/Chicago:20251028T210000
+DTSTAMP:20260722T184953Z
+UID:livra-book-club-mary-shelleys-frankenstein---2025-10-28-1900-2025-10-2
+ 8-1900@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 0/10\n\nDetails: https://www.livrabooks.com/events/liv
+ ra-book-club-mary-shelleys-frankenstein
+LOCATION:LivraBooks
+URL:https://www.livrabooks.com/events/livra-book-club-mary-shelleys-franke
+ nstein
+END:VEVENT
+END:VCALENDAR

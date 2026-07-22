@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "KNIFE+HEART",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Yann Gonzalez’s Knife+Heart delivers a visually striking, stylishly controlled giallo thriller that balances neon-drenched exploitation aesthetics with genuine emotional care. The film’s opening sequence—intercutting the editin…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/knife-heart.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-07",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

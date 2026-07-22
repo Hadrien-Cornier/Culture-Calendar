@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Strangers on a Train",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit, Hitchcock’s control is exacting. The train compartments, tennis court glare, carnival machinery, and shadowed interiors are all staged with a hard visual logic that keeps the film taut even when the plot turns grotesque. The p…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/strangers-on-a-train.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-29",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

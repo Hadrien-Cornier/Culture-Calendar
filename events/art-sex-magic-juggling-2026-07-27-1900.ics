@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Art Sex Magic - Juggling
+X-WR-CALNAME:Culture Calendar — Art Sex Magic - Juggling
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[1/10] Art Sex Magic - Juggling
+DTSTART;TZID=America/Chicago:20260727T190000
+DTEND;TZID=America/Chicago:20260727T210000
+DTSTAMP:20260722T184953Z
+UID:art-sex-magic---juggling---2026-07-27-1900-2026-07-27-1900@culturecale
+ ndar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 1/10\n\nSinclair's "Juggling" offers no evidence of cr
+ aft\, originality\, or depth.\n\nDetails: https://www.alienatedmajestybook
+ s.com/book-clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+END:VCALENDAR

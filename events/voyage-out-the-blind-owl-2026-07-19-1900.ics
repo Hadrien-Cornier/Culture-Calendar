@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Voyage Out - The Blind Owl
+X-WR-CALNAME:Culture Calendar — Voyage Out - The Blind Owl
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] Voyage Out - The Blind Owl
+DTSTART;TZID=America/Chicago:20260719T190000
+DTEND;TZID=America/Chicago:20260719T210000
+DTSTAMP:20260722T184953Z
+UID:voyage-out---the-blind-owl---2026-07-19-1900-2026-07-19-1900@cultureca
+ lendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nHedayat's fever dream of guilt\, desire\, and 
+ a circling pen case.\n\nDetails: https://www.alienatedmajestybooks.com/boo
+ k-clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "SOLARIS",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Tarkovsky executes a 166-minute ascent into inner space with the precision of a surgeon and the patience of a monk. The film’s opening sequence—Kelvin (Donatas Banionis) walking through his childhood dacha, fingers brushing dus…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/solaris.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-31",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

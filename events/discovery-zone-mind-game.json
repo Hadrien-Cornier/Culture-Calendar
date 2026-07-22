@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Discovery Zone: MIND GAME",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Mind Game delivers a chaotic, high-entropy aesthetic that prioritizes visual freneticism over narrative cohesion. Director Masaaki Yuasa (though the prompt lists the director as unknown, sources confirm he directed the 2004 fil…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/discovery-zone-mind-game.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-13",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

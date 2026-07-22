@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Barbara Strozzi (composer)
+X-WR-CALNAME:Culture Calendar — Barbara Strozzi
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Eurotour: Early Baroque Pearls
+DTSTART;TZID=America/Chicago:20270417T193000
+DTEND;TZID=America/Chicago:20270417T213000
+DTSTAMP:20260722T184954Z
+UID:barbara-strozzi-eurotour-early-baroque-pearls---2027-04-17-1930-2027-0
+ 4-17-1930@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 7/10\n\nMonteverdi\, Strozzi\, Charpentier\,\n\nDetail
+ s: https://www.early-music.org
+LOCATION:EarlyMusic
+URL:https://www.early-music.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Eurotour: Early Baroque Pearls
+DTSTART;TZID=America/Chicago:20270418T150000
+DTEND;TZID=America/Chicago:20270418T170000
+DTSTAMP:20260722T184954Z
+UID:barbara-strozzi-eurotour-early-baroque-pearls---2027-04-18-1500-2027-0
+ 4-18-1500@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 7/10\n\nMonteverdi\, Strozzi\, Charpentier\,\n\nDetail
+ s: https://www.early-music.org
+LOCATION:EarlyMusic
+URL:https://www.early-music.org
+END:VEVENT
+END:VCALENDAR

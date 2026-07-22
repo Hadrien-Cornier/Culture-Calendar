@@ -1,0 +1,96 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Johann Sebastian Bach (compo
+ ser)
+X-WR-CALNAME:Culture Calendar — Johann Sebastian Bach
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Bach & Beer
+DTSTART;TZID=America/Chicago:20260911T193000
+DTEND;TZID=America/Chicago:20260911T213000
+DTSTAMP:20260722T184954Z
+UID:johann-sebastian-bach-bach-&-beer---2026-09-11-1930-2026-09-11-1930@cu
+ lturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 6/10\n\nBach’s flute sonatas on harpsichord\, served
+  with clinking beer glasses.\n\nDetails: https://www.artsonalexander.org
+LOCATION:ArtsOnAlexander
+URL:https://www.artsonalexander.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] Dixit Dominus
+DTSTART;TZID=America/Chicago:20270205T193000
+DTEND;TZID=America/Chicago:20270205T213000
+DTSTAMP:20260722T184954Z
+UID:johann-sebastian-bach-dixit-dominus---2027-02-052027-02-06-19301930-20
+ 27-02-05-1930@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 6/10\n\nCompetent Baroque program lacks the dramatic f
+ ire Handel’s *Dixit Dominus* demands.\n\nDetails: https://www.artsonalex
+ ander.org
+LOCATION:ArtsOnAlexander
+URL:https://www.artsonalexander.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] Dixit Dominus
+DTSTART;TZID=America/Chicago:20270206T193000
+DTEND;TZID=America/Chicago:20270206T213000
+DTSTAMP:20260722T184954Z
+UID:johann-sebastian-bach-dixit-dominus---2027-02-052027-02-06-19301930-20
+ 27-02-06-1930@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 6/10\n\nCompetent Baroque program lacks the dramatic f
+ ire Handel’s *Dixit Dominus* demands.\n\nDetails: https://www.artsonalex
+ ander.org
+LOCATION:ArtsOnAlexander
+URL:https://www.artsonalexander.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] Matthew Passion
+DTSTART;TZID=America/Chicago:20270319T193000
+DTEND;TZID=America/Chicago:20270319T213000
+DTSTAMP:20260722T184954Z
+UID:johann-sebastian-bach-matthew-passion---2027-03-192027-03-20-19301930-
+ 2027-03-19-1930@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 5/10\n\nBach’s St. Matthew Passion\, a Baroque sacre
+ d drama\, performed by chorus and orchestra.\n\nDetails: https://www.artso
+ nalexander.org
+LOCATION:ArtsOnAlexander
+URL:https://www.artsonalexander.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] Matthew Passion
+DTSTART;TZID=America/Chicago:20270320T193000
+DTEND;TZID=America/Chicago:20270320T213000
+DTSTAMP:20260722T184954Z
+UID:johann-sebastian-bach-matthew-passion---2027-03-192027-03-20-19301930-
+ 2027-03-20-1930@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 5/10\n\nBach’s St. Matthew Passion\, a Baroque sacre
+ d drama\, performed by chorus and orchestra.\n\nDetails: https://www.artso
+ nalexander.org
+LOCATION:ArtsOnAlexander
+URL:https://www.artsonalexander.org
+END:VEVENT
+END:VCALENDAR

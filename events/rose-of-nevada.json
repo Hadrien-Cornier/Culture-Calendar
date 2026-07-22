@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ROSE OF NEVADA",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Mark Jenkin executes a rigid technical regimen that defines the film’s power: he shot on a 16mm Bolex camera and constructed the entire soundtrack in post-production, resulting in a discordant, dream-like texture where dialogue…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/rose-of-nevada.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-24",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

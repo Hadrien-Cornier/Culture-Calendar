@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "PHANTOM OF THE PARADISE",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit – Brian De Palma delivers a brash, fast-paced rock opera that functions as a live-action comic book, capturing the garish glitter of the 1970s music scene with intense precision . The technical mastery lies in how the film merg…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/phantom-of-the-paradise.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-03",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

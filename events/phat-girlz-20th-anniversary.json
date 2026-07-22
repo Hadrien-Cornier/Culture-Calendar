@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "PHAT GIRLZ (20th Anniversary)",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit – The film is sloppily made and fails as a comedy, possessing \"bad intentions\" that result in \"flab, dead weight, and empty calories\" rather than coherent craft . Director Nnegest Likké struggles with execution, creating a narr…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/phat-girlz-20th-anniversary.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-31",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ORLANDO",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Sally Potter’s Orlando (1992) executes its fantasy with sly grace and quiet elegance, relying on sumptuous photography and a dreamlike visual palette rather than plot mechanics . Tilda Swinton delivers a magnetic performance, m…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/orlando.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-29",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

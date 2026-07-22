@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Batman in Concert (1989)
+X-WR-CALNAME:Culture Calendar — Batman in Concert (1989)
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[0/10] Batman in Concert (1989)
+DTSTART;TZID=America/Chicago:20261016T193000
+DTEND;TZID=America/Chicago:20261016T213000
+DTSTAMP:20260722T184953Z
+UID:batman-in-concert-(1989)---2026-10-162026-10-17-19301930-2026-10-16-19
+ 30@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 0/10\n\nGothic pipe organ and boys' choir drive Elfman
+ 's dark superhero score.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[0/10] Batman in Concert (1989)
+DTSTART;TZID=America/Chicago:20261017T193000
+DTEND;TZID=America/Chicago:20261017T213000
+DTSTAMP:20260722T184953Z
+UID:batman-in-concert-(1989)---2026-10-162026-10-17-19301930-2026-10-17-19
+ 30@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 0/10\n\nGothic pipe organ and boys' choir drive Elfman
+ 's dark superhero score.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR

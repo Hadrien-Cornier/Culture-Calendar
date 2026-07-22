@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of METAL SKIN
+X-WR-CALNAME:Culture Calendar — METAL SKIN
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] METAL SKIN
+DTSTART;TZID=America/Chicago:20260724T214500
+DTEND;TZID=America/Chicago:20260724T234500
+DTSTAMP:20260722T184953Z
+UID:metal-skin-2026-07-24-2145@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nGeoffrey Wright's aggressive car-crash melodra
+ ma stalls in its own incoherent roar.\n\nDetails: https://www.austinfilm.o
+ rg/screening/metal-skin/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/metal-skin/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] METAL SKIN
+DTSTART;TZID=America/Chicago:20260725T211500
+DTEND;TZID=America/Chicago:20260725T231500
+DTSTAMP:20260722T184953Z
+UID:metal-skin-2026-07-25-2115@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nGeoffrey Wright's aggressive car-crash melodra
+ ma stalls in its own incoherent roar.\n\nDetails: https://www.austinfilm.o
+ rg/screening/metal-skin/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/metal-skin/
+END:VEVENT
+END:VCALENDAR

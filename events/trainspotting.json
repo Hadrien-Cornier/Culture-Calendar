@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Trainspotting",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Danny Boyle’s Trainspotting is built with speed, precision, and nasty comic control. The editing snaps between junky reverie, street-level grime, and black comedy without losing momentum. Ewan McGregor gives the film its cente…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/trainspotting.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-23",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

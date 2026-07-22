@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Ferris Bueller's Day Off",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit John Hughes makes the movie move with clean timing and sharp visual control. The pace is brisk without feeling rushed, and the comic set pieces are built with real precision, from Ferris’ staged illnesses to the parade sequence…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/ferris-buellers-day-off.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-14",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

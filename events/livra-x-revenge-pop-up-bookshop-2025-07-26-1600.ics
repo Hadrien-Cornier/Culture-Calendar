@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of livra x revenge pop- up bookshop
+X-WR-CALNAME:Culture Calendar — livra x revenge pop- up bookshop
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:livra x revenge pop- up bookshop
+DTSTART;TZID=America/Chicago:20250726T160000
+DTEND;TZID=America/Chicago:20250726T180000
+DTSTAMP:20260722T184953Z
+UID:livra-x-revenge-pop--up-bookshop---2025-07-26-1600-2025-07-26-1600@cul
+ turecalendar.local
+CATEGORIES:Event
+DESCRIPTION:Cocktails and\n\nDetails: https://www.livrabooks.com/events/li
+ vra-x-revenge-pop-up-bookshop
+LOCATION:LivraBooks
+URL:https://www.livrabooks.com/events/livra-x-revenge-pop-up-bookshop
+END:VEVENT
+END:VCALENDAR

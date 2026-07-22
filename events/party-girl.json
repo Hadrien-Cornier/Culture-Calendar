@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "PARTY GIRL",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit The film functions as a competent, glossy vignette of 1990s downtown New York, anchored by Parker Posey’s energetically selfish performance as Mary, a 23-year-old who buys Jean-Paul Gaultier jackets instead of paying rent. Dire…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/party-girl.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-22",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

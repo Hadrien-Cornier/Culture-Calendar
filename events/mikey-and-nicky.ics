@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of MIKEY AND NICKY
+X-WR-CALNAME:Culture Calendar — MIKEY AND NICKY
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] MIKEY AND NICKY
+DTSTART;TZID=America/Chicago:20260724T190000
+DTEND;TZID=America/Chicago:20260724T210000
+DTSTAMP:20260722T184953Z
+UID:mikey-and-nicky-2026-07-24-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nElaine May’s sweaty\, unvarnished portrait o
+ f toxic male friendship and desperate co-dependency.\n\nDetails: https://w
+ ww.austinfilm.org/screening/mikey-and-nicky/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mikey-and-nicky/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MIKEY AND NICKY
+DTSTART;TZID=America/Chicago:20260725T161500
+DTEND;TZID=America/Chicago:20260725T181500
+DTSTAMP:20260722T184953Z
+UID:mikey-and-nicky-2026-07-25-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nElaine May’s sweaty\, unvarnished portrait o
+ f toxic male friendship and desperate co-dependency.\n\nDetails: https://w
+ ww.austinfilm.org/screening/mikey-and-nicky/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mikey-and-nicky/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MIKEY AND NICKY
+DTSTART;TZID=America/Chicago:20260726T130000
+DTEND;TZID=America/Chicago:20260726T150000
+DTSTAMP:20260722T184953Z
+UID:mikey-and-nicky-2026-07-26-1300@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nElaine May’s sweaty\, unvarnished portrait o
+ f toxic male friendship and desperate co-dependency.\n\nDetails: https://w
+ ww.austinfilm.org/screening/mikey-and-nicky/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mikey-and-nicky/
+END:VEVENT
+END:VCALENDAR

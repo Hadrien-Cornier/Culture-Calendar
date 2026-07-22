@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Livra Maximalist Bookclub - 2666
+X-WR-CALNAME:Culture Calendar — Livra Maximalist Bookclub - 2666
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:Livra Maximalist Bookclub - 2666
+DTSTART;TZID=America/Chicago:20250624T190000
+DTEND;TZID=America/Chicago:20250624T210000
+DTSTAMP:20260722T184953Z
+UID:livra-maximalist-bookclub---2666---2025-06-24-1900-2025-06-24-1900@cul
+ turecalendar.local
+CATEGORIES:Event
+DESCRIPTION:A maximalist deep dive into Bolaño’s sprawling\, dark liter
+ ary labyrinth.\n\nDetails: https://www.livrabooks.com/events/event-three-j
+ yy6x
+LOCATION:LivraBooks
+URL:https://www.livrabooks.com/events/event-three-jyy6x
+END:VEVENT
+END:VCALENDAR

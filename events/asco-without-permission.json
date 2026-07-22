@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ASCO: WITHOUT PERMISSION",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Travis Gutiérrez Senger constructs a generously researched and superbly edited documentary that avoids the drag of standard archival biographies . The film’s technical mastery lies in its pacing; the editing stitches decades of…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/asco-without-permission.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-22",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

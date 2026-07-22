@@ -1,0 +1,104 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of ROSE OF NEVADA
+X-WR-CALNAME:Culture Calendar — ROSE OF NEVADA
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] ROSE OF NEVADA
+DTSTART;TZID=America/Chicago:20260724T181500
+DTEND;TZID=America/Chicago:20260724T201500
+DTSTAMP:20260722T184953Z
+UID:rose-of-nevada-2026-07-24-1815@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMark Jenkin’s 16mm ghost ship sinks into a g
+ litchy\, industrial fever dream.\n\nDetails: https://www.austinfilm.org/sc
+ reening/rose-of-nevada/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/rose-of-nevada/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ROSE OF NEVADA
+DTSTART;TZID=America/Chicago:20260725T171500
+DTEND;TZID=America/Chicago:20260725T191500
+DTSTAMP:20260722T184953Z
+UID:rose-of-nevada-2026-07-25-1715@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMark Jenkin’s 16mm ghost ship sinks into a g
+ litchy\, industrial fever dream.\n\nDetails: https://www.austinfilm.org/sc
+ reening/rose-of-nevada/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/rose-of-nevada/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ROSE OF NEVADA
+DTSTART;TZID=America/Chicago:20260727T163000
+DTEND;TZID=America/Chicago:20260727T183000
+DTSTAMP:20260722T184953Z
+UID:rose-of-nevada-2026-07-27-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMark Jenkin’s 16mm ghost ship sinks into a g
+ litchy\, industrial fever dream.\n\nDetails: https://www.austinfilm.org/sc
+ reening/rose-of-nevada/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/rose-of-nevada/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ROSE OF NEVADA
+DTSTART;TZID=America/Chicago:20260728T163000
+DTEND;TZID=America/Chicago:20260728T183000
+DTSTAMP:20260722T184953Z
+UID:rose-of-nevada-2026-07-28-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMark Jenkin’s 16mm ghost ship sinks into a g
+ litchy\, industrial fever dream.\n\nDetails: https://www.austinfilm.org/sc
+ reening/rose-of-nevada/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/rose-of-nevada/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ROSE OF NEVADA
+DTSTART;TZID=America/Chicago:20260729T161500
+DTEND;TZID=America/Chicago:20260729T181500
+DTSTAMP:20260722T184953Z
+UID:rose-of-nevada-2026-07-29-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMark Jenkin’s 16mm ghost ship sinks into a g
+ litchy\, industrial fever dream.\n\nDetails: https://www.austinfilm.org/sc
+ reening/rose-of-nevada/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/rose-of-nevada/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ROSE OF NEVADA
+DTSTART;TZID=America/Chicago:20260730T170000
+DTEND;TZID=America/Chicago:20260730T190000
+DTSTAMP:20260722T184953Z
+UID:rose-of-nevada-2026-07-30-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMark Jenkin’s 16mm ghost ship sinks into a g
+ litchy\, industrial fever dream.\n\nDetails: https://www.austinfilm.org/sc
+ reening/rose-of-nevada/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/rose-of-nevada/
+END:VEVENT
+END:VCALENDAR

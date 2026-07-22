@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "American Short Fiction Presents LA CAUSA",
+  "description": "★ Rating: 4/10 Thumbs up for the title, but this is not a movie you can review because it does not exist in the public record as described. The search results confirm a 2020 documentary titled La Causa about a Venezuelan prison run by inmates, but it is direc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/american-short-fiction-presents-la-causa.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-26",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

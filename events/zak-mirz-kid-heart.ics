@@ -1,0 +1,50 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Zak Mirz: KID@ HEART
+X-WR-CALNAME:Culture Calendar — Zak Mirz: KID@ HEART
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[0/10] Zak Mirz: KID@ HEART
+DTSTART;TZID=America/Chicago:20261004T140000
+DTEND;TZID=America/Chicago:20261004T160000
+DTSTAMP:20260722T184953Z
+UID:zak-mirz-kid@-heart-2026-10-04-1400@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 0/10\n\nA nonexistent film earns a zero-star review at
+  the Paramount.\n\nDetails: https://tickets.austintheatre.org/14061/14062
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/14061/14062
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[0/10] Zak Mirz: KID@ HEART
+DTSTART;TZID=America/Chicago:20261004T170000
+DTEND;TZID=America/Chicago:20261004T190000
+DTSTAMP:20260722T184953Z
+UID:zak-mirz-kid@-heart-2026-10-04-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 0/10\n\nA nonexistent film earns a zero-star review at
+  the Paramount.\n\nDetails: https://tickets.austintheatre.org/14061/14063
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/14061/14063
+END:VEVENT
+END:VCALENDAR

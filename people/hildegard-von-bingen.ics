@@ -1,0 +1,53 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Hildegard von Bingen (compos
+ er)
+X-WR-CALNAME:Culture Calendar — Hildegard von Bingen
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[0/10] Eurotour: A Medieval Odyssey\, c. 1100-1450
+DTSTART;TZID=America/Chicago:20260926T193000
+DTEND;TZID=America/Chicago:20260926T213000
+DTSTAMP:20260722T184954Z
+UID:hildegard-von-bingen-eurotour-a-medieval-odyssey-c.-1100-1450---2026-0
+ 9-26-1930-2026-09-26-1930@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 0/10\n\nHildegard's chants to Machaut's polyphony with
+  raucous Italian dances.\n\nDetails: https://www.early-music.org
+LOCATION:EarlyMusic
+URL:https://www.early-music.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[0/10] Eurotour: A Medieval Odyssey\, c. 1100-1450
+DTSTART;TZID=America/Chicago:20260927T150000
+DTEND;TZID=America/Chicago:20260927T170000
+DTSTAMP:20260722T184954Z
+UID:hildegard-von-bingen-eurotour-a-medieval-odyssey-c.-1100-1450---2026-0
+ 9-27-1500-2026-09-27-1500@culturecalendar.local
+CATEGORIES:Concert
+DESCRIPTION:Rating: 0/10\n\nHildegard's chants to Machaut's polyphony with
+  raucous Italian dances.\n\nDetails: https://www.early-music.org
+LOCATION:EarlyMusic
+URL:https://www.early-music.org
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Public Reception: Where Memory Becomes Land",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities: The exhibition relies on a crowded, mosaic-like arrangement where nine artists compress lived migration experiences into diverse materials, creating a busy but earnest visual texture rather than a unified aesthetic statement…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/public-reception-where-memory-becomes-land-2026-07-26-1300.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-26",
+  "location": {
+    "@type": "Place",
+    "name": "Central Library Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

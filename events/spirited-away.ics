@@ -1,0 +1,156 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of SPIRITED AWAY
+X-WR-CALNAME:Culture Calendar — SPIRITED AWAY
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260724T161500
+DTEND;TZID=America/Chicago:20260724T181500
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-24-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260724T210000
+DTEND;TZID=America/Chicago:20260724T230000
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-24-2100@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260725T143000
+DTEND;TZID=America/Chicago:20260725T163000
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-25-1430@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260725T200000
+DTEND;TZID=America/Chicago:20260725T220000
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-25-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260726T154500
+DTEND;TZID=America/Chicago:20260726T174500
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-26-1545@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260727T190000
+DTEND;TZID=America/Chicago:20260727T210000
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-27-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260728T170000
+DTEND;TZID=America/Chicago:20260728T190000
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-28-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260729T153000
+DTEND;TZID=America/Chicago:20260729T173000
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-29-1530@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260730T161500
+DTEND;TZID=America/Chicago:20260730T181500
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-30-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[10/10] SPIRITED AWAY
+DTSTART;TZID=America/Chicago:20260730T193000
+DTEND;TZID=America/Chicago:20260730T213000
+DTSTAMP:20260722T184953Z
+UID:spirited-away-2026-07-30-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 10/10\n\nMiyazaki’s hand-drawn bathhouse world moves
+  with the weight of a mop dragged across a floor.\n\nDetails: https://www.
+ austinfilm.org/screening/spirited-away/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/spirited-away/
+END:VEVENT
+END:VCALENDAR

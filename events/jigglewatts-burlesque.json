@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Jigglewatts Burlesque",
+  "description": "I could not find reliable, film-specific reviews or production details for Jigglewatts Burlesque, so I can only judge it in broad terms, from the title and the burlesque tradition it likely draws on. That means I cannot speak to scene-by-scene choices with co…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jigglewatts-burlesque.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-25",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

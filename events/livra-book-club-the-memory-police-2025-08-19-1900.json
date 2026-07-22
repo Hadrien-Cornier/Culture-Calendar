@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Livra Book Club: The Memory Police",
+  "description": "I cannot give a serious review of this book from the evidence provided. The entry lists no title, no author, and no text to evaluate, so there are no scenes, passages, or formal choices I can responsibly cite. ★ Rating: 0/10 🎭 Artistic Merit, impossible to as…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/livra-book-club-the-memory-police-2025-08-19-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-08-19",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

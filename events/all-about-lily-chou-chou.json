@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ALL ABOUT LILY CHOU-CHOU",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Shunji Iwai’s craft is restless and intentionally fractured, using jump cuts and disjunctive imagery to mirror the emotional volatility of alienated youth . The camera shakes when entering characters’ perspectives, visually enc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/all-about-lily-chou-chou.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-22",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

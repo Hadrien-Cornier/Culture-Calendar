@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of With Love and Gratitude
+X-WR-CALNAME:Culture Calendar — With Love and Gratitude
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[2/10] With Love and Gratitude
+DTSTART;TZID=America/Chicago:20270611T200000
+DTEND;TZID=America/Chicago:20270611T220000
+DTSTAMP:20260722T184953Z
+UID:with-love-and-gratitude---2027-06-112027-06-12-20002000-2027-06-11-200
+ 0@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 2/10\n\nUnverifiable concert of Puts\, Mozart\, Rachma
+ ninoff for two pianos.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[2/10] With Love and Gratitude
+DTSTART;TZID=America/Chicago:20270612T200000
+DTEND;TZID=America/Chicago:20270612T220000
+DTSTAMP:20260722T184953Z
+UID:with-love-and-gratitude---2027-06-112027-06-12-20002000-2027-06-12-200
+ 0@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 2/10\n\nUnverifiable concert of Puts\, Mozart\, Rachma
+ ninoff for two pianos.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR

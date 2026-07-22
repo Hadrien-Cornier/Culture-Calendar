@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Coco",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Coco is built with discipline. The color design does much of the heavy lifting, the orange marigold bridges, the skeletal crowds, the glow of the Land of the Dead, and the film uses that visual world with real control. The song…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/coco.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-16",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

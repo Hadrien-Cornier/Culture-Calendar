@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Livra Non-Fiction Book Club: Debt: the Firs
+ t 5000 Years by David Graeber
+X-WR-CALNAME:Culture Calendar — Livra Non-Fiction Book Club: Debt: the F
+ irst 5000 Years by David Graeber
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[4/10] Livra Non-Fiction Book Club: Debt: the First 5000 Years by 
+ David Graeber
+DTSTART;TZID=America/Chicago:20250807T190000
+DTEND;TZID=America/Chicago:20250807T210000
+DTSTAMP:20260722T184953Z
+UID:livra-non-fiction-book-club-debt-the-first-5000-years-by-david-graeber
+ ---2025-08-07-1900-2025-08-07-1900@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 4/10\n\nDetails: https://www.livrabooks.com/events/liv
+ ra-non-fiction-book-club-debt-the-first-5000-years-by-david-graeber
+LOCATION:LivraBooks
+URL:https://www.livrabooks.com/events/livra-non-fiction-book-club-debt-the
+ -first-5000-years-by-david-graeber
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of The New Yorker Weekly Short Story Club (Fre
+ e Copies\, First Hour for Reading) - Week 2
+X-WR-CALNAME:Culture Calendar — The New Yorker Weekly Short Story Club (
+ Free Copies\, First Hour for Reading) - Week 2
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] The New Yorker Weekly Short Story Club (Free Copies\, First
+  Hour for Reading) - Week 2
+DTSTART;TZID=America/Chicago:20260804T190000
+DTEND;TZID=America/Chicago:20260804T210000
+DTSTAMP:20260722T184953Z
+UID:the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-rea
+ ding)---week-2---2026-08-04-700-pm-2026-08-04-700PM@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nCalling all literary fiction lovers of the gre
+ ater Austin Area! Join our weekly \n\nDetails: https://www.meetup.com/atxs
+ tories/
+LOCATION:NewYorkerMeetup
+URL:https://www.meetup.com/atxstories/
+END:VEVENT
+END:VCALENDAR

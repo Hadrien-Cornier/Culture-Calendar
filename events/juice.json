@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Juice",
+  "description": "Critical Review: Juice (1992) ★ Rating: 7.5/10 Ernest Dickerson's directorial debut Juice stands as a intense and unflinching examination of young Black masculinity in early 1990s Harlem, emerging during the golden age of hood cinema alongside Boyz n the Hood…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/juice.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-30",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

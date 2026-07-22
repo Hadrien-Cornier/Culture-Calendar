@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Daphnis & Gloria",
+  "description": "★ Rating: 6/10 Note on Sources: The search results contain no review of the specific concert “Daphnis & Gloria” by the Masterworks series featuring Mazzoli’s The Shield of the Heart is the Heart, Poulenc’s Gloria with Chorus Austin, and Ravel’s Daphnis et Chl…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/daphnis-gloria-2027-03-052027-03-06-20002000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-03-05",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

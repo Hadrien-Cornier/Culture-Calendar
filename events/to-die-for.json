@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TO DIE FOR",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit – Gus Van Sant executes a scalpel-sharp satire with electric, colorful production value that avoids the bloated mess of contemporaries like Natural Born Killers . The film’s mock-tabloid structure, jumping back and forth in tim…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/to-die-for.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-23",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

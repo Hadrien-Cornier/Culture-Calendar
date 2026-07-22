@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "livra x strangelove coffee and wine Pop-up Bookshop",
+  "description": "livra x strangelove coffee and wine Pop-up Bookshop Sat. July 19th 10am to 4pm 2614 E. Cesar Chavez visit us at the wonderful Strangelove Coffee and Wine! We will be showcasing a new selection of books just for yall!",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/livra-x-strangelove-coffee-and-wine-pop-up-bookshop-2025-07-19-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-07-19",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

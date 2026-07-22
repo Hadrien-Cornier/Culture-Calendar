@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Closing Reception: you should eat a burger",
+  "description": "★ Rating: 2/10 🎭 Formal Qualities – The exhibition is misidentified in your prompt as an ArtAustin event, but it is actually a solo show by Erin Carle at Unchained.Art Contemporary Gallery, running through July 25, 2026 . The works are described as \"fun paint…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/closing-reception-you-should-eat-a-burger-2026-07-24-1700.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-24",
+  "location": {
+    "@type": "Place",
+    "name": "Unchained.Art Contemporary Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

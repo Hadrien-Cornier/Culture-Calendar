@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MAGIC MIKE XXL",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit The film executes its core premise with surprising aesthetic playfulness, transforming a road movie about male strippers into a study of commodified desire that feels structurally unusual for the genre . Gregory Jacobs directs…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/magic-mike-xxl.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-16",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "balletAustin": [
+    {
+      "title": "A MIDSUMMER NIGHT'S DREAM",
+      "program": "Magic and mischief take center stage in Stephen Mills' enchanting reimagining of Shakespeare's riotous comedy. Confused lovers, mischievous fairies, and wayward spells collide beneath a moonlit forest canopy in this hilarious tale of romantic mayhem, set to Felix Mendelssohn's richly expressive score.",
+      "dates": [
+        "2026-09-25",
+        "2026-09-26",
+        "2026-09-27"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2026/27 Season",
+      "type": "dance"
+    },
+    {
+      "title": "THE NUTCRACKER",
+      "program": "The 64th annual production of Austin's treasured holiday tradition is a dazzling spectacle filled with sparkling snowflakes, magic, and wonder. Follow Clara on her enchanting journey from a festive holiday party to the shimmering Land of Sweets, where she meets the dazzling Sugar Plum Fairy.",
+      "dates": [
+        "2026-12-04",
+        "2026-12-05",
+        "2026-12-05",
+        "2026-12-06",
+        "2026-12-11",
+        "2026-12-12",
+        "2026-12-12",
+        "2026-12-13",
+        "2026-12-17",
+        "2026-12-18",
+        "2026-12-19",
+        "2026-12-19",
+        "2026-12-20",
+        "2026-12-22",
+        "2026-12-22",
+        "2026-12-23"
+      ],
+      "times": [
+        "7:30 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "2:00 PM",
+        "7:30 PM",
+        "2:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2026/27 Season",
+      "type": "dance"
+    },
+    {
+      "title": "DIRECTOR'S CHOICE / RHYTHM OF THE HEART",
+      "program": "Director's Choice / Rhythm of the Heart brings together two striking contemporary works that explore rhythm, melody, and the deeper patterns that shape who we are, creating a contemporary ballet experience that celebrates connection, inheritance, and the invisible rhythms that unite us.",
+      "dates": [
+        "2027-02-12",
+        "2027-02-13",
+        "2027-02-14"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2026/27 Season",
+      "type": "dance"
+    },
+    {
+      "title": "ROSES FOR THE LAST DANCE",
+      "program": "Roses for the Last Dance explores love, connection, and the bonds that shape us. From intimate reflection to collective strength and youthful passion, this trio of dances traces the many forms human connection can take, featuring Stephen Mills' One / the body's grace.",
+      "dates": [
+        "2027-03-19",
+        "2027-03-20",
+        "2027-03-21"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2026/27 Season",
+      "type": "dance"
+    },
+    {
+      "title": "GISELLE",
+      "program": "One of the most beloved classical ballets ever created, Giselle is a tale of young love, betrayal, and redemption that has captivated audiences for nearly two centuries. Set in the idyllic Rhineland, this Romantic Era masterpiece tells the story of an innocent village girl whose heart is won and broken.",
+      "dates": [
+        "2027-05-07",
+        "2027-05-08",
+        "2027-05-09"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "The Long Center",
+      "series": "Ballet Austin 2026/27 Season",
+      "type": "dance"
+    }
+  ],
+  "lastUpdated": "2026-07-18",
+  "season": "2026-27"
+}

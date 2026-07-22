@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Space Jam",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Space Jam is a slick corporate hybrid that knows exactly how to keep moving. The live action, animation, and basketball choreography are stitched together with real timing, and the film understands the basic job of spectacle: k…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/space-jam.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-26",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

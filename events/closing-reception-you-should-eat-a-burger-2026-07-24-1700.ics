@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Closing Reception: you should eat a burger
+X-WR-CALNAME:Culture Calendar — Closing Reception: you should eat a burg
+ er
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[2/10] Closing Reception: you should eat a burger
+DTSTART;TZID=America/Chicago:20260724T170000
+DTEND;TZID=America/Chicago:20260724T190000
+DTSTAMP:20260722T184953Z
+UID:closing-reception-you-should-eat-a-burger---2026-07-24-1700-2026-07-24
+ -1700@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 2/10\n\nDetails: https://artaustin.org/events/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://artaustin.org/events/
+END:VEVENT
+END:VCALENDAR

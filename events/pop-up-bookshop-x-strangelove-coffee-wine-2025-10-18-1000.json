@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Pop-up bookshop x Strangelove coffee & wine",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit, The premise, a pop up bookshop paired with a coffee and wine space, has immediate visual promise, but based on the information provided, there is no evidence of a fully developed cinematic craft. The concept sounds more like a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/pop-up-bookshop-x-strangelove-coffee-wine-2025-10-18-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-10-18",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

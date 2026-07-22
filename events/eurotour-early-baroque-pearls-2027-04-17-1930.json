@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Eurotour: Early Baroque Pearls",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit: 7 ✨ Originality: 6 📚 Cultural Significance: 8 💡 Intellectual Depth: 7 The Texas Early Music Project delivers a competent but unpolished entry in its 2026-27 season, leaning on the established drama of Monteverdi and Strozzi wi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/eurotour-early-baroque-pearls-2027-04-17-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-04-17",
+  "location": {
+    "@type": "Place",
+    "name": "EarlyMusic",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

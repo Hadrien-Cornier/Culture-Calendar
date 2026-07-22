@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Mamma Mia",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Mamma Mia is built on polished, crowd-pleasing mechanics. The songs arrive with machine-like efficiency, the performances are calibrated for charm, and the film knows how to keep momentum alive through movement, color, and timi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/mamma-mia.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-01",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

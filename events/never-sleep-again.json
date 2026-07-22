@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "NEVER SLEEP AGAIN",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Pia Frankenberg’s Never Sleep Again (1992) executes a loose, episodic form with surprising cohesion. The film follows three friends—Rita, Lilian, and Roberta—travelling by boat to a Berlin wedding, only to be stranded when Rita…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/never-sleep-again.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-18",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

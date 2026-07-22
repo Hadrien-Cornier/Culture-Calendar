@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A Streetcar Named Desire",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit , The work is a clinic in pressure and performance. The cramped apartment setting, the sticky heat, and the constant friction between Blanche and Stanley create a closed system where every glance feels loaded. The best scenes t…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-streetcar-named-desire.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-01",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "FACE/OFF",
+  "description": "★ Rating: [8/10] 🎭 Artistic Merit John Woo directs a high-octane action thriller that prioritizes kinetic style over narrative logic, yet the technical execution justifies the excess. The film’s centerpiece is the face-transplant surgery, where doctors remove…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/face-off.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-17",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

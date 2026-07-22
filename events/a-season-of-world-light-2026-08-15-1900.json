@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A Season Of - World Light",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit: 7 — Laxness constructs a picaresque narrative that loops between Hardy-style rural misery and Don Quixote-ish episodic absurdity, though the second section drowns the reader in heavy-handed political lectures about corruption…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-season-of-world-light-2026-08-15-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-15",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

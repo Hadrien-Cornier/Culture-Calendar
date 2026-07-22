@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of the stench of magical realism - livra theor
+ y night
+X-WR-CALNAME:Culture Calendar — the stench of magical realism - livra th
+ eory night
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:the stench of magical realism - livra theory night
+DTSTART;TZID=America/Chicago:20250827T190000
+DTEND;TZID=America/Chicago:20250827T210000
+DTSTAMP:20260722T184953Z
+UID:the-stench-of-magical-realism---livra-theory-night---2025-08-27-1900-2
+ 025-08-27-1900@culturecalendar.local
+CATEGORIES:Event
+DESCRIPTION:Bolaño and Márquez duel over magical realism’s failures in
+  Austin.\n\nDetails: https://www.livrabooks.com/events/the-stench-of-magic
+ al-realism-livra-theory-night
+LOCATION:LivraBooks
+URL:https://www.livrabooks.com/events/the-stench-of-magical-realism-livra-
+ theory-night
+END:VEVENT
+END:VCALENDAR

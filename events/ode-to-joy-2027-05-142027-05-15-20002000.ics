@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Ode to Joy
+X-WR-CALNAME:Culture Calendar — Ode to Joy
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[0/10] Ode to Joy
+DTSTART;TZID=America/Chicago:20270514T200000
+DTEND;TZID=America/Chicago:20270514T220000
+DTSTAMP:20260722T184953Z
+UID:ode-to-joy---2027-05-142027-05-15-20002000-2027-05-14-2000@culturecale
+ ndar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 0/10\n\nBeethoven's Ninth paired with an unnamed Mozar
+ t work\, details absent.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[0/10] Ode to Joy
+DTSTART;TZID=America/Chicago:20270515T200000
+DTEND;TZID=America/Chicago:20270515T220000
+DTSTAMP:20260722T184953Z
+UID:ode-to-joy---2027-05-142027-05-15-20002000-2027-05-15-2000@culturecale
+ ndar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 0/10\n\nBeethoven's Ninth paired with an unnamed Mozar
+ t work\, details absent.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR

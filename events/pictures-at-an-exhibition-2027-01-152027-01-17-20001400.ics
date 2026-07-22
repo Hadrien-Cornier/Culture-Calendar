@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Pictures at an Exhibition
+X-WR-CALNAME:Culture Calendar — Pictures at an Exhibition
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] Pictures at an Exhibition
+DTSTART;TZID=America/Chicago:20270115T200000
+DTEND;TZID=America/Chicago:20270115T220000
+DTSTAMP:20260722T184953Z
+UID:pictures-at-an-exhibition---2027-01-152027-01-17-20001400-2027-01-15-2
+ 000@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 5/10\n\nBrahms\, Liszt\, and Mussorgsky in a conventio
+ nal masterworks program.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] Pictures at an Exhibition
+DTSTART;TZID=America/Chicago:20270117T140000
+DTEND;TZID=America/Chicago:20270117T160000
+DTSTAMP:20260722T184953Z
+UID:pictures-at-an-exhibition---2027-01-152027-01-17-20001400-2027-01-17-1
+ 400@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 5/10\n\nBrahms\, Liszt\, and Mussorgsky in a conventio
+ nal masterworks program.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR

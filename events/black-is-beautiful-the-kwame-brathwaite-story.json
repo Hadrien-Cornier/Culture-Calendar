@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BLACK IS BEAUTIFUL: THE KWAME BRATHWAITE STORY",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – The documentary is visually arresting yet narratively adrift, splitting its focus between the legacy of the \"Black is Beautiful\" phrase and the man who gave it visual soul . Director Yemi Bamiro lets style overshadow substanc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/black-is-beautiful-the-kwame-brathwaite-story.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-01",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

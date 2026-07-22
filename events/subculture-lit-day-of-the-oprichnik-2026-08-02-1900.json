@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Subculture Lit - Day of the Oprichnik",
+  "description": "★ Rating: 6/10 Artistic Merit – 5/10: The prose is flat and uninspired, stuffed with irrelevant details like fictitious trade agreements that do nothing for the plot . The narrative feels ill-paced and buries its clever commentary under vulgarity and shock va…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/subculture-lit-day-of-the-oprichnik-2026-08-02-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-02",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

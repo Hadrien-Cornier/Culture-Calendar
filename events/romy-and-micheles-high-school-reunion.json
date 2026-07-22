@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ROMY AND MICHELE'S HIGH SCHOOL REUNION",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit David Mirkin’s direction is squirmy and energetic, but the film never escapes its cheap sitcom geometry. The choreography in the final dance sequence—Romy and Michele performing “Time After Time” with Alan Cumming’s Sandy—is th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/romy-and-micheles-high-school-reunion.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-09",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

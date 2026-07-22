@@ -1,0 +1,41 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Eurotour: Renaissance Masters\, c. 1450-160
+ 0
+X-WR-CALNAME:Culture Calendar — Eurotour: Renaissance Masters\, c. 1450-
+ 1600
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[0/10] Eurotour: Renaissance Masters\, c. 1450-1600
+DTSTART;TZID=America/Chicago:20270228T150000
+DTEND;TZID=America/Chicago:20270228T170000
+DTSTAMP:20260722T184953Z
+UID:eurotour-renaissance-masters-c.-1450-1600---2027-02-28-1500-2027-02-28
+ -1500@culturecalendar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 0/10\n\nRenaissance Franco-Flemish polyphony meets Ita
+ lian multi-choral experiments.\n\nDetails: https://www.early-music.org
+LOCATION:EarlyMusic
+URL:https://www.early-music.org
+END:VEVENT
+END:VCALENDAR

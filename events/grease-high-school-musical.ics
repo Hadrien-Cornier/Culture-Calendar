@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Grease + High School Musical
+X-WR-CALNAME:Culture Calendar — Grease + High School Musical
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Grease + High School Musical
+DTSTART;TZID=America/Chicago:20260726T190000
+DTEND;TZID=America/Chicago:20260726T210000
+DTSTAMP:20260722T184953Z
+UID:grease-+-high-school-musical-2026-07-26-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nTwo teen musicals collide in a bright\, crowd-
+ pleasing but loosely assembled mashup.\n\nDetails: https://tickets.austint
+ heatre.org/13868/13869
+LOCATION:Paramount
+URL:https://tickets.austintheatre.org/13868/13869
+END:VEVENT
+END:VCALENDAR

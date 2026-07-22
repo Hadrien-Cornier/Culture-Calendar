@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Eyes of Texas: An Obscured Story  July 17th
+ \, 7 p.m.
+X-WR-CALNAME:Culture Calendar — Eyes of Texas: An Obscured Story  July 1
+ 7th\, 7 p.m.
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:Eyes of Texas: An Obscured Story  July 17th\, 7 p.m.
+DTSTART;TZID=America/Chicago:20250717T190000
+DTEND;TZID=America/Chicago:20250717T210000
+DTSTAMP:20260722T184953Z
+UID:eyes-of-texas-an-obscured-story--july-17th-7-p.m.---2025-07-17-1900-20
+ 25-07-17-1900@culturecalendar.local
+CATEGORIES:Event
+DESCRIPTION:Book talk unearths UT alma mater's racist roots.\n\nDetails: h
+ ttps://www.livrabooks.com/events/eyes-of-texas-an-obscured-story-july-17th
+ -7-pm
+LOCATION:LivraBooks
+URL:https://www.livrabooks.com/events/eyes-of-texas-an-obscured-story-july
+ -17th-7-pm
+END:VEVENT
+END:VCALENDAR

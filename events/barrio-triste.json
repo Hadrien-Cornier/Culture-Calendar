@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BARRIO TRISTE",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit – Stillz executes a jarring faux-found-footage style that captures the tactile anxiety of 1990s Medellín, though the craft occasionally tips into meandering chaos. The film opens with a sudden theft where a group of shaved-head…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/barrio-triste.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-03",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

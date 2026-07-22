@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MIKEY AND NICKY",
+  "description": "★ Rating: [8/10] 🎭 Artistic Merit Elaine May’s Mikey and Nicky achieves a raw, unpolished intensity that rivals John Cassavetes’ own work, driven by evocative dialogue and performances that feel dangerously live. The film’s technical mastery lies in its impro…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/mikey-and-nicky.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-24",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

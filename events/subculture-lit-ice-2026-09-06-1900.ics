@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Subculture Lit - Ice
+X-WR-CALNAME:Culture Calendar — Subculture Lit - Ice
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[9/10] Subculture Lit - Ice
+DTSTART;TZID=America/Chicago:20260906T190000
+DTEND;TZID=America/Chicago:20260906T210000
+DTSTAMP:20260722T184953Z
+UID:subculture-lit---ice---2026-09-06-1900-2026-09-06-1900@culturecalendar
+ .local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 9/10\n\nKavan's ice-bound nightmare of obsession blurs
+  addiction allegory with psychological horror.\n\nDetails: https://www.ali
+ enatedmajestybooks.com/book-clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+END:VCALENDAR

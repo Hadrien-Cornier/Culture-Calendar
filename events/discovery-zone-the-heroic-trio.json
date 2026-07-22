@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Discovery Zone: THE HEROIC TRIO",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit – The film delivers dizzying crime-fighting action anchored by three standout performances from Michelle Yeoh, Maggie Cheung, and Anita Mui, who each command the screen with distinct physicality and emotional range. Director Jo…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/discovery-zone-the-heroic-trio.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-20",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WAITING FOR GUFFMAN",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit: 8 ✨ Originality: 7 📚 Cultural Significance: 8 💡 Intellectual Depth: 7 Waiting for Guffman is a crisp, affectionate satire that mocks small-town delusion without ever punching down. Directed by Christopher Guest and co-written…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/waiting-for-guffman.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-01",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

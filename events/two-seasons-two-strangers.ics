@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of TWO SEASONS\, TWO STRANGERS
+X-WR-CALNAME:Culture Calendar — TWO SEASONS\, TWO STRANGERS
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[9/10] TWO SEASONS\, TWO STRANGERS
+DTSTART;TZID=America/Chicago:20260810T190000
+DTEND;TZID=America/Chicago:20260810T210000
+DTSTAMP:20260722T184953Z
+UID:two-seasons-two-strangers-2026-08-10-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nA delicate\, jagged diptych of rain-drenched o
+ ceans and snow-covered villages.\n\nDetails: https://www.austinfilm.org/sc
+ reening/two-seasons-two-strangers/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/two-seasons-two-strangers/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] TWO SEASONS\, TWO STRANGERS
+DTSTART;TZID=America/Chicago:20260816T164500
+DTEND;TZID=America/Chicago:20260816T184500
+DTSTAMP:20260722T184953Z
+UID:two-seasons-two-strangers-2026-08-16-1645@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nA delicate\, jagged diptych of rain-drenched o
+ ceans and snow-covered villages.\n\nDetails: https://www.austinfilm.org/sc
+ reening/two-seasons-two-strangers/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/two-seasons-two-strangers/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Subculture Lit - Day of the Oprichnik
+X-WR-CALNAME:Culture Calendar — Subculture Lit - Day of the Oprichnik
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Subculture Lit - Day of the Oprichnik
+DTSTART;TZID=America/Chicago:20260802T190000
+DTEND;TZID=America/Chicago:20260802T210000
+DTSTAMP:20260722T184953Z
+UID:subculture-lit---day-of-the-oprichnik---2026-08-02-1900-2026-08-02-190
+ 0@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 6/10\n\nSorokin's flat satire follows a hollow secret 
+ police thug through one grotesque day.\n\nDetails: https://www.alienatedma
+ jestybooks.com/book-clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Pictures at an Exhibition",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – The review cannot assess performance quality, technical execution, or interpretive depth because the provided concert details omit the soloist’s name (despite mentioning Yifei Xu), the conductor, the orchestra, and the specif…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/pictures-at-an-exhibition-2027-01-152027-01-17-20001400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-15",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

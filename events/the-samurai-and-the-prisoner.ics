@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of THE SAMURAI AND THE PRISONER
+X-WR-CALNAME:Culture Calendar — THE SAMURAI AND THE PRISONER
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260807T201500
+DTEND;TZID=America/Chicago:20260807T221500
+DTSTAMP:20260722T184953Z
+UID:the-samurai-and-the-prisoner-2026-08-07-2015@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nKiyoshi Kurosawa’s stiff historical mystery 
+ trades action for a mental game of sacrifice.\n\nDetails: https://www.aust
+ infilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260808T171500
+DTEND;TZID=America/Chicago:20260808T191500
+DTSTAMP:20260722T184953Z
+UID:the-samurai-and-the-prisoner-2026-08-08-1715@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nKiyoshi Kurosawa’s stiff historical mystery 
+ trades action for a mental game of sacrifice.\n\nDetails: https://www.aust
+ infilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260809T132000
+DTEND;TZID=America/Chicago:20260809T152000
+DTSTAMP:20260722T184953Z
+UID:the-samurai-and-the-prisoner-2026-08-09-1320@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nKiyoshi Kurosawa’s stiff historical mystery 
+ trades action for a mental game of sacrifice.\n\nDetails: https://www.aust
+ infilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+END:VCALENDAR

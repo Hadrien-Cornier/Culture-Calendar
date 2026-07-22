@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "PLAY IT LOUD! HOW TORONTO GOT SOUL",
+  "description": "★ Rating: 7/10 Artistic Merit: Solid, anchored by strong archival material and a clear narrative focus on Jay Douglas. ✨ Originality: 7/10 — The story of Jamaican music’s underrecognized role in 1960s–70s Toronto is fresh ground, though the biography-document…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/play-it-loud-how-toronto-got-soul.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-31",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

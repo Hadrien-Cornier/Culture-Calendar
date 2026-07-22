@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A MIDSUMMER NIGHT'S DREAM",
+  "description": "★ Rating: [5/10] 🎭 Choreographic Craft – Stephen Mills' reimagining of Shakespeare's comedy relies on a familiar vocabulary of balletic trickery and romantic duet patterns that feel competent but unremarkable. The movement fails to surprise; the fairies' misc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-midsummer-nights-dream-2026-09-26-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-26",
+  "location": {
+    "@type": "Place",
+    "name": "BalletAustin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

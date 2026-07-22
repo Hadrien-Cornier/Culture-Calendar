@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Hero + Lady Snowblood",
+  "description": "★ Rating: 7/10 This is a sharp, lean piece of genre filmmaking, built on stylized violence, clean compositions, and the moral code of revenge stories. If the title points to the crossover pairing of Hero with Lady Snowblood, the appeal is obvious, two proud t…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/hero-lady-snowblood.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-22",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

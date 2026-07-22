@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MUGANGA, THE ONE WHO TREATS",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Marie-Hélène Roux executes a direct, factual biopic that names sexual violence without indulging in gratuitous spectacle. Isaach de Bankolé delivers an intense performance as Dr. Denis Mukwege, anchoring the film with a gravity…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/muganga-the-one-who-treats.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-30",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WELCOME II THE TERRORDOME",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit The film executes a grainy, ultra-low-budget aesthetic that initially distracts but ultimately fuels a poverty-inflected political realism. Director Ngozi Onwurah constructs a violent, uncompromising vision that functions as a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/welcome-ii-the-terrordome.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-14",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

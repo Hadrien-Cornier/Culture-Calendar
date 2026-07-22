@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Notorious",
+  "description": "I can only make a limited judgment from the information provided. The title is too generic, and with no year, director, country, or plot details, I cannot reliably identify the exact film or cite specific scenes. So this rating reflects the bare description,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/notorious.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-22",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

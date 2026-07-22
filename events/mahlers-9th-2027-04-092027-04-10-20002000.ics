@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Mahler's 9th
+X-WR-CALNAME:Culture Calendar — Mahler's 9th
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] Mahler's 9th
+DTSTART;TZID=America/Chicago:20270409T200000
+DTEND;TZID=America/Chicago:20270409T220000
+DTSTAMP:20260722T184953Z
+UID:mahlers-9th---2027-04-092027-04-10-20002000-2027-04-09-2000@culturecal
+ endar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 8/10\n\nMarketing copy for Mahler's 9th lacks any perf
+ ormance specifics.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] Mahler's 9th
+DTSTART;TZID=America/Chicago:20270410T200000
+DTEND;TZID=America/Chicago:20270410T220000
+DTSTAMP:20260722T184953Z
+UID:mahlers-9th---2027-04-092027-04-10-20002000-2027-04-10-2000@culturecal
+ endar.local
+CATEGORIES:Concert,Music
+DESCRIPTION:Rating: 8/10\n\nMarketing copy for Mahler's 9th lacks any perf
+ ormance specifics.\n\nDetails: https://austinsymphony.org
+LOCATION:Symphony
+URL:https://austinsymphony.org
+END:VEVENT
+END:VCALENDAR

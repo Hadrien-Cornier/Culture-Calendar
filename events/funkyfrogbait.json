@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "FunkyFrogBait",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit – The work fails on basic craft; there is no evidence of technical mastery, coherent execution, or aesthetic achievement. The only available source describes the associated \"Drama\" as \"insane\" and explicitly \"negative,\" indicat…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/funkyfrogbait.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-08",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

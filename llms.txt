@@ -1,0 +1,32 @@
+# Culture Calendar
+
+> Austin cultural events, AI-curated. Films, concerts, opera, ballet, book clubs, and visual arts — sorted by merit, not marketing.
+
+## Core pages
+
+- [Home](https://hadrien-cornier.github.io/Culture-Calendar/): Top picks of the week plus every upcoming event.
+- [How it works](https://hadrien-cornier.github.io/Culture-Calendar/how-it-works.html): Methodology, venues, mailing list.
+- [Weekly digest archive](https://hadrien-cornier.github.io/Culture-Calendar/archive.html): Past Monday-morning tipsheets.
+- [Venue wishlist](https://hadrien-cornier.github.io/Culture-Calendar/wishlist.html): Venues we would like to add next.
+
+## Subscribable feeds
+
+- [RSS — top picks](https://hadrien-cornier.github.io/Culture-Calendar/feed.xml): RSS 2.0 feed of the top-ranked events.
+- [iCal — all events](https://hadrien-cornier.github.io/Culture-Calendar/calendar.ics): Every event as a subscribable calendar.
+- [iCal — top picks](https://hadrien-cornier.github.io/Culture-Calendar/top-picks.ics): Only the top-ranked events.
+- [Sitemap](https://hadrien-cornier.github.io/Culture-Calendar/sitemap.xml): Every HTML page on the site.
+
+## Categories
+
+- Book club — 26 events
+- Concert — 44 events
+- Dance — 28 events
+- Film — 118 events
+- Opera — 12 events
+- Other — 12 events
+- Visual arts — 3 events
+
+## Weekly digests
+
+- [2026 W26](https://hadrien-cornier.github.io/Culture-Calendar/weekly/2026-W26.html)
+- [2026 W27](https://hadrien-cornier.github.io/Culture-Calendar/weekly/2026-W27.html)

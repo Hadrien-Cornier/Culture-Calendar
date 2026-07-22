@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Giuseppe Verdi (composer)
+X-WR-CALNAME:Culture Calendar — Giuseppe Verdi
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] La traviata
+DTSTART;TZID=America/Chicago:20270418T140000
+DTEND;TZID=America/Chicago:20270418T160000
+DTSTAMP:20260722T184954Z
+UID:giuseppe-verdi-la-traviata---2027-04-18-1400-2027-04-18-1400@cultureca
+ lendar.local
+CATEGORIES:Opera
+DESCRIPTION:Rating: 8/10\n\nZeffirelli’s film deepens Verdi’s tragedy 
+ with Stratas’s bright sacrifice\n\nDetails: https://austinopera.org
+LOCATION:Opera
+URL:https://austinopera.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] La traviata
+DTSTART;TZID=America/Chicago:20270422T193000
+DTEND;TZID=America/Chicago:20270422T213000
+DTSTAMP:20260722T184954Z
+UID:giuseppe-verdi-la-traviata---2027-04-22-1930-2027-04-22-1930@cultureca
+ lendar.local
+CATEGORIES:Opera
+DESCRIPTION:Rating: 8/10\n\nZeffirelli’s film deepens Verdi’s tragedy 
+ with Stratas’s bright sacrifice\n\nDetails: https://austinopera.org
+LOCATION:Opera
+URL:https://austinopera.org
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] La traviata
+DTSTART;TZID=America/Chicago:20270424T193000
+DTEND;TZID=America/Chicago:20270424T213000
+DTSTAMP:20260722T184954Z
+UID:giuseppe-verdi-la-traviata---2027-04-24-1930-2027-04-24-1930@cultureca
+ lendar.local
+CATEGORIES:Opera
+DESCRIPTION:Rating: 8/10\n\nZeffirelli’s film deepens Verdi’s tragedy 
+ with Stratas’s bright sacrifice\n\nDetails: https://austinopera.org
+LOCATION:Opera
+URL:https://austinopera.org
+END:VEVENT
+END:VCALENDAR

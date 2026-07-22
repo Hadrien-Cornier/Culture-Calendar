@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of ASCO: WITHOUT PERMISSION
+X-WR-CALNAME:Culture Calendar — ASCO: WITHOUT PERMISSION
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] ASCO: WITHOUT PERMISSION
+DTSTART;TZID=America/Chicago:20260722T200000
+DTEND;TZID=America/Chicago:20260722T220000
+DTSTAMP:20260722T184953Z
+UID:asco-without-permission-2026-07-22-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nASCO’s archival rebellion becomes a vibrant\
+ , propulsive documentary about Chicano collective art.\n\nDetails: https:/
+ /www.austinfilm.org/screening/asco-without-permission/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/asco-without-permission/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] ASCO: WITHOUT PERMISSION
+DTSTART;TZID=America/Chicago:20260724T160000
+DTEND;TZID=America/Chicago:20260724T180000
+DTSTAMP:20260722T184953Z
+UID:asco-without-permission-2026-07-24-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nASCO’s archival rebellion becomes a vibrant\
+ , propulsive documentary about Chicano collective art.\n\nDetails: https:/
+ /www.austinfilm.org/screening/asco-without-permission/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/asco-without-permission/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] ASCO: WITHOUT PERMISSION
+DTSTART;TZID=America/Chicago:20260726T184500
+DTEND;TZID=America/Chicago:20260726T204500
+DTSTAMP:20260722T184953Z
+UID:asco-without-permission-2026-07-26-1845@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nASCO’s archival rebellion becomes a vibrant\
+ , propulsive documentary about Chicano collective art.\n\nDetails: https:/
+ /www.austinfilm.org/screening/asco-without-permission/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/asco-without-permission/
+END:VEVENT
+END:VCALENDAR

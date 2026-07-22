@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Princess Diaries 1 + P.D. 2",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit, the two Princess Diaries films are polished studio comedies with clean pacing, efficient scene construction, and strong star work from Anne Hathaway and Julie Andrews. The first film has the sharper comic engine, especially in…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/princess-diaries-1-p-d-2.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-09",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

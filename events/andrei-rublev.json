@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ANDREI RUBLEV",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit – Tarkovsky’s craft is total and unyielding, turning medieval Russia into a living, breathing world of mud, blood, and light. The film’s three-hour-and-25-minute scale is not a burden but a necessity; every frame serves the sto…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/andrei-rublev.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-31",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

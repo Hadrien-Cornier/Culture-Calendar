@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "SULLIVAN’S TRAVELS",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit – Preston Sturges executes a screwball comedy with the precision of a courtroom drama, balancing rapid-fire dialogue and physical gags without losing narrative control. The opening sequence crackles with signature wit, establis…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/sullivans-travels.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-25",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

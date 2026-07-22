@@ -1,0 +1,78 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of MY SASSY GIRL
+X-WR-CALNAME:Culture Calendar — MY SASSY GIRL
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] MY SASSY GIRL
+DTSTART;TZID=America/Chicago:20260820T200000
+DTEND;TZID=America/Chicago:20260820T220000
+DTSTAMP:20260722T184953Z
+UID:my-sassy-girl-2026-08-20-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA romantic comedy anchored by Jun Ji-hyun’s 
+ kinetic\, unpredictable performance.\n\nDetails: https://www.austinfilm.or
+ g/screening/my-sassy-girl/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/my-sassy-girl/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] MY SASSY GIRL
+DTSTART;TZID=America/Chicago:20260822T190000
+DTEND;TZID=America/Chicago:20260822T210000
+DTSTAMP:20260722T184953Z
+UID:my-sassy-girl-2026-08-22-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA romantic comedy anchored by Jun Ji-hyun’s 
+ kinetic\, unpredictable performance.\n\nDetails: https://www.austinfilm.or
+ g/screening/my-sassy-girl/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/my-sassy-girl/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] MY SASSY GIRL
+DTSTART;TZID=America/Chicago:20260823T190000
+DTEND;TZID=America/Chicago:20260823T210000
+DTSTAMP:20260722T184953Z
+UID:my-sassy-girl-2026-08-23-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA romantic comedy anchored by Jun Ji-hyun’s 
+ kinetic\, unpredictable performance.\n\nDetails: https://www.austinfilm.or
+ g/screening/my-sassy-girl/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/my-sassy-girl/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] MY SASSY GIRL
+DTSTART;TZID=America/Chicago:20260824T200000
+DTEND;TZID=America/Chicago:20260824T220000
+DTSTAMP:20260722T184953Z
+UID:my-sassy-girl-2026-08-24-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA romantic comedy anchored by Jun Ji-hyun’s 
+ kinetic\, unpredictable performance.\n\nDetails: https://www.austinfilm.or
+ g/screening/my-sassy-girl/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/my-sassy-girl/
+END:VEVENT
+END:VCALENDAR

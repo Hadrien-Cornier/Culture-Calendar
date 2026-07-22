@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE PALM BEACH STORY",
+  "description": "★ Rating: [8/10] 🎭 Artistic Merit – Preston Sturges fires the Hollywood machine on all cylinders with a breakneck pace that never wavers through its 88 minutes . The film opens with a chaotic sequence featuring the William Tell Overture, a maid collapsing, an…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-palm-beach-story.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-28",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

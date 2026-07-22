@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Whiplash",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Whiplash is built with severe control. Damien Chazelle cuts the film like a drum fill, fast, hard, and exact. The rehearsal room scenes carry the movie, especially the moments when J.K. Simmons’s Fletcher stops a take with a s…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/whiplash.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-21",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
