@@ -1516,9 +1516,87 @@
     "venue_address": "301 Chicon St, Austin, TX 78702"
   },
   {
+    "title": "B.A.P.S.",
+    "dates": [
+      "2026-07-28"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "director": "",
+    "runtime_minutes": "",
+    "release_year": "",
+    "country": "USA",
+    "language": "English",
+    "rating": 3,
+    "one_liner_summary": "A technical and narrative failure, this satire becomes grotesque caricature.",
+    "description": "<p>\u2605 Rating: 3/10</p><p>\ud83c\udfad Artistic Merit \u2013 The film is a technical and narrative failure, marked by excruciating dialogue, bewildering storytelling, and amateurish execution . Director Robert Townsend treats Halle Berry\u2019s first leading role as a grave miscalculation, with performances that cross from satire into cruelty through exaggerated caricatures like 8-inch artificial nails and gold teeth . The denouement is literally drowned out by incidental music, a staggeringly inept choice that undermines the entire climax .</p><p>\u2728 Originality \u2013 The premise borrows shamelessly from <em>Pretty Woman</em> and <em>Carry On</em> without adding new insight or unpredictability . The \u201cBlack American Princesses\u201d concept reduces its characters to tacky, vulgar homegirls whose antics feel recycled rather than innovative . No fresh perspective emerges from the culture-clash setup; it relies on brash, senseless conversation instead of genuine surprise .</p><p>\ud83d\udcda Cultural Significance \u2013 While the film has gained cult status in black Hollywood and among gay audiences, its initial reception was largely negative due to exploitive depictions of ignorance and derogatory stereotypes . Black audiences may find complicity in its \u201ccomplicit wink,\u201d but the positive note of rewarding decency feels too little too late for many viewers . Its box office return of $7.3 million reflects limited mainstream impact .</p><p>\ud83d\udca1 Intellectual Depth \u2013 The movie offers no complex ideas or universal insights; it mistakes vulgarity for satire and cruelty for commentary . The theme of two Black women becoming entrepreneurs is present but undercut by their reward for scamming a dying millionaire, reducing social commentary to a gooey, overacted ending . There is no examination of race, class, or identity beyond surface-level caricature.</p>",
+    "url": "https://hyperrealfilm.club/events/7-28/movie-screening",
+    "venue": "Hyperreal",
+    "screenings": [
+      {
+        "date": "2026-07-28",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/7-28/movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "movie",
+    "id": "b.a.p.s.",
+    "venue_display_name": "Hyperreal",
+    "venue_address": "301 Chicon St, Austin, TX 78702"
+  },
+  {
+    "title": "SPIRITED AWAY",
+    "dates": [
+      "2026-07-29",
+      "2026-07-30"
+    ],
+    "times": [
+      "15:30",
+      "16:15",
+      "19:30"
+    ],
+    "director": "Hayao Miyazaki",
+    "runtime_minutes": 124,
+    "release_year": 2001,
+    "country": "Japan",
+    "language": null,
+    "rating": 10,
+    "one_liner_summary": "Miyazaki\u2019s hand-drawn bathhouse world moves with the weight of a mop dragged across a floor.",
+    "description": "<p>\u2605 Rating: 10/10</p><p>\ud83c\udfad Artistic Merit  <br>Hayao Miyazaki, in this 2001 feature, builds a world with unusual control. The opening road scene, the abandoned theme park, and Chihiro\u2019s first look at the bathhouse all establish place through motion, texture, and sound rather than exposition. The hand-drawn animation gives weight to small acts, a mop dragged across a floor, soot spirits hauling coal, a train sliding across black water. The result is precise and alive, with a visual discipline that keeps the film moving even when it turns strange.</p><p>\u2728 Originality  <br>The film refuses familiar fantasy logic. It mixes child anxiety, labor, greed, environmental damage, and folklore without flattening them into a lesson plan. The stink spirit sequence turns disgust into comic cleanup, then into an image of pollution and civic repair. No-Face is not a stock villain, but a figure who absorbs appetite and status from the room around him. That unpredictability is the film\u2019s chief strength, every major turn feels earned yet hard to forecast.</p><p>\ud83d\udcda Cultural Significance  <br>Spirited Away became a landmark for animation because it treated the medium as serious art, not genre decoration. It widened the audience for Japanese animation abroad and confirmed that an animated film could carry box-office scale, authorial control, and formal ambition at once. Its influence is visible in later fantasy animation that aims for dense world-building and moral ambiguity rather than simple hero quests.</p><p>\ud83d\udca1 Intellectual Depth  <br>Beneath the spectacle, the film is about work, memory, and the terms on which a child becomes herself. Chihiro\u2019s survival depends on competence, patience, and naming, not hidden destiny. The loss of her parents, the erased name, the train ride across flooded land, these details give the film a hard, practical sense of growing up in a world that can strip identity away. It understands greed as appetite without limit, and it understands care as labor performed under pressure.</p>",
+    "url": "https://www.austinfilm.org/screening/spirited-away/",
+    "venue": "AFS",
+    "screenings": [
+      {
+        "date": "2026-07-29",
+        "time": "15:30",
+        "url": "https://www.austinfilm.org/screening/spirited-away/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-07-30",
+        "time": "16:15",
+        "url": "https://www.austinfilm.org/screening/spirited-away/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-07-30",
+        "time": "19:30",
+        "url": "https://www.austinfilm.org/screening/spirited-away/",
+        "venue": "AFS"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "movie",
+    "id": "spirited-away",
+    "venue_display_name": "Austin Film Society",
+    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
+  },
+  {
     "title": "ROSE OF NEVADA",
     "dates": [
-      "2026-07-28",
       "2026-07-29",
       "2026-07-30",
       "2026-08-02",
@@ -1530,7 +1608,6 @@
     "times": [
       "16:05",
       "16:15",
-      "16:30",
       "16:50",
       "17:00",
       "17:30"
@@ -1546,12 +1623,6 @@
     "url": "https://www.austinfilm.org/screening/rose-of-nevada/",
     "venue": "AFS",
     "screenings": [
-      {
-        "date": "2026-07-28",
-        "time": "16:30",
-        "url": "https://www.austinfilm.org/screening/rose-of-nevada/",
-        "venue": "AFS"
-      },
       {
         "date": "2026-07-29",
         "time": "16:15",
@@ -1600,197 +1671,6 @@
     "id": "rose-of-nevada",
     "venue_display_name": "Austin Film Society",
     "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
-  },
-  {
-    "title": "SPIRITED AWAY",
-    "dates": [
-      "2026-07-28",
-      "2026-07-29",
-      "2026-07-30"
-    ],
-    "times": [
-      "15:30",
-      "16:15",
-      "17:00",
-      "19:30"
-    ],
-    "director": "Hayao Miyazaki",
-    "runtime_minutes": 124,
-    "release_year": 2001,
-    "country": "Japan",
-    "language": null,
-    "rating": 10,
-    "one_liner_summary": "Miyazaki\u2019s hand-drawn bathhouse world moves with the weight of a mop dragged across a floor.",
-    "description": "<p>\u2605 Rating: 10/10</p><p>\ud83c\udfad Artistic Merit  <br>Hayao Miyazaki, in this 2001 feature, builds a world with unusual control. The opening road scene, the abandoned theme park, and Chihiro\u2019s first look at the bathhouse all establish place through motion, texture, and sound rather than exposition. The hand-drawn animation gives weight to small acts, a mop dragged across a floor, soot spirits hauling coal, a train sliding across black water. The result is precise and alive, with a visual discipline that keeps the film moving even when it turns strange.</p><p>\u2728 Originality  <br>The film refuses familiar fantasy logic. It mixes child anxiety, labor, greed, environmental damage, and folklore without flattening them into a lesson plan. The stink spirit sequence turns disgust into comic cleanup, then into an image of pollution and civic repair. No-Face is not a stock villain, but a figure who absorbs appetite and status from the room around him. That unpredictability is the film\u2019s chief strength, every major turn feels earned yet hard to forecast.</p><p>\ud83d\udcda Cultural Significance  <br>Spirited Away became a landmark for animation because it treated the medium as serious art, not genre decoration. It widened the audience for Japanese animation abroad and confirmed that an animated film could carry box-office scale, authorial control, and formal ambition at once. Its influence is visible in later fantasy animation that aims for dense world-building and moral ambiguity rather than simple hero quests.</p><p>\ud83d\udca1 Intellectual Depth  <br>Beneath the spectacle, the film is about work, memory, and the terms on which a child becomes herself. Chihiro\u2019s survival depends on competence, patience, and naming, not hidden destiny. The loss of her parents, the erased name, the train ride across flooded land, these details give the film a hard, practical sense of growing up in a world that can strip identity away. It understands greed as appetite without limit, and it understands care as labor performed under pressure.</p>",
-    "url": "https://www.austinfilm.org/screening/spirited-away/",
-    "venue": "AFS",
-    "screenings": [
-      {
-        "date": "2026-07-28",
-        "time": "17:00",
-        "url": "https://www.austinfilm.org/screening/spirited-away/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-07-29",
-        "time": "15:30",
-        "url": "https://www.austinfilm.org/screening/spirited-away/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-07-30",
-        "time": "16:15",
-        "url": "https://www.austinfilm.org/screening/spirited-away/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-07-30",
-        "time": "19:30",
-        "url": "https://www.austinfilm.org/screening/spirited-away/",
-        "venue": "AFS"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "spirited-away",
-    "venue_display_name": "Austin Film Society",
-    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
-  },
-  {
-    "title": "Titanic in 3D - Special Event",
-    "dates": [
-      "2026-07-28"
-    ],
-    "times": [
-      "19:00"
-    ],
-    "director": "",
-    "runtime_minutes": "",
-    "release_year": "",
-    "country": "USA",
-    "language": "English",
-    "rating": 7,
-    "one_liner_summary": "The 3D conversion deepens the spatial dread; Winslet and DiCaprio still anchor",
-    "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad Artistic Merit \u2013 The 3D conversion of James Cameron\u2019s 1997 film delivers a technically sound, if not revolutionary, enhancement. The opening up of the Super 35 frame adds spatial depth to the ship\u2019s corridors and the iceberg collision, making the scale of the disaster more palpable . Kate Winslet and Leonardo DiCaprio\u2019s performances remain the anchor, particularly in the cramped bedroom scene where the intimacy of their love cutting through the chaos feels urgent and human . The 3D presentation earns an A+ for its clarity and immersion, though some blurred detail persists in darker sequences, a minor flaw in an otherwise sharp presentation .</p><p>\u2728 Originality \u2013 As a retrofit, the film cannot claim\u771f\u6b63\u7684 innovation; it repackages a known narrative with a new visual layer. The decision to open the frame ratio is controversial but serves the 3D image effectively, offering a broader, more immersive view without sacrificing the sides . The plot remains unchanged: a drifter wins passage, saves a debutante, and both face the sinking ship . The 3D effect amplifies the maritime tragedy and character interactions, but the core story is still the same star-crossed love tale . It avoids clich\u00e9 in its execution by not overusing the 3D for gimmicky moments, instead letting it enhance the emotional and physical scale of the tragedy .</p><p>\ud83d\udcda Cultural Significance \u2013 <em>Titanic</em> remains a cultural landmark, the second highest-grossing film ever and a benchmark for blockbuster spectacle and emotional storytelling . The 3D version extends its reach, allowing new audiences to experience the film\u2019s power in a modern format. Its PG-13 rating for peril, violence, and sensuality reflects its broad appeal across generations . The film\u2019s enduring presence, from its 25th anniversary re-release to its Blu-ray 3D edition, shows its lasting impact on cinema and popular memory .</p><p>\ud83d\udca1 Intellectual Depth \u2013 The film explores universal themes of love, loss, and hubris against the inevitability of disaster. The contrast between the first half\u2019s romance and the second half\u2019s action creates a structure that mirrors the sudden shift from hope to tragedy . The iceberg collision is not just a visual spectacle but a metaphor for human fragility and the failure of technology to control fate . The character of Rose, nearly a century old, recounting her survival, adds a layer of historical memory and personal testimony to the epic . The film does not merely show disaster; it forces the viewer to confront the cost of unchecked ambition and the resilience of the human spirit.</p><p>Sources are thin on the specific \u201cSpecial Event\u201d title mentioned in the query, but all reviews confirm this is the 2012 3D re-release of James Cameron\u2019s 1997 <em>Titanic</em>. No unique director, year, or country is listed for the event itself, so the review assumes it is the standard theatrical 3D re-release. The \u201c15/35\u201d verdict from CinemaBlend likely refers to a ticket value score, not a film rating, and is not used as a film score . All other sources confirm the film\u2019s identity and quality.</p>",
-    "url": "https://tickets.austintheatre.org/14034/14035",
-    "venue": "Paramount",
-    "screenings": [
-      {
-        "date": "2026-07-28",
-        "time": "19:00",
-        "url": "https://tickets.austintheatre.org/14034/14035",
-        "venue": "Paramount"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "titanic-in-3d---special-event",
-    "venue_display_name": "Paramount",
-    "venue_address": "713 Congress Ave, Austin, TX 78701"
-  },
-  {
-    "title": "THE PALM BEACH STORY",
-    "dates": [
-      "2026-07-28",
-      "2026-08-01"
-    ],
-    "times": [
-      "13:30",
-      "19:30"
-    ],
-    "director": "Preston Sturges",
-    "runtime_minutes": 88,
-    "release_year": 1942,
-    "country": "USA",
-    "language": "English",
-    "rating": 8,
-    "one_liner_summary": "Preston Sturges\u2019 breakneck screwball ballet of finance, fainting maids, and runaway brides.",
-    "description": "<p>\u2605 Rating: [8/10]</p><p>\ud83c\udfad Artistic Merit \u2013 Preston Sturges fires the Hollywood machine on all cylinders with a breakneck pace that never wavers through its 88 minutes . The film opens with a chaotic sequence featuring the William Tell Overture, a maid collapsing, and Claudette Colbert bound and gagged in a closet, setting a tone of absurdity that sustains the entire runtime . Director Sturges employs rapid-fire dialogue that flows energetically, with witty lines surpassing the cumulative output of Woody Allen\u2019s entire oeuvre . The train \"hunting\" scene stands out as utterly absurd and hysterical, demonstrating Sturges's mastery of generic devices and visual comedy . Joel McCrea delivers a charming performance as an unsuccessful inventor with a terrible idea for a suspended airport, while Rudy Vallee plays a naive Ivy League gentleman who falls for Colbert\u2019s character .</p><p>\u2728 Originality \u2013 The plot avoids standard romantic bromides by substituting freewheeling candor for predictable sentiment, asking whether love is a leap of faith rather than a guaranteed outcome . Gerry Jeffers\u2019s plan to divorce her husband to marry a millionaire funds his architectural dreams, creating a scenario that feels ridiculous yet hilarious . The film introduces quirky characters like millionaire John D. Hackensacker III and his husband-seeking sister Princess Centimillia, adding unpredictable twists to the classic screwball structure . Sturges\u2019s willingness to deal with sex, divorce, and money in an entertaining way keeps the narrative out of the ordinary and slightly \"out there\" . This approach creates a whirlwind of comedic misadventures and mistaken identities that defies the clich\u00e9s of 1940s romance .</p><p>\ud83d\udcda Cultural Significance \u2013 The film serves as a tenacious attack on American mores, specifically critiquing the socially constructed correlation between capital and power . It chronologically occupies the center of Sturges\u2019s prolific period, remaining an accomplished work that critiques the social and cultural norms of 1940s America . The movie functions as an intentional nod to animated duo dynamics through its portrayal of Tom and Gerry, highlighting the dwindling romance due to financial concerns . Sturges\u2019s work reveals recurring conceptual threads about gender roles and the intersection of money and marriage, making it a vital document of its era . The film\u2019s energy and brilliance remain remarkable despite its occasional antiquated and quirky appearance, cementing its status as a farcical masterpiece of the genre .</p><p>\ud83d\udca1 Intellectual Depth \u2013 The core theme explores the anarchy of love, which moves through the world confused and discombobulating before stabilizing in its arrhythmia . Sturges critiques the idea that money solves marital strife by showing how Gerry\u2019s scheme to fund Tom\u2019s projects creates new romantic entanglements instead of simple solutions . The film posits that if love were not a leap of faith, it would be worth nothing, offering a specific insight into the fragility of romantic commitment . It examines the universal human experience of financial desperation forcing couples into impossible choices, such as Gerry feeling she is in the way of her husband\u2019s success . The narrative balances deep witticisms about men, women, marriage, and happiness with a genuine exploration of whether happiness can be bought or engineered .</p>",
-    "url": "https://www.austinfilm.org/screening/the-palm-beach-story/",
-    "venue": "AFS",
-    "screenings": [
-      {
-        "date": "2026-07-28",
-        "time": "19:30",
-        "url": "https://www.austinfilm.org/screening/the-palm-beach-story/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-08-01",
-        "time": "13:30",
-        "url": "https://www.austinfilm.org/screening/the-palm-beach-story/",
-        "venue": "AFS"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "the-palm-beach-story",
-    "venue_display_name": "Austin Film Society",
-    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
-  },
-  {
-    "title": "B.A.P.S.",
-    "dates": [
-      "2026-07-28"
-    ],
-    "times": [
-      "19:30"
-    ],
-    "director": "",
-    "runtime_minutes": "",
-    "release_year": "",
-    "country": "USA",
-    "language": "English",
-    "rating": 3,
-    "one_liner_summary": "A technical and narrative failure, this satire becomes grotesque caricature.",
-    "description": "<p>\u2605 Rating: 3/10</p><p>\ud83c\udfad Artistic Merit \u2013 The film is a technical and narrative failure, marked by excruciating dialogue, bewildering storytelling, and amateurish execution . Director Robert Townsend treats Halle Berry\u2019s first leading role as a grave miscalculation, with performances that cross from satire into cruelty through exaggerated caricatures like 8-inch artificial nails and gold teeth . The denouement is literally drowned out by incidental music, a staggeringly inept choice that undermines the entire climax .</p><p>\u2728 Originality \u2013 The premise borrows shamelessly from <em>Pretty Woman</em> and <em>Carry On</em> without adding new insight or unpredictability . The \u201cBlack American Princesses\u201d concept reduces its characters to tacky, vulgar homegirls whose antics feel recycled rather than innovative . No fresh perspective emerges from the culture-clash setup; it relies on brash, senseless conversation instead of genuine surprise .</p><p>\ud83d\udcda Cultural Significance \u2013 While the film has gained cult status in black Hollywood and among gay audiences, its initial reception was largely negative due to exploitive depictions of ignorance and derogatory stereotypes . Black audiences may find complicity in its \u201ccomplicit wink,\u201d but the positive note of rewarding decency feels too little too late for many viewers . Its box office return of $7.3 million reflects limited mainstream impact .</p><p>\ud83d\udca1 Intellectual Depth \u2013 The movie offers no complex ideas or universal insights; it mistakes vulgarity for satire and cruelty for commentary . The theme of two Black women becoming entrepreneurs is present but undercut by their reward for scamming a dying millionaire, reducing social commentary to a gooey, overacted ending . There is no examination of race, class, or identity beyond surface-level caricature.</p>",
-    "url": "https://hyperrealfilm.club/events/7-28/movie-screening",
-    "venue": "Hyperreal",
-    "screenings": [
-      {
-        "date": "2026-07-28",
-        "time": "19:30",
-        "url": "https://hyperrealfilm.club/events/7-28/movie-screening",
-        "venue": "Hyperreal"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "b.a.p.s.",
-    "venue_display_name": "Hyperreal",
-    "venue_address": "301 Chicon St, Austin, TX 78702"
-  },
-  {
-    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - This Week's Story",
-    "dates": [
-      "2026-07-28"
-    ],
-    "times": [
-      "7:00 PM"
-    ],
-    "book": "",
-    "author": "",
-    "publication_year": "",
-    "series": "The New Yorker Weekly Short Story Club",
-    "host": "Nabeel K. and others",
-    "rating": 8,
-    "one_liner_summary": "Calling all literary fiction lovers of the greater Austin Area! Join our weekly ",
-    "description": "<p>Weekly short story discussion group at Central Market. Free copies of the current New Yorker fiction piece, first hour for reading, then open discussion. A welcoming community for literary fiction lovers.</p>",
-    "url": "https://www.meetup.com/atxstories/",
-    "venue": "NewYorkerMeetup",
-    "screenings": [
-      {
-        "date": "2026-07-28",
-        "time": "7:00 PM",
-        "url": "https://www.meetup.com/atxstories/",
-        "venue": "NewYorkerMeetup"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "book_club",
-    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---this-weeks-story---2026-07-28-700-pm",
-    "venue_display_name": "NewYorkerMeetup",
-    "venue_address": ""
   },
   {
     "title": "MILLENNIUM ACTRESS",
@@ -2203,6 +2083,38 @@
     "review_confidence": "unknown",
     "type": "movie",
     "id": "i-am-because-we-are-(short-film-program)",
+    "venue_display_name": "Austin Film Society",
+    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
+  },
+  {
+    "title": "THE PALM BEACH STORY",
+    "dates": [
+      "2026-08-01"
+    ],
+    "times": [
+      "13:30"
+    ],
+    "director": "Preston Sturges",
+    "runtime_minutes": 88,
+    "release_year": 1942,
+    "country": "USA",
+    "language": "English",
+    "rating": 8,
+    "one_liner_summary": "Preston Sturges\u2019 breakneck screwball ballet of finance, fainting maids, and runaway brides.",
+    "description": "<p>\u2605 Rating: [8/10]</p><p>\ud83c\udfad Artistic Merit \u2013 Preston Sturges fires the Hollywood machine on all cylinders with a breakneck pace that never wavers through its 88 minutes . The film opens with a chaotic sequence featuring the William Tell Overture, a maid collapsing, and Claudette Colbert bound and gagged in a closet, setting a tone of absurdity that sustains the entire runtime . Director Sturges employs rapid-fire dialogue that flows energetically, with witty lines surpassing the cumulative output of Woody Allen\u2019s entire oeuvre . The train \"hunting\" scene stands out as utterly absurd and hysterical, demonstrating Sturges's mastery of generic devices and visual comedy . Joel McCrea delivers a charming performance as an unsuccessful inventor with a terrible idea for a suspended airport, while Rudy Vallee plays a naive Ivy League gentleman who falls for Colbert\u2019s character .</p><p>\u2728 Originality \u2013 The plot avoids standard romantic bromides by substituting freewheeling candor for predictable sentiment, asking whether love is a leap of faith rather than a guaranteed outcome . Gerry Jeffers\u2019s plan to divorce her husband to marry a millionaire funds his architectural dreams, creating a scenario that feels ridiculous yet hilarious . The film introduces quirky characters like millionaire John D. Hackensacker III and his husband-seeking sister Princess Centimillia, adding unpredictable twists to the classic screwball structure . Sturges\u2019s willingness to deal with sex, divorce, and money in an entertaining way keeps the narrative out of the ordinary and slightly \"out there\" . This approach creates a whirlwind of comedic misadventures and mistaken identities that defies the clich\u00e9s of 1940s romance .</p><p>\ud83d\udcda Cultural Significance \u2013 The film serves as a tenacious attack on American mores, specifically critiquing the socially constructed correlation between capital and power . It chronologically occupies the center of Sturges\u2019s prolific period, remaining an accomplished work that critiques the social and cultural norms of 1940s America . The movie functions as an intentional nod to animated duo dynamics through its portrayal of Tom and Gerry, highlighting the dwindling romance due to financial concerns . Sturges\u2019s work reveals recurring conceptual threads about gender roles and the intersection of money and marriage, making it a vital document of its era . The film\u2019s energy and brilliance remain remarkable despite its occasional antiquated and quirky appearance, cementing its status as a farcical masterpiece of the genre .</p><p>\ud83d\udca1 Intellectual Depth \u2013 The core theme explores the anarchy of love, which moves through the world confused and discombobulating before stabilizing in its arrhythmia . Sturges critiques the idea that money solves marital strife by showing how Gerry\u2019s scheme to fund Tom\u2019s projects creates new romantic entanglements instead of simple solutions . The film posits that if love were not a leap of faith, it would be worth nothing, offering a specific insight into the fragility of romantic commitment . It examines the universal human experience of financial desperation forcing couples into impossible choices, such as Gerry feeling she is in the way of her husband\u2019s success . The narrative balances deep witticisms about men, women, marriage, and happiness with a genuine exploration of whether happiness can be bought or engineered .</p>",
+    "url": "https://www.austinfilm.org/screening/the-palm-beach-story/",
+    "venue": "AFS",
+    "screenings": [
+      {
+        "date": "2026-08-01",
+        "time": "13:30",
+        "url": "https://www.austinfilm.org/screening/the-palm-beach-story/",
+        "venue": "AFS"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "movie",
+    "id": "the-palm-beach-story",
     "venue_display_name": "Austin Film Society",
     "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
   },
@@ -2630,7 +2542,7 @@
     "venue_address": "713 Congress Ave, Austin, TX 78701"
   },
   {
-    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 2",
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - This Week's Story",
     "dates": [
       "2026-08-04"
     ],
@@ -2657,7 +2569,7 @@
     ],
     "review_confidence": "unknown",
     "type": "book_club",
-    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-2---2026-08-04-700-pm",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---this-weeks-story---2026-08-04-700-pm",
     "venue_display_name": "NewYorkerMeetup",
     "venue_address": ""
   },
@@ -2775,7 +2687,7 @@
     "country": "Japan",
     "language": "Japanese",
     "rating": 6,
-    "one_liner_summary": "A cerebral samurai drama where verbal duels replace sword fights.",
+    "one_liner_summary": "Kurosawa\u2019s stiff samurai mystery trades swordplay for talky leadership games.",
     "description": "<p>\u2605 Rating: 6/10</p><p>\ud83c\udfad Artistic Merit<br>Kiyoshi Kurosawa delivers an elegantly crafted but theatrically stiff historical mystery that prioritizes dialogue over kinetic tension. The film adopts a classical, minimalist style, stripping away the director\u2019s signature eerie narrative experimentation to focus on a \"clever mental game\" of leadership and sacrifice . Masahiro Motoki anchors the role of Lord Murashige Araki with a steady, solitary presence, while Masaki Suda brings sharp, dangerous energy to the prisoner Kanbei Kuroda, yet their interactions often feel locked in a \"theatrical\" setup that lacks the intense pressure of a true siege . The aesthetic is clean and precise, but the mise-en-sc\u00e8ne inside Arioka Castle remains static, turning the two-hour-plus runtime into a series of staged conversations rather than a gripping psychological thriller .</p><p>\u2728 Originality<br>The film is a direct adaptation of Honobu Yonezawa\u2019s prize-winning novel <em>Kokurojo</em>, and it adheres closely to the source material\u2019s four-chapter, season-based structure . While the premise of a murder mystery unfolding inside a besieged fortress offers a fresh twist on the samurai genre, Kurosawa fails to deconstruct the genre or inject his usual unpredictability . The narrative stays within the \"pressure cooker\" of the castle, focusing on loyalty fractures and supply lines, but the execution feels familiar and derivative of classic detective stories rather than innovative . It is a competent genre exercise that avoids major clich\u00e9s but offers little surprise in its plot mechanics or thematic framing .</p><p>\ud83d\udcda Cultural Significance<br>The film captures the tumultuous 16th-century era of Japanese unrest, specifically the revolt of Murashige Araki against the tyrannical Nobunaga Oda in 1578 . It serves as a \"moving examination of genuine leadership\" and the solitude of command, resonating with contemporary audiences through its evocative subtlety . However, its contribution to the art form is limited; it functions more as a literary interpretation than a bold cinematic statement, failing to elevate the feudal mystery genre to new heights . The production reaffirms the enduring appeal of Japanese historical drama but does not redefine the boundaries of the medium.</p><p>\ud83d\udca1 Intellectual Depth<br>The core of the film lies in its exploration of the \"fragile order\" of a court shattered by mysterious crimes, plunging the fortress into fear and suspicion . It examines the complexity of leadership under siege, where the protagonist must collaborate with a dangerous prisoner to uncover a traitor among his ranks . The themes of isolation, sacrifice, and the psychological toll of war are present, yet the film treats them with a measured, almost detached approach that prevents the ideas from achieving true complexity . The intellectual engagement remains surface-level, relying on dialogue to convey the moral weight of the situation rather than through deeper visual or narrative subtext .</p><p>*</p>",
     "url": "https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/",
     "venue": "AFS",
@@ -3117,12 +3029,45 @@
     "venue_address": "713 Congress Ave, Austin, TX 78701"
   },
   {
+    "title": "The New Yorker Weekly Short Story Club (Free Copies, First Hour for Reading) - Week 2",
+    "dates": [
+      "2026-08-11"
+    ],
+    "times": [
+      "7:00 PM"
+    ],
+    "book": "",
+    "author": "",
+    "publication_year": "",
+    "series": "The New Yorker Weekly Short Story Club",
+    "host": "Nabeel K. and others",
+    "rating": 8,
+    "one_liner_summary": "Calling all literary fiction lovers of the greater Austin Area! Join our weekly ",
+    "description": "<p>Weekly short story discussion group at Central Market. Free copies of the current New Yorker fiction piece, first hour for reading, then open discussion. A welcoming community for literary fiction lovers.</p>",
+    "url": "https://www.meetup.com/atxstories/",
+    "venue": "NewYorkerMeetup",
+    "screenings": [
+      {
+        "date": "2026-08-11",
+        "time": "7:00 PM",
+        "url": "https://www.meetup.com/atxstories/",
+        "venue": "NewYorkerMeetup"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "book_club",
+    "id": "the-new-yorker-weekly-short-story-club-(free-copies-first-hour-for-reading)---week-2---2026-08-11-700-pm",
+    "venue_display_name": "NewYorkerMeetup",
+    "venue_address": ""
+  },
+  {
     "title": "Pee Wee\u2019s Big Adventure",
     "dates": [
       "2026-08-12"
     ],
     "times": [
-      "15:30"
+      "15:30",
+      "19:30"
     ],
     "director": "",
     "runtime_minutes": "",
@@ -3139,6 +3084,12 @@
         "date": "2026-08-12",
         "time": "15:30",
         "url": "https://tickets.austintheatre.org/13832/13833",
+        "venue": "Paramount"
+      },
+      {
+        "date": "2026-08-12",
+        "time": "19:30",
+        "url": "https://tickets.austintheatre.org/13832/14125",
         "venue": "Paramount"
       }
     ],
@@ -3456,7 +3407,7 @@
     "series": "A Season Of",
     "host": "",
     "rating": 6,
-    "one_liner_summary": "Volodine's post-exotic novel weighs exile and failure through tonal pressure.",
+    "one_liner_summary": "Volodine's post-exotic novel of exile and political ruin, formally severe.",
     "description": "<p>\u2605 Rating: <strong>6/10</strong></p><p><strong>The Monroe Girls</strong> looks competent and controlled, but the available material is too thin to justify a higher score. What can be said with confidence is limited, so this is a measured verdict rather than a full-scale appraisal.  </p><p>\ud83c\udfad <strong>Artistic Merit</strong> , <strong>6/10</strong>  <br>Volodine\u2019s reputation rests on severe, atmosphere-heavy fiction, and this book appears to fit that register, but the sources here do not give enough textual detail to prove exceptional execution. I can say it likely depends more on tonal pressure than on plot mechanics, and that usually rewards disciplined prose more than expansive narrative movement.  </p><p>\u2728 <strong>Originality</strong> , <strong>7/10</strong>  <br>Antoine Volodine is an established formal risk-taker, and that alone suggests a book that resists standard realist packaging. Even without scene-level evidence from the available sources, the title and authorial context point toward a work shaped by his distinctive post-exotic mode rather than a conventional literary novel.  </p><p>\ud83d\udcda <strong>Cultural Significance</strong> , <strong>7/10</strong>  <br>Volodine occupies a real place in contemporary European and translated fiction, especially for readers interested in experimental narrative and anti-dogmatic forms. If this book extends that body of work, its value lies less in public visibility than in continuing a serious, idiosyncratic literary project.  </p><p>\ud83d\udca1 <strong>Intellectual Depth</strong> , <strong>6/10</strong>  <br>The likely themes, exile, failure, political ruin, damaged identity, are intellectually rich terrain in Volodine\u2019s work, but the supplied sources do not let me cite specific passages or scenes from <strong>The Monroe Girls</strong> itself. On the evidence available, I would call it thoughtful and layered, not yet demonstrably major.  </p><p>If you want, I can turn this into a sharper publication-style review once you provide a plot summary, excerpt, or additional reviews of the book.</p>",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "venue": "AlienatedMajesty",
@@ -3664,7 +3615,7 @@
     "series": "The Spotlight Book Club",
     "host": null,
     "rating": 8,
-    "one_liner_summary": "A minor goddess claims her own story through exile, magic, and labor.",
+    "one_liner_summary": "A minor goddess claims her own story through exile, magic, and endurance.",
     "description": "<p>\u2605 Rating: <strong>8/10</strong></p><p><strong>\ud83c\udfad Artistic Merit</strong>  <br>Miller writes in a clean, controlled voice that turns myth into readable, contemporary fiction without flattening it. The first-person design gives Circe a steady inward pressure, and the episodic structure, encounters with Prometheus, the Minotaur, Medea, and Odysseus, keeps the book moving while avoiding the blunt machinery of a quest plot.</p><p><strong>\u2728 Originality</strong>  <br>The premise is the book\u2019s sharpest weapon, a minor goddess recast as the center of her own story. That is not new in itself, but Miller\u2019s choice to make Circe\u2019s exile, apprenticeship in magic, and long solitude the spine of the novel gives the familiar Greek material a different scale and moral angle.</p><p><strong>\ud83d\udcda Cultural Significance</strong>  <br>The novel matters because it helped push retellings of Greek myth into the mainstream again, especially stories focused on women pushed to the edge of heroic tradition. Critics repeatedly singled it out as a fresh and compelling revision of classical myth, and its acclaim reflects a broad appetite for feminist re-readings of old narratives.</p><p><strong>\ud83d\udca1 Intellectual Depth</strong>  <br>Its themes are clear and substantial, power, autonomy, domestic labor, punishment, and the cost of female knowledge. The book is strongest when Circe learns magic through repeated practice, then uses that skill to survive abandonment and coercion, but it is less intellectually demanding than it is emotionally legible, and some later stretches lean more on momentum than inquiry.</p><p>Miller\u2019s book earns its score through control, not complexity for its own sake. It is not a radical formal experiment, but it is a confident and highly effective retelling, and the central achievement is that Circe feels like a person shaped by labor, fear, and appetite rather than a decorative myth figure.</p>",
     "url": "https://www.firstlightaustin.com/book-club",
     "venue": "FirstLight",
@@ -4229,7 +4180,7 @@
     "series": "Brevity Book Club",
     "host": null,
     "rating": 9,
-    "one_liner_summary": "Anderson's story cycle turns small-town loneliness into a pressure chamber of grotesques.",
+    "one_liner_summary": "Anderson's small-town grotesques reveal loneliness as the local weather.",
     "description": "<p>\u2605 Rating: <strong>9/10</strong></p><p><strong>Artistic Merit</strong>  <br>Anderson\u2019s method is plain, almost stubbornly so, and that is the point. <em>Winesburg, Ohio</em> is built from short, sharp encounters, a newspaper reporter\u2019s notebook turned into a gallery of damaged lives, and the book\u2019s best passages land because they refuse ornament and go straight for the bruise. The opening, \u201cThe Book of the Grotesque,\u201d sets the template with its old writer and his parade of \u201ctruths,\u201d then the later sketches, from the preacher\u2019s secret appetite to the doctor\u2019s private grief, keep tightening the knife on small-town speech and private failure.</p><p><strong>Originality</strong>  <br>Its form is one of the book\u2019s great feats, a story cycle that reads like a novel without pretending to be one. Anderson makes the town itself feel like a pressure chamber, where loneliness is not an exception but the local weather, and that structural choice was fresh enough in 1919 to help define the modern American short story cycle.</p><p><strong>Cultural Significance</strong>  <br>This is a cornerstone of American modernism and of the literature of the small town as a place of constraint, not comfort. The book\u2019s cast of \u201cgrotesques\u201d gave later writers a model for characters whose inner lives are larger, stranger, and more painful than their social surfaces suggest.</p><p><strong>Intellectual Depth</strong>  <br>Anderson is not doing sociology; he is showing what happens when people build a life around one private idea and then break under it. The book\u2019s enduring intelligence lies in its refusal to sentimentalize isolation, George Willard\u2019s role as listener, witness, and would-be writer gives the cycle its fragile human center, but the town remains a place where talk fails and desire curdles into embarrassment or despair.</p><p>What keeps the book alive is not polish, but nerve. It is rough in places, emotionally bare, and still unusually sharp about how public manners conceal private wreckage.</p>",
     "url": "https://www.firstlightaustin.com/book-club",
     "venue": "FirstLight",
@@ -4241,7 +4192,7 @@
         "venue": "FirstLight"
       }
     ],
-    "review_confidence": "high",
+    "review_confidence": "unknown",
     "type": "book_club",
     "id": "brevity-book-club---winesburg-ohio---2026-08-24-1900",
     "venue_display_name": "First Light (Book Clubs)",
@@ -4397,7 +4348,7 @@
     "country": "USA",
     "language": "English",
     "rating": 7,
-    "one_liner_summary": "A patient, unresolved true crime film about memory and grief's gap.",
+    "one_liner_summary": "A restrained true-crime film that refuses to resolve its own central mystery.",
     "description": "<p>\u2605 Rating: <strong>7/10</strong></p><p>\ud83c\udfad <strong>Artistic Merit</strong>  <br>Margaret Brown\u2019s two-episode film has real craft in the way it withholds easy payoff and lets the 1991 case remain stubbornly unresolved, using the gap between memory, evidence, and grief as its main dramatic engine. The structure is patient rather than showy, and that restraint gives the interviews and archival material room to accumulate pressure instead of being overcut into a routine true-crime package.</p><p>\u2728 <strong>Originality</strong>  <br>Its strongest move is formal, not sensational. Rather than treating the murders as a puzzle with a tidy solution, the film leans into the long afterlife of uncertainty, which keeps it from feeling like another procedural replay. The premise is familiar, but the emphasis on absence, testimony, and the damage done by not knowing gives the material a sharper edge than standard crime retellings.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The case itself has long sat inside Austin\u2019s public memory, and Brown\u2019s project matters because it revisits a wound that has not closed, with obvious relevance to the broader history of unsolved violence and the limits of institutional closure. As a cultural artifact, the film belongs to the current true-crime era, but it appears more interested in civic memory than in exploitation, which gives it more value than the usual platform filler.</p><p>\ud83d\udca1 <strong>Intellectual Depth</strong>  <br>The film\u2019s real subject is not simply who did it, but what a city does with a permanent absence, and how families live when the official story never arrives. That gives it a harder, more mature emotional register than most genre work, and it suggests a serious interest in the ethics of looking, listening, and retelling.</p><p>I can say more about the film\u2019s critical strengths than its full range of scenes because the available source material is thin and mostly describes the project at a high level, not in detailed sequence. What is clear is that Brown aims for accumulated unease and civic reckoning, and that is enough to justify a score above solid competence.</p>",
     "url": "https://www.austinfilm.org/screening/yogurt-shop-murders-ep-1-2/",
     "venue": "AFS",
@@ -4917,7 +4868,7 @@
     "series": "NYRB Book Club",
     "host": "",
     "rating": 7,
-    "one_liner_summary": "A cult novel of Southern decay told through odd details and funny one-liners.",
+    "one_liner_summary": "Lemann's odd, funny novel of Southern decay told in bright, frank prose.",
     "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad Artistic Merit: 8  <br>The prose operates in Louise\u2019s \u201cbright, frank cadence,\u201d delivering \u201cgreat sentence after great sentence\u201d that balances humor with tragedy . Specific moments like Claude\u2019s patented shrimp peeler\u2014born after a banana-peel slip that ended his college career\u2014show Lemann turning absurdity into character history without flinching . The dialogue lands \u201cpoetic and delightful,\u201d stocked with funny one-liners from cocktail-soaked characters who know too much and say it anyway .</p><p>\u2728 Originality: 7  <br>The novel follows post-collegiate Louise as she watches the Collier family\u2019s \u201celusive, magnetic prodigal boy\u201d unravel while she remains both insider and outsider . This dual positioning creates a narrative that \u201cambles to a tragic climax\u201d without forcing a conventional arc, letting observation become \u201ca kind of witnessing, a kind of love\u201d . The shrimp-peeler invention and the trash-can ignition that gets Louise fired are not just plot points; they are concrete, odd details that define the book\u2019s Southern grotesque without resorting to clich\u00e9 .</p><p>\ud83d\udcda Cultural Significance: 6  <br>First published in 1985 and recently re-released by NYRB Classics, the book has earned a \u201ccult novel\u201d status but remains outside the mainstream literary canon . Its Louisiana setting and focus on old-family decay give it regional weight, yet it lacks the broader cultural imprint of contemporaries like Faulkunan or Welty . The novel\u2019s re-release suggests enduring interest, but it remains a niche achievement rather than a tradition-defining work .</p><p>\ud83d\udca1 Intellectual Depth: 6  <br>Louise\u2019s observations on the Colliers reveal a willingness to name dysfunction without moralizing, letting tragedy unfold through \u201cblunders\u201d and departures rather than grand revelations . The book hints that \u201cdeception can be traded for greatness\u201d and that betrayal and intimacy lie closely intertwined, a theme Lemann later explores more explicitly in her nonfiction on Louisiana corruption . Still, the novel\u2019s concerns stay personal and local; it does not push toward a larger philosophical system or a sweeping social critique .</p><p>The novel is funny, odd, and deeply compelling, with a narrative that leans on character quirks and familial decay more than structural innovation . It does not reach the level of a masterwork, but it earns a solid 7 by sustaining its voice and delivering specific, vivid scenes that avoid the hollow praise of \u201cmemorable\u201d or \u201cdeep\u201d without ever needing those words .</p><p>Sources are thin on comparative literary analysis or runner-up reviews; most coverage focuses on plot summary and tone rather than deep thematic dissection. I can confirm the prose quality and specific scenes, but I cannot place the book with confidence against a broader 1980s Southern fiction field. The review remains grounded in what the sources explicitly state about Lemann\u2019s craft and narrative choices.</p>",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "venue": "AlienatedMajesty",
@@ -4949,7 +4900,7 @@
     "series": "Subculture Lit",
     "host": "",
     "rating": 9,
-    "one_liner_summary": "Obsession chases a glass girl through a world swallowed by ice.",
+    "one_liner_summary": "Kavan\u2019s ice swallows a world where obsession and addiction merge into one.",
     "description": "<p>\u2605 Rating: 9/10</p><p>\ud83c\udfad Artistic Merit: 9  <br>\u2728 Originality: 10  <br>\ud83d\udcda Cultural Significance: 8  <br>\ud83d\udca1 Intellectual Depth: 9</p><p>Anna Kavan\u2019s <em>Ice</em> is a cold, crackling nightmare of obsession that refuses to settle into genre, delivering a plotless chase through a world being swallowed by glacial walls. The novel centers on three unnamed figures: a glass-like girl, her captor \u201cthe warden,\u201d and a narrator who pursues her with a craving that feels less like love than addiction. Kavan strips away names and landmarks, forcing the reader into a fever dream where reality fractures as the ice advances.</p><p>The narrator\u2019s psychology is the book\u2019s true horror. He oscillates between devotion and violent fantasy, at one point imagining snapping the girl\u2019s wrists or watching her die. This isn\u2019t romance; it\u2019s a study of abuse, where the narrator and the warden merge into a single controlling force obsessed with owning the girl. The chase itself feels like an action movie, yet the terrain is unstable, shifting between dream logic and surreal misdirection.</p><p>Kavan\u2019s prose is sparse but precise, building dread through repetition and imagery of white, encroaching ice. The book functions as an allegory for her heroin addiction, with the white landscape mirroring the void of craving. It also reads as a pre-emptive climate warning, though Kavan deliberately avoids concrete interpretation to keep reality untrustworthy. Comparisons to Nabokov and Kafka fit better than those to Asimov or Clarke; the novel is more about psychological unraveling than sci-fi spectacle.</p><p><em>Ice</em> remains Kavan\u2019s most powerful statement, a novel that asks what the end of the world feels like rather than showing how it happens. Its influence on speculative fiction is undeniable, yet it resists classification, existing as a \u201cpsychological fantasia\u201d rich in symbolism but patchy on plot. The final image\u2014the world enfolded in ice, the men merged, the girl trapped\u2014leaves the reader in a state of flux, unable to trust the next paragraph.</p><p>This is not a gentle read. It is bleak, creepy, and unsettling, with \u201cbad vibes\u201d personified. Yet that discomfort is the point. Kavan forces us to confront the unreliability of perception and the violence of possession, all while the world freezes around us.</p><p><em>Ice</em> is a masterpiece of the unconscious, a novel that demands a second reading to fully grasp its labyrinthine metaphor.</p>",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "venue": "AlienatedMajesty",
@@ -5173,6 +5124,37 @@
     "venue_address": "713 Congress Ave, Austin, TX 78701"
   },
   {
+    "title": "Event: Red Dot Art Spree",
+    "dates": [
+      "2026-09-17"
+    ],
+    "times": [
+      "19:00"
+    ],
+    "artist": "",
+    "artists": "",
+    "medium": "",
+    "series": "",
+    "venue": "Women & Their Work",
+    "rating": 4,
+    "one_liner_summary": "A brisk art fair at Women",
+    "description": "<p>\u2605 Rating: <strong>4/10</strong></p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>The record here is too thin to praise the installation\u2019s composition, materials, or technique with confidence. With only the event title, venue, and no documented artist list or object-level description, I can say the presentation sounds more like an art fair or sale event than a tightly authored exhibition, which usually means breadth over visual control.</p><p>\u2728 <strong>Originality</strong>  <br>There is not enough evidence to credit the event with conceptual risk or formal departure. The title, <strong>Red Dot Art Spree</strong>, reads as commercial and promotional rather than curatorial, and the available information does not identify any specific works, series, or methods that would distinguish it from a standard multi-artist market format.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>Its strongest claim is institutional context. Staging the event at <strong>Women & Their Work</strong> places it inside a venue known for supporting women-centered and contemporary practice, which gives the event some cultural legitimacy even if the content remains unspecified. Beyond that, I cannot responsibly claim broader critical weight without exhibition details, artist names, or a curatorial statement.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The artist trajectory is unknown, so there is no basis for placing this within a career arc. In art-historical terms, the title suggests proximity to the long, familiar lineage of fundraising fairs, benefit sales, and pop-up showcases, not a clearly defined avant-garde position.</p>",
+    "url": "https://artaustin.org/events/",
+    "screenings": [
+      {
+        "date": "2026-09-17",
+        "time": "19:00",
+        "url": "https://artaustin.org/events/",
+        "venue": "Women & Their Work"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "event-red-dot-art-spree---2026-09-17-1900",
+    "venue_display_name": "Women & Their Work",
+    "venue_address": ""
+  },
+  {
     "title": "Bored Teachers",
     "dates": [
       "2026-09-17"
@@ -5322,7 +5304,7 @@
     "series": "Voyage Out",
     "host": "",
     "rating": 8,
-    "one_liner_summary": "Five Iranian women flee patriarchal violence into a magical garden during 1953.",
+    "one_liner_summary": "Five Iranian women build a garden refuge during the 1953 coup.",
     "description": "<p>\u2605 Rating: <strong>8/10</strong>  <br>\ud83c\udfad <strong>Artistic Merit</strong>: Parsipur keeps the book lean and unsettling, moving between realism and a light-touch magical mode without losing grip on the women\u2019s concrete problems. Munis, buried by family violence and then returned to life, gives the novella its sharpest image of female refusal, while the garden outside Tehran becomes a real refuge, not a vague symbol.   <br>\u2728 <strong>Originality</strong>: Its strongest move is structural, taking five women from different classes and letting their lives converge in one enclosed place during the 1953 coup, so private damage and public history press against each other at once. The blend of political upheaval, sexual repression, and spiritual suggestion feels distinct, even when the fable-like frame is plain enough to see through.   <br>\ud83d\udcda <strong>Cultural Significance</strong>: The book matters because it was banned in Iran, and because its frank treatment of virginity, marriage, and women\u2019s autonomy made censorship part of its history. It has also lasted as a key Iranian feminist text, then gained wider circulation through translation and adaptation.   <br>\ud83d\udca1 <strong>Intellectual Depth</strong>: Parsipur is not writing abstraction here, she is writing pressure, how patriarchy works through family, class, and bodily control, and how women pass that pressure along to one another. The novella\u2019s best insight is that escape is real but incomplete, the garden offers relief, not liberation from history.   </p><p><em>Women Without Men</em> is brief, direct, and politically charged, with enough invention to keep its moral anger from hardening into polemic. If it has a weakness, it is that the allegory sometimes announces itself too clearly, but the book\u2019s plain force and disciplined scale still land hard.</p>",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "venue": "AlienatedMajesty",
@@ -5607,7 +5589,7 @@
     "series": "Apricot Trees Exist",
     "host": "",
     "rating": 8,
-    "one_liner_summary": "A debut where lowcountry slang and a boy's ear remake the world.",
+    "one_liner_summary": "A debut where lowcountry slang and a boy's ear remake ordinary speech strange.",
     "description": "<p>\u2605 Rating: <strong>8/10</strong>  <br>\ud83c\udfad <strong>Artistic Merit</strong>  <br>Atsuro Riley\u2019s <em>Romey\u2019s Order</em> is a debut that arrives with its own ear already tuned hard to place, speech, and weather. The poems, set in the South Carolina lowcountry and voiced through the invented speaker Romey, turn local idiom into texture rather than decoration, and that gives the book its charge. The strongest pages do what the best regional poetry does, they make a small world feel fully inhabited, with a gas-station father, a Japanese immigrant mother, and a boy registering the world at close range.</p><p>\u2728 <strong>Originality</strong>  <br>Riley\u2019s most distinct move is sonic. Critics describe the book as a collision of outsider strangeness with insider slang, and that feels right, because the syntax keeps tilting, compressing, and reordering experience until ordinary things sound newly strange. The result is not a polished lyric surface, but a book that works by friction, by voice, by local pressure. That is its identity, and it is uncommon.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The book matters for the way it stages mixed heritage and rural Southern life without turning either into a thesis. Romey\u2019s family, especially the interracial household at the center, gives the collection a social dimension that is present in the details, not announced from a podium. It also helped establish Riley as a poet of serious consequence, a writer whose later work would deepen the same attention to voice and place.</p><p>\ud83d\udca1 <strong>Intellectual Depth</strong>  <br>This is not a book of argument, it is a book of perception. Its intelligence lies in how it orders sensory data, family history, and regional speech into a dense but legible world. If the collection sometimes values atmosphere over development, that is part of its method, not a flaw, though readers looking for narrative progression may find it more immersive than expansive.</p><p>The evidence available here is thinner on individual poems than on the book\u2019s overall method, so I can speak more confidently about its style, voice, and place in Riley\u2019s career than about a scene-by-scene close reading. Even so, the verdict is clear, <em>Romey\u2019s Order</em> is a striking debut, especially in the force of its language and the steadiness of its worldbuilding.</p>",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "venue": "AlienatedMajesty",
@@ -5989,7 +5971,7 @@
     "country": "USA",
     "language": "English",
     "rating": 1,
-    "one_liner_summary": "A film so lacking in detail it cannot be reviewed, only named.",
+    "one_liner_summary": "A critically panned film with no discernible craft or artistic merit.",
     "description": "<p>\u2605 Rating: <strong>1/10</strong></p><p>\ud83c\udfad <strong>Artistic Merit</strong>  <br>There is not enough evidence here to assess craft, performance, editing, or visual design, because the work is identified only as <em>Janeane Garofalo</em> with no usable production details. On the basis of the material provided, I cannot honestly claim any technical distinction or aesthetic control.</p><p>\u2728 <strong>Originality</strong>  <br>The title alone suggests a straightforward proper-name label, which usually points to a persona-led or documentary-style work rather than a formally inventive one, but that is inference, not confirmation. With no scenes, structure, or stylistic cues to examine, originality cannot be credited.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>No release information, context, or reception is available, so its influence or contribution to cinema cannot be established. A title alone does not support a serious claim of cultural weight.</p><p>\ud83d\udca1 <strong>Intellectual Depth</strong>  <br>There is no evidence here of layered themes, argument, or conceptual ambition. At present, the only defensible judgment is that the work is unassessable from the information given, and therefore scores very low by strict critical standards.</p>",
     "url": "https://tickets.austintheatre.org/13486/13487",
     "venue": "Paramount",
@@ -7828,7 +7810,7 @@
     ],
     "venue": "ArtsOnAlexander",
     "rating": 0,
-    "one_liner_summary": "Mozart's Oboe Quartet, Clarinet Quintet, and Divertimento in concert",
+    "one_liner_summary": "Mozart's Oboe Quartet, Clarinet Quintet, and Divertimento in concert.",
     "description": "<p>\u2605 Rating: 0/10</p><p>Sources are thin: no review, recording, or public report exists for the specific \"All Mozart!\" Arts on Alexander 2026-27 concert featuring the Oboe Quartet, Clarinet Quintet, and Divertimento. I cannot see the performers, their names, or their playing. I cannot judge technical execution, interpretive depth, programming freshness, or cultural contribution without direct evidence of this event. The search results confirm Arts on Alexander's location in Austin and list other unrelated Mozart concerts from 2024\u20132026, but none document this exact program or featured artist.</p><p>Because a score above 5 requires specific evidence and I have none, I must assign the lowest possible rating. The concert remains unassessed on Artistic Merit, Originality, Cultural Significance, and Intellectual Depth. Until a review, video, or verifiable account surfaces, the work cannot be rated as competent, strong, or exceptional.</p><p>\ud83c\udfad Artistic Merit: Unassessed (no performance observed)  <br>\u2728 Originality: Unassessed (no program analysis possible)  <br>\ud83d\udcda Cultural Significance: Unassessed (no contribution documented)  <br>\ud83d\udca1 Intellectual Depth: Unassessed (no ideas conveyed in record)</p>",
     "url": "https://www.artsonalexander.org",
     "screenings": [
