@@ -1548,13 +1548,43 @@
     "venue_address": "301 Chicon St, Austin, TX 78702"
   },
   {
+    "title": "ORLANDO",
+    "dates": [
+      "2026-07-29"
+    ],
+    "times": [
+      "19:30"
+    ],
+    "director": "",
+    "runtime_minutes": "",
+    "release_year": "",
+    "country": "USA",
+    "language": "English",
+    "rating": 7,
+    "one_liner_summary": "Tilda Swinton glides through centuries",
+    "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad Artistic Merit  <br>Sally Potter\u2019s <em>Orlando</em> (1992) executes its fantasy with <strong>sly grace</strong> and <strong>quiet elegance</strong>, relying on sumptuous photography and a dreamlike visual palette rather than plot mechanics . Tilda Swinton delivers a <strong>magnetic</strong> performance, maintaining a consistent androgynous presence across four centuries of history, from Queen Elizabeth I\u2019s court to a 1990s publishing office . The film\u2019s technical mastery lies in its seamless transitions between eras\u2014such as Orlando\u2019s awakening as a woman after the Great Frost of 1603, where the camera lingers on her disrobing in front of a mirror to reveal the new form without shock or melodrama . Yet the action remains <strong>static</strong>, and dialogue occasionally falters into abstraction, weakening the emotional pulse despite strong visuals .</p><p>\u2728 Originality  <br>The film\u2019s core innovation is its <strong>genre-fluid</strong> structure: a 400-year span compressed into 93 minutes, with gender transformation treated as a matter of fact rather than crisis . Orlando\u2019s transition at 1700\u2014waking in Constantinople as a woman after a war-torn diplomatic mission\u2014rejects clich\u00e9d trauma narratives, instead declaring \u201cSame person\u2026 Just a different sex\u201d . This refusal to dramatize gender variance as tragic or salvific distinguishes it from conventional queer cinema, though some critics argue this elusiveness renders the performance shallow rather than deep . The script draws directly from Virginia Woolf\u2019s 1928 novel, inspired by her romance with Vita Sackville-West, embedding <strong>queer culture</strong> into every frame without explicit political agenda .</p><p>\ud83d\udcda Cultural Significance  <br><em>Orlando</em> has become a <strong>queer and feminist landmark</strong>, celebrated for radially centering LGBTQI+ experiences across generations without overt critique . Its return in 2023 sparked renewed interest in fluid sexual identities, even as the term \u201cgender\u201d remains notably absent from the dialogue . The film challenges viewers to see gender as a cultural construct rather than biological destiny, offering a \u201cpassport to travel freely between masculinity and femininity\u201d . While it does not blueprint social change, it identifies limitations inherent in each gender role and urges honor for the impulse of being \u201cone with the human race\u201d .</p><p>\ud83d\udca1 Intellectual Depth  <br>The film explores <strong>universal human experiences</strong> through a radical lens: identity as continuous despite bodily change, and citizenship as fluid across gendered boundaries . Orlando\u2019s encounter with Queen Elizabeth I\u2014who commands him \u201cDo not fade. Do not wither. Do not grow old\u201d\u2014establishes a metaphysical promise fulfilled across centuries, framing existence as a perpetual state of youth and androgyny . The intellectual core lies in its assertion that differences between sexes are largely artificial, save for reproductive function, a claim that both liberates and unsettles . However, the film avoids deep philosophical excavation, opting instead for poetic sensuality and aesthetic immersion, which limits its capacity to engage with complex ideological debates .</p><p>Sources are sufficient to confirm the film\u2019s release year (1992), director (Sally Potter), lead actor (Tilda Swinton), and adaptation source (Virginia Woolf\u2019s novel), but details on production budget, critical reception in its initial year, or specific screenplay deviations from the text are not fully documented. I can assess artistic execution and cultural impact based on multiple critic reviews, but cannot verify unseen production constraints or Box Office performance. The review proceeds with confidence on available evidence.</p><p>Note: The user\u2019s prompt listed \u201cYear: unknown,\u201d but search results confirm the film is from 1992 . I have corrected this in the review to ensure accuracy.</p>",
+    "url": "https://hyperrealfilm.club/events/7-29/orlando-movie-screening",
+    "venue": "Hyperreal",
+    "screenings": [
+      {
+        "date": "2026-07-29",
+        "time": "19:30",
+        "url": "https://hyperrealfilm.club/events/7-29/orlando-movie-screening",
+        "venue": "Hyperreal"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "movie",
+    "id": "orlando",
+    "venue_display_name": "Hyperreal",
+    "venue_address": "301 Chicon St, Austin, TX 78702"
+  },
+  {
     "title": "SPIRITED AWAY",
     "dates": [
-      "2026-07-29",
       "2026-07-30"
     ],
     "times": [
-      "15:30",
       "16:15",
       "19:30"
     ],
@@ -1569,12 +1599,6 @@
     "url": "https://www.austinfilm.org/screening/spirited-away/",
     "venue": "AFS",
     "screenings": [
-      {
-        "date": "2026-07-29",
-        "time": "15:30",
-        "url": "https://www.austinfilm.org/screening/spirited-away/",
-        "venue": "AFS"
-      },
       {
         "date": "2026-07-30",
         "time": "16:15",
@@ -1597,7 +1621,6 @@
   {
     "title": "ROSE OF NEVADA",
     "dates": [
-      "2026-07-29",
       "2026-07-30",
       "2026-08-02",
       "2026-08-03",
@@ -1623,12 +1646,6 @@
     "url": "https://www.austinfilm.org/screening/rose-of-nevada/",
     "venue": "AFS",
     "screenings": [
-      {
-        "date": "2026-07-29",
-        "time": "16:15",
-        "url": "https://www.austinfilm.org/screening/rose-of-nevada/",
-        "venue": "AFS"
-      },
       {
         "date": "2026-07-30",
         "time": "17:00",
@@ -1671,125 +1688,6 @@
     "id": "rose-of-nevada",
     "venue_display_name": "Austin Film Society",
     "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
-  },
-  {
-    "title": "MILLENNIUM ACTRESS",
-    "dates": [
-      "2026-07-29",
-      "2026-08-03",
-      "2026-08-04",
-      "2026-08-06"
-    ],
-    "times": [
-      "15:45",
-      "16:30",
-      "19:00"
-    ],
-    "director": "Satoshi Kon",
-    "runtime_minutes": 87,
-    "release_year": 2001,
-    "country": "Japan",
-    "language": "Japanese",
-    "rating": 9,
-    "one_liner_summary": "Satoshi Kon collapses time and genre into a seamless memory chase.",
-    "description": "<p>\u2605 Rating: 9/10</p><p>\ud83c\udfad Artistic Merit<br>Satoshi Kon executes a narrative machine that fuses documentary form with surreal fantasy, using the demolition of a film studio as the physical anchor for Chiyoko Fujiwara\u2019s memory. The film\u2019s technical mastery lies in its seamless visual transitions where the elderly actress\u2019s recollections dissolve into the sets of war dramas, samurai chanbara stories, and sci-fi epics, with the documentary crew Genya Tachibana and Kyoji Ida physically appearing within these historical vignettes . Kon avoids the static framing of a standard interview; instead, he animates the past with a kinetic energy that matches the genre shifts, from the Sino-Japanese War era to a distant future, ensuring the animation style evolves to match the story being told . The pacing is relentless yet precise, compressing a lifetime of career and longing into 87 minutes without losing emotional clarity .</p><p>\u2728 Originality<br>The film\u2019s structure is a high-entropy experiment that rejects linear biography by blending memory with the actress\u2019s filmography, a concept that sounds silly on paper but works with surprising emotional heaviness . Instead of a traditional flashback, Kon introduces a \u201cgenre roulette\u201d where Chiyoko\u2019s life story is told through the genres she performed in, with the documentary filmmakers popping up as characters in war dramas or tokusatsu . This approach creates a unique narrative architecture where the search for a lost revolutionary and the return of a key become the driving force behind decades of cinematic roles . The unpredictability of the scene shifts, where a modern interview instantly becomes a 1940s street battle, distinguishes it from the standard animated drama .</p><p>\ud83d\udcda Cultural Significance<br><em>Millennium Actress</em> serves as a sophisticated reflection on the nature of cinema itself, deftly blurring memory and make-believe to celebrate the impermanence of the art form . It functions as a love letter to movies laced with melancholy, reflecting on a life that has passed its main character by while acknowledging the enduring power of the medium . The film captures the specific Japanese cultural context of a bankrupt studio being torn down, symbolizing the erosion of a once-glorious era of filmmaking . By focusing on an aging actress who vanishes at the height of her career, it addresses the universal human experience of legacy and the fleeting nature of celebrity .</p><p>\ud83d\udca1 Intellectual Depth<br>The core idea is the enjoyment of the journey and the acceptance of impermanence rather than the pursuit of a fixed \u201chappiness,\u201d since everything ends eventually . Chiyoko\u2019s quest to find the man who gave her the key becomes a metaphor for the search for meaning in a life defined by performance and the passage of time . The film explores the complexity of identity by showing how Chiyoko\u2019s real self merges with her cinematic characters, suggesting that the actress lives through her roles even as she ages . This thematic layering elevates the story from a simple romance to an examination of how memory constructs our reality and how we define ourselves through the stories we tell .</p>",
-    "url": "https://www.austinfilm.org/screening/millennium-actress/",
-    "venue": "AFS",
-    "screenings": [
-      {
-        "date": "2026-07-29",
-        "time": "19:00",
-        "url": "https://www.austinfilm.org/screening/millennium-actress/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-08-03",
-        "time": "15:45",
-        "url": "https://www.austinfilm.org/screening/millennium-actress/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-08-04",
-        "time": "16:30",
-        "url": "https://www.austinfilm.org/screening/millennium-actress/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-08-06",
-        "time": "15:45",
-        "url": "https://www.austinfilm.org/screening/millennium-actress/",
-        "venue": "AFS"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "millennium-actress",
-    "venue_display_name": "Austin Film Society",
-    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
-  },
-  {
-    "title": "ORLANDO",
-    "dates": [
-      "2026-07-29"
-    ],
-    "times": [
-      "19:30"
-    ],
-    "director": "",
-    "runtime_minutes": "",
-    "release_year": "",
-    "country": "USA",
-    "language": "English",
-    "rating": 7,
-    "one_liner_summary": "Tilda Swinton glides through centuries",
-    "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad Artistic Merit  <br>Sally Potter\u2019s <em>Orlando</em> (1992) executes its fantasy with <strong>sly grace</strong> and <strong>quiet elegance</strong>, relying on sumptuous photography and a dreamlike visual palette rather than plot mechanics . Tilda Swinton delivers a <strong>magnetic</strong> performance, maintaining a consistent androgynous presence across four centuries of history, from Queen Elizabeth I\u2019s court to a 1990s publishing office . The film\u2019s technical mastery lies in its seamless transitions between eras\u2014such as Orlando\u2019s awakening as a woman after the Great Frost of 1603, where the camera lingers on her disrobing in front of a mirror to reveal the new form without shock or melodrama . Yet the action remains <strong>static</strong>, and dialogue occasionally falters into abstraction, weakening the emotional pulse despite strong visuals .</p><p>\u2728 Originality  <br>The film\u2019s core innovation is its <strong>genre-fluid</strong> structure: a 400-year span compressed into 93 minutes, with gender transformation treated as a matter of fact rather than crisis . Orlando\u2019s transition at 1700\u2014waking in Constantinople as a woman after a war-torn diplomatic mission\u2014rejects clich\u00e9d trauma narratives, instead declaring \u201cSame person\u2026 Just a different sex\u201d . This refusal to dramatize gender variance as tragic or salvific distinguishes it from conventional queer cinema, though some critics argue this elusiveness renders the performance shallow rather than deep . The script draws directly from Virginia Woolf\u2019s 1928 novel, inspired by her romance with Vita Sackville-West, embedding <strong>queer culture</strong> into every frame without explicit political agenda .</p><p>\ud83d\udcda Cultural Significance  <br><em>Orlando</em> has become a <strong>queer and feminist landmark</strong>, celebrated for radially centering LGBTQI+ experiences across generations without overt critique . Its return in 2023 sparked renewed interest in fluid sexual identities, even as the term \u201cgender\u201d remains notably absent from the dialogue . The film challenges viewers to see gender as a cultural construct rather than biological destiny, offering a \u201cpassport to travel freely between masculinity and femininity\u201d . While it does not blueprint social change, it identifies limitations inherent in each gender role and urges honor for the impulse of being \u201cone with the human race\u201d .</p><p>\ud83d\udca1 Intellectual Depth  <br>The film explores <strong>universal human experiences</strong> through a radical lens: identity as continuous despite bodily change, and citizenship as fluid across gendered boundaries . Orlando\u2019s encounter with Queen Elizabeth I\u2014who commands him \u201cDo not fade. Do not wither. Do not grow old\u201d\u2014establishes a metaphysical promise fulfilled across centuries, framing existence as a perpetual state of youth and androgyny . The intellectual core lies in its assertion that differences between sexes are largely artificial, save for reproductive function, a claim that both liberates and unsettles . However, the film avoids deep philosophical excavation, opting instead for poetic sensuality and aesthetic immersion, which limits its capacity to engage with complex ideological debates .</p><p>Sources are sufficient to confirm the film\u2019s release year (1992), director (Sally Potter), lead actor (Tilda Swinton), and adaptation source (Virginia Woolf\u2019s novel), but details on production budget, critical reception in its initial year, or specific screenplay deviations from the text are not fully documented. I can assess artistic execution and cultural impact based on multiple critic reviews, but cannot verify unseen production constraints or Box Office performance. The review proceeds with confidence on available evidence.</p><p>Note: The user\u2019s prompt listed \u201cYear: unknown,\u201d but search results confirm the film is from 1992 . I have corrected this in the review to ensure accuracy.</p>",
-    "url": "https://hyperrealfilm.club/events/7-29/orlando-movie-screening",
-    "venue": "Hyperreal",
-    "screenings": [
-      {
-        "date": "2026-07-29",
-        "time": "19:30",
-        "url": "https://hyperrealfilm.club/events/7-29/orlando-movie-screening",
-        "venue": "Hyperreal"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "orlando",
-    "venue_display_name": "Hyperreal",
-    "venue_address": "301 Chicon St, Austin, TX 78702"
-  },
-  {
-    "title": "Strangers on a Train",
-    "dates": [
-      "2026-07-29"
-    ],
-    "times": [
-      "19:30"
-    ],
-    "director": "",
-    "runtime_minutes": "",
-    "release_year": "",
-    "country": "USA",
-    "language": "English",
-    "rating": 9,
-    "one_liner_summary": "Hitchcock\u2019s exacting visual logic tightens a thriller of swapped murders and polished menace.",
-    "description": "<p>\u2605 Rating: 9/10</p><p>\ud83c\udfad Artistic Merit, Hitchcock\u2019s control is exacting. The train compartments, tennis court glare, carnival machinery, and shadowed interiors are all staged with a hard visual logic that keeps the film taut even when the plot turns grotesque. The performances do heavy lifting too, especially Robert Walker\u2019s polished menace, which never tips into camp, and Farley Granger\u2019s brittle panic, which gives the story its nervous pulse.</p><p>\u2728 Originality, The film\u2019s central bargain, two strangers trading murders, is still a clean, nasty idea. What gives it force is how quickly it moves from gimmick to moral trap. The doubles structure, the crossed motives, and the public spaces turned into sites of private terror keep the film from settling into routine thriller logic. Bruno is not just a villain, he is a walking intrusion, a man who turns flirtation into threat and charm into coercion.</p><p>\ud83d\udcda Cultural Significance, This is one of the key American thrillers of its era, and its influence is easy to trace in later stories about contamination, obsession, and the collapse of civility. It also helped cement Hitchcock\u2019s reputation for turning polished surfaces into pressure chambers. The film\u2019s depiction of class, masculinity, and social performance still feels useful, because it shows how quickly a genteel world can be bent by one person\u2019s appetite for chaos.</p><p>\ud83d\udca1 Intellectual Depth, The film is not interested in psychology as diagnosis. It is interested in impulse, guilt, projection, and the way people accept violence when it arrives in a flattering package. The swapped murders are a neat formal device, but they also expose a plain human weakness, the desire to believe that evil can be outsourced. That idea gives the film more bite than a standard suspense plot, and it keeps the ending from feeling merely clever.</p>",
-    "url": "https://tickets.austintheatre.org/13870/13871",
-    "venue": "Paramount",
-    "screenings": [
-      {
-        "date": "2026-07-29",
-        "time": "19:30",
-        "url": "https://tickets.austintheatre.org/13870/13871",
-        "venue": "Paramount"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "strangers-on-a-train",
-    "venue_display_name": "Paramount",
-    "venue_address": "713 Congress Ave, Austin, TX 78701"
   },
   {
     "title": "MUGANGA, THE ONE WHO TREATS",
@@ -2423,6 +2321,53 @@
     "venue_address": "613 W 29th St, Austin, TX 78705"
   },
   {
+    "title": "MILLENNIUM ACTRESS",
+    "dates": [
+      "2026-08-03",
+      "2026-08-04",
+      "2026-08-06"
+    ],
+    "times": [
+      "15:45",
+      "16:30"
+    ],
+    "director": "Satoshi Kon",
+    "runtime_minutes": 87,
+    "release_year": 2001,
+    "country": "Japan",
+    "language": "Japanese",
+    "rating": 9,
+    "one_liner_summary": "Satoshi Kon collapses time and genre into a seamless memory chase.",
+    "description": "<p>\u2605 Rating: 9/10</p><p>\ud83c\udfad Artistic Merit<br>Satoshi Kon executes a narrative machine that fuses documentary form with surreal fantasy, using the demolition of a film studio as the physical anchor for Chiyoko Fujiwara\u2019s memory. The film\u2019s technical mastery lies in its seamless visual transitions where the elderly actress\u2019s recollections dissolve into the sets of war dramas, samurai chanbara stories, and sci-fi epics, with the documentary crew Genya Tachibana and Kyoji Ida physically appearing within these historical vignettes . Kon avoids the static framing of a standard interview; instead, he animates the past with a kinetic energy that matches the genre shifts, from the Sino-Japanese War era to a distant future, ensuring the animation style evolves to match the story being told . The pacing is relentless yet precise, compressing a lifetime of career and longing into 87 minutes without losing emotional clarity .</p><p>\u2728 Originality<br>The film\u2019s structure is a high-entropy experiment that rejects linear biography by blending memory with the actress\u2019s filmography, a concept that sounds silly on paper but works with surprising emotional heaviness . Instead of a traditional flashback, Kon introduces a \u201cgenre roulette\u201d where Chiyoko\u2019s life story is told through the genres she performed in, with the documentary filmmakers popping up as characters in war dramas or tokusatsu . This approach creates a unique narrative architecture where the search for a lost revolutionary and the return of a key become the driving force behind decades of cinematic roles . The unpredictability of the scene shifts, where a modern interview instantly becomes a 1940s street battle, distinguishes it from the standard animated drama .</p><p>\ud83d\udcda Cultural Significance<br><em>Millennium Actress</em> serves as a sophisticated reflection on the nature of cinema itself, deftly blurring memory and make-believe to celebrate the impermanence of the art form . It functions as a love letter to movies laced with melancholy, reflecting on a life that has passed its main character by while acknowledging the enduring power of the medium . The film captures the specific Japanese cultural context of a bankrupt studio being torn down, symbolizing the erosion of a once-glorious era of filmmaking . By focusing on an aging actress who vanishes at the height of her career, it addresses the universal human experience of legacy and the fleeting nature of celebrity .</p><p>\ud83d\udca1 Intellectual Depth<br>The core idea is the enjoyment of the journey and the acceptance of impermanence rather than the pursuit of a fixed \u201chappiness,\u201d since everything ends eventually . Chiyoko\u2019s quest to find the man who gave her the key becomes a metaphor for the search for meaning in a life defined by performance and the passage of time . The film explores the complexity of identity by showing how Chiyoko\u2019s real self merges with her cinematic characters, suggesting that the actress lives through her roles even as she ages . This thematic layering elevates the story from a simple romance to an examination of how memory constructs our reality and how we define ourselves through the stories we tell .</p>",
+    "url": "https://www.austinfilm.org/screening/millennium-actress/",
+    "venue": "AFS",
+    "screenings": [
+      {
+        "date": "2026-08-03",
+        "time": "15:45",
+        "url": "https://www.austinfilm.org/screening/millennium-actress/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-08-04",
+        "time": "16:30",
+        "url": "https://www.austinfilm.org/screening/millennium-actress/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-08-06",
+        "time": "15:45",
+        "url": "https://www.austinfilm.org/screening/millennium-actress/",
+        "venue": "AFS"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "movie",
+    "id": "millennium-actress",
+    "venue_display_name": "Austin Film Society",
+    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
+  },
+  {
     "title": "BARRIO TRISTE",
     "dates": [
       "2026-08-03",
@@ -2687,7 +2632,7 @@
     "country": "Japan",
     "language": "Japanese",
     "rating": 6,
-    "one_liner_summary": "Kurosawa\u2019s stiff samurai mystery trades swordplay for talky leadership games.",
+    "one_liner_summary": "Kurosawa\u2019s stiff samurai mystery trades action for talky mental games.",
     "description": "<p>\u2605 Rating: 6/10</p><p>\ud83c\udfad Artistic Merit<br>Kiyoshi Kurosawa delivers an elegantly crafted but theatrically stiff historical mystery that prioritizes dialogue over kinetic tension. The film adopts a classical, minimalist style, stripping away the director\u2019s signature eerie narrative experimentation to focus on a \"clever mental game\" of leadership and sacrifice . Masahiro Motoki anchors the role of Lord Murashige Araki with a steady, solitary presence, while Masaki Suda brings sharp, dangerous energy to the prisoner Kanbei Kuroda, yet their interactions often feel locked in a \"theatrical\" setup that lacks the intense pressure of a true siege . The aesthetic is clean and precise, but the mise-en-sc\u00e8ne inside Arioka Castle remains static, turning the two-hour-plus runtime into a series of staged conversations rather than a gripping psychological thriller .</p><p>\u2728 Originality<br>The film is a direct adaptation of Honobu Yonezawa\u2019s prize-winning novel <em>Kokurojo</em>, and it adheres closely to the source material\u2019s four-chapter, season-based structure . While the premise of a murder mystery unfolding inside a besieged fortress offers a fresh twist on the samurai genre, Kurosawa fails to deconstruct the genre or inject his usual unpredictability . The narrative stays within the \"pressure cooker\" of the castle, focusing on loyalty fractures and supply lines, but the execution feels familiar and derivative of classic detective stories rather than innovative . It is a competent genre exercise that avoids major clich\u00e9s but offers little surprise in its plot mechanics or thematic framing .</p><p>\ud83d\udcda Cultural Significance<br>The film captures the tumultuous 16th-century era of Japanese unrest, specifically the revolt of Murashige Araki against the tyrannical Nobunaga Oda in 1578 . It serves as a \"moving examination of genuine leadership\" and the solitude of command, resonating with contemporary audiences through its evocative subtlety . However, its contribution to the art form is limited; it functions more as a literary interpretation than a bold cinematic statement, failing to elevate the feudal mystery genre to new heights . The production reaffirms the enduring appeal of Japanese historical drama but does not redefine the boundaries of the medium.</p><p>\ud83d\udca1 Intellectual Depth<br>The core of the film lies in its exploration of the \"fragile order\" of a court shattered by mysterious crimes, plunging the fortress into fear and suspicion . It examines the complexity of leadership under siege, where the protagonist must collaborate with a dangerous prisoner to uncover a traitor among his ranks . The themes of isolation, sacrifice, and the psychological toll of war are present, yet the film treats them with a measured, almost detached approach that prevents the ideas from achieving true complexity . The intellectual engagement remains surface-level, relying on dialogue to convey the moral weight of the situation rather than through deeper visual or narrative subtext .</p><p>*</p>",
     "url": "https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/",
     "venue": "AFS",
@@ -3066,8 +3011,7 @@
       "2026-08-12"
     ],
     "times": [
-      "15:30",
-      "19:30"
+      "15:30"
     ],
     "director": "",
     "runtime_minutes": "",
@@ -3084,12 +3028,6 @@
         "date": "2026-08-12",
         "time": "15:30",
         "url": "https://tickets.austintheatre.org/13832/13833",
-        "venue": "Paramount"
-      },
-      {
-        "date": "2026-08-12",
-        "time": "19:30",
-        "url": "https://tickets.austintheatre.org/13832/14125",
         "venue": "Paramount"
       }
     ],
@@ -3407,7 +3345,7 @@
     "series": "A Season Of",
     "host": "",
     "rating": 6,
-    "one_liner_summary": "Volodine's post-exotic novel of exile and political ruin, formally severe.",
+    "one_liner_summary": "Volodine's post-exotic novel of exile and political ruin, thinly sourced.",
     "description": "<p>\u2605 Rating: <strong>6/10</strong></p><p><strong>The Monroe Girls</strong> looks competent and controlled, but the available material is too thin to justify a higher score. What can be said with confidence is limited, so this is a measured verdict rather than a full-scale appraisal.  </p><p>\ud83c\udfad <strong>Artistic Merit</strong> , <strong>6/10</strong>  <br>Volodine\u2019s reputation rests on severe, atmosphere-heavy fiction, and this book appears to fit that register, but the sources here do not give enough textual detail to prove exceptional execution. I can say it likely depends more on tonal pressure than on plot mechanics, and that usually rewards disciplined prose more than expansive narrative movement.  </p><p>\u2728 <strong>Originality</strong> , <strong>7/10</strong>  <br>Antoine Volodine is an established formal risk-taker, and that alone suggests a book that resists standard realist packaging. Even without scene-level evidence from the available sources, the title and authorial context point toward a work shaped by his distinctive post-exotic mode rather than a conventional literary novel.  </p><p>\ud83d\udcda <strong>Cultural Significance</strong> , <strong>7/10</strong>  <br>Volodine occupies a real place in contemporary European and translated fiction, especially for readers interested in experimental narrative and anti-dogmatic forms. If this book extends that body of work, its value lies less in public visibility than in continuing a serious, idiosyncratic literary project.  </p><p>\ud83d\udca1 <strong>Intellectual Depth</strong> , <strong>6/10</strong>  <br>The likely themes, exile, failure, political ruin, damaged identity, are intellectually rich terrain in Volodine\u2019s work, but the supplied sources do not let me cite specific passages or scenes from <strong>The Monroe Girls</strong> itself. On the evidence available, I would call it thoughtful and layered, not yet demonstrably major.  </p><p>If you want, I can turn this into a sharper publication-style review once you provide a plot summary, excerpt, or additional reviews of the book.</p>",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "venue": "AlienatedMajesty",
@@ -3615,7 +3553,7 @@
     "series": "The Spotlight Book Club",
     "host": null,
     "rating": 8,
-    "one_liner_summary": "A minor goddess claims her own story through exile, magic, and endurance.",
+    "one_liner_summary": "Miller recasts a minor goddess as the center of her own myth.",
     "description": "<p>\u2605 Rating: <strong>8/10</strong></p><p><strong>\ud83c\udfad Artistic Merit</strong>  <br>Miller writes in a clean, controlled voice that turns myth into readable, contemporary fiction without flattening it. The first-person design gives Circe a steady inward pressure, and the episodic structure, encounters with Prometheus, the Minotaur, Medea, and Odysseus, keeps the book moving while avoiding the blunt machinery of a quest plot.</p><p><strong>\u2728 Originality</strong>  <br>The premise is the book\u2019s sharpest weapon, a minor goddess recast as the center of her own story. That is not new in itself, but Miller\u2019s choice to make Circe\u2019s exile, apprenticeship in magic, and long solitude the spine of the novel gives the familiar Greek material a different scale and moral angle.</p><p><strong>\ud83d\udcda Cultural Significance</strong>  <br>The novel matters because it helped push retellings of Greek myth into the mainstream again, especially stories focused on women pushed to the edge of heroic tradition. Critics repeatedly singled it out as a fresh and compelling revision of classical myth, and its acclaim reflects a broad appetite for feminist re-readings of old narratives.</p><p><strong>\ud83d\udca1 Intellectual Depth</strong>  <br>Its themes are clear and substantial, power, autonomy, domestic labor, punishment, and the cost of female knowledge. The book is strongest when Circe learns magic through repeated practice, then uses that skill to survive abandonment and coercion, but it is less intellectually demanding than it is emotionally legible, and some later stretches lean more on momentum than inquiry.</p><p>Miller\u2019s book earns its score through control, not complexity for its own sake. It is not a radical formal experiment, but it is a confident and highly effective retelling, and the central achievement is that Circe feels like a person shaped by labor, fear, and appetite rather than a decorative myth figure.</p>",
     "url": "https://www.firstlightaustin.com/book-club",
     "venue": "FirstLight",
@@ -4180,7 +4118,7 @@
     "series": "Brevity Book Club",
     "host": null,
     "rating": 9,
-    "one_liner_summary": "Anderson's small-town grotesques reveal loneliness as the local weather.",
+    "one_liner_summary": "Anderson's plain sketches of small-town grotesques conceal private wreckage.",
     "description": "<p>\u2605 Rating: <strong>9/10</strong></p><p><strong>Artistic Merit</strong>  <br>Anderson\u2019s method is plain, almost stubbornly so, and that is the point. <em>Winesburg, Ohio</em> is built from short, sharp encounters, a newspaper reporter\u2019s notebook turned into a gallery of damaged lives, and the book\u2019s best passages land because they refuse ornament and go straight for the bruise. The opening, \u201cThe Book of the Grotesque,\u201d sets the template with its old writer and his parade of \u201ctruths,\u201d then the later sketches, from the preacher\u2019s secret appetite to the doctor\u2019s private grief, keep tightening the knife on small-town speech and private failure.</p><p><strong>Originality</strong>  <br>Its form is one of the book\u2019s great feats, a story cycle that reads like a novel without pretending to be one. Anderson makes the town itself feel like a pressure chamber, where loneliness is not an exception but the local weather, and that structural choice was fresh enough in 1919 to help define the modern American short story cycle.</p><p><strong>Cultural Significance</strong>  <br>This is a cornerstone of American modernism and of the literature of the small town as a place of constraint, not comfort. The book\u2019s cast of \u201cgrotesques\u201d gave later writers a model for characters whose inner lives are larger, stranger, and more painful than their social surfaces suggest.</p><p><strong>Intellectual Depth</strong>  <br>Anderson is not doing sociology; he is showing what happens when people build a life around one private idea and then break under it. The book\u2019s enduring intelligence lies in its refusal to sentimentalize isolation, George Willard\u2019s role as listener, witness, and would-be writer gives the cycle its fragile human center, but the town remains a place where talk fails and desire curdles into embarrassment or despair.</p><p>What keeps the book alive is not polish, but nerve. It is rough in places, emotionally bare, and still unusually sharp about how public manners conceal private wreckage.</p>",
     "url": "https://www.firstlightaustin.com/book-club",
     "venue": "FirstLight",
@@ -4348,7 +4286,7 @@
     "country": "USA",
     "language": "English",
     "rating": 7,
-    "one_liner_summary": "A restrained true-crime film that refuses to resolve its own central mystery.",
+    "one_liner_summary": "A patient, unresolved look at memory and grief in a 1991 Austin case.",
     "description": "<p>\u2605 Rating: <strong>7/10</strong></p><p>\ud83c\udfad <strong>Artistic Merit</strong>  <br>Margaret Brown\u2019s two-episode film has real craft in the way it withholds easy payoff and lets the 1991 case remain stubbornly unresolved, using the gap between memory, evidence, and grief as its main dramatic engine. The structure is patient rather than showy, and that restraint gives the interviews and archival material room to accumulate pressure instead of being overcut into a routine true-crime package.</p><p>\u2728 <strong>Originality</strong>  <br>Its strongest move is formal, not sensational. Rather than treating the murders as a puzzle with a tidy solution, the film leans into the long afterlife of uncertainty, which keeps it from feeling like another procedural replay. The premise is familiar, but the emphasis on absence, testimony, and the damage done by not knowing gives the material a sharper edge than standard crime retellings.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The case itself has long sat inside Austin\u2019s public memory, and Brown\u2019s project matters because it revisits a wound that has not closed, with obvious relevance to the broader history of unsolved violence and the limits of institutional closure. As a cultural artifact, the film belongs to the current true-crime era, but it appears more interested in civic memory than in exploitation, which gives it more value than the usual platform filler.</p><p>\ud83d\udca1 <strong>Intellectual Depth</strong>  <br>The film\u2019s real subject is not simply who did it, but what a city does with a permanent absence, and how families live when the official story never arrives. That gives it a harder, more mature emotional register than most genre work, and it suggests a serious interest in the ethics of looking, listening, and retelling.</p><p>I can say more about the film\u2019s critical strengths than its full range of scenes because the available source material is thin and mostly describes the project at a high level, not in detailed sequence. What is clear is that Brown aims for accumulated unease and civic reckoning, and that is enough to justify a score above solid competence.</p>",
     "url": "https://www.austinfilm.org/screening/yogurt-shop-murders-ep-1-2/",
     "venue": "AFS",
@@ -4868,7 +4806,7 @@
     "series": "NYRB Book Club",
     "host": "",
     "rating": 7,
-    "one_liner_summary": "Lemann's odd, funny novel of Southern decay told in bright, frank prose.",
+    "one_liner_summary": "Lemann's Southern grotesque: odd inventions, family decay, and a witness's love.",
     "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad Artistic Merit: 8  <br>The prose operates in Louise\u2019s \u201cbright, frank cadence,\u201d delivering \u201cgreat sentence after great sentence\u201d that balances humor with tragedy . Specific moments like Claude\u2019s patented shrimp peeler\u2014born after a banana-peel slip that ended his college career\u2014show Lemann turning absurdity into character history without flinching . The dialogue lands \u201cpoetic and delightful,\u201d stocked with funny one-liners from cocktail-soaked characters who know too much and say it anyway .</p><p>\u2728 Originality: 7  <br>The novel follows post-collegiate Louise as she watches the Collier family\u2019s \u201celusive, magnetic prodigal boy\u201d unravel while she remains both insider and outsider . This dual positioning creates a narrative that \u201cambles to a tragic climax\u201d without forcing a conventional arc, letting observation become \u201ca kind of witnessing, a kind of love\u201d . The shrimp-peeler invention and the trash-can ignition that gets Louise fired are not just plot points; they are concrete, odd details that define the book\u2019s Southern grotesque without resorting to clich\u00e9 .</p><p>\ud83d\udcda Cultural Significance: 6  <br>First published in 1985 and recently re-released by NYRB Classics, the book has earned a \u201ccult novel\u201d status but remains outside the mainstream literary canon . Its Louisiana setting and focus on old-family decay give it regional weight, yet it lacks the broader cultural imprint of contemporaries like Faulkunan or Welty . The novel\u2019s re-release suggests enduring interest, but it remains a niche achievement rather than a tradition-defining work .</p><p>\ud83d\udca1 Intellectual Depth: 6  <br>Louise\u2019s observations on the Colliers reveal a willingness to name dysfunction without moralizing, letting tragedy unfold through \u201cblunders\u201d and departures rather than grand revelations . The book hints that \u201cdeception can be traded for greatness\u201d and that betrayal and intimacy lie closely intertwined, a theme Lemann later explores more explicitly in her nonfiction on Louisiana corruption . Still, the novel\u2019s concerns stay personal and local; it does not push toward a larger philosophical system or a sweeping social critique .</p><p>The novel is funny, odd, and deeply compelling, with a narrative that leans on character quirks and familial decay more than structural innovation . It does not reach the level of a masterwork, but it earns a solid 7 by sustaining its voice and delivering specific, vivid scenes that avoid the hollow praise of \u201cmemorable\u201d or \u201cdeep\u201d without ever needing those words .</p><p>Sources are thin on comparative literary analysis or runner-up reviews; most coverage focuses on plot summary and tone rather than deep thematic dissection. I can confirm the prose quality and specific scenes, but I cannot place the book with confidence against a broader 1980s Southern fiction field. The review remains grounded in what the sources explicitly state about Lemann\u2019s craft and narrative choices.</p>",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "venue": "AlienatedMajesty",
@@ -5137,7 +5075,7 @@
     "series": "",
     "venue": "Women & Their Work",
     "rating": 4,
-    "one_liner_summary": "A brisk art fair at Women",
+    "one_liner_summary": "A thin art sale at Women & Their Work, breadth without visual control.",
     "description": "<p>\u2605 Rating: <strong>4/10</strong></p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>The record here is too thin to praise the installation\u2019s composition, materials, or technique with confidence. With only the event title, venue, and no documented artist list or object-level description, I can say the presentation sounds more like an art fair or sale event than a tightly authored exhibition, which usually means breadth over visual control.</p><p>\u2728 <strong>Originality</strong>  <br>There is not enough evidence to credit the event with conceptual risk or formal departure. The title, <strong>Red Dot Art Spree</strong>, reads as commercial and promotional rather than curatorial, and the available information does not identify any specific works, series, or methods that would distinguish it from a standard multi-artist market format.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>Its strongest claim is institutional context. Staging the event at <strong>Women & Their Work</strong> places it inside a venue known for supporting women-centered and contemporary practice, which gives the event some cultural legitimacy even if the content remains unspecified. Beyond that, I cannot responsibly claim broader critical weight without exhibition details, artist names, or a curatorial statement.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The artist trajectory is unknown, so there is no basis for placing this within a career arc. In art-historical terms, the title suggests proximity to the long, familiar lineage of fundraising fairs, benefit sales, and pop-up showcases, not a clearly defined avant-garde position.</p>",
     "url": "https://artaustin.org/events/",
     "screenings": [
@@ -5148,7 +5086,7 @@
         "venue": "Women & Their Work"
       }
     ],
-    "review_confidence": "high",
+    "review_confidence": "unknown",
     "type": "visual_arts",
     "id": "event-red-dot-art-spree---2026-09-17-1900",
     "venue_display_name": "Women & Their Work",
@@ -5193,7 +5131,6 @@
       "2026-09-19"
     ],
     "times": [
-      "19:00",
       "19:30"
     ],
     "director": "",
@@ -5215,7 +5152,7 @@
       },
       {
         "date": "2026-09-19",
-        "time": "19:00",
+        "time": "19:30",
         "url": "https://tickets.austintheatre.org/13799/14036",
         "venue": "Paramount"
       }
@@ -5304,7 +5241,7 @@
     "series": "Voyage Out",
     "host": "",
     "rating": 8,
-    "one_liner_summary": "Five Iranian women build a garden refuge during the 1953 coup.",
+    "one_liner_summary": "Parsipur's banned feminist fable of five women seeking refuge in a magical garden",
     "description": "<p>\u2605 Rating: <strong>8/10</strong>  <br>\ud83c\udfad <strong>Artistic Merit</strong>: Parsipur keeps the book lean and unsettling, moving between realism and a light-touch magical mode without losing grip on the women\u2019s concrete problems. Munis, buried by family violence and then returned to life, gives the novella its sharpest image of female refusal, while the garden outside Tehran becomes a real refuge, not a vague symbol.   <br>\u2728 <strong>Originality</strong>: Its strongest move is structural, taking five women from different classes and letting their lives converge in one enclosed place during the 1953 coup, so private damage and public history press against each other at once. The blend of political upheaval, sexual repression, and spiritual suggestion feels distinct, even when the fable-like frame is plain enough to see through.   <br>\ud83d\udcda <strong>Cultural Significance</strong>: The book matters because it was banned in Iran, and because its frank treatment of virginity, marriage, and women\u2019s autonomy made censorship part of its history. It has also lasted as a key Iranian feminist text, then gained wider circulation through translation and adaptation.   <br>\ud83d\udca1 <strong>Intellectual Depth</strong>: Parsipur is not writing abstraction here, she is writing pressure, how patriarchy works through family, class, and bodily control, and how women pass that pressure along to one another. The novella\u2019s best insight is that escape is real but incomplete, the garden offers relief, not liberation from history.   </p><p><em>Women Without Men</em> is brief, direct, and politically charged, with enough invention to keep its moral anger from hardening into polemic. If it has a weakness, it is that the allegory sometimes announces itself too clearly, but the book\u2019s plain force and disciplined scale still land hard.</p>",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "venue": "AlienatedMajesty",
@@ -5589,7 +5526,7 @@
     "series": "Apricot Trees Exist",
     "host": "",
     "rating": 8,
-    "one_liner_summary": "A debut where lowcountry slang and a boy's ear remake ordinary speech strange.",
+    "one_liner_summary": "A debut where lowcountry slang and sonics build a boy's world from friction.",
     "description": "<p>\u2605 Rating: <strong>8/10</strong>  <br>\ud83c\udfad <strong>Artistic Merit</strong>  <br>Atsuro Riley\u2019s <em>Romey\u2019s Order</em> is a debut that arrives with its own ear already tuned hard to place, speech, and weather. The poems, set in the South Carolina lowcountry and voiced through the invented speaker Romey, turn local idiom into texture rather than decoration, and that gives the book its charge. The strongest pages do what the best regional poetry does, they make a small world feel fully inhabited, with a gas-station father, a Japanese immigrant mother, and a boy registering the world at close range.</p><p>\u2728 <strong>Originality</strong>  <br>Riley\u2019s most distinct move is sonic. Critics describe the book as a collision of outsider strangeness with insider slang, and that feels right, because the syntax keeps tilting, compressing, and reordering experience until ordinary things sound newly strange. The result is not a polished lyric surface, but a book that works by friction, by voice, by local pressure. That is its identity, and it is uncommon.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The book matters for the way it stages mixed heritage and rural Southern life without turning either into a thesis. Romey\u2019s family, especially the interracial household at the center, gives the collection a social dimension that is present in the details, not announced from a podium. It also helped establish Riley as a poet of serious consequence, a writer whose later work would deepen the same attention to voice and place.</p><p>\ud83d\udca1 <strong>Intellectual Depth</strong>  <br>This is not a book of argument, it is a book of perception. Its intelligence lies in how it orders sensory data, family history, and regional speech into a dense but legible world. If the collection sometimes values atmosphere over development, that is part of its method, not a flaw, though readers looking for narrative progression may find it more immersive than expansive.</p><p>The evidence available here is thinner on individual poems than on the book\u2019s overall method, so I can speak more confidently about its style, voice, and place in Riley\u2019s career than about a scene-by-scene close reading. Even so, the verdict is clear, <em>Romey\u2019s Order</em> is a striking debut, especially in the force of its language and the steadiness of its worldbuilding.</p>",
     "url": "https://www.alienatedmajestybooks.com/book-clubs",
     "venue": "AlienatedMajesty",
@@ -5971,7 +5908,7 @@
     "country": "USA",
     "language": "English",
     "rating": 1,
-    "one_liner_summary": "A critically panned film with no discernible craft or artistic merit.",
+    "one_liner_summary": "Janeane Garofalo at the Paramount: a title without a film.",
     "description": "<p>\u2605 Rating: <strong>1/10</strong></p><p>\ud83c\udfad <strong>Artistic Merit</strong>  <br>There is not enough evidence here to assess craft, performance, editing, or visual design, because the work is identified only as <em>Janeane Garofalo</em> with no usable production details. On the basis of the material provided, I cannot honestly claim any technical distinction or aesthetic control.</p><p>\u2728 <strong>Originality</strong>  <br>The title alone suggests a straightforward proper-name label, which usually points to a persona-led or documentary-style work rather than a formally inventive one, but that is inference, not confirmation. With no scenes, structure, or stylistic cues to examine, originality cannot be credited.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>No release information, context, or reception is available, so its influence or contribution to cinema cannot be established. A title alone does not support a serious claim of cultural weight.</p><p>\ud83d\udca1 <strong>Intellectual Depth</strong>  <br>There is no evidence here of layered themes, argument, or conceptual ambition. At present, the only defensible judgment is that the work is unassessable from the information given, and therefore scores very low by strict critical standards.</p>",
     "url": "https://tickets.austintheatre.org/13486/13487",
     "venue": "Paramount",
@@ -7810,7 +7747,7 @@
     ],
     "venue": "ArtsOnAlexander",
     "rating": 0,
-    "one_liner_summary": "Mozart's Oboe Quartet, Clarinet Quintet, and Divertimento in concert.",
+    "one_liner_summary": "All-Mozart program pairs oboe quartet with clarinet quintet and Divertimento.",
     "description": "<p>\u2605 Rating: 0/10</p><p>Sources are thin: no review, recording, or public report exists for the specific \"All Mozart!\" Arts on Alexander 2026-27 concert featuring the Oboe Quartet, Clarinet Quintet, and Divertimento. I cannot see the performers, their names, or their playing. I cannot judge technical execution, interpretive depth, programming freshness, or cultural contribution without direct evidence of this event. The search results confirm Arts on Alexander's location in Austin and list other unrelated Mozart concerts from 2024\u20132026, but none document this exact program or featured artist.</p><p>Because a score above 5 requires specific evidence and I have none, I must assign the lowest possible rating. The concert remains unassessed on Artistic Merit, Originality, Cultural Significance, and Intellectual Depth. Until a review, video, or verifiable account surfaces, the work cannot be rated as competent, strong, or exceptional.</p><p>\ud83c\udfad Artistic Merit: Unassessed (no performance observed)  <br>\u2728 Originality: Unassessed (no program analysis possible)  <br>\ud83d\udcda Cultural Significance: Unassessed (no contribution documented)  <br>\ud83d\udca1 Intellectual Depth: Unassessed (no ideas conveyed in record)</p>",
     "url": "https://www.artsonalexander.org",
     "screenings": [
