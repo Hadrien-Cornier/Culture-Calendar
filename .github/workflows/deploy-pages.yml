@@ -5,7 +5,14 @@ name: Deploy site to gh-pages
 # so `main` stays source-only (no ~900 generated files tracked there).
 #
 # Triggered on push to main (so data commits from the weekly/wipe-reload jobs and
-# merged classical-refresh PRs republish automatically) and manually.
+# merged classical-refresh PRs republish automatically), on a daily schedule as a
+# safety net, and manually.
+#
+# SAFETY-NET WHY: bot data pushes (daily/weekly/reload) use GITHUB_TOKEN, which
+# cannot cascade into the push: trigger above, so the site can silently go stale
+# if one of those workflows forgets its explicit dispatch. This daily scheduled
+# run is idempotent and always publishes whatever main currently holds (it pulls
+# the latest main at run time).
 #
 # ONE-TIME SETUP (manual, by a maintainer): after the first successful run creates
 # the gh-pages branch, set Settings -> Pages -> Source -> Deploy from a branch ->
@@ -13,6 +20,9 @@ name: Deploy site to gh-pages
 
 on:
   workflow_dispatch:
+  schedule:
+    # 12:30 UTC daily (after the 11:00 UTC daily update) - idempotent backstop.
+    - cron: '30 12 * * *'
   push:
     branches: [ main ]
     paths:
