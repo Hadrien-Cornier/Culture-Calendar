@@ -73,6 +73,16 @@ jobs:
             git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           fi
 
+      - name: Deploy site to gh-pages
+        # A bot push made with GITHUB_TOKEN does NOT cascade into deploy-pages.yml
+        # (GitHub suppresses workflow triggers from GITHUB_TOKEN pushes), so the
+        # deployed site would otherwise go stale. Dispatch it explicitly via
+        # workflow_dispatch, which IS allowed from within a GITHUB_TOKEN job.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run deploy-pages.yml --ref main
+
       - name: Alert on failure via GitHub issue
         # The pipeline must never fail silently again (it once failed daily for
         # 17 days unnoticed). Opens one rolling issue and comments on repeats.
