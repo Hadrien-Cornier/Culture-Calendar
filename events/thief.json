@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Thief",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit. I can give only a limited review, because the title, year, director, and version are unspecified, and multiple films share the name Thief. Based on the best known film with that title, Michael Mann’s 1981 crime drama, the craf…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/thief.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-16",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

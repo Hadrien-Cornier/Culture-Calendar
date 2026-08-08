@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "World Wide What Book Club - We Want Everything",
+  "description": "★ Rating: 7/10 Artistic Merit – 7/10: The prose is direct and sparse, particularly in the first half, creating a quick, readable rhythm that shifts abruptly between narrative and political theory . This structural gamble produces a unique cadence, though the…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/world-wide-what-book-club-we-want-everything-2026-08-10-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-10",
+  "location": {
+    "@type": "Place",
+    "name": "FirstLight",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

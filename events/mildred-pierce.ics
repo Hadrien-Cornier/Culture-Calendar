@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of MILDRED PIERCE
+X-WR-CALNAME:Culture Calendar — MILDRED PIERCE
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] MILDRED PIERCE
+DTSTART;TZID=America/Chicago:20260828T190000
+DTEND;TZID=America/Chicago:20260828T210000
+DTSTAMP:20260808T132402Z
+UID:mildred-pierce-2026-08-28-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nJoan Crawford’s raw grit fuels a noir melodr
+ ama of ambition and maternal ruin.\n\nDetails: https://www.austinfilm.org/
+ screening/mildred-pierce/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mildred-pierce/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MILDRED PIERCE
+DTSTART;TZID=America/Chicago:20260830T133000
+DTEND;TZID=America/Chicago:20260830T153000
+DTSTAMP:20260808T132402Z
+UID:mildred-pierce-2026-08-30-1330@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nJoan Crawford’s raw grit fuels a noir melodr
+ ama of ambition and maternal ruin.\n\nDetails: https://www.austinfilm.org/
+ screening/mildred-pierce/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mildred-pierce/
+END:VEVENT
+END:VCALENDAR

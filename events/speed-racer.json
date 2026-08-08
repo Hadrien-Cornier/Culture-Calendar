@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Speed Racer",
+  "description": "★ Rating: [6/10] 🎭 Artistic Merit – The film delivers a barrage of visual thrills that overwhelm the narrative, resulting in a style-first execution that feels more like a high-octane video game than a coherent movie. The Wachowskis prioritize headache-induci…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/speed-racer.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-11",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

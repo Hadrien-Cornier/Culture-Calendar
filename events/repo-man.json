@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "REPO MAN",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Repo Man is a rough, fast, and deliberately unpolished piece of filmmaking, but that roughness is part of its control. Alex Cox keeps the 85 minutes moving with ugly storefronts, deadpan performances, and a Los Angeles that loo…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/repo-man.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-09",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

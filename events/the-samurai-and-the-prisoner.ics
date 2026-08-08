@@ -1,0 +1,130 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of THE SAMURAI AND THE PRISONER
+X-WR-CALNAME:Culture Calendar — THE SAMURAI AND THE PRISONER
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260808T171500
+DTEND;TZID=America/Chicago:20260808T191500
+DTSTAMP:20260808T132402Z
+UID:the-samurai-and-the-prisoner-2026-08-08-1715@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord's quiet resolve meets a prisone
+ r's sharp mind in Kiyoshi Kurosawa's talky historical duel.\n\nDetails: ht
+ tps://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260809T132000
+DTEND;TZID=America/Chicago:20260809T152000
+DTSTAMP:20260808T132402Z
+UID:the-samurai-and-the-prisoner-2026-08-09-1320@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord's quiet resolve meets a prisone
+ r's sharp mind in Kiyoshi Kurosawa's talky historical duel.\n\nDetails: ht
+ tps://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260809T180000
+DTEND;TZID=America/Chicago:20260809T200000
+DTSTAMP:20260808T132402Z
+UID:the-samurai-and-the-prisoner-2026-08-09-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord's quiet resolve meets a prisone
+ r's sharp mind in Kiyoshi Kurosawa's talky historical duel.\n\nDetails: ht
+ tps://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260810T154500
+DTEND;TZID=America/Chicago:20260810T174500
+DTSTAMP:20260808T132402Z
+UID:the-samurai-and-the-prisoner-2026-08-10-1545@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord's quiet resolve meets a prisone
+ r's sharp mind in Kiyoshi Kurosawa's talky historical duel.\n\nDetails: ht
+ tps://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260811T161500
+DTEND;TZID=America/Chicago:20260811T181500
+DTSTAMP:20260808T132402Z
+UID:the-samurai-and-the-prisoner-2026-08-11-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord's quiet resolve meets a prisone
+ r's sharp mind in Kiyoshi Kurosawa's talky historical duel.\n\nDetails: ht
+ tps://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260812T163000
+DTEND;TZID=America/Chicago:20260812T183000
+DTSTAMP:20260808T132402Z
+UID:the-samurai-and-the-prisoner-2026-08-12-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord's quiet resolve meets a prisone
+ r's sharp mind in Kiyoshi Kurosawa's talky historical duel.\n\nDetails: ht
+ tps://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260812T194000
+DTEND;TZID=America/Chicago:20260812T214000
+DTSTAMP:20260808T132402Z
+UID:the-samurai-and-the-prisoner-2026-08-12-1940@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord's quiet resolve meets a prisone
+ r's sharp mind in Kiyoshi Kurosawa's talky historical duel.\n\nDetails: ht
+ tps://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260813T163000
+DTEND;TZID=America/Chicago:20260813T183000
+DTSTAMP:20260808T132402Z
+UID:the-samurai-and-the-prisoner-2026-08-13-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord's quiet resolve meets a prisone
+ r's sharp mind in Kiyoshi Kurosawa's talky historical duel.\n\nDetails: ht
+ tps://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+END:VCALENDAR

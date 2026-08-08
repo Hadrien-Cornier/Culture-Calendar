@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Matrix",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit The Wachowskis fuse wire-fu choreography with cyberpunk aesthetics to create a visually distinct language, most evident in the \"bullet time\" sequences where the camera rotates around a frozen Neo during the hallway shootout . K…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-matrix.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-18",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

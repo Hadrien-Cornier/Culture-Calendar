@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TOWER",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Keith Maitland turns a standard talking head documentary into something far more kinetic, using rotoscope animation, archival material, and survivor testimony to rebuild the University of Texas shooting with ugly precision. Th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tower.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-13",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "NYRB Book Club - English, August",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit: 8 – Chatterjee’s prose balances irreverent humor with sharp bureaucratic satire, though the writing dips occasionally in consistency . The narrative structure follows Agastya Sen’s six-month training in Madna, a town dubbed th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/nyrb-book-club-english-august-2026-08-01-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-01",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "<meta charset=\"utf-8\" />\n<p>Princess Diaries 1 + 2</p>",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit The two films are well-made studio comedies with clean comic timing, polished production design, and performances that know exactly how broad the material should be. Julie Andrews gives the series its center of gravity, and Ann…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/meta-charset-utf-8-p-princess-diaries-1-2-p.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-09",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "JOHNNY MNEMONIC: IN BLACK AND WHITE",
+  "description": "JOHNNY MNEMONIC: IN BLACK AND WHITE is a black and white cut of a mid-1990s cyberpunk staple, and that alone gives it a sharper, colder look than the standard release. With no reliable source material here on the specific edit, director credit, or runtime, I…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/johnny-mnemonic-in-black-and-white.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-14",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

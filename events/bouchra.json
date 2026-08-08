@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BOUCHRA",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit – The film executes a daring formal strategy by rendering all characters as anthropomorphic CGI animals, specifically depicting the protagonist Bouchra as a Prada-clad coyote and her mother Aïcha as a coyote as well . This choi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/bouchra.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-17",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

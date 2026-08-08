@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Discovery Zone: DEAD LOVER",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit On the evidence available, this looks more like a concept than a fully legible film. I cannot fairly praise craft, performance, editing, or visual design because the supplied materials do not describe any scenes, sequences, or…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/discovery-zone-dead-lover.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-24",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

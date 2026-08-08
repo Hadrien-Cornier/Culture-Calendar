@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TIM AND ERIC'S BILLION DOLLAR MOVIE",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – The film has real craft in its comic timing, especially in how it stretches a dumb premise until it turns awkwardness into structure, but the result is uneven rather than polished. Its best sequences hinge on precision, not g…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tim-and-erics-billion-dollar-movie.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-19",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

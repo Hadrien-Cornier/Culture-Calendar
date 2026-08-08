@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Citizen Kane",
+  "description": "★ Rating: 10/10 🎭 Artistic Merit , Citizen Kane is a technical shock from the opening frames, with the dying whisper, the snow globe, and the barbed wire silhouette of Xanadu setting a standard for visual storytelling that still looks unusually exacting. Greg…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/citizen-kane.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-30",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

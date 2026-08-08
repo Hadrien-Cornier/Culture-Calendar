@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "SUPERMARKET WOMAN",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit , I cannot make a serious craft judgment on this specific film from the materials provided, because there are no scene descriptions, review excerpts, or production details to assess camera work, editing, performance, or visual…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/supermarket-woman.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-13",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

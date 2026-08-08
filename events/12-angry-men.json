@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "12 Angry Men",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit, a tightly controlled chamber piece built almost entirely from argument, reaction, and pacing. The film turns a single jury room into a pressure cooker, and the direction keeps finding new angles, new rhythms, and new tensions…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/12-angry-men.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-08",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TWO SEASONS, TWO STRANGERS",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Sho Miyake executes a structurally jagged, emotionally precise bifurcation that refuses to settle into a single mood. The cinematography by Yuta Tsukinaga captures rain-drenched oceans and snow-covered villages with a clarity t…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/two-seasons-two-strangers.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-10",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

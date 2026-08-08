@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Voyage Out - trans(re)lating house one",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit: 8 Poupeh Missaghi’s debut constructs a hybrid novel that refuses to let fiction and reality sit apart. The protagonist’s search for Tehran’s vanished statues becomes the engine for a narrative that brazes traditional plot with…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/voyage-out-trans-re-lating-house-one-2026-08-16-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-16",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

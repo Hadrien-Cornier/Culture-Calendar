@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Worst Person in the World + Pillion",
+  "description": "$\\star$ Rating: 0/10 There is no movie called \"The Worst Person in the World + Pillion.\" The user query falsely combines two distinct films: Joachim Trier's 2022 Oslo Trilogy conclusion The Worst Person in the World and Harry Lighton's 2026 romance Pillion. N…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-worst-person-in-the-world-pillion.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-19",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MYSTERIOUS SKIN",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Gregg Araki’s film is unusually controlled for a director known for aggression and style, and its best scenes are built with brutal patience. The two parallel childhood tracks, one rendered as dreamy dissociation and the other…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/mysterious-skin.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-29",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

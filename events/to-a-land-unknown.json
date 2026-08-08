@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TO A LAND UNKNOWN",
+  "description": "★ Rating: 6/10 TO A LAND UNKNOWN earns attention more for its premise than for any visible command of style, and the lack of basic production details makes it hard to place with confidence. On the evidence available, I can give a grounded critical response to…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/to-a-land-unknown.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-03",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

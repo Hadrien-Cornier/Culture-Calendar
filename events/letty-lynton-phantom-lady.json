@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Letty Lynton + Phantom Lady",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit. The pairing of Letty Lynton and Phantom Lady suggests a polished double bill built on studio-era control, especially in performance blocking, framing, and suspense management. On the evidence available here, I can say the mate…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/letty-lynton-phantom-lady.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-28",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
