@@ -237,8 +237,8 @@ picks them up.
 - [ ] Blanton Museum of Art (visual_arts) — university museum with gallery programs and a dedicated online programs calendar — https://blantonmuseum.org/programs/
 - [ ] The Contemporary Austin (visual_arts) — major visual arts museum with exhibitions and public events on a browsable online calendar — https://thecontemporaryaustin.org/calendar/
 - [ ] Umlauf Sculpture Garden and Museum (visual_arts) — sculpture garden and museum hosting visual arts events with online calendar — https://umlaufsculpture.org/events/
-- [ ] ICOSA Collective (visual_arts) — artist collective hosting visual arts exhibitions and public events with browsable online listings — https://icosacollective.com/events/
-- [ ] Ivester Contemporary (visual_arts) — contemporary art gallery with exhibitions and events on online calendar — https://ivestercontemporary.com/events/
+- [x] ICOSA Collective (visual_arts) — artist collective hosting visual arts exhibitions and public events with browsable online listings — https://icosacollective.com/events/
+- [x] Ivester Contemporary (visual_arts) — contemporary art gallery with exhibitions and events on online calendar — https://ivestercontemporary.com/events/
 - [ ] Paggi House (visual_arts) — venue hosting visual arts exhibitions open to the public with event listings — https://paggihouse.com/events
 - [ ] Neill-Cochran House Museum (visual_arts) — historic house museum with visual arts exhibitions and public receptions listed online — https://www.neillcochranhousemuseum.org/events/
 - [ ] Saxon Pub (concert) — listed in the Austin Chronicle music calendar with regular live music events — https://calendar.austinchronicle.com/austin/EventSearch?eventSection=2163369&sortType=date&v=g

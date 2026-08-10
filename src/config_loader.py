@@ -42,6 +42,30 @@ import yaml
 from typing import Dict, Any, Optional, List
 
 
+def build_venue_code_map(config: Dict[str, Any]) -> Dict[str, str]:
+    """Derive the venue_code -> venue_key mapping from a parsed master config.
+
+    A free function rather than a method so standalone scripts that parse the
+    YAML themselves (``scripts/build_event_shells.py`` reads it defensively,
+    without importing the loader) can share the derivation instead of keeping
+    their own copy of the mapping - which is exactly how the two previous
+    hardcoded copies drifted apart.
+
+    Registry-backed venues derive their code from ``venue_name``; everything
+    else comes from the ``venue_code_aliases:`` block, which therefore only has
+    to list the hand-written scrapers.
+    """
+    code_map: Dict[str, str] = {}
+    for block in ("static_json_scrapers", "web_llm_scrapers"):
+        for venue_key, entry in (config.get(block) or {}).items():
+            venue_name = (entry or {}).get("venue_name")
+            if venue_name:
+                code_map[venue_name] = venue_key
+
+    code_map.update(config.get("venue_code_aliases") or {})
+    return code_map
+
+
 class ConfigLoader:
     """Read-only configuration loader for master_config.yaml"""
 
@@ -207,6 +231,44 @@ class ConfigLoader:
             Mapping of venue_key -> scraper params (empty dict if unset).
         """
         return self._config.get("static_json_scrapers", {})
+
+    def get_web_llm_scrapers(self) -> Dict[str, Any]:
+        """
+        Get the live-site LLM scraper registry.
+
+        Each entry fully specifies a :class:`WebLlmScraper` instance for a
+        venue that publishes its listings on a live website (galleries,
+        museums, artist studios). Consumed by
+        :meth:`src.scraper.MultiVenueScraper._init_web_llm_scrapers`, which
+        also registers each one for scraping - so adding a venue here needs no
+        Python change at all.
+
+        Returns:
+            Mapping of venue_key -> scraper params (empty dict if unset).
+        """
+        return self._config.get("web_llm_scrapers", {})
+
+    def get_venue_code_map(self) -> Dict[str, str]:
+        """
+        Map the venue *code* stamped onto events back to its ``venues:`` key.
+
+        ``MultiVenueScraper`` labels each event with a short venue code, which
+        downstream builders need to resolve to a config key to look up
+        ``display_name`` / ``address``. Codes that match a scraper registry are
+        derived from it automatically; the rest come from the
+        ``venue_code_aliases:`` block.
+
+        This exists because that mapping used to be a hardcoded dict duplicated
+        in ``update_website_data.py`` and ``scripts/build_event_shells.py``.
+        The copies drifted - both were missing ``ArtAustin`` and
+        ``IshidaDance``, so those venues shipped with an empty
+        ``venue_address``. Deriving it here means a registry venue can never go
+        missing again.
+
+        Returns:
+            Mapping of venue_code -> venue_key.
+        """
+        return build_venue_code_map(self._config)
 
     def get_validation_rules(self) -> Dict[str, Any]:
         """

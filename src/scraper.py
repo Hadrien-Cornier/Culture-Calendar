@@ -31,7 +31,7 @@ import json
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 # Import config loader
 from .config_loader import ConfigLoader
@@ -44,12 +44,11 @@ from .scrapers import (
     ArtsOnAlexanderScraper,
     FirstLightAustinScraper,
     HyperrealScraper,
-    IshidaDanceScraper,
     LibraBooksScraper,
-    NowPlayingAustinVisualArtsScraper,
     ParamountScraper,
 )
 from .scrapers._static_json_scraper import StaticJsonScraper
+from .scrapers._web_llm_scraper import WebLlmScraper
 from .recurring_events import RecurringEventGenerator
 
 
@@ -62,6 +61,18 @@ class MultiVenueScraper:
         # Load configuration
         self.config = ConfigLoader()
         print("Loaded master configuration")
+
+        # venue_configs tuples contributed by the config-driven scraper
+        # registries, and the venue codes whose per-event venue name must
+        # survive (aggregators and artist pages, where one feed covers many
+        # host venues). Both are populated by the _init_*_scrapers loops, so
+        # they must exist before those run.
+        self._registry_venue_configs: List[tuple] = []
+        self._preserve_venue_codes: set = {
+            code
+            for code, key in self.config.get_venue_code_map().items()
+            if (self.config.get_venue_policy(key) or {}).get("preserve_venue_name")
+        }
 
         # Initialize all scrapers with config
         self.afs_scraper = AFSScraper(config=self.config, venue_key="afs")
@@ -88,21 +99,73 @@ class MultiVenueScraper:
         # per entry in master_config's static_json_scrapers block — instead of
         # six near-identical wrapper classes.
         self._init_static_json_scrapers()
-        self.now_playing_austin_visual_arts_scraper = NowPlayingAustinVisualArtsScraper(
-            config=self.config, venue_key="now_playing_austin_visual_arts"
-        )
         self.libra_books_scraper = LibraBooksScraper(
             config=self.config, venue_key="libra_books"
         )
-        self.ishida_dance_scraper = IshidaDanceScraper(
-            config=self.config, venue_key="ishida_dance"
-        )
+        # NowPlayingAustin and Ishida Dance are built by the web_llm_scrapers
+        # registry below, not here: both of their bespoke scrapers had gone
+        # blind (a 403 and a dropped JSON-LD block respectively) and neither
+        # failure mode is specific to a venue.
+
+        self._init_web_llm_scrapers()
 
         # Initialize recurring events generator
         self.recurring_events_generator = RecurringEventGenerator()
 
         self.existing_events_cache = set()  # Cache for duplicate detection
         self.last_updated = {}
+        # Venue codes that scraped cleanly but returned nothing. Surfaced by
+        # --validate so a silently-dead scraper can't hide behind a green run.
+        self.empty_venues: List[str] = []
+
+    def _register(
+        self,
+        venue_key: str,
+        venue_code: str,
+        scraper,
+        attr_name: Optional[str] = None,
+    ) -> None:
+        """Record a registry-built scraper so scrape_all_venues picks it up.
+
+        Registry scrapers used to be instantiated by a loop but *still* had to
+        be hand-listed in :meth:`scrape_all_venues`, so a "config-only" venue
+        was not actually config-only. Collecting the venue_configs tuple here
+        closes that gap: a new registry entry starts scraping with no Python
+        change whatsoever.
+        """
+        policy = self.config.get_venue_policy(venue_key) or {}
+        display_name = policy.get("display_name", venue_code)
+        self._registry_venue_configs.append((venue_code, scraper, display_name, {}))
+        setattr(self, attr_name or f"{venue_key}_scraper", scraper)
+
+    def _init_web_llm_scrapers(self) -> None:
+        """Build one WebLlmScraper per ``web_llm_scrapers`` config entry.
+
+        These are the live-site venues (galleries, museums, artist pages).
+        Each entry is self-describing, so this loop is the only Python that
+        ever needs to know they exist.
+        """
+        for venue_key, cfg in self.config.get_web_llm_scrapers().items():
+            try:
+                scraper = WebLlmScraper(
+                    base_url=cfg["base_url"],
+                    venue_name=cfg["venue_name"],
+                    urls=cfg["urls"],
+                    venue_key=venue_key,
+                    config=self.config,
+                    fetch=cfg.get("fetch", "http"),
+                    default_event_type=cfg.get("default_event_type", "visual_arts"),
+                    default_time=cfg.get("default_time", "12:00"),
+                    preserve_venue_name=cfg.get("preserve_venue_name", False),
+                )
+            except (KeyError, ValueError) as exc:
+                # A malformed registry entry must not take down every other
+                # venue's scrape; surface it and carry on.
+                print(f"⚠️  Skipping web_llm_scrapers entry '{venue_key}': {exc}")
+                continue
+            if cfg.get("preserve_venue_name"):
+                self._preserve_venue_codes.add(cfg["venue_name"])
+            self._register(venue_key, cfg["venue_name"], scraper)
 
     def _init_static_json_scrapers(self) -> None:
         """Build one StaticJsonScraper per ``static_json_scrapers`` config entry.
@@ -136,7 +199,12 @@ class MultiVenueScraper:
             )
             # Resolve data_file as an instance method, like the old wrappers.
             scraper.data_file = scraper.get_project_path(*cfg["data_file"].split("/"))
-            setattr(self, attr_aliases.get(venue_key, f"{venue_key}_scraper"), scraper)
+            self._register(
+                venue_key,
+                cfg["venue_name"],
+                scraper,
+                attr_name=attr_aliases.get(venue_key),
+            )
 
     def scrape_all_venues(
         self, target_week: bool = False, days_ahead: int = None
@@ -146,6 +214,7 @@ class MultiVenueScraper:
 
         all_events = []
         self.last_updated = {}
+        self.empty_venues = []
 
         # Define all venue scrapers with their configurations
         venue_configs = [
@@ -171,29 +240,6 @@ class MultiVenueScraper:
                 "Arts on Alexander",
                 {},
             ),
-            ("Symphony", self.austin_symphony_scraper, "Austin Symphony", {}),
-            ("Opera", self.austin_opera_scraper, "Austin Opera", {}),
-            (
-                "Chamber Music",
-                self.austin_chamber_music_scraper,
-                "Austin Chamber Music",
-                {},
-            ),
-            ("EarlyMusic", self.early_music_scraper, "Early Music Project", {}),
-            ("LaFollia", self.la_follia_scraper, "La Follia", {}),
-            ("BalletAustin", self.ballet_austin_scraper, "Ballet Austin", {}),
-            (
-                "IshidaDance",
-                self.ishida_dance_scraper,
-                "ISHIDA Dance Company",
-                {},
-            ),
-            (
-                "NowPlayingAustinVisualArts",
-                self.now_playing_austin_visual_arts_scraper,
-                "NowPlayingAustin — Visual Arts",
-                {},
-            ),
             (
                 "LivraBooks",
                 self.libra_books_scraper,
@@ -202,11 +248,11 @@ class MultiVenueScraper:
             ),
         ]
 
-        # Execute all venue scrapers sequentially (no threading)
-        start_time = datetime.now()
-        all_events = []
-        self.last_updated = {}
+        # Config-driven venues (static_json_scrapers + web_llm_scrapers) append
+        # themselves. Nothing above needs editing to add one.
+        venue_configs.extend(self._registry_venue_configs)
 
+        # Execute all venue scrapers sequentially (no threading)
         completed_venues = 0
         total_venues = len(venue_configs)
 
@@ -223,13 +269,15 @@ class MultiVenueScraper:
                         formatted_event = scraper.format_event(event)
                         # Validate event
                         scraper.validate_event(formatted_event)
-                        # Add venue information. Skip the overwrite for
-                        # multi-venue directories (Art Austin) where the
-                        # scraper already set the actual gallery name.
-                        if venue_code != "ArtAustin":
-                            formatted_event["venue"] = venue_code
+                        # Add venue information. Venues flagged
+                        # `preserve_venue_name` in config keep the per-event
+                        # venue the scraper found - aggregators and artist
+                        # pages cover many host galleries, so stamping the
+                        # venue code over it would destroy the real name.
+                        if venue_code in self._preserve_venue_codes:
+                            formatted_event["source_venue"] = venue_code
                         else:
-                            formatted_event["source_venue"] = "artaustin"
+                            formatted_event["venue"] = venue_code
                         formatted_events.append(formatted_event)
                     except ValueError as e:
                         print(f"  ⚠️  Event validation error for {venue_code}: {e}")
@@ -238,8 +286,17 @@ class MultiVenueScraper:
 
                 all_events.extend(formatted_events)
 
+                # An enabled venue returning nothing is a failure, not a
+                # success. This used to print a green check, which is how
+                # NowPlayingAustin sat at 0 events behind a 403 and IshidaDance
+                # went empty for 22 days without anyone noticing.
+                if events:
+                    icon = "✅"
+                else:
+                    icon = "⚠️ "
+                    self.empty_venues.append(venue_code)
                 print(
-                    f"✅ [{completed_venues}/{total_venues}] {display_name}: {len(events)} events"
+                    f"{icon} [{completed_venues}/{total_venues}] {display_name}: {len(events)} events"
                 )
                 self.last_updated[venue_code] = datetime.now().isoformat()
 
