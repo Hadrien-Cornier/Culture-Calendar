@@ -1235,10 +1235,13 @@ web_llm_scrapers:
     default_time: "10:00"
 
   bullock:
+    # Serves 200 to a residential IP but 403s the GitHub runner, so the http
+    # mode worked locally and returned nothing in production. Datacenter-range
+    # blocking is invisible from a laptop; use the no-fetch path.
     base_url: "https://www.thestoryoftexas.com"
     venue_name: "Bullock"
     urls: ["/visit/exhibits"]
-    fetch: http
+    fetch: perplexity
     default_event_type: visual_arts
     default_time: "10:00"
 
