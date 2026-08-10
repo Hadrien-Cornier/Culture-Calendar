@@ -17,6 +17,7 @@ from src.scrapers._web_llm_scraper import (
     _PIPELINE_DERIVED_FIELDS,
     WebLlmScraper,
     _as_list,
+    _events_from_payload,
     _normalize_date,
     _normalize_time,
     _split_date_range,
@@ -186,6 +187,28 @@ class TestNormalizeTime:
     def test_rejects_non_times(self, raw):
         """A date must never be read as a time - '2026-08-14' is not 20:00."""
         assert _normalize_time(raw) is None
+
+
+@pytest.mark.unit
+class TestEventsFromPayload:
+    def test_prefers_the_declared_key(self):
+        payload = {"events": [{"title": "A"}], "other": [{"title": "B"}]}
+        assert _events_from_payload(payload) == [{"title": "A"}]
+
+    def test_falls_back_to_a_renamed_array(self):
+        assert _events_from_payload({"exhibitions": [{"title": "A"}]}) == [{"title": "A"}]
+
+    def test_skips_arrays_of_scalars(self):
+        """A list of strings is not an event list."""
+        payload = {"tags": ["a", "b"], "shows": [{"title": "A"}]}
+        assert _events_from_payload(payload) == [{"title": "A"}]
+
+    @pytest.mark.parametrize("payload", [None, {}, [], "text", {"events": []}, {"events": None}])
+    def test_returns_empty_for_nothing_usable(self, payload):
+        assert _events_from_payload(payload) == []
+
+    def test_drops_non_dict_entries(self):
+        assert _events_from_payload({"events": [{"title": "A"}, "junk"]}) == [{"title": "A"}]
 
 
 @pytest.mark.unit
@@ -534,6 +557,25 @@ class TestScrapeEvents:
         scraper.llm_service = Mock()
         scraper.llm_service.provider = None
         assert scraper.scrape_events() == []
+
+    def test_accepts_a_renamed_top_level_array(self, monkeypatch):
+        """Models rename the wrapper to suit the page ("exhibitions").
+
+        The usefulness check keys off the literal name "events", so this used
+        to come back as "No useful data extracted" and lose the whole page.
+        """
+        scraper = _make()
+        monkeypatch.setattr(scraper, "_fetch_http", lambda url: "<body><main>x</main></body>")
+        scraper.llm_service = Mock()
+        scraper.llm_service.provider = "stub"
+        scraper.llm_service.extract_data.return_value = {
+            "success": False,
+            "error": "No useful data extracted - all fields are empty, null, or missing required data",
+            "data": {"exhibitions": [{"title": "Show", "dates": ["2026-08-14"]}]},
+        }
+        events = scraper.scrape_events()
+        assert len(events) == 1
+        assert events[0]["title"] == "Show"
 
     def test_failed_extraction_yields_no_events(self, monkeypatch):
         scraper = _make()

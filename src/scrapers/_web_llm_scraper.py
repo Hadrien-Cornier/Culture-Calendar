@@ -223,6 +223,27 @@ def _parse_human_date_range(text: str, today: Optional[date] = None) -> tuple:
     return start, end
 
 
+def _events_from_payload(data: Any) -> List[Dict]:
+    """Pull the event list out of an extraction payload.
+
+    The schema asks for ``{"events": [...]}`` and models mostly comply, but
+    they also rename it to whatever suits the page ("exhibitions", "shows").
+    Falls back to the first list-of-objects in the payload rather than
+    discarding a perfectly good extraction over the wrapper's name.
+    """
+    if not isinstance(data, dict):
+        return []
+
+    events = data.get("events")
+    if isinstance(events, list) and events:
+        return [e for e in events if isinstance(e, dict)]
+
+    for value in data.values():
+        if isinstance(value, list) and any(isinstance(e, dict) for e in value):
+            return [e for e in value if isinstance(e, dict)]
+    return []
+
+
 def _any_date_field(event: Dict[str, Any]) -> Any:
     """Last-resort search for whichever key the extractor put the dates in.
 
@@ -463,13 +484,22 @@ class WebLlmScraper(BaseScraper):
             # default 2000-token budget truncates the response mid-array.
             max_tokens=4000,
         )
+
+        # Read the payload whether or not the parse was declared a success.
+        # The usefulness check keys off the literal name "events", so a model
+        # that returned its array as "exhibitions" got the whole page thrown
+        # away with "No useful data extracted" - which is what silently emptied
+        # Flatbed Press in production while working locally.
+        events = _events_from_payload(result.get("data"))
+        if events:
+            return events
+
         if not result.get("success"):
             print(
                 f"  {self.venue_name}: extraction failed for {url}: "
                 f"{result.get('error', 'unknown error')}"
             )
-            return []
-        return result.get("data", {}).get("events", []) or []
+        return []
 
     def _perplexity_prompt(self) -> str:
         """Prompt for the no-fetch mode, built from the same config schema.
