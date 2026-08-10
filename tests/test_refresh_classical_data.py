@@ -348,3 +348,148 @@ def test_writes_no_files_in_dry_run(tmp_path: Path, capsys: pytest.CaptureFixtur
     # Skeleton stage must not write to disk; phase 3.1b will add real I/O.
     assert not out_classical.exists()
     assert not out_ballet.exists()
+
+
+# ---------------------------------------------------------------------------
+# Regression guard
+#
+# validate_classical_data only asks whether a payload is well-formed. The
+# 2026-08-01 bot PR (#47) was well-formed and lossy: it swapped curated prose
+# for bare titles, blanked `series`, and dropped a Nutcracker date. These
+# tests pin the checks that would have caught it.
+# ---------------------------------------------------------------------------
+
+
+def _ballet_event(**overrides: Any) -> dict[str, Any]:
+    event = {
+        "title": "The Nutcracker",
+        "dates": ["2026-12-20", "2026-12-21", "2026-12-22"],
+        "times": ["7:30 PM", "7:30 PM", "2:00 PM"],
+        "type": "dance",
+        "program": "Stephen Mills' beloved staging returns with the Austin Symphony in the pit.",
+        "series": "Ballet Austin 2026/27 Season",
+        "venue": "The Long Center",
+    }
+    event.update(overrides)
+    return event
+
+
+def test_identical_payload_has_no_regressions():
+    payload = {"balletAustin": [_ballet_event()]}
+    assert (
+        refresh.detect_regressions(
+            payload, payload, expected_venue_keys=["balletAustin"]
+        )
+        == []
+    )
+
+
+def test_adding_events_is_not_a_regression():
+    existing = {"balletAustin": [_ballet_event()]}
+    incoming = {"balletAustin": [_ballet_event(), _ballet_event(title="Giselle")]}
+    assert (
+        refresh.detect_regressions(
+            existing, incoming, expected_venue_keys=["balletAustin"]
+        )
+        == []
+    )
+
+
+def test_dropped_date_is_flagged():
+    """PR #47 silently lost a 2026-12-22 Nutcracker performance."""
+    existing = {"balletAustin": [_ballet_event()]}
+    incoming = {
+        "balletAustin": [
+            _ballet_event(dates=["2026-12-20", "2026-12-21"], times=["7:30 PM", "7:30 PM"])
+        ]
+    }
+    problems = refresh.detect_regressions(
+        existing, incoming, expected_venue_keys=["balletAustin"]
+    )
+    assert any("2026-12-22" in p for p in problems)
+
+
+def test_blanked_series_is_flagged():
+    existing = {"balletAustin": [_ballet_event()]}
+    incoming = {"balletAustin": [_ballet_event(series="")]}
+    problems = refresh.detect_regressions(
+        existing, incoming, expected_venue_keys=["balletAustin"]
+    )
+    assert any("series" in p for p in problems)
+
+
+def test_prose_replaced_by_bare_title_is_flagged():
+    """The exact PR #47 shape: a long curated program becomes the title."""
+    existing = {"balletAustin": [_ballet_event()]}
+    incoming = {"balletAustin": [_ballet_event(program="The Nutcracker")]}
+    problems = refresh.detect_regressions(
+        existing, incoming, expected_venue_keys=["balletAustin"]
+    )
+    assert any("program" in p and "shrank" in p for p in problems)
+
+
+def test_case_change_alone_is_not_a_disappearance():
+    """PR #47 also recased titles; that must not read as a delete plus an add."""
+    existing = {"balletAustin": [_ballet_event(title="A MIDSUMMER NIGHT'S DREAM")]}
+    incoming = {"balletAustin": [_ballet_event(title="A Midsummer Night's Dream")]}
+    problems = refresh.detect_regressions(
+        existing, incoming, expected_venue_keys=["balletAustin"]
+    )
+    assert not any("disappeared" in p for p in problems)
+
+
+def test_disappearing_event_is_flagged():
+    existing = {"balletAustin": [_ballet_event(), _ballet_event(title="Giselle")]}
+    incoming = {"balletAustin": [_ballet_event()]}
+    problems = refresh.detect_regressions(
+        existing, incoming, expected_venue_keys=["balletAustin"]
+    )
+    assert any("Giselle" in p and "disappeared" in p for p in problems)
+
+
+def test_emptying_a_venue_is_flagged():
+    existing = {"balletAustin": [_ballet_event()]}
+    incoming = {"balletAustin": []}
+    problems = refresh.detect_regressions(
+        existing, incoming, expected_venue_keys=["balletAustin"]
+    )
+    assert any("drop all" in p for p in problems)
+
+
+def test_missing_existing_file_is_not_a_regression(tmp_path: Path):
+    """Nothing on disk means nothing to lose."""
+    blocked = refresh._check_regressions(
+        str(tmp_path / "does-not-exist.json"),
+        {"balletAustin": []},
+        ["balletAustin"],
+        allow=False,
+    )
+    assert blocked is False
+
+
+def test_check_regressions_blocks_by_default(tmp_path: Path):
+    path = tmp_path / "ballet.json"
+    path.write_text(json.dumps({"balletAustin": [_ballet_event()]}), encoding="utf-8")
+    blocked = refresh._check_regressions(
+        str(path), {"balletAustin": []}, ["balletAustin"], allow=False
+    )
+    assert blocked is True
+
+
+def test_allow_regressions_downgrades_to_a_warning(tmp_path: Path):
+    path = tmp_path / "ballet.json"
+    path.write_text(json.dumps({"balletAustin": [_ballet_event()]}), encoding="utf-8")
+    blocked = refresh._check_regressions(
+        str(path), {"balletAustin": []}, ["balletAustin"], allow=True
+    )
+    assert blocked is False
+
+
+def test_guard_is_skipped_for_the_stub_fetcher(tmp_path: Path):
+    """The stub is a fixed placeholder, not a dataset worth diffing."""
+    path = tmp_path / "ballet.json"
+    path.write_text(json.dumps({"balletAustin": [_ballet_event()]}), encoding="utf-8")
+    blocked = refresh._check_regressions(
+        str(path), {"balletAustin": []}, ["balletAustin"], allow=False, enabled=False
+    )
+    assert blocked is False

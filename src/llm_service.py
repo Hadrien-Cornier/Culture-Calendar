@@ -59,7 +59,7 @@ import os
 import re
 import time
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 import requests
 
 import anthropic
@@ -284,7 +284,12 @@ class LLMService:
         return None
 
     def extract_data(
-        self, content: str, schema: Dict, url: str = "", content_type: str = "html"
+        self,
+        content: str,
+        schema: Dict,
+        url: str = "",
+        content_type: str = "html",
+        max_tokens: int = 2000,
     ) -> Dict:
         """
         Extract structured data from HTML/markdown content using LLM
@@ -294,6 +299,9 @@ class LLMService:
             schema: Expected data schema definition
             url: Source URL for caching
             content_type: Type of content ("html", "markdown", "text")
+            max_tokens: Response budget. Listing pages with many events need
+                more than the default; a truncated response used to fail the
+                whole page with a JSON parse error.
 
         Returns:
             Dict with extracted data and success status
@@ -310,7 +318,7 @@ class LLMService:
         time.sleep(1)
 
         text = self._chat(
-            _EXTRACTION_SYSTEM_PROMPT, prompt, max_tokens=2000, temperature=0.1
+            _EXTRACTION_SYSTEM_PROMPT, prompt, max_tokens=max_tokens, temperature=0.1
         )
         if text is None:
             error_result = {
@@ -503,14 +511,19 @@ Focus on whether the data represents a plausible real-world event.
 
     def _parse_extraction_response(self, response_text: str, schema: Dict) -> Dict:
         """Parse LLM extraction response into structured data"""
+        json_str = ""
         try:
-            # Try to find JSON in the response
+            # Find the JSON payload. Slicing from the first "{" to the *last*
+            # "}" used to be the rule, which breaks whenever the model adds a
+            # closing remark or a second fenced block after the object: the
+            # slice then swallows the trailing prose and json.loads reports
+            # "Extra data". raw_decode reads exactly one complete value and
+            # stops, so anything after it is simply ignored.
             json_start = response_text.find("{")
-            json_end = response_text.rfind("}") + 1
 
-            if json_start != -1 and json_end > json_start:
-                json_str = response_text[json_start:json_end]
-                extracted_data = json.loads(json_str)
+            if json_start != -1:
+                json_str = response_text[json_start:]
+                extracted_data, _consumed = json.JSONDecoder().raw_decode(json_str)
 
                 # Check if the extracted data is useful (not empty or all
                 # null/empty)
@@ -536,12 +549,73 @@ Focus on whether the data represents a plausible real-world event.
                 }
 
         except json.JSONDecodeError as e:
+            # A response cut off by the token budget is the common case here:
+            # a listing page with 30 exhibitions overruns max_tokens and the
+            # JSON ends mid-object. Losing every event on the page because the
+            # last one was clipped is a bad trade, so recover the complete
+            # leading entries rather than failing outright.
+            salvaged = self._salvage_truncated_json(json_str)
+            if salvaged is not None and self._is_extraction_data_useful(
+                salvaged, schema
+            ):
+                print(
+                    "  Recovered truncated extraction response "
+                    f"({len(salvaged.get('events', []))} complete entries)"
+                )
+                return {
+                    "success": True,
+                    "data": salvaged,
+                    "truncated": True,
+                    "raw_response": response_text,
+                }
             return {
                 "success": False,
                 "error": f"JSON parsing error: {str(e)}",
                 "data": {},
                 "raw_response": response_text,
             }
+
+    @staticmethod
+    def _salvage_truncated_json(json_str: str) -> Optional[Dict]:
+        """Parse the complete prefix of a JSON document that was cut short.
+
+        Scans for the last position at which a value finished closing, then
+        shuts whatever containers are still open. Returns ``None`` when nothing
+        salvageable is there.
+        """
+        stack: List[str] = []
+        in_string = False
+        escaped = False
+        last_complete: Optional[tuple] = None
+
+        for i, ch in enumerate(json_str):
+            if in_string:
+                if escaped:
+                    escaped = False
+                elif ch == "\\":
+                    escaped = True
+                elif ch == '"':
+                    in_string = False
+                continue
+            if ch == '"':
+                in_string = True
+            elif ch in "{[":
+                stack.append(ch)
+            elif ch in "}]":
+                if not stack:
+                    return None
+                stack.pop()
+                last_complete = (i + 1, list(stack))
+
+        if not last_complete:
+            return None
+
+        end, still_open = last_complete
+        closers = "".join("}" if c == "{" else "]" for c in reversed(still_open))
+        try:
+            return json.loads(json_str[:end] + closers)
+        except json.JSONDecodeError:
+            return None
 
     def _is_extraction_data_useful(self, data: Dict, schema: Dict) -> bool:
         """

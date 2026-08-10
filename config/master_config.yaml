@@ -335,6 +335,31 @@ templates:
         default: "unknown"
         required: false
         description: "Confidence of the AI-generated review: low | medium | high | unknown."
+      # This template listed eleven fields but defined only two, so
+      # get_extraction_schema produced an almost-empty schema and LLM
+      # extraction could not work for a dance venue at all. Same defect the
+      # visual_arts template had for dates/times.
+      title:
+        type: string
+        description: "Title of the dance production or performance."
+      dates:
+        type: array
+        description: "Performance dates in YYYY-MM-DD format, one entry per performance. A run like 'June 18-20, 2026' is three dates. For dates without a year: use the current year for the current month through December, and next year for January through the current month."
+      times:
+        type: array
+        description: "Curtain times in 24-hour format like '19:30', one per date and in the same order as `dates`. Omit rather than guessing when no time is published."
+      program:
+        type: string
+        description: "Description of the program: the works performed, the choreography, and what the evening consists of."
+      series:
+        type: string
+        description: "Season or series the production belongs to (e.g. 'Ballet Austin 2026/27 Season')."
+      venue:
+        type: string
+        description: "Theater or space hosting the performance (e.g. 'The Long Center', 'Dell Fine Arts Center')."
+      url:
+        type: string
+        description: "Source URL for the performance listing."
       screenings:
         type: array
         description: "Array of specific event screenings. Generated from dates/times arrays."
@@ -365,6 +390,7 @@ templates:
       - title
       - dates
       - times
+      - end_date
       - artist
       - artists
       - medium
@@ -395,6 +421,25 @@ templates:
       title:
         type: string
         description: "Title of the exhibition, installation, or visual arts event."
+      # dates/times were listed under `fields:` but had no field_definitions
+      # entry, so get_extraction_schema never asked the LLM for them and every
+      # extracted exhibition arrived undated. Exhibitions run over a range, so
+      # the guidance below is deliberately different from a single-showtime
+      # venue: emit the opening date plus any dated one-off happenings.
+      dates:
+        type: array
+        description: "Event dates in YYYY-MM-DD format. For an exhibition that runs over a range, use the opening/start date. Add a separate entry for each dated happening (opening reception, artist talk, closing reception). For dates without a year: use the current year for the current month through December, and next year for January through the current month."
+      times:
+        type: array
+        description: "Start times in 24-hour format like '18:00' or '10:00', one per date and in the same order as `dates`. Use the reception start time for receptions and the gallery's opening hour for an exhibition run. If no time is given, omit the entry rather than guessing."
+      # Exhibitions are the one category that runs for weeks rather than
+      # happening at an instant, so a start date alone cannot tell us whether a
+      # show is still up. Without this, everything currently on view looks
+      # expired the day after it opens.
+      end_date:
+        type: string
+        required: false
+        description: "Closing date in YYYY-MM-DD format for an exhibition that runs over a range (e.g. 'August 14 - September 12, 2026' has end_date 2026-09-12). Omit for one-off events like a reception or artist talk."
       artist:
         type: string
         description: "Primary artist name when a single artist is featured. Optional — omit for group shows."
@@ -699,6 +744,9 @@ venues:
   now_playing_austin_visual_arts:
     display_name: NowPlayingAustin — Visual Arts
     address: "Austin, TX"
+    # Citywide listings aggregator: the scraper reads the real gallery name off
+    # each listing (_extract_venue), which the venue-code stamp used to clobber.
+    preserve_venue_name: true
     scrape:
       enabled: true
       frequency: monthly
@@ -723,6 +771,9 @@ venues:
   artaustin:
     display_name: Art Austin
     address: "Austin, TX"
+    # Directory covering many Austin galleries, so each event already carries
+    # its real host gallery; stamping the venue code over it would lose that.
+    preserve_venue_name: true
     scrape:
       enabled: true
       frequency: monthly
@@ -731,6 +782,201 @@ venues:
       assumed_event_category: visual_arts
     enrichment:
       enabled: false
+
+  # -------------------------------------------------------------------------
+  # Austin galleries, museums, and artist studios scraped by the generic
+  # WebLlmScraper. Each of these also needs a `web_llm_scrapers:` entry below
+  # (base_url / listing URLs / fetch mode); this block carries the
+  # classification policy, the street address, and the extraction guidance.
+  # Adding another one is a two-block YAML edit with no Python change.
+  # -------------------------------------------------------------------------
+
+  icosa:
+    display_name: ICOSA Collective
+    address: "916 Springdale Rd, Building 2 #102, Austin, TX 78702"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Exhibitions and art events at ICOSA, an artist-run collective gallery at Canopy in East Austin. Look for current and upcoming exhibitions with their opening/closing dates and opening reception times."
+
+  marthas_contemporary:
+    display_name: Martha's Contemporary
+    address: "4115 Guadalupe St, Austin, TX 78751"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Exhibitions at Martha's Contemporary, a contemporary art gallery in Austin with a Hyde Park space and a Westside Market space. Extract each exhibition's title, featured artist, run dates, and opening reception."
+
+  ivester_contemporary:
+    display_name: Ivester Contemporary
+    address: "916 Springdale Rd, Building 2 Suite 107, Austin, TX 78702"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Exhibitions and openings at Ivester Contemporary, a contemporary gallery at Canopy in East Austin. Extract solo and group show titles, the artists shown, run dates, and reception times."
+
+  mclennon_pen:
+    display_name: McLennon Pen Co. Gallery
+    address: "1114 W 5th St, Suite 202, Austin, TX 78703"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Exhibitions at McLennon Pen Co. Gallery in Austin. Extract exhibition titles, featured artists, run dates, and any opening reception or artist talk."
+
+  women_and_their_work:
+    display_name: Women & Their Work
+    address: "1311 E Cesar Chavez St, Austin, TX 78702"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Exhibitions and public programs at Women & Their Work, a non-profit arts organization in East Austin showing work by women and nonbinary artists. Include exhibitions, artist talks, and performances."
+
+  mass_gallery:
+    display_name: MASS Gallery
+    address: "507 Calles St, Suite 108, Austin, TX 78702"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Exhibitions and events at MASS Gallery, an artist-run non-profit space in East Austin. Include exhibitions, performances, and open-call showcases with their dates."
+
+  flatbed_press:
+    display_name: Flatbed Press & Gallery
+    address: "3701 Drossett Dr, Suite 190, Austin, TX 78744"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Exhibitions and printmaking events at Flatbed Press, a fine-art printmaking studio and gallery in southeast Austin. Include gallery exhibitions, print releases, demonstrations, and workshops."
+
+  blanton:
+    display_name: Blanton Museum of Art
+    address: "200 E Martin Luther King Jr Blvd, Austin, TX 78712"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Special exhibitions at the Blanton Museum of Art at UT Austin. Extract only temporary/special exhibitions with start and end dates - skip the permanent collection and skip Ellsworth Kelly's 'Austin', which is always on view."
+
+  contemporary_austin:
+    display_name: The Contemporary Austin
+    address: "700 Congress Ave, Austin, TX 78701"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Exhibitions at The Contemporary Austin across both of its sites - the Jones Center downtown and Laguna Gloria. Extract exhibition titles, artists, and run dates, and note which site each is at."
+
+  mexic_arte:
+    display_name: Mexic-Arte Museum
+    address: "419 Congress Ave, Austin, TX 78701"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Exhibitions and cultural programs at the Mexic-Arte Museum, Austin's Mexican and Latino fine art museum. Include special exhibitions, the annual Young Latino Artists series, and Día de los Muertos programming."
+
+  umlauf:
+    display_name: Umlauf Sculpture Garden & Museum
+    address: "605 Azie Morton Rd, Austin, TX 78704"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Special exhibitions and events at the Umlauf Sculpture Garden & Museum in Zilker. Extract temporary exhibitions and public programs; skip the permanent Charles Umlauf sculpture collection, which is always on view."
+
+  bullock:
+    display_name: Bullock Texas State History Museum
+    address: "1800 Congress Ave, Austin, TX 78701"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Special/temporary exhibitions at the Bullock Texas State History Museum. Extract only travelling and temporary exhibitions with run dates - skip the permanent Story of Texas galleries and skip regular IMAX film showtimes."
+
+  ariel_wood:
+    display_name: Ariel Wood
+    address: "Austin, TX"
+    scrape:
+      enabled: true
+      frequency: monthly
+    classification:
+      enabled: false
+      assumed_event_category: visual_arts
+    enrichment:
+      enabled: false
+    extraction:
+      batch_description: "Upcoming and current exhibitions featuring Ariel Wood, an Austin-based sculptor and printmaker. Extract shows from the news/exhibitions listing, including group shows at other venues - set `venue` to the hosting gallery when one is named."
+    field_overrides:
+      artist:
+        required: true
+        default_value: "Ariel Wood"
+        description: "Always 'Ariel Wood' unless the listing names additional artists in a group show."
 
 # ---------------------------------------------------------------------------
 # Classical / opera / ballet season refresh (scripts/refresh_classical_data.py)
@@ -835,5 +1081,202 @@ static_json_scrapers:
     default_location: "The Long Center"
     expand_dates: true
     data_file: "docs/ballet_data.json"
+
+# ---------------------------------------------------------------------------
+# Venue codes that are NOT derivable from a scraper registry.
+#
+# MultiVenueScraper stamps each event with a short venue code; downstream
+# builders resolve it back to a `venues:` key to look up display_name and
+# address. Registry-backed venues derive this from their `venue_name`, but the
+# hand-written scrapers below use codes that differ arbitrarily from their
+# config key ("Chamber Music" -> austin_chamber_music, "LivraBooks" ->
+# libra_books), so they are listed explicitly.
+#
+# This replaces a hardcoded dict that was duplicated in
+# update_website_data.py and scripts/build_event_shells.py. The two copies had
+# already drifted out of sync - both were missing ArtAustin and IshidaDance,
+# which is why those venues shipped with an empty venue_address.
+# Read via ConfigLoader.get_venue_code_map().
+# ---------------------------------------------------------------------------
+venue_code_aliases:
+  AFS: afs
+  Hyperreal: hyperreal
+  Paramount: paramount
+  AlienatedMajesty: alienated_majesty
+  FirstLight: first_light
+  ArtsOnAlexander: arts_on_alexander
+  NowPlayingAustinVisualArts: now_playing_austin_visual_arts
+  LivraBooks: libra_books
+  ArtAustin: artaustin
+  IshidaDance: ishida_dance
+
+# ---------------------------------------------------------------------------
+# Live-site LLM scraper registry (consumed by src/scraper.py).
+#
+# Each entry fully specifies a WebLlmScraper instance; MultiVenueScraper builds
+# one per entry and registers it for scraping automatically, so a new venue is
+# a config edit with no Python. Contrast static_json_scrapers above, which
+# reads curated local JSON - these fetch the venue's live site and extract
+# events with an LLM using the schema from ConfigLoader.get_extraction_schema.
+#
+# venue_key must match a key under `venues:` so classification, address, and
+# extraction guidance stay config-driven. venue_name doubles as the venue_code
+# stamped onto events by scrape_all_venues.
+#
+# fetch:
+#   http        plain requests through the shared session. Default; use it
+#               unless the site proves it needs otherwise.
+#   playwright  headless Chromium render, for listings built client-side.
+#   perplexity  never fetches the page; asks Perplexity to read the domain.
+#               The escape hatch for sites that 403 scrapers.
+#
+# preserve_venue_name: true keeps the per-event venue the extractor found
+# instead of stamping the venue_code - for aggregators and artist pages, where
+# one feed covers many host venues.
+# ---------------------------------------------------------------------------
+web_llm_scrapers:
+  icosa:
+    base_url: "https://icosacollective.com"
+    venue_name: "ICOSA"
+    urls: ["/exhibitions/"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "12:00"
+
+  marthas_contemporary:
+    # Domain moved: marthascontemporary.com 301s to marthas.gallery.
+    base_url: "https://marthas.gallery"
+    venue_name: "MarthasContemporary"
+    urls: ["/exhibitions"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "12:00"
+
+  ivester_contemporary:
+    # ArtCloud-hosted: the listing renders client-side, so a plain fetch only
+    # ever sees "Loading...". Verified: Playwright yields the full exhibition
+    # list with run dates.
+    base_url: "https://ivestercontemporary.com"
+    venue_name: "IvesterContemporary"
+    urls: ["/exhibitions/", "/events/"]
+    fetch: playwright
+    default_event_type: visual_arts
+    default_time: "12:00"
+
+  mclennon_pen:
+    base_url: "https://mclennonpenco.com"
+    venue_name: "McLennonPen"
+    urls: ["/exhibitions"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "12:00"
+
+  women_and_their_work:
+    base_url: "https://womenandtheirwork.org"
+    venue_name: "WomenAndTheirWork"
+    urls: ["/exhibitions/", "/events/"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "12:00"
+
+  mass_gallery:
+    # /exhibitions is a title-only archive index with no dates on it; the
+    # homepage is where the current show and its run dates actually live.
+    base_url: "https://massgallery.org"
+    venue_name: "MassGallery"
+    urls: ["/"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "12:00"
+
+  flatbed_press:
+    base_url: "https://flatbedpress.com"
+    venue_name: "FlatbedPress"
+    urls: ["/exhibitions/"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "12:00"
+
+  blanton:
+    base_url: "https://blantonmuseum.org"
+    venue_name: "Blanton"
+    urls: ["/exhibitions/"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "10:00"
+
+  contemporary_austin:
+    # thecontemporaryaustin.org returns 403 to direct fetches, so this venue
+    # reads through Perplexity's domain-restricted search instead.
+    base_url: "https://thecontemporaryaustin.org"
+    venue_name: "ContemporaryAustin"
+    urls: ["/exhibitions/"]
+    fetch: perplexity
+    default_event_type: visual_arts
+    default_time: "11:00"
+    preserve_venue_name: true  # splits across Jones Center and Laguna Gloria
+
+  mexic_arte:
+    base_url: "https://mexic-artemuseum.org"
+    venue_name: "MexicArte"
+    urls: ["/exhibitions/"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "10:00"
+
+  umlauf:
+    # /exhibitions is a nav hub with no listings on it even after a JS render;
+    # the homepage carries the dated event/exhibition feed.
+    base_url: "https://www.umlaufsculpture.org"
+    venue_name: "Umlauf"
+    urls: ["/"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "10:00"
+
+  bullock:
+    base_url: "https://www.thestoryoftexas.com"
+    venue_name: "Bullock"
+    urls: ["/visit/exhibits"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "10:00"
+
+  ariel_wood:
+    base_url: "http://www.ariel-wood-art.com"
+    venue_name: "ArielWood"
+    urls: ["/info"]
+    fetch: http
+    default_event_type: visual_arts
+    default_time: "12:00"
+    preserve_venue_name: true  # shows are hosted by other galleries
+
+  ishida_dance:
+    # Migrated off a bespoke scraper. That scraper read schema.org Event blocks
+    # from the page's JSON-LD; the site now emits only a WebSite block, so it
+    # had been silently returning 0 events for weeks (issue #45) while the
+    # performance dates sat in the page as plain prose ("June 18-20, 2026
+    # AUSTIN / Dell Fine Arts Center"). LLM extraction reads that fine and does
+    # not break the next time the markup is rebuilt.
+    base_url: "https://www.ishidadance.org"
+    venue_name: "IshidaDance"
+    urls: ["/"]
+    fetch: http
+    default_event_type: dance
+    default_time: "19:30"
+
+  now_playing_austin_visual_arts:
+    # Migrated off a bespoke HTML scraper: nowplayingaustin.com now returns 403
+    # to any direct fetch (verified on both the listing and the site root), so
+    # the CSS-selector parser had no input and reported 0 events behind a green
+    # check. Perplexity's domain-restricted search is the same escape hatch
+    # artaustin already uses for a 403 site.
+    base_url: "https://nowplayingaustin.com"
+    venue_name: "NowPlayingAustinVisualArts"
+    urls: ["/categories/visual-art/"]
+    fetch: perplexity
+    default_event_type: visual_arts
+    default_time: "12:00"
+    preserve_venue_name: true  # citywide aggregator: keep the host gallery
 
 

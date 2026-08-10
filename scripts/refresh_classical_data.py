@@ -470,6 +470,87 @@ def assemble_payload(
     return payload
 
 
+#: Fields whose hand-written content a refresh must never silently blank.
+#: ``program`` in particular holds curated prose that no LLM fetch reproduces.
+_PROTECTED_EVENT_FIELDS: tuple[str, ...] = ("program", "series", "featured_artist")
+
+
+def _event_index(events: Iterable[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """Index events by a normalized title so a case change is not a new event."""
+    return {
+        str(ev.get("title", "")).strip().casefold(): ev
+        for ev in events
+        if isinstance(ev, dict) and ev.get("title")
+    }
+
+
+def detect_regressions(
+    existing: dict[str, Any],
+    incoming: dict[str, Any],
+    *,
+    expected_venue_keys: Sequence[str],
+) -> list[str]:
+    """Report ways ``incoming`` would lose information already on disk.
+
+    ``validate_classical_data`` checks that a payload is well-*formed*; it has
+    nothing to say about a payload that is well-formed and wrong. The
+    2026-08-01 bot PR was exactly that: it parsed cleanly while replacing
+    curated prose with bare titles ("Magic and mischief take center stage in
+    Stephen Mills' enchanting reimagining..." became "A Midsummer Night's
+    Dream"), blanking ``series``, and dropping a Nutcracker performance date.
+    Every one of those is a silent data loss that a format check waves through.
+
+    Returns a list of human-readable regression descriptions; empty means the
+    refresh only adds or revises, never erases.
+    """
+    problems: list[str] = []
+
+    for venue_key in expected_venue_keys:
+        old_events = existing.get(venue_key) or []
+        new_events = incoming.get(venue_key) or []
+        if not isinstance(old_events, list) or not isinstance(new_events, list):
+            continue
+
+        if old_events and not new_events:
+            problems.append(
+                f"{venue_key}: refresh would drop all {len(old_events)} existing events"
+            )
+            continue
+
+        old_by_title = _event_index(old_events)
+        new_by_title = _event_index(new_events)
+
+        for title, old_ev in old_by_title.items():
+            new_ev = new_by_title.get(title)
+            if new_ev is None:
+                problems.append(
+                    f"{venue_key}: event {old_ev.get('title')!r} disappeared from the refresh"
+                )
+                continue
+
+            lost_dates = sorted(set(old_ev.get("dates") or []) - set(new_ev.get("dates") or []))
+            if lost_dates:
+                problems.append(
+                    f"{venue_key}: {old_ev.get('title')!r} lost date(s) {', '.join(lost_dates)}"
+                )
+
+            for field in _PROTECTED_EVENT_FIELDS:
+                old_value = str(old_ev.get(field) or "").strip()
+                new_value = str(new_ev.get(field) or "").strip()
+                if old_value and not new_value:
+                    problems.append(
+                        f"{venue_key}: {old_ev.get('title')!r} blanked {field!r}"
+                    )
+                elif old_value and len(new_value) < len(old_value) // 2:
+                    problems.append(
+                        f"{venue_key}: {old_ev.get('title')!r} {field!r} shrank from "
+                        f"{len(old_value)} to {len(new_value)} chars "
+                        f"({new_value[:40]!r})"
+                    )
+
+    return problems
+
+
 def infer_season(now: datetime | None = None) -> str:
     """Best-effort season label, e.g. ``2025-26``.
 
@@ -572,7 +653,61 @@ def build_arg_parser() -> argparse.ArgumentParser:
         default=str(BALLET_OUTPUT_PATH),
         help=f"Output path for ballet data (default: {BALLET_OUTPUT_PATH}).",
     )
+    parser.add_argument(
+        "--allow-regressions",
+        action="store_true",
+        help=(
+            "Proceed even when the refresh would drop events, lose dates, or "
+            "blank curated fields. Off by default: a well-formed payload can "
+            "still be a lossy one."
+        ),
+    )
     return parser
+
+
+def _check_regressions(
+    output_path: str,
+    payload: dict[str, Any],
+    venue_keys: Sequence[str],
+    *,
+    allow: bool,
+    enabled: bool = True,
+) -> bool:
+    """Compare a refresh against what is already on disk. True means blocked.
+
+    A missing or unreadable existing file is not a regression - there is
+    nothing to lose yet. Neither is the stub fetcher, which returns a fixed
+    two-event placeholder rather than a real dataset; ``enabled`` is False for
+    those runs so the guard only judges genuine fetches.
+    """
+    if not enabled:
+        return False
+
+    path = Path(output_path)
+    if not path.is_absolute():
+        path = _REPO_ROOT / path
+    try:
+        with path.open(encoding="utf-8") as handle:
+            existing = json.load(handle)
+    except (OSError, json.JSONDecodeError):
+        return False
+
+    problems = detect_regressions(existing, payload, expected_venue_keys=venue_keys)
+    if not problems:
+        return False
+
+    label = "WARNING" if allow else "regression"
+    for problem in problems:
+        print(f"{label}: {problem}", file=sys.stderr)
+    if allow:
+        return False
+    print(
+        f"refresh_classical_data: {len(problems)} regression(s) against {path}. "
+        "The refresh would lose data that is already published. Re-run with "
+        "--allow-regressions only if the losses are intended.",
+        file=sys.stderr,
+    )
+    return True
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -628,6 +763,15 @@ def main(argv: Sequence[str] | None = None) -> int:
             for err in errors:
                 print(f"validation error: {err}", file=sys.stderr)
             return 1
+        regressions = _check_regressions(
+            args.out_classical,
+            classical_payload,
+            [r.venue_key for r in classical_results],
+            allow=args.allow_regressions,
+            enabled=args.use_perplexity,
+        )
+        if regressions:
+            return 1
         summary["venues"]["classical"] = {
             r.venue_key: len(r.events) for r in classical_results
         }
@@ -645,6 +789,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         if errors:
             for err in errors:
                 print(f"validation error: {err}", file=sys.stderr)
+            return 1
+        regressions = _check_regressions(
+            args.out_ballet,
+            ballet_payload,
+            [r.venue_key for r in ballet_results],
+            allow=args.allow_regressions,
+            enabled=args.use_perplexity,
+        )
+        if regressions:
             return 1
         summary["venues"]["ballet"] = {
             r.venue_key: len(r.events) for r in ballet_results

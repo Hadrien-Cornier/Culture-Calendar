@@ -34,6 +34,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts._slug_util import safe_slug  # noqa: E402
+from src.config_loader import build_venue_code_map  # noqa: E402
 
 DATA_PATH = REPO_ROOT / "docs" / "data.json"
 OUT_DIR = REPO_ROOT / "docs" / "events"
@@ -41,25 +42,12 @@ CONFIG_PATH = REPO_ROOT / "config" / "master_config.yaml"
 SITE_BASE_URL = "https://hadrien-cornier.github.io/Culture-Calendar/"
 
 # Venue *code* (stamped on events by ``MultiVenueScraper``) → config key under
-# ``venues:`` in ``config/master_config.yaml``. Mirrors the mapping in
-# ``update_website_data.py`` so this script can fall back to the master config
-# when events in ``docs/data.json`` predate the T0.2 enrichment step.
-_VENUE_CODE_TO_CONFIG_KEY: dict[str, str] = {
-    "AFS": "afs",
-    "Hyperreal": "hyperreal",
-    "Paramount": "paramount",
-    "AlienatedMajesty": "alienated_majesty",
-    "FirstLight": "first_light",
-    "Symphony": "austin_symphony",
-    "Opera": "austin_opera",
-    "Chamber Music": "austin_chamber_music",
-    "EarlyMusic": "early_music_austin",
-    "LaFollia": "la_follia",
-    "BalletAustin": "ballet_austin",
-    "ArtsOnAlexander": "arts_on_alexander",
-    "NowPlayingAustinVisualArts": "now_playing_austin_visual_arts",
-    "LivraBooks": "libra_books",
-}
+# ``venues:``. This script falls back to the master config when events in
+# ``docs/data.json`` predate the venue-metadata enrichment step.
+#
+# The mapping used to be a hardcoded dict here, duplicated verbatim in
+# ``update_website_data.py``; the copies drifted and both lost ArtAustin and
+# IshidaDance. It is now derived from the config by the shared helper.
 
 LOG = logging.getLogger("build_event_shells")
 
@@ -148,7 +136,7 @@ def _load_venue_metadata_from_config(
         return {}
     venues_cfg = parsed.get("venues") or {}
     out: dict[str, dict] = {}
-    for code, key in _VENUE_CODE_TO_CONFIG_KEY.items():
+    for code, key in build_venue_code_map(parsed).items():
         entry = venues_cfg.get(key)
         if not isinstance(entry, dict):
             continue
