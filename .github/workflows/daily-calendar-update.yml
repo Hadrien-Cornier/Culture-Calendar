@@ -12,6 +12,7 @@ on:
 permissions:
   contents: write
   issues: write  # failure-alert step opens/comments on a rolling issue
+  actions: write # `gh workflow run` (deploy-pages + self-heal dispatch)
 
 jobs:
   daily-update:
@@ -108,7 +109,12 @@ jobs:
         # the self-heal workflow can't trigger on the issue we just created.
         # Dispatch it directly instead.
         if: failure()
+        # `continue-on-error` rather than `|| true`: both keep a dispatch
+        # failure from masking the real error, but this one surfaces as a
+        # warning instead of a green check. The silent `|| true` hid a 403 here
+        # for three weeks, during which the self-healer never once ran.
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh workflow run self-heal.yml -f run_id=${{ github.run_id }} || true
+          gh workflow run self-heal.yml -f run_id=${{ github.run_id }}
