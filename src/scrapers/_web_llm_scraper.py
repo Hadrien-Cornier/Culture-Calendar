@@ -35,7 +35,7 @@ one-line config flip, not a code change.
 from __future__ import annotations
 
 import re
-from datetime import date
+from datetime import date, timedelta
 from typing import Any, Dict, List, Optional
 from urllib.parse import urljoin, urlparse
 
@@ -148,7 +148,14 @@ def _normalize_date(value: Any) -> Optional[str]:
         return None
 
 
-def _split_date_range(value: Any) -> tuple:
+#: A year-less date is assumed to be the coming one. Anything further into the
+#: past than this rolls forward, so "Jan 15" read in December means next
+#: January. Wide enough that a genuinely recent date still resolves backwards
+#: and gets filtered as finished.
+_YEARLESS_GRACE_DAYS = 60
+
+
+def _split_date_range(value: Any, today: Optional[date] = None) -> tuple:
     """Split a value into its start and end dates.
 
     Exhibition listings show a run, and extractors often pack the whole thing
@@ -166,10 +173,10 @@ def _split_date_range(value: Any) -> tuple:
         start = _normalize_date(tokens[0])
         end = _normalize_date(tokens[-1]) if len(tokens) > 1 else None
         return start, end
-    return _parse_human_date_range(text)
+    return _parse_human_date_range(text, today)
 
 
-def _parse_human_date_range(text: str) -> tuple:
+def _parse_human_date_range(text: str, today: Optional[date] = None) -> tuple:
     """Parse a month-name range like "July 18 - August 29, 2026".
 
     Extractors ignore the schema's ISO instruction whenever the page states
@@ -185,9 +192,15 @@ def _parse_human_date_range(text: str) -> tuple:
         return None, None
 
     year_match = _YEAR_RE.search(text)
-    if not year_match:
-        return None, None
-    year = int(year_match.group(1))
+    if year_match:
+        year = int(year_match.group(1))
+    else:
+        # Event feeds routinely omit the year ("Fri, Aug 14") because it is
+        # obvious in context. Requiring one dropped those outright, which is
+        # what left the Umlauf feed empty. Infer the coming occurrence.
+        year = _infer_year(matches[0], today or date.today())
+        if year is None:
+            return None, None
 
     def _build(month_token: str, day_token: str, in_year: int) -> Optional[str]:
         month = _MONTHS.get(month_token[:3].lower())
@@ -223,6 +236,20 @@ def _any_date_field(event: Dict[str, Any]) -> Any:
         if "date" in lowered and lowered != "end_date" and value:
             return value
     return None
+
+
+def _infer_year(month_day: tuple, today: date) -> Optional[int]:
+    """Pick the year for a year-less "Month Day", rolling forward if needed."""
+    month = _MONTHS.get(str(month_day[0])[:3].lower())
+    if not month:
+        return None
+    try:
+        candidate = date(today.year, month, int(month_day[1]))
+    except ValueError:
+        return None
+    if candidate < today - timedelta(days=_YEARLESS_GRACE_DAYS):
+        return today.year + 1
+    return today.year
 
 
 def _normalize_time(value: Any) -> Optional[str]:
@@ -551,7 +578,7 @@ Important:
         dates: List[str] = []
         range_ends: List[str] = []
         for value in raw_dates:
-            start, end = _split_date_range(value)
+            start, end = _split_date_range(value, self._today())
             if not start:
                 continue
             dates.append(start)

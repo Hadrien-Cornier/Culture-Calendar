@@ -19,6 +19,7 @@ from src.scrapers._web_llm_scraper import (
     _as_list,
     _normalize_date,
     _normalize_time,
+    _split_date_range,
 )
 
 # Dates in the fixtures below are anchored to this, never to the real clock.
@@ -188,6 +189,34 @@ class TestNormalizeTime:
 
 
 @pytest.mark.unit
+class TestSplitDateRange:
+    """Year inference for feeds that print "Fri, Aug 14" and nothing more."""
+
+    @pytest.mark.parametrize(
+        "raw,today,expected",
+        [
+            ("Fri, Aug 14", date(2026, 7, 15), "2026-08-14"),
+            ("Sat, Aug 15", date(2026, 8, 10), "2026-08-15"),
+            # Read in December, "January 15" means the January that is coming.
+            ("January 15", date(2026, 12, 20), "2027-01-15"),
+            # Recently past stays put so the finished-event filter can drop it.
+            ("July 11", date(2026, 7, 15), "2026-07-11"),
+        ],
+    )
+    def test_infers_a_missing_year(self, raw, today, expected):
+        start, _end = _split_date_range(raw, today)
+        assert start == expected
+
+    def test_explicit_year_still_wins(self):
+        start, end = _split_date_range("July 18 - August 29, 2025", date(2026, 8, 10))
+        assert (start, end) == ("2025-07-18", "2025-08-29")
+
+    def test_year_less_range(self):
+        start, end = _split_date_range("Aug 14 - Sep 12", date(2026, 8, 10))
+        assert (start, end) == ("2026-08-14", "2026-09-12")
+
+
+@pytest.mark.unit
 class TestNormalizeDate:
     @pytest.mark.parametrize(
         "raw,expected",
@@ -338,6 +367,14 @@ class TestStandardize:
         )
         assert out["dates"] == [start]
         assert out.get("end_date") == end
+
+    def test_year_less_upcoming_date_is_kept(self):
+        """Event feeds omit the year because it is obvious in context."""
+        out = _make(today=date(2026, 8, 10))._standardize(
+            {"title": "Sculpture Garden Tour", "dates": "Fri, Aug 14"}, self.URL
+        )
+        assert out is not None
+        assert out["dates"] == ["2026-08-14"]
 
     def test_finds_dates_under_an_unexpected_key(self):
         """The same page yielded `dates`, then `start_date`, then `run_dates`."""
