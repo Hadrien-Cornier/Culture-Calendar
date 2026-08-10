@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: write
+  actions: write # `gh workflow run deploy-pages.yml`
 
 jobs:
   complete-reload:

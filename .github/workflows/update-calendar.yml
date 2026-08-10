@@ -23,6 +23,7 @@ on:
 permissions:
   contents: write
   issues: write  # failure-alert step opens/comments on a rolling issue
+  actions: write # `gh workflow run` (deploy-pages + self-heal dispatch)
 
 jobs:
   weekly-update:
@@ -96,23 +97,17 @@ jobs:
             git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           fi
 
-      - name: Deploy site to gh-pages
-        if: ${{ !inputs.inspect_only }}
-        # A bot push made with GITHUB_TOKEN does NOT cascade into deploy-pages.yml
-        # (GitHub suppresses workflow triggers from GITHUB_TOKEN pushes), so the
-        # deployed site would otherwise go stale. Dispatch it explicitly via
-        # workflow_dispatch, which IS allowed from within a GITHUB_TOKEN job.
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh workflow run deploy-pages.yml --ref main
-
       - name: Send weekly tipsheet email
         # Sends next week's top picks to Buttondown subscribers. Runs after the
         # data push so an email failure can never block publishing. Idempotent
         # (deterministic per-week subject); no-ops cleanly until
         # BUTTONDOWN_API_KEY is added to repo secrets. With the test_email
         # dispatch input, subscribes that address first and sends to it.
+        #
+        # ORDERING MATTERS: this sits *before* the deploy dispatch on purpose.
+        # It used to sit after, so when the dispatch step started failing
+        # (missing `actions: write`) the newsletter was silently skipped for
+        # five weeks. Publishing must never be able to swallow the email.
         env:
           BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
           TEST_EMAIL: ${{ inputs.test_email }}
@@ -126,6 +121,18 @@ jobs:
           else
             python scripts/send_weekly_email.py
           fi
+
+      - name: Deploy site to gh-pages
+        if: ${{ !inputs.inspect_only }}
+        # A bot push made with GITHUB_TOKEN does NOT cascade into deploy-pages.yml
+        # (GitHub suppresses workflow triggers from GITHUB_TOKEN pushes), so the
+        # deployed site would otherwise go stale. Dispatch it explicitly via
+        # workflow_dispatch, which IS allowed from within a GITHUB_TOKEN job.
+        # Requires `actions: write` in the job permissions block above.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run deploy-pages.yml --ref main
 
       - name: Alert on failure via GitHub issue
         # The pipeline must never fail silently again (it once failed daily for
@@ -152,7 +159,12 @@ jobs:
         # the self-heal workflow can't trigger on the issue we just created.
         # Dispatch it directly instead.
         if: failure()
+        # `continue-on-error` rather than `|| true`: both keep a dispatch
+        # failure from masking the real error, but this one surfaces as a
+        # warning instead of a green check. The silent `|| true` hid a 403 here
+        # for three weeks, during which the self-healer never once ran.
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh workflow run self-heal.yml -f run_id=${{ github.run_id }} || true
+          gh workflow run self-heal.yml -f run_id=${{ github.run_id }}

@@ -12,9 +12,18 @@ import pytest
 from src.scrapers.art_austin_scraper import ArtAustinScraper
 
 
+# Every fixture below is dated relative to this instant. It sits after
+# "July 11" (the past-event case) and before "July 18" (the earliest upcoming
+# case). Freezing it is what stops this suite from rotting: these tests used to
+# read the real clock, so once the calendar passed their hardcoded July 2026
+# dates the scraper's past-event filter dropped the fixtures and four tests
+# went red on main with no code change.
+FROZEN_TODAY = date(2026, 7, 15)
+
+
 @pytest.fixture
 def scraper():
-    return ArtAustinScraper()
+    return ArtAustinScraper(today=FROZEN_TODAY)
 
 
 # ---------------------------------------------------------------------------
@@ -72,6 +81,26 @@ class TestParseDateTime:
         dates, times = scraper._parse_date_time("Thursday, September 17, 7-9 pm")
         assert dates == ["2026-09-17"]
         assert times == ["19:00"]
+
+
+class TestYearRollover:
+    """A year-less date must not resolve into the past across New Year."""
+
+    def test_january_in_december_rolls_to_next_year(self):
+        scraper = ArtAustinScraper(today=date(2026, 12, 20))
+        dates, _ = scraper._parse_date_time("Friday, January 15, 6-8 pm")
+        assert dates == ["2027-01-15"]
+
+    def test_recent_past_date_stays_in_current_year(self):
+        """Within the grace window the date stays put so it can be filtered."""
+        scraper = ArtAustinScraper(today=date(2026, 7, 15))
+        dates, _ = scraper._parse_date_time("Saturday, July 11, 2-4 pm")
+        assert dates == ["2026-07-11"]
+
+    def test_explicit_year_always_wins(self):
+        scraper = ArtAustinScraper(today=date(2026, 12, 20))
+        dates, _ = scraper._parse_date_time("Friday, January 15, 2026, 6-8 pm")
+        assert dates == ["2026-01-15"]
 
 
 # ---------------------------------------------------------------------------
