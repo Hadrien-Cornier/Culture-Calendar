@@ -17,22 +17,42 @@ Each event on artaustin.org has:
 
 import json
 import re
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from typing import Dict, List, Optional
 
 from src.base_scraper import BaseScraper
+
+# A year-less date string ("July 18") is assumed to mean the current year.
+# That is wrong across a year boundary: in late December, "January 15" means
+# next January, not the one eleven months gone. Anything further into the past
+# than this grace window rolls forward a year. The window has to be wide enough
+# to still resolve genuinely-recent dates to the current year so the
+# past-event filter can drop them.
+_YEARLESS_DATE_GRACE_DAYS = 60
 
 
 class ArtAustinScraper(BaseScraper):
     """Art Austin scraper - extracts art events via Perplexity search."""
 
-    def __init__(self, config=None, venue_key="artaustin"):
+    def __init__(self, config=None, venue_key="artaustin", today: Optional[date] = None):
         super().__init__(
             base_url="https://artaustin.org",
             venue_name="Art Austin",
             venue_key=venue_key,
             config=config,
         )
+        self._today_override = today
+
+    def _today(self) -> date:
+        """Today's date, overridable so date-sensitive tests cannot rot.
+
+        This scraper drops events dated in the past, and its date parser
+        defaults a year-less date to the current year. Both read the clock, so
+        fixtures with hardcoded dates silently start failing once the calendar
+        passes them - which is exactly what happened to four tests in
+        tests/test_art_austin_scraper_unit.py. Tests freeze this instead.
+        """
+        return self._today_override or date.today()
 
     def get_target_urls(self) -> List[str]:
         return [f"{self.base_url}/events/"]
@@ -72,7 +92,7 @@ class ArtAustinScraper(BaseScraper):
 
     def _build_extraction_prompt(self) -> str:
         """Build the Perplexity prompt for extracting events from artaustin.org."""
-        today = datetime.now().strftime("%B %d, %Y")
+        today = self._today().strftime("%B %d, %Y")
         return f"""Search artaustin.org for ALL current and upcoming art events in Austin.
 
 Today is {today}. Only include events happening today or later.
@@ -120,13 +140,13 @@ Important:
         if not title or not date_str:
             return None
 
-        # Skip events that look like they're in the past
-        dates, _ = self._parse_date_time(date_str)
-        if dates:
-            from datetime import date as date_type
-            event_date = date_type.fromisoformat(dates[0])
-            if event_date < date_type.today():
-                return None
+        dates, times = self._parse_date_time(date_str)
+        if not dates:
+            return None
+
+        # Skip events that have already happened
+        if date.fromisoformat(dates[0]) < self._today():
+            return None
 
         # Combine type + title if both present, normalizing type casing
         if event_type:
@@ -140,11 +160,6 @@ Important:
         else:
             full_title = title
 
-        # Parse the date string
-        dates, times = self._parse_date_time(date_str)
-        if not dates:
-            return None
-
         event = {
             "title": full_title,
             "venue": venue or self.venue_name,
@@ -155,6 +170,27 @@ Important:
             "source": "artaustin",
         }
         return self.format_event(event)
+
+    def _resolve_year(self, month: int, day: int, year_str: Optional[str]) -> int:
+        """Pick the year for a parsed date, rolling forward across New Year.
+
+        An explicit year in the source always wins. Otherwise assume the
+        current year, unless that lands the date more than
+        ``_YEARLESS_DATE_GRACE_DAYS`` in the past - a listing scraped in
+        December that reads "January 15" means the January that is coming.
+        """
+        if year_str:
+            return int(year_str)
+
+        today = self._today()
+        try:
+            candidate = date(today.year, month, day)
+        except ValueError:  # e.g. Feb 29 in a non-leap year
+            return today.year
+
+        if candidate < today - timedelta(days=_YEARLESS_DATE_GRACE_DAYS):
+            return today.year + 1
+        return today.year
 
     def _parse_date_time(self, date_str: str) -> tuple:
         """Parse strings like 'Saturday, July 18, 2-4 pm' into ISO dates/times.
@@ -216,7 +252,7 @@ Important:
             return [], []
 
         day = int(day_str)
-        year = int(year_str) if year_str else datetime.now().year
+        year = self._resolve_year(month, int(day_str), year_str)
 
         # Parse time - strip trailing year if present (e.g. "1-4 pm, 2026" -> "1-4 pm")
         time_str = time_str.strip()
