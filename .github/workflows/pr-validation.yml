@@ -130,6 +130,39 @@ jobs:
               print(f'OK {name}')
           "
 
+      - name: Every config-registry venue builds and registers
+        # The registries are the whole point of the config-only venue path: a
+        # malformed YAML entry must fail here rather than silently scraping
+        # nothing in production. Asserts each entry produced an instance AND
+        # got into the list scrape_all_venues iterates - being built but not
+        # registered is exactly the gap that used to make 'config-only' venues
+        # not actually config-only.
+        run: |
+          python -c "
+          from src.config_loader import ConfigLoader
+          from src.scraper import MultiVenueScraper
+
+          config = ConfigLoader()
+          scraper = MultiVenueScraper()
+          registered = {code: inst for code, inst, *_ in scraper._registry_venue_configs}
+          code_map = config.get_venue_code_map()
+          venues = config.get_config()['venues']
+
+          expected = {}
+          for block in ('static_json_scrapers', 'web_llm_scrapers'):
+              expected.update(getattr(config, 'get_' + block)())
+
+          for venue_key, entry in expected.items():
+              code = entry['venue_name']
+              assert code in registered, f'{code} built but never registered for scraping'
+              assert registered[code] is not None, f'{code} registered as None'
+              assert code_map.get(code) == venue_key, f'{code} does not map back to {venue_key}'
+              assert venue_key in venues, f'{venue_key} has no venues: entry'
+              print(f'OK {code} -> {venue_key}')
+
+          print(f'{len(expected)} registry venues built, registered, and resolvable')
+          "
+
   council-review:
     runs-on: ubuntu-latest
     name: LLM Council (cross-family diff review)
