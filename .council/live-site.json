@@ -44,7 +44,7 @@
       "persona": "mobile-user",
       "dimension": "live-mobile",
       "verdict_contract": "pass-fail-abstain",
-      "model": { "openrouter_id": "qwen/qwen3.7-plus", "family": "qwen", "tier": "fast" },
+      "model": { "openrouter_id": "x-ai/grok-4.5", "family": "x-ai", "tier": "fast" },
       "persona_spec_path": "personas/council/mobile-user.json"
     }
   ],
