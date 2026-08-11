@@ -57,6 +57,32 @@ Static JSON loading is used for season-based venues (Symphony, Early Music, La F
 - **Debug scraper failures**: run with `--validate`; check if site structure changed (most common cause); review LLM prompts for smart scrapers; inspect enrichment telemetry.
 - **Modify schema**: edit template in master_config.yaml; update scraper; update enrichment prompts; adjust `update_website_data.py:build_event_from_template()`; update tests.
 
+### Rating policy — only film is scored
+
+`rating` (0–10) is generated for every event but **displayed for film only**. The site's single source of truth is `SCORED_CATEGORIES` in `docs/script.js`.
+
+Measured across the published corpus, by share of reviews where the model explicitly declines to judge:
+
+| category | declines | mean | range |
+|---|---|---|---|
+| movie | 19% | 5.9 | 0–10 |
+| dance | 32% | 4.0 | 0–5 |
+| visual_arts | 56% | 3.4 | 1–7 |
+| opera | 58% | 5.2 | 0–9 |
+| concert | 73% | 3.5 | 0–8 |
+
+Outside film the number tracks how much source material the extractor found, not quality — a gallery show described only by title and venue scores low regardless of the work. A calendar's job is to surface what is on, not to arbitrate quality for work that is unique and unreviewed.
+
+Consequences to preserve when touching the UI:
+- No badge for unscored categories, and **no fabricated fallback** (the venue-average / flat-5 `derivedRating` path is gated on `isScored`).
+- Unscored events sort by `urgencyDate` — closing date for a running show, opening date otherwise — never by rating.
+- "Top picks" is a ranking claim; the heading becomes "On this week" when nothing in the list is scored, and the rank counter is suppressed.
+- Reviews and one-liners that decline to judge (`NON_JUDGEMENT_RE`) are not rendered as criticism.
+
+Adding a category to `SCORED_CATEGORIES` needs evidence that its scores actually discriminate. `tests/test_scoreless_categories.py` pins all of the above.
+
+Still open: ratings continue to drive the weekly tipsheet's picks, which has the same problem for non-film events.
+
 ### Classical refresh pipeline
 
 Season-based classical/ballet venues (Austin Symphony, Early Music Austin, La Follia, Austin Chamber Music, Austin Opera, Ballet Austin) ship as static JSON in `docs/classical_data.json` + `docs/ballet_data.json`, not via per-event scrapers. `scripts/refresh_classical_data.py` is the LLM-driven monthly refresh.

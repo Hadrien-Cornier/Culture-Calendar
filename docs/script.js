@@ -946,6 +946,11 @@
           description: ev.description || "",
           one_liner: ev.one_liner_summary || "",
           review_confidence: (ev.review_confidence || "unknown").toLowerCase(),
+          end_date: ev.end_date || "",
+          artist: ev.artist || "",
+          artists: ev.artists || [],
+          medium: ev.medium || "",
+          series: ev.series || "",
           director: ev.director || "",
           composers: ev.composers || [],
           author: ev.author || "",
@@ -973,7 +978,20 @@
     });
     var result = order.map(function (k) { return byTitle[k]; });
     result.forEach(function (ev) { ev.showings = dedupeShowings(ev.showings); });
-    result.sort(function (a, b) { return b.rating - a.rating || a.title.localeCompare(b.title); });
+
+    /* Scored and unscored events are ordered by different keys, because they
+       have different ones worth ordering by. Film sorts best-first; everything
+       else sorts by urgency (see urgencyDate). In a mixed list the scored ones
+       lead - selecting a single scoreless category yields a homogeneous list,
+       so that view is purely chronological with no special-casing. */
+    var today = todayISO();
+    result.sort(function (a, b) {
+      var aScored = isScored(a), bScored = isScored(b);
+      if (aScored !== bScored) return aScored ? -1 : 1;
+      if (aScored) return b.rating - a.rating || a.title.localeCompare(b.title);
+      var ua = urgencyDate(a, today), ub = urgencyDate(b, today);
+      return ua < ub ? -1 : ua > ub ? 1 : a.title.localeCompare(b.title);
+    });
     return result;
   }
 
@@ -988,6 +1006,47 @@
   }
 
   function ratingClass(r) { return r >= 8 ? "high" : r >= 5 ? "mid" : "low"; }
+
+  /* Which categories get a 0-10 score at all.
+
+     Film is the only one where the number carries signal. Measured across the
+     published corpus: film reviews decline to judge 19% of the time and the
+     scores spread the full 0-10, whereas concert declines 73% of the time and
+     visual arts 56%, both clustering flat around 3.4. In those categories the
+     model is scoring how much material it could find, not how good the work
+     is - a gallery show described only by title and venue scores low no matter
+     what is on the walls.
+
+     A calendar's job here is to surface what is on, not to arbitrate quality
+     for work that is by definition unique and unreviewed. So we show no score
+     rather than a confident-looking wrong one. */
+  var SCORED_CATEGORIES = { movie: true };
+
+  function isScored(ev) {
+    return SCORED_CATEGORIES[String(ev && ev.type || "").toLowerCase()] === true;
+  }
+
+  /* Local calendar date as YYYY-MM-DD, so it compares directly against the
+     ISO date strings in the data. Deliberately local rather than UTC: "is this
+     show still up today" is a question about the reader's day in Austin. */
+  function todayISO(now) {
+    var d = now || new Date();
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + "-" + (m < 10 ? "0" + m : m) + "-" + (day < 10 ? "0" + day : day);
+  }
+
+  /* The date that decides where an unscored event sorts.
+
+     For a show already open, that is its closing date - a months-long
+     exhibition is urgent when it is about to come down, not when it opened.
+     For one not yet open, it is the opening date. Both ascending, so the list
+     reads "what you are about to miss, then what is coming". */
+  function urgencyDate(ev, today) {
+    var first = ev.showings && ev.showings[0] ? ev.showings[0].date : "";
+    var end = ev.end_date || "";
+    if (end && first && first <= today) return end;
+    return first || end || "9999-12-31";
+  }
 
   /* task-T8.2: derived rating for ungraded events (rating <= 0).
      Uses the venue's average rating when available, falling back to 5.
@@ -1307,6 +1366,46 @@
     return safe;
   }
 
+  /* Phrases where the model is telling us it had nothing to go on.
+
+     A gallery listing usually gives a title, a venue and a date, so the critic
+     prompt produces paragraphs like "There is not enough evidence in the
+     supplied material to judge composition, materials, technique, or
+     installation with confidence." That is an honest answer to a question we
+     should not have asked, and rendering it under a heading like "Artistic
+     Merit" presents an absence of information as a critical finding. Drop
+     those sections and keep whatever actually describes the show.
+
+     What these paragraphs have in common is that they discuss the *record* -
+     the supplied material, the available information - rather than the work,
+     so that is what we match on rather than trying to enumerate phrasings. */
+  var NON_JUDGEMENT_RE = new RegExp([
+    // Talking about the source material instead of the art.
+    "available (record|information|material|evidence|documentation|sources)",
+    "supplied material",
+    "information (provided|available|given)",
+    "(provided|public|thin|the) (public )?(sources|record)\\b",
+    "sources (here|do not|don't|are)",
+    // Explicit refusals.
+    "not enough (evidence|information)",
+    "insufficient (evidence|information)",
+    "cannot (be |fairly )?(assess|judge|evaluat|credit|verify)",
+    "can(not|'t) be (assessed|judged|evaluated)",
+    "unable to (assess|judge|evaluat)",
+    "impossible to (assess|judge|evaluat)",
+    "no basis (for|to)",
+    "no (exhibition-specific |further |public )?(evidence|record|detail)",
+    // Absence-of-facts statements.
+    "(is|are) not (described|documented|identified|specified)",
+    "no (artist|medium|series|works|visual description|checklist)",
+    "remains undocumented",
+    "without (more|additional|further) (detail|information)"
+  ].join("|"), "i");
+
+  function isNonJudgement(text) {
+    return NON_JUDGEMENT_RE.test(String(text || ""));
+  }
+
   function parseReview(html) {
     if (!html) return { rating: "", sections: [], flat: "" };
     var doc = new DOMParser().parseFromString("<div>" + html + "</div>", "text/html");
@@ -1388,8 +1487,11 @@
       seenLabels[s.label] = true;
       return true;
     });
+    // Drop the sections where the model reported having nothing to judge.
+    var declined = sections.filter(function (s) { return isNonJudgement(s.body); }).length;
+    sections = sections.filter(function (s) { return !isNonJudgement(s.body); });
     var flat = sections.map(function (s) { return s.body; }).join("\n\n");
-    return { rating: rating, sections: sections, flat: flat };
+    return { rating: rating, sections: sections, flat: flat, declined: declined };
   }
 
   function formatDate(str) {
@@ -1659,9 +1761,12 @@
     var filtered = filterEvents(allEvents);
     var grouped = groupEvents(filtered);
     var venueAvgs = computeVenueAverages(grouped);
-    // task-T8.2: apply derived ratings so no event shows "-"
+    /* task-T8.2: derive a rating for ungraded events so no card shows "-".
+       Now only for categories that are scored at all - inventing a venue
+       average for a gallery show would put a fabricated number in the exact
+       place a real judgement goes. */
     grouped.forEach(function (ev) {
-      if (typeof ev.rating !== "number" || ev.rating <= 0) {
+      if (isScored(ev) && (typeof ev.rating !== "number" || ev.rating <= 0)) {
         ev._derivedRating = derivedRating(ev, venueAvgs);
       }
     });
@@ -2008,6 +2113,15 @@
     lastRenderedPicks = (picks || []).map(function (item) {
       return item && item.ev ? item.ev : item;
     });
+    /* "Top picks" is a ranking claim. When nothing in the list is scored - as
+       when the reader has filtered to Visual Arts - there is no ranking behind
+       it, only urgency order, so the heading says what the list actually is
+       rather than implying a judgement we did not make. */
+    var picksHeading = document.querySelector("#picks .picks-heading");
+    if (picksHeading) {
+      var anyScored = lastRenderedPicks.some(isScored);
+      picksHeading.textContent = anyScored ? "TOP PICKS OF THE WEEK" : "ON THIS WEEK";
+    }
     if (picks.length === 0) {
       var empty = document.createElement("li");
       empty.className = "empty-state";
@@ -2133,9 +2247,80 @@
     });
   }
 
+  /* Add the 0-10 badge, but only where the number means anything.
+
+     Unscored categories previously got a *fabricated* one: the venue's average
+     rating, or a flat 5, so that every card had a badge and the list stayed
+     sortable. That is the worst version - a made-up number presented in the
+     same visual language as a real judgement. */
+  function appendRatingBadge(header, ev) {
+    if (!isScored(ev)) return null;
+    var badge = document.createElement("span");
+    var displayRating = ev.rating > 0 ? ev.rating : (ev._derivedRating || 5);
+    badge.className = "event-rating-badge rating-" + ratingClass(displayRating);
+    badge.textContent = displayRating + " / 10";
+    badge.setAttribute("aria-label", "rated " + displayRating + " out of 10");
+    header.appendChild(badge);
+    return badge;
+  }
+
+  /* Subtitle line. Scored events lead with venue and showtime; unscored ones
+     lead with the facts that actually help you decide to go - who made it,
+     in what medium, and how long you have left to see it. */
+  function buildSubtitle(ev, opts) {
+    opts = opts || {};
+    var sub = document.createElement("div");
+    sub.className = "event-subtitle";
+    var parts = [];
+    var venueLabel = ev.venue_display_name || ev.venue;
+    if (venueLabel) parts.push(venueLabel);
+    parts.push(CATEGORY_LABELS[ev.type] || (ev.type || "").replace(/_/g, " "));
+    (opts.extras || []).forEach(function (x) { if (x) parts.push(x); });
+
+    if (!isScored(ev)) {
+      var who = ev.artist || (ev.artists && ev.artists.length ? ev.artists.join(", ") : "");
+      if (who) parts.push(who);
+      if (ev.medium) parts.push(ev.medium);
+    }
+    var next = ev.showings && ev.showings[0];
+    if (opts.includeNext && next) {
+      parts.push(formatDate(next.date) + (next.time ? " · " + formatTime(next.time) : ""));
+    }
+    sub.textContent = parts.join(" · ");
+
+    var run = runNoteFor(ev);
+    if (run) {
+      var note = document.createElement("span");
+      note.className = "event-run-note" + (run.closingSoon ? " is-closing-soon" : "");
+      note.textContent = run.text;
+      sub.appendChild(document.createTextNode(" "));
+      sub.appendChild(note);
+    }
+    return sub;
+  }
+
+  /* "Closes 12 Sep" for a run that is currently on, flagged when it is nearly
+     over. This is the replacement for a score: for an exhibition, how long you
+     have left is the genuinely useful, genuinely knowable fact. */
+  var CLOSING_SOON_DAYS = 14;
+
+  function runNoteFor(ev) {
+    if (isScored(ev) || !ev.end_date) return null;
+    var today = todayISO();
+    if (ev.end_date < today) return null;
+    var first = ev.showings && ev.showings[0] ? ev.showings[0].date : "";
+    if (first && first > today) return { text: "Through " + formatDate(ev.end_date), closingSoon: false };
+    var days = Math.round((new Date(ev.end_date) - new Date(today)) / 86400000);
+    return {
+      text: days <= CLOSING_SOON_DAYS ? "Closes " + formatDate(ev.end_date) : "Through " + formatDate(ev.end_date),
+      closingSoon: days <= CLOSING_SOON_DAYS
+    };
+  }
+
   function buildPickCard(ev, reason) {
     var card = document.createElement("li");
     card.className = "event-card pick-card";
+    if (!isScored(ev)) card.classList.add("event-card-unscored");
     if (ev.showings && ev.showings[0]) {
       card.dataset.firstDate = ev.showings[0].date;
     }
@@ -2143,12 +2328,7 @@
     var header = document.createElement("div");
     header.className = "event-header";
 
-    var badge = document.createElement("span");
-    var displayRating = ev.rating > 0 ? ev.rating : (ev._derivedRating || 5);
-    badge.className = "event-rating-badge rating-" + ratingClass(displayRating);
-    badge.textContent = displayRating + " / 10";
-    badge.setAttribute("aria-label", "rated " + displayRating + " out of 10");
-    header.appendChild(badge);
+    appendRatingBadge(header, ev);
 
     var col = document.createElement("div");
     col.className = "event-title-col";
@@ -2164,15 +2344,7 @@
     } else { title.textContent = ev.title; }
     col.appendChild(title);
 
-    var sub = document.createElement("div");
-    sub.className = "event-subtitle";
-    var next = ev.showings && ev.showings[0];
-    var sp = [CATEGORY_LABELS[ev.type] || (ev.type || "").replace(/_/g, " ")];
-    var venueLabel = ev.venue_display_name || ev.venue;
-    if (venueLabel) sp.unshift(venueLabel);
-    if (next) sp.push(formatDate(next.date) + (next.time ? " · " + formatTime(next.time) : ""));
-    sub.textContent = sp.join(" · ");
-    col.appendChild(sub);
+    col.appendChild(buildSubtitle(ev, { includeNext: true }));
 
     /* task-T3.1: surface the venue's street address on a secondary line
        so logistics-focused users can see where to go without expanding. */
@@ -2210,7 +2382,10 @@
 
     var panel = document.createElement("div");
     panel.className = "event-panel";
-    if (ev.one_liner) {
+    // The hook is generated from the same thin material as the review, so it
+    // can be a non-judgement too ("An artist talk with no named artist or
+    // described work offers no basis for review"). Nothing beats that.
+    if (ev.one_liner && !isNonJudgement(ev.one_liner)) {
       var ol = document.createElement("p");
       ol.className = "event-oneliner";
       ol.textContent = ev.one_liner;
@@ -2247,7 +2422,9 @@
       panel.appendChild(reviewWrap);
     } else if (ev.description) {
       var flat = ev.description.replace(/<[^>]*>/g, "");
-      if (flat && flat !== ev.one_liner) {
+      // Don't fall back to the raw text when the whole review was the model
+      // saying it had nothing to judge - that is what parseReview just removed.
+      if (flat && flat !== ev.one_liner && !isNonJudgement(flat)) {
         var p = document.createElement("p");
         p.className = "event-review-body";
         p.innerHTML = formatReviewBody(flat, ev);
@@ -2295,12 +2472,8 @@
     card.className = "event-card";
     var header = document.createElement("div");
     header.className = "event-header";
-    var badge = document.createElement("span");
-    var displayRating = ev.rating > 0 ? ev.rating : (ev._derivedRating || 5);
-    badge.className = "event-rating-badge rating-" + ratingClass(displayRating);
-    badge.textContent = displayRating + " / 10";
-    badge.setAttribute("aria-label", "rated " + displayRating + " out of 10");
-    header.appendChild(badge);
+    if (!isScored(ev)) card.classList.add("event-card-unscored");
+    appendRatingBadge(header, ev);
 
     var col = document.createElement("div");
     col.className = "event-title-col";
@@ -2316,19 +2489,13 @@
     } else { title.textContent = ev.title; }
     col.appendChild(title);
 
-    var sub = document.createElement("div");
-    sub.className = "event-subtitle";
-    var sp = [];
-    var venueLabel = ev.venue_display_name || ev.venue;
-    if (venueLabel) sp.push(venueLabel);
-    sp.push(CATEGORY_LABELS[ev.type] || ev.type.replace(/_/g, " "));
     // task-T8.3: show director for movie events
+    var extras = [];
     if ((ev.type || "").toLowerCase() === "movie") {
       var director = extractDirector(ev.description);
-      if (director) sp.push("dir. " + director);
+      if (director) extras.push("dir. " + director);
     }
-    sub.textContent = sp.join(" · ");
-    col.appendChild(sub);
+    col.appendChild(buildSubtitle(ev, { extras: extras }));
 
     /* task-T3.1: street address rendered below the subtitle so the
        full venue location is visible on the card face without needing
@@ -2363,7 +2530,10 @@
 
     var panel = document.createElement("div");
     panel.className = "event-panel";
-    if (ev.one_liner) {
+    // The hook is generated from the same thin material as the review, so it
+    // can be a non-judgement too ("An artist talk with no named artist or
+    // described work offers no basis for review"). Nothing beats that.
+    if (ev.one_liner && !isNonJudgement(ev.one_liner)) {
       var ol = document.createElement("p");
       ol.className = "event-oneliner";
       ol.textContent = ev.one_liner;
@@ -2400,7 +2570,9 @@
       panel.appendChild(reviewWrap);
     } else if (ev.description) {
       var flat = ev.description.replace(/<[^>]*>/g, "");
-      if (flat && flat !== ev.one_liner) {
+      // Don't fall back to the raw text when the whole review was the model
+      // saying it had nothing to judge - that is what parseReview just removed.
+      if (flat && flat !== ev.one_liner && !isNonJudgement(flat)) {
         var p = document.createElement("p");
         p.className = "event-review-body";
         p.innerHTML = formatReviewBody(flat, ev);

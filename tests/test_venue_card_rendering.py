@@ -67,25 +67,33 @@ def listing_card_body(script_source: str) -> str:
     return _extract_function_body(script_source, "function buildListingCard")
 
 
+@pytest.fixture(scope="module")
+def subtitle_body(script_source: str) -> str:
+    return _extract_function_body(script_source, "function buildSubtitle")
+
+
 # --- venue_display_name primary label with fallback ----------------------
+#
+# The two builders used to each carry their own copy of the subtitle logic.
+# They now share buildSubtitle, so the fallback is asserted once where it
+# lives, plus a check that both builders actually route through it - which is
+# what keeps this behavioural rather than a test of where code sits.
 
 
 @pytest.mark.unit
-def test_pick_card_uses_venue_display_name_with_fallback(pick_card_body: str) -> None:
-    """buildPickCard prefers venue_display_name, falls back to raw venue."""
+def test_subtitle_uses_venue_display_name_with_fallback(subtitle_body: str) -> None:
+    """The shared subtitle prefers venue_display_name, falls back to raw venue."""
     assert re.search(
-        r"ev\.venue_display_name\s*\|\|\s*ev\.venue", pick_card_body
-    ), "buildPickCard must use venue_display_name with a fallback to venue"
+        r"ev\.venue_display_name\s*\|\|\s*ev\.venue", subtitle_body
+    ), "buildSubtitle must use venue_display_name with a fallback to venue"
 
 
 @pytest.mark.unit
-def test_listing_card_uses_venue_display_name_with_fallback(
-    listing_card_body: str,
-) -> None:
-    """buildListingCard prefers venue_display_name, falls back to raw venue."""
-    assert re.search(
-        r"ev\.venue_display_name\s*\|\|\s*ev\.venue", listing_card_body
-    ), "buildListingCard must use venue_display_name with a fallback to venue"
+@pytest.mark.parametrize("builder", ["buildPickCard", "buildListingCard"])
+def test_card_builders_use_the_shared_subtitle(script_source: str, builder: str) -> None:
+    """Both card faces must render their venue line through buildSubtitle."""
+    body = _extract_function_body(script_source, "function " + builder)
+    assert "buildSubtitle(" in body, f"{builder} must build its subtitle via buildSubtitle"
 
 
 # --- conditional .event-venue-address rendering --------------------------
