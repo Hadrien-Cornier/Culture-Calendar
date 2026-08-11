@@ -382,6 +382,40 @@ body {
 .pick-rating--mid, .rating-mid { background: var(--mid); }
 .pick-rating--low, .rating-low { background: var(--lo); }
 
+/* Cards for categories we do not score (everything but film).
+
+   No badge, so the header reclaims the 72px rating column. A rule down the
+   left edge replaces the badge as the card's visual anchor, otherwise the row
+   reads as a film card with a missing score rather than a deliberately
+   different kind of listing. */
+.event-card-unscored {
+  border-left: 3px solid var(--accent);
+}
+
+.event-card-unscored .event-header {
+  grid-template-columns: 1fr 28px;
+}
+
+/* How long is left on a run - the useful, knowable fact that stands in for a
+   score on an exhibition. Emphasised only when the show is nearly down. */
+.event-run-note {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.event-run-note::before {
+  content: " · ";
+  color: var(--muted);
+}
+
+.event-run-note.is-closing-soon {
+  color: var(--lo);
+  font-weight: 700;
+}
+
 .pick-title { font-size: 16px; font-weight: 600; }
 .pick-title a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--accent); }
 
@@ -502,6 +536,17 @@ body {
 .picks-list.top-picks .event-card .event-header {
   grid-template-columns: 40px 72px 1fr 28px;
 }
+
+/* Same card without the rating column. Needs to beat the rule above on
+   specificity, otherwise the title is squeezed into the vacated 72px.
+   The rank counter goes too: in an urgency-ordered list a big "1" next to the
+   first item reads as "best", which is the exact claim we stopped making. */
+.picks-list.top-picks .event-card.event-card-unscored .event-header {
+  grid-template-columns: 1fr 28px;
+}
+.picks-list.top-picks .event-card.event-card-unscored .event-header::before {
+  content: none;
+}
 .picks-list.top-picks .event-card .event-header::before {
   content: counter(pick);
   font-family: var(--sans);
@@ -513,6 +558,11 @@ body {
 .picks-list.top-picks .event-card.is-open .expand-indicator {
   transform: rotate(90deg);
   color: var(--accent);
+}
+/* The 126px indent aligns the panel under the title column, past the rank and
+   rating cells. Neither exists on an unscored card, so it indents to nothing. */
+.picks-list.top-picks .event-card.event-card-unscored.is-open .event-panel {
+  padding-left: 16px;
 }
 .picks-list.top-picks .event-card.is-open .event-panel {
   max-height: 2000px;

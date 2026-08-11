@@ -516,7 +516,6 @@
     "selector": "#event-search",
     "since_commit": "task-date-search",
     "smoke_assertion": "contains_text:parseDateQuery@/script.js"
-  }
   },
   {
     "id": "category-filter-chips",
@@ -559,5 +558,47 @@
     "selector": ".filter-bar",
     "since_commit": "T8.5",
     "smoke_assertion": "contains_text:position: sticky@/styles.css"
+  },
+  {
+    "id": "scoreless-categories",
+    "name": "Only film carries a 0-10 score; other categories show none",
+    "selector": ".event-card-unscored",
+    "since_commit": "scoreless-categories",
+    "smoke_assertion": "contains_text:SCORED_CATEGORIES@/script.js"
+  },
+  {
+    "id": "unscored-card-face",
+    "name": "No-score card face: no rating badge, accent rule, full-width title",
+    "selector": ".event-card-unscored .event-header",
+    "since_commit": "scoreless-categories",
+    "smoke_assertion": "contains_text:.event-card-unscored .event-header@/styles.css"
+  },
+  {
+    "id": "exhibition-run-note",
+    "name": "Exhibition run note (Through / Closes date) in place of a score",
+    "selector": ".event-run-note",
+    "since_commit": "scoreless-categories",
+    "smoke_assertion": "contains_text:event-run-note@/styles.css"
+  },
+  {
+    "id": "urgency-ordering",
+    "name": "Unscored categories order by urgency (closing soon first)",
+    "selector": ".event-card-unscored",
+    "since_commit": "scoreless-categories",
+    "smoke_assertion": "contains_text:function urgencyDate@/script.js"
+  },
+  {
+    "id": "picks-heading-adapts",
+    "name": "Picks heading drops the ranking claim for unranked lists",
+    "selector": ".picks-heading",
+    "since_commit": "scoreless-categories",
+    "smoke_assertion": "contains_text:ON THIS WEEK@/script.js"
+  },
+  {
+    "id": "non-judgement-suppression",
+    "name": "Reviews that decline to judge are not rendered as criticism",
+    "selector": ".event-review",
+    "since_commit": "scoreless-categories",
+    "smoke_assertion": "contains_text:NON_JUDGEMENT_RE@/script.js"
   }
 ]
