@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "VISITOR Q",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Takashi Miike’s film is ragged by design, but the craft is not sloppy. It uses abrupt tonal shifts, grotesque comedy, and blunt visual shocks to keep every scene unstable, and that instability is the point. The family breakdown…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/visitor-q.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-22",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

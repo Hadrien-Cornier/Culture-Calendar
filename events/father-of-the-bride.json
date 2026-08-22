@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Father of the Bride",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit Father of the Bride is built on a sturdy comic engine, a father’s panic, a daughter’s wedding, a household dragged through social ritual, and that gives it reliable shape. Its main strength is performance and timing, especially…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/father-of-the-bride.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-22",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

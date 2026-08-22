@@ -1,0 +1,130 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of IDIOTS
+X-WR-CALNAME:Culture Calendar — IDIOTS
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] IDIOTS
+DTSTART;TZID=America/Chicago:20260827T200000
+DTEND;TZID=America/Chicago:20260827T220000
+DTSTAMP:20260822T130629Z
+UID:idiots-2026-08-27-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nA competent but unproven film\, its title prom
+ ising more than its description delivers.\n\nDetails: https://www.austinfi
+ lm.org/screening/idiots/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/idiots/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] IDIOTS
+DTSTART;TZID=America/Chicago:20260828T173000
+DTEND;TZID=America/Chicago:20260828T193000
+DTSTAMP:20260822T130629Z
+UID:idiots-2026-08-28-1730@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nA competent but unproven film\, its title prom
+ ising more than its description delivers.\n\nDetails: https://www.austinfi
+ lm.org/screening/idiots/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/idiots/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] IDIOTS
+DTSTART;TZID=America/Chicago:20260828T213000
+DTEND;TZID=America/Chicago:20260828T233000
+DTSTAMP:20260822T130629Z
+UID:idiots-2026-08-28-2130@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nA competent but unproven film\, its title prom
+ ising more than its description delivers.\n\nDetails: https://www.austinfi
+ lm.org/screening/idiots/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/idiots/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] IDIOTS
+DTSTART;TZID=America/Chicago:20260829T170000
+DTEND;TZID=America/Chicago:20260829T190000
+DTSTAMP:20260822T130629Z
+UID:idiots-2026-08-29-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nA competent but unproven film\, its title prom
+ ising more than its description delivers.\n\nDetails: https://www.austinfi
+ lm.org/screening/idiots/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/idiots/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] IDIOTS
+DTSTART;TZID=America/Chicago:20260829T210000
+DTEND;TZID=America/Chicago:20260829T230000
+DTSTAMP:20260822T130629Z
+UID:idiots-2026-08-29-2100@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nA competent but unproven film\, its title prom
+ ising more than its description delivers.\n\nDetails: https://www.austinfi
+ lm.org/screening/idiots/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/idiots/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] IDIOTS
+DTSTART;TZID=America/Chicago:20260830T153000
+DTEND;TZID=America/Chicago:20260830T173000
+DTSTAMP:20260822T130629Z
+UID:idiots-2026-08-30-1530@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nA competent but unproven film\, its title prom
+ ising more than its description delivers.\n\nDetails: https://www.austinfi
+ lm.org/screening/idiots/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/idiots/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] IDIOTS
+DTSTART;TZID=America/Chicago:20260831T193000
+DTEND;TZID=America/Chicago:20260831T213000
+DTSTAMP:20260822T130629Z
+UID:idiots-2026-08-31-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nA competent but unproven film\, its title prom
+ ising more than its description delivers.\n\nDetails: https://www.austinfi
+ lm.org/screening/idiots/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/idiots/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[5/10] IDIOTS
+DTSTART;TZID=America/Chicago:20260902T200000
+DTEND;TZID=America/Chicago:20260902T220000
+DTSTAMP:20260822T130629Z
+UID:idiots-2026-09-02-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nA competent but unproven film\, its title prom
+ ising more than its description delivers.\n\nDetails: https://www.austinfi
+ lm.org/screening/idiots/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/idiots/
+END:VEVENT
+END:VCALENDAR

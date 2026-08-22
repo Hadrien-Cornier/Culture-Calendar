@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE SMALLEST SHOW ON EARTH",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Basil Dearden keeps the film moving with brisk timing, clear visual storytelling, and a steady comic rhythm, and the setting, a tiny independent cinema, gives the movie a built-in sense of place. The best passages come from the…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-smallest-show-on-earth.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-09",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

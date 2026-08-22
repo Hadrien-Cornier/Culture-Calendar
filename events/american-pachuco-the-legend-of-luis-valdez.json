@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "AMERICAN PACHUCO: THE LEGEND OF LUIS VALDEZ",
+  "description": "★ Rating: [6/10] 🎭 Artistic Merit, David Alvarado makes a clean, watchable documentary, and the film has genuine polish in its use of archival material, split screens, and Edward James Olmos’s pachuco commentary, which gives the portrait some texture. Still,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/american-pachuco-the-legend-of-luis-valdez.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-22",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

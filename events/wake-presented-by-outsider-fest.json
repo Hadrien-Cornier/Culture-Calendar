@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WAKE presented by OUTsider Fest",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit The available record is too thin to support praise for craft, pacing, or visual design. With no director named, no duration, and no scene-level description, there is nothing here that lets me verify technical control or aesthet…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/wake-presented-by-outsider-fest.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-23",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

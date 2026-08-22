@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Artist Talk: Yesterday’s Luck
+X-WR-CALNAME:Culture Calendar — Artist Talk: Yesterday’s Luck
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Artist Talk: Yesterday’s Luck
+DTSTART;TZID=America/Chicago:20260829T130000
+DTEND;TZID=America/Chicago:20260829T150000
+DTSTAMP:20260822T130629Z
+UID:artist-talk-yesterday’s-luck---2026-08-29-1300-2026-08-29-1300@cultu
+ recalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 6/10\n\nTwo artists pair landscapes with legends in a 
+ tidy but safe gallery talk.\n\nDetails: https://artaustin.org/exhibitions-
+ 2/
+LOCATION:Davis Gallery & Framing
+URL:https://artaustin.org/exhibitions-2/
+END:VEVENT
+END:VCALENDAR

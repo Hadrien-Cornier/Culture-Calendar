@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Link & Pin Art",
+  "description": "★ Rating: 4/10 🎭 Formal Qualities, the exhibition reads as a summer group hang rather than a tightly argued visual statement, with the venue presenting it as part of its Summer Exposure schedule and pairing the opening reception with a later artist talk. That…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-link-pin-art-2026-08-22-1700.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-22",
+  "location": {
+    "@type": "Place",
+    "name": "Link & Pin Art",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Gestures of Care",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The exhibition seems built from a mixed toolkit, photography, video, collage, textiles, and sculpture, which suggests a workable, if familiar, material range for the subject of care and motherhood. The strongest formal promi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/gestures-of-care-2026-08-14-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-14",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

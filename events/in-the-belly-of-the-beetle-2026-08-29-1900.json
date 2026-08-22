@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "In The Belly of the Beetle",
+  "description": "★ Rating: 4/10 🎭 Formal Qualities, the exhibition cannot be judged in any serious formal sense from the available record, because the artist, medium, series, and installation details are unspecified. The title suggests a single organizing image, but there is…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/in-the-belly-of-the-beetle-2026-08-29-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-29",
+  "location": {
+    "@type": "Place",
+    "name": "MassGallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Josh Thomas",
+  "description": "There is no film titled Josh Thomas in the archives of cinema history, and the provided metadata contains no director, year, country, or duration to anchor a review. The search results conflate three distinct figures: Australian comedian Josh Thomas (known fo…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/josh-thomas.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

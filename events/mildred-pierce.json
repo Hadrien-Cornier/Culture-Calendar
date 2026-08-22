@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MILDRED PIERCE",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Michael Curtiz gives Mildred Pierce a hard, polished surface that never feels static, and the film’s black, wet-looking night streets, sharp interior geometry, and disciplined pacing turn a melodrama into a tightly engineered p…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/mildred-pierce.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-28",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

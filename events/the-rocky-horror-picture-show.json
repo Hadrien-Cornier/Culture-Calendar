@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE ROCKY HORROR PICTURE SHOW",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Jim Sharman stages the film as a gaudy, knowingly artificial machine, and that is its strength. The production design, the cruelly neat framing of the castle interiors, and Tim Curry’s control of every entrance and pause give…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-rocky-horror-picture-show.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-02",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

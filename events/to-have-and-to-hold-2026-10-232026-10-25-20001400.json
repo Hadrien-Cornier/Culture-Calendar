@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "To Have and to Hold",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit – Performance quality, technical execution, and interpretive depth cannot be assessed because the provided concert details list \"Featured Artist: unknown,\" \"Composers: unknown,\" and \"Works: unknown\" despite naming a program the…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/to-have-and-to-hold-2026-10-232026-10-25-20001400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-23",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

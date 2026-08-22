@@ -1,0 +1,104 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of THE SAMURAI AND THE PRISONER
+X-WR-CALNAME:Culture Calendar — THE SAMURAI AND THE PRISONER
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260822T171500
+DTEND;TZID=America/Chicago:20260822T191500
+DTSTAMP:20260822T130629Z
+UID:the-samurai-and-the-prisoner-2026-08-22-1715@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord and a prisoner duel with words 
+ in Kiyoshi Kurosawa’s stiff historical mystery.\n\nDetails: https://www.
+ austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260822T203000
+DTEND;TZID=America/Chicago:20260822T223000
+DTSTAMP:20260822T130629Z
+UID:the-samurai-and-the-prisoner-2026-08-22-2030@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord and a prisoner duel with words 
+ in Kiyoshi Kurosawa’s stiff historical mystery.\n\nDetails: https://www.
+ austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260823T151500
+DTEND;TZID=America/Chicago:20260823T171500
+DTSTAMP:20260822T130629Z
+UID:the-samurai-and-the-prisoner-2026-08-23-1515@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord and a prisoner duel with words 
+ in Kiyoshi Kurosawa’s stiff historical mystery.\n\nDetails: https://www.
+ austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260824T164500
+DTEND;TZID=America/Chicago:20260824T184500
+DTSTAMP:20260822T130629Z
+UID:the-samurai-and-the-prisoner-2026-08-24-1645@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord and a prisoner duel with words 
+ in Kiyoshi Kurosawa’s stiff historical mystery.\n\nDetails: https://www.
+ austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260825T161500
+DTEND;TZID=America/Chicago:20260825T181500
+DTSTAMP:20260822T130629Z
+UID:the-samurai-and-the-prisoner-2026-08-25-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord and a prisoner duel with words 
+ in Kiyoshi Kurosawa’s stiff historical mystery.\n\nDetails: https://www.
+ austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] THE SAMURAI AND THE PRISONER
+DTSTART;TZID=America/Chicago:20260827T163000
+DTEND;TZID=America/Chicago:20260827T183000
+DTSTAMP:20260822T130629Z
+UID:the-samurai-and-the-prisoner-2026-08-27-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA samurai lord and a prisoner duel with words 
+ in Kiyoshi Kurosawa’s stiff historical mystery.\n\nDetails: https://www.
+ austinfilm.org/screening/the-samurai-and-the-prisoner/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-samurai-and-the-prisoner/
+END:VEVENT
+END:VCALENDAR

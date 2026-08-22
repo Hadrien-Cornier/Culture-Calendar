@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Yogurt Shop Murders: Episodes 1 and 2",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Margaret Brown’s two-episode film has real craft in the way it withholds easy payoff and lets the 1991 case remain stubbornly unresolved, using the gap between memory, evidence, and grief as its main dramatic engine. The struct…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-yogurt-shop-murders-episodes-1-and-2.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-27",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Aftertaste",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities. The show’s strongest feature is its mise en scène, a convenience store built as exhibition form, with wares, comestibles, and security cues folded into the display, which gives the room a clear visual logic and a lived-in su…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/aftertaste-2026-07-18-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-18",
+  "location": {
+    "@type": "Place",
+    "name": "MarthasContemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

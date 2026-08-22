@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of GANDAHAR
+X-WR-CALNAME:Culture Calendar — GANDAHAR
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] GANDAHAR
+DTSTART;TZID=America/Chicago:20260904T203000
+DTEND;TZID=America/Chicago:20260904T223000
+DTSTAMP:20260822T130629Z
+UID:gandahar-2026-09-04-2030@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nLaloux’s pastel alien landscapes and elastic
+  linework animate a sharp French sci-fi.\n\nDetails: https://www.austinfil
+ m.org/screening/gandahar/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/gandahar/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] GANDAHAR
+DTSTART;TZID=America/Chicago:20260905T193000
+DTEND;TZID=America/Chicago:20260905T213000
+DTSTAMP:20260822T130629Z
+UID:gandahar-2026-09-05-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nLaloux’s pastel alien landscapes and elastic
+  linework animate a sharp French sci-fi.\n\nDetails: https://www.austinfil
+ m.org/screening/gandahar/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/gandahar/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] GANDAHAR
+DTSTART;TZID=America/Chicago:20260910T200000
+DTEND;TZID=America/Chicago:20260910T220000
+DTSTAMP:20260822T130629Z
+UID:gandahar-2026-09-10-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nLaloux’s pastel alien landscapes and elastic
+  linework animate a sharp French sci-fi.\n\nDetails: https://www.austinfil
+ m.org/screening/gandahar/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/gandahar/
+END:VEVENT
+END:VCALENDAR

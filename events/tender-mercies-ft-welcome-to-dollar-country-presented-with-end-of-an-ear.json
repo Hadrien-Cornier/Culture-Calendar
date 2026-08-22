@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TENDER MERCIES ft. \"Welcome to Dollar Country\" presented with End of an Ear",
+  "description": "★ Rating: 6/10 Tender Mercies sounds less like a formal feature than a music-forward event film, a screening built around atmosphere, local curation, and the afterglow of Welcome to Dollar Country. With no solid production details in the results, the safest j…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tender-mercies-ft-welcome-to-dollar-country-presented-with-end-of-an-ear.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-02",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

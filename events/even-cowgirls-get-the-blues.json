@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "EVEN COWGIRLS GET THE BLUES",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit. The film earns points for ambition, but the available material does not support a claim of polished execution or distinctive craft. On the evidence here, it reads as a quirky adaptation with some visual and tonal boldness, but…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/even-cowgirls-get-the-blues.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-26",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

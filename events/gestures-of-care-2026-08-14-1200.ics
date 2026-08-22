@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Gestures of Care
+X-WR-CALNAME:Culture Calendar — Gestures of Care
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Gestures of Care
+DTSTART;TZID=America/Chicago:20260814T120000
+DTEND;TZID=America/Chicago:20260814T140000
+DTSTAMP:20260822T130629Z
+UID:gestures-of-care---2026-08-14-1200-2026-08-14-1200@culturecalendar.loc
+ al
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 6/10\n\nMixed-media exhibition tests motherhood's labo
+ r through collage\, video\, and textiles.\n\nDetails: https://icosacollect
+ ive.com/exhibitions/
+LOCATION:ICOSA
+URL:https://icosacollective.com/exhibitions/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "DREAMS IN NIGHTMARES",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Dreams in Nightmares shows real control of tone and intent, but the available information does not support calling it exceptional. On the evidence here, it belongs in the competent-to-strong range, with its value likely resting…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/dreams-in-nightmares.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-31",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

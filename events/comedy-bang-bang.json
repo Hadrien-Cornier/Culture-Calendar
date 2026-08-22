@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Comedy Bang! Bang!",
+  "description": "I cannot write a review of a film titled Comedy Bang! Bang! because no such movie exists in the search results or public record; the title provided matches a TV show, not a film. The search results identify Comedy Bang! Bang! as a comedy podcast-turned-TV ser…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/comedy-bang-bang.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

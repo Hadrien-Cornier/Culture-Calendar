@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Yesterday’s Luck",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities, the exhibition appears to be a two-person presentation at Davis Gallery & Framing, with Texas-based sculptor Dana Younger and representational painter Felice House sharing the room; that pairing suggests a workable contrast…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-yesterdays-luck-2026-08-29-1300.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-29",
+  "location": {
+    "@type": "Place",
+    "name": "Davis Gallery & Framing",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

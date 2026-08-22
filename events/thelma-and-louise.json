@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THELMA AND LOUISE",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Thelma and Louise is built with uncommon control, from its sun-bleached Southwestern landscapes to the tightening pressure of the cross-country structure, which turns a road movie into a trap closing in from every direction. Ri…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/thelma-and-louise.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-12",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

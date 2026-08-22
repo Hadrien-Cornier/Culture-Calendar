@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Yogurt Shop Murders: Episode 5",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Margaret Brown’s episode has the bones of strong documentary craft, with a built-in tension that comes from the case itself and a format that can layer testimony, memory, and procedural detail into something watchable. On the e…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-yogurt-shop-murders-episode-5.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-03",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

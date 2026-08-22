@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "But I'm a Cheerleader",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit But I’m a Cheerleader is sharp, controlled, and visually legible in a way many satire comedies are not. Its candy-colored production design turns conversion therapy into a cartoon of social engineering, and that choice gives th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/but-im-a-cheerleader.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-27",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

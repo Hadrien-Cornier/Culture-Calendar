@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Jerry Maguire",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Jerry Maguire is built on clean, efficient craft, not ornamental flourishes. Cameron Crowe stages office politics, breakup scenes, and sideline banter with a writer’s ear for rhythm, and Tom Cruise gives Jerry’s unraveling a v…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jerry-maguire.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-29",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

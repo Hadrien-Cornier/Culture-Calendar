@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Living Temple: The World of Moki Cherry",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The exhibition’s strongest asset is its immersive scale, with installation as the right medium for Moki Cherry’s textile, graphic, and domestic materials to spill across the gallery rather than sit politely on the wall. The…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-living-temple-the-world-of-moki-cherry-2026-09-18-1100.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-18",
+  "location": {
+    "@type": "Place",
+    "name": "The Contemporary Austin – Jones Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

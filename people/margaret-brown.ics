@@ -1,0 +1,68 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Margaret Brown (director)
+X-WR-CALNAME:Culture Calendar — Margaret Brown
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] The Yogurt Shop Murders: Episodes 1 and 2
+DTSTART;TZID=America/Chicago:20260827T190000
+DTEND;TZID=America/Chicago:20260827T210000
+DTSTAMP:20260822T130629Z
+UID:margaret-brown-the-yogurt-shop-murders-episodes-1-and-2-2026-08-27-190
+ 0@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 7/10\n\nA restrained true-crime film that refuses to r
+ esolve its own central horror.\n\nDetails: https://www.austinfilm.org/scre
+ ening/yogurt-shop-murders-ep-1-2/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/yogurt-shop-murders-ep-1-2/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] The Yogurt Shop Murders: Episodes 3 and 4
+DTSTART;TZID=America/Chicago:20260829T140000
+DTEND;TZID=America/Chicago:20260829T160000
+DTSTAMP:20260822T130629Z
+UID:margaret-brown-the-yogurt-shop-murders-episodes-3-and-4-2026-08-29-140
+ 0@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 6/10\n\nA four-part documentary on a 1991 tragedy and 
+ the exoneration that followed.\n\nDetails: https://www.austinfilm.org/scre
+ ening/yogurt-shop-murders-ep-3-4/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/yogurt-shop-murders-ep-3-4/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] The Yogurt Shop Murders: Episode 5
+DTSTART;TZID=America/Chicago:20260903T190000
+DTEND;TZID=America/Chicago:20260903T210000
+DTSTAMP:20260822T130629Z
+UID:margaret-brown-the-yogurt-shop-murders-episode-5-2026-09-03-1900@cultu
+ recalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 6/10\n\nA forensic audit of justice\, not a melodramat
+ ic true-crime reveal.\n\nDetails: https://www.austinfilm.org/screening/yog
+ urt-shop-murders-ep-5/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/yogurt-shop-murders-ep-5/
+END:VEVENT
+END:VCALENDAR

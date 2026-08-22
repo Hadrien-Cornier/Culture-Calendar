@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Contemporary Project 16: Tammy Nguyen",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities, Nguyen’s installation appears disciplined and crowded with intent, with paintings, prints, and a handmade artist book used to build layered surfaces rather than a single fixed read. The strongest formal move is her dense int…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/contemporary-project-16-tammy-nguyen-2026-01-17-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-01-17",
+  "location": {
+    "@type": "Place",
+    "name": "Blanton",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

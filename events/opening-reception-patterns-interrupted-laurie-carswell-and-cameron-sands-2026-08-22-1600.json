@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Patterns Interrupted: Laurie Carswell and Cameron Sands",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The show appears built on a clear formal idea, interruption as a visual method. Carswell’s collaged landscapes of Austin and the Hill Country fragment familiar views into layered color fields, while Sands uses bold lines, sa…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-patterns-interrupted-laurie-carswell-and-cameron-sands-2026-08-22-1600.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-22",
+  "location": {
+    "@type": "Place",
+    "name": "Verdant Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

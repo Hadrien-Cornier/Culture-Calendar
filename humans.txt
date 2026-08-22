@@ -1,0 +1,19 @@
+/* TEAM */
+Owner: Hadrien Cornier
+Contact: https://github.com/hadrien-cornier
+GitHub: hadrien-cornier
+Location: Austin, Texas, USA
+
+/* SITE */
+Name: Culture Calendar
+URL: https://hadrien-cornier.github.io/Culture-Calendar/
+Source: https://github.com/hadrien-cornier/Culture-Calendar
+Description: Austin cultural events — films, concerts, book clubs, opera, ballet, visual arts — AI-curated and scored for artistic merit.
+Standards: HTML5, CSS3, JavaScript, JSON-LD, iCalendar, RSS
+Components: Python scrapers, Perplexity Sonar + Anthropic Claude for enrichment
+Software: GitHub Pages (static hosting)
+
+/* THANKS */
+Austin Film Society, Hyperreal Film Club, Austin Symphony, Early Music Austin,
+La Follia, Austin Opera, Ballet Austin, Alienated Majesty Books, First Light
+Austin, Arts on Alexander, and every venue opening its calendar to the web.

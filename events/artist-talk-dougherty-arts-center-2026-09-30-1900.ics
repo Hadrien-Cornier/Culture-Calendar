@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Artist Talk: Dougherty Arts Center
+X-WR-CALNAME:Culture Calendar — Artist Talk: Dougherty Arts Center
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[4/10] Artist Talk: Dougherty Arts Center
+DTSTART;TZID=America/Chicago:20260930T190000
+DTEND;TZID=America/Chicago:20260930T210000
+DTSTAMP:20260822T130629Z
+UID:artist-talk-dougherty-arts-center---2026-09-30-1900-2026-09-30-1900@cu
+ lturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 4/10\n\nArtists discuss process and ideas behind Julia
+  C. Butridge Gallery\n\nDetails: https://artaustin.org/exhibitions-2/
+LOCATION:Dougherty Arts Center
+URL:https://artaustin.org/exhibitions-2/
+END:VEVENT
+END:VCALENDAR

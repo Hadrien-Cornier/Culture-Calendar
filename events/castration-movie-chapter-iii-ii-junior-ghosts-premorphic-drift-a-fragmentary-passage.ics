@@ -1,0 +1,45 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of CASTRATION MOVIE CHAPTER III.II JUNIOR GHOS
+ TS — PREMORPHIC DRIFT\; A FRAGMENTARY PASSAGE
+X-WR-CALNAME:Culture Calendar — CASTRATION MOVIE CHAPTER III.II JUNIOR G
+ HOSTS — PREMORPHIC DRIFT\; A FRAGMENTARY PASSAGE
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] CASTRATION MOVIE CHAPTER III.II JUNIOR GHOSTS — PREMORPHI
+ C DRIFT\; A FRAGMENTARY PASSAGE
+DTSTART;TZID=America/Chicago:20260921T190000
+DTEND;TZID=America/Chicago:20260921T210000
+DTSTAMP:20260822T130629Z
+UID:castration-movie-chapter-iii.ii-junior-ghosts-—-premorphic-drift\;-a
+ -fragmentary-passage-2026-09-21-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA fragmented epic where a hotline operator's c
+ alm voice masks private cruelty.\n\nDetails: https://www.austinfilm.org/sc
+ reening/castration-movie-chapter-iii-ii-junior-ghosts-premorphic-drift-a-f
+ ragmentary-passage/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/castration-movie-chapter-iii-ii-j
+ unior-ghosts-premorphic-drift-a-fragmentary-passage/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Subculture Lit - Man Hating Psycho
+X-WR-CALNAME:Culture Calendar — Subculture Lit - Man Hating Psycho
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] Subculture Lit - Man Hating Psycho
+DTSTART;TZID=America/Chicago:20261004T190000
+DTEND;TZID=America/Chicago:20261004T210000
+DTSTAMP:20260822T130629Z
+UID:subculture-lit---man-hating-psycho---2026-10-04-1900-2026-10-04-1900@c
+ ulturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nWhatsApp fragments and rooftop confessions exp
+ ose London's casual cruelties.\n\nDetails: https://www.alienatedmajestyboo
+ ks.com/book-clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk: Dougherty Arts Center",
+  "description": "★ Rating: 4/10 🎭 Formal Qualities, the available information does not describe a specific installation, object, or performance structure, only a gallery talk format, so there is little basis for praising composition, materials, or technique. The event appears…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-dougherty-arts-center-2026-09-30-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-30",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

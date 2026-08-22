@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TRUE STORIES",
+  "description": "★ Rating: 8/10 Jim Jarmusch’s True Stories is a sly, affectionate American oddity, a film that treats Texas life as both ordinary fact and staged performance. It is less interested in plot than in faces, rituals, and local language, and that gives it a droll,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/true-stories.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-27",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
