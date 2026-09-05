@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "An Evening with Yo-Yo Ma",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit – The provided source material is a promotional announcement for a future concert on November 18, 2026, not a review of a performance that has occurred . I cannot assess performance quality, technical execution, or interpretive…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/an-evening-with-yo-yo-ma-2026-11-18-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-18",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

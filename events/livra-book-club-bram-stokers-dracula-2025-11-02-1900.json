@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Livra Book Club: Bram Stoker's Dracula",
+  "description": "I cannot give a fair review from the information provided. The book title and author are missing, and there is no synopsis, excerpt, or scene material to evaluate prose, structure, or theme. What I can say is limited. On the evidence here, the safest judgment…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/livra-book-club-bram-stokers-dracula-2025-11-02-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-11-02",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Jafar Panahi (director)
+X-WR-CALNAME:Culture Calendar — Jafar Panahi
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] THIS IS NOT A FILM
+DTSTART;TZID=America/Chicago:20260908T193000
+DTEND;TZID=America/Chicago:20260908T213000
+DTSTAMP:20260905T152222Z
+UID:jafar-panahi-this-is-not-a-film-2026-09-08-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nPanahi turns house arrest into a taut map of a
+ rtistic confinement.\n\nDetails: https://www.austinfilm.org/screening/this
+ -is-not-a-film/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/this-is-not-a-film/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THIS IS NOT A FILM
+DTSTART;TZID=America/Chicago:20260912T140000
+DTEND;TZID=America/Chicago:20260912T160000
+DTSTAMP:20260905T152222Z
+UID:jafar-panahi-this-is-not-a-film-2026-09-12-1400@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nPanahi turns house arrest into a taut map of a
+ rtistic confinement.\n\nDetails: https://www.austinfilm.org/screening/this
+ -is-not-a-film/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/this-is-not-a-film/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] TAXI
+DTSTART;TZID=America/Chicago:20260915T193000
+DTEND;TZID=America/Chicago:20260915T213000
+DTSTAMP:20260905T152222Z
+UID:jafar-panahi-taxi-2026-09-15-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nPanahi’s cab becomes a\n\nDetails: https://w
+ ww.austinfilm.org/screening/taxi/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/taxi/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] TAXI
+DTSTART;TZID=America/Chicago:20260918T201500
+DTEND;TZID=America/Chicago:20260918T221500
+DTSTAMP:20260905T152222Z
+UID:jafar-panahi-taxi-2026-09-18-2015@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nPanahi’s cab becomes a\n\nDetails: https://w
+ ww.austinfilm.org/screening/taxi/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/taxi/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] TAXI
+DTSTART;TZID=America/Chicago:20260919T143000
+DTEND;TZID=America/Chicago:20260919T163000
+DTSTAMP:20260905T152222Z
+UID:jafar-panahi-taxi-2026-09-19-1430@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nPanahi’s cab becomes a\n\nDetails: https://w
+ ww.austinfilm.org/screening/taxi/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/taxi/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] NO BEARS
+DTSTART;TZID=America/Chicago:20260922T193000
+DTEND;TZID=America/Chicago:20260922T213000
+DTSTAMP:20260905T152222Z
+UID:jafar-panahi-no-bears-2026-09-22-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nPanahi’s tense borderland chamber piece turn
+ s surveillance into slow-burning drama.\n\nDetails: https://www.austinfilm
+ .org/screening/no-bears-2/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/no-bears-2/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] NO BEARS
+DTSTART;TZID=America/Chicago:20260926T133000
+DTEND;TZID=America/Chicago:20260926T153000
+DTSTAMP:20260905T152222Z
+UID:jafar-panahi-no-bears-2026-09-26-1330@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nPanahi’s tense borderland chamber piece turn
+ s surveillance into slow-burning drama.\n\nDetails: https://www.austinfilm
+ .org/screening/no-bears-2/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/no-bears-2/
+END:VEVENT
+END:VCALENDAR

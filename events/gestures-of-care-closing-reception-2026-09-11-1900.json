@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Gestures of Care - Closing Reception",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, the show appears materially varied, with photography, video, collage, textiles, and sculpture named in the exhibition text. That range suggests an installational setup with enough texture to avoid monotony, but without objec…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/gestures-of-care-closing-reception-2026-09-11-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

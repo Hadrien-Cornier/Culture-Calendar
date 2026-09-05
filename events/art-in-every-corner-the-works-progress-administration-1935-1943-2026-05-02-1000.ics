@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Art in Every Corner: The Works Progress Adm
+ inistration (1935-1943)
+X-WR-CALNAME:Culture Calendar — Art in Every Corner: The Works Progress 
+ Administration (1935-1943)
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Art in Every Corner: The Works Progress Administration (193
+ 5-1943)
+DTSTART;TZID=America/Chicago:20260502T100000
+DTEND;TZID=America/Chicago:20260502T120000
+DTSTAMP:20260905T152221Z
+UID:art-in-every-corner-the-works-progress-administration-(1935-1943)---20
+ 26-05-02-1000-2026-05-02-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 6/10\n\n70 WPA-era prints and paintings in a quiet\, c
+ lose-viewing Paper Vault.\n\nDetails: https://blantonmuseum.org/exhibition
+ s/
+LOCATION:Blanton
+URL:https://blantonmuseum.org/exhibitions/
+END:VEVENT
+END:VCALENDAR

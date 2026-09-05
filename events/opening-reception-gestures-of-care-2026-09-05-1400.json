@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Gestures of Care",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities, the show sounds materially varied and sensibly installed, with photography, video, collage, textiles, and sculpture used to keep the mothering theme from flattening into illustration. The pairing of Chantal Lesley and Ana Tr…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-gestures-of-care-2026-09-05-1400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-05",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA Collective",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

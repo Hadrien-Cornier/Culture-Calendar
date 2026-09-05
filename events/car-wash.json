@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "CAR WASH",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Car Wash is a tight, watchable studio comedy that turns a Los Angeles car wash into a working miniature of urban life, with Schultz staging a steady stream of bits, rhythms, and faces instead of a single broad plot. The film’s…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/car-wash.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-19",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

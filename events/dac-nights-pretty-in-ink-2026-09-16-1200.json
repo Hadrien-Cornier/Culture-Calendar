@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "DAC Nights: Pretty in Ink",
+  "description": "★ Rating: 4/10 🎭 Formal Qualities, This is not a full exhibition with a credited artist or body of works on record, it reads as a guided hands on workshop where participants make ceramic coasters with alcohol ink, so the formal claims are modest from the star…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/dac-nights-pretty-in-ink-2026-09-16-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-16",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

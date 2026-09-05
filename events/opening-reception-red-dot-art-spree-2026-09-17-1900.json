@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Red Dot Art Spree",
+  "description": "★ Rating: 4/10 🎭 Formal Qualities, this reads as a fundraising sale more than a tightly argued exhibition, with over 150 works on view, paintings, sculptures, drawings, photos, prints, and mixed media spread across a broad field of price points and styles. Th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-red-dot-art-spree-2026-09-17-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-17",
+  "location": {
+    "@type": "Place",
+    "name": "Women & Their Work",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

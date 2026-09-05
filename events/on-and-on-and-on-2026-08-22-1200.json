@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "On and On and On",
+  "description": "★ Rating: [5/10] 🎭 Formal Qualities, the exhibition is framed as a series of abstract works, and that suggests some control over rhythm, color, and arrangement, but the available record gives no evidence of unusual material handling or spatial ambition. Witho…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/on-and-on-and-on-2026-08-22-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-08-22",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

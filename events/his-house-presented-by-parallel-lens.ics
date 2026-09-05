@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of HIS HOUSE presented by Parallel Lens
+X-WR-CALNAME:Culture Calendar — HIS HOUSE presented by Parallel Lens
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] HIS HOUSE presented by Parallel Lens
+DTSTART;TZID=America/Chicago:20260908T193000
+DTEND;TZID=America/Chicago:20260908T213000
+DTSTAMP:20260905T152221Z
+UID:his-house-presented-by-parallel-lens-2026-09-08-1930@culturecalendar.l
+ ocal
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nRefugee trauma haunts cramped rooms in Remi We
+ ekes' material horror.\n\nDetails: https://hyperrealfilm.club/events/9-8/h
+ is-house-movie-screening
+LOCATION:Hyperreal
+URL:https://hyperrealfilm.club/events/9-8/his-house-movie-screening
+END:VEVENT
+END:VCALENDAR

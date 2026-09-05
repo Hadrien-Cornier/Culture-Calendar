@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of KWAIDAN
+X-WR-CALNAME:Culture Calendar — KWAIDAN
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] KWAIDAN
+DTSTART;TZID=America/Chicago:20261006T193000
+DTEND;TZID=America/Chicago:20261006T213000
+DTSTAMP:20260905T152221Z
+UID:kwaidan-2026-10-06-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nKobayashi's ghost pageant: painted backdrops\,
+  white voids\, formal rigor.\n\nDetails: https://www.austinfilm.org/screen
+ ing/kwaidan/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/kwaidan/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] KWAIDAN
+DTSTART;TZID=America/Chicago:20261010T130000
+DTEND;TZID=America/Chicago:20261010T150000
+DTSTAMP:20260905T152221Z
+UID:kwaidan-2026-10-10-1300@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nKobayashi's ghost pageant: painted backdrops\,
+  white voids\, formal rigor.\n\nDetails: https://www.austinfilm.org/screen
+ ing/kwaidan/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/kwaidan/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] KWAIDAN
+DTSTART;TZID=America/Chicago:20261011T130000
+DTEND;TZID=America/Chicago:20261011T150000
+DTSTAMP:20260905T152221Z
+UID:kwaidan-2026-10-11-1300@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nKobayashi's ghost pageant: painted backdrops\,
+  white voids\, formal rigor.\n\nDetails: https://www.austinfilm.org/screen
+ ing/kwaidan/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/kwaidan/
+END:VEVENT
+END:VCALENDAR

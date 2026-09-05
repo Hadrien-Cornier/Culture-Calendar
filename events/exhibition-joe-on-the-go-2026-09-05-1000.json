@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Exhibition: Joe On The Go",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The exhibition appears to be a display of new paintings by Joe Max Emminger at Yard Dog Art, but the available information does not describe the actual works in enough detail to judge composition, materials, or technique wit…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/exhibition-joe-on-the-go-2026-09-05-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-05",
+  "location": {
+    "@type": "Place",
+    "name": "Yard Dog Art",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Cinema de la Cultura: Real Women Have Curve
+ s
+X-WR-CALNAME:Culture Calendar — Cinema de la Cultura: Real Women Have Cu
+ rves
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Cinema de la Cultura: Real Women Have Curves
+DTSTART;TZID=America/Chicago:20260922T193000
+DTEND;TZID=America/Chicago:20260922T213000
+DTSTAMP:20260905T152221Z
+UID:cinema-de-la-cultura-real-women-have-curves-2026-09-22-1930@culturecal
+ endar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nAmerica Ferrera’s stubborn factory worker fi
+ ghts family duty for college ambition.\n\nDetails: https://hyperrealfilm.c
+ lub/events/9-22/real-women-have-curves-movie-screening
+LOCATION:Hyperreal
+URL:https://hyperrealfilm.club/events/9-22/real-women-have-curves-movie-sc
+ reening
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "shapeshifting",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The exhibition appears to hinge on Via Boley’s use of reflective vinyl, ink, acrylic, and cut metal on wood panel, with works sized around 30 x 40 inches, which suggests a compact but materially active presentation rather th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/shapeshifting-2026-09-102026-09-192026-10-01-170010001800.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-10",
+  "location": {
+    "@type": "Place",
+    "name": "Unchained.Art Contemporary Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Joe On The Go: New Paintings by Joe Max Emminger",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, Emminger’s work, as described by the gallery, relies on bold colors and strong lines, with scenes of family, pets, musicians, and Seattle landmarks. That suggests clear, legible composition and an easy graphic punch, but not…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-joe-on-the-go-new-paintings-by-joe-max-emminger-2026-09-05-1300.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-05",
+  "location": {
+    "@type": "Place",
+    "name": "Yard Dog Art",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

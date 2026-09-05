@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of MY NEIGHBOR TOTORO
+X-WR-CALNAME:Culture Calendar — MY NEIGHBOR TOTORO
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[9/10] MY NEIGHBOR TOTORO
+DTSTART;TZID=America/Chicago:20261003T184500
+DTEND;TZID=America/Chicago:20261003T204500
+DTSTAMP:20260905T152221Z
+UID:my-neighbor-totoro-2026-10-03-1845@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nMiyazaki’s quiet masterpiece: rain\, rustlin
+ g grass\, and a giant forest spirit.\n\nDetails: https://www.austinfilm.or
+ g/screening/my-neighbor-totoro/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/my-neighbor-totoro/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] MY NEIGHBOR TOTORO
+DTSTART;TZID=America/Chicago:20261004T151500
+DTEND;TZID=America/Chicago:20261004T171500
+DTSTAMP:20260905T152221Z
+UID:my-neighbor-totoro-2026-10-04-1515@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nMiyazaki’s quiet masterpiece: rain\, rustlin
+ g grass\, and a giant forest spirit.\n\nDetails: https://www.austinfilm.or
+ g/screening/my-neighbor-totoro/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/my-neighbor-totoro/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Meet Me There",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities, the exhibition appears to be a group show rather than a tightly unified statement, which usually gives a venue like Martha’s room for contrast and pacing, but also risks visual looseness; the available listing offers no deta…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/meet-me-there-2026-12-11-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-11",
+  "location": {
+    "@type": "Place",
+    "name": "MarthasContemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

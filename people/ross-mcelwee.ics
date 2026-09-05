@@ -1,0 +1,78 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Ross McElwee (director)
+X-WR-CALNAME:Culture Calendar — Ross McElwee
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] SHERMAN’S MARCH
+DTSTART;TZID=America/Chicago:20260920T140000
+DTEND;TZID=America/Chicago:20260920T160000
+DTSTAMP:20260905T152222Z
+UID:ross-mcelwee-sherman’s-march-2026-09-20-1400@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nMcElwee’s shaggy 1980s road movie becomes a 
+ cunning self-portrait of romantic obsession.\n\nDetails: https://www.austi
+ nfilm.org/screening/shermans-march/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/shermans-march/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] SHERMAN’S MARCH
+DTSTART;TZID=America/Chicago:20260923T180000
+DTEND;TZID=America/Chicago:20260923T200000
+DTSTAMP:20260905T152222Z
+UID:ross-mcelwee-sherman’s-march-2026-09-23-1800@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nMcElwee’s shaggy 1980s road movie becomes a 
+ cunning self-portrait of romantic obsession.\n\nDetails: https://www.austi
+ nfilm.org/screening/shermans-march/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/shermans-march/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] REMAKE
+DTSTART;TZID=America/Chicago:20260920T180000
+DTEND;TZID=America/Chicago:20260920T200000
+DTSTAMP:20260905T152222Z
+UID:ross-mcelwee-remake-2026-09-20-1800@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 9/10\n\nDecades of home video collide with grief and H
+ ollywood in McElwee’s structural self-portrait.\n\nDetails: https://www.
+ austinfilm.org/screening/remake/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/remake/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] REMAKE
+DTSTART;TZID=America/Chicago:20260924T173000
+DTEND;TZID=America/Chicago:20260924T193000
+DTSTAMP:20260905T152222Z
+UID:ross-mcelwee-remake-2026-09-24-1730@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 9/10\n\nDecades of home video collide with grief and H
+ ollywood in McElwee’s structural self-portrait.\n\nDetails: https://www.
+ austinfilm.org/screening/remake/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/remake/
+END:VEVENT
+END:VCALENDAR

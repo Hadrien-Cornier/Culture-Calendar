@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "VAGABOND",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Vagabond is built with unsentimental control. Varda cuts between Mona’s deadpan drifting, the French countryside, and a procession of witnesses, and the result feels rigorously observed rather than arranged for easy sympathy. S…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/vagabond.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-03",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

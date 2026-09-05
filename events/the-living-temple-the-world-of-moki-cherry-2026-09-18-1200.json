@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Living Temple: The World of Moki Cherry",
+  "description": "★ Rating: 8/10 🎭 Formal Qualities, the exhibition sounds materially rich and visually varied, with textiles, ceramics, posters, video, sound, clothing, and archival material arranged to show Moki Cherry’s range across media. That breadth gives the show real s…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-living-temple-the-world-of-moki-cherry-2026-09-18-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-18",
+  "location": {
+    "@type": "Place",
+    "name": "Jones Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

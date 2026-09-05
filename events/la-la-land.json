@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "LA LA LAND",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Damien Chazelle stages La La Land with real control, from the freeway opening that turns gridlock into choreography to the Griffith Observatory lift that lets the film briefly leave gravity behind. The leads, especially Emma S…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/la-la-land.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-22",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

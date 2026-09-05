@@ -1,0 +1,68 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of shapeshifting
+X-WR-CALNAME:Culture Calendar — shapeshifting
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] shapeshifting
+DTSTART;TZID=America/Chicago:20260910T170000
+DTEND;TZID=America/Chicago:20260910T190000
+DTSTAMP:20260905T152221Z
+UID:shapeshifting---2026-09-102026-09-192026-10-01-170010001800-2026-09-10
+ -1700@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 6/10\n\nReflective vinyl and cut metal test the border
+  between surface and dimension.\n\nDetails: https://nowplayingaustin.com/e
+ vent/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] shapeshifting
+DTSTART;TZID=America/Chicago:20260919T100000
+DTEND;TZID=America/Chicago:20260919T120000
+DTSTAMP:20260905T152221Z
+UID:shapeshifting---2026-09-102026-09-192026-10-01-170010001800-2026-09-19
+ -1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 6/10\n\nReflective vinyl and cut metal test the border
+  between surface and dimension.\n\nDetails: https://nowplayingaustin.com/e
+ vent/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261001T180000
+DTEND;TZID=America/Chicago:20261001T200000
+DTSTAMP:20260905T152221Z
+UID:shapeshifting---2026-09-102026-09-192026-10-01-170010001800-2026-10-01
+ -1800@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 6/10\n\nReflective vinyl and cut metal test the border
+  between surface and dimension.\n\nDetails: https://nowplayingaustin.com/e
+ vent/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+END:VCALENDAR

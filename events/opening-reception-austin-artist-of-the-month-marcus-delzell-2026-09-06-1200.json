@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Austin Artist of the Month: Marcus Delzell",
+  "description": "★ Rating: 4/10 🎭 Formal Qualities, there is not enough public information here to judge composition, materials, or technique with any confidence. The listing identifies the event, but gives no images, checklist, or installation details, so the visual case rem…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-austin-artist-of-the-month-marcus-delzell-2026-09-06-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-06",
+  "location": {
+    "@type": "Place",
+    "name": "Host",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Hell's No Place for a Pretty Face ~ DZ Road
+ show at HYPERREAL FILM CLUB (Copy)
+X-WR-CALNAME:Culture Calendar — Hell's No Place for a Pretty Face ~ DZ R
+ oadshow at HYPERREAL FILM CLUB (Copy)
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[4/10] Hell's No Place for a Pretty Face ~ DZ Roadshow at HYPERREA
+ L FILM CLUB (Copy)
+DTSTART;TZID=America/Chicago:20260928T193000
+DTEND;TZID=America/Chicago:20260928T213000
+DTSTAMP:20260905T152221Z
+UID:hells-no-place-for-a-pretty-face-~-dz-roadshow-at-hyperreal-film-club-
+ (copy)-2026-09-28-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 4/10\n\nDetails: https://hyperrealfilm.club/events/9-2
+ 8/hells-no-place-movie-screening
+LOCATION:Hyperreal
+URL:https://hyperrealfilm.club/events/9-28/hells-no-place-movie-screening
+END:VEVENT
+END:VCALENDAR
