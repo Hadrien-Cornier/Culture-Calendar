@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Sculptor's Imprint, Part III",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, FlatbedPress frames this as a group show about sculptors moving into print, which gives it a clear structural idea, even if the available description is thin on specific works. The strongest formal promise is the translation…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-sculptors-imprint-part-iii-2026-10-31-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-31",
+  "location": {
+    "@type": "Place",
+    "name": "FlatbedPress",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

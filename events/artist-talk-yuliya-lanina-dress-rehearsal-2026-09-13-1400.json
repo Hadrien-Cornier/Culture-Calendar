@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk: Yuliya Lanina | Dress Rehearsal",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, the show appears organized around interdisciplinary work, with sculpture, drawing, animation, installation, writing, and performance all named in the exhibition materials. That breadth suggests ambition and a willingness to…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-yuliya-lanina-dress-rehearsal-2026-09-13-1400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-13",
+  "location": {
+    "@type": "Place",
+    "name": "grayDUCK Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

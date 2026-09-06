@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "RAISING ARIZONA",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Joel Coen’s debut feature has real bite. Barry Sonnenfeld’s camera keeps the film in constant motion, especially in the desert glide that ends at the screaming mouth of Florence Arizona, and in the motel, grocery-store, and hi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/raising-arizona.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-18",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

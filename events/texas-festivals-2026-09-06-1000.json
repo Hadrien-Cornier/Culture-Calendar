@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Texas Festivals",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, the installation sounds well organized and audience friendly, with a thematic structure, outdoor cues, and interactive stations such as make your own gown trains, festival name games, and a food truck play area. The stronges…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/texas-festivals-2026-09-06-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-06",
+  "location": {
+    "@type": "Place",
+    "name": "Bullock",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

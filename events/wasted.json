@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WASTED!",
+  "description": "★ Rating: 4/10 🎭 Artistic Merit I cannot defend this as a polished film on the evidence available. The record here gives me title, year, country, language, director, and runtime, but no reliable scene-level description, so I can only say that the available ma…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/wasted.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

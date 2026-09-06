@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of AIA Austin LGBTQIA+ Alliance presents URINA
+ L
+X-WR-CALNAME:Culture Calendar — AIA Austin LGBTQIA+ Alliance presents UR
+ INAL
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] AIA Austin LGBTQIA+ Alliance presents URINAL
+DTSTART;TZID=America/Chicago:20261003T153000
+DTEND;TZID=America/Chicago:20261003T173000
+DTSTAMP:20260906T153541Z
+UID:aia-austin-lgbtqia+-alliance-presents-urinal-2026-10-03-1530@cultureca
+ lendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nQueer collage debut dissects public sex\, poli
+ ce surveillance\, and\n\nDetails: https://www.austinfilm.org/screening/aia
+ -austin-lgbtqia-alliance-presents-urinal/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/aia-austin-lgbtqia-alliance-prese
+ nts-urinal/
+END:VEVENT
+END:VCALENDAR

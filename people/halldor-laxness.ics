@@ -1,0 +1,54 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Halldor Laxness (author)
+X-WR-CALNAME:Culture Calendar — Halldor Laxness
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] A Season Of - World Light
+DTSTART;TZID=America/Chicago:20260919T190000
+DTEND;TZID=America/Chicago:20260919T210000
+DTSTAMP:20260906T153542Z
+UID:halldor-laxness-a-season-of---world-light---2026-09-19-1900-2026-09-19
+ -1900@culturecalendar.local
+CATEGORIES:Books
+DESCRIPTION:Rating: 7/10\n\nIcelandic orphan believes himself a poet but n
+ ever writes a line.\n\nDetails: https://www.alienatedmajestybooks.com/book
+ -clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] A Season Of - World Light
+DTSTART;TZID=America/Chicago:20261017T190000
+DTEND;TZID=America/Chicago:20261017T210000
+DTSTAMP:20260906T153542Z
+UID:halldor-laxness-a-season-of---world-light---2026-10-17-1900-2026-10-17
+ -1900@culturecalendar.local
+CATEGORIES:Books
+DESCRIPTION:Rating: 7/10\n\nIcelandic orphan believes himself a poet but n
+ ever writes a line.\n\nDetails: https://www.alienatedmajestybooks.com/book
+ -clubs
+LOCATION:AlienatedMajesty
+URL:https://www.alienatedmajestybooks.com/book-clubs
+END:VEVENT
+END:VCALENDAR

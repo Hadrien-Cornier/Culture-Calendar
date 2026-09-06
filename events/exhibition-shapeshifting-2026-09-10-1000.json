@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Exhibition: shapeshifting",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The exhibition appears tightly organized around material mutation, with cut and sanded metal, ink glazes, acrylic, and reflective vinyl used to push surfaces away from flatness and into a more unstable physical register. The…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/exhibition-shapeshifting-2026-09-10-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-10",
+  "location": {
+    "@type": "Place",
+    "name": "Unchained.Art Contemporary Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

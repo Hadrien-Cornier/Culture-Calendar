@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Red Flags Podcast",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit. The work appears to be a low-budget thriller built on a familiar premise, a commitment-phobic podcast host, a dangerous new lover, and a partner who helps sniff out the threat. That setup can support efficient suspense, but th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/red-flags-podcast.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-24",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

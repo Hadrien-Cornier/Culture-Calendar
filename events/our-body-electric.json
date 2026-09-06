@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "OUR BODY ELECTRIC",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit I cannot honestly pretend this title is a known quantity from the available record. With only the metadata, the defensible read is that Our Body Electric is aiming for a sleek, body-conscious sci fi or techno-thriller mode, and…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/our-body-electric.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-06",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

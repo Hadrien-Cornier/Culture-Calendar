@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Selections from the Collection: Juan Sandov
+ al Jr.
+X-WR-CALNAME:Culture Calendar — Selections from the Collection: Juan San
+ doval Jr.
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Selections from the Collection: Juan Sandoval Jr.
+DTSTART;TZID=America/Chicago:20260911T100000
+DTEND;TZID=America/Chicago:20260911T120000
+DTSTAMP:20260906T153541Z
+UID:selections-from-the-collection-juan-sandoval-jr.---2026-09-11-1000-202
+ 6-09-11-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 6/10\n\nA collector's eye curates varied works into a 
+ dense\, uneven visual experience.\n\nDetails: https://mexic-artemuseum.org
+ /exhibitions/
+LOCATION:MexicArte
+URL:https://mexic-artemuseum.org/exhibitions/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of THE SHINING
+X-WR-CALNAME:Culture Calendar — THE SHINING
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] THE SHINING
+DTSTART;TZID=America/Chicago:20261001T200000
+DTEND;TZID=America/Chicago:20261001T220000
+DTSTAMP:20260906T153541Z
+UID:the-shining-2026-10-01-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nKubrick traps viewers in the Overlook’s laby
+ rinth of madness and dread.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/the-shining/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-shining/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE SHINING
+DTSTART;TZID=America/Chicago:20261008T194500
+DTEND;TZID=America/Chicago:20261008T214500
+DTSTAMP:20260906T153541Z
+UID:the-shining-2026-10-08-1945@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nKubrick traps viewers in the Overlook’s laby
+ rinth of madness and dread.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/the-shining/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-shining/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE SHINING
+DTSTART;TZID=America/Chicago:20261010T193000
+DTEND;TZID=America/Chicago:20261010T213000
+DTSTAMP:20260906T153541Z
+UID:the-shining-2026-10-10-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nKubrick traps viewers in the Overlook’s laby
+ rinth of madness and dread.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/the-shining/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-shining/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Exhibition: Día de los Muertos: Coleccionando Memorias",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, the exhibition appears to rely on the familiar Mexic-Arte formula of community ofrendas, memorial photos, and Día de los Muertos iconography, with marigolds, calaveras, and altar-based display logic doing the visual heavy li…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/exhibition-dia-de-los-muertos-coleccionando-memorias-2026-09-11-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "Mexic-Arte Museum",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

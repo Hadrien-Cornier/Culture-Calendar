@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TREES LOUNGE",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Steve Buscemi directs with a plain, unsentimental eye, and that restraint gives Trees Lounge its force. The film’s best scenes are small, exact, and bruising, especially the bar-room exchanges where Tommy, played by Buscemi, dr…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/trees-lounge.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-06",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

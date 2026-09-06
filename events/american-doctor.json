@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "AMERICAN DOCTOR",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Poh Si Teng turns a war documentary into something lean, urgent, and controlled, with the camera staying close to the labor of medicine rather than drifting into abstract outrage. The strongest passages, by the accounts availa…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/american-doctor.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-07",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

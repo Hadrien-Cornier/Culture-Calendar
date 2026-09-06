@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "43rd Annual Viva La Vida Festival & Parade",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The festival looks well staged as a street procession and plaza event, with costumes, props, live music, dancers, floats, low riders, food booths, and hands on activities giving it a busy public-facing structure. The visual…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/43rd-annual-viva-la-vida-festival-parade-2026-10-24-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-24",
+  "location": {
+    "@type": "Place",
+    "name": "MexicArte",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

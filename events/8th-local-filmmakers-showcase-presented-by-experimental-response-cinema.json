@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "8th Local Filmmakers’ Showcase presented by Experimental Response Cinema",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit, The showcase format suggests a competent curatorial frame rather than a single unified work, and the evidence points to a program built around short experimental pieces from Austin artists, screened in a public setting that va…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/8th-local-filmmakers-showcase-presented-by-experimental-response-cinema.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-17",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

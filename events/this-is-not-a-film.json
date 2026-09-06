@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THIS IS NOT A FILM",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit This is a low-budget work turned into style, not a limitation disguised as a virtue. Panahi builds tension from confinement, using the apartment, the staircase, the elevator ride, and the taped-out floor plan as a shrinking map…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/this-is-not-a-film.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-08",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

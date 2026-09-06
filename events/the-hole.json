@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE HOLE",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Tsai Ming-liang’s The Hole is a lean, disciplined piece of formal control, built around a ruined apartment block, a leaking ceiling, and two bodies isolated by contagion and routine. The musical outbursts, especially the abrupt…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-hole.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
