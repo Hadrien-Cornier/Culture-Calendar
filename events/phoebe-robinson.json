@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Phoebe Robinson",
+  "description": "★ Rating: 0/10 The work titled \"Phoebe Robinson\" in your details is not a movie; it is a misidentified entry for Phoebe Robinson, the American comedian and writer, or a confusion with her 2021 stand-up special Phoebe Robinson: Sorry, Harriet Tubman . Because…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/phoebe-robinson.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-09",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

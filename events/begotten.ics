@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of BEGOTTEN
+X-WR-CALNAME:Culture Calendar — BEGOTTEN
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] BEGOTTEN
+DTSTART;TZID=America/Chicago:20261030T210000
+DTEND;TZID=America/Chicago:20261030T230000
+DTSTAMP:20260912T230632Z
+UID:begotten-2026-10-30-2100@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA handmade nightmare of white glare\, wet nois
+ e\, and slow\, deliberate punishment.\n\nDetails: https://www.austinfilm.o
+ rg/screening/begotten/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/begotten/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] BEGOTTEN
+DTSTART;TZID=America/Chicago:20261031T213000
+DTEND;TZID=America/Chicago:20261031T233000
+DTSTAMP:20260912T230632Z
+UID:begotten-2026-10-31-2130@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA handmade nightmare of white glare\, wet nois
+ e\, and slow\, deliberate punishment.\n\nDetails: https://www.austinfilm.o
+ rg/screening/begotten/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/begotten/
+END:VEVENT
+END:VCALENDAR

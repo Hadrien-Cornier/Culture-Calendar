@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BEGOTTEN",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Merhige turns a 72-minute film into a punishing object, and the discipline is real. The reverse black-and-white image, the frame-by-frame degradation, and the stripped soundtrack of crickets, breath, and wet, bodily noises cre…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/begotten.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-30",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

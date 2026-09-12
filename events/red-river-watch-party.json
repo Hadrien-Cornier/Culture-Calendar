@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Red River Watch Party",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, The work appears to be the 1948 Western Red River, and its craft is unusually disciplined for a studio genre picture. Howard Hawks stages the cattle drive with scale and control, while John Wayne and Montgomery Clift build the…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/red-river-watch-party.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-10",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

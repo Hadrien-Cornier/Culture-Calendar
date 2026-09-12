@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Contrapuntals: Intel Lastierre and Vy Ngo",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities, the public listing gives no direct read on composition, materials, or technique, so the safest judgment is that the exhibition is presented as a dialogue between two artists rather than a single unified visual program. The t…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-contrapuntals-intel-lastierre-and-vy-ngo-2026-09-25-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-25",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA Collective",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

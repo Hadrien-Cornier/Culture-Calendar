@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Pulcinella",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – The sources confirm Philharmonie Austin and Mark Dupere are scheduled to perform Prokofiev's Symphony No. 1, Ravel's Le Tombeau de Couperin, and Stravinsky's Pulcinella Suite at Redeemer Presbyterian Church on October 16–17,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/pulcinella-2026-10-162026-10-17-19301930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-16",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

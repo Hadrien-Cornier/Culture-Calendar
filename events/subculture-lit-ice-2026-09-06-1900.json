@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Subculture Lit - Ice",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit: 9 ✨ Originality: 10 📚 Cultural Significance: 8 💡 Intellectual Depth: 9 Anna Kavan’s Ice is a cold, crackling nightmare of obsession that refuses to settle into genre, delivering a plotless chase through a world being swallowed…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/subculture-lit-ice-2026-09-06-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-06",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

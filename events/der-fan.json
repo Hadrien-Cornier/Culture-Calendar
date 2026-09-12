@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "DER FAN",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit, Schmidt shoots this as a feverish pop nightmare, with Désirée Nosbusch holding the frame through long, uneasy stretches of silence, then snapping into panic when the fantasy turns physical. The film’s second half is rougher th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/der-fan.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-23",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

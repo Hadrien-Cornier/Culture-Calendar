@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of WELCOME SPACE BROTHERS
+X-WR-CALNAME:Culture Calendar — WELCOME SPACE BROTHERS
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] WELCOME SPACE BROTHERS
+DTSTART;TZID=America/Chicago:20261012T190000
+DTEND;TZID=America/Chicago:20261012T210000
+DTSTAMP:20260912T230632Z
+UID:welcome-space-brothers-2026-10-12-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA fringe UFO cult gets a sincere\, wig-and-vid
+ eotape documentary portrait.\n\nDetails: https://www.austinfilm.org/screen
+ ing/welcome-space-brothers/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/welcome-space-brothers/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] WELCOME SPACE BROTHERS
+DTSTART;TZID=America/Chicago:20261015T180000
+DTEND;TZID=America/Chicago:20261015T200000
+DTSTAMP:20260912T230632Z
+UID:welcome-space-brothers-2026-10-15-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA fringe UFO cult gets a sincere\, wig-and-vid
+ eotape documentary portrait.\n\nDetails: https://www.austinfilm.org/screen
+ ing/welcome-space-brothers/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/welcome-space-brothers/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] WELCOME SPACE BROTHERS
+DTSTART;TZID=America/Chicago:20261017T170000
+DTEND;TZID=America/Chicago:20261017T190000
+DTSTAMP:20260912T230632Z
+UID:welcome-space-brothers-2026-10-17-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA fringe UFO cult gets a sincere\, wig-and-vid
+ eotape documentary portrait.\n\nDetails: https://www.austinfilm.org/screen
+ ing/welcome-space-brothers/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/welcome-space-brothers/
+END:VEVENT
+END:VCALENDAR

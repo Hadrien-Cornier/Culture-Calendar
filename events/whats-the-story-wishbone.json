@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WHAT’S THE STORY, WISHBONE?",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit, Joey Stewart’s documentary is cleanly assembled and clearly affectionate, with the strongest evidence of craft coming from its use of archival footage and reunion interviews to reconstruct how a children’s series was made and…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/whats-the-story-wishbone.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-11",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

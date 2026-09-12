@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Livra Book Club: Pages of Mourning by Diego Gerard Morrison",
+  "description": "★ Rating: 0/10 I cannot fairly review this book as given, because there is no title, no author, and no descriptive material beyond a blank listing from LivraBooks. There are no scenes, passages, or performances to assess, so any judgment about style, structur…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/livra-book-club-pages-of-mourning-by-diego-gerard-morrison-2025-07-30-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-07-30",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

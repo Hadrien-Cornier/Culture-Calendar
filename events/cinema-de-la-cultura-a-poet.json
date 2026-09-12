@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Cinema de la Cultura: A Poet",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, This is tightly observed filmmaking, built on a sharp central performance and a clear sense of social embarrassment, family strain, and artistic delusion. The comic timing is doing real work, not just decoration, and the film’…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/cinema-de-la-cultura-a-poet.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-29",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

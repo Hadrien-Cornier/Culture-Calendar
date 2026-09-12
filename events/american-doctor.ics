@@ -1,0 +1,78 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of AMERICAN DOCTOR
+X-WR-CALNAME:Culture Calendar — AMERICAN DOCTOR
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] AMERICAN DOCTOR
+DTSTART;TZID=America/Chicago:20260913T184500
+DTEND;TZID=America/Chicago:20260913T204500
+DTSTAMP:20260912T230632Z
+UID:american-doctor-2026-09-13-1845@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA tense doc on Gaza medicine where operating r
+ ooms hold all the argument.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/american-doctor/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/american-doctor/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMERICAN DOCTOR
+DTSTART;TZID=America/Chicago:20260915T160000
+DTEND;TZID=America/Chicago:20260915T180000
+DTSTAMP:20260912T230632Z
+UID:american-doctor-2026-09-15-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA tense doc on Gaza medicine where operating r
+ ooms hold all the argument.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/american-doctor/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/american-doctor/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMERICAN DOCTOR
+DTSTART;TZID=America/Chicago:20260916T164500
+DTEND;TZID=America/Chicago:20260916T184500
+DTSTAMP:20260912T230632Z
+UID:american-doctor-2026-09-16-1645@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA tense doc on Gaza medicine where operating r
+ ooms hold all the argument.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/american-doctor/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/american-doctor/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] AMERICAN DOCTOR
+DTSTART;TZID=America/Chicago:20260917T190000
+DTEND;TZID=America/Chicago:20260917T210000
+DTSTAMP:20260912T230632Z
+UID:american-doctor-2026-09-17-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA tense doc on Gaza medicine where operating r
+ ooms hold all the argument.\n\nDetails: https://www.austinfilm.org/screeni
+ ng/american-doctor/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/american-doctor/
+END:VEVENT
+END:VCALENDAR

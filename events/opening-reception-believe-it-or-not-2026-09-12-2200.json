@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Believe It or Not",
+  "description": "★ Rating: 3/10 🎭 Formal Qualities. The available record does not describe an exhibition of finished works so much as a family activity at Laguna Gloria, with a thaumatrope craft, a magic wand project, and Bonzo Crunch performing tricks. That setup suggests a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-believe-it-or-not-2026-09-12-2200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-12",
+  "location": {
+    "@type": "Place",
+    "name": "The Contemporary Austin – Laguna Gloria",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

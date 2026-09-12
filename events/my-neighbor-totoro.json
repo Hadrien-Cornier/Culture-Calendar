@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MY NEIGHBOR TOTORO",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Hayao Miyazaki turns a slight story into a film of exacting control. The animation has uncommon confidence in movement, the girls’ walk through the countryside, the rustle of grass, the slow reveal of Totoro at the bus stop, an…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/my-neighbor-totoro.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-03",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

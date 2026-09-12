@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "HIS HOUSE presented by Parallel Lens",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Remi Weekes builds his horror out of cramped rooms, damp plaster, and the brittle silence between Bol and Rial, and that material discipline gives the film real force. The performances by Ṣọpẹ Dìrísù and Wunmi Mosaku carry the…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/his-house-presented-by-parallel-lens.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-08",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

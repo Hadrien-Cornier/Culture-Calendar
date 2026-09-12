@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "KUNG FU HUSTLE",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Stephen Chow builds a machine of timing, slapstick, and combat choreography that rarely misses a beat. The best stretches, the landlord couple’s screwball entrances, the “Axe Gang” as a chorus of suited thugs, the wire-fu erup…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/kung-fu-hustle.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-23",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

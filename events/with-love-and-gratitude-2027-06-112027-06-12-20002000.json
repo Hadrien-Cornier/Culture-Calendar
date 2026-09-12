@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "With Love and Gratitude",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit – The search results provide no record of the performance itself, no dates confirming this specific concert occurred, and no details on the execution of works by Puts, Mozart, or Rachmaninoff. Without a recording, a critic's re…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/with-love-and-gratitude-2027-06-112027-06-12-20002000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-06-11",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of WILD STYLE
+X-WR-CALNAME:Culture Calendar — WILD STYLE
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] WILD STYLE
+DTSTART;TZID=America/Chicago:20261025T163000
+DTEND;TZID=America/Chicago:20261025T183000
+DTSTAMP:20260912T230632Z
+UID:wild-style-2026-10-25-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nRaw 1983 hip-hop docufiction where graffiti an
+ d breakdance pulse with street energy.\n\nDetails: https://www.austinfilm.
+ org/screening/wild-style/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/wild-style/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] WILD STYLE
+DTSTART;TZID=America/Chicago:20261028T203000
+DTEND;TZID=America/Chicago:20261028T223000
+DTSTAMP:20260912T230632Z
+UID:wild-style-2026-10-28-2030@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nRaw 1983 hip-hop docufiction where graffiti an
+ d breakdance pulse with street energy.\n\nDetails: https://www.austinfilm.
+ org/screening/wild-style/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/wild-style/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] WILD STYLE
+DTSTART;TZID=America/Chicago:20261101T153000
+DTEND;TZID=America/Chicago:20261101T173000
+DTSTAMP:20260912T230632Z
+UID:wild-style-2026-11-01-1530@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nRaw 1983 hip-hop docufiction where graffiti an
+ d breakdance pulse with street energy.\n\nDetails: https://www.austinfilm.
+ org/screening/wild-style/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/wild-style/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MILLER’S CROSSING",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit This is a sharply controlled gangster picture, built on Barry Sonnenfeld’s winter-gray images, clipped violence, and a cast that knows how to speak in threats, lies, and half-confessions. The opening in the woods, with gangster…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/millers-crossing.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-19",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

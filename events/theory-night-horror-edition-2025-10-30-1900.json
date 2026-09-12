@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Theory Night: Horror Edition",
+  "description": "I can only make a limited judgment from the title and category alone. With no plot summary, cast, format, or examples of scenes, I cannot honestly assess specific craft choices or thematic complexity, so any precise verdict would be thin. On the evidence avai…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/theory-night-horror-edition-2025-10-30-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-10-30",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

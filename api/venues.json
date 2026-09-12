@@ -1,0 +1,300 @@
+[
+  {
+    "slug": "afs",
+    "name": "AFS",
+    "display_name": "Austin Film Society",
+    "address": "6226 Middle Fiskville Rd, Austin, TX 78752",
+    "event_count": 46,
+    "categories": [
+      "movie"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/afs.html"
+  },
+  {
+    "slug": "alienatedmajesty",
+    "name": "AlienatedMajesty",
+    "display_name": "Alienated Majesty (Book Clubs)",
+    "address": "613 W 29th St, Austin, TX 78705",
+    "event_count": 15,
+    "categories": [
+      "book_club"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/alienatedmajesty.html"
+  },
+  {
+    "slug": "artsonalexander",
+    "name": "ArtsOnAlexander",
+    "display_name": "Arts on Alexander",
+    "address": "4800 Alexander Ave, Austin, TX 78756",
+    "event_count": 13,
+    "categories": [
+      "concert"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/artsonalexander.html"
+  },
+  {
+    "slug": "balletaustin",
+    "name": "BalletAustin",
+    "display_name": "Ballet Austin",
+    "address": "701 W Riverside Dr, Austin, TX 78704",
+    "event_count": 28,
+    "categories": [
+      "dance"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/balletaustin.html"
+  },
+  {
+    "slug": "blanton",
+    "name": "Blanton",
+    "display_name": "Blanton Museum of Art",
+    "address": "200 E Martin Luther King Jr Blvd, Austin, TX 78712",
+    "event_count": 1,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/blanton.html"
+  },
+  {
+    "slug": "chamber-music",
+    "name": "Chamber Music",
+    "display_name": "Austin Chamber Music",
+    "address": "7601 B Capital of Texas Hwy N, Austin, TX 78731",
+    "event_count": 9,
+    "categories": [
+      "concert"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/chamber-music.html"
+  },
+  {
+    "slug": "dougherty-arts-center",
+    "name": "Dougherty Arts Center",
+    "display_name": "Dougherty Arts Center",
+    "address": "",
+    "event_count": 1,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/dougherty-arts-center.html"
+  },
+  {
+    "slug": "earlymusic",
+    "name": "EarlyMusic",
+    "display_name": "Early Music Austin",
+    "address": "3201 Windsor Rd, Austin, TX 78703",
+    "event_count": 8,
+    "categories": [
+      "concert"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/earlymusic.html"
+  },
+  {
+    "slug": "firstlight",
+    "name": "FirstLight",
+    "display_name": "First Light (Book Clubs)",
+    "address": "606 W 12th St, Austin, TX 78701",
+    "event_count": 3,
+    "categories": [
+      "book_club"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/firstlight.html"
+  },
+  {
+    "slug": "flatbedpress",
+    "name": "FlatbedPress",
+    "display_name": "Flatbed Press & Gallery",
+    "address": "3701 Drossett Dr, Suite 190, Austin, TX 78744",
+    "event_count": 3,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/flatbedpress.html"
+  },
+  {
+    "slug": "grayduck-gallery",
+    "name": "grayDUCK Gallery",
+    "display_name": "grayDUCK Gallery",
+    "address": "",
+    "event_count": 1,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/grayduck-gallery.html"
+  },
+  {
+    "slug": "hyperreal",
+    "name": "Hyperreal",
+    "display_name": "Hyperreal",
+    "address": "301 Chicon St, Austin, TX 78702",
+    "event_count": 17,
+    "categories": [
+      "movie"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/hyperreal.html"
+  },
+  {
+    "slug": "icosa-collective",
+    "name": "ICOSA Collective",
+    "display_name": "ICOSA Collective",
+    "address": "",
+    "event_count": 2,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/icosa-collective.html"
+  },
+  {
+    "slug": "livrabooks",
+    "name": "LivraBooks",
+    "display_name": "Livra Books (Book Clubs & Events)",
+    "address": "4803 Airport Blvd, Austin, TX 78751",
+    "event_count": 20,
+    "categories": [
+      "book_club",
+      "other"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/livrabooks.html"
+  },
+  {
+    "slug": "marthascontemporary",
+    "name": "MarthasContemporary",
+    "display_name": "Martha's Contemporary",
+    "address": "4115 Guadalupe St, Austin, TX 78751",
+    "event_count": 2,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/marthascontemporary.html"
+  },
+  {
+    "slug": "mclennon-pen-co",
+    "name": "McLennon Pen Co.",
+    "display_name": "McLennon Pen Co.",
+    "address": "",
+    "event_count": 1,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/mclennon-pen-co.html"
+  },
+  {
+    "slug": "mclennonpen",
+    "name": "McLennonPen",
+    "display_name": "McLennon Pen Co. Gallery",
+    "address": "1114 W 5th St, Suite 202, Austin, TX 78703",
+    "event_count": 1,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/mclennonpen.html"
+  },
+  {
+    "slug": "mexicarte",
+    "name": "MexicArte",
+    "display_name": "Mexic-Arte Museum",
+    "address": "419 Congress Ave, Austin, TX 78701",
+    "event_count": 1,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/mexicarte.html"
+  },
+  {
+    "slug": "newyorkermeetup",
+    "name": "NewYorkerMeetup",
+    "display_name": "NewYorkerMeetup",
+    "address": "",
+    "event_count": 8,
+    "categories": [
+      "book_club"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/newyorkermeetup.html"
+  },
+  {
+    "slug": "opera",
+    "name": "Opera",
+    "display_name": "Austin Opera",
+    "address": "701 W Riverside Dr, Austin, TX 78704",
+    "event_count": 12,
+    "categories": [
+      "opera"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/opera.html"
+  },
+  {
+    "slug": "paramount",
+    "name": "Paramount",
+    "display_name": "Paramount",
+    "address": "713 Congress Ave, Austin, TX 78701",
+    "event_count": 26,
+    "categories": [
+      "movie"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/paramount.html"
+  },
+  {
+    "slug": "symphony",
+    "name": "Symphony",
+    "display_name": "Austin Symphony",
+    "address": "701 W Riverside Dr, Austin, TX 78704",
+    "event_count": 14,
+    "categories": [
+      "concert"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/symphony.html"
+  },
+  {
+    "slug": "the-contemporary-austin-jones-center",
+    "name": "The Contemporary Austin – Jones Center",
+    "display_name": "The Contemporary Austin – Jones Center",
+    "address": "",
+    "event_count": 2,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/the-contemporary-austin-jones-center.html"
+  },
+  {
+    "slug": "the-contemporary-austin-laguna-gloria",
+    "name": "The Contemporary Austin – Laguna Gloria",
+    "display_name": "The Contemporary Austin – Laguna Gloria",
+    "address": "",
+    "event_count": 2,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/the-contemporary-austin-laguna-gloria.html"
+  },
+  {
+    "slug": "wally-workman-gallery",
+    "name": "Wally Workman Gallery",
+    "display_name": "Wally Workman Gallery",
+    "address": "",
+    "event_count": 2,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/wally-workman-gallery.html"
+  },
+  {
+    "slug": "women-their-work",
+    "name": "Women & Their Work",
+    "display_name": "Women & Their Work",
+    "address": "",
+    "event_count": 1,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/women-their-work.html"
+  },
+  {
+    "slug": "yard-dog-art",
+    "name": "Yard Dog Art",
+    "display_name": "Yard Dog Art",
+    "address": "",
+    "event_count": 1,
+    "categories": [
+      "visual_arts"
+    ],
+    "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/venues/yard-dog-art.html"
+  }
+]

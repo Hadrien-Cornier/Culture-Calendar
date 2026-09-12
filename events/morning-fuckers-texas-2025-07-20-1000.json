@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Morning, Fuckers Texas",
+  "description": "Featuring short readings from: Alina Grabowski, Brian Allen Carr, Mike Nagel, Kyle Seibel, and Adam Voith Sunday July 20, 10:00 in the A.M. at Livra Books ALINA GRABOWSKI is a writer from coastal Massachusetts. Her debut novel, Women and Children First , was…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/morning-fuckers-texas-2025-07-20-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-07-20",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

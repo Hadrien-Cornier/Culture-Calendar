@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Jason Salmon",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit. The available evidence points to a polished stand-up special, not a formally ambitious film. Its appeal seems to rest on Jason Salmon’s stage control, a clean 50-minute runtime, and a comic persona built around Texas, New York…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jason-salmon.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-11",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Somos Animales Poéticos, On and On and On , Out of Place",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities, the exhibition is organized as a three-part opening at the Julia C. Butridge Gallery, with Cristina Velásquez’s photography and text, Quentin Pace’s abstract painting, and Yamin Li’s paintings set in separate but adjacent la…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-somos-animales-poeticos-on-and-on-and-on-out-of-place-2026-09-30-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-30",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

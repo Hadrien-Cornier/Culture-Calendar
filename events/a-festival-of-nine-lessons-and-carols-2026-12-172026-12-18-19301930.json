@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A Festival of Nine Lessons and Carols",
+  "description": "★ Rating: 0/10 🎭 Artistic Merit – The review cannot assess performance quality, technical execution, or interpretive depth because the concert described has not yet occurred. The search results confirm the event is scheduled for December 17 and 18, 2026, at S…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-festival-of-nine-lessons-and-carols-2026-12-172026-12-18-19301930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-17",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

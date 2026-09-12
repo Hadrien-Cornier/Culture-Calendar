@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Window Dressing LVI – Terra Goolsby: Soil Horizons",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The exhibition is described as a collection of ceramic sculptures, which suggests attention to surface, volume, and the hand-built object, but the available material does not show how convincingly those elements are resolved…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-window-dressing-lvi-terra-goolsby-soil-horizons-2026-09-18-2000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-18",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA Collective",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

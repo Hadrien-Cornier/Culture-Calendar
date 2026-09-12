@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MYSTERIOUS SKIN",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Araki handles a brutal subject with unusual control, using clean, spare images instead of splashy melodrama. The split between Brian’s blank, inward search and Neil’s hard, transactional survival gives the film real shape, and…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/mysterious-skin.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-12",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

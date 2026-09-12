@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of MYSTERIOUS SKIN
+X-WR-CALNAME:Culture Calendar — MYSTERIOUS SKIN
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] MYSTERIOUS SKIN
+DTSTART;TZID=America/Chicago:20260912T213000
+DTEND;TZID=America/Chicago:20260912T233000
+DTSTAMP:20260912T230632Z
+UID:mysterious-skin-2026-09-12-2130@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nGregg Araki’s unflinching film turns childho
+ od trauma into a quiet\, devastating alien abduction.\n\nDetails: https://
+ www.austinfilm.org/screening/mysterious-skin/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mysterious-skin/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MYSTERIOUS SKIN
+DTSTART;TZID=America/Chicago:20260914T194500
+DTEND;TZID=America/Chicago:20260914T214500
+DTSTAMP:20260912T230632Z
+UID:mysterious-skin-2026-09-14-1945@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nGregg Araki’s unflinching film turns childho
+ od trauma into a quiet\, devastating alien abduction.\n\nDetails: https://
+ www.austinfilm.org/screening/mysterious-skin/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mysterious-skin/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MYSTERIOUS SKIN
+DTSTART;TZID=America/Chicago:20260917T193000
+DTEND;TZID=America/Chicago:20260917T213000
+DTSTAMP:20260912T230632Z
+UID:mysterious-skin-2026-09-17-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nGregg Araki’s unflinching film turns childho
+ od trauma into a quiet\, devastating alien abduction.\n\nDetails: https://
+ www.austinfilm.org/screening/mysterious-skin/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/mysterious-skin/
+END:VEVENT
+END:VCALENDAR

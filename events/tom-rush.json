@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Tom Rush",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit The evidence here is too thin to reward technical accomplishment with confidence. With only the title, Tom Rush, and no reliable details about the film’s form, cast, editing, cinematography, or even its full production context,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tom-rush.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-25",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

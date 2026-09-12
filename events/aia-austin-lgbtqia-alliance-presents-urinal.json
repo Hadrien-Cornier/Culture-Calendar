@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "AIA Austin LGBTQIA+ Alliance presents URINAL",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, John Greyson makes a lean, combative debut feature out of public sex, police surveillance, and queer history, and the form matches the argument. The mix of narrative invention, documentary material, and video, computer paintbo…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/aia-austin-lgbtqia-alliance-presents-urinal.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-03",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

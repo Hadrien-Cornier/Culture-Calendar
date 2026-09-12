@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Jenny Tian",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit – The film lacks any identifiable director, cast list, or technical credits in available records, making evaluation of craft impossible . The only viewable material is a YouTube special titled \"Supreme Mother\" that functions as…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jenny-tian.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-26",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Exhibition: Silencio en el fondo",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities, the gallery site confirms only that this is Aineki Traverso’s 2026 Summer Artist-in-Residence exhibition, with the month of August spent transforming the Austin space into a temporary studio, but it gives no details on the w…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/exhibition-silencio-en-el-fondo-2026-09-12-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-12",
+  "location": {
+    "@type": "Place",
+    "name": "McLennon Pen Co.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

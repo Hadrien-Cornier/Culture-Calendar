@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Exhibition: Sylvia Benitez: The Way Back",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, Benitez appears to work in oil on canvas, with landscape passages that favor atmospheric shifts over tight description, and the gallery describes the show as rooted in the changing moods of Central and South Texas. The mater…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/exhibition-sylvia-benitez-the-way-back-2026-09-12-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-12",
+  "location": {
+    "@type": "Place",
+    "name": "Wally Workman Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

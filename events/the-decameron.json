@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE DECAMERON",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Pasolini gives the film a rough, earthy physicality, and Tonino Delli Colli’s images make every courtyard, hillside, and cramped interior feel lived in rather than prettified. The episodic structure is disciplined, not slack,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-decameron.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-18",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

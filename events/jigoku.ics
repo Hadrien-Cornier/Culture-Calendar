@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of JIGOKU
+X-WR-CALNAME:Culture Calendar — JIGOKU
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] JIGOKU
+DTSTART;TZID=America/Chicago:20261013T193000
+DTEND;TZID=America/Chicago:20261013T213000
+DTSTAMP:20260912T230632Z
+UID:jigoku-2026-10-13-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nNakagawa’s 1960 hellscape blends domestic gu
+ ilt with grotesque\, punishing color imagery.\n\nDetails: https://www.aust
+ infilm.org/screening/jigoku/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/jigoku/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] JIGOKU
+DTSTART;TZID=America/Chicago:20261017T143000
+DTEND;TZID=America/Chicago:20261017T163000
+DTSTAMP:20260912T230632Z
+UID:jigoku-2026-10-17-1430@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nNakagawa’s 1960 hellscape blends domestic gu
+ ilt with grotesque\, punishing color imagery.\n\nDetails: https://www.aust
+ infilm.org/screening/jigoku/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/jigoku/
+END:VEVENT
+END:VCALENDAR

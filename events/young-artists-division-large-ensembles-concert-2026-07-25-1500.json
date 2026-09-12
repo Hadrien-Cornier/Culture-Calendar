@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Young Artists Division Large Ensembles Concert",
+  "description": "★ Rating: 0/10 🎭 Artistic Merit – I cannot assess performance quality, technical execution, or interpretive depth because the program lists no featured artist, no composers, and no works performed. Without a single named piece or performer, there is no eviden…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/young-artists-division-large-ensembles-concert-2026-07-25-1500.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-25",
+  "location": {
+    "@type": "Place",
+    "name": "Chamber Music",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

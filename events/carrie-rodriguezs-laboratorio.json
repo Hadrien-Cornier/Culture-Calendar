@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Carrie Rodriguez's Laboratorio",
+  "description": "★ Rating: 0/10 I cannot write a valid review of this film because no such movie exists in the provided sources. The search results identify \"Carrie Rodriguez's Laboratorio\" exclusively as a live musical performance or concert event at the Paramount Theatre in…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/carrie-rodriguezs-laboratorio.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-20",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
