@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Matthew Passion",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – The concert is a competent but unremarkable execution of Bach’s St. Matthew Passion, BWV 244, led by conductor Mark Dupere with the Philharmonie Austin and its chorus. The program includes the Texas Boys Choir and soloists Ky…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/matthew-passion-2027-03-192027-03-20-19301930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-03-19",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

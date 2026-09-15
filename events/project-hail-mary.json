@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "PROJECT HAIL MARY",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit, The film looks engineered for clarity rather than mystery, but that is not a flaw here. Phil Lord and Christopher Miller, working from Drew Goddard’s script and a Greig Fraser lens package, seem to have built a clean, high pre…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/project-hail-mary.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-12",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

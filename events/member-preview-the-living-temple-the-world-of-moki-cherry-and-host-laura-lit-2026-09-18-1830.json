@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Member Preview: The Living Temple: The World of Moki Cherry and HOST: Laura Lit",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities, the show appears to be built from two distinct but related parts, Moki Cherry’s large retrospective and Laura Lit’s colored-pencil drawings and sculptures, which should give the Jones Center a strong mix of textile, image, a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/member-preview-the-living-temple-the-world-of-moki-cherry-and-host-laura-lit-2026-09-18-1830.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-18",
+  "location": {
+    "@type": "Place",
+    "name": "Jones Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

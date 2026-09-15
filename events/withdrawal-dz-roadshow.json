@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WITHDRAWAL ~ DZ Roadshow",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit, The film appears to be a competent low budget indie drama, built around a tight, one night premise and two central performances, with the withdrawal setting doing most of the dramatic work. The setup, a couple trying to surviv…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/withdrawal-dz-roadshow.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-14",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Bach & Beer",
+  "description": "Sources are thin: none of the search results describe the specific July 2026 \"Bach & Beer\" concert in Austin featuring Guy Whatley and the listed flute sonatas. I can only compare this event to the confirmed 2025 Austin Bach & Beer (cello by Steuart Pincombe…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/bach-beer-2026-09-11-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Tiny Words - The Mongolian Conspiracy",
+  "description": "★ Rating: 8/10 Artistic Merit, 8/10. Bernal writes a lean, fast-moving spy novel that knows exactly how to pace a scene, from the nightclub surveillance to the bureaucratic back rooms where favors, bribes, and threats trade hands like currency. The prose is s…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tiny-words-the-mongolian-conspiracy-2026-09-28-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-28",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

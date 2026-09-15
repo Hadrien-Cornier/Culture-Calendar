@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ONIBABA",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit, Shindo turns a strip of reeds, a pit, and a collapsing hut into a severe visual system, and the film never wastes a frame. The wind in the tall grass, the repeated treks through mud, the cramped black interior of the hut, and…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/onibaba.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-20",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

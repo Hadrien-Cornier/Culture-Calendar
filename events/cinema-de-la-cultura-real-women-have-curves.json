@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Cinema de la Cultura: Real Women Have Curves",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Patricia Cardoso stages the material with plainspoken control, and the film’s strongest asset is America Ferrera’s alert, stubborn performance as Ana, a teenager torn between college ambition and family obligation. The factory…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/cinema-de-la-cultura-real-women-have-curves.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-22",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

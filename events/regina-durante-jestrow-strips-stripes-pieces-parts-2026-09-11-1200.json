@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Regina Durante Jestrow: Strips, Stripes, Pieces, Parts",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities, Jestrow’s strongest weapon here is structure. The exhibition is built from dyed, painted, thrifted, and saved fabrics, then cut into strips and reassembled into checkerboard rhythms, interlacing bands, and geometric shifts,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/regina-durante-jestrow-strips-stripes-pieces-parts-2026-09-11-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "IvesterContemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

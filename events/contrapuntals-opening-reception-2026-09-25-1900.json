@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Contrapuntals - Opening Reception",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities, the available record gives title, venue, and participants, but no installation shots, checklist, or medium breakdown, so the formal judgment has to stay narrow. The pairing of Intel Lastierre, whose practice is tied to paint…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/contrapuntals-opening-reception-2026-09-25-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-25",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

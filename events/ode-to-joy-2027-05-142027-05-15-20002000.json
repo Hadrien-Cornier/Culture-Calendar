@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Ode to Joy",
+  "description": "★ Rating: 0/10 🎭 Artistic Merit – No performance data exists to evaluate. The concert details list \"Composers: unknown,\" \"Works: unknown,\" and \"Featured Artist: [empty],\" making any assessment of technical execution or interpretive depth impossible. I cannot…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/ode-to-joy-2027-05-142027-05-15-20002000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-05-14",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

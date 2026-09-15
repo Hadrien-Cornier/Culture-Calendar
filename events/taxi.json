@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TAXI",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Taxi turns a restricted setup into something agile and alive. Panahi’s cab becomes a moving stage, and the film’s plain digital images, dashboard framing, and street-level interruptions give it a nervous, improvised energy that…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/taxi.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-15",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Member Curator-Led Tour: Fall 2026 Exhibitions Art in Context",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities. The exhibition itself is hard to judge from the available details, because the listing reads as a curator-led member tour rather than a full reviewable installation. What can be said is limited to the Jones Center presentati…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/member-curator-led-tour-fall-2026-exhibitions-art-in-context-2026-09-18-1100.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-18",
+  "location": {
+    "@type": "Place",
+    "name": "Jones Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

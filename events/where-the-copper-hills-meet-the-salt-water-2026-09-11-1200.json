@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Where the Copper Hills Meet the Salt Water",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, Hayley Labrum’s practice is rooted in painting, sculpture, photography, and ephemera, with a stated interest in body, place, and inheritance. That mix suggests a layered installation language rather than a single-medium solu…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/where-the-copper-hills-meet-the-salt-water-2026-09-11-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "MarthasContemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
