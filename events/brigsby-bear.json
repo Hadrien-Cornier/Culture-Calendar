@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BRIGSBY BEAR",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit, Dave McCary stages a small, odd, and carefully controlled film. The bunker opening establishes James’s sealed world with blunt clarity, and the later shift into amateur filmmaking gives the movie a handmade texture that suits…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/brigsby-bear.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-15",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

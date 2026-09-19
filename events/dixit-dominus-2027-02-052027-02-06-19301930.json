@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Dixit Dominus",
+  "description": "Sources are thin: there is no published review, recording, or audience report for the specific Philharmonie Austin concert of Handel’s Dixit Dominus on July 18, 2026. I cannot cite a single scene, vocal entry, or conductor gesture from that night. I can only…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/dixit-dominus-2027-02-052027-02-06-19301930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-02-05",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

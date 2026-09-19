@@ -1,0 +1,54 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Yuliya Lanina | Dress Rehearsal
+X-WR-CALNAME:Culture Calendar — Yuliya Lanina | Dress Rehearsal
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Yuliya Lanina | Dress Rehearsal
+DTSTART;TZID=America/Chicago:20260919T100000
+DTEND;TZID=America/Chicago:20260919T120000
+DTSTAMP:20260919T155838Z
+UID:yuliya-lanina-|-dress-rehearsal---2026-09-192026-09-26-10001700-2026-0
+ 9-19-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nSculpture\, animation\, and movement merge in 
+ Lanina's theatrical reflection on personal reinvention.\n\nDetails: https:
+ //nowplayingaustin.com/event/yuliya-lanina-dress-rehearsal/
+LOCATION:2213 E Cesar Chavez St\, Austin\, TX 78702
+URL:https://nowplayingaustin.com/event/yuliya-lanina-dress-rehearsal/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Yuliya Lanina | Dress Rehearsal
+DTSTART;TZID=America/Chicago:20260926T170000
+DTEND;TZID=America/Chicago:20260926T190000
+DTSTAMP:20260919T155838Z
+UID:yuliya-lanina-|-dress-rehearsal---2026-09-192026-09-26-10001700-2026-0
+ 9-26-1700@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nSculpture\, animation\, and movement merge in 
+ Lanina's theatrical reflection on personal reinvention.\n\nDetails: https:
+ //nowplayingaustin.com/event/yuliya-lanina-dress-rehearsal/
+LOCATION:2213 E Cesar Chavez St\, Austin\, TX 78702
+URL:https://nowplayingaustin.com/event/yuliya-lanina-dress-rehearsal/
+END:VEVENT
+END:VCALENDAR

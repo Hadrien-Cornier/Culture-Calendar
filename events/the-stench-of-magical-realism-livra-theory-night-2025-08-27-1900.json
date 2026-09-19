@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "the stench of magical realism - livra theory night",
+  "description": "Bolaño had issues with magical realism. Marquez is accepted as a literary god in Latin America. Both are great writers, but have different approaches on latin american literature. we pit their ideas against each other and see who is victorious. email info@liv…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-stench-of-magical-realism-livra-theory-night-2025-08-27-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-08-27",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

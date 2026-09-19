@@ -1,0 +1,91 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of LATE FAME
+X-WR-CALNAME:Culture Calendar — LATE FAME
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260919T180000
+DTEND;TZID=America/Chicago:20260919T200000
+DTSTAMP:20260919T155838Z
+UID:late-fame-2026-09-19-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDafoe’s restrained poet navigates a dry\, st
+ atic return to art.\n\nDetails: https://www.austinfilm.org/screening/late-
+ fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260921T164500
+DTEND;TZID=America/Chicago:20260921T184500
+DTSTAMP:20260919T155838Z
+UID:late-fame-2026-09-21-1645@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDafoe’s restrained poet navigates a dry\, st
+ atic return to art.\n\nDetails: https://www.austinfilm.org/screening/late-
+ fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260922T163000
+DTEND;TZID=America/Chicago:20260922T183000
+DTSTAMP:20260919T155838Z
+UID:late-fame-2026-09-22-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDafoe’s restrained poet navigates a dry\, st
+ atic return to art.\n\nDetails: https://www.austinfilm.org/screening/late-
+ fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260923T170000
+DTEND;TZID=America/Chicago:20260923T190000
+DTSTAMP:20260919T155838Z
+UID:late-fame-2026-09-23-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDafoe’s restrained poet navigates a dry\, st
+ atic return to art.\n\nDetails: https://www.austinfilm.org/screening/late-
+ fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260924T170000
+DTEND;TZID=America/Chicago:20260924T190000
+DTSTAMP:20260919T155838Z
+UID:late-fame-2026-09-24-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDafoe’s restrained poet navigates a dry\, st
+ atic return to art.\n\nDetails: https://www.austinfilm.org/screening/late-
+ fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "NO BEARS",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Panahi shapes a tense, low-budget chamber piece out of borderland conditions, with the opening Turkish street scene, the sudden reveal that it is being monitored on a laptop, and the village confrontation around the disputed p…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/no-bears.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-22",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

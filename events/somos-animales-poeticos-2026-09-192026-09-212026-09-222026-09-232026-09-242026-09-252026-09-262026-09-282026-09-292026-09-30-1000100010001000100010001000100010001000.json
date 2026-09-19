@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Somos Animales Poéticos",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The installation appears carefully edited and visually coherent, with photography, archival material, and textile reference used to build layered surfaces rather than isolated images. The strongest clue is the reported use o…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/somos-animales-poeticos-2026-09-192026-09-212026-09-222026-09-232026-09-242026-09-252026-09-262026-09-282026-09-292026-09-30-1000100010001000100010001000100010001000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-19",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

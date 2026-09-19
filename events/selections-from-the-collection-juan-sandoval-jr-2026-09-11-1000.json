@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Selections from the Collection: Juan Sandoval Jr.",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, The show appears to be built from two dimensional works on paper and canvas, with photographs, prints, drawings, and related materials from the Sandoval Collection. That mix can create a crisp, varied hanging, but the availa…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/selections-from-the-collection-juan-sandoval-jr-2026-09-11-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "MexicArte",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "SHERMAN’S MARCH",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit McElwee turns a shaggy 1980s road movie into a sharply made self-portrait, built from wandering encounters, offhand jokes, and the steady friction between documentary method and personal obsession. The film’s craft lies in its…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/shermans-march.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-20",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

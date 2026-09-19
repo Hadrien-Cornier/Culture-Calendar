@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Yuliya Lanina | Dress Rehearsal",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities, Lanina’s installation-based format gives the show real stagecraft, with sculpture, projected animation, music, and movement folded into one compact event. The best evidence points to a dense, gallery-filling environment that…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/yuliya-lanina-dress-rehearsal-2026-09-192026-09-26-10001700.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-19",
+  "location": {
+    "@type": "Place",
+    "name": "2213 E Cesar Chavez St, Austin, TX 78702",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Meet Me There",
+  "description": "★ Rating: 4/10 🎭 Formal Qualities, the public record gives no details on artist, medium, installation, or individual works, so no meaningful assessment of composition, materials, or technique is possible. The show title and venue listing suggest a straightfor…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/meet-me-there-2026-12-11-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-11",
+  "location": {
+    "@type": "Place",
+    "name": "MarthasContemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

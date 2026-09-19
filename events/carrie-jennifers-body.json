@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Carrie + Jennifer's Body",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit, Karyn Kusama’s direction and Diablo Cody’s script give the film sharp tonal control, even when the material veers into camp. The best scenes, Jennifer’s predatory swagger after the ritual, the classroom unease, and the final c…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/carrie-jennifers-body.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-03",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

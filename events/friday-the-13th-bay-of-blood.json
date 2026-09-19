@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Friday the 13th + Bay of Blood",
+  "description": "★ Rating: [7/10] 🎭 Artistic Merit, This pairing has strong craft value because it links the blunt American slasher grammar of Friday the 13th with the earlier, more perversely arranged kill logic of A Bay of Blood, which critics note as a direct influence on…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/friday-the-13th-bay-of-blood.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-02",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

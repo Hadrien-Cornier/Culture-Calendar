@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk: Unspecified event",
+  "description": "★ Rating: 3/10 🎭 Formal Qualities, little can be said with confidence, because the event listing does not identify the artists, works, medium, or installation details. The format appears to be a talk attached to exhibitions at the Julia C. Butridge Gallery, n…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-unspecified-event-2026-09-29-1830.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-29",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

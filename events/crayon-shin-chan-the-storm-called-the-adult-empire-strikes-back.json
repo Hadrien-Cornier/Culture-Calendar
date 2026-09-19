@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Crayon Shin-chan: The Storm Called: The Adult Empire Strikes Back",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Keiichi Hara turns a children’s franchise film into a tightly controlled piece of animation cinema. The direction uses the theme park’s stiff retro design, the adults’ blank behavior, and the film’s shift from comic chaos to f…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/crayon-shin-chan-the-storm-called-the-adult-empire-strikes-back.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-10",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

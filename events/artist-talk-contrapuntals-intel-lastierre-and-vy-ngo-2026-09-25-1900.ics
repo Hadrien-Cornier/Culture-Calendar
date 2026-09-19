@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Artist Talk: Contrapuntals: Intel Lastierre
+  and Vy Ngo
+X-WR-CALNAME:Culture Calendar — Artist Talk: Contrapuntals: Intel Lastie
+ rre and Vy Ngo
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Artist Talk: Contrapuntals: Intel Lastierre and Vy Ngo
+DTSTART;TZID=America/Chicago:20260925T190000
+DTEND;TZID=America/Chicago:20260925T210000
+DTSTAMP:20260919T155838Z
+UID:artist-talk-contrapuntals-intel-lastierre-and-vy-ngo---2026-09-25-1900
+ -2026-09-25-1900@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 6/10\n\nTwo painters\, one talk: oil\, installation\, 
+ and intimate figuration in dialogue.\n\nDetails: https://artaustin.org/eve
+ nts/
+LOCATION:ICOSA Collective
+URL:https://artaustin.org/events/
+END:VEVENT
+END:VCALENDAR

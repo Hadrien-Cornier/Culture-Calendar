@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk: Contrapuntals: Intel Lastierre and Vy Ngo",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities. The exhibition appears to rest on the pairing of Intel Lastierre and Vy Ngo, two painters with distinct figurative and symbolic vocabularies, but the public record offers no install shots or object list, so the formal judgme…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-contrapuntals-intel-lastierre-and-vy-ngo-2026-09-25-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-25",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA Collective",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

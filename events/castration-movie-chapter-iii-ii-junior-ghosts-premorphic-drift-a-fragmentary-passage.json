@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "CASTRATION MOVIE CHAPTER III.II JUNIOR GHOSTS — PREMORPHIC DRIFT; A FRAGMENTARY PASSAGE",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit, the film has real control over tone, especially in the long hotline scene, where Izzy’s calm professional voice collides with her private cruelty, and that split gives the performance bite rather than polish. The structure, a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/castration-movie-chapter-iii-ii-junior-ghosts-premorphic-drift-a-fragmentary-passage.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-21",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

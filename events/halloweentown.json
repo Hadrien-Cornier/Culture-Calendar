@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Halloweentown",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit. Halloweentown is efficient, not elegant, but it knows its lane. The best work comes from Debbie Reynolds, who gives Aggie Cromwell a brisk comic authority, and from the film’s clean child’s-eye setup, where a suburban family’s…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/halloweentown.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-24",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

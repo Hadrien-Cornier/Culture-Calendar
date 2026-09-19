@@ -1,0 +1,143 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring Joel Coen (director)
+X-WR-CALNAME:Culture Calendar — Joel Coen
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] MILLER’S CROSSING
+DTSTART;TZID=America/Chicago:20260919T150000
+DTEND;TZID=America/Chicago:20260919T170000
+DTSTAMP:20260919T155839Z
+UID:joel-coen-miller’s-crossing-2026-09-19-1500@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nCoen brothers' crisp mob chess match\, all fed
+ oras\, double-crosses\, and cold wit.\n\nDetails: https://www.austinfilm.o
+ rg/screening/millers-crossing/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/millers-crossing/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MILLER’S CROSSING
+DTSTART;TZID=America/Chicago:20260920T181500
+DTEND;TZID=America/Chicago:20260920T201500
+DTSTAMP:20260919T155839Z
+UID:joel-coen-miller’s-crossing-2026-09-20-1815@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nCoen brothers' crisp mob chess match\, all fed
+ oras\, double-crosses\, and cold wit.\n\nDetails: https://www.austinfilm.o
+ rg/screening/millers-crossing/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/millers-crossing/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MILLER’S CROSSING
+DTSTART;TZID=America/Chicago:20260924T193000
+DTEND;TZID=America/Chicago:20260924T213000
+DTSTAMP:20260919T155839Z
+UID:joel-coen-miller’s-crossing-2026-09-24-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nCoen brothers' crisp mob chess match\, all fed
+ oras\, double-crosses\, and cold wit.\n\nDetails: https://www.austinfilm.o
+ rg/screening/millers-crossing/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/millers-crossing/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] RAISING ARIZONA
+DTSTART;TZID=America/Chicago:20260919T203000
+DTEND;TZID=America/Chicago:20260919T223000
+DTSTAMP:20260919T155839Z
+UID:joel-coen-raising-arizona-2026-09-19-2030@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nSlapstick mayhem and desert glide in the Coens
+ ' debut crime comedy.\n\nDetails: https://www.austinfilm.org/screening/rai
+ sing-arizona/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/raising-arizona/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] RAISING ARIZONA
+DTSTART;TZID=America/Chicago:20260920T160000
+DTEND;TZID=America/Chicago:20260920T180000
+DTSTAMP:20260919T155839Z
+UID:joel-coen-raising-arizona-2026-09-20-1600@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nSlapstick mayhem and desert glide in the Coens
+ ' debut crime comedy.\n\nDetails: https://www.austinfilm.org/screening/rai
+ sing-arizona/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/raising-arizona/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] RAISING ARIZONA
+DTSTART;TZID=America/Chicago:20260923T154500
+DTEND;TZID=America/Chicago:20260923T174500
+DTSTAMP:20260919T155839Z
+UID:joel-coen-raising-arizona-2026-09-23-1545@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nSlapstick mayhem and desert glide in the Coens
+ ' debut crime comedy.\n\nDetails: https://www.austinfilm.org/screening/rai
+ sing-arizona/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/raising-arizona/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] RAISING ARIZONA
+DTSTART;TZID=America/Chicago:20260923T193000
+DTEND;TZID=America/Chicago:20260923T213000
+DTSTAMP:20260919T155839Z
+UID:joel-coen-raising-arizona-2026-09-23-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nSlapstick mayhem and desert glide in the Coens
+ ' debut crime comedy.\n\nDetails: https://www.austinfilm.org/screening/rai
+ sing-arizona/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/raising-arizona/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] BLOOD SIMPLE
+DTSTART;TZID=America/Chicago:20260920T133000
+DTEND;TZID=America/Chicago:20260920T153000
+DTSTAMP:20260919T155839Z
+UID:joel-coen-blood-simple-2026-09-20-1330@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nThe Coens' debut turns a Texas noir into a sea
+ led chamber of lethal miscommunication.\n\nDetails: https://www.austinfilm
+ .org/screening/blood-simple/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/blood-simple/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] BLOOD SIMPLE
+DTSTART;TZID=America/Chicago:20260921T194500
+DTEND;TZID=America/Chicago:20260921T214500
+DTSTAMP:20260919T155839Z
+UID:joel-coen-blood-simple-2026-09-21-1945@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nThe Coens' debut turns a Texas noir into a sea
+ led chamber of lethal miscommunication.\n\nDetails: https://www.austinfilm
+ .org/screening/blood-simple/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/blood-simple/
+END:VEVENT
+END:VCALENDAR

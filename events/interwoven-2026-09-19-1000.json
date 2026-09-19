@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Interwoven",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities, Yeager brings the cleaner fire here. Her wet into wet oil handling, with brushwork that stays visibly alive at the surface, gives the paintings speed and risk rather than polish. Pierucci counters with sculptural repetition…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/interwoven-2026-09-19-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-19",
+  "location": {
+    "@type": "Place",
+    "name": "Laura Rathe Fine Art Austin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

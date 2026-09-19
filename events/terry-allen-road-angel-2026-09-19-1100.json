@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Terry Allen: Road Angel",
+  "description": "★ Rating: 8/10 🎭 Formal Qualities, Terry Allen’s Road Angel has real formal presence, a full-size bronze cast of a 1953 Chevrolet coupe placed in the wooded grounds at Laguna Gloria, where the missing front tire, glowing headlights, and hidden speaker turn a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/terry-allen-road-angel-2026-09-19-1100.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-19",
+  "location": {
+    "@type": "Place",
+    "name": "The Contemporary Austin – Laguna Gloria",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
