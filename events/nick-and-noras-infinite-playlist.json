@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "NICK AND NORA'S INFINITE PLAYLIST",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit, The film has real polish in its nocturnal Manhattan setting, and the best passages lean on location, rhythm, and the easy chemistry between Michael Cera and Kat Dennings. Critics noted the vibrant New York backdrop, the appeal…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/nick-and-noras-infinite-playlist.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-04",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

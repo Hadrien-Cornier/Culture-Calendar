@@ -1,0 +1,86 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of LATE FAME
+X-WR-CALNAME:Culture Calendar — LATE FAME
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260924T170000
+DTEND;TZID=America/Chicago:20260924T190000
+DTSTAMP:20260926T163301Z
+UID:late-fame-2026-09-24-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDetails: https://www.austinfilm.org/screening/
+ late-fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260927T130000
+DTEND;TZID=America/Chicago:20260927T150000
+DTSTAMP:20260926T163301Z
+UID:late-fame-2026-09-27-1300@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDetails: https://www.austinfilm.org/screening/
+ late-fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260929T160000
+DTEND;TZID=America/Chicago:20260929T180000
+DTSTAMP:20260926T163301Z
+UID:late-fame-2026-09-29-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDetails: https://www.austinfilm.org/screening/
+ late-fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260930T163000
+DTEND;TZID=America/Chicago:20260930T183000
+DTSTAMP:20260926T163301Z
+UID:late-fame-2026-09-30-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDetails: https://www.austinfilm.org/screening/
+ late-fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] LATE FAME
+DTSTART;TZID=America/Chicago:20260930T200000
+DTEND;TZID=America/Chicago:20260930T220000
+DTSTAMP:20260926T163301Z
+UID:late-fame-2026-09-30-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nDetails: https://www.austinfilm.org/screening/
+ late-fame/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/late-fame/
+END:VEVENT
+END:VCALENDAR

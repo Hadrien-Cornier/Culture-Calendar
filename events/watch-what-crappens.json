@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Watch What Crappens",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit, this does not read as a film at all, but as a long running Bravo recap podcast, built on talk, repetition, and comic riffs rather than visual craft or cinematic control. Its appeal seems to come from the hosts’ banter and the…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/watch-what-crappens.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-13",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

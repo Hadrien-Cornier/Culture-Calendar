@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "NYRB Book Club - G.",
+  "description": "★ Rating: 8/10 G. is a sharp, restless novel that turns a seduction plot into a study of appetite, politics, and historical change. Berger gives the book real force by setting G.’s erotic career against the Milan workers’ revolt of 1898, Garibaldi’s legacy, t…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/nyrb-book-club-g-2026-11-07-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-07",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

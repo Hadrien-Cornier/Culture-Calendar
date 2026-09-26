@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Voyage Out - Women Without Men",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit: Parsipur keeps the book lean and unsettling, moving between realism and a light-touch magical mode without losing grip on the women’s concrete problems. Munis, buried by family violence and then returned to life, gives the nov…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/voyage-out-women-without-men-2026-09-20-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-20",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

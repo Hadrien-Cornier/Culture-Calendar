@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Event: Friday, September 25, 7-10 pm",
+  "description": "★ Rating: 4/10 🎭 Formal Qualities, there is not enough verified information here to assess composition, materials, or technique with confidence. The listing only gives an opening time, not the work itself, so any praise about visual craft would be invented. ✨…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/event-friday-september-25-7-10-pm-2026-09-25-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-25",
+  "location": {
+    "@type": "Place",
+    "name": "Unknown",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

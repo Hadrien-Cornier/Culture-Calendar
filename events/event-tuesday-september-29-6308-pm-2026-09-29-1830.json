@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Event: Tuesday, September 29, 6:30–8 pm",
+  "description": "★ Rating: 3/10 🎭 Formal Qualities, there is no evidence here of composition, materials, technique, or spatial planning, because the listing gives no artist, medium, or venue. ✨ Originality, the event cannot be credited with a distinctive concept on the basis…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/event-tuesday-september-29-6308-pm-2026-09-29-1830.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-29",
+  "location": {
+    "@type": "Place",
+    "name": "Unknown",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Event: Saturday, September 26, 2–4 pm",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities, the show appears set up as a polished, gallery-forward opening with an artist talk, which usually means a clean installation and a salesroom level of finish; that said, the available information does not describe the actual…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/event-saturday-september-26-24-pm-2026-09-26-1400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-26",
+  "location": {
+    "@type": "Place",
+    "name": "West Chelsea Contemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

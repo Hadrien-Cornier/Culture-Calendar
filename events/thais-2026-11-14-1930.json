@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Thaïs",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit – The film is a conventional melodrama that nonetheless carries avant-garde details, functioning as a \"gem of futurist cinema\" from the 1920s despite its melodramatic core . Anton Giulio Bragaglia directs with a focus on avant-…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/thais-2026-11-14-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-14",
+  "location": {
+    "@type": "Place",
+    "name": "Opera",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

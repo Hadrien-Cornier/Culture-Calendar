@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "KWAIDAN",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Kobayashi turns Kwaidan into a controlled pageant of composition, color, and sound, with artificial sets that refuse realism and instead create a severe, theatrical nightmare. The film’s value lies in its discipline, the white…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/kwaidan.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-06",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

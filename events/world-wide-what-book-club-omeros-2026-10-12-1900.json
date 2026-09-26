@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "World Wide What Book Club - Omeros",
+  "description": "★ Rating: 9/10 Derek Walcott’s Omeros is an ambitious, uneven, and finally commanding epic that turns a St. Lucian fishing village into a stage for Homer, colonial history, and private grief. Its scope is enormous, but the book earns that scale with hard, spe…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/world-wide-what-book-club-omeros-2026-10-12-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-12",
+  "location": {
+    "@type": "Place",
+    "name": "FirstLight",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

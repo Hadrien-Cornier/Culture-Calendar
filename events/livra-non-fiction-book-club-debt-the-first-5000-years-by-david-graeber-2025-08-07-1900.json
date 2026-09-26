@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Livra Non-Fiction Book Club: Debt: the First 5000 Years by David Graeber",
+  "description": "I can’t give a real review from this record because the book title, author, and any plot or passage details are missing. LivraBooks alone is not enough to judge craft, structure, or theme. ★ Rating: 4/10 🎭 Artistic Merit, hard to assess from the sparse metada…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/livra-non-fiction-book-club-debt-the-first-5000-years-by-david-graeber-2025-08-07-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-08-07",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

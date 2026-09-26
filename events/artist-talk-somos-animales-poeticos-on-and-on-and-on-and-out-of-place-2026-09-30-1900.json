@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk: Somos Animales Poéticos, On and On and On, and Out of Place",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities, the exhibition’s structure sounds clean and legible, with three distinct projects grouped in one gallery, photography, abstract painting, and painting, which suggests a straightforward, orderly presentation rather than a for…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-somos-animales-poeticos-on-and-on-and-on-and-out-of-place-2026-09-30-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-30",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
