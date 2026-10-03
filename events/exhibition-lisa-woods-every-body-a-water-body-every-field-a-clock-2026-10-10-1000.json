@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Exhibition: Lisa Woods | Every Body a Water Body, Every Field a Clock",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities The exhibition’s strongest formal idea is its translation of the Ogallala Aquifer into an interlocking system of kinetic sculpture, video projection, and ceramics. Center pivot irrigation, with its vast circular field pattern…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/exhibition-lisa-woods-every-body-a-water-body-every-field-a-clock-2026-10-10-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-10",
+  "location": {
+    "@type": "Place",
+    "name": "Women & Their Work",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

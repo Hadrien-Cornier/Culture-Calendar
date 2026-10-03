@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Somos Animales Poéticos",
+  "description": "★ Rating: 8/10 🎭 Formal Qualities Velásquez treats photography as a layered construction rather than a transparent record. The exhibition combines photographs, archival imagery, literary fragments, collage, staged reenactment, and textile references. Animal i…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/somos-animales-poeticos-2026-10-03-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-03",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

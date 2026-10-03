@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Out of Place",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities Li’s paintings set recognizable objects, houses, trees, figures, and toys against fragments that disrupt ordinary pictorial logic. Chaos & Order, identified as acrylic on linen, establishes a useful tension between softened,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/out-of-place-2026-10-03-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-03",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

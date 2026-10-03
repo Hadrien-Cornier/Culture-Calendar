@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Exhibition: Sarah Ferguson: Carte Blanche",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities – Ferguson’s acrylic paintings impose order through concentric forms, circular orbits, and sharply controlled geometry. The repeated centers create a disciplined visual rhythm, while shifts in color produce optical expansion…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/exhibition-sarah-ferguson-carte-blanche-2026-10-10-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-10",
+  "location": {
+    "@type": "Place",
+    "name": "Wally Workman Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

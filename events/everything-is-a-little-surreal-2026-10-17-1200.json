@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Everything Is a Little Surreal",
+  "description": "★ Rating: 6/10 Formal Qualities The available information identifies a seven artist group exhibition, but provides no checklist, installation views, dimensions, materials, or curatorial statement. A serious assessment of composition, technique, spatial arrang…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/everything-is-a-little-surreal-2026-10-17-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-17",
+  "location": {
+    "@type": "Place",
+    "name": "McLennonPen",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

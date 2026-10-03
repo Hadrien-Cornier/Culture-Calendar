@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "OUTLAWS: Laura Goodson + Steve Wrubel",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities. The available documentation identifies the exhibition and its venue, but provides no images, medium, installation views, or work descriptions. A responsible judgment about composition, materials, technique, or spatial constr…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/outlaws-laura-goodson-steve-wrubel-2026-10-08-1800.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-08",
+  "location": {
+    "@type": "Place",
+    "name": "Laura Rathe Fine Art",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

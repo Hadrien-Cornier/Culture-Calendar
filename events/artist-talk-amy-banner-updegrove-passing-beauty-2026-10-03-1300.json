@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk: Amy Banner Updegrove: Passing Beauty",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities Passing Beauty presents new mixed media works combining letterpress fonts, woven textiles, and geometric forms. The strongest formal premise is the work’s dependence on shifting light and viewpoint, which makes pattern and su…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-amy-banner-updegrove-passing-beauty-2026-10-03-1300.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-03",
+  "location": {
+    "@type": "Place",
+    "name": "Davis Gallery & Framing",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

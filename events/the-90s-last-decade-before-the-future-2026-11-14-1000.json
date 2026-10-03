@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The 90s: Last Decade Before the Future",
+  "description": "★ Rating: 6/10 The Bullock’s The 90s: Last Decade Before the Future is a competent historical exhibition, but it is not an art exhibition in the strict sense. Its strength lies in assembling recognizable artifacts and arranging them into an accessible account…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-90s-last-decade-before-the-future-2026-11-14-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-14",
+  "location": {
+    "@type": "Place",
+    "name": "Bullock",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

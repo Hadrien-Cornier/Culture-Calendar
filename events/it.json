@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "IT",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit, The film has real craft, especially in its child ensemble, its period details, and its staging of set pieces like the bike chase, the basement visions, and Pennywise’s first fully lit appearances. Bill Skarsgård gives the mate…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/it.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-06",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

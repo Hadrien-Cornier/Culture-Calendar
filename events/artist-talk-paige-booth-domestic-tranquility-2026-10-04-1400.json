@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk: Paige Booth | Domestic Tranquility",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities – The exhibition uses collage and mixed media, layering vintage, found, and recycled papers around the familiar square-and-triangle house shape. That material choice gives the work a clear visual premise, but without images o…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-paige-booth-domestic-tranquility-2026-10-04-1400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-04",
+  "location": {
+    "@type": "Place",
+    "name": "Link & Pin Art",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

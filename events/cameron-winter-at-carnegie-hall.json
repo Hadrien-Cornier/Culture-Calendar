@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "CAMERON WINTER AT CARNEGIE HALL",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit, Paul Thomas Anderson shoots Cameron Winter’s Carnegie Hall set on 35mm and 16mm, and that format choice matters, because it suggests a grainy, tactile performance film rather than a slick concert package. The setup appears str…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/cameron-winter-at-carnegie-hall.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-31",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

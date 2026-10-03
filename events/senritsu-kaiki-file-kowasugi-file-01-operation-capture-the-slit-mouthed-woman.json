@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Senritsu Kaiki File Kowasugi! File 01: Operation Capture the Slit-Mouthed Woman",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit. Koji Shiraishi’s 2012, 70 minute Japanese found footage film uses a television crew investigating the Kuchisake Onna legend, not the American, English language production described in the prompt. Its strongest formal device is…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/senritsu-kaiki-file-kowasugi-file-01-operation-capture-the-slit-mouthed-woman.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-26",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

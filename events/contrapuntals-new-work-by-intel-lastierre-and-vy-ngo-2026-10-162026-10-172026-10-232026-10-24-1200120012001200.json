@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Contrapuntals: New Work by Intel Lastierre and Vy Ngo",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities Contrapuntals has a clear structural premise. Intel Lastierre’s layered paintings use flesh like biomorphic contours, placing body and landscape in unstable proximity. Vy Ngo works across painting, architectural fragments, hi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/contrapuntals-new-work-by-intel-lastierre-and-vy-ngo-2026-10-162026-10-172026-10-232026-10-24-1200120012001200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-16",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA Collective",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

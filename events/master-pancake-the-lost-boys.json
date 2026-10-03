@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Master Pancake: The Lost Boys",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit, competent and lively, but the achievement depends on the target as much as the craft. Master Pancake’s show is built on the premise of pairing a film with live comedy, and that format clearly promises quick timing, reactive pe…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/master-pancake-the-lost-boys.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-15",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Winter Program",
+  "description": "★ Rating: 6/10 🎭 Choreographic Craft The listing does not identify the Winter Program’s dances or choreographers, so a piece-by-piece judgment would be guesswork. Ishida’s documented work favors narrative ballet, using domestic routines and encounters with st…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/winter-program-2027-01-20-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-20",
+  "location": {
+    "@type": "Place",
+    "name": "IshidaDance",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

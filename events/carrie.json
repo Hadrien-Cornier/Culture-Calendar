@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "CARRIE",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, De Palma gives the material real formal punch, especially in the prom sequence, where the slow buildup, split focus, and sudden blood dump turn adolescent humiliation into a coordinated crash of image and sound. The final stre…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/carrie.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-31",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

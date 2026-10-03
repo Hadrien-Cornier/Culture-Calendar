@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "On and On and On",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities Quentin Pace’s On and On and On is described as a series of abstract paintings built through color, form, and layered symbolism. The available record does not identify individual works, materials, dimensions, or installation…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/on-and-on-and-on-2026-10-03-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-03",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Chad Goes Deep",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit – The production displays negligible technical mastery or aesthetic ambition. The six-part series leans entirely into cringe comedy without the structural discipline to make it land, relying on repetitive stunts like advocating…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/chad-goes-deep.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-16",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

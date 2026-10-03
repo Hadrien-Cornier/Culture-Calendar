@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Brevity Book Club - The Dangers of Smoking 
+ in Bed
+X-WR-CALNAME:Culture Calendar — Brevity Book Club - The Dangers of Smoki
+ ng in Bed
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] Brevity Book Club - The Dangers of Smoking in Bed
+DTSTART;TZID=America/Chicago:20261026T190000
+DTEND;TZID=America/Chicago:20261026T210000
+DTSTAMP:20261003T163249Z
+UID:brevity-book-club---the-dangers-of-smoking-in-bed---2026-10-26-1900-20
+ 26-10-26-1900@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nHorror that roots supernatural terror in Argen
+ tine state violence and civic neglect.\n\nDetails: https://www.firstlighta
+ ustin.com/book-club
+LOCATION:FirstLight
+URL:https://www.firstlightaustin.com/book-club
+END:VEVENT
+END:VCALENDAR

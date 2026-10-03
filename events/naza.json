@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "NAZA",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit – Shot on Tel Aviv rooftops at night, the film builds its case through 24 concealed interviews with Israeli military and intelligence insiders. Shadowed faces and altered voices turn testimony into a controlled visual form, whi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/naza.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-09",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

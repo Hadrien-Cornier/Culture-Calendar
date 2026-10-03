@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Abominable Dr. Phibes + Ma",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Robert Fuest gives the material a brittle, elegant surface, with Vincent Price’s controlled, nearly ceremonial performance doing most of the heavy lifting. The film’s strongest scenes are its set-piece murders, which turn reve…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-abominable-dr-phibes-ma.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-18",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
