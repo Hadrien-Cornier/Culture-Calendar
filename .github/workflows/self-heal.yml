@@ -52,7 +52,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install anthropic requests python-dotenv pyyaml beautifulsoup4 pytest
+          # Keep the repair client and its test environment on the same pinned
+          # SDK/dependencies as the pipeline; an unpinned major upgrade broke
+          # Messages.create before diagnosis could run.
+          pip install -r requirements.txt
 
       - name: Run self-healing agent
         env:

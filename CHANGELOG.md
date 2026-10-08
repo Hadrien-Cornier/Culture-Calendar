@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-10-08 — Daily summaries and automatic repair recovery
+
+- Route one-liner generation through the existing LLM service with a 2,000-token initial budget, larger-budget reasoning retry, and configured-provider fallback. Preserve source prompts, validation, refusal filtering, and summary caching; exhausted providers still leave a visible verification failure instead of fabricated content.
+- Install repair dependencies from the pipeline's pinned requirements, omit the removed Messages sampling parameter, use available Sonnet 4.6 (override with `SELF_HEAL_MODEL`), and read text blocks safely.
+- Add regression coverage for empty reasoning responses, provider failures, caching, source-context preservation, event/screening integrity, and the actual Anthropic client interface. Freeze parser and mocked email test inputs so daily event expiry cannot break the repair/CI test gate; no email behavior changed.
+
 <!-- BEGIN LONG-RUN: 20260430-102637 -->
 ## Long run — 20260430-102637
 

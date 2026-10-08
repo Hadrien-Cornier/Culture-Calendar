@@ -30,7 +30,9 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_JS = REPO_ROOT / "docs" / "script.js"
-DATA_JSON = REPO_ROOT / "docs" / "data.json"
+# Regression shapes must survive daily data refreshes; production listings
+# are allowed to age out every event that originally triggered a parser bug.
+DATA_JSON = REPO_ROOT / "tests" / "fixtures" / "review_shapes.json"
 
 
 # ----------------------------- node + jsdom path -----------------------------

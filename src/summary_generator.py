@@ -12,15 +12,10 @@ text and color-keys it for contrast.
 
 **Credential fallback chain**
 
-1. ``ANTHROPIC_API_KEY`` set → uses the Anthropic Python SDK directly
-   against Claude (default path; cheapest + most on-voice).
-2. Only ``OPENROUTER_API_KEY`` set → routes through OpenRouter's
-   Anthropic proxy via the OpenAI Python SDK. Covers dev environments
-   without direct Anthropic access.
-3. Neither set → :class:`SummaryGenerator` operates in a no-op mode
-   and returns the existing ``one_liner_summary`` unchanged, so the
-   pipeline still completes with stale summaries rather than
-   crashing.
+Uses :class:`src.llm_service.LLMService`: OpenRouter is preferred, with
+Anthropic fallback when configured. Empty reasoning completions retry
+with a larger budget before provider failover. Neither key set raises
+``ValueError`` at initialization.
 
 **Cache** — ``cache/summary_cache.json`` (committed intentionally;
 see ``.gitignore``'s ``!cache/summary_cache.json`` negation) keyed on
@@ -52,7 +47,6 @@ def _trim_to_word_boundary(
     return summary[:cut].rstrip(",;:.- ") + "…"
 
 
-import anthropic
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -66,31 +60,21 @@ class SummaryGenerator:
         # OpenRouter preferred (cheaper) > Anthropic fallback. Provider + model
         # come from the single source of truth in llm_service so the model id is
         # config/env-driven (never a bare hardcode that can silently go stale).
-        from src.llm_service import OPENROUTER_BASE_URL, resolve_provider_model
+        from src.llm_service import LLMService
 
-        self.provider, self.model = resolve_provider_model()
+        self.llm_service = LLMService()
+        self.provider, self.model = self.llm_service.provider, self.llm_service.model
         if self.provider is None:
             raise ValueError(
                 "Neither OPENROUTER_API_KEY nor ANTHROPIC_API_KEY is set; "
                 "at least one is required for summary generation."
             )
 
-        if self.provider == "openrouter":
-            # Late import so tests without the openai package don't fail.
-            from openai import OpenAI
-
-            self.client = OpenAI(
-                base_url=OPENROUTER_BASE_URL,
-                api_key=self.openrouter_api_key,
-                timeout=180.0,
-                max_retries=2,
-            )
-        else:
-            # Explicit timeout: the 600s SDK default lets a hung connection
-            # stall the whole pipeline with no log output.
-            self.client = anthropic.Anthropic(
-                api_key=self.anthropic_api_key, timeout=180.0, max_retries=2
-            )
+        self.client = (
+            self.llm_service.openai
+            if self.provider == "openrouter"
+            else self.llm_service.anthropic
+        )
 
         self.summary_cache = {}
         self._load_cache()
@@ -407,39 +391,14 @@ class SummaryGenerator:
         try:
             time.sleep(0.5)  # Light rate limiting to stay under API caps.
 
-            # Guard against empty/None completions (reasoning-style models can
-            # return content=None; crashed here with 'NoneType' strip before)
-            # with one retry, since these are usually transient.
-            summary = None
-            for attempt in (1, 2):
-                if self.provider == "anthropic":
-                    resp = self.client.messages.create(
-                        model=self.model,
-                        system=system_prompt,
-                        temperature=0.3,
-                        max_tokens=120,
-                        messages=[{"role": "user", "content": prompt}],
-                    )
-                    text = resp.content[0].text if resp.content else None
-                else:
-                    resp = self.client.chat.completions.create(
-                        model=self.model,
-                        temperature=0.3,
-                        max_tokens=100,
-                        messages=[
-                            {"role": "system", "content": system_prompt},
-                            {"role": "user", "content": prompt},
-                        ],
-                    )
-                    choice = resp.choices[0] if resp.choices else None
-                    text = choice.message.content if choice else None
-                if text and text.strip():
-                    summary = text.strip()
-                    break
-                if attempt == 1:
-                    print("  Summary call returned empty completion, retrying...")
-            if summary is None:
-                print("  Summary call returned empty completion twice, skipping")
+            # The budget includes hidden reasoning, not just the short hook.
+            # Reuse the shared larger-budget retry and configured-provider
+            # fallback instead of repeating a starved 100-token request.
+            summary = self.llm_service._chat(
+                system_prompt, prompt, max_tokens=2000, temperature=0.3
+            )
+            if not summary:
+                print("  Summary providers returned no usable completion, skipping")
                 return None
 
             # Clean up the response - remove quotes and ensure it's one line

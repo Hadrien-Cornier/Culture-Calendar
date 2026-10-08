@@ -34,7 +34,9 @@ sys.path.insert(0, str(REPO_ROOT))
 
 GITHUB_API = "https://api.github.com"
 REPO = "Hadrien-Cornier/Culture-Calendar"
-CLAUDE_MODEL = "claude-sonnet-4-20250514"
+# Sonnet 4 retired in June 2026. Keep diagnosis on an available Sonnet,
+# with an explicit override for future lifecycle changes.
+CLAUDE_MODEL = os.getenv("SELF_HEAL_MODEL") or "claude-sonnet-4-6"
 MAX_FIX_ATTEMPTS = 2
 
 
@@ -253,11 +255,10 @@ Rules:
     response = client.messages.create(
         model=CLAUDE_MODEL,
         max_tokens=4000,
-        temperature=0.2,
         messages=[{"role": "user", "content": prompt}],
     )
 
-    text = response.content[0].text
+    text = "".join(getattr(block, "text", "") for block in response.content)
     # Parse JSON from response
     json_start = text.find("{")
     json_end = text.rfind("}") + 1

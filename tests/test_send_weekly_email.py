@@ -14,6 +14,29 @@ import pytest
 import scripts.send_weekly_email as swe
 
 
+@pytest.fixture(autouse=True)
+def fixed_calendar_data(monkeypatch):
+    """Exercise CLI paths even after production events for W31 have aged out."""
+    monkeypatch.setattr(
+        swe.digest,
+        "load_events",
+        lambda *_a, **_kw: [
+            {
+                "id": "fixture-film",
+                "title": "Fixture Film",
+                "type": "movie",
+                "rating": 9,
+                "venue": "AFS",
+                "url": "https://example.com/event",
+                "dates": ["2026-07-27"],
+                "times": ["19:30"],
+                "one_liner_summary": "A fixture for the weekly email CLI.",
+                "description": "<p>🎭 <strong>Artistic Merit</strong> - A fine film.</p>",
+            }
+        ],
+    )
+
+
 # ---------------------------------------------------------------------------
 # Week targeting + subject
 # ---------------------------------------------------------------------------
