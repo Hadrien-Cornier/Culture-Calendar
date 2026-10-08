@@ -29,6 +29,7 @@ scrub, catching the model's "haunting" / "masterfully crafted" tics.
 Coordinate updates: if you add a phrase here, mirror it there.
 """
 
+import hashlib
 import json
 import os
 import time
@@ -86,10 +87,89 @@ class SummaryGenerator:
             if os.path.exists(cache_path):
                 with open(cache_path, "r") as f:
                     self.summary_cache = json.load(f)
+                if not isinstance(self.summary_cache, dict):
+                    raise ValueError("Summary cache must be an object")
                 print(f"Loaded {len(self.summary_cache)} cached summaries")
         except Exception as e:
             print(f"Could not load summary cache: {e}")
             self.summary_cache = {}
+
+        # Daily runs used to publish hooks but discard their updated cache.
+        # Recover those hooks from the published data using the same context
+        # key as new generation. Never guess the context of legacy title keys.
+        try:
+            from src.refusal import is_refusal_response
+
+            with open("docs/data.json", encoding="utf-8") as f:
+                events = json.load(f)
+            restored = 0
+            for event in events:
+                summary = event.get("one_liner_summary")
+                if (
+                    not isinstance(summary, str)
+                    or not summary.strip()
+                    or is_refusal_response(summary)
+                    or not event.get("url")
+                    or not (event.get("description") or "").strip()
+                    or not self._validate_event_data(event)
+                ):
+                    continue
+                key = self._summary_cache_key(event)
+                cached = self.summary_cache.get(key)
+                if (
+                    not isinstance(cached, str)
+                    or not cached.strip()
+                    or is_refusal_response(cached)
+                ):
+                    self.summary_cache[key] = summary
+                    restored += 1
+            print(f"Restored {restored} published summaries with matching context keys")
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            print(f"Could not restore published summaries: {e}")
+
+    @staticmethod
+    def _summary_cache_key(event: Dict) -> str:
+        """Reuse hooks only for identical source, metadata, review, and style.
+
+        Dates/times may grow without changing a work's hook. Legacy title-only
+        entries cannot prove the review/source they describe and are not read.
+        Bump the key version when changing the summary prompt instructions.
+        """
+        from src.processor import _style_rubric
+
+        fields = (
+            "title",
+            "type",
+            "description",
+            "venue",
+            "url",
+            "director",
+            "country",
+            "year",
+            "release_year",
+            "language",
+            "runtime_minutes",
+            "book",
+            "author",
+            "publication_year",
+            "composers",
+            "works",
+            "featured_artist",
+            "program",
+            "series",
+            "company",
+            "choreographer",
+            "artist",
+            "artists",
+            "medium",
+        )
+        context = {field: event.get(field) for field in fields}
+        context["isMovie"] = bool(event.get("isMovie"))
+        context["style"] = _style_rubric()
+        payload = json.dumps(context, sort_keys=True, ensure_ascii=False)
+        return "v2:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
     def _save_cache(self):
         """Save summaries to disk cache"""
@@ -143,18 +223,22 @@ class SummaryGenerator:
             )
             return None, False
 
-        cache_key = (
-            f"{event.get('title', '').upper().strip()}_{event.get('type', 'unknown')}"
-        )
+        from src.refusal import is_refusal_response
+
+        cache_key = self._summary_cache_key(event)
 
         # Check cache first (unless forcing regeneration)
-        if not force_regenerate and cache_key in self.summary_cache:
+        cached = self.summary_cache.get(cache_key)
+        if (
+            not force_regenerate
+            and isinstance(cached, str)
+            and cached.strip()
+            and not is_refusal_response(cached)
+        ):
             print(f"  Using cached summary for {event.get('title')}")
-            return self.summary_cache[cache_key], False
+            return cached, False
 
         try:
-            from src.processor import is_refusal_response
-
             summary = self._call_claude_api(event)
             if summary and is_refusal_response(summary):
                 print(
