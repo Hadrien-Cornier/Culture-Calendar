@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE COLOR OF MONEY",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Scorsese turns pool into a language of pressure, appetite, and performance. Michael Ballhaus makes the table feel unstable through tracking shots, low angles, and aggressive shifts in perspective, while Thelma Schoonmaker cuts…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-color-of-money.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-25",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

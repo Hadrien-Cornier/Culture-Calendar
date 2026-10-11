@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Small Comforts
+X-WR-CALNAME:Culture Calendar — Small Comforts
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[4/10] Small Comforts
+DTSTART;TZID=America/Chicago:20261023T120000
+DTEND;TZID=America/Chicago:20261023T140000
+DTSTAMP:20261011T001800Z
+UID:small-comforts---2026-10-23-1200-2026-10-23-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 4/10\n\nSmall comforts remain elusive in Michael A. Bo
+ oker's underwhelming\, underdocumented exhibition.\n\nDetails: https://ive
+ stercontemporary.com/exhibitions/
+LOCATION:IvesterContemporary
+URL:https://ivestercontemporary.com/exhibitions/
+END:VEVENT
+END:VCALENDAR

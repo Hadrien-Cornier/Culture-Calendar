@@ -1,0 +1,41 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Vinegar Syndrome Presents SPOOKIES
+X-WR-CALNAME:Culture Calendar — Vinegar Syndrome Presents SPOOKIES
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] Vinegar Syndrome Presents SPOOKIES
+DTSTART;TZID=America/Chicago:20261029T183000
+DTEND;TZID=America/Chicago:20261029T203000
+DTSTAMP:20261011T001800Z
+UID:vinegar-syndrome-presents-spookies-2026-10-29-1830@culturecalendar.loc
+ al
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 5/10\n\nMessy 80s horror where spider women and muck c
+ reatures supply handmade charm.\n\nDetails: https://hyperrealfilm.club/eve
+ nts/10-29/spookies-vinegar-syndrome-movie-screening
+LOCATION:Hyperreal
+URL:https://hyperrealfilm.club/events/10-29/spookies-vinegar-syndrome-movi
+ e-screening
+END:VEVENT
+END:VCALENDAR

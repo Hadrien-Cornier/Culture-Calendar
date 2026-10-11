@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of CENTER STAGE
+X-WR-CALNAME:Culture Calendar — CENTER STAGE
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[9/10] CENTER STAGE
+DTSTART;TZID=America/Chicago:20261105T210000
+DTEND;TZID=America/Chicago:20261105T230000
+DTSTAMP:20261011T001800Z
+UID:center-stage-2026-11-05-2100@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nMaggie Cheung channels a silent star through f
+ ractured film and rehearsal.\n\nDetails: https://www.austinfilm.org/screen
+ ing/center-stage/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/center-stage/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] CENTER STAGE
+DTSTART;TZID=America/Chicago:20261107T133000
+DTEND;TZID=America/Chicago:20261107T153000
+DTSTAMP:20261011T001800Z
+UID:center-stage-2026-11-07-1330@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nMaggie Cheung channels a silent star through f
+ ractured film and rehearsal.\n\nDetails: https://www.austinfilm.org/screen
+ ing/center-stage/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/center-stage/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Very ‘Rary 2026",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities. The Very ‘Rary 2026 is less a conventional exhibition than a four hour, family oriented art event spread across Laguna Gloria’s 14 acre sculpture park. Its announced materials include hands on artmaking, wearable design, int…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-very-rary-2026-2026-10-18-1400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-18",
+  "location": {
+    "@type": "Place",
+    "name": "Laguna Gloria",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

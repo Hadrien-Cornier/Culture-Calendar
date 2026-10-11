@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Member Curator-Led Tour: Fall 2026 Exhibiti
+ ons
+X-WR-CALNAME:Culture Calendar — Member Curator-Led Tour: Fall 2026 Exhib
+ itions
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Member Curator-Led Tour: Fall 2026 Exhibitions
+DTSTART;TZID=America/Chicago:20261021T183000
+DTEND;TZID=America/Chicago:20261021T203000
+DTSTAMP:20261011T001800Z
+UID:member-curator-led-tour-fall-2026-exhibitions---2026-10-21-1830-2026-1
+ 0-21-1830@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nCurator tour contrasts Moki Cherry's immersive
+  environments with Laura Lit's colored-pencil sculpture studies.\n\nDetail
+ s: https://thecontemporaryaustin.org/events/
+LOCATION:Jones Center
+URL:https://thecontemporaryaustin.org/events/
+END:VEVENT
+END:VCALENDAR

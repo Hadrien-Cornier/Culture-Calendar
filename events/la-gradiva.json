@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "LA GRADIVA",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Marine Atlan turns a school trip to Naples and Pompeii into a carefully controlled collision between adolescent volatility and ancient catastrophe. The 145 minute duration gives the ensemble room to shift, fracture, and recombi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/la-gradiva.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-13",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Elf Pub Run",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit. The available information does not describe a standalone film so much as a themed pub run tied to a screening of Elf, with costumes, caroling, snowball fights, narwhal ring toss, and a short route between venues. That is an ev…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/elf-pub-run.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-01",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

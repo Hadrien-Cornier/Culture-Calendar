@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MARIE ANTOINETTE",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Coppola turns Versailles into a controlled visual system of pastel surfaces, candlelit corridors, mirrored rooms, and crowded rituals. Lance Acord’s camera catches both spectacle and confinement, while Milena Canonero’s costume…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/marie-antoinette.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-24",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

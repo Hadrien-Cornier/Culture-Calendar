@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Other Art Event: Storytelling for Creatives",
+  "description": "★ Rating: 5/10 Public information identifies Storytelling for Creatives as a virtual professional development workshop presented by Fabiana Meléndez Ruiz, not an exhibition with documented artworks, materials, or installation views. The available record also…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/other-art-event-storytelling-for-creatives-2026-12-15-1830.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-15",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE DEVILS",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Ken Russell stages The Devils with ferocious control of image and tempo, turning historical atrocity into a sequence of hard, ugly set pieces that rarely sit still. The white, skeletal set for Loudun, the mass possession scene…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-devils.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-16",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

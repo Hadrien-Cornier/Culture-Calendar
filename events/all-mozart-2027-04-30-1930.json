@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "All Mozart!",
+  "description": "★ Rating: 0/10 Sources are thin: no review, recording, or public report exists for the specific \"All Mozart!\" Arts on Alexander 2026-27 concert featuring the Oboe Quartet, Clarinet Quintet, and Divertimento. I cannot see the performers, their names, or their…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/all-mozart-2027-04-30-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-04-30",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

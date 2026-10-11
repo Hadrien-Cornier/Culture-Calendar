@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Americana",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities The available documentation identifies Hassin’s practice as an installation based on handmade paper, ceramics, uniforms, clothing, and found materials. Her strongest formal device is conversion. Objects associated with milita…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/americana-2026-10-23-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-23",
+  "location": {
+    "@type": "Place",
+    "name": "IvesterContemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

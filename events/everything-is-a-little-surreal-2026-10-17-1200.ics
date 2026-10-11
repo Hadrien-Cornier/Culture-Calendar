@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Everything Is a Little Surreal
+X-WR-CALNAME:Culture Calendar — Everything Is a Little Surreal
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] Everything Is a Little Surreal
+DTSTART;TZID=America/Chicago:20261017T120000
+DTEND;TZID=America/Chicago:20261017T140000
+DTSTAMP:20261011T001800Z
+UID:everything-is-a-little-surreal---2026-10-17-1200-2026-10-17-1200@cultu
+ recalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nThree painters show figurative work in an exhi
+ bition with no visual record.\n\nDetails: https://mclennonpenco.com/exhibi
+ tions
+LOCATION:McLennonPen
+URL:https://mclennonpenco.com/exhibitions
+END:VEVENT
+END:VCALENDAR

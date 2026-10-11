@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of MARIE ANTOINETTE
+X-WR-CALNAME:Culture Calendar — MARIE ANTOINETTE
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] MARIE ANTOINETTE
+DTSTART;TZID=America/Chicago:20261024T200000
+DTEND;TZID=America/Chicago:20261024T220000
+DTSTAMP:20261011T001800Z
+UID:marie-antoinette-2026-10-24-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nSofia Coppola's pastel Versailles\, where punk
+  anthems meet royal ritual\, turns gilded spectacle into youthful captivit
+ y.\n\nDetails: https://www.austinfilm.org/screening/marie-antoinette/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/marie-antoinette/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MARIE ANTOINETTE
+DTSTART;TZID=America/Chicago:20261025T183000
+DTEND;TZID=America/Chicago:20261025T203000
+DTSTAMP:20261011T001800Z
+UID:marie-antoinette-2026-10-25-1830@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nSofia Coppola's pastel Versailles\, where punk
+  anthems meet royal ritual\, turns gilded spectacle into youthful captivit
+ y.\n\nDetails: https://www.austinfilm.org/screening/marie-antoinette/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/marie-antoinette/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MARIE ANTOINETTE
+DTSTART;TZID=America/Chicago:20261026T181500
+DTEND;TZID=America/Chicago:20261026T201500
+DTSTAMP:20261011T001800Z
+UID:marie-antoinette-2026-10-26-1815@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nSofia Coppola's pastel Versailles\, where punk
+  anthems meet royal ritual\, turns gilded spectacle into youthful captivit
+ y.\n\nDetails: https://www.austinfilm.org/screening/marie-antoinette/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/marie-antoinette/
+END:VEVENT
+END:VCALENDAR

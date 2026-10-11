@@ -1,0 +1,176 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of shapeshifting
+X-WR-CALNAME:Culture Calendar — shapeshifting
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261015T130000
+DTEND;TZID=America/Chicago:20261015T150000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-15-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261016T120000
+DTEND;TZID=America/Chicago:20261016T140000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-16-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261017T120000
+DTEND;TZID=America/Chicago:20261017T140000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-17-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261018T120000
+DTEND;TZID=America/Chicago:20261018T140000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-18-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261022T130000
+DTEND;TZID=America/Chicago:20261022T150000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-22-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261023T120000
+DTEND;TZID=America/Chicago:20261023T140000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-23-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261024T120000
+DTEND;TZID=America/Chicago:20261024T140000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-24-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261029T130000
+DTEND;TZID=America/Chicago:20261029T150000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-29-1300@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261030T120000
+DTEND;TZID=America/Chicago:20261030T140000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-30-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] shapeshifting
+DTSTART;TZID=America/Chicago:20261031T120000
+DTEND;TZID=America/Chicago:20261031T140000
+DTSTAMP:20261011T001800Z
+UID:shapeshifting---2026-10-152026-10-162026-10-172026-10-182026-10-222026
+ -10-232026-10-242026-10-292026-10-302026-10-31-130012001200120013001200120
+ 0130012001200-2026-10-31-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMetal\, ink\, and reflective vinyl shift acros
+ s layered surfaces in Boley's "shapeshifting.\n\nDetails: https://nowplayi
+ ngaustin.com/event/shapeshifting/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/shapeshifting/
+END:VEVENT
+END:VCALENDAR

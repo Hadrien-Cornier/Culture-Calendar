@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Strips, Stripes, Pieces, Parts",
+  "description": "★ Rating: 8/10 🎭 Formal Qualities Jestrow turns fabric into a system of painted marks, using hand dyed cotton, acrylic, felt, thread, lace, damask, lamé, and repurposed clothing. The exhibition’s strongest works emerge from controlled fragmentation. In Painti…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/strips-stripes-pieces-parts-2026-09-11-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "IvesterContemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

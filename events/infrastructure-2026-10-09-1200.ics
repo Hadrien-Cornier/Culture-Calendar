@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Infrastructure
+X-WR-CALNAME:Culture Calendar — Infrastructure
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[4/10] Infrastructure
+DTSTART;TZID=America/Chicago:20261009T120000
+DTEND;TZID=America/Chicago:20261009T140000
+DTSTAMP:20261011T001800Z
+UID:infrastructure---2026-10-09-1200-2026-10-09-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 4/10\n\nPhotographic exploration of systems and civic 
+ infrastructure\, though specific content remains unconfirmed.\n\nDetails: 
+ https://marthas.gallery/exhibitions
+LOCATION:MarthasContemporary
+URL:https://marthas.gallery/exhibitions
+END:VEVENT
+END:VCALENDAR

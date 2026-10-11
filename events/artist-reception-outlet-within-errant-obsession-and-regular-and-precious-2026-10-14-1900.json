@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Reception: Outlet Within, Errant Obsession, and Regular and Precious",
+  "description": "★ Rating: 6/10 The available documentation identifies three concurrent exhibitions, but does not provide installation photographs, a complete checklist, dimensions, or sufficient visual evidence for a rigorous formal review. The rating therefore reflects the…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-reception-outlet-within-errant-obsession-and-regular-and-precious-2026-10-14-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-14",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

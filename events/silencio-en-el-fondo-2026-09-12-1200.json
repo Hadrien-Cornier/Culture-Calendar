@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Silencio en el fondo",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities The exhibition’s formal strength lies in Traverso’s use of oil painting to stage unstable bodies, partial faces, and shifting identities. Her figurative and expressionist language turns memory into a material problem, with ma…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/silencio-en-el-fondo-2026-09-12-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-12",
+  "location": {
+    "@type": "Place",
+    "name": "McLennonPen",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

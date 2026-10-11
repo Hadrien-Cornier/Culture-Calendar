@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of THE COLOR OF MONEY
+X-WR-CALNAME:Culture Calendar — THE COLOR OF MONEY
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] THE COLOR OF MONEY
+DTSTART;TZID=America/Chicago:20261025T160000
+DTEND;TZID=America/Chicago:20261025T180000
+DTSTAMP:20261011T001800Z
+UID:the-color-of-money-2026-10-25-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nNewman and Cruise spiral through Scorsese's po
+ ol game of appetite and performance.\n\nDetails: https://www.austinfilm.or
+ g/screening/the-color-of-money/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-color-of-money/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE COLOR OF MONEY
+DTSTART;TZID=America/Chicago:20261026T154500
+DTEND;TZID=America/Chicago:20261026T174500
+DTSTAMP:20261011T001800Z
+UID:the-color-of-money-2026-10-26-1545@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nNewman and Cruise spiral through Scorsese's po
+ ol game of appetite and performance.\n\nDetails: https://www.austinfilm.or
+ g/screening/the-color-of-money/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-color-of-money/
+END:VEVENT
+END:VCALENDAR

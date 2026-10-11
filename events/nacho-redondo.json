@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Nacho Redondo",
+  "description": "★ Rating: 2/10 🎭 Artistic Merit, the available evidence does not identify a specific film with enough certainty to assess craft, pacing, or visual style. What can be verified is that Nacho Redondo is primarily documented as a Venezuelan comedian and writer, n…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/nacho-redondo.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-29",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

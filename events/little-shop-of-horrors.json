@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Little Shop of Horrors",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Frank Oz stages the material with real comic precision, and the film’s mix of puppetry, performance, and musical timing gives it a polished, handcrafted finish. Rick Moranis plays Seymour as a nervous wreck with a soft voice a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/little-shop-of-horrors.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-21",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

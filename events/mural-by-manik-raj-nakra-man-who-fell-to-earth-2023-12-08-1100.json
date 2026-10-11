@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Mural by Manik Raj Nakra: Man Who Fell to Earth",
+  "description": "★ Rating: 8/10 🎭 Formal Qualities Nakra fills the Jones Center façade with a panoramic acrylic mural measuring roughly 42 by 102 feet. The composition relies on flattened, tightly packed forms, a dominant leopard at center, coiling serpents, birds, clouds, oc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/mural-by-manik-raj-nakra-man-who-fell-to-earth-2023-12-08-1100.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2023-12-08",
+  "location": {
+    "@type": "Place",
+    "name": "Jones Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,117 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of THE HISTORY OF CONCRETE
+X-WR-CALNAME:Culture Calendar — THE HISTORY OF CONCRETE
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] THE HISTORY OF CONCRETE
+DTSTART;TZID=America/Chicago:20261011T170000
+DTEND;TZID=America/Chicago:20261011T190000
+DTSTAMP:20261011T001800Z
+UID:the-history-of-concrete-2026-10-11-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA sly\, deadpan comic essay using concrete's h
+ istory to map American absurdity.\n\nDetails: https://www.austinfilm.org/s
+ creening/the-history-of-concrete/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-history-of-concrete/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE HISTORY OF CONCRETE
+DTSTART;TZID=America/Chicago:20261012T183000
+DTEND;TZID=America/Chicago:20261012T203000
+DTSTAMP:20261011T001800Z
+UID:the-history-of-concrete-2026-10-12-1830@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA sly\, deadpan comic essay using concrete's h
+ istory to map American absurdity.\n\nDetails: https://www.austinfilm.org/s
+ creening/the-history-of-concrete/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-history-of-concrete/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE HISTORY OF CONCRETE
+DTSTART;TZID=America/Chicago:20261013T170000
+DTEND;TZID=America/Chicago:20261013T190000
+DTSTAMP:20261011T001800Z
+UID:the-history-of-concrete-2026-10-13-1700@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA sly\, deadpan comic essay using concrete's h
+ istory to map American absurdity.\n\nDetails: https://www.austinfilm.org/s
+ creening/the-history-of-concrete/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-history-of-concrete/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE HISTORY OF CONCRETE
+DTSTART;TZID=America/Chicago:20261014T171500
+DTEND;TZID=America/Chicago:20261014T191500
+DTSTAMP:20261011T001800Z
+UID:the-history-of-concrete-2026-10-14-1715@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA sly\, deadpan comic essay using concrete's h
+ istory to map American absurdity.\n\nDetails: https://www.austinfilm.org/s
+ creening/the-history-of-concrete/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-history-of-concrete/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE HISTORY OF CONCRETE
+DTSTART;TZID=America/Chicago:20261014T194500
+DTEND;TZID=America/Chicago:20261014T214500
+DTSTAMP:20261011T001800Z
+UID:the-history-of-concrete-2026-10-14-1945@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA sly\, deadpan comic essay using concrete's h
+ istory to map American absurdity.\n\nDetails: https://www.austinfilm.org/s
+ creening/the-history-of-concrete/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-history-of-concrete/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE HISTORY OF CONCRETE
+DTSTART;TZID=America/Chicago:20261015T153000
+DTEND;TZID=America/Chicago:20261015T173000
+DTSTAMP:20261011T001800Z
+UID:the-history-of-concrete-2026-10-15-1530@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA sly\, deadpan comic essay using concrete's h
+ istory to map American absurdity.\n\nDetails: https://www.austinfilm.org/s
+ creening/the-history-of-concrete/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-history-of-concrete/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE HISTORY OF CONCRETE
+DTSTART;TZID=America/Chicago:20261015T193000
+DTEND;TZID=America/Chicago:20261015T213000
+DTSTAMP:20261011T001800Z
+UID:the-history-of-concrete-2026-10-15-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA sly\, deadpan comic essay using concrete's h
+ istory to map American absurdity.\n\nDetails: https://www.austinfilm.org/s
+ creening/the-history-of-concrete/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-history-of-concrete/
+END:VEVENT
+END:VCALENDAR

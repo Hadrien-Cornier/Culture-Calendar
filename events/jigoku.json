@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "JIGOKU",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Nakagawa stages the film with a sharp visual sense, and the second half, especially the descent into Hell, delivers the film’s strongest work through dense production design, grotesque tableaus, and punishing color imagery. Th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jigoku.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-13",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

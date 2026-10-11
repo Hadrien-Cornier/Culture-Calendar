@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Member Curator-Led Tour: Fall 2026 Exhibitions",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities – Composition, materials, technique, spatial and visual craft This is a curator led tour rather than a discrete exhibition, but it addresses two distinct presentations at the Jones Center, The Living Temple, The World of Moki…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/member-curator-led-tour-fall-2026-exhibitions-2026-10-21-1830.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-21",
+  "location": {
+    "@type": "Place",
+    "name": "Jones Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

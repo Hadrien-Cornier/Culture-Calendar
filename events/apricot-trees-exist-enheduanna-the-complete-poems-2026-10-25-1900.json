@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Apricot Trees Exist - Enheduanna: The Complete Poems",
+  "description": "★ Rating: 8/10 Enheduana: The Complete Poems is a serious, necessary recovery of an origin point in literary history, and Sophus Helle gives it enough care and clarity to stand as more than a museum piece. The book’s strongest claim is simple, and persuasive,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/apricot-trees-exist-enheduanna-the-complete-poems-2026-10-25-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-25",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Tiny Words - Happiness, as Such",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Ginzburg writes with strict economy, and the novel’s shifting mix of letters and brief third person passages gives the family drama a clipped, pressured rhythm. The emotional force comes less from display than from what is wit…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tiny-words-happiness-as-such-2026-11-30-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-30",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

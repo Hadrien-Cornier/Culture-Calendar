@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Anton Nel - Chopin & Friends",
+  "description": "Sources are thin: the specific program for Anton Nel’s “Chopin & Friends” concert at Arts on Alexander lists Chopin as the composer but leaves the actual works marked “unknown,” and no performance review, recording, or detailed program note exists for this ex…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/anton-nel-chopin-friends-2027-01-15-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-15",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
