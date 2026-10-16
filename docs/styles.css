@@ -1,18 +1,23 @@
 :root {
-  --bg: #f5efe1;
-  --ink: #111;
-  --muted: #666;
-  --rule: #ddd;
-  --accent: #d4a574;
-  --accent-soft: #f5f0e8;
-  --chip-bg: #f5efe1;
-  --chip-border: #ccc;
-  --chip-ink: #222;
-  --chip-active-bg: #111;
-  --chip-active-ink: #fff;
-  --hi: #2a5a2a;
-  --mid: #c08030;
-  --lo: #a02020;
+  color-scheme: dark;
+  --bg: #181d1c;
+  --surface: #202624;
+  --ink: #e8e3d9;
+  --secondary: #c8c6bc;
+  --muted: #adafa9;
+  --rule: #3a4440;
+  --accent: #ccb58d;
+  --accent-soft: #2c342e;
+  --chip-bg: var(--surface);
+  --chip-border: #68736c;
+  --chip-ink: var(--secondary);
+  --chip-active-bg: var(--accent);
+  --chip-active-ink: #181d1c;
+  --hi: #a5c4ab;
+  --mid: #d2b077;
+  --lo: #d8a59c;
+  --positive-soft: #293c30;
+  --negative-soft: #402d2c;
   --max: 1000px;
   --serif: "Source Serif 4", "Source Serif Pro", "Saol Display", "Didot", "Bodoni Moda", "Playfair Display", Georgia, serif;
   --sans: "Inter", "Helvetica Neue", "Arial", system-ui, sans-serif;
@@ -28,6 +33,13 @@
 }
 
 * { box-sizing: border-box; }
+
+a { color: var(--accent); }
+
+input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
 
 body {
   background: var(--bg);
@@ -123,12 +135,13 @@ body {
 
 .signup-form-input {
   flex: 1;
+  min-width: 0;
   padding: 10px 14px;
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: var(--text-base);
   line-height: 1.4;
   color: var(--ink);
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--chip-border);
   border-radius: 3px;
   -webkit-appearance: none;
@@ -156,8 +169,8 @@ body {
 
 .signup-form-button:hover,
 .signup-form-button:focus {
-  background: var(--ink);
-  border-color: var(--ink);
+  background: var(--secondary);
+  border-color: var(--secondary);
   outline: none;
 }
 
@@ -189,10 +202,10 @@ body {
   width: 100%;
   padding: 10px 14px;
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: var(--text-base);
   line-height: 1.4;
   color: var(--ink);
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--chip-border);
   border-radius: 3px;
   -webkit-appearance: none;
@@ -212,10 +225,10 @@ body {
   margin: 0;
   padding: 4px 0;
   list-style: none;
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 3px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
   max-height: 50vh;
   overflow-y: auto;
   z-index: 50;
@@ -333,7 +346,7 @@ body {
   color: var(--ink);
   margin: 0 0 1em;
   padding: 12px 0;
-  border-top: 3px solid var(--ink);
+  border-top: 3px solid var(--accent);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -370,7 +383,7 @@ body {
   font-size: 12px;
   padding: 6px 8px;
   border-radius: 3px;
-  color: #fff;
+  color: var(--bg);
   white-space: nowrap;
   /* task-5.6: Inter's tabular figures keep "10/10" and "7/10" the same width
      so rating columns align across cards — primary reason for choosing Inter
@@ -430,7 +443,7 @@ body {
 .event-card {
   border: 1px solid var(--rule);
   margin-bottom: 1em;
-  background: var(--bg);
+  background: var(--surface);
 }
 
 .event-header {
@@ -451,20 +464,22 @@ body {
   text-transform: uppercase;
   letter-spacing: -0.01em;
   margin-bottom: 4px;
+  line-height: 1.4;
 }
 
 .event-title-link { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--accent); }
 
 .event-subtitle {
   font-family: var(--sans);
-  font-size: 12px;
-  color: var(--muted);
+  font-size: 13px;
+  color: var(--secondary);
 }
 
 .event-when {
   font-family: var(--sans);
-  font-size: 12px;
-  color: var(--muted);
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 600;
   margin-top: 2px;
   letter-spacing: 0.01em;
 }
@@ -474,7 +489,7 @@ body {
    expanding the review panel. */
 .event-venue-address {
   font-family: var(--sans);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   margin-top: 2px;
   letter-spacing: 0.01em;
@@ -576,7 +591,7 @@ body {
    the widely-supported recipe across Safari/Chrome/Firefox. */
 .event-oneliner { -webkit-line-clamp: 2; line-clamp: 2;
   font-style: italic;
-  color: #5a4a3a;
+  color: var(--secondary);
   font-weight: 500;
   margin: 0 0 12px;
   display: -webkit-box;
@@ -623,7 +638,7 @@ body {
 
 .event-review p,
 .event-review-body {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.7;
   margin: 0 0 0.8em;
   max-width: 70ch;
@@ -636,7 +651,7 @@ body {
 }
 .event-review-body em {
   font-style: italic;
-  color: #5a4a3a;
+  color: var(--secondary);
 }
 
 /* task-T3.2: primary "Get Tickets" CTA inside the expanded panel. Sits above
@@ -652,9 +667,9 @@ body {
   font-weight: 700;
   letter-spacing: 0.04em;
   text-decoration: none;
-  color: #fff;
-  background: var(--ink);
-  border: 1px solid var(--ink);
+  color: var(--chip-active-ink);
+  background: var(--accent);
+  border: 1px solid var(--accent);
   border-radius: 999px;
   padding: 12px 20px;
   min-height: 44px;
@@ -667,9 +682,9 @@ body {
 }
 @media (hover: hover) {
   .event-ticket-link:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--ink);
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: var(--chip-active-ink);
   }
 }
 .event-ticket-link:active {
@@ -722,8 +737,8 @@ body {
   border-color: var(--accent);
   color: var(--ink);
 }
-.thumb-up.is-active { border-color: var(--hi); background: #e9f3e9; }
-.thumb-down.is-active { border-color: var(--lo); background: #f6e6e6; }
+.thumb-up.is-active { border-color: var(--hi); background: var(--positive-soft); }
+.thumb-down.is-active { border-color: var(--lo); background: var(--negative-soft); }
 
 /* task-T3.2: save (star) button — shares pill geometry with .thumb-button
    so it flows naturally inside .thumb-controls. Saved state uses a warm
@@ -757,9 +772,9 @@ body {
   transform: scale(0.96);
 }
 .save-button.is-saved {
-  background: #fff6d9;
-  border-color: #c9a227;
-  color: #a6831d;
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* task-T3.2: My Picks filter toggle — injected into masthead after
@@ -823,13 +838,13 @@ body {
 @media (hover: hover) {
   .tts-button:hover {
     background: var(--accent);
-    color: #fff;
+    color: var(--chip-active-ink);
   }
 }
 .tts-button:active,
 .tts-button.is-playing {
   background: var(--accent);
-  color: #fff;
+  color: var(--chip-active-ink);
 }
 
 /* task-T4.2: Audio brief button. Lives in the picks-section header; reuses
@@ -893,10 +908,10 @@ body {
   max-height: min(70vh, 440px);
   overflow-y: auto;
   padding: 6px;
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 @media (min-width: 520px) {
   .share-popover {
@@ -907,14 +922,13 @@ body {
   }
   .share-popover .share-option-copy { grid-column: 1 / -1; }
 }
-/* task-T1.3: 375px polish. Share button can sit near the right edge of an
-   event card, so anchor the popover to its right edge to prevent overflow
-   past the viewport on iPhone SE / 375px widths. Bump option touch targets
-   to the 44px iOS minimum and widen the menu for thumb-friendly tapping. */
+/* On narrow screens the action row wraps the share button to the left.
+   Open its menu toward the available space rather than off the left edge.
+   Keep options at the 44px touch target minimum. */
 @media (max-width: 420px) {
   .share-popover {
-    left: auto;
-    right: 0;
+    left: 0;
+    right: auto;
     min-width: 240px;
     max-width: calc(100vw - 24px);
     padding: 8px;
@@ -1071,8 +1085,7 @@ body {
   padding: 16px 20px;
   border: 1px dashed var(--rule);
   border-radius: 4px;
-  background: #fafafa;
-  opacity: 0.85;
+  background: var(--surface);
   font-family: var(--sans);
 }
 .needs-research-section[open] {
@@ -1111,7 +1124,7 @@ body {
   font-size: 14px;
 }
 .needs-research-body .event-card {
-  opacity: 0.95;
+  opacity: 1;
 }
 @media (max-width: 640px) {
   .needs-research-section {
@@ -1165,6 +1178,36 @@ body {
   border-bottom-color: var(--accent);
 }
 
+/* These pages also ship local style blocks. Keep their text readable on the
+   shared dark background without changing their generated markup. */
+body:is(.archive-page, .wishlist-page),
+body :is(.archive-entry-link, .wishlist-name-link) {
+  color: var(--ink);
+}
+
+body :is(.archive-lead, .archive-entry-range, .archive-summary,
+         .wishlist-lead, .wishlist-description) {
+  color: var(--secondary);
+}
+
+body :is(.archive-eyebrow, .archive-stamp, .archive-entry-count, .archive-empty,
+         .wishlist-eyebrow, .wishlist-stamp, .wishlist-group-meta,
+         .wishlist-meta, .wishlist-empty) {
+  color: var(--muted);
+}
+
+body :is(.archive-actions, .wishlist-actions) a {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+body :is(.archive-masthead, .archive-item, .archive-entry-link, .archive-empty,
+         .wishlist-masthead, .wishlist-item, .wishlist-name-link, .wishlist-empty) {
+  border-color: var(--accent);
+}
+
+body .wishlist-group-header { border-bottom-color: var(--rule); }
+
 /* task-T8.4: category grouping sections */
 .category-section {
   margin-bottom: 2.5em;
@@ -1197,4 +1240,11 @@ body {
   .event-panel, .event-card.is-expanded .event-panel { padding-left: 72px; padding-right: 10px; }
   .subscribe-links { gap: 10px; font-size: 10px; }
   #event-search { font-size: 13px; padding: 9px 40px 9px 12px; }
+}
+
+/* Keep a consistent keyboard ring on links, disclosure headers and controls,
+   including controls whose hover/focus rules remove the default outline. */
+:is(a, button, input, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
