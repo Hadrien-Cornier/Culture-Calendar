@@ -123,16 +123,7 @@ Entry shape: `{id, name, selector, since_commit, smoke_assertion}` where `smoke_
 
 ## LLM Council quality gate
 
-Quality is enforced by the reusable **llm-council** skill: a cross-family judge panel with **enforced diversity** — the maker family (Anthropic) is **excluded from judging**, and every juror is a distinct non-Anthropic family (OpenAI, DeepSeek, Moonshot, z-ai, Google, Xiaomi). Runtime is the vendored `.council/llm-council/scripts/council-judge.sh` (reads a manifest + a `--context-file`, calls OpenRouter, writes per-persona review JSONs, aggregates: any FAIL → exit 1 REJECT, all ABSTAIN → exit 2 ESCALATE, else 0 ACCEPT). Judge personas live in `personas/council/*.json`; manifests in `.council/` pin each persona to a model/family. Needs `OPENROUTER_API_KEY`; degrades gracefully (skips, never hard-blocks) when absent. See `personas/README.md` for layout.
-
-**Three gates:**
-1. **Pre-push** (`.githooks/pre-push`) — when an outgoing commit subject contains `[persona-gate]`, `scripts/capture_live_site_context.py` serves `docs/` locally and runs the `personas/live-site-specs/*.json` structural asserts, then `council-judge.sh --council .council/live-site.json` judges the captured context (6 UX lenses). Activate per-clone: `git config core.hooksPath .githooks`. Emergency bypass: `git push --no-verify`. The hook also validates `personas/council/repo-minimalism.json` parses on every push (misconfig → exit 1).
-2. **PR validation** (`.github/workflows/pr-validation.yml` → `council-review` job) — runs `council-judge.sh --council .council/culture-calendar.json` against the PR diff. Report-only (writes the verdict to the job summary); skips neutrally when `OPENROUTER_API_KEY` is unset (fork PRs).
-3. **Long-run tasks** — the autonomous-run harness judges each task with `.council/culture-calendar.json`; any FAIL re-queues the task.
-
-**`[persona-gate]` commit tag**: tag commit subject with literal `[persona-gate]` for significant changes (architectural UI refactors, feature removals/restorations, redesigns — anything a reviewer would call "a new direction"). Don't tag bug fixes, copy tweaks, CSS polish, data refreshes, or dep bumps.
-
-**(Re)generating manifests**: refresh the model pool with the skill's `scripts/refresh-model-pool.py`, then re-pick one slug per distinct non-Anthropic family in `.council/*.json`, keeping Anthropic excluded. See `personas/README.md`.
+The LLM Council is disabled (16 Oct 2026).
 
 ## Autonomous Run Baseline
 
@@ -252,7 +243,7 @@ Phase 7 (7.1–7.3) — final gate + handoff.
 
 ### `[persona-gate]` tags
 
-Apply to commits for: T1.5 (workflow gate change), T4.4 (gate-config change), T5.6 (typography redesign), T6.4 (`.overnight/` removal — discoverability shift). Pre-push hook will run live-site council against local server.
+The `[persona-gate]` tag no longer invokes a Council check (16 Oct 2026).
 
 ### GitNexus impact required before editing
 
