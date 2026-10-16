@@ -922,14 +922,13 @@ body {
   }
   .share-popover .share-option-copy { grid-column: 1 / -1; }
 }
-/* task-T1.3: 375px polish. Share button can sit near the right edge of an
-   event card, so anchor the popover to its right edge to prevent overflow
-   past the viewport on iPhone SE / 375px widths. Bump option touch targets
-   to the 44px iOS minimum and widen the menu for thumb-friendly tapping. */
+/* On narrow screens the action row wraps the share button to the left.
+   Open its menu toward the available space rather than off the left edge.
+   Keep options at the 44px touch target minimum. */
 @media (max-width: 420px) {
   .share-popover {
-    left: auto;
-    right: 0;
+    left: 0;
+    right: auto;
     min-width: 240px;
     max-width: calc(100vw - 24px);
     padding: 8px;
@@ -1178,6 +1177,36 @@ body {
   color: var(--ink);
   border-bottom-color: var(--accent);
 }
+
+/* These pages also ship local style blocks. Keep their text readable on the
+   shared dark background without changing their generated markup. */
+body:is(.archive-page, .wishlist-page),
+body :is(.archive-entry-link, .wishlist-name-link) {
+  color: var(--ink);
+}
+
+body :is(.archive-lead, .archive-entry-range, .archive-summary,
+         .wishlist-lead, .wishlist-description) {
+  color: var(--secondary);
+}
+
+body :is(.archive-eyebrow, .archive-stamp, .archive-entry-count, .archive-empty,
+         .wishlist-eyebrow, .wishlist-stamp, .wishlist-group-meta,
+         .wishlist-meta, .wishlist-empty) {
+  color: var(--muted);
+}
+
+body :is(.archive-actions, .wishlist-actions) a {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+body :is(.archive-masthead, .archive-item, .archive-entry-link, .archive-empty,
+         .wishlist-masthead, .wishlist-item, .wishlist-name-link, .wishlist-empty) {
+  border-color: var(--accent);
+}
+
+body .wishlist-group-header { border-bottom-color: var(--rule); }
 
 /* task-T8.4: category grouping sections */
 .category-section {
