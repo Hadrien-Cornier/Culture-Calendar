@@ -600,5 +600,12 @@
     "selector": ".event-review",
     "since_commit": "scoreless-categories",
     "smoke_assertion": "contains_text:NON_JUDGEMENT_RE@/script.js"
+  },
+  {
+    "id": "dark-editorial-theme",
+    "name": "Warm charcoal theme with readable secondary text and keyboard focus rings",
+    "selector": ":root",
+    "since_commit": "fm/cal-1",
+    "smoke_assertion": "js_truthy:getComputedStyle(document.documentElement).colorScheme === 'dark'"
   }
 ]
