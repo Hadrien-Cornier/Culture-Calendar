@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WHITE NIGHTS",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Visconti turns Livorno into a fully artificial nocturnal maze, built on a soundstage with canals, bridges, fog, and isolated streetlamps. The controlled sets and high contrast lighting reject documentary realism without losing…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/white-nights.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-16",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

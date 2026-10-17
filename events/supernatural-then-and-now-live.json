@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Supernatural Then and Now LIVE",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit. The available record identifies Supernatural Then and Now LIVE as a live extension of a rewatch podcast hosted by Rob Benedict and Richard Speight Jr, not as a conventional film with a documented director, duration, cinematogr…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/supernatural-then-and-now-live.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-19",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

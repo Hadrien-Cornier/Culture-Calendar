@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Tiger Mom Academy",
+  "description": "★ Rating: 5/10 The available record identifies Tiger Mom Academy, also listed as Tiger Mom, as a 2025, 96 minute American comedy directed by Shawn Chou, in English and Mandarin. Its premise follows a first generation Chinese American mother who sends her rebe…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tiger-mom-academy.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-29",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

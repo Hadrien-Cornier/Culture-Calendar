@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Teeth",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Mitchell Lichtenstein’s 2007 film, a 94 minute American English language horror comedy, turns the vagina dentata myth into a blunt but carefully controlled visual device. Its best craft lies in the contrast between pastel subur…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/teeth.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-16",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

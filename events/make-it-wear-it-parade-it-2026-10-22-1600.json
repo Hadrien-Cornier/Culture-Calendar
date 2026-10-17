@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Make it, Wear it, Parade it!",
+  "description": "★ Rating: 6/10 The available record identifies Make it, Wear it, Parade it! as a 2026 presentation by PRINT Austin and Mexic-Arte Museum at Make At Rosie, but it does not identify the artists, individual works, or installation views. Any judgment beyond the e…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/make-it-wear-it-parade-it-2026-10-22-1600.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-22",
+  "location": {
+    "@type": "Place",
+    "name": "Make It Rosie",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

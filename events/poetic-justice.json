@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "POETIC JUSTICE",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit – Singleton stages the film around a promising contrast, Justice’s inward grief and Lucky’s guarded pragmatism. The drive from South Central Los Angeles to Oakland gives the story a workable visual and structural frame, while J…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/poetic-justice.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-17",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

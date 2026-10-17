@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Dendrofemonology: A Feminist History Tree; Sculpture Installation, Artist Talk and World Film Premiere of We Are Here",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities A roughly 65 inch cross section of reclaimed deodar cedar gives the installation a blunt, legible physical presence. Pyrography turns the surface into a damaged archive, with burned text following the tree’s circular logic. T…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/dendrofemonology-a-feminist-history-tree-sculpture-installation-artist-talk-and-world-film-premiere-of-we-are-here-2026-10-27-1800.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-27",
+  "location": {
+    "@type": "Place",
+    "name": "Central Library Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

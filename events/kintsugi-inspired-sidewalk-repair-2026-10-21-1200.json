@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Kintsugi Inspired Sidewalk Repair",
+  "description": "★ Rating: 6/10 This is a promising participatory event, but the available documentation describes a single sidewalk intervention rather than a fully developed exhibition. The artist is identified as Chance Ramirez, not unknown, and the project is scheduled fo…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/kintsugi-inspired-sidewalk-repair-2026-10-21-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-21",
+  "location": {
+    "@type": "Place",
+    "name": "Dougherty Arts Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

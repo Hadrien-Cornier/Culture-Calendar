@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Winter Program",
+  "description": "★ Rating: 6/10 🎭 Choreographic Craft – The available record identifies the program as ISHIDA Dance’s 2025 winter bill, as long as there is in me, rather than simply Winter Program. Brett Ishida choreographed soul-writer, while Drew Jacoby contributed the male…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/winter-program-2027-01-26-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-26",
+  "location": {
+    "@type": "Place",
+    "name": "IshidaDance",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Bitter Christmas",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Pedro Almodóvar gives Bitter Christmas a controlled, visually polished form, built around two interlocking timelines and a film within the film. The 2004 story follows Elsa, an advertising director, through a destructive Decemb…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/bitter-christmas.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-29",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

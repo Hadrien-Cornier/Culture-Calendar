@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Sculptor's Imprint, Part II",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities – The exhibition’s strongest idea is formal rather than thematic. Flatbed Press places sculptural thinking inside printmaking through line, texture, pressure, layering, transfer, cutting, and repetition. The five artists, Hol…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-sculptors-imprint-part-ii-2026-09-05-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-05",
+  "location": {
+    "@type": "Place",
+    "name": "FlatbedPress",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

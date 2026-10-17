@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "2026 Austin Polish Film Festival Day 2",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit This is a festival program, not a single film, so its artistic value depends on curation rather than unified direction. Day 2 pairs Alex Storozynski’s 54 minute historical documentary, Kościuszko: A Man Before His Time, with Ja…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/2026-austin-polish-film-festival-day-2.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-06",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Markets for Makers Austin Fall Market",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities – The market’s primary medium is display, circulation, and merchandise rather than a unified artistic form. At Palmer Events Center, more than 100 makers are arranged through booths offering art, clothing, jewelry, food, home…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/markets-for-makers-austin-fall-market-2026-10-17-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-17",
+  "location": {
+    "@type": "Place",
+    "name": "Palmer Events Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

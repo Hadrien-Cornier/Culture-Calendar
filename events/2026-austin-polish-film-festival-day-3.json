@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "2026 Austin Polish Film Festival Day 3",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – The entry is not a single film but a festival day, scheduled for November 7, 2026, within a program of contemporary Polish cinema. With no director, runtime, film list, or documented performance details attached to the title,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/2026-austin-polish-film-festival-day-3.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-07",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

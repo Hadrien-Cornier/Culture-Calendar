@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "RATED",
+  "description": "★ Rating: 6/10 The available information identifies Rated as a 2016, 19 minute comedy drama directed by John Fortson. Its premise follows Maggie, who discovers that a social rating appears above her head, turning online judgment into a visible social mechanis…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/rated.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-30",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

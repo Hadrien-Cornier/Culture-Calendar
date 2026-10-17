@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WILD STYLE",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit, Charlie Ahearn’s film is rough, sometimes clumsy, and often plays like a collision of staged scenes and street footage, but that rawness is part of its force. The performances from Lee Quinones, Patti Astor, Fab 5 Freddy, Lady…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/wild-style.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-25",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

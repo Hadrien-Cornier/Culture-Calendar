@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Exhibition: Jenn Hassin: Americana",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities Hassin converts worn uniforms and other charged textiles into handmade paper, wall works, and installations. Her process gives the material physical authority, especially in works such as A Battle Lost, where thousands of rol…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/exhibition-jenn-hassin-americana-2026-10-23-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-23",
+  "location": {
+    "@type": "Place",
+    "name": "Ivester Contemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

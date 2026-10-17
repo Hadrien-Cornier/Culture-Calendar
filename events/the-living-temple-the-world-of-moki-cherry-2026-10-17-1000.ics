@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of The Living Temple: The World of Moki Cherry
+X-WR-CALNAME:Culture Calendar — The Living Temple: The World of Moki Che
+ rry
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] The Living Temple: The World of Moki Cherry
+DTSTART;TZID=America/Chicago:20261017T100000
+DTEND;TZID=America/Chicago:20261017T120000
+DTSTAMP:20261017T154528Z
+UID:the-living-temple-the-world-of-moki-cherry---2026-10-17-1000-2026-10-1
+ 7-1000@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 8/10\n\nMoki Cherry's textiles\, ceramics\, and video 
+ fuse family life with performance.\n\nDetails: https://thecontemporaryaust
+ in.org/exhibitions/the-living-temple-the-world-of-moki-cherry/
+LOCATION:Jones Center
+URL:https://thecontemporaryaustin.org/exhibitions/the-living-temple-the-wo
+ rld-of-moki-cherry/
+END:VEVENT
+END:VCALENDAR

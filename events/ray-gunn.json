@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Ray Gunn",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Brad Bird’s Ray Gunn is a technically assured animated science fiction noir, built around the retrofuturist city of Metropia, where humans, aliens, flying cars, and prewar architectural styles share the same frame. The visual d…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/ray-gunn.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-31",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

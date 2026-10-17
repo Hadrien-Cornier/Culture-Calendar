@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of WHITE NIGHTS
+X-WR-CALNAME:Culture Calendar — WHITE NIGHTS
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] WHITE NIGHTS
+DTSTART;TZID=America/Chicago:20261116T190000
+DTEND;TZID=America/Chicago:20261116T210000
+DTSTAMP:20261017T154528Z
+UID:white-nights-2026-11-16-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nVisconti's artificial Livorno streets host Mas
+ troianni and Schell's volatile nocturnal romance.\n\nDetails: https://www.
+ austinfilm.org/screening/white-nights/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/white-nights/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] WHITE NIGHTS
+DTSTART;TZID=America/Chicago:20261118T180000
+DTEND;TZID=America/Chicago:20261118T200000
+DTSTAMP:20261017T154528Z
+UID:white-nights-2026-11-18-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nVisconti's artificial Livorno streets host Mas
+ troianni and Schell's volatile nocturnal romance.\n\nDetails: https://www.
+ austinfilm.org/screening/white-nights/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/white-nights/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] WHITE NIGHTS
+DTSTART;TZID=America/Chicago:20261121T163000
+DTEND;TZID=America/Chicago:20261121T183000
+DTSTAMP:20261017T154528Z
+UID:white-nights-2026-11-21-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nVisconti's artificial Livorno streets host Mas
+ troianni and Schell's volatile nocturnal romance.\n\nDetails: https://www.
+ austinfilm.org/screening/white-nights/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/white-nights/
+END:VEVENT
+END:VCALENDAR

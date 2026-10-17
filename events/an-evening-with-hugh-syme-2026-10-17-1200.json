@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "An Evening with Hugh Syme",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities. The presentation centers on Syme’s artwork for Rush’s Fifty Something anniversary tour, placing album design, concert imagery, and collectible print culture in a gallery setting. Syme’s established method, which he calls “im…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/an-evening-with-hugh-syme-2026-10-17-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-17",
+  "location": {
+    "@type": "Place",
+    "name": "Ao5 Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

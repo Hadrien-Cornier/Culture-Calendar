@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk with Via Boley",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities. The talk is anchored by a materially specific practice, cut and sanded metal, reflective vinyl, ink glazes, and thin acrylic layers. Boley’s use of flame torches, irons, lighters, and alcohol ink physically distresses reflec…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-with-via-boley-2026-10-24-1500.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-24",
+  "location": {
+    "@type": "Place",
+    "name": "Unchained.Art Contemporary Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

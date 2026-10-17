@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "UNZIPPED",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit. Douglas Keeve gives the film a clean dramatic engine, Isaac Mizrahi’s preparation for his fall 1994 collection, then organizes the material around inspiration, panic, revision, and the runway payoff. The strongest passages tur…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/unzipped.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-24",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
