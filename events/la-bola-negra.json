@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "LA BOLA NEGRA",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Calvo and Ambrossi build a demanding three-part structure across 1932, 1937, and 2017, linking private desire to political violence and family inheritance. The black-ball voting ritual at Carlos’s elite club gives the film a st…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/la-bola-negra.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-05",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

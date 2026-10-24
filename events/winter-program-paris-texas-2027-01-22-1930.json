@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Winter Program: Paris, Texas",
+  "description": "★ Rating: 6/10 🎭 Choreographic Craft. Brett Ishida’s Paris, Texas is presented as a world premiere indebted to Wim Wenders’s film, but the available record offers no detailed account of its movement, structure, partnering, or staging. That absence makes a rig…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/winter-program-paris-texas-2027-01-22-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-22",
+  "location": {
+    "@type": "Place",
+    "name": "IshidaDance",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

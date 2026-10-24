@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Enclosures and Collapsing the Wave Function",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities The exhibition joins two related but distinct propositions. Enclosures brings together Fallon Bartos, Charles Heppner, and John Sager, while Collapsing the Wave Function presents Steve Brudniak’s assemblages, studies, drawing…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-enclosures-and-collapsing-the-wave-function-2026-10-24-1600.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-24",
+  "location": {
+    "@type": "Place",
+    "name": "Davis Gallery & Framing",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

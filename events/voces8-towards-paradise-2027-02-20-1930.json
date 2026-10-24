@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "VOCES8 | Towards Paradise",
+  "description": "★ Rating: [7/10] 🎭 Artistic Merit VOCES8 delivers the “gorgeous sound” and “impeccable ensemble” that BBC Music Magazine cites, anchored by their “intense responsiveness to text, harmony and melodic shape”. The ensemble’s status as the world’s top-streaming c…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/voces8-towards-paradise-2027-02-20-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-02-20",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

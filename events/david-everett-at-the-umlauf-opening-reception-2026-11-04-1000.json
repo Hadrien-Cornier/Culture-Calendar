@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "David Everett at the UMLAUF Opening Reception",
+  "description": "★ Rating: 6/10 The available information is thin. UMLAUF identifies David Everett as an Austin based artist whose work uses human and animal forms to construct a personal natural history, but it provides no installation views, checklist, materials, or individ…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/david-everett-at-the-umlauf-opening-reception-2026-11-04-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-04",
+  "location": {
+    "@type": "Place",
+    "name": "Umlauf",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

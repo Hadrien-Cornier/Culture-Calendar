@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Bronze Care Workshop",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities. Bronze Care Workshop is not an exhibition in the conventional sense, but a four hour conservation program at Umlauf. Conservators from OnAim Conservation demonstrate washing and waxing, followed by hands on cleaning in the s…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/bronze-care-workshop-2026-11-21-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-21",
+  "location": {
+    "@type": "Place",
+    "name": "Umlauf",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "POETIC JUSTICE",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit. John Singleton gives the film a clear visual and social setting, South Central Los Angeles, then shifts the action into a road movie built around a mail truck traveling toward Oakland. The strongest work lies in the performanc…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/poetic-justice.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-17",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

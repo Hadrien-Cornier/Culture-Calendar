@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE COLOR OF MONEY",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit. Scorsese gives pool a physical grammar. The camera circles tables, tracks the cue ball, cuts on impact, and turns each shot into a test of nerve rather than mere athletic display. The opening match between Eddie Felson and Vin…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-color-of-money.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-25",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Eurotour: A Medieval Odyssey, c. 1100-1450",
+  "description": "★ Rating: [0/10] 🎭 Artistic Merit – The sources provide no record of a performance occurring; the concert is part of the announced 2026-27 season, meaning it has not yet happened . Without a live performance or recording to analyze, technical execution and in…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/eurotour-a-medieval-odyssey-c-1100-1450-2026-09-26-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-26",
+  "location": {
+    "@type": "Place",
+    "name": "EarlyMusic",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

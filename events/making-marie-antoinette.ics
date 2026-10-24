@@ -1,0 +1,78 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of MAKING MARIE ANTOINETTE
+X-WR-CALNAME:Culture Calendar — MAKING MARIE ANTOINETTE
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] MAKING MARIE ANTOINETTE
+DTSTART;TZID=America/Chicago:20261025T151500
+DTEND;TZID=America/Chicago:20261025T171500
+DTSTAMP:20261024T160640Z
+UID:making-marie-antoinette-2026-10-25-1515@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMother's camera observes Sofia Coppola's labor
+  on Marie Antoinette set.\n\nDetails: https://www.austinfilm.org/screening
+ /making-marie-antoinette/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/making-marie-antoinette/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MAKING MARIE ANTOINETTE
+DTSTART;TZID=America/Chicago:20261026T164500
+DTEND;TZID=America/Chicago:20261026T184500
+DTSTAMP:20261024T160640Z
+UID:making-marie-antoinette-2026-10-26-1645@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMother's camera observes Sofia Coppola's labor
+  on Marie Antoinette set.\n\nDetails: https://www.austinfilm.org/screening
+ /making-marie-antoinette/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/making-marie-antoinette/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MAKING MARIE ANTOINETTE
+DTSTART;TZID=America/Chicago:20261028T163000
+DTEND;TZID=America/Chicago:20261028T183000
+DTSTAMP:20261024T160640Z
+UID:making-marie-antoinette-2026-10-28-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMother's camera observes Sofia Coppola's labor
+  on Marie Antoinette set.\n\nDetails: https://www.austinfilm.org/screening
+ /making-marie-antoinette/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/making-marie-antoinette/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] MAKING MARIE ANTOINETTE
+DTSTART;TZID=America/Chicago:20261029T153000
+DTEND;TZID=America/Chicago:20261029T173000
+DTSTAMP:20261024T160640Z
+UID:making-marie-antoinette-2026-10-29-1530@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMother's camera observes Sofia Coppola's labor
+  on Marie Antoinette set.\n\nDetails: https://www.austinfilm.org/screening
+ /making-marie-antoinette/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/making-marie-antoinette/
+END:VEVENT
+END:VCALENDAR

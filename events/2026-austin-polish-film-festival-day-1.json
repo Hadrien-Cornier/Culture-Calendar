@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "2026 Austin Polish Film Festival Day 1",
+  "description": "★ Rating: 5/10 A festival day is not a single film, and the available listing supplies no director, unified running time, or complete artistic object to assess. Day 1 is documented as an event beginning with an Andrzej Wajda poster exhibition and a screening…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/2026-austin-polish-film-festival-day-1.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-05",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

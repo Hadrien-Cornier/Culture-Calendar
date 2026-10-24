@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Tiny Words - The Elementals",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, McDowell writes lean, controlled horror, and the book’s strength is structural, not decorative, the opening funeral scene, the slow move to Beldame, and the boxed-in pressure of the three beach houses give the novel a tight me…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/tiny-words-the-elementals-2026-10-26-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-26",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

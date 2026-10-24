@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Black Is Not a Genre presents: NOPE",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Jordan Peele’s Nope is a formally assured science fiction horror film built around scale, silence, and controlled revelation. The California ranch setting gives the film a stark visual field, while the night sequences use darkn…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/black-is-not-a-genre-presents-nope.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-28",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

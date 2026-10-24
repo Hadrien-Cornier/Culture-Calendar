@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Artist Talk: TalkAbout: The Future of Water
+X-WR-CALNAME:Culture Calendar — Artist Talk: TalkAbout: The Future of Wa
+ ter
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] Artist Talk: TalkAbout: The Future of Water
+DTSTART;TZID=America/Chicago:20261024T140000
+DTEND;TZID=America/Chicago:20261024T160000
+DTSTAMP:20261024T160640Z
+UID:artist-talk-talkabout-the-future-of-water---2026-10-24-1400-2026-10-24
+ -1400@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nArtists and a scientist discuss the future of 
+ water.\n\nDetails: https://artaustin.org/events/
+LOCATION:Women & Their Work
+URL:https://artaustin.org/events/
+END:VEVENT
+END:VCALENDAR

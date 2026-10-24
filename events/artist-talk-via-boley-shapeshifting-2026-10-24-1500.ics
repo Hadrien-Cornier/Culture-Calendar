@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Artist Talk: Via Boley: shapeshifting
+X-WR-CALNAME:Culture Calendar — Artist Talk: Via Boley: shapeshifting
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Artist Talk: Via Boley: shapeshifting
+DTSTART;TZID=America/Chicago:20261024T150000
+DTEND;TZID=America/Chicago:20261024T170000
+DTSTAMP:20261024T160640Z
+UID:artist-talk-via-boley-shapeshifting---2026-10-24-1500-2026-10-24-1500@
+ culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nVia Boley on her shapeshifting paintings that 
+ fracture reflections with metal and ink.\n\nDetails: https://artaustin.org
+ /events/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://artaustin.org/events/
+END:VEVENT
+END:VCALENDAR

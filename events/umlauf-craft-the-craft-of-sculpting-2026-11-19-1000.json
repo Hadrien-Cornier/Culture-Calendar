@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "UMLAUF Craft: The Craft of Sculpting",
+  "description": "★ Rating: 4/10 The available information identifies UMLAUF Craft: The Craft of Sculpting as a hands on adult workshop, not a documented exhibition with a listed artist, object inventory, or curatorial statement. It is scheduled at the UMLAUF Sculpture Garden…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/umlauf-craft-the-craft-of-sculpting-2026-11-19-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-19",
+  "location": {
+    "@type": "Place",
+    "name": "Umlauf",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

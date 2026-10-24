@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Lecture And Guided Tour: Masquerade",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities The exhibition has a strong structural premise, placing painting, assemblage, sculpture, and photography in conversation around the image of the mask. Glenn Ligon’s Masquerade #9 provides the clearest formal anchor, with Bald…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/lecture-and-guided-tour-masquerade-2026-10-31-1600.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-31",
+  "location": {
+    "@type": "Place",
+    "name": "Ostillo Art Foundation",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Joshua Bell Plays Beethoven",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit – performance quality, technical execution, interpretive depth The specific concert described—Joshua Bell playing Beethoven’s Violin Concerto with Verdi’s La forza del destino overture and Lutosławski’s Concerto for Orchestra o…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/joshua-bell-plays-beethoven-2027-02-192027-02-20-20002000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-02-19",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

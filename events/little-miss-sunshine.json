@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Little Miss Sunshine",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Jonathan Dayton and Valerie Faris turn a modest road comedy into a tightly controlled ensemble piece. The yellow Volkswagen van becomes both setting and pressure chamber, forcing the family into visual and emotional proximity.…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/little-miss-sunshine.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-01",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

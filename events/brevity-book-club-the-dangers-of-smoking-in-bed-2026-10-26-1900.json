@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Brevity Book Club - The Dangers of Smoking in Bed",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit: Enríquez makes the supernatural feel rooted in ordinary urban life. In “Kids Who Come Back,” missing children reappear unchanged, and the city’s response turns private grief into civic collapse. The collection’s blunt, grotesq…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/brevity-book-club-the-dangers-of-smoking-in-bed-2026-10-26-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-26",
+  "location": {
+    "@type": "Place",
+    "name": "FirstLight",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

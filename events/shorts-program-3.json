@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Shorts Program 3",
+  "description": "★ Rating: 5/10 The title identifies a festival compilation, not a single, clearly specified film. Available records attach Shorts Program 3 to several unrelated programs, with different films, directors, runtimes, countries, and themes. A serious evaluation o…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/shorts-program-3.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-01",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: Window Dressing LVII, Valerie Fowler",
+  "description": "★ Rating: 4/10 🎭 Formal Qualities No reliable documentation identifies the materials, dimensions, installation strategy, or visual details of Window Dressing LVII. A serious formal assessment therefore cannot credit composition, technique, or spatial decision…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-window-dressing-lvii-valerie-fowler-2026-10-30-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-30",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA Collective",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

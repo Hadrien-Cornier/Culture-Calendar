@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk: Via Boley: shapeshifting",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities Boley’s paintings combine cut and sanded metal, reflective vinyl, ink glazes, acrylic, and metal leaf. The surfaces are not passive supports. They catch the viewer’s reflection, fracture it, and fold it into painted figures a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-via-boley-shapeshifting-2026-10-24-1500.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-24",
+  "location": {
+    "@type": "Place",
+    "name": "Unchained.Art Contemporary Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

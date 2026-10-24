@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Faculty",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Robert Rodriguez directs The Faculty with brisk control and a clear sense of genre mechanics. The high school becomes a compact laboratory of paranoia, moving efficiently from suspicious teachers to body horror and armed confro…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-faculty.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-09",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

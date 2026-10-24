@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Free Week",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities “Free Week” is not an exhibition but a public access program at The Contemporary Austin’s Jones Center. Its formal qualities belong to the exhibitions presented during each edition, not to the event itself. Available listings…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/free-week-2026-10-28-1100.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-28",
+  "location": {
+    "@type": "Place",
+    "name": "The Contemporary Austin – Jones Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
