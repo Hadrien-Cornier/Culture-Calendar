@@ -1,0 +1,104 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Austin Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:Upcoming Austin events featuring John Singleton (director)
+X-WR-CALNAME:Culture Calendar — John Singleton
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] BOYZ N THE HOOD
+DTSTART;TZID=America/Chicago:20261110T193000
+DTEND;TZID=America/Chicago:20261110T213000
+DTSTAMP:20261031T171754Z
+UID:john-singleton-boyz-n-the-hood-2026-11-10-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nJohn Singleton’s South Central drama burns w
+ ith blunt control and lived-in streets.\n\nDetails: https://www.austinfilm
+ .org/screening/boyz-n-the-hood/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/boyz-n-the-hood/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] BOYZ N THE HOOD
+DTSTART;TZID=America/Chicago:20261114T143000
+DTEND;TZID=America/Chicago:20261114T163000
+DTSTAMP:20261031T171754Z
+UID:john-singleton-boyz-n-the-hood-2026-11-14-1430@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 8/10\n\nJohn Singleton’s South Central drama burns w
+ ith blunt control and lived-in streets.\n\nDetails: https://www.austinfilm
+ .org/screening/boyz-n-the-hood/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/boyz-n-the-hood/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] POETIC JUSTICE
+DTSTART;TZID=America/Chicago:20261117T193000
+DTEND;TZID=America/Chicago:20261117T213000
+DTSTAMP:20261031T171754Z
+UID:john-singleton-poetic-justice-2026-11-17-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 6/10\n\nJanet Jackson and Tupac Shakur's chemistry car
+ ries Singleton's South Central mail truck romance.\n\nDetails: https://www
+ .austinfilm.org/screening/poetic-justice/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/poetic-justice/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[6/10] POETIC JUSTICE
+DTSTART;TZID=America/Chicago:20261121T140000
+DTEND;TZID=America/Chicago:20261121T160000
+DTSTAMP:20261031T171754Z
+UID:john-singleton-poetic-justice-2026-11-21-1400@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 6/10\n\nJanet Jackson and Tupac Shakur's chemistry car
+ ries Singleton's South Central mail truck romance.\n\nDetails: https://www
+ .austinfilm.org/screening/poetic-justice/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/poetic-justice/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] BABY BOY
+DTSTART;TZID=America/Chicago:20261124T193000
+DTEND;TZID=America/Chicago:20261124T213000
+DTSTAMP:20261031T171754Z
+UID:john-singleton-baby-boy-2026-11-24-1930@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 7/10\n\nSingleton's social-realist LA drama: a young f
+ ather's arrested growth\, sharp performances\, silent reckonings.\n\nDetai
+ ls: https://www.austinfilm.org/screening/baby-boy/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/baby-boy/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] BABY BOY
+DTSTART;TZID=America/Chicago:20261128T150000
+DTEND;TZID=America/Chicago:20261128T170000
+DTSTAMP:20261031T171754Z
+UID:john-singleton-baby-boy-2026-11-28-1500@culturecalendar.local
+CATEGORIES:Film
+DESCRIPTION:Rating: 7/10\n\nSingleton's social-realist LA drama: a young f
+ ather's arrested growth\, sharp performances\, silent reckonings.\n\nDetai
+ ls: https://www.austinfilm.org/screening/baby-boy/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/baby-boy/
+END:VEVENT
+END:VCALENDAR

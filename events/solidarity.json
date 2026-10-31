@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Solidarity",
+  "description": "★ Rating: 7/10 The title identifies several films, including a 2005 Polish martial law short, a 2006 short by Nancy Kiang, a 2019 British documentary, a 2023 Joyce Wieland film, and a 2026 feature by Dustin Brown. The available details most clearly describe B…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/solidarity.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-01",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

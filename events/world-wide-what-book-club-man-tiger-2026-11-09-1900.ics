@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of World Wide What Book Club - Man Tiger
+X-WR-CALNAME:Culture Calendar — World Wide What Book Club - Man Tiger
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] World Wide What Book Club - Man Tiger
+DTSTART;TZID=America/Chicago:20261109T190000
+DTEND;TZID=America/Chicago:20261109T210000
+DTSTAMP:20261031T171753Z
+UID:world-wide-what-book-club---man-tiger---2026-11-09-1900-2026-11-09-190
+ 0@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 8/10\n\nIndonesian folklore and inherited rage fuel a 
+ reverse village murder mystery.\n\nDetails: https://www.firstlightaustin.c
+ om/book-club
+LOCATION:FirstLight
+URL:https://www.firstlightaustin.com/book-club
+END:VEVENT
+END:VCALENDAR

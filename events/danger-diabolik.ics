@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of DANGER: DIABOLIK
+X-WR-CALNAME:Culture Calendar — DANGER: DIABOLIK
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] DANGER: DIABOLIK
+DTSTART;TZID=America/Chicago:20261128T140000
+DTEND;TZID=America/Chicago:20261128T160000
+DTSTAMP:20261031T171753Z
+UID:danger-diabolik-2026-11-28-1400@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMario Bava's Diabolik: pop art crime spectacle
+  with aggressive zooms and colored light.\n\nDetails: https://www.austinfi
+ lm.org/screening/danger-diabolik/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/danger-diabolik/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] DANGER: DIABOLIK
+DTSTART;TZID=America/Chicago:20261203T203000
+DTEND;TZID=America/Chicago:20261203T223000
+DTSTAMP:20261031T171753Z
+UID:danger-diabolik-2026-12-03-2030@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nMario Bava's Diabolik: pop art crime spectacle
+  with aggressive zooms and colored light.\n\nDetails: https://www.austinfi
+ lm.org/screening/danger-diabolik/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/danger-diabolik/
+END:VEVENT
+END:VCALENDAR

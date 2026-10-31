@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Montopolis: Wild Horizon
+X-WR-CALNAME:Culture Calendar — Montopolis: Wild Horizon
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] Montopolis: Wild Horizon
+DTSTART;TZID=America/Chicago:20261122T180000
+DTEND;TZID=America/Chicago:20261122T200000
+DTSTAMP:20261031T171753Z
+UID:montopolis-wild-horizon---2026-11-22-1800-2026-11-22-1800@culturecalen
+ dar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 6/10\n\nLive music and projected landscapes merge in a
+  competent but unremarkable audiovisual show.\n\nDetails: https://www.thes
+ toryoftexas.com/25th-anniversary/
+LOCATION:Bullock
+URL:https://www.thestoryoftexas.com/25th-anniversary/
+END:VEVENT
+END:VCALENDAR

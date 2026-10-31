@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Long Haul",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit. Ken Hughes directs this 1957 British crime drama with functional control, using trucking routes, roadside taverns, and Liverpool’s industrial spaces to give the story a hard commercial texture. Victor Mature plays Harry Miller…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-long-haul.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-31",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

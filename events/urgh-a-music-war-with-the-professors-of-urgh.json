@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "URGH! A MUSIC WAR with The Professors of Urgh!",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Derek Burbidge’s film is strongest as a rapid, carefully assembled gallery of live performance. The 96 minute cut moves from The Police’s tense, economical “Driven to Tears,” to Wall of Voodoo’s theatrical “Back in Flesh,” Kla…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/urgh-a-music-war-with-the-professors-of-urgh.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-19",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

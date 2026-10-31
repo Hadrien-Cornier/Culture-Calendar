@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Wailing",
+  "description": "★ Rating: 9/10 The supplied metadata is incorrect. The Wailing is a 2016 South Korean film, written and directed by Na Hong-jin, with a 156 minute runtime and Korean as its original language. 🎭 Artistic Merit Na Hong-jin builds a demanding horror film from to…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-wailing.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-27",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

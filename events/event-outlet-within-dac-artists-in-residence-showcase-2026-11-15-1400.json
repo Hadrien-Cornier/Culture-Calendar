@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Event: Outlet Within: DAC Artists in Residence Showcase",
+  "description": "★ Rating: 7/10 The supplied details misidentify the venue. The documented exhibition, Outlet Within, was presented at the Julia C. Butridge Gallery at the Dougherty Arts Center, not Davis Gallery and Framing. It featured Victoria Zhuk, Stefania Garcia, Minnie…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/event-outlet-within-dac-artists-in-residence-showcase-2026-11-15-1400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-15",
+  "location": {
+    "@type": "Place",
+    "name": "Davis Gallery & Framing",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

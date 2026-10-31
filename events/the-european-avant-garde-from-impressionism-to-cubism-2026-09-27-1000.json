@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The European Avant-Garde: From Impressionism to Cubism",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities The exhibition has strong visual range but limited depth. Fourteen paintings move from Monet’s broken handling of light to Picasso’s fractured figure and Kandinsky’s geometry, making color, space, and composition the central…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-european-avant-garde-from-impressionism-to-cubism-2026-09-27-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-27",
+  "location": {
+    "@type": "Place",
+    "name": "Blanton",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Vox Luminis | Vespers of 1910",
+  "description": "★ Rating: 3/10 🎭 Artistic Merit – The provided search results contain no record of a Vox Luminis concert titled \"Vespers of 1910\" or a performance of Monteverdi's Vespro della Beata Vergine at Arts on Alexander in the 2026-27 season. The ensemble is known for…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/vox-luminis-vespers-of-1910-2026-11-14-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-14",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE CONJURING",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit James Wan directs with disciplined control of space, sound, and delayed revelation. The Perron farmhouse becomes a readable visual system, with long corridors, dark stairwells, and rooms that conceal threats just outside the fr…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-conjuring.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-30",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

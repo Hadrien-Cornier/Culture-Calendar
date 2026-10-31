@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE GOOD, THE BAD AND THE UGLY",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit. Leone turns duration into a weapon. The opening takes its time introducing Tuco, Blondie, and Angel Eyes as comic predators, then expands their pursuit across deserts, prisons, battlefields, and a ruined cemetery. Tonino Delli…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-good-the-bad-and-the-ugly.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-03",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

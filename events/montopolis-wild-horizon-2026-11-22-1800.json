@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Montopolis: Wild Horizon",
+  "description": "★ Rating: 6/10 🎭 Formal Qualities Wild Horizon pairs live music with projected landscapes in the Bullock’s Texas Spirit Theater, a setting built for audiovisual spectacle. Montopolis brings a credible musical foundation, led by composer Justin Sherburn and ce…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/montopolis-wild-horizon-2026-11-22-1800.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-22",
+  "location": {
+    "@type": "Place",
+    "name": "Bullock",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

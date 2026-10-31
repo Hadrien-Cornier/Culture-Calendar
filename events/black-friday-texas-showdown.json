@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BLACK FRIDAY TEXAS SHOWDOWN",
+  "description": "★ Rating: 0/10 🎭 Artistic Merit, No verifiable film record, director, runtime, cast, or production information could be found for BLACK FRIDAY TEXAS SHOWDOWN. The available results point instead to unrelated films titled Black Friday and to a Texas gaming tou…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/black-friday-texas-showdown.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-27",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

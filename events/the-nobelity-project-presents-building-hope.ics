@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of The Nobelity Project presents BUILDING HOPE
+X-WR-CALNAME:Culture Calendar — The Nobelity Project presents BUILDING H
+ OPE
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[6/10] The Nobelity Project presents BUILDING HOPE
+DTSTART;TZID=America/Chicago:20261122T183000
+DTEND;TZID=America/Chicago:20261122T203000
+DTSTAMP:20261031T171753Z
+UID:the-nobelity-project-presents-building-hope-2026-11-22-1830@culturecal
+ endar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 6/10\n\nA Kenyan school rises through drought\, floods
+ \, and fundraising battles with folk soundtrack.\n\nDetails: https://www.a
+ ustinfilm.org/screening/the-nobelity-project-presents-building-hope/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-nobelity-project-presents-bui
+ lding-hope/
+END:VEVENT
+END:VCALENDAR

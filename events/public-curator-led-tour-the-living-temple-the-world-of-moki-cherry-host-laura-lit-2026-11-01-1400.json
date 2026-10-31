@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Public Curator-Led Tour: The Living Temple: The World of Moki Cherry & HOST: Laura Lit",
+  "description": "★ Rating: 8/10 🎭 Formal Qualities The exhibition makes its strongest case through range and arrangement. Textiles, costumes, ceramics, posters, video, sound, and archival material occupy the Jones Center as parts of one expanded environment, rather than as is…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/public-curator-led-tour-the-living-temple-the-world-of-moki-cherry-host-laura-lit-2026-11-01-1400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-01",
+  "location": {
+    "@type": "Place",
+    "name": "Jones Center",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

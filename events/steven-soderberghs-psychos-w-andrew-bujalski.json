@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Steven Soderbergh's Psychos w/ Andrew Bujalski",
+  "description": "★ Rating: 1/10 🎭 Artistic Merit. No verifiable film titled Steven Soderbergh's Psychos w/ Andrew Bujalski appears in the available filmographies for either filmmaker. Soderbergh was born in 1963, making a 1960 directorial credit impossible, and his documented…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/steven-soderberghs-psychos-w-andrew-bujalski.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-22",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

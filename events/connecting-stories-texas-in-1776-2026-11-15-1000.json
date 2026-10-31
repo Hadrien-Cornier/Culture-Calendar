@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Connecting Stories: Texas in 1776",
+  "description": "★ Rating: 3/10 The available record does not support a responsible review of the specific exhibition as an installed show. Mexic-Arte lists Connecting Stories: Texas in 1776 for November 15, 2026 through February 14, 2027, but the listing supplies no confirme…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/connecting-stories-texas-in-1776-2026-11-15-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-15",
+  "location": {
+    "@type": "Place",
+    "name": "MexicArte",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
