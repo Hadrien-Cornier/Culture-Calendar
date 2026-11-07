@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Home Alone 2",
+  "description": "★ Rating: 6/10 Movie details. Home Alone 2: Lost in New York is a 1992 American English language comedy, directed by Chris Columbus, written and produced by John Hughes, with a running time of about 120 minutes. 🎭 Artistic Merit Columbus stages the film with…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/home-alone-2.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-07",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

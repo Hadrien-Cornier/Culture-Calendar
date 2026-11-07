@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "La traviata",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit – Franco Zeffirelli’s 1982 film version of Verdi’s La traviata delivers technically masterful execution through luxuriant settings, precise costume design, and a cinematic approach that treats opera as a dramatic spectacle rath…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/la-traviata-2027-04-22-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-04-22",
+  "location": {
+    "@type": "Place",
+    "name": "Opera",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

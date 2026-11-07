@@ -1,0 +1,78 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of THE DEVILS
+X-WR-CALNAME:Culture Calendar — THE DEVILS
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] THE DEVILS
+DTSTART;TZID=America/Chicago:20261109T154500
+DTEND;TZID=America/Chicago:20261109T174500
+DTSTAMP:20261107T180423Z
+UID:the-devils-2026-11-09-1545@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nFerocious\, diseased spectacle of possession a
+ nd execution\, anchored by Reed's Grandier.\n\nDetails: https://www.austin
+ film.org/screening/the-devils/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-devils/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE DEVILS
+DTSTART;TZID=America/Chicago:20261110T163000
+DTEND;TZID=America/Chicago:20261110T183000
+DTSTAMP:20261107T180423Z
+UID:the-devils-2026-11-10-1630@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nFerocious\, diseased spectacle of possession a
+ nd execution\, anchored by Reed's Grandier.\n\nDetails: https://www.austin
+ film.org/screening/the-devils/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-devils/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE DEVILS
+DTSTART;TZID=America/Chicago:20261111T191500
+DTEND;TZID=America/Chicago:20261111T211500
+DTSTAMP:20261107T180423Z
+UID:the-devils-2026-11-11-1915@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nFerocious\, diseased spectacle of possession a
+ nd execution\, anchored by Reed's Grandier.\n\nDetails: https://www.austin
+ film.org/screening/the-devils/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-devils/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] THE DEVILS
+DTSTART;TZID=America/Chicago:20261112T201500
+DTEND;TZID=America/Chicago:20261112T221500
+DTSTAMP:20261107T180423Z
+UID:the-devils-2026-11-12-2015@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nFerocious\, diseased spectacle of possession a
+ nd execution\, anchored by Reed's Grandier.\n\nDetails: https://www.austin
+ film.org/screening/the-devils/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/the-devils/
+END:VEVENT
+END:VCALENDAR

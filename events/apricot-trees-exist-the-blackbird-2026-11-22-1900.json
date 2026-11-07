@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Apricot Trees Exist - The Blackbird",
+  "description": "★ Rating: 7/10 Christian Schlegel’s The Blackbird looks like a serious, smart book of talk poems, and the available descriptions point to real control of voice, sequence, and intellectual range. Its five extended poems move from the Catskills to Fancy Lad ska…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/apricot-trees-exist-the-blackbird-2026-11-22-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-22",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

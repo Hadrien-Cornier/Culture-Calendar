@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of DEEP IN THE HEART 2: TEXAS RIVERS
+X-WR-CALNAME:Culture Calendar — DEEP IN THE HEART 2: TEXAS RIVERS
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] DEEP IN THE HEART 2: TEXAS RIVERS
+DTSTART;TZID=America/Chicago:20261108T171500
+DTEND;TZID=America/Chicago:20261108T191500
+DTSTAMP:20261107T180423Z
+UID:deep-in-the-heart-2-texas-rivers-2026-11-08-1715@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA sweeping documentary linking Texas rivers th
+ rough wildlife and wide landscapes.\n\nDetails: https://www.austinfilm.org
+ /screening/deep-in-the-heart-2-texas-rivers/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/deep-in-the-heart-2-texas-rivers/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] DEEP IN THE HEART 2: TEXAS RIVERS
+DTSTART;TZID=America/Chicago:20261110T154500
+DTEND;TZID=America/Chicago:20261110T174500
+DTSTAMP:20261107T180423Z
+UID:deep-in-the-heart-2-texas-rivers-2026-11-10-1545@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA sweeping documentary linking Texas rivers th
+ rough wildlife and wide landscapes.\n\nDetails: https://www.austinfilm.org
+ /screening/deep-in-the-heart-2-texas-rivers/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/deep-in-the-heart-2-texas-rivers/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] DEEP IN THE HEART 2: TEXAS RIVERS
+DTSTART;TZID=America/Chicago:20261111T161500
+DTEND;TZID=America/Chicago:20261111T181500
+DTSTAMP:20261107T180423Z
+UID:deep-in-the-heart-2-texas-rivers-2026-11-11-1615@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nA sweeping documentary linking Texas rivers th
+ rough wildlife and wide landscapes.\n\nDetails: https://www.austinfilm.org
+ /screening/deep-in-the-heart-2-texas-rivers/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/deep-in-the-heart-2-texas-rivers/
+END:VEVENT
+END:VCALENDAR

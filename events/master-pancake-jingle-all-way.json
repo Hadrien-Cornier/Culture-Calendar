@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Master Pancake: Jingle All Way",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Master Pancake: Jingle All Way is not a conventional film but a live comic intervention, in which performers riff over a screening in the tradition of Mystery Science Theater 3000. Its craft lies in timing, vocal coordination,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/master-pancake-jingle-all-way.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-16",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

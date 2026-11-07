@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Matilda",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Danny DeVito directs with unusual control over tonal contrast. The film moves from grotesque comedy, as in Harry Wormwood’s fraudulent car sales and Miss Trunchbull’s brutal school regime, to genuine tenderness in Miss Honey’s…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/matilda.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-17",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "WILD FOXES",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Carnoy directs with physical precision. The handheld camera stays close to Camille, a young boxer whose near fatal injury abruptly replaces motion with enforced stillness. In the ring, the camera ducks and sways with the fighte…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/wild-foxes.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-12",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

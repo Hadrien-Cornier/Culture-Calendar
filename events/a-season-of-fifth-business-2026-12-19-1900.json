@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A Season Of - Fifth Business",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit, Davies writes with control and wit, and the book’s frame narrative, a retrospective letter from Dunstan Ramsay to a headmaster, gives the story a firm, almost confessional shape. The opening accident, the snowball that hits Ma…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-season-of-fifth-business-2026-12-19-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-19",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

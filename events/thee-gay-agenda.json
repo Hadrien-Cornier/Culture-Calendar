@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Thee Gay Agenda",
+  "description": "The available record identifies related works titled The Gay Agenda, but not a film specifically titled Thee Gay Agenda. The closest match is a three minute English documentary short from 2013, directed and written by Anna McGrath, about reclaiming the phrase…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/thee-gay-agenda.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-07",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

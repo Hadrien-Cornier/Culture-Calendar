@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "OFFICE KILLER",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit Cindy Sherman gives Office Killer a controlled visual surface, built from static compositions, consumer magazine interiors, window shade shadows, and carefully staged domestic tableaux. The fixed shot of Dorine’s mother rising…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/office-killer.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-27",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

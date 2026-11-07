@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Artist Talk: Fallon Bartos, Charles Heppner, and John Sager",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities. Enclosures brings together box constructions, tactile assemblies, layered images, salvaged materials, and historical remnants. Bartos turns found patterns into compact structures, Heppner works through intimate visual layeri…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/artist-talk-fallon-bartos-charles-heppner-and-john-sager-2026-11-07-1300.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-07",
+  "location": {
+    "@type": "Place",
+    "name": "Davis Gallery & Framing",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

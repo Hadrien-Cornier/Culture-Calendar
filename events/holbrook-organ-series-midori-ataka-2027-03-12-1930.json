@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Holbrook Organ Series | Midori Ataka",
+  "description": "Sources are thin: no search result lists Midori Ataka as a performer, specifies her composers, or describes any works she played in the Holbrook Organ Series for the 2026–27 season. I can confirm the series exists at Arts on Alexander in Austin, runs free con…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/holbrook-organ-series-midori-ataka-2027-03-12-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-03-12",
+  "location": {
+    "@type": "Place",
+    "name": "ArtsOnAlexander",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

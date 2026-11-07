@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: After",
+  "description": "★ Rating: 5/10 The available documentation identifies After as a group exhibition curated by Veronica Ceci, with work by ten artists working across different locations and practices. Its stated subject is landscape on a planet reshaped by political indifferen…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-after-2026-11-07-1700.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-07",
+  "location": {
+    "@type": "Place",
+    "name": "Link & Pin Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

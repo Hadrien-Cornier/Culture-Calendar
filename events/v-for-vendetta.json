@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "V for Vendetta",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit James McTeigue’s 2005 film, written by the Wachowskis, has strong visual control and precise theatrical staging. The opening Guy Fawkes plot, the domino sequence, the destruction of the Old Bailey, and the final masked crowd gi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/v-for-vendetta.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-05",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

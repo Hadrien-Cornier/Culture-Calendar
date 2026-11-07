@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Winter Program",
+  "description": "★ Rating: 6/10 The available record identifies only a Winter program by IshidaDance, not a specific performance date, cast, venue, or confirmed repertoire. The evidence points most clearly to the January 2025 program, as long as there is in me, but a precise…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/winter-program-2027-01-20-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-20",
+  "location": {
+    "@type": "Place",
+    "name": "IshidaDance",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

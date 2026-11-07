@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Black Is Not a Genre presents: HE GOT GAME",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Spike Lee directs He Got Game as both family drama and basketball film, shifting between prison corridors, Coney Island courts, college recruiting rooms, and the private spaces where father and son confront each other. The ope…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/black-is-not-a-genre-presents-he-got-game.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-09",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

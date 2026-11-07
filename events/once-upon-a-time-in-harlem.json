@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ONCE UPON A TIME IN HARLEM",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit The film turns a 1972 gathering at Duke Ellington’s townhouse into a carefully shaped archival drama. William Greaves’s 16mm footage preserves the room’s shifting energy, as artists reminisce, argue, drink, and challenge one an…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/once-upon-a-time-in-harlem.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-13",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

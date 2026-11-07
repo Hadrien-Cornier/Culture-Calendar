@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Opening Reception: The Overview Effect",
+  "description": "★ Rating: 5/10 🎭 Formal Qualities The available record gives no images, installation views, individual artwork descriptions, media, or technical information, so formal judgment must remain limited. The exhibition is a juried group show at ICOSA, built around…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/opening-reception-the-overview-effect-2026-11-13-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-13",
+  "location": {
+    "@type": "Place",
+    "name": "ICOSA Collective",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

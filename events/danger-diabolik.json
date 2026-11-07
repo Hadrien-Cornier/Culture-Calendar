@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "DANGER: DIABOLIK",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Mario Bava turns limited resources into a controlled pop art spectacle. The underground lair, with its futuristic machinery embedded in raw rock, gives the film its strongest visual idea, while matte paintings, geometric inter…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/danger-diabolik.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-28",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

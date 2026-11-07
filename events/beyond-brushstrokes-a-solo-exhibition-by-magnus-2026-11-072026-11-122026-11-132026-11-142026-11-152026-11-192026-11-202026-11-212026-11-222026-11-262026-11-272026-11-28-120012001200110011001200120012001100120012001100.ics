@@ -1,0 +1,232 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of beyond brushstrokes: a solo exhibition by M
+ agnus
+X-WR-CALNAME:Culture Calendar — beyond brushstrokes: a solo exhibition b
+ y Magnus
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261107T120000
+DTEND;TZID=America/Chicago:20261107T140000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-07-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261112T120000
+DTEND;TZID=America/Chicago:20261112T140000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-12-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261113T120000
+DTEND;TZID=America/Chicago:20261113T140000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-13-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261114T110000
+DTEND;TZID=America/Chicago:20261114T130000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-14-1100@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261115T110000
+DTEND;TZID=America/Chicago:20261115T130000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-15-1100@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261119T120000
+DTEND;TZID=America/Chicago:20261119T140000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-19-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261120T120000
+DTEND;TZID=America/Chicago:20261120T140000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-20-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261121T120000
+DTEND;TZID=America/Chicago:20261121T140000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-21-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261122T110000
+DTEND;TZID=America/Chicago:20261122T130000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-22-1100@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261126T120000
+DTEND;TZID=America/Chicago:20261126T140000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-26-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261127T120000
+DTEND;TZID=America/Chicago:20261127T140000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-27-1200@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] beyond brushstrokes: a solo exhibition by Magnus
+DTSTART;TZID=America/Chicago:20261128T110000
+DTEND;TZID=America/Chicago:20261128T130000
+DTSTAMP:20261107T180423Z
+UID:beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-072026-11-12
+ 2026-11-132026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026
+ -11-262026-11-272026-11-28-12001200120011001100120012001200110012001200110
+ 0-2026-11-28-1100@culturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nBold color and flattened forms anchor Magnus's
+  focused figurative paintings.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/beyond-brushstrokes-a-solo-exhibition-by-magnus/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibiti
+ on-by-magnus/
+END:VEVENT
+END:VCALENDAR

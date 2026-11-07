@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "DEEP IN THE HEART 2: TEXAS RIVERS",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Ben Masters gives the sequel a clear visual and structural purpose. The film moves across the Rio Grande, Guadalupe, Llano, Neches, Pecos, and Sabine, pairing wide landscape photography with close observation of otters, snappin…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/deep-in-the-heart-2-texas-rivers.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-08",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
