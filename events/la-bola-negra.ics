@@ -1,0 +1,143 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of LA BOLA NEGRA
+X-WR-CALNAME:Culture Calendar — LA BOLA NEGRA
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] LA BOLA NEGRA
+DTSTART;TZID=America/Chicago:20261114T131500
+DTEND;TZID=America/Chicago:20261114T151500
+DTSTAMP:20261114T182037Z
+UID:la-bola-negra-2026-11-14-1315@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nThree generations\, one black ball: desire\, v
+ iolence\, and family secrets collide.\n\nDetails: https://www.austinfilm.o
+ rg/screening/la-bola-negra/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-bola-negra/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] LA BOLA NEGRA
+DTSTART;TZID=America/Chicago:20261114T184500
+DTEND;TZID=America/Chicago:20261114T204500
+DTSTAMP:20261114T182037Z
+UID:la-bola-negra-2026-11-14-1845@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nThree generations\, one black ball: desire\, v
+ iolence\, and family secrets collide.\n\nDetails: https://www.austinfilm.o
+ rg/screening/la-bola-negra/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-bola-negra/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] LA BOLA NEGRA
+DTSTART;TZID=America/Chicago:20261115T135000
+DTEND;TZID=America/Chicago:20261115T155000
+DTSTAMP:20261114T182037Z
+UID:la-bola-negra-2026-11-15-1350@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nThree generations\, one black ball: desire\, v
+ iolence\, and family secrets collide.\n\nDetails: https://www.austinfilm.o
+ rg/screening/la-bola-negra/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-bola-negra/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] LA BOLA NEGRA
+DTSTART;TZID=America/Chicago:20261115T183000
+DTEND;TZID=America/Chicago:20261115T203000
+DTSTAMP:20261114T182037Z
+UID:la-bola-negra-2026-11-15-1830@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nThree generations\, one black ball: desire\, v
+ iolence\, and family secrets collide.\n\nDetails: https://www.austinfilm.o
+ rg/screening/la-bola-negra/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-bola-negra/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] LA BOLA NEGRA
+DTSTART;TZID=America/Chicago:20261116T153000
+DTEND;TZID=America/Chicago:20261116T173000
+DTSTAMP:20261114T182037Z
+UID:la-bola-negra-2026-11-16-1530@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nThree generations\, one black ball: desire\, v
+ iolence\, and family secrets collide.\n\nDetails: https://www.austinfilm.o
+ rg/screening/la-bola-negra/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-bola-negra/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] LA BOLA NEGRA
+DTSTART;TZID=America/Chicago:20261116T183000
+DTEND;TZID=America/Chicago:20261116T203000
+DTSTAMP:20261114T182037Z
+UID:la-bola-negra-2026-11-16-1830@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nThree generations\, one black ball: desire\, v
+ iolence\, and family secrets collide.\n\nDetails: https://www.austinfilm.o
+ rg/screening/la-bola-negra/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-bola-negra/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] LA BOLA NEGRA
+DTSTART;TZID=America/Chicago:20261117T154500
+DTEND;TZID=America/Chicago:20261117T174500
+DTSTAMP:20261114T182037Z
+UID:la-bola-negra-2026-11-17-1545@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nThree generations\, one black ball: desire\, v
+ iolence\, and family secrets collide.\n\nDetails: https://www.austinfilm.o
+ rg/screening/la-bola-negra/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-bola-negra/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] LA BOLA NEGRA
+DTSTART;TZID=America/Chicago:20261118T190000
+DTEND;TZID=America/Chicago:20261118T210000
+DTSTAMP:20261114T182037Z
+UID:la-bola-negra-2026-11-18-1900@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nThree generations\, one black ball: desire\, v
+ iolence\, and family secrets collide.\n\nDetails: https://www.austinfilm.o
+ rg/screening/la-bola-negra/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-bola-negra/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] LA BOLA NEGRA
+DTSTART;TZID=America/Chicago:20261119T181500
+DTEND;TZID=America/Chicago:20261119T201500
+DTSTAMP:20261114T182037Z
+UID:la-bola-negra-2026-11-19-1815@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nThree generations\, one black ball: desire\, v
+ iolence\, and family secrets collide.\n\nDetails: https://www.austinfilm.o
+ rg/screening/la-bola-negra/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/la-bola-negra/
+END:VEVENT
+END:VCALENDAR

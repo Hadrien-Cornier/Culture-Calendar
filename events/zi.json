@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Zi",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Kogonada gives Zi a disciplined, mobile form. Shot over a single night in Hong Kong, the film moves through alleyways, crowded streets, and transient interiors as Zi, a violinist played by Michelle Mao, encounters visions of an…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/zi.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-25",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

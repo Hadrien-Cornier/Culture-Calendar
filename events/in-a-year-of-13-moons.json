@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "IN A YEAR OF 13 MOONS",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Fassbinder turns five days in Elvira’s life into a rigorously controlled descent through cramped rooms, hostile streets, and theatrical interiors. Volker Spengler gives the film its unstable center, shifting from clowning brava…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/in-a-year-of-13-moons.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-26",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

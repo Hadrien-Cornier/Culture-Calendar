@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "HARDBALL",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit. Brian Robbins directs Hardball, a 2001, 106 minute American sports drama about a failed gambler who coaches a Chicago youth baseball team. The film is competently staged, and its strongest passages come when the players’ crude…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/hardball.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-03",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

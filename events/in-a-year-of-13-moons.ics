@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of IN A YEAR OF 13 MOONS
+X-WR-CALNAME:Culture Calendar — IN A YEAR OF 13 MOONS
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[9/10] IN A YEAR OF 13 MOONS
+DTSTART;TZID=America/Chicago:20261226T154500
+DTEND;TZID=America/Chicago:20261226T174500
+DTSTAMP:20261114T182037Z
+UID:in-a-year-of-13-moons-2026-12-26-1545@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nFassbinder’s cold\, cruel masterpiece of ide
+ ntity\, rejection\, and theatrical despair.\n\nDetails: https://www.austin
+ film.org/screening/in-a-year-of-13-moons/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/in-a-year-of-13-moons/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] IN A YEAR OF 13 MOONS
+DTSTART;TZID=America/Chicago:20261228T180000
+DTEND;TZID=America/Chicago:20261228T200000
+DTSTAMP:20261114T182037Z
+UID:in-a-year-of-13-moons-2026-12-28-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nFassbinder’s cold\, cruel masterpiece of ide
+ ntity\, rejection\, and theatrical despair.\n\nDetails: https://www.austin
+ film.org/screening/in-a-year-of-13-moons/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/in-a-year-of-13-moons/
+END:VEVENT
+END:VCALENDAR

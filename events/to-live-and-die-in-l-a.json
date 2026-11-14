@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TO LIVE AND DIE IN L.A.",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Friedkin builds the film from speed, surfaces, and controlled brutality. Robby Müller’s location photography turns Los Angeles into a bleaching, unstable grid, where pastel daylight, industrial lots, freeway concrete, and chea…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/to-live-and-die-in-l-a.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-12",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

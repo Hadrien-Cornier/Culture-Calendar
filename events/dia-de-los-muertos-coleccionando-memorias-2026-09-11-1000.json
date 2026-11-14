@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Día de los Muertos: Coleccionando Memorias",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities The exhibition’s strongest formal strategy is its range. José Guadalupe Posada’s graphic calavera prints provide sharp black and white structure, while the Linares family’s cartonería introduces painted volume, theatrical col…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/dia-de-los-muertos-coleccionando-memorias-2026-09-11-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-11",
+  "location": {
+    "@type": "Place",
+    "name": "MexicArte",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

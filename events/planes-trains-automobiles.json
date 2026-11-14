@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Planes, Trains, & Automobiles",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit John Hughes turns a travel disaster into a tightly controlled comic structure. The film moves through airports, trains, motels, highways, and a burned out car, using each location to strip Neal Page of his professional composur…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/planes-trains-automobiles.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-21",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Ratatouille + Snack Potluck
+X-WR-CALNAME:Culture Calendar — Ratatouille + Snack Potluck
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Ratatouille + Snack Potluck
+DTSTART;TZID=America/Chicago:20261126T193000
+DTEND;TZID=America/Chicago:20261126T213000
+DTSTAMP:20261114T182037Z
+UID:ratatouille-+-snack-potluck-2026-11-26-1930@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 7/10\n\nRatatouille's tactile food animation meets a c
+ ommunity snack potluck at Hyperreal.\n\nDetails: https://hyperrealfilm.clu
+ b/events/11-26/ratatouille-movie-screening
+LOCATION:Hyperreal
+URL:https://hyperrealfilm.club/events/11-26/ratatouille-movie-screening
+END:VEVENT
+END:VCALENDAR

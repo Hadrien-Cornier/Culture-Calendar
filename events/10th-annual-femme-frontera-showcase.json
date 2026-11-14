@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "10th ANNUAL FEMME FRONTERA SHOWCASE",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit As a program, the showcase benefits from sharp variety rather than a single unified style. The selections move between comedy, fantasy, documentary, and intimate family drama, with films such as Juana Pelos, Pocha, Thin Places,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/10th-annual-femme-frontera-showcase.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-13",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

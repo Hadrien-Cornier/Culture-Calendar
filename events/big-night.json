@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Big Night",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Big Night is a carefully controlled character drama disguised as a restaurant comedy. Stanley Tucci and Tony Shalhoub give the film its center, with Primo’s absolutist culinary standards clashing against Secondo’s commercial pr…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/big-night.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-24",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

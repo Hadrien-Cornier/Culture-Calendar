@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A HOLIDAY AFFAIR",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit. Don Hartman directs with clean efficiency, and the 87 minute running time keeps the story moving through department store bustle, domestic interiors, and a Christmas shopping date. Robert Mitchum gives Steve Mason an appealing…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-holiday-affair.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-25",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

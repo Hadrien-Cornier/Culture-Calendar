@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of TO LIVE AND DIE IN L.A.
+X-WR-CALNAME:Culture Calendar — TO LIVE AND DIE IN L.A.
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] TO LIVE AND DIE IN L.A.
+DTSTART;TZID=America/Chicago:20261212T174500
+DTEND;TZID=America/Chicago:20261212T194500
+DTSTAMP:20261114T182037Z
+UID:to-live-and-die-in-l.a.-2026-12-12-1745@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nFriedkin’s L.A. burns with speed\, paper\, i
+ nk\, and controlled brutality.\n\nDetails: https://www.austinfilm.org/scre
+ ening/to-live-and-die-in-l-a/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/to-live-and-die-in-l-a/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] TO LIVE AND DIE IN L.A.
+DTSTART;TZID=America/Chicago:20261216T194500
+DTEND;TZID=America/Chicago:20261216T214500
+DTSTAMP:20261114T182037Z
+UID:to-live-and-die-in-l.a.-2026-12-16-1945@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nFriedkin’s L.A. burns with speed\, paper\, i
+ nk\, and controlled brutality.\n\nDetails: https://www.austinfilm.org/scre
+ ening/to-live-and-die-in-l-a/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/to-live-and-die-in-l-a/
+END:VEVENT
+END:VCALENDAR

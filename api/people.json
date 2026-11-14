@@ -1,0 +1,679 @@
+{
+  "generated_at": "2026-11-14T18:20:36Z",
+  "site_url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "count": 84,
+  "data": [
+    {
+      "slug": "claudio-monteverdi",
+      "name": "Claudio Monteverdi",
+      "role": "composer",
+      "event_count": 3,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/claudio-monteverdi.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/claudio-monteverdi.ics"
+    },
+    {
+      "slug": "giuseppe-verdi",
+      "name": "Giuseppe Verdi",
+      "role": "composer",
+      "event_count": 3,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/giuseppe-verdi.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/giuseppe-verdi.ics"
+    },
+    {
+      "slug": "johann-sebastian-bach",
+      "name": "Johann Sebastian Bach",
+      "role": "composer",
+      "event_count": 3,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/johann-sebastian-bach.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/johann-sebastian-bach.ics"
+    },
+    {
+      "slug": "john-singleton",
+      "name": "John Singleton",
+      "role": "director",
+      "event_count": 3,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/john-singleton.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/john-singleton.ics"
+    },
+    {
+      "slug": "jules-massenet",
+      "name": "Jules Massenet",
+      "role": "composer",
+      "event_count": 3,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/jules-massenet.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/jules-massenet.ics"
+    },
+    {
+      "slug": "barbara-strozzi",
+      "name": "Barbara Strozzi",
+      "role": "composer",
+      "event_count": 2,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/barbara-strozzi.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/barbara-strozzi.ics"
+    },
+    {
+      "slug": "camille-saint-saens",
+      "name": "Camille Saint-Saens",
+      "role": "composer",
+      "event_count": 2,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/camille-saint-saens.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/camille-saint-saens.ics"
+    },
+    {
+      "slug": "gregory-spears",
+      "name": "Gregory Spears",
+      "role": "composer",
+      "event_count": 2,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/gregory-spears.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/gregory-spears.ics"
+    },
+    {
+      "slug": "guillaume-de-machaut",
+      "name": "Guillaume de Machaut",
+      "role": "composer",
+      "event_count": 2,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/guillaume-de-machaut.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/guillaume-de-machaut.ics"
+    },
+    {
+      "slug": "heinrich-schutz",
+      "name": "Heinrich Schutz",
+      "role": "composer",
+      "event_count": 2,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/heinrich-schutz.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/heinrich-schutz.ics"
+    },
+    {
+      "slug": "hildegard-von-bingen",
+      "name": "Hildegard von Bingen",
+      "role": "composer",
+      "event_count": 2,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/hildegard-von-bingen.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/hildegard-von-bingen.ics"
+    },
+    {
+      "slug": "marc-antoine-charpentier",
+      "name": "Marc-Antoine Charpentier",
+      "role": "composer",
+      "event_count": 2,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/marc-antoine-charpentier.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/marc-antoine-charpentier.ics"
+    },
+    {
+      "slug": "various",
+      "name": "Various",
+      "role": "director",
+      "event_count": 2,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/various.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/various.ics"
+    },
+    {
+      "slug": "antonio-vivaldi",
+      "name": "Antonio Vivaldi",
+      "role": "composer",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/antonio-vivaldi.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/antonio-vivaldi.ics"
+    },
+    {
+      "slug": "avalon-fast-jillian-frank",
+      "name": "Avalon Fast & Jillian Frank",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/avalon-fast-jillian-frank.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/avalon-fast-jillian-frank.ics"
+    },
+    {
+      "slug": "bong-joon-ho",
+      "name": "Bong Joon Ho",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/bong-joon-ho.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/bong-joon-ho.ics"
+    },
+    {
+      "slug": "christian-schlegel-december-no-meeting-attending-book-club-holiday-party",
+      "name": "Christian Schlegel December - no meeting / attending book club holiday party",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/christian-schlegel-december-no-meeting-attending-book-club-holiday-party.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/christian-schlegel-december-no-meeting-attending-book-club-holiday-party.ics"
+    },
+    {
+      "slug": "cindy-sherman",
+      "name": "Cindy Sherman",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/cindy-sherman.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/cindy-sherman.ics"
+    },
+    {
+      "slug": "claire-devers",
+      "name": "Claire Devers",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/claire-devers.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/claire-devers.ics"
+    },
+    {
+      "slug": "clarice-lispector",
+      "name": "Clarice Lispector",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/clarice-lispector.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/clarice-lispector.ics"
+    },
+    {
+      "slug": "derek-burbridge",
+      "name": "Derek Burbridge",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/derek-burbridge.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/derek-burbridge.ics"
+    },
+    {
+      "slug": "don-hartman",
+      "name": "Don Hartman",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/don-hartman.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/don-hartman.ics"
+    },
+    {
+      "slug": "eileen-chang",
+      "name": "Eileen Chang",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/eileen-chang.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/eileen-chang.ics"
+    },
+    {
+      "slug": "emma-cline",
+      "name": "Emma Cline",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/emma-cline.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/emma-cline.ics"
+    },
+    {
+      "slug": "emmanuel-marre",
+      "name": "Emmanuel Marre",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/emmanuel-marre.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/emmanuel-marre.ics"
+    },
+    {
+      "slug": "frederic-chopin",
+      "name": "Frederic Chopin",
+      "role": "composer",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/frederic-chopin.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/frederic-chopin.ics"
+    },
+    {
+      "slug": "george-frideric-handel",
+      "name": "George Frideric Handel",
+      "role": "composer",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/george-frideric-handel.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/george-frideric-handel.ics"
+    },
+    {
+      "slug": "giuseppe-tornatore",
+      "name": "Giuseppe Tornatore",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/giuseppe-tornatore.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/giuseppe-tornatore.ics"
+    },
+    {
+      "slug": "gregor-von-rezzori",
+      "name": "Gregor von Rezzori",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/gregor-von-rezzori.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/gregor-von-rezzori.ics"
+    },
+    {
+      "slug": "guy-maddin",
+      "name": "Guy Maddin",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/guy-maddin.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/guy-maddin.ics"
+    },
+    {
+      "slug": "halldor-laxness",
+      "name": "Halldor Laxness",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/halldor-laxness.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/halldor-laxness.ics"
+    },
+    {
+      "slug": "halldor-laxness",
+      "name": "Halldór Laxness",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/halldor-laxness.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/halldor-laxness.ics"
+    },
+    {
+      "slug": "haruki-kadokawa",
+      "name": "Haruki Kadokawa",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/haruki-kadokawa.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/haruki-kadokawa.ics"
+    },
+    {
+      "slug": "howard-hawks",
+      "name": "Howard Hawks",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/howard-hawks.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/howard-hawks.ics"
+    },
+    {
+      "slug": "hector-lopez-carmona-rafael-angel-gil-and-ulises-perez-aguirre",
+      "name": "Héctor López Carmona, Rafael Ángel Gil, and Ulises Pérez Aguirre",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/hector-lopez-carmona-rafael-angel-gil-and-ulises-perez-aguirre.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/hector-lopez-carmona-rafael-angel-gil-and-ulises-perez-aguirre.ics"
+    },
+    {
+      "slug": "igor-stravinsky",
+      "name": "Igor Stravinsky",
+      "role": "composer",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/igor-stravinsky.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/igor-stravinsky.ics"
+    },
+    {
+      "slug": "itamar-vieira-junior",
+      "name": "Itamar Vieira Junior",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/itamar-vieira-junior.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/itamar-vieira-junior.ics"
+    },
+    {
+      "slug": "james-gray",
+      "name": "James Gray",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/james-gray.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/james-gray.ics"
+    },
+    {
+      "slug": "jang-sun-woo",
+      "name": "Jang Sun-woo",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/jang-sun-woo.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/jang-sun-woo.ics"
+    },
+    {
+      "slug": "javier-calvo-and-javier-ambrossi",
+      "name": "Javier Calvo and Javier Ambrossi",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/javier-calvo-and-javier-ambrossi.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/javier-calvo-and-javier-ambrossi.ics"
+    },
+    {
+      "slug": "john-wilson",
+      "name": "John Wilson",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/john-wilson.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/john-wilson.ics"
+    },
+    {
+      "slug": "julia-loktev",
+      "name": "Julia Loktev",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/julia-loktev.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/julia-loktev.ics"
+    },
+    {
+      "slug": "ken-russell",
+      "name": "Ken Russell",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/ken-russell.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/ken-russell.ics"
+    },
+    {
+      "slug": "kogonada",
+      "name": "Kogonada",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/kogonada.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/kogonada.ics"
+    },
+    {
+      "slug": "lee-chang-dong",
+      "name": "Lee Chang-dong",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/lee-chang-dong.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/lee-chang-dong.ics"
+    },
+    {
+      "slug": "lila-pinell",
+      "name": "Lila Pinell",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/lila-pinell.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/lila-pinell.ics"
+    },
+    {
+      "slug": "lindsay-anderson",
+      "name": "Lindsay Anderson",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/lindsay-anderson.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/lindsay-anderson.ics"
+    },
+    {
+      "slug": "luchino-visconti",
+      "name": "Luchino Visconti",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/luchino-visconti.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/luchino-visconti.ics"
+    },
+    {
+      "slug": "mario-bava",
+      "name": "Mario Bava",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/mario-bava.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/mario-bava.ics"
+    },
+    {
+      "slug": "martin-scorsese",
+      "name": "Martin Scorsese",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/martin-scorsese.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/martin-scorsese.ics"
+    },
+    {
+      "slug": "maurice-ravel",
+      "name": "Maurice Ravel",
+      "role": "composer",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/maurice-ravel.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/maurice-ravel.ics"
+    },
+    {
+      "slug": "mervyn-leroy",
+      "name": "Mervyn LeRoy",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/mervyn-leroy.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/mervyn-leroy.ics"
+    },
+    {
+      "slug": "michael-marczak",
+      "name": "Michael Marczak",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/michael-marczak.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/michael-marczak.ics"
+    },
+    {
+      "slug": "milos-foreman",
+      "name": "Milos Foreman",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/milos-foreman.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/milos-foreman.ics"
+    },
+    {
+      "slug": "monika-treut",
+      "name": "Monika Treut",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/monika-treut.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/monika-treut.ics"
+    },
+    {
+      "slug": "natalia-ginzburg",
+      "name": "Natalia Ginzburg",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/natalia-ginzburg.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/natalia-ginzburg.ics"
+    },
+    {
+      "slug": "paul-thomas-anderson",
+      "name": "Paul Thomas Anderson",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/paul-thomas-anderson.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/paul-thomas-anderson.ics"
+    },
+    {
+      "slug": "pawe-pawlikowski",
+      "name": "Paweł Pawlikowski",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/pawe-pawlikowski.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/pawe-pawlikowski.ics"
+    },
+    {
+      "slug": "philip-kaufman",
+      "name": "Philip Kaufman",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/philip-kaufman.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/philip-kaufman.ics"
+    },
+    {
+      "slug": "pierre-le-gall",
+      "name": "Pierre Le Gall",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/pierre-le-gall.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/pierre-le-gall.ics"
+    },
+    {
+      "slug": "pradip-krishen",
+      "name": "Pradip Krishen",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/pradip-krishen.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/pradip-krishen.ics"
+    },
+    {
+      "slug": "rainer-werner-fassbinder",
+      "name": "Rainer Werner Fassbinder",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/rainer-werner-fassbinder.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/rainer-werner-fassbinder.ics"
+    },
+    {
+      "slug": "richard-quine",
+      "name": "Richard Quine",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/richard-quine.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/richard-quine.ics"
+    },
+    {
+      "slug": "robert-downey-sr",
+      "name": "Robert Downey, Sr.",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/robert-downey-sr.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/robert-downey-sr.ics"
+    },
+    {
+      "slug": "robert-wise",
+      "name": "Robert Wise",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/robert-wise.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/robert-wise.ics"
+    },
+    {
+      "slug": "robertson-davies",
+      "name": "Robertson Davies",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/robertson-davies.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/robertson-davies.ics"
+    },
+    {
+      "slug": "sasha-waters",
+      "name": "Sasha Waters",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/sasha-waters.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/sasha-waters.ics"
+    },
+    {
+      "slug": "sean-ono-lennon-with-co-director-brian-c-gonzalez",
+      "name": "Sean Ono Lennon with co-director Brian C. González",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/sean-ono-lennon-with-co-director-brian-c-gonzalez.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/sean-ono-lennon-with-co-director-brian-c-gonzalez.ics"
+    },
+    {
+      "slug": "sergei-prokofiev",
+      "name": "Sergei Prokofiev",
+      "role": "composer",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/sergei-prokofiev.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/sergei-prokofiev.ics"
+    },
+    {
+      "slug": "stanley-donen",
+      "name": "Stanley Donen",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/stanley-donen.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/stanley-donen.ics"
+    },
+    {
+      "slug": "terry-gilliam",
+      "name": "Terry Gilliam",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/terry-gilliam.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/terry-gilliam.ics"
+    },
+    {
+      "slug": "turk-pipkin",
+      "name": "Turk Pipkin",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/turk-pipkin.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/turk-pipkin.ics"
+    },
+    {
+      "slug": "valentine-cadic",
+      "name": "Valentine Cadic",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/valentine-cadic.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/valentine-cadic.ics"
+    },
+    {
+      "slug": "vi-khi-nao",
+      "name": "Vi Khi Nao",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/vi-khi-nao.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/vi-khi-nao.ics"
+    },
+    {
+      "slug": "vincent-minnelli",
+      "name": "Vincent Minnelli",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/vincent-minnelli.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/vincent-minnelli.ics"
+    },
+    {
+      "slug": "w-s-van-dyke",
+      "name": "W.S. Van Dyke",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/w-s-van-dyke.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/w-s-van-dyke.ics"
+    },
+    {
+      "slug": "wes-anderson",
+      "name": "Wes Anderson",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/wes-anderson.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/wes-anderson.ics"
+    },
+    {
+      "slug": "william-friedkin",
+      "name": "William Friedkin",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/william-friedkin.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/william-friedkin.ics"
+    },
+    {
+      "slug": "william-greaves-and-david-greaves",
+      "name": "William Greaves and David Greaves",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/william-greaves-and-david-greaves.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/william-greaves-and-david-greaves.ics"
+    },
+    {
+      "slug": "wolfgang-amadeus-mozart",
+      "name": "Wolfgang Amadeus Mozart",
+      "role": "composer",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/wolfgang-amadeus-mozart.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/wolfgang-amadeus-mozart.ics"
+    },
+    {
+      "slug": "xuanlin-tham-december-no-meeting-attending-book-club-holiday-party",
+      "name": "Xuanlin Tham December - no meeting / attending book club holiday party",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/xuanlin-tham-december-no-meeting-attending-book-club-holiday-party.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/xuanlin-tham-december-no-meeting-attending-book-club-holiday-party.ics"
+    },
+    {
+      "slug": "yashaddai-owens",
+      "name": "Yashaddai Owens",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/yashaddai-owens.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/yashaddai-owens.ics"
+    },
+    {
+      "slug": "yukiko-motoya",
+      "name": "Yukiko Motoya",
+      "role": "author",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/yukiko-motoya.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/yukiko-motoya.ics"
+    },
+    {
+      "slug": "zhang-yimou",
+      "name": "Zhang Yimou",
+      "role": "director",
+      "event_count": 1,
+      "page_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/zhang-yimou.html",
+      "ics_url": "https://hadrien-cornier.github.io/Culture-Calendar/people/zhang-yimou.ics"
+    }
+  ]
+}

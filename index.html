@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Culture Calendar — Austin cultural events, AI-curated</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@100..900&display=swap">
+  <link rel="stylesheet" href="../_shared/reset.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="alternate" type="application/rss+xml" title="Culture Calendar" href="feed.xml">
+  <meta name="description" content="Austin cultural events, AI-curated. Films, concerts, opera, ballet, and literary events — sorted by merit, not marketing.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Culture Calendar">
+  <meta property="og:title" content="Culture Calendar — Austin cultural events, AI-curated">
+  <meta property="og:description" content="Austin cultural events, AI-curated. Films, concerts, opera, ballet, and literary events — sorted by merit, not marketing.">
+  <meta property="og:url" content="https://hadrien-cornier.github.io/Culture-Calendar/">
+  <meta property="og:image" content="https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Culture Calendar — Austin cultural events, AI-curated">
+  <meta name="twitter:description" content="Films, concerts, opera, ballet, and literary events around Austin — sorted by merit.">
+  <meta name="twitter:image" content="https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg">
+  <script async defer data-domain="hadrien-cornier.github.io/Culture-Calendar" src="https://plausible.io/js/script.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Culture Calendar",
+    "alternateName": "Culture Calendar Austin",
+    "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+    "description": "Austin cultural events, AI-curated. Films, concerts, opera, ballet, and literary events — sorted by merit, not marketing.",
+    "inLanguage": "en",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Culture Calendar",
+      "url": "https://hadrien-cornier.github.io/Culture-Calendar/"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://hadrien-cornier.github.io/Culture-Calendar/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Culture Calendar",
+    "url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+    "logo": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+    "description": "AI-curated listings of Austin cultural events — film, concert, opera, ballet, literary, visual arts — sorted by artistic merit, not marketing.",
+    "areaServed": {
+      "@type": "City",
+      "name": "Austin",
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Texas"
+      }
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Culture Calendar — primary surfaces",
+    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    "numberOfItems": 6,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Top picks of the week",
+        "url": "https://hadrien-cornier.github.io/Culture-Calendar/#picks"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "All events",
+        "url": "https://hadrien-cornier.github.io/Culture-Calendar/#listings"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Weekly digest archive",
+        "url": "https://hadrien-cornier.github.io/Culture-Calendar/archive.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Events API (JSON)",
+        "url": "https://hadrien-cornier.github.io/Culture-Calendar/api/events.json"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "Calendar subscription (iCal)",
+        "url": "https://hadrien-cornier.github.io/Culture-Calendar/calendar.ics"
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "name": "RSS feed",
+        "url": "https://hadrien-cornier.github.io/Culture-Calendar/feed.xml"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <h1 class="masthead-title">CULTURE CALENDAR</h1>
+      <p class="masthead-subtitle">Austin cultural events, AI-curated</p>
+      <nav class="subscribe-links" aria-label="Subscribe to feeds">
+        <a class="subscribe-link" href="webcal://hadrien-cornier.github.io/Culture-Calendar/calendar.ics" title="Subscribe to all events in your calendar app">Subscribe (iCal)</a>
+        <a class="subscribe-link" href="webcal://hadrien-cornier.github.io/Culture-Calendar/top-picks.ics" title="Subscribe to top picks only">Top picks (iCal)</a>
+        <a class="subscribe-link" href="feed.xml" title="RSS/Atom feed">RSS</a>
+      </nav>
+      <form class="signup-form" id="signup-form" aria-label="Subscribe by email" novalidate>
+        <label class="signup-form-label" for="signup-email">Get the weekly tipsheet by email</label>
+        <div class="signup-form-row">
+          <input type="email" id="signup-email" name="email" class="signup-form-input" placeholder="you@example.com" autocomplete="email" required>
+          <button type="submit" class="signup-form-button">Subscribe</button>
+        </div>
+        <div class="signup-form-status" id="signup-form-status" role="status" aria-live="polite"></div>
+      </form>
+      <div class="search-wrap">
+        <input type="search" id="event-search" placeholder="Search venues, titles, categories, or a date…" autocomplete="off" aria-label="Search events or type a date" aria-controls="search-suggestions" aria-expanded="false">
+        <ul class="search-suggestions" id="search-suggestions" role="listbox" hidden></ul>
+      </div>
+    </div>
+  </header>
+  <nav class="filter-bar" id="filter-bar" aria-label="Filter events">
+    <div class="filter-row" id="time-filters" role="group" aria-label="Time filter">
+      <button type="button" class="filter-chip is-active" data-time="all">All</button>
+      <button type="button" class="filter-chip" data-time="today">Today</button>
+      <button type="button" class="filter-chip" data-time="week">This Week</button>
+    </div>
+    <div class="filter-row" id="category-filters" role="group" aria-label="Category filter">
+      <button type="button" class="filter-chip is-active" data-category="all">All</button>
+      <button type="button" class="filter-chip" data-category="movie">Film</button>
+      <button type="button" class="filter-chip" data-category="concert">Concert</button>
+      <button type="button" class="filter-chip" data-category="opera">Opera</button>
+      <button type="button" class="filter-chip" data-category="dance">Dance</button>
+      <button type="button" class="filter-chip" data-category="book_club">Book Club</button>
+      <button type="button" class="filter-chip" data-category="visual_arts">Visual Arts</button>
+    </div>
+  </nav>
+  <section class="picks-section" id="picks" aria-label="Top picks of the week">
+    <h2 class="picks-heading">TOP PICKS OF THE WEEK</h2>
+    <ol class="picks-list" id="picks-list"></ol>
+  </section>
+  <main class="listings" id="listings" aria-label="All events"></main>
+  <aside id="needs-research" aria-label="Events pending more research"></aside>
+  <div class="status" id="loading">Loading events…</div>
+  <div class="status error" id="error" hidden></div>
+  <section class="about-section" aria-label="About this site">
+    <details class="about-details">
+      <summary class="about-summary">How this works</summary>
+      <div class="about-body">
+        <p>The Austin Culture Tipsheet is an opinionated weekly guide to films, concerts, opera, ballet, and literary events around Austin. It is assembled by an automated pipeline and then sorted by merit — not by chronology or venue marketing budget.</p>
+        <h3>Venues</h3>
+        <p>Each week the pipeline scrapes or loads schedules from:</p>
+        <ul>
+          <li>Austin Film Society</li>
+          <li>Hyperreal Film Club</li>
+          <li>Paramount Theatre</li>
+          <li>Austin Symphony</li>
+          <li>Early Music Austin</li>
+          <li>La Follia Austin Baroque</li>
+          <li>Austin Opera</li>
+          <li>Ballet Austin</li>
+          <li>Alienated Majesty Books</li>
+          <li>First Light Austin</li>
+          <li>Arts on Alexander</li>
+        </ul>
+        <p>Venues are added by hand. If a venue is missing, it is because no one has written a scraper for it yet.</p>
+        <h3>Ratings</h3>
+        <p>Every event carries a single score on a 0–10 scale. Ratings are generated by a language model under the direction of a critic-style prompt and are intended to reflect three things in roughly this order:</p>
+        <ol>
+          <li><strong>Artistic merit</strong> — craft, performance quality, directorial voice, compositional depth.</li>
+          <li><strong>Originality</strong> — how unusual the work is relative to what is typically on offer in Austin this month.</li>
+          <li><strong>Cultural significance</strong> — durability, canonical weight, relevance to live conversations in the arts.</li>
+        </ol>
+        <p>A rating of 7 or above is the threshold for "worth your evening"; 8+ enters the weekly Top 10. Ratings are stable across reruns for the same event unless upstream data changes.</p>
+        <h3>Reviews</h3>
+        <p>Reviews are written by Anthropic's Claude and Perplexity's Sonar working in sequence: Claude drafts the critical voice and the one-line hook, Sonar supplies factual scaffolding (cast, director, release year, composer dates, premiere context) sourced from Wikipedia, Letterboxd, and publisher metadata for the pilot event set. The tone aims for a working critic's voice — declarative, specific, unafraid of a verdict — rather than press-release prose.</p>
+        <h3>Methodology limitations</h3>
+        <p>A few things to keep in mind:</p>
+        <ul>
+          <li><strong>Refusal edge cases.</strong> Occasionally the model refuses to review an event (too little metadata, a name collision, a safety filter trip). The pipeline now filters those out at the description level, but earlier snapshots of the site may still show them.</li>
+          <li><strong>Review churn.</strong> Re-running the pipeline can produce a subtly different review for the same event. The rating is much more stable than the prose.</li>
+          <li><strong>No human editorial step.</strong> Nothing here has been fact-checked by a human before publication. Treat factual claims (dates, credits, lineages) as a starting point, not a citation.</li>
+        </ul>
+        <p>If something looks wrong, it probably is. Corrections welcome.</p>
+      </div>
+    </details>
+  </section>
+  <script src="script.js?v=20260718b"></script>
+</body>
+</html>

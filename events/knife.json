@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "KNIFE",
+  "description": "The title is ambiguous. Available records identify several films called Knife, including a 2019 French, 41 minute thriller directed by Frolliot, a 2011 American, 13 minute drama directed by James M. Johnston, and a 2024, 3 minute American horror short directe…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/knife.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-20",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

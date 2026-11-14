@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "AN AMERICAN IN PARIS",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Minnelli’s direction turns the film into a meeting point between musical comedy, ballet, painting, and European street romance. The closing seventeen minute ballet, built around Gershwin’s symphonic poem, is the decisive achiev…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/an-american-in-paris.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-22",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

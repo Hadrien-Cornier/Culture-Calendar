@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Americana",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities The available record identifies Americana as Jenn Hassin’s solo exhibition at Ivester Contemporary, but provides no complete checklist, installation views, or medium list. A rigorous formal judgment must therefore remain limi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/americana-2026-10-23-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-23",
+  "location": {
+    "@type": "Place",
+    "name": "IvesterContemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

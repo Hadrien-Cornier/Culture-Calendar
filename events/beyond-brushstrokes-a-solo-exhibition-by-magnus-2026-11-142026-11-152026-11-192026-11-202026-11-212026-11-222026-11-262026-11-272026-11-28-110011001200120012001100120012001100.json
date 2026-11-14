@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "beyond brushstrokes: a solo exhibition by Magnus",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities Magnus builds figurative scenes from flattened forms, sharp contours, bold color, and tightly controlled detail. The new paintings reportedly reduce compositions to a single dominant subject while retaining small visual disco…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/beyond-brushstrokes-a-solo-exhibition-by-magnus-2026-11-142026-11-152026-11-192026-11-202026-11-212026-11-222026-11-262026-11-272026-11-28-110011001200120012001100120012001100.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-14",
+  "location": {
+    "@type": "Place",
+    "name": "Unchained.Art Contemporary Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

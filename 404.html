@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Culture Calendar — Page not found</title>
+  <link rel="icon" type="image/svg+xml" href="/Culture-Calendar/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Culture-Calendar/apple-touch-icon.png">
+  <meta name="robots" content="noindex">
+  <style>
+    :root {
+      --bg: #f5efe1;
+      --ink: #111;
+      --muted: #666;
+      --accent: #d4a574;
+      --serif: "Saol Display", "Didot", "Bodoni Moda", "Playfair Display", Georgia, serif;
+      --sans: "Helvetica Neue", "Arial", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif);
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 4em 1.25em;
+      line-height: 1.6;
+    }
+    h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.5em; }
+    .rule { width: 80px; height: 4px; background: var(--accent); margin: 0 0 1.5em; }
+    p { font-family: var(--sans); font-size: 17px; color: var(--ink); }
+    .muted { color: var(--muted); font-size: 14px; }
+    a { color: var(--ink); border-bottom: 2px solid var(--accent); text-decoration: none; padding-bottom: 1px; }
+    a:hover { background: rgba(212, 165, 116, 0.15); }
+    code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 13px; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <h1>Page not found</h1>
+  <div class="rule"></div>
+  <p id="msg">Looking for that page…</p>
+  <p><a href="/Culture-Calendar/">← Back to Culture Calendar</a></p>
+  <script>
+    (function () {
+      // Defensive recovery for share-link receivers that smear description text
+      // into the URL path. Example seen in the wild:
+      //   /Culture-Calendar/events/8-1-2.html 8 1/2 — Fellini's masterpiece...
+      // We match the well-formed prefix and redirect to the clean canonical URL.
+      var path = window.location.pathname || "";
+      var clean = path.match(
+        /^(\/Culture-Calendar\/(?:events|venues|people|weekly|features|api|og)\/[A-Za-z0-9_.-]+?\.(?:html|json|ics|svg|xml))/
+      );
+      var msg = document.getElementById("msg");
+      if (clean && clean[1] !== path) {
+        msg.textContent = "Redirecting to the clean URL…";
+        window.location.replace(clean[1] + (window.location.hash || ""));
+        return;
+      }
+      // Root-of-section recoveries (e.g. /Culture-Calendar/events with no slug)
+      var section = path.match(/^(\/Culture-Calendar\/(?:events|venues|people|weekly|features))\b/);
+      if (section) {
+        msg.innerHTML =
+          "That page isn't here. Try the <a href=\"/Culture-Calendar/\">home page</a>, " +
+          "or pick from the listings.";
+        return;
+      }
+      msg.innerHTML =
+        "We couldn't find <code>" + path.replace(/[<>&"]/g, function (c) {
+          return ({"<":"&lt;",">":"&gt;","&":"&amp;","\"":"&quot;"})[c];
+        }) + "</code>. Try the home page below.";
+    })();
+  </script>
+</body>
+</html>

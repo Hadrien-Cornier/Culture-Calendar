@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE HOST",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit Bong Joon Ho turns a creature feature into a tightly controlled collision of horror, family melodrama, slapstick, and political satire. The riverside attack is staged with startling clarity, the monster moves with animal speed…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-host.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-20",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

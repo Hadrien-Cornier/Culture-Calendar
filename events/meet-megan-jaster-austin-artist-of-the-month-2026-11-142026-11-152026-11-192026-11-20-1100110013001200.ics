@@ -1,0 +1,92 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Meet Megan Jaster · Austin Artist of the M
+ onth
+X-WR-CALNAME:Culture Calendar — Meet Megan Jaster · Austin Artist of th
+ e Month
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] Meet Megan Jaster · Austin Artist of the Month
+DTSTART;TZID=America/Chicago:20261114T110000
+DTEND;TZID=America/Chicago:20261114T130000
+DTSTAMP:20261114T182037Z
+UID:meet-megan-jaster-·-austin-artist-of-the-month---2026-11-142026-11-15
+ 2026-11-192026-11-20-1100110013001200-2026-11-14-1100@culturecalendar.loca
+ l
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMegan Jaster’s layered oils blend staged fig
+ ures with imagined landscapes.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-art
+ ist-of-the-month/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Meet Megan Jaster · Austin Artist of the Month
+DTSTART;TZID=America/Chicago:20261115T110000
+DTEND;TZID=America/Chicago:20261115T130000
+DTSTAMP:20261114T182037Z
+UID:meet-megan-jaster-·-austin-artist-of-the-month---2026-11-142026-11-15
+ 2026-11-192026-11-20-1100110013001200-2026-11-15-1100@culturecalendar.loca
+ l
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMegan Jaster’s layered oils blend staged fig
+ ures with imagined landscapes.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-art
+ ist-of-the-month/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Meet Megan Jaster · Austin Artist of the Month
+DTSTART;TZID=America/Chicago:20261119T130000
+DTEND;TZID=America/Chicago:20261119T150000
+DTSTAMP:20261114T182037Z
+UID:meet-megan-jaster-·-austin-artist-of-the-month---2026-11-142026-11-15
+ 2026-11-192026-11-20-1100110013001200-2026-11-19-1300@culturecalendar.loca
+ l
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMegan Jaster’s layered oils blend staged fig
+ ures with imagined landscapes.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-art
+ ist-of-the-month/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[7/10] Meet Megan Jaster · Austin Artist of the Month
+DTSTART;TZID=America/Chicago:20261120T120000
+DTEND;TZID=America/Chicago:20261120T140000
+DTSTAMP:20261114T182037Z
+UID:meet-megan-jaster-·-austin-artist-of-the-month---2026-11-142026-11-15
+ 2026-11-192026-11-20-1100110013001200-2026-11-20-1200@culturecalendar.loca
+ l
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 7/10\n\nMegan Jaster’s layered oils blend staged fig
+ ures with imagined landscapes.\n\nDetails: https://nowplayingaustin.com/ev
+ ent/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/
+LOCATION:Unchained.Art Contemporary Gallery
+URL:https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-art
+ ist-of-the-month/
+END:VEVENT
+END:VCALENDAR

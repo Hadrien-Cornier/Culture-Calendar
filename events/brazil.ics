@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of BRAZIL
+X-WR-CALNAME:Culture Calendar — BRAZIL
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[9/10] BRAZIL
+DTSTART;TZID=America/Chicago:20261224T130000
+DTEND;TZID=America/Chicago:20261224T150000
+DTSTAMP:20261114T182037Z
+UID:brazil-2026-12-24-1300@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nGilliam's operatic dreamscapes clash with a cr
+ ushing bureaucratic nightmare.\n\nDetails: https://www.austinfilm.org/scre
+ ening/brazil/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/brazil/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[9/10] BRAZIL
+DTSTART;TZID=America/Chicago:20261229T180000
+DTEND;TZID=America/Chicago:20261229T200000
+DTSTAMP:20261114T182037Z
+UID:brazil-2026-12-29-1800@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 9/10\n\nGilliam's operatic dreamscapes clash with a cr
+ ushing bureaucratic nightmare.\n\nDetails: https://www.austinfilm.org/scre
+ ening/brazil/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/brazil/
+END:VEVENT
+END:VCALENDAR

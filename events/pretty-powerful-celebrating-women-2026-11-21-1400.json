@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Pretty Powerful: Celebrating Women",
+  "description": "★ Rating: 4/10 The available record describes an upcoming group exhibition, not a documented installation with an artist list, images, or individual work descriptions. Any judgment of formal achievement must therefore remain limited. The premise is clear, but…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/pretty-powerful-celebrating-women-2026-11-21-1400.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-21",
+  "location": {
+    "@type": "Place",
+    "name": "Bee Cave Arts Foundation Gallery",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

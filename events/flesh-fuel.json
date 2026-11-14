@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "FLESH & FUEL",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Le Gall builds a disciplined visual world from truck cabs, parking lots, depots, and motorway margins. The confined interiors give the romance physical pressure, while the open road provides motion without real freedom. Alexis…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/flesh-fuel.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-15",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

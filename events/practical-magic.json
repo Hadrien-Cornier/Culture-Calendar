@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Practical Magic",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Griffin Dunne directs Practical Magic with a clear visual identity, balancing New England domestic spaces, candlelit interiors, and playful supernatural effects. Sandra Bullock and Nicole Kidman give the film its strongest stru…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/practical-magic.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-11",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

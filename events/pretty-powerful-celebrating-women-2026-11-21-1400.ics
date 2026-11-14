@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Pretty Powerful: Celebrating Women
+X-WR-CALNAME:Culture Calendar — Pretty Powerful: Celebrating Women
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[4/10] Pretty Powerful: Celebrating Women
+DTSTART;TZID=America/Chicago:20261121T140000
+DTEND;TZID=America/Chicago:20261121T160000
+DTSTAMP:20261114T182037Z
+UID:pretty-powerful-celebrating-women---2026-11-21-1400-2026-11-21-1400@cu
+ lturecalendar.local
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 4/10\n\nA group show celebrating women\, but details r
+ emain too vague to judge.\n\nDetails: https://nowplayingaustin.com/event/p
+ retty-powerful-celebrating-women/
+LOCATION:Bee Cave Arts Foundation Gallery
+URL:https://nowplayingaustin.com/event/pretty-powerful-celebrating-women/
+END:VEVENT
+END:VCALENDAR

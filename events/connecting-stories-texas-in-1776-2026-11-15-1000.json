@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Connecting Stories: Texas in 1776",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities The exhibition’s strongest formal decision is its use of Destruction of Mission San Sabá, an enormous oil on canvas attributed to José de Páez, measuring nearly seven by ten feet. Its scale turns a historical episode into an…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/connecting-stories-texas-in-1776-2026-11-15-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-15",
+  "location": {
+    "@type": "Place",
+    "name": "MexicArte",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

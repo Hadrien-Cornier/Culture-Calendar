@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Ty Herndon",
+  "description": "★ Rating: 2/10 The supplied title does not identify a verifiable feature film. Available records instead point to Ty Herndon as a country singer and to several music videos, including Ty Herndon, What Mattered Most, plus a television movie, For the Love of Mu…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/ty-herndon.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-21",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

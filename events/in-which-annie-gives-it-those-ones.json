@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "IN WHICH ANNIE GIVES IT THOSE ONES",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Pradip Krishen directs the film with the looseness of a home movie and the timing of a sharp campus comedy. That rough visual texture suits the students’ improvised lives, while Roshan Seth gives the institutional antagonist, Y…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/in-which-annie-gives-it-those-ones.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-20",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE UNBEARABLE LIGHTNESS OF BEING",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Philip Kaufman turns Milan Kundera’s supposedly unfilmable novel into a substantial, carefully controlled drama. Sven Nykvist’s cinematography gives Prague a tactile, unstable beauty, especially during the Soviet invasion, when…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-unbearable-lightness-of-being.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-14",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

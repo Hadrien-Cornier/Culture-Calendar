@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BELL, BOOK AND CANDLE",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Richard Quine gives the film a polished studio surface, with James Wong Howe’s Technicolor photography turning Greenwich Village into a controlled fantasy of colored storefronts, shadowed interiors, and Christmas lights. Kim No…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/bell-book-and-candle.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-24",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

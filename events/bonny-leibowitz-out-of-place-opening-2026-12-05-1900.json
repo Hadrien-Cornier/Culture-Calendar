@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Bonny Leibowitz | Out of Place Opening",
+  "description": "★ Rating: 7/10 🎭 Formal Qualities Leibowitz builds the exhibition from damaged metal, discarded plastic, fallen tree parts, and large photographic prints. The strongest formal decision is the movement from wall to floor, where landscape images peel into unsta…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/bonny-leibowitz-out-of-place-opening-2026-12-05-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-05",
+  "location": {
+    "@type": "Place",
+    "name": "Women And Their Work",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

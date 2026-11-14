@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Jiaoying Summers",
+  "description": "★ Rating: 7/10 The title refers to the 2025 stand up special Jiaoying Summers, What Specie Are You?, directed by Samuel Brownfield, running about one hour. Evidence is limited for judging its visual construction, since available coverage focuses on the live c…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jiaoying-summers.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-16",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

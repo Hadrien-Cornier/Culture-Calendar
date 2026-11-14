@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Los Lonely Boys: An Acoustic Evening with Los Lonely Boys and Guests",
+  "description": "★ Rating: 5/10 🎭 Artistic Merit. The available record identifies this as an acoustic concert presentation, not a clearly documented feature film. Los Lonely Boys bring a practiced blend of blues, soul, rock, and Texan roots music, but there is insufficient ev…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/los-lonely-boys-an-acoustic-evening-with-los-lonely-boys-and-guests.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-02-11",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
