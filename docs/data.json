@@ -590,11 +590,11 @@
     "end_date": "2027-01-17",
     "artist": "Laura Lit",
     "artists": "",
-    "medium": "sculpture",
+    "medium": "sculpture, installation",
     "series": "HOST",
     "venue": "Betty and Edward Marcus Sculpture Park at Laguna Gloria",
     "rating": 7,
-    "one_liner_summary": "Colored pencil drawings expand into sculptures at Laguna Gloria.",
+    "one_liner_summary": "Saturated drawings and sculptures translate abstraction into inhabitable architectural volumes.",
     "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>Lit\u2019s Jones Center presentation centers on large, intensive colored pencil drawings, supplemented by sculptures. The drawings function as more than preparatory studies. Their saturated surfaces give ambiguous forms a bodily and architectural tension, while the sculptures translate those abstractions into physical space. The strongest formal idea is the movement from paper to object, from compressed mark making to inhabitable volume. The available documentation does not provide enough detail to assess individual titles, dimensions, or installation sequencing, so the judgment rests chiefly on the exhibition\u2019s stated materials and its drawing to sculpture structure.</p><p>\u2728 <strong>Originality</strong>  <br>Lit\u2019s polymorphic forms occupy an effective middle ground between organism, prosthesis, and building. That vocabulary is not unprecedented, but her background in figurative painting, special effects makeup, architectural restoration, and medical prosthetics gives the work a distinctive technical basis. The exhibition\u2019s clearest contribution is its insistence that colored pencil can generate sculptural logic rather than merely describe it. The concept is strong, though the imagery risks settling into a recognizable surrealist language of strange bodies and invented creatures.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The exhibition fits The Contemporary Austin\u2019s HOST series, which commissions artists to develop new environments and emphasizes experimentation within the museum. Its expansion from the Jones Center to the Laguna Gloria sculpture park also broadens the institution\u2019s support for Austin artists and tests how a single practice changes across indoor and outdoor contexts. Lit\u2019s interest in prosthetic and corporeal forms gives the work a useful connection to contemporary questions about embodiment, repair, artificiality, and the unstable boundary between body and structure. The exhibition is relevant, but its cultural argument appears to remain implicit rather than fully articulated.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>HOST places Lit within a lineage that includes surrealist biomorphism, postwar assemblage, installation art, and contemporary practices shaped by special effects and prosthetic fabrication. Her trajectory is at a significant early institutional point, since this is her first solo museum exhibition and debut outdoor installation. The Jones Center presentation is particularly important because it documents the evolution of her abstractions from drawings into sculpture, giving a developing practice a clear formal arc. The result is a strong debut, not yet an exceptional one, because the available evidence suggests a compelling visual system still being tested against larger historical and social claims.</p>",
     "url": "https://thecontemporaryaustin.org/exhibitions/host-laura-lit/",
     "screenings": [
@@ -940,6 +940,70 @@
     "venue_address": "4800 Alexander Ave, Austin, TX 78756"
   },
   {
+    "title": "Selections from the Collection: Juan Sandoval Jr.",
+    "dates": [
+      "2026-09-11"
+    ],
+    "times": [
+      "10:00"
+    ],
+    "end_date": "2027-01-03",
+    "artist": "",
+    "artists": "",
+    "medium": "",
+    "series": "",
+    "venue": "MexicArte",
+    "rating": 7,
+    "one_liner_summary": "A photographer\u2019s personal archive of prints, drawings, and self-portraits.",
+    "description": "<p>\u2605 Rating: 7/10</p><p>The available documentation describes an exhibition of selected photographs, prints, drawings, and other works on paper and canvas from Juan Antonio Sandoval Jr.\u2019s collection, alongside photographs and illustrations of Sandoval himself. It does not identify individual artists, titles, dates, or installation views, so a scene by scene assessment of particular works is not possible.</p><p>\ud83c\udfad <strong>Formal Qualities</strong></p><p>The exhibition\u2019s formal strength lies in its range of two dimensional formats, from photographic images to prints, drawings, and paintings. That variety gives the presentation useful shifts in surface, scale, and mark, but it also creates a curatorial challenge. Without a clear account of the installation, technique, or grouping, the exhibition can be judged as a well grounded collection display rather than as a fully legible formal argument.</p><p>\u2728 <strong>Originality</strong></p><p>The strongest idea is not a novel medium or artistic style, but the decision to make the collector part of the exhibition\u2019s subject. Sandoval\u2019s photographs and illustrations appear beside the works he gathered, turning the display toward questions of taste, stewardship, and private judgment. This approach is more engaging than a neutral inventory, though its originality depends heavily on the quality of the wall texts and the precision of the selection.</p><p>\ud83d\udcda <strong>Cultural Significance</strong></p><p>The exhibition has clear institutional importance. Sandoval, a former reference librarian and Chicanx studies specialist at the University of Texas at El Paso, donated more than 1,500 works to Mexic-Arte Museum in 2020, including substantial holdings by Mexican and Latinx artists. The show therefore addresses who preserves cultural history, how regional collections enter museums, and how Mexican and Latinx art is framed for public audiences. Its value is strongest as an act of cultural preservation and institutional self examination.</p><p>\ud83d\udca1 <strong>Historical Context</strong></p><p>The exhibition belongs to the tradition of collection based museum displays, but it also extends the borderlands and Chicanx art histories associated with Mexic-Arte and Sandoval\u2019s El Paso interests. An earlier exhibition from the collection, <em>Mexico, the Border and Beyond</em>, explicitly examined Mexico, the border, and their wider cultural connections. This presentation shifts emphasis from a geographic thesis to the collector\u2019s role, making Sandoval\u2019s personal archive part of the museum\u2019s historical record. The concept is strong, but the absence of publicly available artist attributions and object histories limits the exhibition\u2019s historical precision.</p>",
+    "url": "https://mexic-artemuseum.org/exhibitions/",
+    "screenings": [
+      {
+        "date": "2026-09-11",
+        "time": "10:00",
+        "url": "https://mexic-artemuseum.org/exhibitions/",
+        "venue": "MexicArte"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "selections-from-the-collection-juan-sandoval-jr.---2026-09-11-1000",
+    "venue_display_name": "Mexic-Arte Museum",
+    "venue_address": "419 Congress Ave, Austin, TX 78701"
+  },
+  {
+    "title": "D\u00eda de los Muertos: Coleccionando Memorias",
+    "dates": [
+      "2026-09-11"
+    ],
+    "times": [
+      "10:00"
+    ],
+    "end_date": "2027-01-03",
+    "artist": "",
+    "artists": "",
+    "medium": "",
+    "series": "",
+    "venue": "MexicArte",
+    "rating": 7,
+    "one_liner_summary": "Satirical calaveras and vibrant cartoner\u00eda bridge death and memory across generations.",
+    "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>The exhibition\u2019s strongest formal asset is its range. Jos\u00e9 Guadalupe Posada\u2019s calavera prints bring compressed line, satire, and graphic force; the Linares family\u2019s cartoner\u00eda supplies theatrical volume and color; contemporary installations by Claudia Aparicio and Claudia Zapata extend the display beyond a historical survey. The available documentation does not provide enough detail to judge installation quality, individual object condition, or spatial sequencing. That limits the score, but the combination of prints, sculpture, and commissioned work gives the exhibition a credible visual structure.</p><p>\u2728 <strong>Originality</strong>  <br>The exhibition does not appear formally radical. Its originality lies in treating the museum collection itself as an ofrenda, a living archive assembled through migration, collecting, and community use. That institutional angle is more compelling than another generic celebration of skull imagery, particularly because the exhibition connects canonical material with new commissions.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>This is the exhibition\u2019s clearest achievement. Mexic-Arte frames D\u00eda de los Muertos through Indigenous roots, cultural exchange, Austin\u2019s Mexican and Mexican American communities, and the museum\u2019s decades of preservation. The focus on works that arrived in Austin and entered the city\u2019s cultural landscape gives the show local stakes rather than presenting the holiday as decorative folklore. Its cultural argument is strong, though the available information does not reveal how fully the exhibition addresses commercialization, appropriation, or differences between community practice and museum display.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The exhibition places Posada\u2019s calaveras, Linares cartoner\u00eda, and contemporary artists in a lineage that runs from print satire and popular craft to present day installation. That progression is historically legible, but not inherently new. Its value comes from the museum\u2019s collecting history and from showing how traditions travel across borders, generations, and institutions. With unknown artists and no documented individual trajectory beyond the named contemporary contributors, the exhibition is best judged as a thoughtful institutional survey, not a decisive revision of D\u00eda de los Muertos art history.</p>",
+    "url": "https://mexic-artemuseum.org/exhibitions/",
+    "screenings": [
+      {
+        "date": "2026-09-11",
+        "time": "10:00",
+        "url": "https://mexic-artemuseum.org/exhibitions/",
+        "venue": "MexicArte"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "d\u00eda-de-los-muertos-coleccionando-memorias---2026-09-11-1000",
+    "venue_display_name": "Mexic-Arte Museum",
+    "venue_address": "419 Congress Ave, Austin, TX 78701"
+  },
+  {
     "title": "Bach & Beer",
     "dates": [
       "2026-09-11"
@@ -1031,14 +1095,14 @@
     "series": "",
     "venue": "Jones Center",
     "rating": 8,
-    "one_liner_summary": "Moki Cherry's living temple blends textiles, video, and domestic performance.",
+    "one_liner_summary": "Moki Cherry's textiles, ceramics, and video fuse family life with performance.",
     "description": "<p>\u2605 Rating: 8/10</p><p>\ud83c\udfad Formal Qualities, the exhibition sounds materially rich and visually varied, with textiles, ceramics, posters, video, sound, clothing, and archival material arranged to show Moki Cherry\u2019s range across media. That breadth gives the show real spatial energy, especially for an artist whose practice fused domestic life, performance, and display into a single environment.</p><p>\u2728 Originality, the premise is strong because Cherry treated family, costume, music, and exhibition design as one continuous artistic system, not separate categories. That makes the work feel less like a retrospective in the conventional sense and more like a map of an expanded studio, a useful corrective to narrow museum habits.</p><p>\ud83d\udcda Cultural Significance, this is the largest U.S. exhibition of Cherry\u2019s work to date, and that scale matters for an artist long overshadowed by her husband, Don Cherry, despite her central role in shaping their shared visual and social world. The show\u2019s emphasis on community, sound, and domestic space fits current institutional interest in collaborative and interdisciplinary practices, and it gives Austin audiences a rare chance to see Cherry as a major organizer of culture, not a footnote.</p><p>\ud83d\udca1 Historical Context, Cherry\u2019s work belongs to the late twentieth century strain of anti-boundary art, where textile, performance, design, and music blur into one another, with clear links to countercultural installation art and feminist rethinking of \u201cminor\u201d media. Placed across her career, from early paintings to later politically charged textiles, the exhibition should make her trajectory legible as a sustained experiment in making life itself the medium.</p>",
-    "url": "https://thecontemporaryaustin.org/exhibitions/",
+    "url": "https://thecontemporaryaustin.org/exhibitions/the-living-temple-the-world-of-moki-cherry/",
     "screenings": [
       {
         "date": "2026-09-18",
         "time": "10:00",
-        "url": "https://thecontemporaryaustin.org/exhibitions/",
+        "url": "https://thecontemporaryaustin.org/exhibitions/the-living-temple-the-world-of-moki-cherry/",
         "venue": "Jones Center"
       }
     ],
@@ -1059,11 +1123,11 @@
     "end_date": "2027-01-17",
     "artist": "Laura Lit",
     "artists": "",
-    "medium": "drawing",
+    "medium": "drawing, sculpture, installation",
     "series": "HOST",
     "venue": "Jones Center",
     "rating": 7,
-    "one_liner_summary": "Colored pencil drawings and sculptures blur the line between mark and architecture.",
+    "one_liner_summary": "Laura Lit's saturated drawings and sculptures give ambiguous forms bodily and architectural tension.",
     "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>Lit\u2019s Jones Center presentation centers on large, intensive colored pencil drawings, supplemented by sculptures. The drawings function as more than preparatory studies. Their saturated surfaces give ambiguous forms a bodily and architectural tension, while the sculptures translate those abstractions into physical space. The strongest formal idea is the movement from paper to object, from compressed mark making to inhabitable volume. The available documentation does not provide enough detail to assess individual titles, dimensions, or installation sequencing, so the judgment rests chiefly on the exhibition\u2019s stated materials and its drawing to sculpture structure.</p><p>\u2728 <strong>Originality</strong>  <br>Lit\u2019s polymorphic forms occupy an effective middle ground between organism, prosthesis, and building. That vocabulary is not unprecedented, but her background in figurative painting, special effects makeup, architectural restoration, and medical prosthetics gives the work a distinctive technical basis. The exhibition\u2019s clearest contribution is its insistence that colored pencil can generate sculptural logic rather than merely describe it. The concept is strong, though the imagery risks settling into a recognizable surrealist language of strange bodies and invented creatures.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The exhibition fits The Contemporary Austin\u2019s HOST series, which commissions artists to develop new environments and emphasizes experimentation within the museum. Its expansion from the Jones Center to the Laguna Gloria sculpture park also broadens the institution\u2019s support for Austin artists and tests how a single practice changes across indoor and outdoor contexts. Lit\u2019s interest in prosthetic and corporeal forms gives the work a useful connection to contemporary questions about embodiment, repair, artificiality, and the unstable boundary between body and structure. The exhibition is relevant, but its cultural argument appears to remain implicit rather than fully articulated.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>HOST places Lit within a lineage that includes surrealist biomorphism, postwar assemblage, installation art, and contemporary practices shaped by special effects and prosthetic fabrication. Her trajectory is at a significant early institutional point, since this is her first solo museum exhibition and debut outdoor installation. The Jones Center presentation is particularly important because it documents the evolution of her abstractions from drawings into sculpture, giving a developing practice a clear formal arc. The result is a strong debut, not yet an exceptional one, because the available evidence suggests a compelling visual system still being tested against larger historical and social claims.</p>",
     "url": "https://thecontemporaryaustin.org/exhibitions/host-laura-lit/",
     "screenings": [
@@ -1557,20 +1621,12 @@
     ],
     "end_date": "2026-11-29",
     "artist": "",
-    "artists": [
-      "Emma Beatrez",
-      "Charlotte Fox",
-      "Dominique Fung",
-      "Becky Kolsrud",
-      "Shannon Cartier Lucy",
-      "Emily Mae Smith",
-      "C. Lucy R. Whitehead"
-    ],
+    "artists": "Emma Beatrez, Charlotte Fox, Dominique Fung, Becky Kolsrud, Shannon Cartier Lucy, Emily Mae Smith, C. Lucy R. Whitehead",
     "medium": "",
     "series": "",
     "venue": "McLennonPen",
     "rating": 7,
-    "one_liner_summary": "Dislocated bodies and domestic unease across painting, photography, and objects.",
+    "one_liner_summary": "Altered domestic scenes and dislocated anatomy blur reality into comic unease.",
     "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>The exhibition\u2019s strongest formal asset is its deliberate range. The participating artists work through painting, photography, and object based practices, creating a conversation between polished figuration, comic distortion, and bodily unease. Shannon Cartier Lucy\u2019s <em>Brioche</em> and Becky Kolsrud\u2019s <em>Pink Legs</em> suggest a taste for altered domestic imagery and dislocated anatomy, while Emily Mae Smith\u2019s work brings a sharper, more graphic strain of surrealist construction. The available documentation does not provide enough installation views, dimensions, or a complete checklist to judge the exhibition\u2019s spatial rhythm with confidence. The known works indicate competent, tightly controlled presentation, but not enough evidence of a formally radical hang.</p><p>\u2728 <strong>Originality</strong>  <br>The show is strongest when surrealism functions as a working method rather than a decorative style. Its stated focus on humor, critique, sociopolitical reimagining, and psychic reclamation gives the exhibition a contemporary purpose beyond strange faces and impossible bodies. Still, the premise is familiar across current painting and gallery programming. The exhibition earns its 7 through the quality and variety of its artists, not through an entirely new account of surrealism.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The exhibition places surrealist imagery inside present concerns about gender, power, embodiment, and psychological self possession. That framing matters, particularly because the gallery presents the show as an international survey while also foregrounding Austin\u2019s Emily Mae Smith. Its cultural value lies in showing surrealism as a flexible tool for social critique, rather than preserving it as a historical movement. The available sources offer curatorial claims but little sustained criticism, so the show\u2019s larger institutional impact remains unproven.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The exhibition belongs to the long afterlife of surrealism, filtered through feminist revision, contemporary figuration, pop humor, and the gallery market\u2019s renewed appetite for uncanny bodies. Smith\u2019s presence connects the show to a wider revival of symbolic, often anthropomorphic painting, while the group format places her alongside artists pursuing related distortions through different materials. The result is a strong contemporary survey, but not a historical turning point. The evidence currently supports a focused group exhibition rather than a definitive statement about the movement\u2019s future.</p>",
     "url": "https://mclennonpenco.com/exhibitions",
     "screenings": [
@@ -1852,38 +1908,6 @@
     "venue_address": "301 Chicon St, Austin, TX 78702"
   },
   {
-    "title": "AFTER",
-    "dates": [
-      "2026-11-06"
-    ],
-    "times": [
-      "12:00"
-    ],
-    "end_date": "2026-11-22",
-    "artist": "",
-    "artists": "",
-    "medium": "mixed media",
-    "series": "",
-    "venue": "Link & Pin Gallery",
-    "rating": 6,
-    "one_liner_summary": "Mixed media works explore family, labor, and pop culture through collage and paint.",
-    "description": "<p>\u2605 <strong>Rating: 6/10</strong></p><p><strong>\ud83c\udfad Formal Qualities</strong>  <br>The available documentation identifies Gonzalez\u2019s contribution to <em>AFTER</em> as mixed media, but does not provide installation views, titles, dimensions, or detailed material descriptions. That limitation prevents a close judgment of composition and technique. His documented practice combines painting, drawing, collage, and printmaking, with works that move between family life, construction labor, popular culture, and space imagery. Within <em>AFTER</em>, the work appears positioned to extend that material range into the exhibition\u2019s posthuman landscape framework, but the evidence does not support stronger claims about spatial control or execution.</p><p><strong>\u2728 Originality</strong>  <br>Gonzalez\u2019s established subjects, especially caregiving, physical labor, family, and vernacular culture, offer a more grounded alternative to generic catastrophe imagery. That is a credible point of difference within a group show organized around environmental rupture and an unknowable future. Still, the available record does not identify the specific works shown, so the contribution\u2019s conceptual distinctiveness cannot be rated above competent.</p><p><strong>\ud83d\udcda Cultural Significance</strong>  <br>The exhibition frames landscape as a condition shaped by political indifference, and it gathers ten artists around the posthuman earth, using durable, pliable, and ephemeral techniques. Gonzalez\u2019s attention to labor and care gives that premise a social register, linking planetary crisis to the ordinary work of sustaining families, communities, and cities. His inclusion is therefore relevant, but the available documentation says too little about how his actual pieces complicate or sharpen the exhibition\u2019s institutional argument.</p><p><strong>\ud83d\udca1 Historical Context</strong>  <br>Gonzalez\u2019s contribution follows a trajectory from mixed media paintings and drawings about construction, parenthood, and popular imagery toward broader questions of place and futurity. His work belongs to a contemporary lineage that treats domestic labor and working life as serious subjects rather than background material. In <em>AFTER</em>, that history seems more valuable than any speculative imagery alone, though insufficient documentation prevents a firmer assessment of the exhibition\u2019s specific achievement.</p>",
-    "url": "https://nowplayingaustin.com/event/after/",
-    "screenings": [
-      {
-        "date": "2026-11-06",
-        "time": "12:00",
-        "url": "https://nowplayingaustin.com/event/after/",
-        "venue": "Link & Pin Gallery"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "visual_arts",
-    "id": "after---2026-11-06-1200",
-    "venue_display_name": "Link & Pin Gallery",
-    "venue_address": ""
-  },
-  {
     "title": "Stick It",
     "dates": [
       "2026-11-06"
@@ -2044,95 +2068,6 @@
     "venue_address": "301 Chicon St, Austin, TX 78702"
   },
   {
-    "title": "The Overview Effect",
-    "dates": [
-      "2026-11-13"
-    ],
-    "times": [
-      "12:00"
-    ],
-    "end_date": "2026-11-22",
-    "artist": "",
-    "artists": [
-      "Eric Acu\u00f1a",
-      "Megan Baker",
-      "Lindsay Barras",
-      "Olivia Kristina Bell",
-      "Matthew Bourbon",
-      "Dario Salvatore Bucheli",
-      "Lauren Janelle Butler",
-      "John Dickinson",
-      "Cindy Elizabeth",
-      "Sean Michael Gaulager",
-      "Meg Griffiths",
-      "Kelsey Hughes",
-      "Jessica Lambert",
-      "Laura J. Lawson",
-      "Mathew McIntyre",
-      "Hope Mora",
-      "Zezelia Olson",
-      "Dana Perrotti",
-      "Seth Prestwood",
-      "Hilary Rochow",
-      "S Rodriguez",
-      "Andew Sakamoto",
-      "Lynn Wilkes Armstrong",
-      "DM Witman"
-    ],
-    "medium": "",
-    "series": "",
-    "venue": "ICOSA",
-    "rating": 6,
-    "one_liner_summary": "23 artists explore connection and perspective through material-driven works.",
-    "description": "<p>\u2605 Rating: 6/10</p><p>The available documentation identifies a juried group exhibition curated by Dennis Nance, with 23 artists and a stated interest in connections, personal histories, and new perspectives. It lists only limited information about the individual works, so this review can assess the exhibition\u2019s premise and documented objects, but not its full installation or every artist\u2019s contribution.</p><p>\ud83c\udfad Formal Qualities</p><p>The exhibition appears strongest when it treats materials as instruments of transmission rather than decoration. Eric Acu\u00f1a\u2019s <em>Telemetry Array, Umbrella Variant</em> combines a satellite reflector, Faraday fabric, copper, electronics, custom cabling, a wooden recorder, galvanized steel, and found natural elements. That mixture gives the theme physical tension, pairing communications hardware with improvised, organic matter.</p><p>The larger group format creates a useful range of processes, but the available record does not establish whether the works achieve a coherent spatial rhythm or merely occupy a common theme. A constellation can suggest relation, but it can also become a curatorial substitute for formal editing. On documented evidence, the craft is credible, though not yet demonstrably exceptional.</p><p>\u2728 Originality</p><p>The exhibition\u2019s central idea is familiar. The overview effect, a term coined by Frank White for the reported shift astronauts experience when viewing Earth from space, has circulated through science writing, environmental discourse, and institutional programming for decades. The exhibition earns some distinction by translating that idea into a group of material practices rather than relying only on planetary photography.</p><p>Acu\u00f1a\u2019s use of a modified umbrella as a satellite device is the clearest inventive gesture in the available material. It turns an everyday object into a compromised antenna, suggesting that access to planetary perspective is technologically mediated and materially fragile. Still, the premise risks collapsing varied artworks into a single atmospheric message. The concept is serviceable, but the documentation does not support a higher score.</p><p>\ud83d\udcda Cultural Significance</p><p>The exhibition addresses a live contradiction in contemporary culture. Images of Earth from orbit promote planetary interdependence, while the technologies that produce those images also belong to systems of surveillance, extraction, militarization, and unequal access. The inclusion of Faraday fabric, electronics, satellite language, and found natural materials points toward that conflict, especially in Acu\u00f1a\u2019s work.</p><p>ICOSA\u2019s artist-run, nonprofit cooperative setting gives the exhibition a locally grounded alternative to the large institutional spectacle often attached to space imagery. Its cultural argument remains underdeveloped, however. The published description emphasizes connection and unanswered questions, but does not identify how the artists confront colonial space history, climate politics, or the uneven distribution of environmental risk. The exhibition is relevant, but its critical pressure appears limited.</p><p>\ud83d\udca1 Historical Context</p><p>The show belongs to a lineage that includes Earth art, systems art, ecological installation, cybernetic sculpture, and the long visual history of the Earth seen from above. Its title also places it within the continuing cultural afterlife of the Apollo photograph and the astronaut testimony collected under the term overview effect.</p><p>For the listed artists, the exhibition\u2019s place within their individual trajectories cannot be determined from the available information. The same limitation applies to most works, since the published listing provides names and a small number of material details but no substantial artist statements or prior exhibition histories. As a collective statement, the show is competent and potentially engaging. Its governing idea is too established, and its critical distinctions too thinly documented, to justify a rating above 6.</p>",
-    "url": "https://icosacollective.com/exhibitions/",
-    "screenings": [
-      {
-        "date": "2026-11-13",
-        "time": "12:00",
-        "url": "https://icosacollective.com/exhibitions/",
-        "venue": "ICOSA"
-      }
-    ],
-    "review_confidence": "low",
-    "type": "visual_arts",
-    "id": "the-overview-effect---2026-11-13-1200",
-    "venue_display_name": "ICOSA Collective",
-    "venue_address": "916 Springdale Rd, Building 2 #102, Austin, TX 78702"
-  },
-  {
-    "title": "The Overview Effect Curated by Dennis Nance",
-    "dates": [
-      "2026-11-13"
-    ],
-    "times": [
-      "12:00"
-    ],
-    "end_date": "2026-11-22",
-    "artist": "",
-    "artists": [],
-    "medium": "mixed media",
-    "series": "Austin Studio Tour 2026",
-    "venue": "ICOSA Collective",
-    "rating": 6,
-    "one_liner_summary": "24 artists explore cosmic perspective through varied materials at ICOSA.",
-    "description": "<p>\u2605 Rating: 6/10</p><p>The available record identifies <em>The Overview Effect</em> as a juried group exhibition curated by Dennis Nance at ICOSA Collective, with 24 artists working across varied materials and approaches. It does not provide installation views, a checklist of individual works, or a critical review, so formal judgments must remain limited.</p><p>\ud83c\udfad Formal Qualities \u2013 composition, materials, technique, spatial and visual craft</p><p>The exhibition\u2019s strongest formal asset is its range. The roster includes painters, sculptors, and artists working across mixed media, giving the show the possibility of productive contrasts rather than a single house style. That range also creates its central risk, a crowded group exhibition in which individual works may compete without a clear spatial rhythm or visual hierarchy. The available documentation does not establish whether Nance solved that problem through scale, sequencing, or material contrast.</p><p>\u2728 Originality \u2013 conceptual innovation, departure from prevailing conventions</p><p>The premise borrows from the astronaut\u2019s shift in perspective when viewing Earth from space, then extends that idea toward personal histories, altered viewpoints, and human connection. This is a familiar contemporary-art framework, often tied to ecological awareness and planetary unity. The juried format gives the concept breadth, but the documented premise alone does not demonstrate a distinctive departure from that convention.</p><p>\ud83d\udcda Cultural Significance \u2013 relevance to contemporary discourse, relationship to institutional and critical context</p><p>The exhibition fits ICOSA\u2019s role as an artist-run, nonprofit cooperative gallery and as an Austin Studio Tour participant. Its emphasis on connection and expanded perspective addresses current concerns about ecological interdependence, social fragmentation, and the scale of individual experience. Its cultural value appears strongest as a local platform for many artists, rather than as a sharply argued intervention in contemporary criticism.</p><p>\ud83d\udca1 Historical Context \u2013 place within the artist\u2019s trajectory and broader art-historical lineage</p><p>Because the artists\u2019 individual trajectories are not supplied, the exhibition cannot be placed securely within their careers. Its broader lineage is clearer, it belongs to the tradition of Earth-from-space imagery, systems-oriented art, and exhibitions that use a shared theme to assemble plural viewpoints. The curatorial premise is competent, but the available evidence does not support a higher score.</p>",
-    "url": "https://nowplayingaustin.com/event/the-overview-effect-curated-by-dennis-nance/",
-    "screenings": [
-      {
-        "date": "2026-11-13",
-        "time": "12:00",
-        "url": "https://nowplayingaustin.com/event/the-overview-effect-curated-by-dennis-nance/",
-        "venue": "ICOSA Collective"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "visual_arts",
-    "id": "the-overview-effect-curated-by-dennis-nance---2026-11-13-1200",
-    "venue_display_name": "ICOSA Collective",
-    "venue_address": ""
-  },
-  {
     "title": "Tha\u00efs",
     "dates": [
       "2026-11-13"
@@ -2179,18 +2114,18 @@
     "end_date": "2027-03-21",
     "artist": "",
     "artists": "",
-    "medium": "multimedia exhibition",
+    "medium": "mixed media",
     "series": "",
     "venue": "Bullock",
     "rating": 6,
-    "one_liner_summary": "A competent museum survey of 90s pop culture, heavy on nostalgia.",
+    "one_liner_summary": "Nostalgic survey of 90s artifacts, fashion, and pop culture before digital transformation.",
     "description": "<p>\u2605 Rating: 6/10</p><p>The available record describes a forthcoming historical exhibition, not an artist led project. It is therefore best judged as a museum survey rather than a conventional art exhibition. The evidence supports a competent, accessible account of the 1990s, but not an exceptional one.</p><p>\ud83c\udfad Formal Qualities</p><p>The exhibition relies on historical objects, celebrity costumes, memorabilia, vintage technology, fashion, toys, and media displays. Its strongest formal choice is variety, from a section of the Berlin Wall to music players and screen costumes. That range should produce visual momentum, though it also risks the familiar clutter of nostalgia exhibitions, where recognition replaces sustained interpretation.</p><p>\u2728 Originality</p><p>Its central premise, that the 1990s formed the infrastructure of the present, is clear but not new. The chronological and thematic organization gives the material order, while the emphasis on technology, popular culture, politics, and consumer life broadens the show beyond a simple fashion or celebrity display. Still, the title\u2019s claim that the decade was the last before the future sounds more promotional than analytical.</p><p>\ud83d\udcda Cultural Significance</p><p>The exhibition has real public value because it connects everyday objects to the rise of the information age and to current debates about technological change. Its institutional setting at the Bullock also frames the decade as public history, not merely retro entertainment. The major weakness is the apparent emphasis on famous figures and recognizable products, which may leave less room for marginal communities, global inequality, race, gender, and the darker consequences of 1990s globalization.</p><p>\ud83d\udca1 Historical Context</p><p>Created originally by History Colorado and presented at the Bullock, the exhibition belongs to the expanding museum practice of treating recent decades as historical material. Its lineage is the popular culture survey, updated with a technology driven argument about how the 1990s prepared the twenty first century. Since no individual artist or artist trajectory is identified, conventional artist based evaluation is not applicable.</p><p>The public description is detailed about objects and themes but does not provide installation views, a full checklist, or curatorial writing. That limits judgment about spatial execution and interpretive depth.</p>",
-    "url": "https://www.thestoryoftexas.com/special-exhibits/the-90s/",
+    "url": "https://www.thestoryoftexas.com/special-exhibits/",
     "screenings": [
       {
         "date": "2026-11-14",
         "time": "10:00",
-        "url": "https://www.thestoryoftexas.com/special-exhibits/the-90s/",
+        "url": "https://www.thestoryoftexas.com/special-exhibits/",
         "venue": "Bullock"
       }
     ],
@@ -2199,115 +2134,6 @@
     "id": "the-90s-last-decade-before-the-future---2026-11-14-1000",
     "venue_display_name": "Bullock Texas State History Museum",
     "venue_address": "1800 Congress Ave, Austin, TX 78701"
-  },
-  {
-    "title": "Inside the Moving-Image Process with Dolphin Brown",
-    "dates": [
-      "2026-11-14",
-      "2026-11-15",
-      "2026-11-21",
-      "2026-11-22"
-    ],
-    "times": [
-      "11:00"
-    ],
-    "end_date": "2026-11-22",
-    "artist": "",
-    "artists": [
-      "Dolphin Brown",
-      "Elena Lipkowski"
-    ],
-    "medium": "moving image and mixed media",
-    "series": "Austin Studio Tour 2026",
-    "venue": "ART Studios & Gallery at 2324",
-    "rating": 7,
-    "one_liner_summary": "Process meets abstraction in Dolphin Brown's video paintings of light and motion.",
-    "description": "<p>\u2605 Rating: <strong>7/10</strong></p><p>\ud83c\udfad Formal Qualities</p><p>The exhibition\u2019s strongest feature is its clear attention to process. Dolphin Brown\u2019s limited edition video paintings move from natural world footage toward abstraction, with light, motion, sound, and duration treated as compositional materials rather than decoration. The accompanying process video gives the work a useful structural frame, showing how raw imagery becomes a finished moving image. Elena Lipkowski\u2019s embroidered imagery, digital collage, beads, crystals, lenticular prints, and acrylic processes provide a tactile counterpoint to Brown\u2019s time based work. The shared studio setting makes the contrast legible, though it also risks turning the exhibition into a demonstration area rather than a fully controlled installation. </p><p>\u2728 Originality</p><p>The exhibition is strongest when it exposes transformation instead of presenting abstraction as a finished mystery. Brown\u2019s sequence from natural footage to altered image, with sound developing alongside it, gives the viewer a concrete account of how perception is manipulated. Lipkowski\u2019s combination of hand embroidery and digital image making similarly joins craft labor to reproductive technology. Neither practice is entirely new, but their pairing produces a productive tension between screen based movement and stitched, material permanence. </p><p>\ud83d\udcda Cultural Significance</p><p>The exhibition contributes to current discussions about process, craft, and the status of the moving image as an object. Brown\u2019s works are designed to enter the atmosphere and architecture of a space, while Lipkowski\u2019s labor intensive surfaces insist on the physical work behind digitally inflected images. The Austin Studio Tour context matters because the audience encounters artists in a working studio, with demonstrations that make production visible rather than concealing it behind institutional polish. Its cultural reach is local and accessible, but the exhibition offers a serious argument for treating making itself as part of the artwork. </p><p>\ud83d\udca1 Historical Context</p><p>Brown\u2019s practice belongs to the lineage of expanded cinema and video installation, particularly work that treats duration, projection, sound, and spatial placement as formal elements. The use of natural source material transformed through abstraction places the work near contemporary image processing practices, while the video painting format connects it to the long history of translating painterly effects into time based media. Lipkowski extends the older relationship between textile craft and image making into a contemporary hybrid of embroidery, collage, and print technology. The exhibition does not overturn those histories, but it presents them with enough technical clarity and material contrast to earn a strong score.</p>",
-    "url": "https://nowplayingaustin.com/event/austin-studio-tour-inside-the-moving-image-process-with-dolphin-brown/",
-    "screenings": [
-      {
-        "date": "2026-11-14",
-        "time": "11:00",
-        "url": "https://nowplayingaustin.com/event/austin-studio-tour-inside-the-moving-image-process-with-dolphin-brown/",
-        "venue": "ART Studios & Gallery at 2324"
-      },
-      {
-        "date": "2026-11-15",
-        "time": "11:00",
-        "url": "https://nowplayingaustin.com/event/austin-studio-tour-inside-the-moving-image-process-with-dolphin-brown/",
-        "venue": "ART Studios & Gallery at 2324"
-      },
-      {
-        "date": "2026-11-21",
-        "time": "11:00",
-        "url": "https://nowplayingaustin.com/event/austin-studio-tour-inside-the-moving-image-process-with-dolphin-brown/",
-        "venue": "ART Studios & Gallery at 2324"
-      },
-      {
-        "date": "2026-11-22",
-        "time": "11:00",
-        "url": "https://nowplayingaustin.com/event/austin-studio-tour-inside-the-moving-image-process-with-dolphin-brown/",
-        "venue": "ART Studios & Gallery at 2324"
-      }
-    ],
-    "review_confidence": "high",
-    "type": "visual_arts",
-    "id": "inside-the-moving-image-process-with-dolphin-brown---2026-11-142026-11-152026-11-212026-11-22-1100110011001100",
-    "venue_display_name": "ART Studios & Gallery at 2324",
-    "venue_address": ""
-  },
-  {
-    "title": "Little Art, Big Magic! | Austin Studio Tour with Elena Lipkowski",
-    "dates": [
-      "2026-11-14",
-      "2026-11-15",
-      "2026-11-21",
-      "2026-11-22"
-    ],
-    "times": [
-      "11:00"
-    ],
-    "end_date": "2026-11-22",
-    "artist": "Elena Lipkowski",
-    "artists": "",
-    "medium": "digital collage",
-    "series": "Austin Studio Tour 2026",
-    "venue": "Almost Real Things Studios & Gallery",
-    "rating": 7,
-    "one_liner_summary": "Tilting lenticular prints turn tiny collages into shifting, intimate optical puzzles.",
-    "description": "<p>\u2605 <strong>Rating: 7/10</strong></p><p><strong>\ud83c\udfad Formal Qualities</strong>  <br>Lipkowski\u2019s small lenticular prints turn digital collage into a viewing device. The works, ranging from 4 by 4 to 10 by 10 inches, change image as the viewer tilts or moves them, giving composition a temporal dimension rather than leaving it fixed on the wall. The scale suits the intimate, hands on premise, while the color and optical shift supply immediate visual appeal. The limitation is equally clear. Available descriptions emphasize transformation and process, but offer few details about individual images, sequencing, or installation, so the exhibition\u2019s larger formal argument remains difficult to assess.</p><p><strong>\u2728 Originality</strong>  <br>The strongest idea is physical rather than technological. Lipkowski makes the viewer operate the image, converting digital collage into a small object that reveals competing states through movement. That approach distinguishes the work from static collage and from screen based animation, though lenticular illusion itself has a long commercial and artistic history. The project earns its score by making spectatorship part of the technique, not by presenting a wholly new medium.</p><p><strong>\ud83d\udcda Cultural Significance</strong>  <br>The exhibition fits Austin\u2019s open studio culture, where process, affordability, and direct contact replace the distance of a conventional gallery presentation. Open edition prices from 20 to 55 dollars reinforce that accessible model. Its broader cultural value lies in treating optical play as serious contemporary craft while welcoming visitors of all ages. Still, the available material supports a modest claim, not a major intervention in current debates about digital art, authorship, or technology.</p><p><strong>\ud83d\udca1 Historical Context</strong>  <br>The work sits between digital collage, kinetic image making, and handmade mixed media. Lipkowski\u2019s wider practice combines photography, digital collage, hand embroidery, beads, crystals, and lenticular and acrylic print processes, placing the exhibition within a trajectory from screen construction toward tactile objects. Historically, the pieces extend the tradition of altered perception associated with lenticular printing and optical art, but in a compact, affordable format. This is a strong studio presentation with a clear mechanism and an inviting premise, not yet evidence of a fully developed critical language.</p>",
-    "url": "https://nowplayingaustin.com/event/little-art-big-magic-austin-studio-tour-with-elena-lipkowski/",
-    "screenings": [
-      {
-        "date": "2026-11-14",
-        "time": "11:00",
-        "url": "https://nowplayingaustin.com/event/little-art-big-magic-austin-studio-tour-with-elena-lipkowski/",
-        "venue": "Almost Real Things Studios & Gallery"
-      },
-      {
-        "date": "2026-11-15",
-        "time": "11:00",
-        "url": "https://nowplayingaustin.com/event/little-art-big-magic-austin-studio-tour-with-elena-lipkowski/",
-        "venue": "Almost Real Things Studios & Gallery"
-      },
-      {
-        "date": "2026-11-21",
-        "time": "11:00",
-        "url": "https://nowplayingaustin.com/event/little-art-big-magic-austin-studio-tour-with-elena-lipkowski/",
-        "venue": "Almost Real Things Studios & Gallery"
-      },
-      {
-        "date": "2026-11-22",
-        "time": "11:00",
-        "url": "https://nowplayingaustin.com/event/little-art-big-magic-austin-studio-tour-with-elena-lipkowski/",
-        "venue": "Almost Real Things Studios & Gallery"
-      }
-    ],
-    "review_confidence": "high",
-    "type": "visual_arts",
-    "id": "little-art-big-magic!-|-austin-studio-tour-with-elena-lipkowski---2026-11-142026-11-152026-11-212026-11-22-1100110011001100",
-    "venue_display_name": "Almost Real Things Studios & Gallery",
-    "venue_address": ""
   },
   {
     "title": "Vox Luminis | Vespers of 1910",
@@ -2382,6 +2208,38 @@
     "venue_address": "701 W Riverside Dr, Austin, TX 78704"
   },
   {
+    "title": "Connecting Stories: Texas in 1776",
+    "dates": [
+      "2026-11-15"
+    ],
+    "times": [
+      "10:00"
+    ],
+    "end_date": "2027-02-14",
+    "artist": "",
+    "artists": "",
+    "medium": "",
+    "series": "",
+    "venue": "MexicArte",
+    "rating": 6,
+    "one_liner_summary": "A documentary collage of Texas history, but lacks artistic specificity.",
+    "description": "<p>\u2605 Rating: 6/10</p><p>\ud83c\udfad Formal Qualities  <br>The exhibition\u2019s strongest formal decision is its documentary range. Historical artworks, photographs, maps, documents, oral histories, and community voices create a deliberately layered display rather than a single authoritative visual account. That range should give the installation useful texture, but the available description names no artists, individual works, materials, or spatial strategies, so technique and composition cannot be judged precisely. The format sounds competent and accessible, though potentially more archival than visually forceful.</p><p>\u2728 Originality  <br>The exhibition makes a sound curatorial move by shifting attention from the thirteen colonies to the region now called Texas, then organizing the material around frontier, independence, revolution, transformation, and reflection. Its innovation lies in reframing the national anniversary through local and contested histories, not in a new artistic medium or formal language. The concept is strong, but the lack of identified artists and specific works prevents a higher score.</p><p>\ud83d\udcda Cultural Significance  <br>This is the exhibition\u2019s clearest achievement. By placing Indigenous, Spanish, Mexican, and other regional histories alongside the American Revolution, it challenges the simplified patriotic narrative usually attached to 1776. Its use of oral histories and community voices also gives institutional space to perspectives often excluded from conventional historical displays. That public-facing approach suits Mexic-Arte\u2019s cultural mission, although its success will depend on whether those voices shape the exhibition rather than merely decorate its labels.</p><p>\ud83d\udca1 Historical Context  <br>The project belongs to the current wave of museum exhibitions reassessing national anniversaries through colonialism, border history, Indigenous politics, and regional identity. Its accompanying discussion of the destruction of Mission San Sab\u00e1, art, Indigenous politics, and Spanish Texas indicates an effort to connect objects with conflict and power rather than present history as a sequence of dates. Still, no information is available about the artists\u2019 trajectories, and the exhibition appears to be primarily thematic and historical rather than a focused contribution to an individual artist\u2019s development. It is a useful, timely exhibition, but the evidence supports competence and relevance, not exceptional artistic distinction.</p>",
+    "url": "https://mexic-artemuseum.org/exhibitions/",
+    "screenings": [
+      {
+        "date": "2026-11-15",
+        "time": "10:00",
+        "url": "https://mexic-artemuseum.org/exhibitions/",
+        "venue": "MexicArte"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "connecting-stories-texas-in-1776---2026-11-15-1000",
+    "venue_display_name": "Mexic-Arte Museum",
+    "venue_address": "419 Congress Ave, Austin, TX 78701"
+  },
+  {
     "title": "Tha\u00efs",
     "dates": [
       "2026-11-15"
@@ -2450,314 +2308,6 @@
     "venue_address": "613 W 29th St, Austin, TX 78705"
   },
   {
-    "title": "THE HISTORY OF CONCRETE",
-    "dates": [
-      "2026-11-16",
-      "2026-11-22",
-      "2026-11-24"
-    ],
-    "times": [
-      "12:45",
-      "15:15",
-      "16:50"
-    ],
-    "director": "John Wilson",
-    "runtime_minutes": 100,
-    "release_year": 2026,
-    "country": "USA",
-    "language": "English",
-    "rating": 8,
-    "one_liner_summary": "A sly, deadpan comic essay using concrete's history to map American absurdity.",
-    "description": "<p>\u2605 Rating: 8/10</p><p>\ud83c\udfad Artistic Merit, John Wilson turns a ridiculous premise into a sturdy comic structure, using the search for concrete\u2019s history as a way to move through sidewalks, monuments, city labor, and the low-grade absurdity of American public space. The film\u2019s craft seems strongest in its patient accumulation of odd encounters and visual digressions, with the opening idea, a Hallmark-style pitch for a concrete documentary, giving the piece a sly formal engine rather than a mere gimmick.</p><p>\u2728 Originality, this is not a standard documentary, and it gains force from that refusal. The concept bends between satire, essay film, and city symphony, then keeps mutating as Wilson drifts from a commercial pitch exercise into questions about urbanism, memory, and the texture of ordinary life. That shape is uncommon enough to feel genuinely alive, and the comedy comes from structure, not just punch lines.</p><p>\ud83d\udcda Cultural Significance, the film matters as a feature debut that extends Wilson\u2019s TV practice into a longer form without sanding off its peculiar voice. Its subject, concrete, is a blunt material with huge civic reach, and the film uses that fact to think about New York, public life, and the anonymous architecture people move through every day. It may not alter documentary history, but it clearly belongs in the recent wave of essayistic nonfiction that treats the overlooked as a record of culture.</p><p>\ud83d\udca1 Intellectual Depth, beneath the comic premise, the film appears to build a serious argument about how cities are made, how value attaches to materials, and how human life leaves marks in supposedly inert things. The best reports on the film describe it moving from joke to reflection without breaking its comic rhythm, with concrete becoming a route into labor, mortality, and the gap between what is built and what is remembered. That is not empty cleverness, it is a coherent idea with enough range to support a full feature.</p>",
-    "url": "https://www.austinfilm.org/screening/the-history-of-concrete/",
-    "venue": "AFS",
-    "screenings": [
-      {
-        "date": "2026-11-16",
-        "time": "15:15",
-        "url": "https://www.austinfilm.org/screening/the-history-of-concrete/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-22",
-        "time": "12:45",
-        "url": "https://www.austinfilm.org/screening/the-history-of-concrete/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-24",
-        "time": "16:50",
-        "url": "https://www.austinfilm.org/screening/the-history-of-concrete/",
-        "venue": "AFS"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "the-history-of-concrete",
-    "venue_display_name": "Austin Film Society",
-    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
-  },
-  {
-    "title": "LA BOLA NEGRA",
-    "dates": [
-      "2026-11-16",
-      "2026-11-17",
-      "2026-11-18",
-      "2026-11-19",
-      "2026-11-20",
-      "2026-11-21",
-      "2026-11-22",
-      "2026-11-23"
-    ],
-    "times": [
-      "15:15",
-      "15:30",
-      "15:45",
-      "16:30",
-      "18:15",
-      "18:30",
-      "19:00",
-      "20:00"
-    ],
-    "director": "Javier Calvo and Javier Ambrossi",
-    "runtime_minutes": 159,
-    "release_year": 2026,
-    "country": "Spain/France",
-    "language": "Spanish",
-    "rating": 8,
-    "one_liner_summary": "Three generations, one black ball: desire, violence, and family secrets collide.",
-    "description": "<p>\u2605 Rating: 8/10</p><p>\ud83c\udfad Artistic Merit  <br>Calvo and Ambrossi build a demanding three-part structure across 1932, 1937, and 2017, linking private desire to political violence and family inheritance. The black-ball voting ritual at Carlos\u2019s elite club gives the film a strong visual emblem, while Sebasti\u00e1n\u2019s wartime story turns repression into immediate physical danger. The contemporary plot, centered on Alberto\u2019s investigation and his conflict with his mother, supplies the connective tissue. At 159 minutes, the film occasionally overstates its emotions, but its scale, ensemble casting, and movement between theatricality and historical drama show substantial control.</p><p>\u2728 Originality  <br>The film\u2019s best idea is not simply to adapt Federico Garc\u00eda Lorca\u2019s unfinished play, but to treat its absence as a structural problem. Three gay men, separated by decades, become fragments of a missing history, and the narrative gradually reconstructs meaning through echoes rather than direct explanation. That design avoids a standard chronological account of queer persecution. The result is ambitious and often unpredictable, though the film\u2019s maximalist gestures sometimes announce their symbolism too clearly.</p><p>\ud83d\udcda Cultural Significance  <br>La bola negra places queer Spanish experience inside the country\u2019s overlapping histories of class privilege, civil war, dictatorship, family silence, and public memory. Its connection to Lorca gives the project unusual literary weight, while the presence of first-time performers and musicians, including Guitarricadelafuente, broadens its sense of cultural inheritance. The film contributes to Spanish cinema by presenting homosexuality not as a single struggle for acceptance, but as a historical continuity shaped by concealment, violence, art, and survival.</p><p>\ud83d\udca1 Intellectual Depth  <br>The film\u2019s central question concerns what later generations owe to lives that could not speak openly. Carlos\u2019s exclusion from the club, Sebasti\u00e1n\u2019s wartime displacement, and Alberto\u2019s attempt to decipher his grandfather\u2019s legacy form an argument about memory as reconstruction rather than recovery. Sexual identity, desire, and inheritance remain inseparable from institutions that classify people as acceptable or disposable. The film is strongest when it lets those ideas emerge through objects, rituals, and family disputes. It is weaker when dialogue explains what the structure has already made clear. Even so, the three timelines produce genuine complexity, and the film earns its score above 5 through formal ambition, historical reach, and sustained thematic connection.</p>",
-    "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-    "venue": "AFS",
-    "screenings": [
-      {
-        "date": "2026-11-16",
-        "time": "15:30",
-        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-16",
-        "time": "18:30",
-        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-17",
-        "time": "15:45",
-        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-18",
-        "time": "19:00",
-        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-19",
-        "time": "18:15",
-        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-20",
-        "time": "15:15",
-        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-21",
-        "time": "20:00",
-        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-22",
-        "time": "19:00",
-        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-23",
-        "time": "16:30",
-        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
-        "venue": "AFS"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "la-bola-negra",
-    "venue_display_name": "Austin Film Society",
-    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
-  },
-  {
-    "title": "FATHERLAND",
-    "dates": [
-      "2026-11-16",
-      "2026-11-17",
-      "2026-11-18",
-      "2026-11-19",
-      "2026-11-21",
-      "2026-11-23",
-      "2026-11-24",
-      "2026-11-25"
-    ],
-    "times": [
-      "14:45",
-      "16:00",
-      "16:10",
-      "16:15",
-      "20:15",
-      "20:30"
-    ],
-    "director": "Pawe\u0142 Pawlikowski",
-    "runtime_minutes": 82,
-    "release_year": 2026,
-    "country": "Poland/Germany/France",
-    "language": "Multiple Languages",
-    "rating": 7,
-    "one_liner_summary": "Pawlikowski\u2019s severe post-war father-daughter journey, framed in academy ratio.",
-    "description": "<p>\u2605 <strong>Rating: 7/10</strong></p><p>\ud83c\udfad <strong>Artistic Merit</strong>  <br>Pawlikowski\u2019s control remains formidable. \u0141ukasz \u017bal\u2019s academy ratio compositions turn bombed German streets, occupied checkpoints, and the black Buick into severe visual compartments. The father and daughter\u2019s journey gains force from pauses, clipped exchanges, and the contrast between Hanns Zischler\u2019s guarded Thomas Mann and Sandra H\u00fcller\u2019s more combustible Erika. The precision sometimes becomes overdetermined, with staged silences and elliptical transitions obscuring rather than sharpening the family conflict.</p><p>\u2728 <strong>Originality</strong>  <br>The film\u2019s strongest idea is its fictionalized 1949 road trip, which makes Germany\u2019s political division a physical route and a family argument at once. Erika\u2019s identity as actress, writer, and rally driver gives the central relationship an unusual charge, while Mann\u2019s return from sixteen years of exile complicates the familiar homecoming narrative. Still, the film\u2019s formal austerity and postwar moral vocabulary belong recognizably to Pawlikowski, and its symbolic architecture occasionally feels inherited rather than discovered.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br><em>Fatherland</em> links private rupture to Germany\u2019s refusal to confront its recent crimes. Its movement from American occupied Frankfurt to Soviet controlled Weimar places competing political systems beside a shared national evasiveness. The film contributes to the postwar historical drama by treating artistic compromise, exile, and family loyalty as connected problems, though its impact is limited by the tendency to use history as an elegant setting for portentous conversations.</p><p>\ud83d\udca1 <strong>Intellectual Depth</strong>  <br>The film\u2019s central question is not whether Thomas Mann belongs to Germany, but what return means after moral and familial exile. Thomas\u2019s public authority clashes with Erika\u2019s sharper impatience, exposing the cost of turning political judgment into literary stature. Their exchanges also test whether art can confront collective guilt without converting suffering into prestige. These ideas are substantial, but the screenplay leaves some psychological links too vague, so the film\u2019s intelligence is more visible in its structure and images than in fully developed character argument.</p><p><em>Fatherland</em> is a strong, disciplined film with an unusually intelligent premise and excellent performances. It falls short of exceptional status because its restraint sometimes hardens into distance, and its historical complexity is more asserted through composition than fully dramatized.</p>",
-    "url": "https://www.austinfilm.org/screening/fatherland/",
-    "venue": "AFS",
-    "screenings": [
-      {
-        "date": "2026-11-16",
-        "time": "16:00",
-        "url": "https://www.austinfilm.org/screening/fatherland/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-17",
-        "time": "16:10",
-        "url": "https://www.austinfilm.org/screening/fatherland/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-18",
-        "time": "16:15",
-        "url": "https://www.austinfilm.org/screening/fatherland/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-19",
-        "time": "16:00",
-        "url": "https://www.austinfilm.org/screening/fatherland/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-21",
-        "time": "14:45",
-        "url": "https://www.austinfilm.org/screening/fatherland/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-23",
-        "time": "16:15",
-        "url": "https://www.austinfilm.org/screening/fatherland/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-24",
-        "time": "20:15",
-        "url": "https://www.austinfilm.org/screening/fatherland/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-25",
-        "time": "20:30",
-        "url": "https://www.austinfilm.org/screening/fatherland/",
-        "venue": "AFS"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "fatherland",
-    "venue_display_name": "Austin Film Society",
-    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
-  },
-  {
-    "title": "Queer Art Book Talk",
-    "dates": [
-      "2026-11-16"
-    ],
-    "times": [
-      "18:00"
-    ],
-    "end_date": "",
-    "artist": "",
-    "artists": "",
-    "medium": "",
-    "series": null,
-    "venue": "MassGallery",
-    "rating": 4,
-    "one_liner_summary": "A queer book talk at MassGallery, but no artist or title is named.",
-    "description": "<p>\u2605 Rating: 4/10</p><p>The available information identifies this as a book talk at MassGallery, but it does not identify the artist, featured book, installation, or artworks. A firm evaluation of a specific exhibition is therefore impossible. MassGallery\u2019s program centers LGBTQIA+ artists and community events, and its recent programming includes exhibitions and gatherings organized around queer identity, material practice, and collective exchange.</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>No reviewable visual evidence is available. The event format suggests discussion and reading rather than a fully specified exhibition, but there is not enough information to assess composition, materials, technique, spatial arrangement, or display standards.</p><p>\u2728 <strong>Originality</strong>  <br>The premise has clear potential, particularly because artist books can resist the gallery\u2019s usual hierarchy between object, author, and audience. Nothing in the available record establishes how this particular talk departed from existing queer publishing, reading-room, or artist-book conventions.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The event fits MassGallery\u2019s stated commitment to LGBTQIA+ artists and community-building. That institutional setting gives the program relevance, but the absence of an identified speaker, book, or argument prevents a serious assessment of its contribution to contemporary queer discourse.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>Artist books occupy an important lineage linking artists\u2019 publishing, underground queer archives, feminist print culture, and community distribution networks. The exhibition\u2019s place within that history cannot be determined without the artist, publication details, date, or documentation.</p><p>The score reflects insufficiently documented artistic content, not a judgment that the event itself lacked merit.</p>",
-    "url": "https://massgallery.org/",
-    "screenings": [
-      {
-        "date": "2026-11-16",
-        "time": "18:00",
-        "url": "https://massgallery.org/",
-        "venue": "MassGallery"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "visual_arts",
-    "id": "queer-art-book-talk---2026-11-16-1800",
-    "venue_display_name": "MASS Gallery",
-    "venue_address": "507 Calles St, Suite 108, Austin, TX 78702"
-  },
-  {
-    "title": "WHITE NIGHTS",
-    "dates": [
-      "2026-11-16",
-      "2026-11-18",
-      "2026-11-21"
-    ],
-    "times": [
-      "16:30",
-      "18:00",
-      "19:00"
-    ],
-    "director": "Luchino Visconti",
-    "runtime_minutes": 101,
-    "release_year": 1957,
-    "country": "Italy",
-    "language": "Italian",
-    "rating": 8,
-    "one_liner_summary": "Visconti's artificial Livorno streets host Mastroianni and Schell's volatile nocturnal romance.",
-    "description": "<p>\u2605 <strong>Rating: 8/10</strong></p><p><strong>\ud83c\udfad Artistic Merit</strong>  <br>Visconti turns Livorno into a fully artificial nocturnal maze, built on a soundstage with canals, bridges, fog, and isolated streetlamps. The controlled sets and high contrast lighting reject documentary realism without losing emotional credibility. Marcello Mastroianni gives Mario an appealing awkwardness, while Maria Schell makes Natalia volatile, needy, and difficult to idealize. Their encounters gain force from precise blocking and the film\u2019s measured movement between solitude and pursuit. The final reunion, followed by Natalia\u2019s return to the absent lodger, lands because the film has made romantic expectation feel physically habitual. The Silver Lion at Venice confirmed the film\u2019s formal achievement.</p><p><strong>\u2728 Originality</strong>  <br>The film\u2019s strongest invention is its collision of Dostoevsky\u2019s intimate romantic fable with Visconti\u2019s theatrical artificiality. Rather than imitate the short story\u2019s first person narration, the adaptation externalizes Mario\u2019s fantasies through streets that seem assembled from memory. The result is neither conventional neorealism nor ordinary studio romance. Visconti makes fog, empty pavement, canals, and nighttime wandering carry psychological weight. The approach anticipates the stylized direction of his later career, while retaining the directness of a popular love story.</p><p><strong>\ud83d\udcda Cultural Significance</strong>  <br><em>White Nights</em> occupies a key position between Italian neorealism and Visconti\u2019s later baroque cinema. Its constructed city demonstrates that artificial design can express social and emotional truth as effectively as location shooting. The film also updates a nineteenth century Russian story into postwar Italy, preserving its concern with isolation while giving the characters a modern urban setting. Its influence is less broad than that of <em>The Leopard</em> or <em>Rocco and His Brothers</em>, but its formal transition makes it an important work in Visconti\u2019s development.</p><p><strong>\ud83d\udca1 Intellectual Depth</strong>  <br>The film examines desire as a form of self deception. Mario does not simply fall in love with Natalia, he enters the story she has already invented around the missing lodger. Natalia is not merely faithful or abandoned, she repeatedly chooses an imagined future over the evidence before her. Visconti complicates the romantic triangle by making all three figures dependent on absence. The film\u2019s central idea is unsentimental, people often love not the person available to them, but the narrative that gives their waiting a purpose. Its psychology is narrower than Dostoevsky\u2019s, yet the changes to Natalia, including her sharper instability and teasing behavior, give the adaptation a more active and less innocent emotional conflict.</p>",
-    "url": "https://www.austinfilm.org/screening/white-nights/",
-    "venue": "AFS",
-    "screenings": [
-      {
-        "date": "2026-11-16",
-        "time": "19:00",
-        "url": "https://www.austinfilm.org/screening/white-nights/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-18",
-        "time": "18:00",
-        "url": "https://www.austinfilm.org/screening/white-nights/",
-        "venue": "AFS"
-      },
-      {
-        "date": "2026-11-21",
-        "time": "16:30",
-        "url": "https://www.austinfilm.org/screening/white-nights/",
-        "venue": "AFS"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "movie",
-    "id": "white-nights",
-    "venue_display_name": "Austin Film Society",
-    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
-  },
-  {
     "title": "The Spotlight Book Club - Switzy",
     "dates": [
       "2026-11-16"
@@ -2822,15 +2372,243 @@
     "venue_address": "301 Chicon St, Austin, TX 78702"
   },
   {
+    "title": "AFTER",
+    "dates": [
+      "2026-11-17"
+    ],
+    "times": [
+      "12:00"
+    ],
+    "end_date": "2026-11-22",
+    "artist": "",
+    "artists": [
+      "Raul Rene Gonzalez",
+      "Philip Hershberger"
+    ],
+    "medium": "mixed media",
+    "series": "",
+    "venue": "Link & Pin",
+    "rating": 6,
+    "one_liner_summary": "Mixed-media works explore labor, family, and pop culture through painting and collage.",
+    "description": "<p>\u2605 <strong>Rating: 6/10</strong></p><p><strong>\ud83c\udfad Formal Qualities</strong>  <br>The available documentation identifies Gonzalez\u2019s contribution to <em>AFTER</em> as mixed media, but does not provide installation views, titles, dimensions, or detailed material descriptions. That limitation prevents a close judgment of composition and technique. His documented practice combines painting, drawing, collage, and printmaking, with works that move between family life, construction labor, popular culture, and space imagery. Within <em>AFTER</em>, the work appears positioned to extend that material range into the exhibition\u2019s posthuman landscape framework, but the evidence does not support stronger claims about spatial control or execution.</p><p><strong>\u2728 Originality</strong>  <br>Gonzalez\u2019s established subjects, especially caregiving, physical labor, family, and vernacular culture, offer a more grounded alternative to generic catastrophe imagery. That is a credible point of difference within a group show organized around environmental rupture and an unknowable future. Still, the available record does not identify the specific works shown, so the contribution\u2019s conceptual distinctiveness cannot be rated above competent.</p><p><strong>\ud83d\udcda Cultural Significance</strong>  <br>The exhibition frames landscape as a condition shaped by political indifference, and it gathers ten artists around the posthuman earth, using durable, pliable, and ephemeral techniques. Gonzalez\u2019s attention to labor and care gives that premise a social register, linking planetary crisis to the ordinary work of sustaining families, communities, and cities. His inclusion is therefore relevant, but the available documentation says too little about how his actual pieces complicate or sharpen the exhibition\u2019s institutional argument.</p><p><strong>\ud83d\udca1 Historical Context</strong>  <br>Gonzalez\u2019s contribution follows a trajectory from mixed media paintings and drawings about construction, parenthood, and popular imagery toward broader questions of place and futurity. His work belongs to a contemporary lineage that treats domestic labor and working life as serious subjects rather than background material. In <em>AFTER</em>, that history seems more valuable than any speculative imagery alone, though insufficient documentation prevents a firmer assessment of the exhibition\u2019s specific achievement.</p>",
+    "url": "https://nowplayingaustin.com/event/after/",
+    "screenings": [
+      {
+        "date": "2026-11-17",
+        "time": "12:00",
+        "url": "https://nowplayingaustin.com/event/after/",
+        "venue": "Link & Pin"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "visual_arts",
+    "id": "after---2026-11-17-1200",
+    "venue_display_name": "Link & Pin",
+    "venue_address": ""
+  },
+  {
+    "title": "Regular and Precious",
+    "dates": [
+      "2026-11-17"
+    ],
+    "times": [
+      "12:00"
+    ],
+    "end_date": "2026-11-28",
+    "artist": "Bella Cheng",
+    "artists": "",
+    "medium": "visual art",
+    "series": "",
+    "venue": "Julia C. Butridge Gallery, Dougherty Arts Center",
+    "rating": 7,
+    "one_liner_summary": "Cheng transforms ordinary scenes into abstract worlds of cells, rooms, and planets.",
+    "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>The exhibition\u2019s strongest formal device is its movement between scales. Cheng studies ordinary scenes and natural forms, then cuts, abstracts, and recombines them into images that suggest cells, miniature rooms, dolls, or distant planets. The mixed media drawing <em>Rainbow Galls</em> demonstrates this interest in material transformation, using paper as both image surface and constructed space. The approach sounds carefully controlled, but the available documentation does not establish the full range of technique, installation, or individual works. The formal ambition is clear, the visual evidence remains limited.</p><p>\u2728 <strong>Originality</strong>  <br>Cheng\u2019s premise is familiar, close observation turning the everyday strange, but the translation between bodily interiors, natural structures, and cosmic forms gives it a workable identity. The exhibition avoids simple realism by cutting images apart and rebuilding them, making scale unstable rather than merely decorative. Its language of childlike curiosity risks sentimentality, yet the tension between play and interiority gives the series a more specific direction. This is strong development, not a major break from contemporary drawing.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br><em>Regular and Precious</em> belongs to a broader contemporary interest in microscopic life, embodied perception, and the collapse of boundaries between inner and outer worlds. Its value lies less in making a public argument than in slowing perception, asking viewers to examine common forms as structures with unfamiliar lives. The exhibition also matters within Austin\u2019s artist centered presentation at the Dougherty Arts Center, where Cheng\u2019s work appears alongside local and emerging practices rather than inside a heavily historicized museum framework. Its cultural reach is modest, but its attention to how people learn to see remains relevant.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>Cheng\u2019s process extends established lineages of surrealist transformation, biomorphic abstraction, and contemporary cut paper drawing. Her interest in interiors and the body continues concerns she identifies from her art school training, while the exhibition develops those concerns through observations of nature and shifts in scale. The work appears to mark an early, coherent stage in an artist\u2019s trajectory, with recurring subjects and methods rather than a settled signature. That consistency supports the rating, but the available record does not justify calling the exhibition exceptional.</p>",
+    "url": "https://nowplayingaustin.com/event/regular-and-precious/",
+    "screenings": [
+      {
+        "date": "2026-11-17",
+        "time": "12:00",
+        "url": "https://nowplayingaustin.com/event/regular-and-precious/",
+        "venue": "Julia C. Butridge Gallery, Dougherty Arts Center"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "regular-and-precious---2026-11-17-1200",
+    "venue_display_name": "Julia C. Butridge Gallery, Dougherty Arts Center",
+    "venue_address": ""
+  },
+  {
+    "title": "LA BOLA NEGRA",
+    "dates": [
+      "2026-11-17",
+      "2026-11-18",
+      "2026-11-19",
+      "2026-11-20",
+      "2026-11-21",
+      "2026-11-22",
+      "2026-11-23"
+    ],
+    "times": [
+      "15:15",
+      "15:45",
+      "16:30",
+      "18:15",
+      "19:00",
+      "20:00"
+    ],
+    "director": "Javier Calvo and Javier Ambrossi",
+    "runtime_minutes": 159,
+    "release_year": 2026,
+    "country": "Spain/France",
+    "language": "Spanish",
+    "rating": 8,
+    "one_liner_summary": "Three generations, one black ball: desire, violence, and family secrets collide.",
+    "description": "<p>\u2605 Rating: 8/10</p><p>\ud83c\udfad Artistic Merit  <br>Calvo and Ambrossi build a demanding three-part structure across 1932, 1937, and 2017, linking private desire to political violence and family inheritance. The black-ball voting ritual at Carlos\u2019s elite club gives the film a strong visual emblem, while Sebasti\u00e1n\u2019s wartime story turns repression into immediate physical danger. The contemporary plot, centered on Alberto\u2019s investigation and his conflict with his mother, supplies the connective tissue. At 159 minutes, the film occasionally overstates its emotions, but its scale, ensemble casting, and movement between theatricality and historical drama show substantial control.</p><p>\u2728 Originality  <br>The film\u2019s best idea is not simply to adapt Federico Garc\u00eda Lorca\u2019s unfinished play, but to treat its absence as a structural problem. Three gay men, separated by decades, become fragments of a missing history, and the narrative gradually reconstructs meaning through echoes rather than direct explanation. That design avoids a standard chronological account of queer persecution. The result is ambitious and often unpredictable, though the film\u2019s maximalist gestures sometimes announce their symbolism too clearly.</p><p>\ud83d\udcda Cultural Significance  <br>La bola negra places queer Spanish experience inside the country\u2019s overlapping histories of class privilege, civil war, dictatorship, family silence, and public memory. Its connection to Lorca gives the project unusual literary weight, while the presence of first-time performers and musicians, including Guitarricadelafuente, broadens its sense of cultural inheritance. The film contributes to Spanish cinema by presenting homosexuality not as a single struggle for acceptance, but as a historical continuity shaped by concealment, violence, art, and survival.</p><p>\ud83d\udca1 Intellectual Depth  <br>The film\u2019s central question concerns what later generations owe to lives that could not speak openly. Carlos\u2019s exclusion from the club, Sebasti\u00e1n\u2019s wartime displacement, and Alberto\u2019s attempt to decipher his grandfather\u2019s legacy form an argument about memory as reconstruction rather than recovery. Sexual identity, desire, and inheritance remain inseparable from institutions that classify people as acceptable or disposable. The film is strongest when it lets those ideas emerge through objects, rituals, and family disputes. It is weaker when dialogue explains what the structure has already made clear. Even so, the three timelines produce genuine complexity, and the film earns its score above 5 through formal ambition, historical reach, and sustained thematic connection.</p>",
+    "url": "https://www.austinfilm.org/screening/la-bola-negra/",
+    "venue": "AFS",
+    "screenings": [
+      {
+        "date": "2026-11-17",
+        "time": "15:45",
+        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-18",
+        "time": "19:00",
+        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-19",
+        "time": "18:15",
+        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-20",
+        "time": "15:15",
+        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-21",
+        "time": "20:00",
+        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-22",
+        "time": "19:00",
+        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-23",
+        "time": "16:30",
+        "url": "https://www.austinfilm.org/screening/la-bola-negra/",
+        "venue": "AFS"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "movie",
+    "id": "la-bola-negra",
+    "venue_display_name": "Austin Film Society",
+    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
+  },
+  {
+    "title": "FATHERLAND",
+    "dates": [
+      "2026-11-17",
+      "2026-11-18",
+      "2026-11-19",
+      "2026-11-21",
+      "2026-11-23",
+      "2026-11-24",
+      "2026-11-25"
+    ],
+    "times": [
+      "14:45",
+      "16:00",
+      "16:10",
+      "16:15",
+      "20:15",
+      "20:30"
+    ],
+    "director": "Pawe\u0142 Pawlikowski",
+    "runtime_minutes": 82,
+    "release_year": 2026,
+    "country": "Poland/Germany/France",
+    "language": "Multiple Languages",
+    "rating": 7,
+    "one_liner_summary": "Pawlikowski\u2019s severe post-war father-daughter journey, framed in academy ratio.",
+    "description": "<p>\u2605 <strong>Rating: 7/10</strong></p><p>\ud83c\udfad <strong>Artistic Merit</strong>  <br>Pawlikowski\u2019s control remains formidable. \u0141ukasz \u017bal\u2019s academy ratio compositions turn bombed German streets, occupied checkpoints, and the black Buick into severe visual compartments. The father and daughter\u2019s journey gains force from pauses, clipped exchanges, and the contrast between Hanns Zischler\u2019s guarded Thomas Mann and Sandra H\u00fcller\u2019s more combustible Erika. The precision sometimes becomes overdetermined, with staged silences and elliptical transitions obscuring rather than sharpening the family conflict.</p><p>\u2728 <strong>Originality</strong>  <br>The film\u2019s strongest idea is its fictionalized 1949 road trip, which makes Germany\u2019s political division a physical route and a family argument at once. Erika\u2019s identity as actress, writer, and rally driver gives the central relationship an unusual charge, while Mann\u2019s return from sixteen years of exile complicates the familiar homecoming narrative. Still, the film\u2019s formal austerity and postwar moral vocabulary belong recognizably to Pawlikowski, and its symbolic architecture occasionally feels inherited rather than discovered.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br><em>Fatherland</em> links private rupture to Germany\u2019s refusal to confront its recent crimes. Its movement from American occupied Frankfurt to Soviet controlled Weimar places competing political systems beside a shared national evasiveness. The film contributes to the postwar historical drama by treating artistic compromise, exile, and family loyalty as connected problems, though its impact is limited by the tendency to use history as an elegant setting for portentous conversations.</p><p>\ud83d\udca1 <strong>Intellectual Depth</strong>  <br>The film\u2019s central question is not whether Thomas Mann belongs to Germany, but what return means after moral and familial exile. Thomas\u2019s public authority clashes with Erika\u2019s sharper impatience, exposing the cost of turning political judgment into literary stature. Their exchanges also test whether art can confront collective guilt without converting suffering into prestige. These ideas are substantial, but the screenplay leaves some psychological links too vague, so the film\u2019s intelligence is more visible in its structure and images than in fully developed character argument.</p><p><em>Fatherland</em> is a strong, disciplined film with an unusually intelligent premise and excellent performances. It falls short of exceptional status because its restraint sometimes hardens into distance, and its historical complexity is more asserted through composition than fully dramatized.</p>",
+    "url": "https://www.austinfilm.org/screening/fatherland/",
+    "venue": "AFS",
+    "screenings": [
+      {
+        "date": "2026-11-17",
+        "time": "16:10",
+        "url": "https://www.austinfilm.org/screening/fatherland/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-18",
+        "time": "16:15",
+        "url": "https://www.austinfilm.org/screening/fatherland/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-19",
+        "time": "16:00",
+        "url": "https://www.austinfilm.org/screening/fatherland/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-21",
+        "time": "14:45",
+        "url": "https://www.austinfilm.org/screening/fatherland/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-23",
+        "time": "16:15",
+        "url": "https://www.austinfilm.org/screening/fatherland/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-24",
+        "time": "20:15",
+        "url": "https://www.austinfilm.org/screening/fatherland/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-25",
+        "time": "20:30",
+        "url": "https://www.austinfilm.org/screening/fatherland/",
+        "venue": "AFS"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "movie",
+    "id": "fatherland",
+    "venue_display_name": "Austin Film Society",
+    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
+  },
+  {
     "title": "ONCE UPON A TIME IN HARLEM",
     "dates": [
       "2026-11-17",
       "2026-11-18",
-      "2026-11-19"
+      "2026-11-19",
+      "2026-11-20",
+      "2026-11-25"
     ],
     "times": [
       "15:30",
       "16:30",
+      "16:45",
       "19:45"
     ],
     "director": "William Greaves and David Greaves",
@@ -2861,6 +2639,18 @@
         "time": "19:45",
         "url": "https://www.austinfilm.org/screening/once-upon-a-time-in-harlem/",
         "venue": "AFS"
+      },
+      {
+        "date": "2026-11-20",
+        "time": "16:45",
+        "url": "https://www.austinfilm.org/screening/once-upon-a-time-in-harlem/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-25",
+        "time": "15:30",
+        "url": "https://www.austinfilm.org/screening/once-upon-a-time-in-harlem/",
+        "venue": "AFS"
       }
     ],
     "review_confidence": "unknown",
@@ -2874,11 +2664,14 @@
     "dates": [
       "2026-11-17",
       "2026-11-18",
-      "2026-11-19"
+      "2026-11-19",
+      "2026-11-21",
+      "2026-11-23"
     ],
     "times": [
       "15:45",
       "16:45",
+      "17:00",
       "19:00"
     ],
     "director": "Zhang Yimou",
@@ -2907,6 +2700,18 @@
       {
         "date": "2026-11-19",
         "time": "16:45",
+        "url": "https://www.austinfilm.org/screening/raise-the-red-lantern/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-21",
+        "time": "17:00",
+        "url": "https://www.austinfilm.org/screening/raise-the-red-lantern/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-23",
+        "time": "15:45",
         "url": "https://www.austinfilm.org/screening/raise-the-red-lantern/",
         "venue": "AFS"
       }
@@ -3022,6 +2827,46 @@
     "venue_address": ""
   },
   {
+    "title": "WHITE NIGHTS",
+    "dates": [
+      "2026-11-18",
+      "2026-11-21"
+    ],
+    "times": [
+      "16:30",
+      "18:00"
+    ],
+    "director": "Luchino Visconti",
+    "runtime_minutes": 101,
+    "release_year": 1957,
+    "country": "Italy",
+    "language": "Italian",
+    "rating": 8,
+    "one_liner_summary": "Visconti's artificial Livorno streets host Mastroianni and Schell's volatile nocturnal romance.",
+    "description": "<p>\u2605 <strong>Rating: 8/10</strong></p><p><strong>\ud83c\udfad Artistic Merit</strong>  <br>Visconti turns Livorno into a fully artificial nocturnal maze, built on a soundstage with canals, bridges, fog, and isolated streetlamps. The controlled sets and high contrast lighting reject documentary realism without losing emotional credibility. Marcello Mastroianni gives Mario an appealing awkwardness, while Maria Schell makes Natalia volatile, needy, and difficult to idealize. Their encounters gain force from precise blocking and the film\u2019s measured movement between solitude and pursuit. The final reunion, followed by Natalia\u2019s return to the absent lodger, lands because the film has made romantic expectation feel physically habitual. The Silver Lion at Venice confirmed the film\u2019s formal achievement.</p><p><strong>\u2728 Originality</strong>  <br>The film\u2019s strongest invention is its collision of Dostoevsky\u2019s intimate romantic fable with Visconti\u2019s theatrical artificiality. Rather than imitate the short story\u2019s first person narration, the adaptation externalizes Mario\u2019s fantasies through streets that seem assembled from memory. The result is neither conventional neorealism nor ordinary studio romance. Visconti makes fog, empty pavement, canals, and nighttime wandering carry psychological weight. The approach anticipates the stylized direction of his later career, while retaining the directness of a popular love story.</p><p><strong>\ud83d\udcda Cultural Significance</strong>  <br><em>White Nights</em> occupies a key position between Italian neorealism and Visconti\u2019s later baroque cinema. Its constructed city demonstrates that artificial design can express social and emotional truth as effectively as location shooting. The film also updates a nineteenth century Russian story into postwar Italy, preserving its concern with isolation while giving the characters a modern urban setting. Its influence is less broad than that of <em>The Leopard</em> or <em>Rocco and His Brothers</em>, but its formal transition makes it an important work in Visconti\u2019s development.</p><p><strong>\ud83d\udca1 Intellectual Depth</strong>  <br>The film examines desire as a form of self deception. Mario does not simply fall in love with Natalia, he enters the story she has already invented around the missing lodger. Natalia is not merely faithful or abandoned, she repeatedly chooses an imagined future over the evidence before her. Visconti complicates the romantic triangle by making all three figures dependent on absence. The film\u2019s central idea is unsentimental, people often love not the person available to them, but the narrative that gives their waiting a purpose. Its psychology is narrower than Dostoevsky\u2019s, yet the changes to Natalia, including her sharper instability and teasing behavior, give the adaptation a more active and less innocent emotional conflict.</p>",
+    "url": "https://www.austinfilm.org/screening/white-nights/",
+    "venue": "AFS",
+    "screenings": [
+      {
+        "date": "2026-11-18",
+        "time": "18:00",
+        "url": "https://www.austinfilm.org/screening/white-nights/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-21",
+        "time": "16:30",
+        "url": "https://www.austinfilm.org/screening/white-nights/",
+        "venue": "AFS"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "movie",
+    "id": "white-nights",
+    "venue_display_name": "Austin Film Society",
+    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
+  },
+  {
     "title": "Maddie's Secret",
     "dates": [
       "2026-11-18"
@@ -3086,38 +2931,6 @@
     "venue_address": "701 W Riverside Dr, Austin, TX 78704"
   },
   {
-    "title": "Exhibition: November 19, 2026 \u2013 December 12, 2026",
-    "dates": [
-      "2026-11-19"
-    ],
-    "times": [
-      "10:00"
-    ],
-    "end_date": "",
-    "artist": "",
-    "artists": "",
-    "medium": "",
-    "series": "",
-    "venue": "Austin gallery or venue not specified in listing",
-    "rating": 4,
-    "one_liner_summary": "Familiar Eye Candy group show at Laura Rathe blurs seeing and interpretation.",
-    "description": "<p>\u2605 Rating: 4/10</p><p>\ud83c\udfad Formal Qualities \u2013 The listing identifies a group exhibition at Laura Rathe Fine Art, but it provides no reliable account of the works, materials, installation, or individual artists. Any judgment about composition, technique, or spatial design would be invented. The exhibition\u2019s stated premise, artists who blur the line between seeing and interpretation, is broad and familiar.</p><p>\u2728 Originality \u2013 The concept has limited distinction on the available evidence. \u201cEye Candy\u201d frames perception through a polished, visually accessible title, but the listing does not identify a formal strategy or argument that separates the show from contemporary exhibitions built around optical ambiguity and sensory appeal.</p><p>\ud83d\udcda Cultural Significance \u2013 The exhibition may have relevance to current discussions of perception and image culture, but its cultural stakes are not documented. The absence of artist names, curatorial text, and critical context prevents a stronger assessment. The Austin venue and November 19 through December 12, 2026 schedule are confirmed.</p><p>\ud83d\udca1 Historical Context \u2013 No artist trajectory, series history, or art historical lineage is supplied. The show can only be placed provisionally within the long tradition of exhibitions concerned with visual uncertainty, from optical art to contemporary image based practice. On the evidence available, it does not earn a score above the competent range.</p>",
-    "url": "https://artaustin.org/exhibitions-2/",
-    "screenings": [
-      {
-        "date": "2026-11-19",
-        "time": "10:00",
-        "url": "https://artaustin.org/exhibitions-2/",
-        "venue": "Austin gallery or venue not specified in listing"
-      }
-    ],
-    "review_confidence": "high",
-    "type": "visual_arts",
-    "id": "exhibition-november-19-2026-\u2013-december-12-2026---2026-11-19-1000",
-    "venue_display_name": "Austin gallery or venue not specified in listing",
-    "venue_address": ""
-  },
-  {
     "title": "beyond brushstrokes: a solo exhibition by Magnus",
     "dates": [
       "2026-11-19",
@@ -3132,14 +2945,14 @@
       "11:00",
       "12:00"
     ],
-    "end_date": "",
+    "end_date": "2026-11-28",
     "artist": "Magnus",
     "artists": "",
     "medium": "painting",
     "series": "",
     "venue": "Unchained.Art Contemporary Gallery",
     "rating": 7,
-    "one_liner_summary": "Bold acrylic canvases where dense details build storybook worlds of saturated color.",
+    "one_liner_summary": "Acrylic canvases blend storybook detail with bold color in Magnus's precise, layered compositions.",
     "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>Magnus works in acrylic on canvas, using bold color, flattened forms, sharp contours, and a shifting balance between tight precision and looser passages. The exhibition\u2019s strongest formal feature is its density of small details, which gives works such as <em>Tree of Life</em>, <em>Free</em>, and <em>Summertime</em> a layered, storybook logic rather than a single-point reading. The compositions appear carefully staged, though the repeated reliance on high-saturation color and clean graphic edges can make the surfaces feel commercially polished rather than materially adventurous.</p><p>\u2728 <strong>Originality</strong>  <br>Magnus\u2019s combination of people, animals, fantasy elements, and everyday situations produces an accessible narrative language. His return to earlier fantasy motifs adds development within the practice, but the underlying vocabulary remains close to Pop Art, contemporary illustration, and Picasso-derived flattening. The work has an identifiable voice, yet its departures from those conventions are incremental rather than radical.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The exhibition contributes to contemporary painting\u2019s continuing interest in image making that sits between fine art, graphic design, and popular visual culture. Magnus\u2019s background as an art director and graphic designer is visible in the clarity of his visual organization, while the narrative scenes address social situations through humor and symbolic detail. Its cultural value lies in making complex pictorial storytelling available without abandoning formal control, although the available institutional framing offers little evidence of sustained critical engagement beyond the gallery\u2019s promotional language.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>Magnus is a Copenhagen based, largely self taught artist who shifted from art direction to full time art practice in 2014. The exhibition is his third solo presentation with Unchained.Art, following earlier shows in which figurative paintings combined contemporary situations, humor, and layered narratives. Historically, the work belongs to a line running from Pop Art and Picasso\u2019s flattened structures through graphic design and contemporary narrative painting. Its most convincing achievement is not historical rupture, but the continued refinement of that hybrid language.</p>",
     "url": "https://nowplayingaustin.com/event/beyond-brushstrokes-a-solo-exhibition-by-magnus/",
     "screenings": [
@@ -3186,9 +2999,85 @@
         "venue": "Unchained.Art Contemporary Gallery"
       }
     ],
-    "review_confidence": "high",
+    "review_confidence": "unknown",
     "type": "visual_arts",
     "id": "beyond-brushstrokes-a-solo-exhibition-by-magnus---2026-11-192026-11-202026-11-212026-11-222026-11-262026-11-272026-11-28-1200120012001100120012001100",
+    "venue_display_name": "Unchained.Art Contemporary Gallery",
+    "venue_address": ""
+  },
+  {
+    "title": "Meet Megan Jaster \u00b7 Austin Artist of the Month",
+    "dates": [
+      "2026-11-19",
+      "2026-11-20",
+      "2026-11-21",
+      "2026-11-22",
+      "2026-11-26",
+      "2026-11-27",
+      "2026-11-28"
+    ],
+    "times": [
+      "11:00",
+      "12:00",
+      "13:00"
+    ],
+    "end_date": "2026-11-30",
+    "artist": "Megan Jaster",
+    "artists": "",
+    "medium": "painting",
+    "series": "",
+    "venue": "Unchained.Art Contemporary Gallery",
+    "rating": 6,
+    "one_liner_summary": "Jaster\u2019s oil paintings blur landscape and staged psychological theater.",
+    "description": "<p>\u2605 <strong>Rating: 6/10</strong></p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>Jaster\u2019s oil paintings combine traditional painterly technique with a constructed process based on photography, live models, digital collage, and AI generated filters. That method gives the work a layered, unstable space, where natural forms and human figures occupy a zone between landscape and staged psychological theater. The available documentation identifies <em>Dream Forest</em>, a 24 by 24 inch oil on wooden cradle, but offers too little visual evidence to judge brushwork, palette, edge control, or the installation as a whole. The formal ambition is clear, though the familiar contrast between Old Master finish and digital source material does not yet amount to a fully distinctive visual language.</p><p>\u2728 <strong>Originality</strong>  <br>The strongest idea is procedural rather than pictorial. Jaster lets AI altered studies enter a painting process that begins with personal photographs and live observation, then leaves room for accidents. That gives the work a credible contemporary tension between authored image and machine assisted construction. Still, the stated subjects, nature, archetypes, myth, and the subconscious, belong to an established symbolic vocabulary, and the available evidence does not show that the exhibition pushes those materials beyond atmospheric surrealism.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The exhibition addresses a current artistic problem, how painters can absorb generative image technology without surrendering judgment or material presence. Its local format also matters. Unchained.Art gives one Austin artist a dedicated wall and a public meeting with visitors, placing process and accessibility beside the finished paintings. Yet the exhibition appears more developmental than institutionally disruptive. Its cultural value lies in making a complicated workflow visible, not in offering a sharply argued position on AI, authorship, or representation.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>Jaster\u2019s practice extends a long lineage of symbolic landscape and figure painting, while updating its preparatory methods through digital collage and AI filters. Her work across Austin, Amsterdam, Berlin, and Los Angeles places the exhibition within a mobile contemporary painting practice rather than a narrowly local scene. The career record suggests sustained development since at least the mid 2000s, but the available material does not establish a decisive break between this exhibition and her earlier work. <em>Meet Megan Jaster</em> is therefore a competent, relevant presentation whose strongest promise lies in its process, not yet in a fully resolved pictorial argument.</p>",
+    "url": "https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/",
+    "screenings": [
+      {
+        "date": "2026-11-19",
+        "time": "13:00",
+        "url": "https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/",
+        "venue": "Unchained.Art Contemporary Gallery"
+      },
+      {
+        "date": "2026-11-20",
+        "time": "12:00",
+        "url": "https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/",
+        "venue": "Unchained.Art Contemporary Gallery"
+      },
+      {
+        "date": "2026-11-21",
+        "time": "11:00",
+        "url": "https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/",
+        "venue": "Unchained.Art Contemporary Gallery"
+      },
+      {
+        "date": "2026-11-22",
+        "time": "11:00",
+        "url": "https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/",
+        "venue": "Unchained.Art Contemporary Gallery"
+      },
+      {
+        "date": "2026-11-26",
+        "time": "13:00",
+        "url": "https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/",
+        "venue": "Unchained.Art Contemporary Gallery"
+      },
+      {
+        "date": "2026-11-27",
+        "time": "12:00",
+        "url": "https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/",
+        "venue": "Unchained.Art Contemporary Gallery"
+      },
+      {
+        "date": "2026-11-28",
+        "time": "12:00",
+        "url": "https://nowplayingaustin.com/event/meet-megan-jaster-%C2%B7-austin-artist-of-the-month/",
+        "venue": "Unchained.Art Contemporary Gallery"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "meet-megan-jaster-\u00b7-austin-artist-of-the-month---2026-11-192026-11-202026-11-212026-11-222026-11-262026-11-272026-11-28-1300120011001100130012001200",
     "venue_display_name": "Unchained.Art Contemporary Gallery",
     "venue_address": ""
   },
@@ -3303,9 +3192,9 @@
     "country": "USA",
     "language": "English",
     "rating": 9,
-    "one_liner_summary": "Autumnal animated miniseries: lost brothers wander an eerie American forest.",
+    "one_liner_summary": "Eerie autumnal animated miniseries steeped in vintage American illustration.",
     "description": "<p>\u2605 <strong>Rating: 9/10</strong></p><p>\ud83c\udfad <strong>Artistic Merit</strong>  <br><em>Over the Garden Wall</em> is a tightly controlled ten episode animated miniseries, created by Patrick McHale and directed across the series by Nate Cash. Its short chapters waste little motion. The forest, rendered in autumnal browns and muted greens, gives each location the weight of an old illustration, while the backgrounds borrow from nineteenth and early twentieth century American visual culture. The production\u2019s strongest achievement is tonal control. \u201cThe Old Grist Mill\u201d moves from comic panic to genuine menace, \u201cSchooltown Follies\u201d turns a classroom song into absurd musical theater, and \u201cThe Unknown\u201d finally reveals that the Beast\u2019s threat is sustained by despair rather than brute force. The voice cast, especially Elijah Wood as anxious, self-dramatizing Wirt and Collin Dean as the cheerfully reckless Greg, gives the series emotional precision.</p><p>\u2728 <strong>Originality</strong>  <br>The series does not invent every ingredient, but its combination is unusually intelligent. It joins Grimm-style fantasy, American folk art, vaudeville, early animation, jazz, opera, and children\u2019s adventure without reducing them to decorative references. Episodes such as \u201cSongs of the Dark Lantern\u201d and \u201cBabes in the Wood\u201d keep changing genre while advancing the same narrative. The result feels less like a standard fantasy quest than a box of damaged storybooks whose pieces happen to form a coherent journey. Its most effective reversal is the relationship between Wirt\u2019s self-conscious misery and Greg\u2019s openhearted resilience. The brothers defeat the central evil not through superior force, but by rejecting the emotional logic that feeds it.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The miniseries established a durable model for concise, authored animation. Its ten eleven minute episodes form a complete story rather than an indefinitely extensible franchise, a structure McHale deliberately pursued. It won an Emmy and became associated with recurring autumn viewing, evidence that its seasonal imagery has entered popular television culture beyond its original Cartoon Network run. Its influence is less visible as imitation than as permission. It showed that children\u2019s animation could sustain ambiguity, melancholy, period style, and formal experimentation without abandoning humor.</p><p>\ud83d\udca1 <strong>Intellectual Depth</strong>  <br>The series treats fear as a system of attention. The Beast survives by persuading people that their circumstances are permanent, while Wirt\u2019s paralysis comes from rehearsing humiliation and failure before either has occurred. Greg\u2019s apparent foolishness becomes an ethical strength because he continues to act when certainty is impossible. The ending, in which Wirt returns to the real world after recognizing that the Unknown reflects his own crisis, gives the fantasy psychological structure without explaining away its mysteries. Some secondary characters remain sketches, and the mythology occasionally depends on atmosphere more than argument. Even so, the series achieves rare compression. It makes sibling loyalty, adolescent shame, mortality, and hope legible through songs, jokes, and sharply composed images.</p>",
-    "url": "https://hyperrealfilm.club/events/11-20/over-the-garden-wall-movie-screening",
+    "url": "https://hyperrealfilm.club/events/11-19/over-the-garden-wall-movie-screening",
     "venue": "Hyperreal",
     "screenings": [
       {
@@ -3541,6 +3430,112 @@
     "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
   },
   {
+    "title": "Austin Studio Tour",
+    "dates": [
+      "2026-11-21"
+    ],
+    "times": [
+      "11:00"
+    ],
+    "end_date": "",
+    "artist": "",
+    "artists": "",
+    "medium": "",
+    "series": null,
+    "venue": "ICOSA",
+    "rating": 5,
+    "one_liner_summary": "A broad but thinly documented group show at ICOSA, competent yet unremarkable.",
+    "description": "<p>\u2605 Rating: 5/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>The Austin Studio Tour presentation at ICOSA is identified in available listings as <em>The Overview Effect</em>, a juried group exhibition curated by Dennis Nance, with more than twenty artists working across varied materials and styles. That breadth offers visual range, but the available record provides no installation views, full checklist, or sustained account of individual works. The exhibition therefore reads as competent programming rather than a demonstrably resolved formal argument.</p><p>\u2728 <strong>Originality</strong>  <br>The premise, connecting personal histories, shifting perspectives, and relations to the wider world, is serviceable but familiar. A juried group show can generate useful friction among practices, yet nothing in the published description establishes a distinctive curatorial method or a clear departure from the standard open-call exhibition model.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>ICOSA\u2019s participation places the show within Austin\u2019s artist-run, self-organized gallery culture and makes it accessible through the citywide tour. That context matters, particularly for artists outside commercial visibility, but the exhibition\u2019s stated themes remain broad enough to accommodate almost anything. Its strongest significance is infrastructural, providing a platform, not advancing a sharply defined cultural claim.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The title invokes the psychological shift associated with seeing Earth from space, a concept with established roots in space-age culture and environmental art. Here, that reference appears to function as a contemporary group-show frame rather than a developed historical intervention. With the artists listed as unknown in the brief, and no documented trajectory for the participants, a stronger placement within individual careers or art history is not supportable.</p><p>The available documentation is thin. It supports an assessment of the exhibition\u2019s premise and institutional setting, but not a detailed judgment of particular works, materials, or installation decisions.</p>",
+    "url": "https://icosacollective.com/exhibitions/",
+    "screenings": [
+      {
+        "date": "2026-11-21",
+        "time": "11:00",
+        "url": "https://icosacollective.com/exhibitions/",
+        "venue": "ICOSA"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "austin-studio-tour---2026-11-21-1100",
+    "venue_display_name": "ICOSA Collective",
+    "venue_address": "916 Springdale Rd, Building 2 #102, Austin, TX 78702"
+  },
+  {
+    "title": "Inside the Moving-Image Process with Dolphin Brown",
+    "dates": [
+      "2026-11-21",
+      "2026-11-22"
+    ],
+    "times": [
+      "11:00"
+    ],
+    "end_date": "",
+    "artist": "",
+    "artists": [
+      "Dolphin Brown",
+      "Elena Lipkowski"
+    ],
+    "medium": "moving-image works and mixed media",
+    "series": "",
+    "venue": "ART Studios & Gallery at 2324",
+    "rating": 7,
+    "one_liner_summary": "Dolphin Brown\u2019s video paintings transform nature into abstract, process-driven moving images.",
+    "description": "<p>\u2605 Rating: <strong>7/10</strong></p><p>\ud83c\udfad Formal Qualities</p><p>The exhibition\u2019s strongest feature is its clear attention to process. Dolphin Brown\u2019s limited edition video paintings move from natural world footage toward abstraction, with light, motion, sound, and duration treated as compositional materials rather than decoration. The accompanying process video gives the work a useful structural frame, showing how raw imagery becomes a finished moving image. Elena Lipkowski\u2019s embroidered imagery, digital collage, beads, crystals, lenticular prints, and acrylic processes provide a tactile counterpoint to Brown\u2019s time based work. The shared studio setting makes the contrast legible, though it also risks turning the exhibition into a demonstration area rather than a fully controlled installation. </p><p>\u2728 Originality</p><p>The exhibition is strongest when it exposes transformation instead of presenting abstraction as a finished mystery. Brown\u2019s sequence from natural footage to altered image, with sound developing alongside it, gives the viewer a concrete account of how perception is manipulated. Lipkowski\u2019s combination of hand embroidery and digital image making similarly joins craft labor to reproductive technology. Neither practice is entirely new, but their pairing produces a productive tension between screen based movement and stitched, material permanence. </p><p>\ud83d\udcda Cultural Significance</p><p>The exhibition contributes to current discussions about process, craft, and the status of the moving image as an object. Brown\u2019s works are designed to enter the atmosphere and architecture of a space, while Lipkowski\u2019s labor intensive surfaces insist on the physical work behind digitally inflected images. The Austin Studio Tour context matters because the audience encounters artists in a working studio, with demonstrations that make production visible rather than concealing it behind institutional polish. Its cultural reach is local and accessible, but the exhibition offers a serious argument for treating making itself as part of the artwork. </p><p>\ud83d\udca1 Historical Context</p><p>Brown\u2019s practice belongs to the lineage of expanded cinema and video installation, particularly work that treats duration, projection, sound, and spatial placement as formal elements. The use of natural source material transformed through abstraction places the work near contemporary image processing practices, while the video painting format connects it to the long history of translating painterly effects into time based media. Lipkowski extends the older relationship between textile craft and image making into a contemporary hybrid of embroidery, collage, and print technology. The exhibition does not overturn those histories, but it presents them with enough technical clarity and material contrast to earn a strong score.</p>",
+    "url": "https://nowplayingaustin.com/event/austin-studio-tour-inside-the-moving-image-process-with-dolphin-brown/",
+    "screenings": [
+      {
+        "date": "2026-11-21",
+        "time": "11:00",
+        "url": "https://nowplayingaustin.com/event/austin-studio-tour-inside-the-moving-image-process-with-dolphin-brown/",
+        "venue": "ART Studios & Gallery at 2324"
+      },
+      {
+        "date": "2026-11-22",
+        "time": "11:00",
+        "url": "https://nowplayingaustin.com/event/austin-studio-tour-inside-the-moving-image-process-with-dolphin-brown/",
+        "venue": "ART Studios & Gallery at 2324"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "visual_arts",
+    "id": "inside-the-moving-image-process-with-dolphin-brown---2026-11-212026-11-22-11001100",
+    "venue_display_name": "ART Studios & Gallery at 2324",
+    "venue_address": ""
+  },
+  {
+    "title": "Pretty Powerful: Celebrating Women",
+    "dates": [
+      "2026-11-21"
+    ],
+    "times": [
+      "14:00"
+    ],
+    "end_date": "2027-01-07",
+    "artist": "",
+    "artists": "",
+    "medium": "visual art",
+    "series": "",
+    "venue": "Bee Cave Arts Foundation Gallery",
+    "rating": 5,
+    "one_liner_summary": "An open-call group show where female strength is the theme, not the discovery.",
+    "description": "<p>\u2605 Rating: 5/10</p><p>\ud83c\udfad Formal Qualities \u2013 The available material gives no images, artist list, object descriptions, or installation documentation, so the exhibition\u2019s composition, materials, technique, and spatial decisions cannot be assessed directly. Its stated range, from colorful and playful to bold and dramatic, suggests an open call rather than a tightly defined visual program.</p><p>\u2728 Originality \u2013 The premise is familiar. The exhibition asks artists to represent women through strength, individuality, humor, vulnerability, and beauty, but the public description identifies no formal strategy that would move beyond the established language of celebratory feminist portraiture.</p><p>\ud83d\udcda Cultural Significance \u2013 The show has clear community relevance. It welcomes Central Texas artists, permits artists of any gender to participate, and frames women through both power and vulnerability. Its placement inside Hill Country Galleria, with free admission and an opening performance by the traditional Indian dance group Narthana, positions the exhibition as accessible civic programming rather than a sharply argued critical intervention.</p><p>\ud83d\udca1 Historical Context \u2013 With the artists and works unidentified, no responsible account of individual careers or artistic lineage is possible. Broadly, the exhibition belongs to the long tradition of women centered group shows, public portraiture, and community arts programming, but its relationship to those histories remains unarticulated in the available information.</p><p>The score is therefore provisional. The exhibition may contain strong individual work, but its public framing supports a judgment of competent, conventional advocacy rather than a major curatorial or artistic statement.</p>",
+    "url": "https://nowplayingaustin.com/event/pretty-powerful-celebrating-women/",
+    "screenings": [
+      {
+        "date": "2026-11-21",
+        "time": "14:00",
+        "url": "https://nowplayingaustin.com/event/pretty-powerful-celebrating-women/",
+        "venue": "Bee Cave Arts Foundation Gallery"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "pretty-powerful-celebrating-women---2026-11-21-1400",
+    "venue_display_name": "Bee Cave Arts Foundation Gallery",
+    "venue_address": ""
+  },
+  {
     "title": "You've Got Mail",
     "dates": [
       "2026-11-21"
@@ -3637,6 +3632,38 @@
     "venue_address": "613 W 29th St, Austin, TX 78705"
   },
   {
+    "title": "Austin Studio Tour",
+    "dates": [
+      "2026-11-22"
+    ],
+    "times": [
+      "11:00"
+    ],
+    "end_date": "",
+    "artist": "",
+    "artists": "",
+    "medium": "",
+    "series": null,
+    "venue": "ICOSA",
+    "rating": 5,
+    "one_liner_summary": "A broad but thinly documented group show at ICOSA, competent yet unremarkable.",
+    "description": "<p>\u2605 Rating: 5/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>The Austin Studio Tour presentation at ICOSA is identified in available listings as <em>The Overview Effect</em>, a juried group exhibition curated by Dennis Nance, with more than twenty artists working across varied materials and styles. That breadth offers visual range, but the available record provides no installation views, full checklist, or sustained account of individual works. The exhibition therefore reads as competent programming rather than a demonstrably resolved formal argument.</p><p>\u2728 <strong>Originality</strong>  <br>The premise, connecting personal histories, shifting perspectives, and relations to the wider world, is serviceable but familiar. A juried group show can generate useful friction among practices, yet nothing in the published description establishes a distinctive curatorial method or a clear departure from the standard open-call exhibition model.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>ICOSA\u2019s participation places the show within Austin\u2019s artist-run, self-organized gallery culture and makes it accessible through the citywide tour. That context matters, particularly for artists outside commercial visibility, but the exhibition\u2019s stated themes remain broad enough to accommodate almost anything. Its strongest significance is infrastructural, providing a platform, not advancing a sharply defined cultural claim.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The title invokes the psychological shift associated with seeing Earth from space, a concept with established roots in space-age culture and environmental art. Here, that reference appears to function as a contemporary group-show frame rather than a developed historical intervention. With the artists listed as unknown in the brief, and no documented trajectory for the participants, a stronger placement within individual careers or art history is not supportable.</p><p>The available documentation is thin. It supports an assessment of the exhibition\u2019s premise and institutional setting, but not a detailed judgment of particular works, materials, or installation decisions.</p>",
+    "url": "https://icosacollective.com/exhibitions/",
+    "screenings": [
+      {
+        "date": "2026-11-22",
+        "time": "11:00",
+        "url": "https://icosacollective.com/exhibitions/",
+        "venue": "ICOSA"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "austin-studio-tour---2026-11-22-1100",
+    "venue_display_name": "ICOSA Collective",
+    "venue_address": "916 Springdale Rd, Building 2 #102, Austin, TX 78702"
+  },
+  {
     "title": "JOE BOB BRIGGS PRESENTS: SATAN\u2019S WORKSHOP II",
     "dates": [
       "2026-11-22"
@@ -3665,6 +3692,94 @@
     "review_confidence": "unknown",
     "type": "movie",
     "id": "joe-bob-briggs-presents-satan\u2019s-workshop-ii",
+    "venue_display_name": "Austin Film Society",
+    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
+  },
+  {
+    "title": "THE HISTORY OF CONCRETE",
+    "dates": [
+      "2026-11-22",
+      "2026-11-24"
+    ],
+    "times": [
+      "12:45",
+      "16:50"
+    ],
+    "director": "John Wilson",
+    "runtime_minutes": 100,
+    "release_year": 2026,
+    "country": "USA",
+    "language": "English",
+    "rating": 8,
+    "one_liner_summary": "A sly, deadpan comic essay using concrete's history to map American absurdity.",
+    "description": "<p>\u2605 Rating: 8/10</p><p>\ud83c\udfad Artistic Merit, John Wilson turns a ridiculous premise into a sturdy comic structure, using the search for concrete\u2019s history as a way to move through sidewalks, monuments, city labor, and the low-grade absurdity of American public space. The film\u2019s craft seems strongest in its patient accumulation of odd encounters and visual digressions, with the opening idea, a Hallmark-style pitch for a concrete documentary, giving the piece a sly formal engine rather than a mere gimmick.</p><p>\u2728 Originality, this is not a standard documentary, and it gains force from that refusal. The concept bends between satire, essay film, and city symphony, then keeps mutating as Wilson drifts from a commercial pitch exercise into questions about urbanism, memory, and the texture of ordinary life. That shape is uncommon enough to feel genuinely alive, and the comedy comes from structure, not just punch lines.</p><p>\ud83d\udcda Cultural Significance, the film matters as a feature debut that extends Wilson\u2019s TV practice into a longer form without sanding off its peculiar voice. Its subject, concrete, is a blunt material with huge civic reach, and the film uses that fact to think about New York, public life, and the anonymous architecture people move through every day. It may not alter documentary history, but it clearly belongs in the recent wave of essayistic nonfiction that treats the overlooked as a record of culture.</p><p>\ud83d\udca1 Intellectual Depth, beneath the comic premise, the film appears to build a serious argument about how cities are made, how value attaches to materials, and how human life leaves marks in supposedly inert things. The best reports on the film describe it moving from joke to reflection without breaking its comic rhythm, with concrete becoming a route into labor, mortality, and the gap between what is built and what is remembered. That is not empty cleverness, it is a coherent idea with enough range to support a full feature.</p>",
+    "url": "https://www.austinfilm.org/screening/the-history-of-concrete/",
+    "venue": "AFS",
+    "screenings": [
+      {
+        "date": "2026-11-22",
+        "time": "12:45",
+        "url": "https://www.austinfilm.org/screening/the-history-of-concrete/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-24",
+        "time": "16:50",
+        "url": "https://www.austinfilm.org/screening/the-history-of-concrete/",
+        "venue": "AFS"
+      }
+    ],
+    "review_confidence": "unknown",
+    "type": "movie",
+    "id": "the-history-of-concrete",
+    "venue_display_name": "Austin Film Society",
+    "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
+  },
+  {
+    "title": "THE DEVILS",
+    "dates": [
+      "2026-11-22",
+      "2026-11-24",
+      "2026-11-25"
+    ],
+    "times": [
+      "15:30",
+      "15:45",
+      "19:00"
+    ],
+    "director": "Ken Russell",
+    "runtime_minutes": 114,
+    "release_year": 1971,
+    "country": "UK",
+    "language": "English",
+    "rating": 9,
+    "one_liner_summary": "Ken Russell's fever-dream political theatre: Reed's swagger, Redgrave's damage, Jarman's white hell.",
+    "description": "<p>\u2605 Rating: 9/10</p><p>\ud83c\udfad Artistic Merit. Ken Russell directs <em>The Devils</em> as political theatre pushed through a fever dream. Derek Jarman\u2019s stark white sets turn Loudun into a sealed arena, while Peter Maxwell Davies\u2019s abrasive score makes religious ceremony sound like machinery under strain. Oliver Reed gives Urbain Grandier swagger, appetite, and moral weakness without reducing him to a martyr. Vanessa Redgrave\u2019s Sister Jeanne is less a character than a damaged instrument of desire and institutional power, and that instability suits the film. The exorcism scenes, the public torture, and Grandier\u2019s final execution are staged with calculated excess, not documentary realism. At 114 minutes, the film sustains remarkable pressure, though its visual assault occasionally overwhelms dramatic precision. The production design and editing were central to its distinctive impact.</p><p>\u2728 Originality. Few films have joined historical drama, grotesque comedy, erotic hysteria, and anti clerical satire with this degree of aggression. Russell repeatedly sabotages solemnity, as in the absurd vomit examination, where supposedly sacred evidence becomes bureaucratic farce. The nuns\u2019 sexual frenzy and the desecration of Christ\u2019s effigy are not decorative provocations. They expose how repression, fantasy, and authority collaborate. The film\u2019s most notorious material led to extensive censorship, including removal of the Rape of Christ sequence, but its originality lies less in shock than in its unstable tonal shifts, which deny the audience a safe moral position.</p><p>\ud83d\udcda Cultural Significance. <em>The Devils</em> remains a major example of British cinema confronting institutional power through formally extreme means. Its target is not religion alone. Grandier\u2019s defense of Loudun\u2019s autonomy conflicts with Richelieu\u2019s centralizing state, turning sexual scandal into a weapon in a larger political campaign. The film won Best Foreign Film at Venice in 1971, while also provoking bans, cuts, and condemnation from religious authorities. Its censorship history became part of its cultural identity, but that history should not eclipse the film\u2019s continuing importance as a study of how governments manufacture consent through spectacle, accusation, and public punishment.</p><p>\ud83d\udca1 Intellectual Depth. The film\u2019s central insight is precise. Possession is presented as a social production, created from sexual repression, charismatic performance, political ambition, and collective fear. Sister Jeanne\u2019s alleged visions are both personal obsession and material that officials can exploit. Grandier is guilty of vanity, adultery, and political arrogance, yet the machinery built to destroy him is vastly more corrupt than the man it condemns. Russell also refuses to make the crowd innocent. The townspeople consume torture as entertainment, while clerics convert cruelty into procedure. At times the symbolism is blunt and the hysteria becomes repetitive, but the film\u2019s competing explanations, religious, sexual, political, and psychological, give its excess real analytical force.</p>",
+    "url": "https://www.austinfilm.org/screening/the-devils/",
+    "venue": "AFS",
+    "screenings": [
+      {
+        "date": "2026-11-22",
+        "time": "15:30",
+        "url": "https://www.austinfilm.org/screening/the-devils/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-24",
+        "time": "19:00",
+        "url": "https://www.austinfilm.org/screening/the-devils/",
+        "venue": "AFS"
+      },
+      {
+        "date": "2026-11-25",
+        "time": "15:45",
+        "url": "https://www.austinfilm.org/screening/the-devils/",
+        "venue": "AFS"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "movie",
+    "id": "the-devils",
     "venue_display_name": "Austin Film Society",
     "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
   },
@@ -4767,38 +4882,6 @@
     "venue_address": "6226 Middle Fiskville Rd, Austin, TX 78752"
   },
   {
-    "title": "In Conversation: Laura Lit & Rachel Eboh",
-    "dates": [
-      "2026-12-05"
-    ],
-    "times": [
-      "14:00"
-    ],
-    "end_date": "",
-    "artist": "Laura Lit",
-    "artists": "",
-    "medium": "artist talk",
-    "series": "HOST",
-    "venue": "Jones Center",
-    "rating": 6,
-    "one_liner_summary": "Two artists discuss architecture and landscape across two museum sites.",
-    "description": "<p>\u2605 Rating: 6/10</p><p>The event is a useful institutional conversation, but the available record describes its premise more clearly than its actual performance. It paired Laura Lit with curator Rachel Eboh to discuss <em>HOST: Laura Lit</em>, a museum exhibition divided between the Jones Center and Laguna Gloria, with attention to architecture, landscape, drawing, and sculpture.</p><p>\ud83c\udfad Formal Qualities</p><p>As an artist talk, the formal material was speech, projection, and the surrounding exhibition rather than a self contained object. Its strongest structure was the dialogue between Lit\u2019s colorful pencil drawings and her freestanding sculptures. Eboh identified the reciprocal movement between forms on the page and forms in space, a concrete curatorial problem rather than generic artist talk language. Lit\u2019s practice draws on figurative painting, special effects makeup, architectural restoration, and medical prosthetics, giving the discussion an unusually broad technical foundation.</p><p>\u2728 Originality</p><p>The event\u2019s originality depended on its framing. Rather than treating drawing and sculpture as separate bodies of work, it presented them as transformations of the same polymorphic vocabulary. That premise is strong, but the format remains conventional, artist and curator discussing an exhibition for an audience. The event earns competence, not innovation.</p><p>\ud83d\udcda Cultural Significance</p><p>The conversation mattered because it situated an Austin artist\u2019s first solo museum exhibition within a local institution\u2019s effort to support experimentation and new production. The split between the Jones Center and Laguna Gloria also made institutional space part of the subject, linking indoor drawings to outdoor sculpture and testing how a practice changes across architectural and natural settings.</p><p>\ud83d\udca1 Historical Context</p><p>The event belongs to Lit\u2019s expansion from two dimensional work toward large, spatial forms. The Jones Center presentation included new and existing drawings alongside selected sculptures, while Laguna Gloria carried the work outdoors. Historically, the project sits within the lineage of artists who move between image, object, body, and constructed environment. Its value lies in documenting that transition at a decisive institutional moment, not in overturning the history of the artist talk.</p>",
-    "url": "https://thecontemporaryaustin.org/events/",
-    "screenings": [
-      {
-        "date": "2026-12-05",
-        "time": "14:00",
-        "url": "https://thecontemporaryaustin.org/events/",
-        "venue": "Jones Center"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "visual_arts",
-    "id": "in-conversation-laura-lit-&-rachel-eboh---2026-12-05-1400",
-    "venue_display_name": "Jones Center",
-    "venue_address": ""
-  },
-  {
     "title": "THE NUTCRACKER",
     "dates": [
       "2026-12-05"
@@ -5533,38 +5616,6 @@
     "venue_address": "3701 Drossett Dr, Suite 190, Austin, TX 78744"
   },
   {
-    "title": "The 2026 Armadillo Christmas Bazaar",
-    "dates": [
-      "2026-12-12"
-    ],
-    "times": [
-      "12:00"
-    ],
-    "end_date": "2026-12-21",
-    "artist": "",
-    "artists": "",
-    "medium": "visual art",
-    "series": "",
-    "venue": "Palmer Events Center",
-    "rating": 6,
-    "one_liner_summary": "200 artists crammed into a retail maze of ceramics, prints, and jewelry.",
-    "description": "<p>\u2605 Rating: 6/10</p><p>\ud83c\udfad Formal Qualities \u2013 composition, materials, technique, spatial and visual craft  <br>The 2026 Armadillo Christmas Bazaar presents nearly 200 artists across fine art, jewelry, ceramics, printmaking, photography, mosaics, and handmade gifts. Its strongest formal feature is range rather than visual unity. The Palmer Events Center format favors dense browsing, varied booth displays, and direct contact with makers, but it also turns the exhibition into a crowded retail environment. Individual examples stand out, including Jay Long\u2019s layered shadow boxes, Michael Rohner\u2019s fine-line ink and watercolor illustrations, and Dan Grissom\u2019s detailed screen prints.</p><p>\u2728 Originality \u2013 conceptual innovation, departure from prevailing conventions  <br>The Bazaar is not an ambitious curatorial argument. It is a recurring marketplace built around accessible objects, recognizable craft traditions, and seasonal buying. Its originality lies in the combination of visual art, handmade production, live music, and artist commerce, a format the event has sustained since the 1970s. That hybrid remains useful, but the 2026 presentation appears more eclectic than adventurous.</p><p>\ud83d\udcda Cultural Significance \u2013 relevance to contemporary discourse, relationship to institutional and critical context  <br>The event matters as a public platform for local and regional makers, especially artists who work outside commercial galleries. Its nearly 200 participants connect fine art with craft, design, and gift culture, challenging the sharp institutional divide between collectible art and useful objects. Its connection to Austin\u2019s music culture also preserves a civic tradition that links artistic production with social gathering and independent economies.</p><p>\ud83d\udca1 Historical Context \u2013 place within the artist\u2019s trajectory and broader art-historical lineage  <br>Because the exhibition lists many artists rather than a single author, no unified artistic trajectory can be assessed. Historically, the Bazaar descends from the Armadillo World Headquarters and its 1970s counterculture, while its current Palmer Events Center incarnation translates that legacy into an annual arts market. The result is culturally durable but artistically uneven, more regional salon and holiday marketplace than tightly argued exhibition.</p><p>The available information identifies the participating artists and broad media, but not a complete installation view or sustained critical review. The rating therefore reflects the event\u2019s stated scope and documented examples, not a full assessment of every booth.</p>",
-    "url": "https://nowplayingaustin.com/event/the-2026-armadillo-christmas-bazaar/",
-    "screenings": [
-      {
-        "date": "2026-12-12",
-        "time": "12:00",
-        "url": "https://nowplayingaustin.com/event/the-2026-armadillo-christmas-bazaar/",
-        "venue": "Palmer Events Center"
-      }
-    ],
-    "review_confidence": "high",
-    "type": "visual_arts",
-    "id": "the-2026-armadillo-christmas-bazaar---2026-12-12-1200",
-    "venue_display_name": "Palmer Events Center",
-    "venue_address": ""
-  },
-  {
     "title": "THE NUTCRACKER",
     "dates": [
       "2026-12-12"
@@ -6082,7 +6133,7 @@
     "series": "",
     "venue": "Dougherty Arts Center",
     "rating": 4,
-    "one_liner_summary": "Workshop helping artists craft professional narratives and press kits.",
+    "one_liner_summary": "A workshop on crafting artist statements, not an exhibition of visual art.",
     "description": "<p>\u2605 <strong>Rating: 4/10</strong></p><p>The available record identifies <em>Storytelling for Creatives</em> as a professional development workshop, not an exhibition. It is presented by Fabiana Mel\u00e9ndez Ruiz and focuses on artist biographies, statements, press kits, and public-facing narratives at the Dougherty Arts Center.</p><p>\ud83c\udfad <strong>Formal Qualities</strong></p><p>There is no documented visual artwork, installation, material program, or exhibition layout to assess. Judged as a workshop, its structure appears practical and clearly organized, but the available description offers no evidence of distinctive visual or spatial thinking.</p><p>\u2728 <strong>Originality</strong></p><p>The workshop addresses a familiar problem in contemporary art, how artists explain their work without reducing it to branding. That distinction is useful, but the stated agenda, artist statements, bios, press kits, and publicity, remains standard professional-development material rather than a significant conceptual departure.</p><p>\ud83d\udcda <strong>Cultural Significance</strong></p><p>The event reflects the institutional pressure on artists to become effective self-promoters. Its emphasis on authentic language rather than forced branding is relevant to the precarious economics of contemporary creative work, especially in a community arts setting.</p><p>\ud83d\udca1 <strong>Historical Context</strong></p><p>No artist trajectory, series, medium, or art-historical lineage is supplied because this is not documented as an exhibition. It belongs more accurately to the lineage of artist career workshops and arts administration programming than to a gallery-based exhibition history.</p><p>The source record is too thin to support a visual-art review of a specific exhibition. It supports a limited assessment of the event\u2019s stated purpose, but not claims about artworks, installation, or artistic achievement.</p>",
     "url": "https://artaustin.org/events/",
     "screenings": [
@@ -6093,7 +6144,7 @@
         "venue": "Dougherty Arts Center"
       }
     ],
-    "review_confidence": "high",
+    "review_confidence": "unknown",
     "type": "visual_arts",
     "id": "storytelling-for-creatives---2026-12-15-1830",
     "venue_display_name": "Dougherty Arts Center",
@@ -6251,7 +6302,7 @@
     "venue_address": "713 Congress Ave, Austin, TX 78701"
   },
   {
-    "title": "Film Screening: Pumping Iron 2 - The Women",
+    "title": "Film Screening: Pumping Iron 2-The Women",
     "dates": [
       "2026-12-17"
     ],
@@ -6262,11 +6313,11 @@
     "artist": "",
     "artists": "",
     "medium": "",
-    "series": null,
+    "series": "",
     "venue": "MassGallery",
     "rating": 7,
-    "one_liner_summary": "Butler\u2019s 1985 doc contrasts female bodybuilders\u2019 strength with society\u2019s uneasy gaze.",
-    "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>As a screening, the event\u2019s central material is George Butler\u2019s 1985 documentary, not a newly authored installation. Its strongest formal device is contrast, the film moves between staged training scenes, intimate interviews, bodybuilding spectacle, and the 1983 International Women\u2019s Body-Building Competition. The polished posing footage and deliberate slow motion make bodies into both athletic evidence and visual display. The construction is effective, but Butler\u2019s staged scenes and overt editorial guidance limit the documentary\u2019s independence.</p><p>\u2728 <strong>Originality</strong>  <br>The film remains unusually sharp in its treatment of female muscularity. Bev Francis, initially presented as an exceptionally powerful athlete, becomes the test case for an industry that demands strength while policing its appearance. The judging controversy turns bodybuilding into a debate over who gets to define femininity. The film does not invent this conflict, but it exposes the contradiction with unusual clarity.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The MassGallery screening gains relevance from the film\u2019s attention to gender, spectatorship, and institutional judgment. Its athletes are evaluated not only on physical development, but on whether their bodies remain legible as feminine. That premise connects directly to contemporary disputes over women\u2019s bodies in sport and popular culture. The program is also valuable because it presents a historically specific argument rather than smoothing the period\u2019s discomfort into a modern lesson.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>Released in 1985 as a follow up to Butler\u2019s <em>Pumping Iron</em>, the film belongs to the sports documentary tradition while borrowing the rivalries and archetypes of competition cinema. Its staged realism, including arranged conversations and dramatized encounters, reflects Butler\u2019s method more than observational documentary practice. Within bodybuilding history, it records a decisive conflict between muscular development and commercially preferred femininity, with Francis at its center. As a MassGallery program, the screening is strongest when treated as a critical historical document, not as a neutral record or a contemporary artwork.</p>",
+    "one_liner_summary": "A 1985 doc where female bodybuilders flex against gender norms.",
+    "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad Formal Qualities. As a film screening, the exhibition\u2019s principal material is the 1985 documentary itself, not an installation with a visible artist, object list, or stated curatorial apparatus. The film uses competition footage, gym training, interviews, staged scenes, and slow motion to turn bodybuilding into a question of visual judgment. Its strongest formal device is the contrast between Bev Francis\u2019s heavily muscled body and Rachel McLish\u2019s conventionally feminine presentation, a conflict made legible through editing and the judges\u2019 reactions. The staging is effective, though the lingering workout and shower footage sometimes slips toward glamour photography rather than analysis.</p><p>\u2728 Originality. The film\u2019s central proposition remains sharp, women\u2019s bodybuilding is judged not only by muscle, symmetry, and discipline, but by whether the body still performs an approved version of femininity. That argument gives the screening real force, especially in the competition scenes where athletic achievement collides with gender policing. The documentary is not formally radical, however. Its staged situations and sports-documentary conventions make the critique accessible, but also limit its departure from familiar cinematic formulas.</p><p>\ud83d\udcda Cultural Significance. The screening is well suited to a gallery context because it exposes the politics hidden inside apparently neutral standards of beauty and athletic merit. Francis becomes the film\u2019s crucial test case, since the judges\u2019 discomfort reveals how quickly physical strength can be recoded as masculine and therefore unacceptable. The film\u2019s treatment of women\u2019s bodies remains relevant to current debates about gender presentation, athletic legitimacy, and institutional bias, although the screening would benefit from contextual material addressing its own period assumptions and its tendency to frame competitors through spectacle.</p><p>\ud83d\udca1 Historical Context. Released in 1985, the film belongs to the early documentary history of women\u2019s bodybuilding and extends the sports spectacle established by <em>Pumping Iron</em>. Its importance lies less in cinematic invention than in recording a sport at the moment when its governing ideals were being contested. At MASS Gallery, the screening reads as a historically useful program choice, but the available exhibition information identifies no artist, series framework, or interpretive commission beyond its placement within the <em>Sweetheart Grip</em> program. That thin curatorial record makes the film carry most of the exhibition\u2019s intellectual weight.</p>",
     "url": "https://massgallery.org/",
     "screenings": [
       {
@@ -6278,7 +6329,7 @@
     ],
     "review_confidence": "high",
     "type": "visual_arts",
-    "id": "film-screening-pumping-iron-2---the-women---2026-12-17-1900",
+    "id": "film-screening-pumping-iron-2-the-women---2026-12-17-1900",
     "venue_display_name": "MASS Gallery",
     "venue_address": "507 Calles St, Suite 108, Austin, TX 78702"
   },
@@ -7476,64 +7527,6 @@
     "venue_address": "713 Congress Ave, Austin, TX 78701"
   },
   {
-    "title": "ISHIDA - Paris, TEXAS",
-    "dates": [
-      "2027-01-20"
-    ],
-    "times": [
-      "19:30"
-    ],
-    "program": "",
-    "series": "",
-    "venue": "IshidaDance",
-    "rating": 6,
-    "one_liner_summary": "Beach House score meets Wim Wenders\u2019 fractured family in ambitious dance adaptation.",
-    "description": "<p>\u2605 Rating: <strong>6/10</strong></p><p>\ud83c\udfad <strong>Choreographic Craft</strong>  <br>ISHIDA\u2019s <em>Paris, TEXAS</em> is billed as the first dance theater adaptation of Wim Wenders\u2019s film, set to music by Beach House. The concept offers strong theatrical material, especially the film\u2019s fractured family, desert isolation, and motel encounter, but available documentation does not identify the choreographer or describe specific movement sequences, partnering structures, or staging choices. The work therefore appears ambitious rather than fully assessable as choreography. Its cinematic premise risks substituting atmosphere for an independently developed dance structure.</p><p>\u2728 <strong>Performance Quality</strong>  <br>ISHIDA Dance Company brings an international cast drawn from companies including Ballet BC, Houston Ballet, Hubbard Street, LINES Ballet, RUBBERBANDance Group, G\u00f6teborgs Operans Danskompani, and Nederlands Dans Theater. That background suggests a technically serious ensemble, and the company\u2019s public descriptions emphasize exacting physicality. Still, no reliable account of this specific performance provides enough detail about individual dancers, musical phrasing, or dramatic execution to justify a higher score.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The production positions a Texas based company within an increasingly cross disciplinary field where dance borrows from cinema, popular music, and theater. ISHIDA\u2019s larger project is notable for bringing internationally experienced performers and European influenced contemporary dance to Texas audiences. <em>Paris, TEXAS</em> matters as an institutional statement, but its cultural importance will depend on whether the adaptation transforms the film rather than merely illustrating it.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The choreographer is not identified in the available material, so the work cannot be placed securely within an individual choreographic lineage. It does belong to Brett Ishida\u2019s broader practice of combining narrative themes with demanding, often balletic movement, a method critics have described as visually impressive but sometimes conceptually thin. Against that record, <em>Paris, TEXAS</em> looks like a promising expansion of the company\u2019s repertory, but not yet an established contribution to it.</p>",
-    "url": "https://www.ishidadance.org/",
-    "screenings": [
-      {
-        "date": "2027-01-20",
-        "time": "19:30",
-        "url": "https://www.ishidadance.org/",
-        "venue": "IshidaDance"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "dance",
-    "id": "ishida---paris-texas---2027-01-20-1930",
-    "venue_display_name": "ISHIDA Dance Company",
-    "venue_address": "5901 Southwest Pkwy, Austin, TX 78735"
-  },
-  {
-    "title": "ISHIDA - Paris, TEXAS",
-    "dates": [
-      "2027-01-21"
-    ],
-    "times": [
-      "19:30"
-    ],
-    "program": "",
-    "series": "",
-    "venue": "IshidaDance",
-    "rating": 6,
-    "one_liner_summary": "Beach House score meets Wim Wenders\u2019 fractured family in ambitious dance adaptation.",
-    "description": "<p>\u2605 Rating: <strong>6/10</strong></p><p>\ud83c\udfad <strong>Choreographic Craft</strong>  <br>ISHIDA\u2019s <em>Paris, TEXAS</em> is billed as the first dance theater adaptation of Wim Wenders\u2019s film, set to music by Beach House. The concept offers strong theatrical material, especially the film\u2019s fractured family, desert isolation, and motel encounter, but available documentation does not identify the choreographer or describe specific movement sequences, partnering structures, or staging choices. The work therefore appears ambitious rather than fully assessable as choreography. Its cinematic premise risks substituting atmosphere for an independently developed dance structure.</p><p>\u2728 <strong>Performance Quality</strong>  <br>ISHIDA Dance Company brings an international cast drawn from companies including Ballet BC, Houston Ballet, Hubbard Street, LINES Ballet, RUBBERBANDance Group, G\u00f6teborgs Operans Danskompani, and Nederlands Dans Theater. That background suggests a technically serious ensemble, and the company\u2019s public descriptions emphasize exacting physicality. Still, no reliable account of this specific performance provides enough detail about individual dancers, musical phrasing, or dramatic execution to justify a higher score.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The production positions a Texas based company within an increasingly cross disciplinary field where dance borrows from cinema, popular music, and theater. ISHIDA\u2019s larger project is notable for bringing internationally experienced performers and European influenced contemporary dance to Texas audiences. <em>Paris, TEXAS</em> matters as an institutional statement, but its cultural importance will depend on whether the adaptation transforms the film rather than merely illustrating it.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The choreographer is not identified in the available material, so the work cannot be placed securely within an individual choreographic lineage. It does belong to Brett Ishida\u2019s broader practice of combining narrative themes with demanding, often balletic movement, a method critics have described as visually impressive but sometimes conceptually thin. Against that record, <em>Paris, TEXAS</em> looks like a promising expansion of the company\u2019s repertory, but not yet an established contribution to it.</p>",
-    "url": "https://www.ishidadance.org/",
-    "screenings": [
-      {
-        "date": "2027-01-21",
-        "time": "19:30",
-        "url": "https://www.ishidadance.org/",
-        "venue": "IshidaDance"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "dance",
-    "id": "ishida---paris-texas---2027-01-21-1930",
-    "venue_display_name": "ISHIDA Dance Company",
-    "venue_address": "5901 Southwest Pkwy, Austin, TX 78735"
-  },
-  {
     "title": "Ty Herndon",
     "dates": [
       "2027-01-21"
@@ -7564,35 +7557,6 @@
     "id": "ty-herndon",
     "venue_display_name": "Paramount",
     "venue_address": "713 Congress Ave, Austin, TX 78701"
-  },
-  {
-    "title": "ISHIDA - Paris, TEXAS",
-    "dates": [
-      "2027-01-22"
-    ],
-    "times": [
-      "19:30"
-    ],
-    "program": "",
-    "series": "",
-    "venue": "IshidaDance",
-    "rating": 6,
-    "one_liner_summary": "Beach House score meets Wim Wenders\u2019 fractured family in ambitious dance adaptation.",
-    "description": "<p>\u2605 Rating: <strong>6/10</strong></p><p>\ud83c\udfad <strong>Choreographic Craft</strong>  <br>ISHIDA\u2019s <em>Paris, TEXAS</em> is billed as the first dance theater adaptation of Wim Wenders\u2019s film, set to music by Beach House. The concept offers strong theatrical material, especially the film\u2019s fractured family, desert isolation, and motel encounter, but available documentation does not identify the choreographer or describe specific movement sequences, partnering structures, or staging choices. The work therefore appears ambitious rather than fully assessable as choreography. Its cinematic premise risks substituting atmosphere for an independently developed dance structure.</p><p>\u2728 <strong>Performance Quality</strong>  <br>ISHIDA Dance Company brings an international cast drawn from companies including Ballet BC, Houston Ballet, Hubbard Street, LINES Ballet, RUBBERBANDance Group, G\u00f6teborgs Operans Danskompani, and Nederlands Dans Theater. That background suggests a technically serious ensemble, and the company\u2019s public descriptions emphasize exacting physicality. Still, no reliable account of this specific performance provides enough detail about individual dancers, musical phrasing, or dramatic execution to justify a higher score.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The production positions a Texas based company within an increasingly cross disciplinary field where dance borrows from cinema, popular music, and theater. ISHIDA\u2019s larger project is notable for bringing internationally experienced performers and European influenced contemporary dance to Texas audiences. <em>Paris, TEXAS</em> matters as an institutional statement, but its cultural importance will depend on whether the adaptation transforms the film rather than merely illustrating it.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The choreographer is not identified in the available material, so the work cannot be placed securely within an individual choreographic lineage. It does belong to Brett Ishida\u2019s broader practice of combining narrative themes with demanding, often balletic movement, a method critics have described as visually impressive but sometimes conceptually thin. Against that record, <em>Paris, TEXAS</em> looks like a promising expansion of the company\u2019s repertory, but not yet an established contribution to it.</p>",
-    "url": "https://www.ishidadance.org/",
-    "screenings": [
-      {
-        "date": "2027-01-22",
-        "time": "19:30",
-        "url": "https://www.ishidadance.org/",
-        "venue": "IshidaDance"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "dance",
-    "id": "ishida---paris-texas---2027-01-22-1930",
-    "venue_display_name": "ISHIDA Dance Company",
-    "venue_address": "5901 Southwest Pkwy, Austin, TX 78735"
   },
   {
     "title": "Sam Baker",
@@ -7689,93 +7653,6 @@
     "id": "temple-grandin",
     "venue_display_name": "Paramount",
     "venue_address": "713 Congress Ave, Austin, TX 78701"
-  },
-  {
-    "title": "ISHIDA - Paris, TEXAS",
-    "dates": [
-      "2027-01-26"
-    ],
-    "times": [
-      "19:30"
-    ],
-    "program": "",
-    "series": "",
-    "venue": "IshidaDance",
-    "rating": 6,
-    "one_liner_summary": "Beach House score meets Wim Wenders\u2019 fractured family in ambitious dance adaptation.",
-    "description": "<p>\u2605 Rating: <strong>6/10</strong></p><p>\ud83c\udfad <strong>Choreographic Craft</strong>  <br>ISHIDA\u2019s <em>Paris, TEXAS</em> is billed as the first dance theater adaptation of Wim Wenders\u2019s film, set to music by Beach House. The concept offers strong theatrical material, especially the film\u2019s fractured family, desert isolation, and motel encounter, but available documentation does not identify the choreographer or describe specific movement sequences, partnering structures, or staging choices. The work therefore appears ambitious rather than fully assessable as choreography. Its cinematic premise risks substituting atmosphere for an independently developed dance structure.</p><p>\u2728 <strong>Performance Quality</strong>  <br>ISHIDA Dance Company brings an international cast drawn from companies including Ballet BC, Houston Ballet, Hubbard Street, LINES Ballet, RUBBERBANDance Group, G\u00f6teborgs Operans Danskompani, and Nederlands Dans Theater. That background suggests a technically serious ensemble, and the company\u2019s public descriptions emphasize exacting physicality. Still, no reliable account of this specific performance provides enough detail about individual dancers, musical phrasing, or dramatic execution to justify a higher score.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The production positions a Texas based company within an increasingly cross disciplinary field where dance borrows from cinema, popular music, and theater. ISHIDA\u2019s larger project is notable for bringing internationally experienced performers and European influenced contemporary dance to Texas audiences. <em>Paris, TEXAS</em> matters as an institutional statement, but its cultural importance will depend on whether the adaptation transforms the film rather than merely illustrating it.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The choreographer is not identified in the available material, so the work cannot be placed securely within an individual choreographic lineage. It does belong to Brett Ishida\u2019s broader practice of combining narrative themes with demanding, often balletic movement, a method critics have described as visually impressive but sometimes conceptually thin. Against that record, <em>Paris, TEXAS</em> looks like a promising expansion of the company\u2019s repertory, but not yet an established contribution to it.</p>",
-    "url": "https://www.ishidadance.org/",
-    "screenings": [
-      {
-        "date": "2027-01-26",
-        "time": "19:30",
-        "url": "https://www.ishidadance.org/",
-        "venue": "IshidaDance"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "dance",
-    "id": "ishida---paris-texas---2027-01-26-1930",
-    "venue_display_name": "ISHIDA Dance Company",
-    "venue_address": "5901 Southwest Pkwy, Austin, TX 78735"
-  },
-  {
-    "title": "ISHIDA - Paris, TEXAS",
-    "dates": [
-      "2027-01-27"
-    ],
-    "times": [
-      "19:30"
-    ],
-    "program": "",
-    "series": "",
-    "venue": "IshidaDance",
-    "rating": 6,
-    "one_liner_summary": "Beach House score meets Wim Wenders\u2019 fractured family in ambitious dance adaptation.",
-    "description": "<p>\u2605 Rating: <strong>6/10</strong></p><p>\ud83c\udfad <strong>Choreographic Craft</strong>  <br>ISHIDA\u2019s <em>Paris, TEXAS</em> is billed as the first dance theater adaptation of Wim Wenders\u2019s film, set to music by Beach House. The concept offers strong theatrical material, especially the film\u2019s fractured family, desert isolation, and motel encounter, but available documentation does not identify the choreographer or describe specific movement sequences, partnering structures, or staging choices. The work therefore appears ambitious rather than fully assessable as choreography. Its cinematic premise risks substituting atmosphere for an independently developed dance structure.</p><p>\u2728 <strong>Performance Quality</strong>  <br>ISHIDA Dance Company brings an international cast drawn from companies including Ballet BC, Houston Ballet, Hubbard Street, LINES Ballet, RUBBERBANDance Group, G\u00f6teborgs Operans Danskompani, and Nederlands Dans Theater. That background suggests a technically serious ensemble, and the company\u2019s public descriptions emphasize exacting physicality. Still, no reliable account of this specific performance provides enough detail about individual dancers, musical phrasing, or dramatic execution to justify a higher score.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The production positions a Texas based company within an increasingly cross disciplinary field where dance borrows from cinema, popular music, and theater. ISHIDA\u2019s larger project is notable for bringing internationally experienced performers and European influenced contemporary dance to Texas audiences. <em>Paris, TEXAS</em> matters as an institutional statement, but its cultural importance will depend on whether the adaptation transforms the film rather than merely illustrating it.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The choreographer is not identified in the available material, so the work cannot be placed securely within an individual choreographic lineage. It does belong to Brett Ishida\u2019s broader practice of combining narrative themes with demanding, often balletic movement, a method critics have described as visually impressive but sometimes conceptually thin. Against that record, <em>Paris, TEXAS</em> looks like a promising expansion of the company\u2019s repertory, but not yet an established contribution to it.</p>",
-    "url": "https://www.ishidadance.org/",
-    "screenings": [
-      {
-        "date": "2027-01-27",
-        "time": "19:30",
-        "url": "https://www.ishidadance.org/",
-        "venue": "IshidaDance"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "dance",
-    "id": "ishida---paris-texas---2027-01-27-1930",
-    "venue_display_name": "ISHIDA Dance Company",
-    "venue_address": "5901 Southwest Pkwy, Austin, TX 78735"
-  },
-  {
-    "title": "ISHIDA - Paris, TEXAS",
-    "dates": [
-      "2027-01-28"
-    ],
-    "times": [
-      "19:30"
-    ],
-    "program": "",
-    "series": "",
-    "venue": "IshidaDance",
-    "rating": 6,
-    "one_liner_summary": "Beach House score meets Wim Wenders\u2019 fractured family in ambitious dance adaptation.",
-    "description": "<p>\u2605 Rating: <strong>6/10</strong></p><p>\ud83c\udfad <strong>Choreographic Craft</strong>  <br>ISHIDA\u2019s <em>Paris, TEXAS</em> is billed as the first dance theater adaptation of Wim Wenders\u2019s film, set to music by Beach House. The concept offers strong theatrical material, especially the film\u2019s fractured family, desert isolation, and motel encounter, but available documentation does not identify the choreographer or describe specific movement sequences, partnering structures, or staging choices. The work therefore appears ambitious rather than fully assessable as choreography. Its cinematic premise risks substituting atmosphere for an independently developed dance structure.</p><p>\u2728 <strong>Performance Quality</strong>  <br>ISHIDA Dance Company brings an international cast drawn from companies including Ballet BC, Houston Ballet, Hubbard Street, LINES Ballet, RUBBERBANDance Group, G\u00f6teborgs Operans Danskompani, and Nederlands Dans Theater. That background suggests a technically serious ensemble, and the company\u2019s public descriptions emphasize exacting physicality. Still, no reliable account of this specific performance provides enough detail about individual dancers, musical phrasing, or dramatic execution to justify a higher score.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The production positions a Texas based company within an increasingly cross disciplinary field where dance borrows from cinema, popular music, and theater. ISHIDA\u2019s larger project is notable for bringing internationally experienced performers and European influenced contemporary dance to Texas audiences. <em>Paris, TEXAS</em> matters as an institutional statement, but its cultural importance will depend on whether the adaptation transforms the film rather than merely illustrating it.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>The choreographer is not identified in the available material, so the work cannot be placed securely within an individual choreographic lineage. It does belong to Brett Ishida\u2019s broader practice of combining narrative themes with demanding, often balletic movement, a method critics have described as visually impressive but sometimes conceptually thin. Against that record, <em>Paris, TEXAS</em> looks like a promising expansion of the company\u2019s repertory, but not yet an established contribution to it.</p>",
-    "url": "https://www.ishidadance.org/",
-    "screenings": [
-      {
-        "date": "2027-01-28",
-        "time": "19:30",
-        "url": "https://www.ishidadance.org/",
-        "venue": "IshidaDance"
-      }
-    ],
-    "review_confidence": "unknown",
-    "type": "dance",
-    "id": "ishida---paris-texas---2027-01-28-1930",
-    "venue_display_name": "ISHIDA Dance Company",
-    "venue_address": "5901 Southwest Pkwy, Austin, TX 78735"
   },
   {
     "title": "Rafi Bastos",
@@ -8324,6 +8201,70 @@
     "id": "eurotour-renaissance-masters-c.-1450-1600---2027-02-28-1500",
     "venue_display_name": "Early Music Austin",
     "venue_address": "3201 Windsor Rd, Austin, TX 78703"
+  },
+  {
+    "title": "HOST: Em Kettner",
+    "dates": [
+      "2027-03-05"
+    ],
+    "times": [
+      "10:00"
+    ],
+    "end_date": "2027-07-25",
+    "artist": "Em Kettner",
+    "artists": "",
+    "medium": "",
+    "series": "HOST",
+    "venue": "Laguna Gloria",
+    "rating": 8,
+    "one_liner_summary": "Intimate ceramics, wood, and weave stage a clinical theater of fragile objects.",
+    "description": "<p>\u2605 Rating: 8/10</p><p>\ud83c\udfad Formal Qualities. Kettner\u2019s installation brings together ceramics, woodworking, and weaving at an intimate scale, requiring viewers to move physically closer to the objects. The materials are not decorative extras. Woven cotton and silk wrap porcelain forms, while carved wood gives the fragile figures a physical setting and support. The small scale sharpens the work\u2019s theatrical character, making each object feel like a prop, performer, or patient in a staged clinical scene. The formal strategy is controlled and coherent, though the available documentation does not permit a full judgment of the installation\u2019s spatial rhythm or lighting.</p><p>\u2728 Originality. The exhibition\u2019s strongest idea is its collision of the doctor\u2019s office with comic theater. Kettner uses mischievous figures, bodily awkwardness, erotic charge, and visual jokes to oppose the usual medical framing of disability as deficiency. This is more than representational correction. The work turns interdependence into an active social drama, while intimacy of scale makes the viewer adapt rather than simply observe. The premise is distinctive, even if its reliance on character types and staged scenarios occasionally risks repeating the language of illustration.</p><p>\ud83d\udcda Cultural Significance. HOST addresses disability, access, sexuality, agency, and care without reducing them to solemn advocacy. Kettner\u2019s humor functions as a practical tool, loosening the authority of medical narratives and making room for pleasure, solidarity, and dependence. The exhibition also fits Laguna Gloria\u2019s role as a setting for contemporary sculpture and site responsive practice. Its significance lies in giving disabled bodies theatrical agency, not merely visibility.</p><p>\ud83d\udca1 Historical Context. HOST is Kettner\u2019s first solo museum exhibition, marking a clear institutional advance from her gallery presentations and earlier ceramic textile works. Her practice belongs to a lineage of figurative sculpture that uses comedy, eroticism, and altered bodies to challenge ideals of autonomy and physical normalcy. Its immediate materials recall craft traditions, domestic making, and anatomical display, but Kettner redirects those histories toward mutual reliance. The exhibition is strong because its politics are embedded in construction, scale, and staging, rather than added as explanation.</p>",
+    "url": "https://thecontemporaryaustin.org/exhibitions/host-em-kettner/",
+    "screenings": [
+      {
+        "date": "2027-03-05",
+        "time": "10:00",
+        "url": "https://thecontemporaryaustin.org/exhibitions/host-em-kettner/",
+        "venue": "Laguna Gloria"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "host-em-kettner---2027-03-05-1000",
+    "venue_display_name": "Laguna Gloria",
+    "venue_address": ""
+  },
+  {
+    "title": "Akira Ikezoe: Between a Banana and a Crescent Moon",
+    "dates": [
+      "2027-03-05"
+    ],
+    "times": [
+      "10:00"
+    ],
+    "end_date": "2027-07-25",
+    "artist": "Akira Ikezoe",
+    "artists": "",
+    "medium": "",
+    "series": "",
+    "venue": "Jones Center",
+    "rating": 7,
+    "one_liner_summary": "Akira Ikezoe\u2019s crowded circular systems turn cow manure and nuclear plants into playful energy.",
+    "description": "<p>\u2605 Rating: 7/10</p><p>\ud83c\udfad <strong>Formal Qualities</strong>  <br>The exhibition\u2019s strength lies in its range. Ikezoe works across painting, drawing, video, animation, sculpture, and performance, using human figures, animals, energy sources, and diagrammatic forms to build crowded systems rather than isolated images. His circular compositions give the works a clear visual logic, with suns, nuclear plants, and methane from cow manure functioning as imagined power sources that send energy through the picture. The approach is inventive and controlled, though the visual density can make individual passages feel more illustrative than fully developed.</p><p>\u2728 <strong>Originality</strong>  <br>Ikezoe\u2019s best idea is not simply the fusion of humans and nature, but the refusal to keep them separate. His scenes operate through loops, absurd actions, and personified animals, turning ecological systems into unstable myths. The work departs from straightforward environmental art by treating energy as both a material force and a narrative device. Still, its symbolic vocabulary, including cosmic cycles, hybrid figures, and anthropomorphic animals, occasionally leans toward familiar surrealist territory.</p><p>\ud83d\udcda <strong>Cultural Significance</strong>  <br>The exhibition connects migration, language, parenthood, ecological crisis, and technological power. After moving from Japan to New York without speaking English, Ikezoe developed a practice centered on visual communication, while the Fukushima disaster sharpened his attention to the relationship between humans and their surroundings. That context gives the exhibition real urgency, especially when its images turn nuclear infrastructure and biological waste into parts of the same circulating system. The institutional presentation is also significant, since this is described as Ikezoe\u2019s first solo museum exhibition and the most comprehensive survey of his practice to date.</p><p>\ud83d\udca1 <strong>Historical Context</strong>  <br>Born in Kochi in 1979 and trained in printmaking at Tama Art University, Ikezoe belongs to a generation shaped by Japanese disaster, global migration, and expanded media practice. His work extends the lineage of surrealist metamorphosis, ecological systems art, and mythic narrative painting, but filters those traditions through contemporary diagrams of energy and classification. The exhibition\u2019s importance rests less on formal rupture than on consolidation. It shows an artist turning a distinctive private cosmology into a sustained, cross media language.</p>",
+    "url": "https://thecontemporaryaustin.org/exhibitions/akira-ikezoe-between-a-banana-and-a-crescent-moon/",
+    "screenings": [
+      {
+        "date": "2027-03-05",
+        "time": "10:00",
+        "url": "https://thecontemporaryaustin.org/exhibitions/akira-ikezoe-between-a-banana-and-a-crescent-moon/",
+        "venue": "Jones Center"
+      }
+    ],
+    "review_confidence": "high",
+    "type": "visual_arts",
+    "id": "akira-ikezoe-between-a-banana-and-a-crescent-moon---2027-03-05-1000",
+    "venue_display_name": "Jones Center",
+    "venue_address": ""
   },
   {
     "title": "Daphnis & Gloria",
