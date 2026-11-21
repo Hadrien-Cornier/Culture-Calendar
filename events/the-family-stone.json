@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE FAMILY STONE",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Thomas Bezucha’s 2005 Christmas comedy drama, running 103 minutes, has a capable ensemble and a clear command of domestic farce. The crowded-house scenes, especially the escalating misunderstandings around Meredith’s failed att…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-family-stone.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-15",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE ANDROMEDA STRAIN",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Robert Wise turns procedure into suspense. The Wildfire laboratory, arranged across descending levels of sterilization, gives the film its strongest formal idea, an antiseptic architecture that controls bodies, movement, and i…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-andromeda-strain.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-05",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

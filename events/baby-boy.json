@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BABY BOY",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit. John Singleton gives the film a strong social realist frame, built around Jody’s stagnant life in South Central Los Angeles. Tyrese Gibson carries the central role with easy charm and credible immaturity, while A. J. Johnson a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/baby-boy.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-24",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

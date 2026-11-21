@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MILLION DOLLAR MERMAID",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Mervyn LeRoy’s film is a polished MGM spectacle, built around Esther Williams’s athletic control and George Folsey’s Technicolor cinematography. Busby Berkeley’s water choreography supplies the strongest passages, especially th…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/million-dollar-mermaid.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-08",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

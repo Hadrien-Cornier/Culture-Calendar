@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Sculptor's Imprint, Part III",
+  "description": "Critical Review: The Sculptor's Imprint, Part III at FlatbedPress ★ Rating: 7/10 🎭 Formal Qualities Given FlatbedPress's distinguished reputation as Austin's premier fine art print studio, \"The Sculptor's Imprint, Part III\" likely represents a sophisticated e…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-sculptors-imprint-part-iii-2026-10-31-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-31",
+  "location": {
+    "@type": "Place",
+    "name": "FlatbedPress",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

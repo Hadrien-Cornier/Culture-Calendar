@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Ratatouille + Snack Potluck",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Ratatouille is a technically assured animated comedy, with expressive character animation, intricate Parisian backgrounds, and unusually tactile attention to food preparation. The sequence in which Remy combines flavors in his…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/ratatouille-snack-potluck.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-26",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

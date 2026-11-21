@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Primary Division - Summer Workshop Concert",
+  "description": "★ Rating: 0/10 🎭 Artistic Merit – I cannot assess performance quality, technical execution, or interpretive depth because the provided details list \"Featured Artist: undefined,\" \"Composers: unknown,\" and \"Works: unknown\" . Without knowing which musicians play…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/primary-division-summer-workshop-concert-2026-07-25-1030.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-25",
+  "location": {
+    "@type": "Place",
+    "name": "Chamber Music",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

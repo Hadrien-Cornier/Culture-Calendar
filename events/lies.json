@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "LIES",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Jang Sun-woo gives Lies a deliberately unstable form. Its opening discussions between performers about staging sex expose the mechanics of the production, while the later affair between J, a married sculptor, and Y, an 18-year-…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/lies.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-04",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

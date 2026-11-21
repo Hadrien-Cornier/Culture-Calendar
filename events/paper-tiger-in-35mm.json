@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "PAPER TIGER in 35mm",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit James Gray turns a 1986 Queens crime story into a tightly controlled family tragedy. The 35mm photography gives the film a period texture without reducing the setting to retro decoration, while the opening image of the World Tr…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/paper-tiger-in-35mm.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-04",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

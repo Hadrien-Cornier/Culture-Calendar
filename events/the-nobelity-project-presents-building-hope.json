@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The Nobelity Project presents BUILDING HOPE",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit. Pipkin gives the film a clear, functional structure, a promise followed by construction, setbacks, and completion. The drought, floods, fundraising problems, and building of Mahiga Hope High provide usable dramatic pressure, w…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-nobelity-project-presents-building-hope.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-22",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

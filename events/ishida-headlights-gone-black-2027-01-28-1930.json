@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ISHIDA - headlights gone black",
+  "description": "ISHIDA - headlights gone black ★ Rating: 6.5/10 🎭 Choreographic Craft Without established documentation of the choreographer's identity, this work presents an intriguing puzzle within contemporary dance discourse. The title \"headlights gone black\" suggests a…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/ishida-headlights-gone-black-2027-01-28-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-28",
+  "location": {
+    "@type": "Place",
+    "name": "IshidaDance",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

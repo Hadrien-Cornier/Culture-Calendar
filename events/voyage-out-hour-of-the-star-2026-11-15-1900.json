@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Voyage Out - Hour of the Star",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit, 9/10. The book’s surface plot is spare, but Lispector turns that spareness into pressure, with Rodrigo S. M. interrupting himself, doubting his own authority, and circling Macabéa’s life from every angle. The result is a tight…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/voyage-out-hour-of-the-star-2026-11-15-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-15",
+  "location": {
+    "@type": "Place",
+    "name": "AlienatedMajesty",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

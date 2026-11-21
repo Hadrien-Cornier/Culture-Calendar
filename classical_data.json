@@ -1,0 +1,822 @@
+{
+  "austinSymphony": [
+    {
+      "title": "Brahms and the Nordic Masterpiece",
+      "program": "Begin the season with music that balances clarity and intensity. Featuring Theofanidis\u2019 Rainbow Body, Brahms\u2019 Violin Concerto with Geneva Lewis, and Sibelius\u2019 Fifth Symphony, this program offers depth, structure, and expressive range.",
+      "dates": [
+        "2026-09-11",
+        "2026-09-13"
+      ],
+      "times": [
+        "8:00 PM",
+        "2:00 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Masterworks",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Batman in Concert (1989)",
+      "program": "",
+      "dates": [
+        "2026-10-16",
+        "2026-10-17"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Butler Pops",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Halloween Children's Concert",
+      "program": "Celebrate Halloween with Prokofiev\u2019s Peter and the Wolf, the thrilling tale of a brave boy, his animal friends, and a fearsome wolf, all brought to life by the instruments of the orchestra.",
+      "dates": [
+        "2026-10-18"
+      ],
+      "times": [
+        "3:00 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Special Events",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "To Have and to Hold",
+      "program": "An exploration of love and marriage through music and narration. Led by Jamie Bernstein, daughter of the great Leonard Bernstein, this program blends Trouble in Tahiti with works by Strauss, Mendelssohn, and others, offering a thoughtful and engaging concert experience.",
+      "dates": [
+        "2026-10-23",
+        "2026-10-25"
+      ],
+      "times": [
+        "8:00 PM",
+        "2:00 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Masterworks",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "An Evening with Yo-Yo Ma",
+      "program": "For one night only, Yo-Yo Ma performs Dvo\u0159\u00e1k\u2019s Cello Concerto in a rare Austin appearance. With music by Hovhaness and Bizet, this program offers a limited opportunity to experience one of today\u2019s most respected artists live.",
+      "dates": [
+        "2026-11-18"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Special Events",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Elf in Concert",
+      "program": "Nobody spreads Christmas cheer quite like Buddy the Elf! This holiday season, your Austin Symphony Orchestra brings Elf in Concert to Dell Hall at the Long Center, performing John Debney\u2019s heartwarming score live as the full film plays on the big screen.",
+      "dates": [
+        "2026-12-15",
+        "2026-12-16"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Butler Pops",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Pictures at an Exhibition",
+      "program": "A program centered on transformation and imagination. Featuring Brahms\u2019 Handel Variations, Liszt\u2019s Piano Concerto with Yifei Xu, and Mussorgsky\u2019s Pictures at an Exhibition, this concert explores evolving musical ideas through structure, color, and character.",
+      "dates": [
+        "2027-01-15",
+        "2027-01-17"
+      ],
+      "times": [
+        "8:00 PM",
+        "2:00 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Masterworks",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Joshua Bell Plays Beethoven",
+      "program": "Joshua Bell performs Beethoven\u2019s Violin Concerto in a program that also includes Verdi\u2019s La forza del destino overture and Lutos\u0142awski\u2019s Concerto for Orchestra. A concert that explores contrast, structure, and orchestral color.",
+      "dates": [
+        "2027-02-19",
+        "2027-02-20"
+      ],
+      "times": [
+        "8:00 PM",
+        "8:00 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Masterworks",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Daphnis & Gloria",
+      "program": "A program for chorus and orchestra featuring Mazzoli's The Shield of the Heart is the Heart, Poulenc\u2019s Gloria with Chorus Austin, and Ravel\u2019s Daphnis et Chlo\u00e9. This concert explores voice, texture, and the connection between contemporary and classical traditions.",
+      "dates": [
+        "2027-03-05",
+        "2027-03-06"
+      ],
+      "times": [
+        "8:00 PM",
+        "8:00 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Masterworks",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Jurassic Park in Concert",
+      "program": "",
+      "dates": [
+        "2027-04-02",
+        "2027-04-03"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Butler Pops",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Mahler's 9th",
+      "program": "Mahler\u2019s Symphony No. 9 is presented in a program led by Peter Bay. This performance highlights the work\u2019s structure, emotional range, and sense of reflection, offering an immersive orchestral experience.",
+      "dates": [
+        "2027-04-09",
+        "2027-04-10"
+      ],
+      "times": [
+        "8:00 PM",
+        "8:00 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Masterworks",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Ode to Joy",
+      "program": "A program for chorus, soloists, and orchestra featuring Beethoven\u2019s Symphony No. 9 and a narrated work based on Mozart. This concert focuses on connection, shared experience, and the role of music in community.",
+      "dates": [
+        "2027-05-14",
+        "2027-05-15"
+      ],
+      "times": [
+        "8:00 PM",
+        "8:00 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Masterworks",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Star Wars: The Force Awakens in Concert",
+      "program": "",
+      "dates": [
+        "2027-05-21",
+        "2027-05-22"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Butler Pops",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "With Love and Gratitude",
+      "program": "The season concludes with works by Puts, Mozart, and Rachmaninoff. Featuring two-piano soloists Anton Nel and Jon Kimura Parker, this program reflects collaboration, balance, and a thoughtful close to Peter Bay\u2019s tenure.",
+      "dates": [
+        "2027-06-11",
+        "2027-06-12"
+      ],
+      "times": [
+        "8:00 PM",
+        "8:00 PM"
+      ],
+      "venue_name": "Dell Hall at Long Center",
+      "series": "Masterworks",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    }
+  ],
+  "earlyMusicAustin": [
+    {
+      "title": "Eurotour: A Medieval Odyssey, c. 1100-1450",
+      "program": "From the chants of Hildegard von Bingen to the polyphonic brilliance of Guillaume de Machaut, and from the raucous Italian dances of The Decameron to the subtle creations of the courts of Burgundy - the best and most characteristic Medieval music from England, France, Germany, Spain, and Italy.",
+      "dates": [
+        "2026-09-26",
+        "2026-09-27"
+      ],
+      "times": [
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church (Sat) / St. Martin's Lutheran Church (Sun)",
+      "series": "Texas Early Music Project 2026-27 Season",
+      "featured_artist": "Texas Early Music Project",
+      "composers": [
+        "Hildegard von Bingen",
+        "Guillaume de Machaut"
+      ],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Joy and Light: Delights of the Season",
+      "program": "TEMP's annual feast of holiday music for Christmas and Chanukah through the ages: medieval chant and joyous carols, magnificent motets, sweet Celtic songs, and exuberant folk-tunes for Chanukah.",
+      "dates": [
+        "2026-12-12",
+        "2026-12-13"
+      ],
+      "times": [
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church (Sat) / St. Martin's Lutheran Church (Sun)",
+      "series": "Texas Early Music Project 2026-27 Season",
+      "featured_artist": "Texas Early Music Project",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Eurotour: Renaissance Masters, c. 1450-1600",
+      "program": "Sophisticated selections from the early Renaissance, featuring the Franco-Flemish masters through the magnificence of Italian multi-choral works and experiments that stretched the tonal landscape.",
+      "dates": [
+        "2027-02-27",
+        "2027-02-28"
+      ],
+      "times": [
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "St. Martin's Lutheran Church",
+      "series": "Texas Early Music Project 2026-27 Season",
+      "featured_artist": "Texas Early Music Project",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Eurotour: Early Baroque Pearls",
+      "program": "The drama inherent in the expression of text and human emotions in the early Baroque music of Monteverdi, Strozzi, Charpentier, Schutz, and others - theatrical presentations, instrumental virtuosity, and vocal contrasts.",
+      "dates": [
+        "2027-04-17",
+        "2027-04-18"
+      ],
+      "times": [
+        "7:30 PM",
+        "3:00 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church (Sat) / St. Martin's Lutheran Church (Sun)",
+      "series": "Texas Early Music Project 2026-27 Season",
+      "featured_artist": "Texas Early Music Project",
+      "composers": [
+        "Claudio Monteverdi",
+        "Barbara Strozzi",
+        "Marc-Antoine Charpentier",
+        "Heinrich Schutz"
+      ],
+      "works": [],
+      "type": "concert"
+    }
+  ],
+  "laFolliaAustin": [],
+  "austinChamberMusic": [
+    {
+      "title": "Invoke Quartet",
+      "program": "Austin Chamber Music Festival 2026 concert with the Invoke Quartet at Bates Recital Hall.",
+      "dates": [
+        "2026-07-18"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Bates Recital Hall",
+      "series": "Austin Chamber Music Festival",
+      "featured_artist": "Invoke Quartet",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Carnival of the Animals",
+      "program": "A family-friendly Austin Chamber Music Festival performance of Camille Saint-Saens's beloved Carnival of the Animals at Bates Recital Hall, with two showings at noon and 2 PM.",
+      "dates": [
+        "2026-07-19",
+        "2026-07-19"
+      ],
+      "times": [
+        "12:00 PM",
+        "2:00 PM"
+      ],
+      "venue_name": "Bates Recital Hall",
+      "series": "Austin Chamber Music Festival",
+      "featured_artist": "",
+      "composers": [
+        "Camille Saint-Saens"
+      ],
+      "works": [
+        "Carnival of the Animals"
+      ],
+      "type": "concert"
+    },
+    {
+      "title": "Adult Division - Summer Workshop Concert",
+      "program": "Culmination concert of the Austin Chamber Music Center Summer Workshop's Adult Division at Bates Recital Hall.",
+      "dates": [
+        "2026-07-22"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Bates Recital Hall",
+      "series": "ACMC Summer Workshop",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Primary Division - Summer Workshop Concert",
+      "program": "Culmination concert of the Austin Chamber Music Center Summer Workshop's Primary Division at Bates Recital Hall.",
+      "dates": [
+        "2026-07-25"
+      ],
+      "times": [
+        "10:30 AM"
+      ],
+      "venue_name": "Bates Recital Hall",
+      "series": "ACMC Summer Workshop",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Young Artists Division Chamber Ensembles Concert",
+      "program": "Culmination chamber ensembles concert of the Austin Chamber Music Center Summer Workshop's Young Artists Division at Bates Recital Hall.",
+      "dates": [
+        "2026-07-25"
+      ],
+      "times": [
+        "1:00 PM"
+      ],
+      "venue_name": "Bates Recital Hall",
+      "series": "ACMC Summer Workshop",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Young Artists Division Large Ensembles Concert",
+      "program": "Culmination large ensembles concert of the Austin Chamber Music Center Summer Workshop's Young Artists Division at Bates Recital Hall.",
+      "dates": [
+        "2026-07-25"
+      ],
+      "times": [
+        "3:00 PM"
+      ],
+      "venue_name": "Bates Recital Hall",
+      "series": "ACMC Summer Workshop",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Galvin Cello Quartet",
+      "program": "Austin Chamber Music Festival 2026 concert with the Galvin Cello Quartet at Bates Recital Hall.",
+      "dates": [
+        "2026-07-25"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Bates Recital Hall",
+      "series": "Austin Chamber Music Festival",
+      "featured_artist": "Galvin Cello Quartet",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Ariel Quartet",
+      "program": "Austin Chamber Music Festival 2026 closing concert with the Ariel Quartet at Bates Recital Hall.",
+      "dates": [
+        "2026-07-26"
+      ],
+      "times": [
+        "3:00 PM"
+      ],
+      "venue_name": "Bates Recital Hall",
+      "series": "Austin Chamber Music Festival",
+      "featured_artist": "Ariel Quartet",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    }
+  ],
+  "austinOpera": [
+    {
+      "title": "Ofrenda",
+      "program": "World premiere commission opening Austin Opera's new Sarah and Ernest Butler Performance Center. A locally nurtured new opera honoring heritage and community.",
+      "dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "2:00 PM",
+        "2:00 PM"
+      ],
+      "venue_name": "Sarah and Ernest Butler Performance Center",
+      "series": "Austin Opera 2026-27 Season",
+      "featured_artist": "",
+      "composers": [],
+      "works": [],
+      "type": "opera"
+    },
+    {
+      "title": "Tha\u00efs",
+      "program": "Massenet's lush tale of a monk's obsession with the courtesan Tha\u00efs arrives in an exclusive Texas premiere production.",
+      "dates": [
+        "2026-11-13",
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM",
+        "2:00 PM"
+      ],
+      "venue_name": "Long Center for the Performing Arts",
+      "series": "Austin Opera 2026-27 Season",
+      "featured_artist": "",
+      "composers": [
+        "Jules Massenet"
+      ],
+      "works": [
+        "Tha\u00efs"
+      ],
+      "type": "opera"
+    },
+    {
+      "title": "Fellow Travelers",
+      "program": "Gregory Spears's acclaimed opera of love and persecution in McCarthy-era Washington, D.C.",
+      "dates": [
+        "2027-02-06",
+        "2027-02-07"
+      ],
+      "times": [
+        "7:30 PM",
+        "2:00 PM"
+      ],
+      "venue_name": "Long Center for the Performing Arts",
+      "series": "Austin Opera 2026-27 Season",
+      "featured_artist": "",
+      "composers": [
+        "Gregory Spears"
+      ],
+      "works": [
+        "Fellow Travelers"
+      ],
+      "type": "opera"
+    },
+    {
+      "title": "La traviata",
+      "program": "Verdi's beloved story of Violetta's sacrifice and doomed love, closing Austin Opera's 2026-27 season.",
+      "dates": [
+        "2027-04-18",
+        "2027-04-22",
+        "2027-04-24"
+      ],
+      "times": [
+        "2:00 PM",
+        "7:30 PM",
+        "7:30 PM"
+      ],
+      "venue_name": "Long Center for the Performing Arts",
+      "series": "Austin Opera 2026-27 Season",
+      "featured_artist": "",
+      "composers": [
+        "Giuseppe Verdi"
+      ],
+      "works": [
+        "La traviata"
+      ],
+      "type": "opera"
+    }
+  ],
+  "lastUpdated": "2026-07-18",
+  "season": "2026-27",
+  "artsOnAlexander": [
+    {
+      "title": "Holbrook Organ Series | Christopher Brauckmann",
+      "program": "Organ recital in the Holbrook Organ Series.",
+      "dates": [
+        "2026-08-21"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Christopher Brauckmann (organ)",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Bach & Beer",
+      "program": "Partita in A minor for Flute, BWV 1013; Sonatas for Flute and Obbligato Harpsichord, BWV 1030, 1034, 1035; solo harpsichord selections performed by Guy Whatley.",
+      "dates": [
+        "2026-09-11"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "St. Martin's Lutheran Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Guy Whatley (harpsichord)",
+      "composers": [
+        "Johann Sebastian Bach"
+      ],
+      "works": [
+        "Partita in A minor, BWV 1013",
+        "Flute Sonatas, BWV 1030, 1034, 1035"
+      ],
+      "type": "concert"
+    },
+    {
+      "title": "Pulcinella",
+      "program": "Philharmonie Austin under Mark Dupere performs Prokofiev's Symphony No. 1 'Classical', Ravel's Le Tombeau de Couperin, and Stravinsky's Pulcinella Suite.",
+      "dates": [
+        "2026-10-16",
+        "2026-10-17"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Philharmonie Austin, Mark Dupere (conductor)",
+      "composers": [
+        "Sergei Prokofiev",
+        "Maurice Ravel",
+        "Igor Stravinsky"
+      ],
+      "works": [
+        "Symphony No. 1 in D Major, Op. 25 'Classical'",
+        "Le Tombeau de Couperin, M.68a",
+        "Pulcinella Suite"
+      ],
+      "type": "concert"
+    },
+    {
+      "title": "Holbrook Organ Series | Katherine Meloan",
+      "program": "Organ recital in the Holbrook Organ Series.",
+      "dates": [
+        "2026-10-23"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Katherine Meloan (organ)",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Vox Luminis | Vespers of 1910",
+      "program": "Vox Luminis performs Monteverdi's Vespro della Beata Vergine, SV 206.",
+      "dates": [
+        "2026-11-14"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Vox Luminis",
+      "composers": [
+        "Claudio Monteverdi"
+      ],
+      "works": [
+        "Vespro della Beata Vergine, SV 206"
+      ],
+      "type": "concert"
+    },
+    {
+      "title": "Holbrook Organ Series | Chris Oelkers",
+      "program": "Organ recital in the Holbrook Organ Series.",
+      "dates": [
+        "2026-11-20"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Chris Oelkers (organ)",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "A Festival of Nine Lessons and Carols",
+      "program": "Philharmonie Austin Chorus performs A Festival of Nine Lessons and Carols under the direction of Mark Dupere.",
+      "dates": [
+        "2026-12-17",
+        "2026-12-18"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM"
+      ],
+      "venue_name": "St. Martin's Lutheran Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Philharmonie Austin Chorus, Mark Dupere (conductor)",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Anton Nel - Chopin & Friends",
+      "program": "Solo works for piano performed on an 1855 Erard grand piano.",
+      "dates": [
+        "2027-01-15"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Anton Nel (piano)",
+      "composers": [
+        "Frederic Chopin"
+      ],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Dixit Dominus",
+      "program": "Philharmonie Austin and Philharmonie Austin Chorus under Mark Dupere perform Handel's Dixit Dominus, HWV 232, a Vivaldi L'estro armonico concerto, and Bach's Christ lag in Todesbanden, BWV 4.",
+      "dates": [
+        "2027-02-05",
+        "2027-02-06"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Philharmonie Austin, Philharmonie Austin Chorus, Mark Dupere (conductor)",
+      "composers": [
+        "George Frideric Handel",
+        "Antonio Vivaldi",
+        "Johann Sebastian Bach"
+      ],
+      "works": [
+        "Dixit Dominus, HWV 232",
+        "L'estro armonico Concerto",
+        "Christ lag in Todesbanden, BWV 4"
+      ],
+      "type": "concert"
+    },
+    {
+      "title": "VOCES8 | Towards Paradise",
+      "program": "Towards Paradise traces a journey through music of longing, faith, consolation, and peace; a pilgrimage towards rest, light, and eternity.",
+      "dates": [
+        "2027-02-20"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "VOCES8",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Holbrook Organ Series | Midori Ataka",
+      "program": "Organ recital in the Holbrook Organ Series.",
+      "dates": [
+        "2027-03-12"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Midori Ataka (organ)",
+      "composers": [],
+      "works": [],
+      "type": "concert"
+    },
+    {
+      "title": "Matthew Passion",
+      "program": "Philharmonie Austin and Philharmonie Austin Chorus perform Johann Sebastian Bach's St. Matthew Passion, BWV 244, under the direction of Mark Dupere.",
+      "dates": [
+        "2027-03-19",
+        "2027-03-20"
+      ],
+      "times": [
+        "7:30 PM",
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "Philharmonie Austin, Philharmonie Austin Chorus, Mark Dupere (conductor)",
+      "composers": [
+        "Johann Sebastian Bach"
+      ],
+      "works": [
+        "St. Matthew Passion, BWV 244"
+      ],
+      "type": "concert"
+    },
+    {
+      "title": "All Mozart!",
+      "program": "Oboe Quartet in F Major, Clarinet Quintet in A Major, and Divertimento for String Quartet.",
+      "dates": [
+        "2027-04-30"
+      ],
+      "times": [
+        "7:30 PM"
+      ],
+      "venue_name": "Redeemer Presbyterian Church",
+      "series": "Arts on Alexander 2026-27 Season",
+      "featured_artist": "",
+      "composers": [
+        "Wolfgang Amadeus Mozart"
+      ],
+      "works": [
+        "Oboe Quartet in F Major",
+        "Clarinet Quintet in A Major",
+        "Divertimento for String Quartet"
+      ],
+      "type": "concert"
+    }
+  ]
+}

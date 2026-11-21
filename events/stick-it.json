@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Stick It",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Jessica Bendinger’s 2006 directorial debut has a clean commercial rhythm and a well-used gymnastics setting, with the final competition providing the film’s strongest visual and dramatic sequence. Missy Peregrym gives Haley cre…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/stick-it.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-06",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

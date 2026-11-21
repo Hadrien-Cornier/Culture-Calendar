@@ -1,0 +1,44 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of The Spotlight Book Club - London Falling: 
+ A Mysterious Death in a Gilded City and a Family's Search for Truth
+X-WR-CALNAME:Culture Calendar — The Spotlight Book Club - London Fallin
+ g: A Mysterious Death in a Gilded City and a Family's Search for Truth
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[7/10] The Spotlight Book Club - London Falling: A Mysterious Dea
+ th in a Gilded City and a Family's Search for Truth
+DTSTART;TZID=America/Chicago:20261221T190000
+DTEND;TZID=America/Chicago:20261221T210000
+DTSTAMP:20261121T193303Z
+UID:the-spotlight-book-club---london falling-a-mysterious-death-in-a-gild
+ ed-city-and-a-familys-search-for-truth---2026-12-21-1900-2026-12-21-1900@c
+ ulturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 7/10\n\nKeefe investigates a gilded London death and a
+  family's search for truth.\n\nDetails: https://www.firstlightaustin.com/b
+ ook-club
+LOCATION:FirstLight
+URL:https://www.firstlightaustin.com/book-club
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of The Table is Set
+X-WR-CALNAME:Culture Calendar — The Table is Set
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[5/10] The Table is Set
+DTSTART;TZID=America/Chicago:20261120T120000
+DTEND;TZID=America/Chicago:20261120T140000
+DTSTAMP:20261121T193303Z
+UID:the-table-is-set---2026-11-20-1200-2026-11-20-1200@culturecalendar.loc
+ al
+CATEGORIES:Visual Arts,Exhibition
+DESCRIPTION:Rating: 5/10\n\nA dinner table installation where place settin
+ gs become sculptures of domestic memory.\n\nDetails: https://marthas.galle
+ ry/exhibitions
+LOCATION:MarthasContemporary
+URL:https://marthas.gallery/exhibitions
+END:VEVENT
+END:VCALENDAR

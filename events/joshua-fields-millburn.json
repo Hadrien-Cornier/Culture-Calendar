@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Joshua Fields Millburn",
+  "description": "★ Rating: 6/10 The supplied title appears to identify Joshua Fields Millburn, the subject and producer associated with Minimalism, A Documentary About the Important Things, rather than a standalone film. The available details identify Matt D’Avella as directo…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/joshua-fields-millburn.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-23",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

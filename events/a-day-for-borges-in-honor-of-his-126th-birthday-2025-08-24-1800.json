@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A Day for Borges: in Honor of his 126th Birthday",
+  "description": "Happy B-Day Señor Borges 6pm - doors, drink + chat 7pm - readings 7:45pm - discussion of “ the secret miracle” you MUST rsvp for this event. we are only allowing 35 people in and already have a list going.(you will receive a pdf of the short story when you RS…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-day-for-borges-in-honor-of-his-126th-birthday-2025-08-24-1800.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-08-24",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Haas Brothers: Uncanny Valley",
+  "description": "★ Rating: 8/10 🎭 Formal Qualities The exhibition succeeds through material excess controlled by serious technical discipline. Bronze, porcelain, blown glass, carved wood, fur, wool, beads, automotive paint, and 3D printed nylon become an unstable bestiary of…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/haas-brothers-uncanny-valley-2026-09-27-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-27",
+  "location": {
+    "@type": "Place",
+    "name": "Blanton",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

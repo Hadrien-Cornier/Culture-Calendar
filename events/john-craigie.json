@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "John Craigie",
+  "description": "Critical Review: 'John Craigie' I must acknowledge upfront that I cannot identify a film titled \"John Craigie\" with an unknown director in my training data, and John Craigie is primarily known as a contemporary folk singer-songwriter rather than a subject of…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/john-craigie.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-02-18",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
