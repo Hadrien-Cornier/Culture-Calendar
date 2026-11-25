@@ -91,7 +91,7 @@ Season-based classical/ballet venues (Austin Symphony, Early Music Austin, La Fo
 - **Workflow**: runs `python scripts/refresh_classical_data.py --dry-run --use-perplexity`, parses JSON summary, writes validated payloads, opens a PR `chore: monthly classical/ballet data refresh` on `bot/classical-refresh-<date>`. **PR is intentionally never auto-merged** — human review required.
 - **Local**: `.venv/bin/python scripts/refresh_classical_data.py --dry-run` (in-memory stub). Add `--use-perplexity` for live API. `--venue <key>` (any key in `CLASSICAL_VENUE_KEYS`/`BALLET_VENUE_KEYS`) restricts to one.
 - **Validation**: `validate_classical_data` enforces `dates` (YYYY-MM-DD) / `times` (HH:mm) / `type ∈ {concert, opera, dance}` / `REQUIRED_EVENT_FIELDS`. Runs before any disk write; `ValueError` aborts the refresh.
-- **Failure mode**: Perplexity occasionally returns `{events: []}` per venue → `LLMFetchError` aborts before clobbering on-disk JSON. This is why cadence is monthly.
+- **Preservation**: The default refresh adds upcoming events and dates without overwriting curated entries, times or skipped venues. An empty source is skipped; a complete fetch failure fails the job. Same-day time discrepancies need manual review, as do cancellations and renamed events. No data change means no PR.
 - **Secrets**: `PERPLEXITY_API_KEY` + `ANTHROPIC_API_KEY` in repo secrets; `contents: write` + `pull-requests: write` permissions.
 
 ## Known Issues

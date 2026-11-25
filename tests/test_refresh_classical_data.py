@@ -493,3 +493,130 @@ def test_guard_is_skipped_for_the_stub_fetcher(tmp_path: Path):
         str(path), {"balletAustin": []}, ["balletAustin"], allow=False, enabled=False
     )
     assert blocked is False
+
+
+def _live_args(tmp_path):
+    classical = tmp_path / "classical.json"
+    ballet = tmp_path / "ballet.json"
+    return classical, ballet, [
+        "--dry-run", "--use-perplexity",
+        "--out-classical", str(classical), "--out-ballet", str(ballet),
+    ]
+
+
+def test_partial_live_refresh_preserves_curated_and_extra_venues(
+    monkeypatch, tmp_path, capsys
+):
+    classical, ballet, args = _live_args(tmp_path)
+    existing = _good_classical_payload()
+    symphony = _good_event(
+        title="Handel's Messiah", dates=["2099-12-01", "2099-12-02"],
+        times=["8:00 PM", "2:00 PM"], program="Curated program notes",
+    )
+    existing["austinSymphony"] = [symphony, _good_event(title="Omitted concert")]
+    existing["artsOnAlexander"] = [_good_event(title="Unmanaged series")]
+    classical.write_text(json.dumps(existing))
+    old_ballet = {"balletAustin": [_good_event(title="The Nutcracker", type="dance")]}
+    ballet.write_text(json.dumps(old_ballet))
+
+    def fetch(key):
+        print(f"provider diagnostic for {key}")
+        if key != "austinSymphony":
+            raise refresh.LLMFetchError("incomplete source")
+        return [
+            _good_event(
+                title=" HANDEL’S   MESSIAH ", dates=["2099-12-01", "2099-12-03", "2099-12-03"],
+                times=["20:00", "8:00 PM", "2:00 PM"], program="",
+            ),
+            _good_event(title="New concert", dates=["2099-12-04"], times=["8:00 PM"]),
+            _good_event(title="Past concert", dates=["2000-01-01"], times=["8:00 PM"]),
+        ]
+
+    monkeypatch.setattr(refresh, "_build_perplexity_fetcher", lambda: (fetch, "perplexity"))
+    assert refresh.main(args) == 0
+    captured = capsys.readouterr()
+    payload = json.loads(captured.out)
+    assert "provider diagnostic" in captured.err
+    assert "ballet_payload" not in payload
+    updated = payload["classical_payload"]
+    assert updated["artsOnAlexander"] == existing["artsOnAlexander"]
+    assert updated["austinOpera"] == existing["austinOpera"]
+    assert updated["austinSymphony"][1] == existing["austinSymphony"][1]
+    assert updated["austinSymphony"][2]["title"] == "New concert"
+    assert updated["austinSymphony"][0] == dict(
+        symphony, dates=["2099-12-01", "2099-12-02", "2099-12-03", "2099-12-03"],
+        times=["8:00 PM", "2:00 PM", "8:00 PM", "2:00 PM"],
+    )
+    assert json.loads(classical.read_text()) == existing
+    assert json.loads(ballet.read_text()) == old_ballet
+
+
+def test_ballet_refresh_preserves_conflicting_time_and_only_emits_real_changes(
+    monkeypatch, tmp_path, capsys
+):
+    _, ballet, args = _live_args(tmp_path)
+    nutcracker = _good_event(title="The Nutcracker", type="dance",
+                             dates=["2099-12-20"], times=["2:00 PM"])
+    existing = {"balletAustin": [nutcracker], "lastUpdated": "2026-07-18"}
+    ballet.write_text(json.dumps(existing))
+    fetched = dict(nutcracker, times=["7:30 PM"])
+    monkeypatch.setattr(
+        refresh, "_build_perplexity_fetcher", lambda: (lambda key: [fetched], "perplexity")
+    )
+    args += ["--venue", "ballet"]
+    assert refresh.main(args) == 0
+    captured = capsys.readouterr()
+    assert "ballet_payload" not in json.loads(captured.out)
+    assert "time discrepancy" in captured.err
+
+    fetched.update(dates=["2099-12-21"])
+    assert refresh.main(args) == 0
+    updated = json.loads(capsys.readouterr().out)["ballet_payload"]["balletAustin"][0]
+    assert updated == dict(
+        nutcracker, dates=["2099-12-20", "2099-12-21"], times=["2:00 PM", "7:30 PM"]
+    )
+
+
+def test_no_successful_sources_fails_without_emitting_a_replacement(
+    monkeypatch, tmp_path, capsys
+):
+    _, _, args = _live_args(tmp_path)
+
+    def failed(key):
+        raise refresh.LLMFetchError("provider returned no usable events")
+
+    monkeypatch.setattr(refresh, "_build_perplexity_fetcher", lambda: (failed, "perplexity"))
+    assert refresh.main(args) == 1
+    captured = capsys.readouterr()
+    assert not captured.out
+    assert "no venues returned usable events" in captured.err
+
+
+def test_corrupt_baseline_cannot_be_replaced(monkeypatch, tmp_path, capsys):
+    classical, _, args = _live_args(tmp_path)
+    classical.write_text("{")
+    monkeypatch.setattr(
+        refresh, "_build_perplexity_fetcher",
+        lambda: (lambda key: [_good_event(dates=["2099-12-01"], times=["8:00 PM"])], "perplexity"),
+    )
+    assert refresh.main(args + ["--venue", "austinSymphony"]) == 1
+    captured = capsys.readouterr()
+    assert not captured.out
+    assert "cannot use existing classical data" in captured.err
+
+
+def test_live_venue_fetch_keeps_valid_rows_and_does_not_filter_old_season_pages():
+    class FakeProvider:
+        def call_perplexity(self, prompt, **kwargs):
+            assert "https://my.austinsymphony.org/events" in prompt
+            assert kwargs["search_recency_filter"] is None
+            return {"events": [
+                _good_event(title="Valid concert"),
+                _good_event(dates=["", "2099-12-08"], times=["8:00 PM", ""]),
+                _good_event(type="dance"),
+            ]}
+
+    results = refresh.fetch_venue_data_via_perplexity(
+        "austinSymphony", llm_service=FakeProvider(), season="2099-00"
+    )
+    assert [event["title"] for event in results] == ["Valid concert"]

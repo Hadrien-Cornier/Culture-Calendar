@@ -986,7 +986,7 @@ venues:
 # BALLET_VENUE_KEYS in scripts/refresh_classical_data.py.
 # ---------------------------------------------------------------------------
 classical_refresh:
-  recency_filter: month
+  # Season schedules are often published months before a performance.
   venues:
     austinSymphony:
       config_key: austin_symphony
