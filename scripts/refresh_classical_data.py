@@ -26,10 +26,12 @@ import argparse
 import json
 import re
 import sys
+from contextlib import redirect_stdout
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, Sequence
+from zoneinfo import ZoneInfo
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(_REPO_ROOT) not in sys.path:
@@ -318,10 +320,12 @@ def _normalize_event(
         raw_times = [raw_times]
     if not isinstance(raw_dates, list) or not isinstance(raw_times, list):
         return None
-    dates = [str(d).strip() for d in raw_dates if str(d).strip()]
-    times = [str(t).strip() for t in raw_times if str(t).strip()]
-    if not dates or not times or len(dates) != len(times):
+    if not raw_dates or len(raw_dates) != len(raw_times):
         return None
+    if any(not isinstance(value, str) or not value.strip() for value in raw_dates + raw_times):
+        return None
+    dates = [value.strip() for value in raw_dates]
+    times = [value.strip() for value in raw_times]
     composers = event.get("composers") or []
     works = event.get("works") or []
     if not isinstance(composers, list) or not isinstance(works, list):
@@ -396,7 +400,7 @@ def fetch_venue_data_via_perplexity(
         season=season,
         season_url=season_url if isinstance(season_url, str) else None,
     )
-    recency = (config.get("classical_refresh") or {}).get("recency_filter") or "month"
+    recency = (config.get("classical_refresh") or {}).get("recency_filter")
     response = llm_service.call_perplexity(
         prompt,
         temperature=0.1,
@@ -410,6 +414,10 @@ def fetch_venue_data_via_perplexity(
     events = _coerce_perplexity_events(
         response, expected_type=event_type, expected_venue_name=display
     )
+    events = [
+        event for event in events
+        if event["type"] == event_type and not validate_event(event, venue_key=venue_key)
+    ]
     if not events:
         raise LLMFetchError(
             f"Perplexity response for {venue_key!r} did not contain any "
@@ -467,6 +475,110 @@ def assemble_payload(
             payload[result.venue_key] = result.events
     payload["lastUpdated"] = now.isoformat()
     payload["season"] = season
+    return payload
+
+
+def _title_key(title: str) -> str:
+    return " ".join(title.replace("’", "'").casefold().split())
+
+
+def _time_key(value: str) -> str:
+    for fmt in ("%I:%M %p", "%H:%M"):
+        try:
+            return datetime.strptime(value.strip(), fmt).strftime("%H:%M")
+        except ValueError:
+            pass
+    return "".join(value.casefold().split())
+
+
+def _merge_venue_events(
+    existing: list[dict[str, Any]], fetched: list[dict[str, Any]], *, today: date
+) -> list[dict[str, Any]]:
+    """Add upcoming events and dates without changing existing performance data."""
+    merged = list(existing)
+    by_title: dict[str, list[int]] = {}
+    for idx, event in enumerate(merged):
+        by_title.setdefault(_title_key(event["title"]), []).append(idx)
+    for event in fetched:
+        upcoming = []
+        for day, time in zip(event["dates"], event["times"], strict=True):
+            try:
+                if date.fromisoformat(day) >= today:
+                    upcoming.append((day, time))
+            except ValueError:
+                print(f"WARNING: invalid performance date {day!r}", file=sys.stderr)
+        if not upcoming:
+            continue
+        title = _title_key(event["title"])
+        matches = by_title.get(title, [])
+        if not matches:
+            old = event
+            pairs: list[tuple[str, str]] = []
+        elif len(matches) == 1:
+            old = merged[matches[0]]
+            pairs = list(zip(old["dates"], old["times"], strict=True))
+        else:
+            print(f"WARNING: ambiguous matching titles for {event['title']!r}", file=sys.stderr)
+            continue
+        old_days = {day for day, _ in pairs}
+        seen = {(day, _time_key(time)) for day, time in pairs}
+        for day, time in upcoming:
+            key = (day, _time_key(time))
+            if key in seen:
+                continue
+            if day in old_days:
+                # A different time on a known date might be a correction rather
+                # than another performance; never guess from a partial scrape.
+                print(
+                    f"WARNING: review time discrepancy for {event['title']!r} on {day}",
+                    file=sys.stderr,
+                )
+                continue
+            pairs.append((day, time))
+            seen.add(key)
+        if not matches or len(pairs) != len(old["dates"]):
+            updated = dict(
+                old, dates=[day for day, _ in pairs], times=[time for _, time in pairs]
+            )
+            if matches:
+                merged[matches[0]] = updated
+            else:
+                by_title[title] = [len(merged)]
+                merged.append(updated)
+    return merged
+
+
+def _prepare_live_payload(
+    output_path: str,
+    results: Sequence[RefreshResult],
+    *,
+    expected_venue_keys: Sequence[str],
+    season: str,
+    allow_regressions: bool,
+) -> dict[str, Any] | None:
+    """Keep unqueried venues and manual entries; no timestamp-only updates."""
+    path = _REPO_ROOT / output_path
+    try:
+        existing = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        existing = {key: [] for key in expected_venue_keys}
+    errors = validate_classical_data(existing, expected_venue_keys=expected_venue_keys)
+    if errors:
+        raise ValueError(f"{path}: " + "; ".join(errors))
+    today = datetime.now(ZoneInfo("America/Chicago")).date()
+    payload = dict(existing)
+    for result in results:
+        key = result.venue_key
+        if not result.events:
+            continue
+        payload[key] = (
+            result.events
+            if allow_regressions
+            else _merge_venue_events(existing[key], result.events, today=today)
+        )
+    if payload == existing:
+        return None
+    payload.update(lastUpdated=datetime.now(timezone.utc).isoformat(), season=season)
     return payload
 
 
@@ -657,9 +769,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
         "--allow-regressions",
         action="store_true",
         help=(
-            "Proceed even when the refresh would drop events, lose dates, or "
-            "blank curated fields. Off by default: a well-formed payload can "
-            "still be a lossy one."
+            "Replace successfully fetched venues instead of merging additions. "
+            "Only use after reviewing the potential loss of events, dates and curated fields."
         ),
     )
     return parser
@@ -730,7 +841,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.use_perplexity:
         try:
-            fetcher, source_label = _build_perplexity_fetcher()
+            with redirect_stdout(sys.stderr):
+                fetcher, source_label = _build_perplexity_fetcher()
         except LLMFetchError as exc:
             print(f"refresh_classical_data: {exc}", file=sys.stderr)
             return 1
@@ -738,71 +850,61 @@ def main(argv: Sequence[str] | None = None) -> int:
         fetcher = stub_fetch
         source_label = "stub"
 
-    classical_results = refresh_venues(classical_keys, fetcher=fetcher, source_label=source_label)
-    ballet_results = refresh_venues(ballet_keys, fetcher=fetcher, source_label=source_label)
-
     season = infer_season()
-
     summary: dict[str, Any] = {
         "dry_run": True,
         "source": source_label,
         "season": season,
         "venues": {},
     }
-
-    if classical_results:
-        classical_payload = assemble_payload(
-            classical_results,
-            expected_venue_keys=CLASSICAL_VENUE_KEYS,
-            season=season,
-        )
-        errors = validate_classical_data(
-            classical_payload, expected_venue_keys=[r.venue_key for r in classical_results]
-        )
+    fetched_any = False
+    for group, requested, all_keys, path in (
+        ("classical", classical_keys, CLASSICAL_VENUE_KEYS, args.out_classical),
+        ("ballet", ballet_keys, BALLET_VENUE_KEYS, args.out_ballet),
+    ):
+        # The shared LLM client sometimes prints diagnostics to stdout.
+        # Keep stdout machine-readable for the GitHub workflow.
+        with redirect_stdout(sys.stderr):
+            results = refresh_venues(requested, fetcher=fetcher, source_label=source_label)
+        results = [result for result in results if result.events]
+        if not results:
+            continue
+        fetched_any = True
+        summary["venues"][group] = {r.venue_key: len(r.events) for r in results}
+        try:
+            payload = (
+                _prepare_live_payload(
+                    path,
+                    results,
+                    expected_venue_keys=all_keys,
+                    season=season,
+                    allow_regressions=args.allow_regressions,
+                )
+                if args.use_perplexity
+                else assemble_payload(results, expected_venue_keys=all_keys, season=season)
+            )
+        except (OSError, ValueError) as exc:
+            print(
+                f"refresh_classical_data: cannot use existing {group} data: {exc}",
+                file=sys.stderr,
+            )
+            return 1
+        if payload is None:
+            continue
+        errors = validate_classical_data(payload, expected_venue_keys=all_keys)
         if errors:
             for err in errors:
                 print(f"validation error: {err}", file=sys.stderr)
             return 1
-        regressions = _check_regressions(
-            args.out_classical,
-            classical_payload,
-            [r.venue_key for r in classical_results],
-            allow=args.allow_regressions,
-            enabled=args.use_perplexity,
-        )
-        if regressions:
+        if _check_regressions(
+            path, payload, all_keys, allow=args.allow_regressions, enabled=args.use_perplexity
+        ):
             return 1
-        summary["venues"]["classical"] = {
-            r.venue_key: len(r.events) for r in classical_results
-        }
-        summary["classical_payload"] = classical_payload
+        summary[f"{group}_payload"] = payload
 
-    if ballet_results:
-        ballet_payload = assemble_payload(
-            ballet_results,
-            expected_venue_keys=BALLET_VENUE_KEYS,
-            season=season,
-        )
-        errors = validate_classical_data(
-            ballet_payload, expected_venue_keys=[r.venue_key for r in ballet_results]
-        )
-        if errors:
-            for err in errors:
-                print(f"validation error: {err}", file=sys.stderr)
-            return 1
-        regressions = _check_regressions(
-            args.out_ballet,
-            ballet_payload,
-            [r.venue_key for r in ballet_results],
-            allow=args.allow_regressions,
-            enabled=args.use_perplexity,
-        )
-        if regressions:
-            return 1
-        summary["venues"]["ballet"] = {
-            r.venue_key: len(r.events) for r in ballet_results
-        }
-        summary["ballet_payload"] = ballet_payload
+    if not fetched_any:
+        print("refresh_classical_data: no venues returned usable events", file=sys.stderr)
+        return 1
 
     print(json.dumps(summary, indent=2, sort_keys=True))
     return 0
