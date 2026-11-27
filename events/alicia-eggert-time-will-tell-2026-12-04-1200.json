@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Alicia Eggert: Time Will Tell",
+  "description": "Alicia Eggert: Time Will Tell at IvesterContemporary ★ Rating: 7.5/10 Alicia Eggert's \"Time Will Tell\" at IvesterContemporary delivers a characteristically cerebral exploration of temporality through her signature medium of kinetic sculpture and text-based ne…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/alicia-eggert-time-will-tell-2026-12-04-1200.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-04",
+  "location": {
+    "@type": "Place",
+    "name": "IvesterContemporary",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

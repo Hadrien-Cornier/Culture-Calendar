@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Shadows on Stone: Portraits of Colonial Mexican Architecture",
+  "description": "Shadows on Stone: Portraits of Colonial Mexican Architecture at the Blanton ★ Rating: 7/10 🎭 Formal Qualities Given the exhibition title and the Blanton Museum of Art's substantial holdings in Latin American art, this presentation likely features photographic…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/shadows-on-stone-portraits-of-colonial-mexican-architecture-2026-10-10-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-10-10",
+  "location": {
+    "@type": "Place",
+    "name": "Blanton",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of Brevity Book Club - Tenth of December
+X-WR-CALNAME:Culture Calendar — Brevity Book Club - Tenth of December
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[9/10] Brevity Book Club - Tenth of December
+DTSTART;TZID=America/Chicago:20261228T190000
+DTEND;TZID=America/Chicago:20261228T210000
+DTSTAMP:20261127T212943Z
+UID:brevity-book-club---tenth-of-december---2026-12-28-1900-2026-12-28-190
+ 0@culturecalendar.local
+CATEGORIES:Book Club,Literature
+DESCRIPTION:Rating: 9/10\n\nSaunders finds grace in a frozen park and a ph
+ armaceutical testing facility.\n\nDetails: https://www.firstlightaustin.co
+ m/book-club
+LOCATION:FirstLight
+URL:https://www.firstlightaustin.com/book-club
+END:VEVENT
+END:VCALENDAR

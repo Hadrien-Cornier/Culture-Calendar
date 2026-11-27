@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Patterson Hood",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit, the work appears to be a competent music documentary centered on Patterson Hood and the Drive-By Truckers, with enough access to band dynamics, touring, and recording to give it real texture. The material seems strongest when…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/patterson-hood.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-02",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

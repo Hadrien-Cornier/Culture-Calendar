@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ISHIDA - Paris, TEXAS",
+  "description": "Critical Review: ISHIDA - Paris, TEXAS ★ Rating: 7/10 🎭 Choreographic Craft Paris, TEXAS represents an intriguing conceptual departure for IshidaDance, attempting to translate Wim Wenders' cinematic reflection on American alienation into movement vocabulary.…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/ishida-paris-texas-2027-01-26-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-01-26",
+  "location": {
+    "@type": "Place",
+    "name": "IshidaDance",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Haas Brothers: Uncanny Valley",
+  "description": "Haas Brothers: Uncanny Valley at the Blanton Museum of Art ★ Rating: 6.5/10 The Haas Brothers—Nikolai and Simon—bring their signature blend of craft, kitsch, and biological surrealism to the Blanton Museum of Art in \"Uncanny Valley,\" an exhibition that oscill…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/haas-brothers-uncanny-valley-2026-09-27-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-27",
+  "location": {
+    "@type": "Place",
+    "name": "Blanton",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

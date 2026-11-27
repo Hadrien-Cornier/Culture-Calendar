@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Livra Book Club: Dostoevsky's Notes from Underground",
+  "description": "I cannot give a serious review of this book from the material provided. There is no title, no author, and no synopsis, so I cannot assess prose, structure, themes, or cultural value with any honesty. ★ Rating: 0/10 🎭 Artistic Merit, impossible to judge from t…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/livra-book-club-dostoevskys-notes-from-underground-2025-10-27-1900.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2025-10-27",
+  "location": {
+    "@type": "Place",
+    "name": "LivraBooks",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

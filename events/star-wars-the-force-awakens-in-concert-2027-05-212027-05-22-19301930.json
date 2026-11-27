@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Star Wars: The Force Awakens in Concert",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit The specific Butler Pops concert in Austin has not been performed yet, with dates scheduled for May 21 and 22, 2027 at Long Center's Dell Hall. Because no live performance data exists for this specific event, I cannot evaluate…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/star-wars-the-force-awakens-in-concert-2027-05-212027-05-22-19301930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-05-21",
+  "location": {
+    "@type": "Place",
+    "name": "Symphony",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

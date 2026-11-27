@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "threeASFOUR: FULL CIRCLE with Sean Ono Lennon",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit The film’s strongest achievement is its access. Lennon and Brian C. González observe Gabi Asfour, Angela Donhauser, and Adi Gil across five years, combining archival material with studio work, fashion shows, creative disagreeme…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/threeasfour-full-circle-with-sean-ono-lennon.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-06",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

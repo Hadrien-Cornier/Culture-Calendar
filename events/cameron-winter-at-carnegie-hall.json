@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "CAMERON WINTER AT CARNEGIE HALL",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit. Paul Thomas Anderson turns a 72 minute solo concert into a concentrated film portrait. Shot on 35mm and 16mm, the movie stays close to Cameron Winter at the piano, treating Carnegie Hall less as spectacle than as a chamber spa…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/cameron-winter-at-carnegie-hall.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-31",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

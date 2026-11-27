@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Nurse Georgie Carroll",
+  "description": "The supplied title does not identify a conventional film. Available records identify Nurse Georgie Carroll as a stand up comedy special or live comedy act, with Sista Flo 2.0 listed as a 2024 television special, and Infectious as a later live show. The direct…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/nurse-georgie-carroll.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-02-06",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

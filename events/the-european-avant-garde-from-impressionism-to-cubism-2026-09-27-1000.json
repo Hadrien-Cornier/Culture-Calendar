@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "The European Avant-Garde: From Impressionism to Cubism",
+  "description": "The European Avant-Garde: From Impressionism to Cubism at the Blanton Museum of Art ★ Rating: 7/10 The Blanton Museum of Art's survey exhibition tracing the trajectory from Impressionism to Cubism represents a pedagogically sound but ultimately safe curatoria…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-european-avant-garde-from-impressionism-to-cubism-2026-09-27-1000.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-09-27",
+  "location": {
+    "@type": "Place",
+    "name": "Blanton",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

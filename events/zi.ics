@@ -1,0 +1,91 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Culture Calendar//Per-Event ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC:All screenings of ZI
+X-WR-CALNAME:Culture Calendar — ZI
+X-WR-TIMEZONE:America/Chicago
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:STANDARD
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:[8/10] ZI
+DTSTART;TZID=America/Chicago:20261127T194500
+DTEND;TZID=America/Chicago:20261127T214500
+DTSTAMP:20261127T212943Z
+UID:zi-2026-11-27-1945@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA violinist chases her doppelgänger through H
+ ong Kong’s fractured night.\n\nDetails: https://www.austinfilm.org/scree
+ ning/zi/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/zi/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ZI
+DTSTART;TZID=America/Chicago:20261128T143000
+DTEND;TZID=America/Chicago:20261128T163000
+DTSTAMP:20261127T212943Z
+UID:zi-2026-11-28-1430@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA violinist chases her doppelgänger through H
+ ong Kong’s fractured night.\n\nDetails: https://www.austinfilm.org/scree
+ ning/zi/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/zi/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ZI
+DTSTART;TZID=America/Chicago:20261130T160000
+DTEND;TZID=America/Chicago:20261130T180000
+DTSTAMP:20261127T212943Z
+UID:zi-2026-11-30-1600@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA violinist chases her doppelgänger through H
+ ong Kong’s fractured night.\n\nDetails: https://www.austinfilm.org/scree
+ ning/zi/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/zi/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ZI
+DTSTART;TZID=America/Chicago:20261201T200000
+DTEND;TZID=America/Chicago:20261201T220000
+DTSTAMP:20261127T212943Z
+UID:zi-2026-12-01-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA violinist chases her doppelgänger through H
+ ong Kong’s fractured night.\n\nDetails: https://www.austinfilm.org/scree
+ ning/zi/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/zi/
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[8/10] ZI
+DTSTART;TZID=America/Chicago:20261203T200000
+DTEND;TZID=America/Chicago:20261203T220000
+DTSTAMP:20261127T212943Z
+UID:zi-2026-12-03-2000@culturecalendar.local
+CATEGORIES:Movie,Film
+DESCRIPTION:Rating: 8/10\n\nA violinist chases her doppelgänger through H
+ ong Kong’s fractured night.\n\nDetails: https://www.austinfilm.org/scree
+ ning/zi/
+LOCATION:AFS
+URL:https://www.austinfilm.org/screening/zi/
+END:VEVENT
+END:VCALENDAR

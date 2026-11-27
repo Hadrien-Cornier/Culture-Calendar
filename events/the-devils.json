@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "THE DEVILS",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit. Ken Russell directs The Devils as political theatre pushed through a fever dream. Derek Jarman’s stark white sets turn Loudun into a sealed arena, while Peter Maxwell Davies’s abrasive score makes religious ceremony sound like…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/the-devils.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-27",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

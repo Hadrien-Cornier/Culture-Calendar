@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ME AND MR. MAURI",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Me and Mr. Mauri is an archival documentary directed by Dr. Osa Hidalgo de la Riva and Augie Robles. It draws on video interviews recorded in the 1990s, using the roughness of pre digital video as part of its visual identity ra…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/me-and-mr-mauri.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-11-30",
+  "location": {
+    "@type": "Place",
+    "name": "Hyperreal",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

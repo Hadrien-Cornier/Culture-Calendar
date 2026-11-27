@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Adult Division - Summer Workshop Concert",
+  "description": "★ Rating: 0/10 🎭 Artistic Merit – I cannot assess performance quality, technical execution, or interpretive depth. The source material lists no featured artist, no composers, and no works performed for this specific Adult Division culmination concert . Withou…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/adult-division-summer-workshop-concert-2026-07-22-1930.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-07-22",
+  "location": {
+    "@type": "Place",
+    "name": "Chamber Music",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

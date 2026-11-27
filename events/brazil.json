@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "BRAZIL",
+  "description": "★ Rating: 9/10 🎭 Artistic Merit. Gilliam turns bureaucracy into physical spectacle. The Ministry of Information is a maze of pneumatic tubes, cramped desks, obsolete computers, and cavernous offices, while Sam Lowry’s flying dreams cut through that oppressive…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/brazil.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-24",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MY FATHER IS COMING",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Monika Treut’s 82 minute comedy has a clear visual and social identity, built from East Village interiors, improvised encounters, sexual performance, and an intentionally unstable mixture of farce and autobiography. Shelley Käs…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/my-father-is-coming.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-20",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

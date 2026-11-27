@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "CLOSURE",
+  "description": "★ Rating: 8/10 🎭 Artistic Merit Michał Marczak turns Daniel Dymiński’s search for his missing sixteen year old son into a carefully controlled hybrid of documentary, thriller, and family drama. The film’s strongest formal choice is its attention to procedure,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/closure.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-19",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

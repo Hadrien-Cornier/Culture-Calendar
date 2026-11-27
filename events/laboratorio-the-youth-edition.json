@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Laboratorio, The Youth Edition",
+  "description": "★ Rating: [6/10] 🎭 Artistic Merit, The piece appears built as a live musical event rather than a conventional narrative film, and that limits what can be judged from the available material. Still, the premise has some craft, a rotating guest artist structure,…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/laboratorio-the-youth-edition.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-13",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

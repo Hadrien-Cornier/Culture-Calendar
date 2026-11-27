@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Brubeck Brothers Quartet",
+  "description": "★ Rating: 4/10 The available record identifies the Brubeck Brothers Quartet as a performing jazz ensemble, not a clearly documented film or single artwork. A 2021 studio session presents Chris and Dan Brubeck with Chuck Lamb and Mike DeMicco, performing versi…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/brubeck-brothers-quartet.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2027-02-02",
+  "location": {
+    "@type": "Place",
+    "name": "Paramount",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

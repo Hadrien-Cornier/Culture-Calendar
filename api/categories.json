@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-11-27T21:29:43Z",
+  "site_url": "https://hadrien-cornier.github.io/Culture-Calendar/",
+  "count": 7,
+  "data": [
+    {
+      "slug": "movie",
+      "label": "Film",
+      "count": 100
+    },
+    {
+      "slug": "concert",
+      "label": "Concert",
+      "count": 44
+    },
+    {
+      "slug": "dance",
+      "label": "Dance",
+      "count": 34
+    },
+    {
+      "slug": "book_club",
+      "label": "Book club",
+      "count": 24
+    },
+    {
+      "slug": "visual_arts",
+      "label": "Visual arts",
+      "count": 13
+    },
+    {
+      "slug": "opera",
+      "label": "Opera",
+      "count": 12
+    },
+    {
+      "slug": "other",
+      "label": "Other",
+      "count": 12
+    }
+  ]
+}

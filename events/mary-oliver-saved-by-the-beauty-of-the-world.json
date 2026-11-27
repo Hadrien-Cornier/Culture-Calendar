@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "MARY OLIVER: SAVED BY THE BEAUTY OF THE WORLD",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit. Sasha Waters builds a controlled, attractive documentary from a difficult absence. Mary Oliver left little filmed testimony, so the film relies on audio, photographs, letters, archival fragments, landscape imagery, and reading…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/mary-oliver-saved-by-the-beauty-of-the-world.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-07",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "JIMMY",
+  "description": "★ Rating: 7/10 🎭 Artistic Merit Yashaddai Owens gives JIMMY a clear visual identity through black and white 16mm photography and an impressionistic structure. The film treats Paris less as a historical backdrop than as a sensory field, with Benny O. Arthur’s…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/jimmy.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-05",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}

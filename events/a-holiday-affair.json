@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "A HOLIDAY AFFAIR",
+  "description": "★ Rating: 6/10 🎭 Artistic Merit Don Hartman directs A Holiday Affair with brisk control and a clean black and white studio style. The department store opening establishes the film’s best dramatic engine, Connie Ennis poses as a comparison shopper, Steve Mason…",
+  "url": "https://hadrien-cornier.github.io/Culture-Calendar/events/a-holiday-affair.html",
+  "image": "https://hadrien-cornier.github.io/Culture-Calendar/og/site-default.svg",
+  "startDate": "2026-12-25",
+  "location": {
+    "@type": "Place",
+    "name": "AFS",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX"
+    }
+  }
+}
